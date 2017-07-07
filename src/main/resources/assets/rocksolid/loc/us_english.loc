@@ -3,6 +3,9 @@ rocksolid/item.ingotTin=Tin Ingot
 rocksolid/item.ingotBronze=Bronze Ingot
 rocksolid/item.clusterTin=Tin Cluster
 rocksolid/item.gritTin=Tin Grit
+rocksolid/item.pickaxeTin=Tin Pickaxe
+rocksolid/item.pickaxeBronze=Bronze Pickaxe
+rocksolid/item.pickaxeCopper=Copper Pickaxe
 
 #Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
