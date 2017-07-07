@@ -13,5 +13,6 @@ rocksolid/item.pickaxeIron=Iron Pickaxe
 
 #Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
+rocksolid/item.arcFurnace=Arc Furnace
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore

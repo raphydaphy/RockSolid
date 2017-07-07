@@ -1,9 +1,10 @@
 package com.raphydaphy.rocksolid.block;
 
-import com.raphydaphy.rocksolid.gui.GuiAlloySmelter;
-import com.raphydaphy.rocksolid.gui.container.ContainerAlloySmelter;
-import com.raphydaphy.rocksolid.render.AlloySmelterRenderer;
+import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
+import com.raphydaphy.rocksolid.gui.container.ContainerArcFurnace;
+import com.raphydaphy.rocksolid.render.ArcFurnaceRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
+import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -18,27 +19,26 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockAlloySmelter extends MultiTile
+public class BlockArcFurnace extends MultiTile
 {
 
-	public BlockAlloySmelter(IResourceName name) 
+	public BlockArcFurnace(IResourceName name) 
 	{
 		super(name);
 		this.setHardness(4);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
 	}
-	
 	@Override
     protected ITileRenderer createRenderer(final IResourceName name) {
-        return new AlloySmelterRenderer(name, this);
+        return new ArcFurnaceRenderer(name, this);
     }
 	
 	@Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
         if (this.isMainPos(x, y, world.getMeta(x, y))) {
-            final TileEntityAlloySmelter tile = world.getTileEntity(x, y, TileEntityAlloySmelter.class);
+            final TileEntityArcFurnace tile = world.getTileEntity(x, y, TileEntityArcFurnace.class);
             if (tile != null && tile.isActive()) {
-                return 20;
+                return 30;
             }
         }
         return 0;
@@ -46,7 +46,7 @@ public class BlockAlloySmelter extends MultiTile
 	
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y){
-		return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityAlloySmelter(world, x, y) : null;
+        return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityArcFurnace(world, x, y) : null;
     }
 
 	@Override
@@ -58,11 +58,11 @@ public class BlockAlloySmelter extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
-		TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
+		TileEntityArcFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiAlloySmelter(player, tile), new ContainerAlloySmelter(player, tile));
+			player.openGuiContainer(new GuiArcFurnace(player, tile), new ContainerArcFurnace(player, tile));
 			return true;
 		}
 		else
@@ -78,7 +78,7 @@ public class BlockAlloySmelter extends MultiTile
         if (!RockBottomAPI.getNet().isClient()) 
         {
             final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
-            final TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
+            final TileEntityArcFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
             if (tile != null) 
             {
                 tile.dropInventory(tile.inventory);
@@ -89,13 +89,13 @@ public class BlockAlloySmelter extends MultiTile
 	@Override
 	protected boolean[][] makeStructure() 
 	{
-		return new boolean[][] { { true }, { true } };
+		return new boolean[][] { { true, true }, { true, true } };
 	}
 
 	@Override
 	public int getWidth() 
 	{
-		return 1;
+		return 2;
 	}
 
 	@Override

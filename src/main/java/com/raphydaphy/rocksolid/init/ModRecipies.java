@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
+import com.raphydaphy.rocksolid.recipe.ArcFurnaceRecipe;
 import com.raphydaphy.rocksolid.util.RockSolidAPI;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -14,8 +15,11 @@ public class ModRecipies
 {
 	public static void init()
 	{
-		// Alloy recipies
+		// Alloy recipes
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(GameContent.ITEM_COPPER_INGOT, 3), new ItemInstance(ModItems.ingotTin, 1), 500));
+		
+		// Arc furnace recipes
+		RockSolidAPI.ARC_FURNACE_RECIPES.add(new ArcFurnaceRecipe(new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(GameContent.ITEM_COAL), 5000));
 		
 		// Cluster to grit (separator)
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(ModItems.gritTin, 2), new ItemInstance(ModItems.clusterTin), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.25f));
