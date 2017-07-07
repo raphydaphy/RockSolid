@@ -12,6 +12,7 @@ public class ModBlocks
 	public static Tile alloySmelter;
 	
 	public static Tile oreTin;
+	public static Tile oreIron;
 	
 	public static void init() 
 	{
@@ -19,5 +20,6 @@ public class ModBlocks
 		alloySmelter = new BlockAlloySmelter(RockSolidLib.makeRes("alloySmelter")).register();
 		
 		oreTin = new BlockOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2).register();
+		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3).register();
     }
 }

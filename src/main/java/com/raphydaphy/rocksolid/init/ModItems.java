@@ -10,26 +10,36 @@ public class ModItems
 {
 	public static Item ingotTin;
 	public static Item ingotBronze;
+	public static Item ingotIron;
 	
 	public static Item clusterTin;
+	public static Item clusterIron;
 	
 	public static Item gritTin;
+	public static Item gritIron;
 	
 	public static Item pickaxeTin;
 	public static Item pickaxeBronze;
 	public static Item pickaxeCopper;
+	public static Item pickaxeIron;
 	
 	public static void init() 
 	{
 		ingotTin = new ItemBase(RockSolidLib.makeRes("ingotTin")).register();
 		ingotBronze = new ItemBase(RockSolidLib.makeRes("ingotBronze")).register();
+		ingotIron = new ItemBase(RockSolidLib.makeRes("ingotIron")).register();
 		
 		clusterTin = new ItemBase(RockSolidLib.makeRes("clusterTin")).register();
+		clusterIron = new ItemBase(RockSolidLib.makeRes("clusterIron")).register();
 		
 		gritTin = new ItemBase(RockSolidLib.makeRes("gritTin")).register();
+		gritIron = new ItemBase(RockSolidLib.makeRes("gritIron")).register();
 		
 		pickaxeTin = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTin"), 4.5f, 2).register();
-		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
 		pickaxeCopper = new ItemPickaxe(RockSolidLib.makeRes("pickaxeCopper"), 4.5f, 2).register();
+		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
+		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
+		
+		
     }
 }

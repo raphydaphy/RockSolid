@@ -1,12 +1,17 @@
 #Items
 rocksolid/item.ingotTin=Tin Ingot
 rocksolid/item.ingotBronze=Bronze Ingot
+rocksolid/item.ingotIron=Iron Ingot
 rocksolid/item.clusterTin=Tin Cluster
+rocksolid/item.clusterIron=Iron Cluster
 rocksolid/item.gritTin=Tin Grit
+rocksolid/item.gritIron=Iron Grit
 rocksolid/item.pickaxeTin=Tin Pickaxe
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
 rocksolid/item.pickaxeCopper=Copper Pickaxe
+rocksolid/item.pickaxeIron=Iron Pickaxe
 
 #Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
 rocksolid/item.oreTin=Tin Ore
+rocksolid/item.oreIron=Iron Ore
