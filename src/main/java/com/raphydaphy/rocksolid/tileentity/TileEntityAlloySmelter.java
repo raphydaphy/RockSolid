@@ -48,6 +48,7 @@ public class TileEntityAlloySmelter extends TileEntityFueled
         final ItemInstance input2 = this.inventory.get(1);
         if (input1 != null && input2 != null) 
         {
+        	System.out.println(getSmeltPercentage());
             final AlloySmelterRecipe recipe = RockSolidAPI.getAlloySmelterRecipe(input1, input2);
             if (recipe != null) 
             {
@@ -121,13 +122,8 @@ public class TileEntityAlloySmelter extends TileEntityFueled
         this.world.causeLightUpdate(this.x, this.y);
     }
     
-    public float getSmeltPercentage() 
-    {
-    	// causes divison by 0 crash..
-    	//return this.processTime / this.maxProcessTime;
-    	
-    	// until i can fix that ill just keep it at 50%
-    	return 0.5f;
+    public float getSmeltPercentage(){
+        return (float)this.processTime/(float)this.maxProcessTime;
     }
     
     @Override
