@@ -1,0 +1,15 @@
+#Localization
+loc.us_english=/loc/us_english.loc
+
+#Items
+tex.items.ingotTin=/items/ingot_tin.png
+tex.items.ingotBronze=/items/ingot_bronze.png
+tex.items.clusterTin=/items/cluster_tin.png
+tex.items.gritTin=/items/grit_tin.png
+
+#Blocks
+tex.tiles.alloySmelter.0.0=/blocks/alloy_smelter.png
+tex.tiles.alloySmelter.0.1=/blocks/alloy_smelter_top.png
+tex.tiles.alloySmelter.active=/blocks/alloy_smelter_active.png
+tex.tiles.alloySmelter.item=/blocks/alloy_smelter_item.png
+tex.tiles.oreTin=/blocks/ore_tin.png
