@@ -41,7 +41,8 @@ public class ModRecipies
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.remove(6);
 		
 		// misc manual crafting recipies
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.alloySmelter), new ItemInstance[]{new ItemInstance(ModItems.ingotTin, 10),new ItemInstance(GameContent.ITEM_COPPER_INGOT, 10),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 20),new ItemInstance(GameContent.ITEM_ROCK_PICK, 30)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.alloySmelter), new ItemInstance[]{new ItemInstance(ModItems.ingotTin, 10),new ItemInstance(GameContent.ITEM_COPPER_INGOT, 10),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 30),new ItemInstance(GameContent.TILE_ROCK, 60)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.arcFurnace), new ItemInstance[]{new ItemInstance(ModItems.ingotIron, 15), new ItemInstance(ModItems.ingotBronze, 5), new ItemInstance(GameContent.TILE_ROCK, 130), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40)}));
 		
 		// Pickaxe manual crafting
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeTin), new ItemInstance[]{new ItemInstance(ModItems.ingotTin, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
