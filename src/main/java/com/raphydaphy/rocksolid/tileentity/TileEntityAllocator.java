@@ -67,35 +67,35 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 	   				
 	   				if (tryExtract != null)
 	   				{
-	   		    	   Inventory aboveInventory = null;
+	   		    	   Inventory extractInventory = null;
 	   		    	   List<Integer> extractSlots = new ArrayList<Integer>();
 	   		    	   
 	   		    	   if (tryExtract instanceof IHasInventory)
 	   		    	   {
-	   		    		   aboveInventory =  ((IHasInventory)tryExtract).getInventory();
+	   		    		extractInventory =  ((IHasInventory)tryExtract).getInventory();
 	   		    		   extractSlots = ((IHasInventory)tryExtract).getOutputs();
 	   		    		   
 	   		    		   if (extractSlots == null)
 	   		    		   {
-	   		    			   aboveInventory = null;
+	   		    			extractInventory = null;
 	   		    		   }
 	   		    	   }
 	   		    	   
-	   		    	   if (aboveInventory != null)
+	   		    	   if (extractInventory != null)
 	   		    	   {
 	   		    		   for (int curExtractSlot = 0; curExtractSlot < extractSlots.size(); curExtractSlot++)
 	   		    		   {
-	   		    			   if (aboveInventory.get(extractSlots.get(curExtractSlot)) != null)
+	   		    			   if (extractInventory.get(extractSlots.get(curExtractSlot)) != null)
 		   		    		   {
 		   		    			   for(int invCount = 0; invCount < 4; invCount++)
 		   		    			   {
 		   		    				   if (this.inventory.get(invCount) == null)
 		   			    			   {
-		   			    				   this.inventory.set(invCount, new ItemInstance(aboveInventory.get(extractSlots.get(curExtractSlot)).getItem(), 1));
-		   			    				   aboveInventory.remove(extractSlots.get(curExtractSlot), 1);
+		   			    				   this.inventory.set(invCount, new ItemInstance(extractInventory.get(extractSlots.get(curExtractSlot)).getItem(), 1));
+		   			    				extractInventory.remove(extractSlots.get(curExtractSlot), 1);
 		   			    				   break;
 		   			    			   }
-		   		    				   else if (this.inventory.get(invCount).getItem().equals(aboveInventory.get(extractSlots.get(curExtractSlot)).getItem()))
+		   		    				   else if (this.inventory.get(invCount).getItem().equals(extractInventory.get(extractSlots.get(curExtractSlot)).getItem()))
 		   		    				   {
 		   		    					   if (this.inventory.get(invCount).getAmount() > this.inventory.get(invCount).getMaxAmount() - 1)
 		   		    					   {
@@ -105,7 +105,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		   		    					   else
 		   		    					   {
 		   			    					   this.inventory.add(invCount, 1);
-		   				    				   aboveInventory.remove(extractSlots.get(curExtractSlot), 1);
+		   			    					   extractInventory.remove(extractSlots.get(curExtractSlot), 1);
 		   				    				   break;
 		   		    					   }
 		   		    				   }
@@ -121,55 +121,60 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 	   		}
 	   		
 	       // now we insert stuff
-	       TileEntity tryInsert = RockSolidLib.getTileFromPos(x, y - 1, world);
-	   		if (tryInsert == null)
+	   		for (int adjacentTiles = 0; adjacentTiles < 4; adjacentTiles++)
 	   		{
-	   			tryInsert = RockSolidLib.getTileFromPos(x - 1, y, world);
+	   			// if the selected adjacent tile is specified for output from the conduits
+	   			if (this.getSideMode(adjacentTiles) == 0)
+	   			{
+	   				// try to get a tileentity from the selected adjacent side block
+	   				TileEntity tryInsert = RockSolidLib.getTileFromConduitSide(new Pos2(x, y), adjacentTiles, world);
+	   				
+	   				if (tryInsert != null)
+	   		       {
+	   		    	   Inventory insertInventory = null;
+	   		    	   List<Integer> insertSlots = new ArrayList<Integer>();
+	   		    	   
+	   		    	   if (tryInsert instanceof IHasInventory)
+	   		    	   {
+	   		    		insertInventory =  ((IHasInventory)tryInsert).getInventory();
+	   		    		   insertSlots = ((IHasInventory)tryInsert).getInputs();
+	   		    		   
+	   		    		   if (insertSlots == null)
+	   		    		   {
+	   		    			insertInventory = null;
+	   		    		   }
+	   		    	   }
+	   		       
+	   			       if (insertInventory != null)
+	   			       {
+	   	    			   for(int invCount = 0; invCount < 4; invCount++)
+	   	    			   {
+	   	    				   if (this.inventory.get(invCount) != null)
+	   		    			   {
+	   	    					   for (int curInsertSlot = 0; curInsertSlot < insertSlots.size(); curInsertSlot++)
+	   	    					   {
+	   	    						   if (insertInventory.get(insertSlots.get(curInsertSlot)) == null)
+	   	        					   {
+	   	    							insertInventory.set(insertSlots.get(curInsertSlot), new ItemInstance(this.inventory.get(invCount).getItem(), 1));
+	   	        						   this.inventory.remove(invCount, 1);
+	   	        						   break;
+	   	        					   }
+	   	        					   else if (insertInventory.get(insertSlots.get(curInsertSlot)).getItem().equals(this.inventory.get(invCount).getItem()))
+	   	        					   {
+	   	        						   this.inventory.remove(invCount, 1);
+	   	        						insertInventory.add(insertSlots.get(curInsertSlot), 1);
+	   	        	    				   break;
+	   	        					   }
+	   	    					   }
+	   	    					   
+	   	    					   
+	   	    				   }
+	   		    		   }
+	   			       }
+	   		       }
+	   			}
 	   		}
 	       
-	       if (tryInsert != null)
-	       {
-	    	   Inventory belowInventory = null;
-	    	   List<Integer> insertSlots = new ArrayList<Integer>();
-	    	   
-	    	   if (tryInsert instanceof IHasInventory)
-	    	   {
-	    		   belowInventory =  ((IHasInventory)tryInsert).getInventory();
-	    		   insertSlots = ((IHasInventory)tryInsert).getInputs();
-	    		   
-	    		   if (insertSlots == null)
-	    		   {
-	    			   belowInventory = null;
-	    		   }
-	    	   }
-	       
-		       if (belowInventory != null)
-		       {
-    			   for(int invCount = 0; invCount < 4; invCount++)
-    			   {
-    				   if (this.inventory.get(invCount) != null)
-	    			   {
-    					   for (int curInsertSlot = 0; curInsertSlot < insertSlots.size(); curInsertSlot++)
-    					   {
-    						   if (belowInventory.get(insertSlots.get(curInsertSlot)) == null)
-        					   {
-        						   belowInventory.set(insertSlots.get(curInsertSlot), new ItemInstance(this.inventory.get(invCount).getItem(), 1));
-        						   this.inventory.remove(invCount, 1);
-        						   break;
-        					   }
-        					   else if (belowInventory.get(insertSlots.get(curInsertSlot)).getItem().equals(this.inventory.get(invCount).getItem()))
-        					   {
-        						   this.inventory.remove(invCount, 1);
-            					   belowInventory.add(insertSlots.get(curInsertSlot), 1);
-        	    				   break;
-        					   }
-    					   }
-    					   
-    					   
-    				   }
-	    		   }
-		       }
-	       }
 	   	}
     }
     

@@ -9,6 +9,7 @@ public class ItemWrench extends ItemBase
 {
 	public ItemWrench(IResourceName name) {
 		super(name);
+		this.maxAmount = 1;
 	}
 	
 	@Override

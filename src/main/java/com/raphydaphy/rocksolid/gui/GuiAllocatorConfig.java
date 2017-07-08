@@ -75,15 +75,15 @@ public class GuiAllocatorConfig extends Gui
     	this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
     	if (tile.getSideMode(direction) == 0)
 		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output", "Click to toggle operation."));
+			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output", "Outputs into connected inventory"));
 		}
 		else if (tile.getSideMode(direction) == 1) 
 		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input", "Click to toggle operation."));
+			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input", "Pulls inventory contents into the conduit."));
 		}
 		else if (tile.getSideMode(direction) == 2)
 		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled", "Click to toggle operation."));
+			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled", "The conduit won't connect to this inventory"));
 		}
     }
 
