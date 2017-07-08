@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.gui.inventory.IHasInventory;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityAllocator extends TileEntity
+public class TileEntityAllocator extends TileEntity implements IHasInventory
 {
 
 	public static final int INPUT = 0;
@@ -51,23 +53,18 @@ public class TileEntityAllocator extends TileEntity
 	       
 	       if (tryExtract != null)
 	       {
-	    	   ContainerInventory aboveInventory = null;
+	    	   Inventory aboveInventory = null;
 	    	   int extractSlot = 0;
 	    	   
-	    	   if (tryExtract instanceof TileEntityArcFurnace)
+	    	   if (tryExtract instanceof IHasInventory)
 	    	   {
-	    		   aboveInventory = ((TileEntityArcFurnace)tryExtract).inventory;
-	    		   extractSlot = 1;
-	    	   }
-	    	   else if (tryExtract instanceof TileEntityAllocator)
-	    	   {
-	    		   aboveInventory = ((TileEntityAllocator)tryExtract).inventory;
-	    		   extractSlot = 0;
-	    	   }
-	    	   else if (tryExtract instanceof TileEntityAlloySmelter)
-	    	   {
-	    		   aboveInventory = ((TileEntityAlloySmelter)tryExtract).inventory;
-	    		   extractSlot = 3;
+	    		   aboveInventory =  ((IHasInventory)tryExtract).getInventory();
+	    		   extractSlot = ((IHasInventory)tryExtract).getOutputs().get(0);
+	    		   
+	    		   if (extractSlot == null)
+	    		   {
+	    			   aboveInventory = null;
+	    		   }
 	    	   }
 	    	   
 	    	   if (aboveInventory != null)
@@ -114,20 +111,18 @@ public class TileEntityAllocator extends TileEntity
 	       
 	       if (tryInsert != null)
 	       {
-	    	   ContainerInventory belowInventory = null;
+	    	   Inventory belowInventory = null;
 	    	   List<Integer> insertSlots = new ArrayList<Integer>();
 	    	   
-	    	   if (tryInsert instanceof TileEntityArcFurnace)
+	    	   if (tryInsert instanceof IHasInventory)
 	    	   {
-	    		   belowInventory = ((TileEntityArcFurnace)tryInsert).inventory;
-	    		   insertSlots.add(0);
-	    	   }
-	    	   else if (tryInsert instanceof TileEntityAlloySmelter)
-	    	   {
-	    		   belowInventory = ((TileEntityAlloySmelter)tryInsert).inventory;
-	    		   insertSlots.add(0);
-	    		   insertSlots.add(1);
-	    		   insertSlots.add(2);
+	    		   belowInventory =  ((IHasInventory)tryInsert).getInventory();
+	    		   insertSlots = ((IHasInventory)tryInsert).getInputs();
+	    		   
+	    		   if (insertSlots == null)
+	    		   {
+	    			   belowInventory = null;
+	    		   }
 	    	   }
 	       
 		       if (belowInventory != null)
@@ -175,5 +170,30 @@ public class TileEntityAllocator extends TileEntity
             this.inventory.load(set);
         }
     }
+
+	@Override
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+
+	@Override
+	public List<Integer> getInputs() 
+	{
+		return null;
+	}
+
+	@Override
+	public List<Integer> getOutputs() 
+	{
+
+		List<Integer> extractSlots = new ArrayList<Integer>();
+		extractSlots.add(0);
+		extractSlots.add(1);
+		extractSlots.add(2);
+		extractSlots.add(3);
+		extractSlots.add(4);
+		extractSlots.add(5);
+		return extractSlots;
+	}
 
 }

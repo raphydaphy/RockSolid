@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.util.RockSolidAPI;
 
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -153,7 +154,7 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInve
     }
 
 	@Override
-	public ContainerInventory getInventory() 
+	public Inventory getInventory() 
 	{
 		return this.inventory;
 	}
