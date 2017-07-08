@@ -61,7 +61,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 	    		   aboveInventory =  ((IHasInventory)tryExtract).getInventory();
 	    		   extractSlot = ((IHasInventory)tryExtract).getOutputs().get(0);
 	    		   
-	    		   if (extractSlot == null)
+	    		   if (((IHasInventory)tryExtract).getOutputs() == null)
 	    		   {
 	    			   aboveInventory = null;
 	    		   }
