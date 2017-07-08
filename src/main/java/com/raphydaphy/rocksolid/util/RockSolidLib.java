@@ -15,6 +15,12 @@ public class RockSolidLib {
 	   return RockBottomAPI.createRes(RockSolid.INSTANCE, name);
 	}
 	
+	public static TileEntity getTileFromConduitSide(Pos2 center, int side, IWorld world)
+	{
+		Pos2 tilePos = conduitSideToPos(center, side);
+		
+		return getTileFromPos(tilePos.getX(), tilePos.getY(), world);
+	}
 	public static TileEntity getTileFromPos(int x, int y, IWorld world)
 	{
 		Tile realTileDown = world.getTile(x, y);
@@ -29,6 +35,26 @@ public class RockSolidLib {
 		    {
 		 	   return world.getTileEntity(x, y);
 		    }
+		}
+		return null;
+	}
+	
+	public static Pos2 conduitSideToPos(Pos2 center, int side)
+	{
+		switch(side)
+		{
+		case 0:
+			//up
+			return center.add(0,1);
+		case 1:
+			//down
+			return center.add(0,-1);
+		case 2:
+			//left
+			return center.add(-1, 0);
+		case 3:
+			//right
+			return center.add(1, 0);
 		}
 		return null;
 	}

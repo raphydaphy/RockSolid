@@ -12,6 +12,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
 public class TileEntityAllocator extends TileEntity implements IHasInventory
@@ -20,6 +21,10 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 	public static final int INPUT = 0;
     public static final int OUTPUT = 1;
     public final ContainerInventory inventory;
+    
+    // 0 = output to the inventory
+    // 1 = input from the inventory
+    // 2 = disabled
     
     private int modeUp = 0;
     private int modeDown = 0;
@@ -47,66 +52,74 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
     @Override
     public void update(IGameInstance game) 
     {
+    	// run conduit processing code every 10 ticks to prevent lag
+    	// also causes a less op item processing rate of 1 every 10 ticks
 	   	if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
 	   	{
-	   		// first we extract stuff
-	   		TileEntity tryExtract = RockSolidLib.getTileFromPos(x, y + 1, world);
-	   		if (tryExtract == null)
+	   		// first we extract stuff from nearby inventories into the pipes inventory
+	   		for (int adjacentTiles = 0; adjacentTiles < 4; adjacentTiles++)
 	   		{
-	   			tryExtract = RockSolidLib.getTileFromPos(x + 1, y, world);
+	   			// if the selected adjacent tile is specified for input into the conduits
+	   			if (this.getSideMode(adjacentTiles) == 1)
+	   			{
+	   				// try to get a tileentity from the selected adjacent side block
+	   				TileEntity tryExtract = RockSolidLib.getTileFromConduitSide(new Pos2(x, y), adjacentTiles, world);
+	   				
+	   				if (tryExtract != null)
+	   				{
+	   		    	   Inventory aboveInventory = null;
+	   		    	   List<Integer> extractSlots = new ArrayList<Integer>();
+	   		    	   
+	   		    	   if (tryExtract instanceof IHasInventory)
+	   		    	   {
+	   		    		   aboveInventory =  ((IHasInventory)tryExtract).getInventory();
+	   		    		   extractSlots = ((IHasInventory)tryExtract).getOutputs();
+	   		    		   
+	   		    		   if (extractSlots == null)
+	   		    		   {
+	   		    			   aboveInventory = null;
+	   		    		   }
+	   		    	   }
+	   		    	   
+	   		    	   if (aboveInventory != null)
+	   		    	   {
+	   		    		   for (int curExtractSlot = 0; curExtractSlot < extractSlots.size(); curExtractSlot++)
+	   		    		   {
+	   		    			   if (aboveInventory.get(extractSlots.get(curExtractSlot)) != null)
+		   		    		   {
+		   		    			   for(int invCount = 0; invCount < 4; invCount++)
+		   		    			   {
+		   		    				   if (this.inventory.get(invCount) == null)
+		   			    			   {
+		   			    				   this.inventory.set(invCount, new ItemInstance(aboveInventory.get(extractSlots.get(curExtractSlot)).getItem(), 1));
+		   			    				   aboveInventory.remove(extractSlots.get(curExtractSlot), 1);
+		   			    				   break;
+		   			    			   }
+		   		    				   else if (this.inventory.get(invCount).getItem().equals(aboveInventory.get(extractSlots.get(curExtractSlot)).getItem()))
+		   		    				   {
+		   		    					   if (this.inventory.get(invCount).getAmount() > this.inventory.get(invCount).getMaxAmount() - 1)
+		   		    					   {
+		   		    						   // wait for next inventory count
+		   		    						   continue;
+		   		    					   }
+		   		    					   else
+		   		    					   {
+		   			    					   this.inventory.add(invCount, 1);
+		   				    				   aboveInventory.remove(extractSlots.get(curExtractSlot), 1);
+		   				    				   break;
+		   		    					   }
+		   		    				   }
+		   			    			   
+		   			    		   }
+		   		    		   }
+	   		    		   }
+	   		    		   
+	   		    	   }
+	   		    	   
+	   		       }
+	   			}
 	   		}
-	       
-	       if (tryExtract != null)
-	       {
-	    	   Inventory aboveInventory = null;
-	    	   int extractSlot = 0;
-	    	   
-	    	   if (tryExtract instanceof IHasInventory)
-	    	   {
-	    		   aboveInventory =  ((IHasInventory)tryExtract).getInventory();
-	    		   extractSlot = ((IHasInventory)tryExtract).getOutputs().get(0);
-	    		   
-	    		   if (((IHasInventory)tryExtract).getOutputs() == null)
-	    		   {
-	    			   aboveInventory = null;
-	    		   }
-	    	   }
-	    	   
-	    	   if (aboveInventory != null)
-	    	   {
-	    		   if (aboveInventory.get(extractSlot) != null)
-	    		   {
-	    			   for(int invCount = 0; invCount < 4; invCount++)
-	    			   {
-	    				   if (this.inventory.get(invCount) == null)
-		    			   {
-		    				   this.inventory.set(invCount, new ItemInstance(aboveInventory.get(extractSlot).getItem(), 1));
-		    				   aboveInventory.remove(extractSlot, 1);
-		    				   break;
-		    			   }
-	    				   else if (this.inventory.get(invCount).getItem().equals(aboveInventory.get(extractSlot).getItem()))
-	    				   {
-	    					   if (this.inventory.get(invCount).getAmount() > this.inventory.get(invCount).getMaxAmount() - 1)
-	    					   {
-	    						   // wait for next inventory count
-	    						   continue;
-	    					   }
-	    					   else
-	    					   {
-		    					   this.inventory.add(invCount, 1);
-			    				   aboveInventory.remove(extractSlot, 1);
-			    				   break;
-	    					   }
-	    				   }
-		    			   
-		    		   }
-	    		   }
-	    	   }
-	    	   
-	       }
-	       
-	       
-	       
+	   		
 	       // now we insert stuff
 	       TileEntity tryInsert = RockSolidLib.getTileFromPos(x, y - 1, world);
 	   		if (tryInsert == null)
