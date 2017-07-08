@@ -23,8 +23,8 @@ public class ModRecipies
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotSteel, 1), new ItemInstance(ModItems.ingotIron, 1), new ItemInstance(ModItems.gemCoke, 1), 500));
 		
 		// Arc furnace recipes
-		RockSolidAPI.ARC_FURNACE_RECIPES.add(new ArcFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 0), 5000));
-		RockSolidAPI.ARC_FURNACE_RECIPES.add(new ArcFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 1), 5000));
+		RockSolidAPI.ARC_FURNACE_RECIPES.add(new ArcFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 0), 50));
+		RockSolidAPI.ARC_FURNACE_RECIPES.add(new ArcFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 1), 50));
 		
 		// Cluster to grit (separator)
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(ModItems.gritTin, 2), new ItemInstance(ModItems.clusterTin), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.25f));
