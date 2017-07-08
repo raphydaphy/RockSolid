@@ -2,13 +2,13 @@ package com.raphydaphy.rocksolid.block;
 
 import com.raphydaphy.rocksolid.gui.GuiAllocator;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
+import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
-import de.ellpeck.rockbottom.api.render.tile.DefaultTileRenderer;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -28,18 +28,20 @@ public class BlockAllocator extends Tile
 	}
 	
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y){
+	public TileEntity provideTileEntity(IWorld world, int x, int y)
+	{
         return new TileEntityAllocator(world, x, y);
     }
 	
-	 protected ITileRenderer<Tile> createRenderer(IResourceName name){
-	        return new DefaultTileRenderer<Tile>(name);
-	    }
+	protected ITileRenderer<Tile> createRenderer(IResourceName name)
+	{
+		return new ConduitRenderer<Tile>(name);
+    }
 
-	    @Override
-	    public ITileRenderer<Tile> getRenderer(){
-	        return this.renderer;
-	    }
+    @Override
+    public ITileRenderer<Tile> getRenderer(){
+        return this.renderer;
+    }
 
 	@Override
     public boolean canProvideTileEntity(){
@@ -75,6 +77,18 @@ public class BlockAllocator extends Tile
             }
         }
     }
+	
+	@Override
+	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
+	{
+        if(!this.canPlaceInLayer(layer))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+	
 	
 	@Override
     public BoundBox getBoundBox(final IWorld world, final int x, final int y) 

@@ -1,7 +1,9 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -40,73 +42,120 @@ public class TileEntityAllocator extends TileEntity
     {
 	   	if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
 	   	{
-	   		TileEntity tileUp = RockSolidLib.getTileFromPos(x, y + 1, world);
+	   		// first we extract stuff
+	   		TileEntity tryExtract = RockSolidLib.getTileFromPos(x, y + 1, world);
+	   		if (tryExtract == null)
+	   		{
+	   			tryExtract = RockSolidLib.getTileFromPos(x + 1, y, world);
+	   		}
 	       
-	       if (tileUp != null)
+	       if (tryExtract != null)
 	       {
-	    	   if (tileUp instanceof TileEntityArcFurnace)
+	    	   ContainerInventory aboveInventory = null;
+	    	   int extractSlot = 0;
+	    	   
+	    	   if (tryExtract instanceof TileEntityArcFurnace)
 	    	   {
-	    		   ContainerInventory aboveInventory = ((TileEntityArcFurnace)tileUp).inventory;
-	    		   if (aboveInventory.get(1) != null)
+	    		   aboveInventory = ((TileEntityArcFurnace)tryExtract).inventory;
+	    		   extractSlot = 1;
+	    	   }
+	    	   else if (tryExtract instanceof TileEntityAllocator)
+	    	   {
+	    		   aboveInventory = ((TileEntityAllocator)tryExtract).inventory;
+	    		   extractSlot = 0;
+	    	   }
+	    	   else if (tryExtract instanceof TileEntityAlloySmelter)
+	    	   {
+	    		   aboveInventory = ((TileEntityAlloySmelter)tryExtract).inventory;
+	    		   extractSlot = 3;
+	    	   }
+	    	   
+	    	   if (aboveInventory != null)
+	    	   {
+	    		   if (aboveInventory.get(extractSlot) != null)
 	    		   {
-		    		   if (aboveInventory.get(1).getItem().equals(ModItems.gemCoke))
-		    		   {
-		    			   for(int invCount = 0; invCount < 4; invCount++)
+	    			   for(int invCount = 0; invCount < 4; invCount++)
+	    			   {
+	    				   if (this.inventory.get(invCount) == null)
 		    			   {
-		    				   if (this.inventory.get(invCount) == null)
-			    			   {
-			    				   this.inventory.set(invCount, new ItemInstance(aboveInventory.get(1).getItem(), 1));
-			    				   aboveInventory.remove(1, 1);
-			    				   break;
-			    			   }
-		    				   else if (this.inventory.get(invCount).getItem().equals(aboveInventory.get(1).getItem()))
-		    				   {
-		    					   if (this.inventory.get(invCount).getAmount() > this.inventory.get(invCount).getMaxAmount() - 1)
-		    					   {
-		    						   // wait for next inventory count
-		    						   continue;
-		    					   }
-		    					   else
-		    					   {
-			    					   this.inventory.add(invCount, 1);
-				    				   aboveInventory.remove(1, 1);
-				    				   break;
-		    					   }
-		    				   }
+		    				   this.inventory.set(invCount, new ItemInstance(aboveInventory.get(extractSlot).getItem(), 1));
+		    				   aboveInventory.remove(extractSlot, 1);
+		    				   break;
 		    			   }
+	    				   else if (this.inventory.get(invCount).getItem().equals(aboveInventory.get(extractSlot).getItem()))
+	    				   {
+	    					   if (this.inventory.get(invCount).getAmount() > this.inventory.get(invCount).getMaxAmount() - 1)
+	    					   {
+	    						   // wait for next inventory count
+	    						   continue;
+	    					   }
+	    					   else
+	    					   {
+		    					   this.inventory.add(invCount, 1);
+			    				   aboveInventory.remove(extractSlot, 1);
+			    				   break;
+	    					   }
+	    				   }
 		    			   
 		    		   }
 	    		   }
 	    	   }
+	    	   
 	       }
-	       TileEntity tileDown = RockSolidLib.getTileFromPos(x, y - 1, world);
 	       
-	       if (tileDown != null)
+	       
+	       
+	       // now we insert stuff
+	       TileEntity tryInsert = RockSolidLib.getTileFromPos(x, y - 1, world);
+	   		if (tryInsert == null)
+	   		{
+	   			tryInsert = RockSolidLib.getTileFromPos(x - 1, y, world);
+	   		}
+	       
+	       if (tryInsert != null)
 	       {
-	    	   if (tileDown instanceof TileEntityArcFurnace)
+	    	   ContainerInventory belowInventory = null;
+	    	   List<Integer> insertSlots = new ArrayList<Integer>();
+	    	   
+	    	   if (tryInsert instanceof TileEntityArcFurnace)
 	    	   {
-	    		   ContainerInventory belowInventory = ((TileEntityArcFurnace)tileDown).inventory;
+	    		   belowInventory = ((TileEntityArcFurnace)tryInsert).inventory;
+	    		   insertSlots.add(0);
+	    	   }
+	    	   else if (tryInsert instanceof TileEntityAlloySmelter)
+	    	   {
+	    		   belowInventory = ((TileEntityAlloySmelter)tryInsert).inventory;
+	    		   insertSlots.add(0);
+	    		   insertSlots.add(1);
+	    		   insertSlots.add(2);
+	    	   }
+	       
+		       if (belowInventory != null)
+		       {
     			   for(int invCount = 0; invCount < 4; invCount++)
     			   {
     				   if (this.inventory.get(invCount) != null)
 	    			   {
-    					   if (belowInventory.get(0) == null)
+    					   for (int curInsertSlot = 0; curInsertSlot < insertSlots.size(); curInsertSlot++)
     					   {
-    						   System.out.println("we have located the suspect");
-    						   belowInventory.set(0, new ItemInstance(this.inventory.get(invCount).getItem(), 1));
-    						   this.inventory.remove(invCount, 1);
-    						   break;
+    						   if (belowInventory.get(insertSlots.get(curInsertSlot)) == null)
+        					   {
+        						   belowInventory.set(insertSlots.get(curInsertSlot), new ItemInstance(this.inventory.get(invCount).getItem(), 1));
+        						   this.inventory.remove(invCount, 1);
+        						   break;
+        					   }
+        					   else if (belowInventory.get(insertSlots.get(curInsertSlot)).getItem().equals(this.inventory.get(invCount).getItem()))
+        					   {
+        						   this.inventory.remove(invCount, 1);
+            					   belowInventory.add(insertSlots.get(curInsertSlot), 1);
+        	    				   break;
+        					   }
     					   }
-    					   else if (belowInventory.get(0).getItem().equals(this.inventory.get(invCount).getItem()))
-    					   {
-    						   this.inventory.remove(invCount, 1);
-        					   belowInventory.add(0, 1);
-    	    				   break;
-    					   }
+    					   
     					   
     				   }
 	    		   }
-	    	   }
+		       }
 	       }
 	   	}
     }

@@ -27,7 +27,7 @@ public class RockSolidLib {
 		    }
 		    else
 		    {
-		 	   return world.getTileEntity(x, y - 1);
+		 	   return world.getTileEntity(x, y);
 		    }
 		}
 		return null;
