@@ -1,6 +1,10 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.gui.inventory.IHasInventory;
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.util.RockSolidAPI;
 
@@ -9,7 +13,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityAlloySmelter extends TileEntityFueled
+public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInventory
 {
 
 	public static final int INPUT1 = 0;
@@ -127,7 +131,8 @@ public class TileEntityAlloySmelter extends TileEntityFueled
     }
     
     @Override
-    public void save(final DataSet set, final boolean forSync) {
+    public void save(final DataSet set, final boolean forSync) 
+    {
         super.save(set, forSync);
         if (!forSync) {
             this.inventory.save(set);
@@ -137,7 +142,8 @@ public class TileEntityAlloySmelter extends TileEntityFueled
     }
     
     @Override
-    public void load(final DataSet set, final boolean forSync) {
+    public void load(final DataSet set, final boolean forSync) 
+    {
         super.load(set, forSync);
         if (!forSync) {
             this.inventory.load(set);
@@ -145,5 +151,29 @@ public class TileEntityAlloySmelter extends TileEntityFueled
         this.processTime = set.getInt("process");
         this.maxProcessTime = set.getInt("max_process");
     }
+
+	@Override
+	public ContainerInventory getInventory() 
+	{
+		return this.inventory;
+	}
+
+	@Override
+	public List<Integer> getInputs() 
+	{
+		List<Integer> insertSlots = new ArrayList<Integer>();
+		insertSlots.add(0);
+		insertSlots.add(1);
+		insertSlots.add(2);
+		return insertSlots;
+	}
+
+	@Override
+	public List<Integer> getOutputs() 
+	{
+		List<Integer> outputSlots = new ArrayList<Integer>();
+		outputSlots.add(3);
+		return outputSlots;
+	}
 
 }

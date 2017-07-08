@@ -27,6 +27,8 @@ public class ModItems
 	public static Item pickaxeIron;
 	public static Item pickaxeSteel;
 	
+	public static Item wrench;
+	
 	public static void init() 
 	{
 		ingotTin = new ItemBase(RockSolidLib.makeRes("ingotTin")).register();

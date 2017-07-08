@@ -1,6 +1,10 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.gui.inventory.IHasInventory;
 import com.raphydaphy.rocksolid.recipe.ArcFurnaceRecipe;
 import com.raphydaphy.rocksolid.util.RockSolidAPI;
 
@@ -10,7 +14,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityArcFurnace extends TileEntity
+public class TileEntityArcFurnace extends TileEntity implements IHasInventory
 {
 
 	public static final int INPUT = 0;
@@ -115,5 +119,27 @@ public class TileEntityArcFurnace extends TileEntity
         this.processTime = set.getInt("process");
         this.maxProcessTime = set.getInt("max_process");
     }
+
+	@Override
+	public ContainerInventory getInventory() 
+	{
+		return this.inventory;
+	}
+
+	@Override
+	public List<Integer> getInputs() 
+	{
+		List<Integer> insertSlots = new ArrayList<Integer>();
+		insertSlots.add(0);
+		return insertSlots;
+	}
+
+	@Override
+	public List<Integer> getOutputs() 
+	{
+		List<Integer> outputSlots = new ArrayList<Integer>();
+		outputSlots.add(1);
+		return outputSlots;
+	}
 
 }
