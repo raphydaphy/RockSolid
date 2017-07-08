@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
+import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.item.Item;
@@ -50,6 +51,6 @@ public class ModItems
 		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
 		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
 		
-		
+		wrench = new ItemWrench(RockSolidLib.makeRes("wrench")).register();
     }
 }

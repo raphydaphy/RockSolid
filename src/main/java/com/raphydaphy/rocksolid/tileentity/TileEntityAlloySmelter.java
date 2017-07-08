@@ -53,7 +53,6 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInve
         final ItemInstance input2 = this.inventory.get(1);
         if (input1 != null && input2 != null) 
         {
-        	System.out.println(getSmeltPercentage());
             final AlloySmelterRecipe recipe = RockSolidAPI.getAlloySmelterRecipe(input1, input2);
             if (recipe != null) 
             {

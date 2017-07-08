@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -22,25 +23,33 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
     public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, T tile, int x, int y, float renderX, float renderY, float scale, Color[] light){
         manager.getTexture(super.texture).drawWithLight(renderX, renderY, scale, scale, light);
         
-        if (RockSolidLib.getTileFromPos(x + 1, y, world) != null)
+        TileEntityAllocator allocator = (TileEntityAllocator) RockSolidLib.getTileFromPos(x, y, world);
+        
+        
+        // right
+        if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && allocator.getSideMode(3) != 2)
         {
         	manager.getTexture(this.texture).drawWithLight(renderX, renderY, scale * 2, scale, light);
         }
         
-        if (RockSolidLib.getTileFromPos(x - 1, y, world) != null)
+        // left
+        if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && allocator.getSideMode(2) != 2)
         {
-        	manager.getTexture(this.texture).drawWithLight(renderX - 70, renderY, scale * 2, scale, light);
+        	manager.getTexture(this.texture).drawWithLight(renderX - (float)(0.7 * scale), renderY, scale * 2, scale, light);
         }
         
-        if (RockSolidLib.getTileFromPos(x, y + 1, world) != null)
+        // up
+        if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && allocator.getSideMode(0) != 2)
         {
-        	manager.getTexture(this.texture).drawWithLight(renderX, renderY - 70, scale, scale * 2, light);
+        	manager.getTexture(this.texture).drawWithLight(renderX, renderY - (float)(0.7f * scale), scale, scale * 2, light);
         }
         
-        if (RockSolidLib.getTileFromPos(x, y - 1, world) != null)
+        // down
+        if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && allocator.getSideMode(1) != 2)
         {
         	manager.getTexture(this.texture).drawWithLight(renderX, renderY, scale, scale * 2, light);
         }
+        
     }
 
 

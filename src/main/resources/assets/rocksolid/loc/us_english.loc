@@ -13,6 +13,7 @@ rocksolid/item.pickaxeBronze=Bronze Pickaxe
 rocksolid/item.pickaxeCopper=Copper Pickaxe
 rocksolid/item.pickaxeIron=Iron Pickaxe
 rocksolid/item.pickaxeSteel=Steel Pickaxe
+rocksolid/item.wrench=Wrench
 
 #Blocks
 rocksolid/item.alloySmelter=Alloy Smelter

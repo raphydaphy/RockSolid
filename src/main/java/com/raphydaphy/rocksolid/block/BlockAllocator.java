@@ -1,7 +1,12 @@
 package com.raphydaphy.rocksolid.block;
 
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Input;
+
 import com.raphydaphy.rocksolid.gui.GuiAllocator;
+import com.raphydaphy.rocksolid.gui.GuiAllocatorConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
+import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 
@@ -23,7 +28,7 @@ public class BlockAllocator extends Tile
 	public BlockAllocator(IResourceName name) {
 		super(name);
 		this.renderer = this.createRenderer(name);
-		this.setHardness((float)5);
+		this.setHardness((float)20);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
 	}
 	
@@ -55,6 +60,24 @@ public class BlockAllocator extends Tile
 		
 		if (tile != null)
 		{
+			Input input = RockBottomAPI.getGame().getInput();
+            if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
+            {
+            	
+            	if (player.getInvContainer().getSlot(player.getSelectedSlot()).get().getItem() instanceof ItemWrench)
+            	{
+            		if (input.isKeyDown(Keyboard.KEY_LSHIFT))
+            		{
+            			world.destroyTile(x, y, TileLayer.MAIN, player, true);
+            			return true;
+            		}
+            		else
+            		{
+            			player.openGuiContainer(new GuiAllocatorConfig(player, tile), new ContainerAllocator(player, tile));
+            			return true;
+            		}
+            	}
+            }
 			player.openGuiContainer(new GuiAllocator(player, tile), new ContainerAllocator(player, tile));
 			return true;
 		}
@@ -101,5 +124,4 @@ public class BlockAllocator extends Tile
 	{
         return false;
     }
-
 }

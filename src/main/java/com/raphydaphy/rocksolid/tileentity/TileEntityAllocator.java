@@ -21,6 +21,11 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
     public static final int OUTPUT = 1;
     public final ContainerInventory inventory;
     
+    private int modeUp = 0;
+    private int modeDown = 0;
+    private int modeLeft = 0;
+    private int modeRight = 0;
+    
     public TileEntityAllocator(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
@@ -30,7 +35,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
     @Override
     protected boolean needsSync() 
     {
-        return false;
+    	return super.needsSync();
     }
     
     @Override
@@ -155,12 +160,55 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 	   	}
     }
     
+    public void setSideMode(int side, int mode)
+    {
+    	switch(side)
+    	{
+    	case 0:
+    		//up
+    		modeUp = mode;
+    		break;
+    	case 1:
+    		//down
+    		modeDown = mode;
+    		break;
+    	case 2:
+    		//left
+    		modeLeft = mode;
+    		break;
+    	case 3:
+    		//right
+    		modeRight = mode;
+    		break;
+    	}
+    }
+    
+    public int getSideMode(int side)
+    {
+    	switch(side)
+    	{
+    	case 0:
+    		return modeUp;
+    	case 1:
+    		return modeDown;
+    	case 2:
+    		return modeLeft;
+    	case 3:
+    		return modeRight;
+    	}
+    	return 0;
+    }
+    
     @Override
     public void save(final DataSet set, final boolean forSync) {
         super.save(set, forSync);
         if (!forSync) {
             this.inventory.save(set);
         }
+        set.addInt("modeUp", this.modeUp);
+        set.addInt("momdeDown", this.modeDown);
+        set.addInt("modeLeft", this.modeLeft);
+        set.addInt("modeRight", this.modeRight);
     }
     
     @Override
@@ -169,6 +217,10 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
         if (!forSync) {
             this.inventory.load(set);
         }
+        this.modeUp = set.getInt("modeUp");
+        this.modeDown = set.getInt("modeDown");
+        this.modeLeft = set.getInt("modeLeft");
+        this.modeRight = set.getInt("modeRight");
     }
 
 	@Override

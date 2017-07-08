@@ -19,6 +19,7 @@ public class GuiAllocator extends GuiContainer
     @Override
     public void initGui(final IGameInstance game) {
         super.initGui(game);
+        
     }
 
 }

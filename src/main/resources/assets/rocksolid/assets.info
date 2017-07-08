@@ -16,6 +16,7 @@ tex.items.pickaxeBronze=/items/pickaxe_bronze.png
 tex.items.pickaxeCopper=/items/pickaxe_copper.png
 tex.items.pickaxeIron=/items/pickaxe_iron.png
 tex.items.pickaxeSteel=/items/pickaxe_steel.png
+tex.items.wrench=/items/wrench.png
 
 #Blocks
 tex.tiles.alloySmelter.0.0=/blocks/alloy_smelter.png
