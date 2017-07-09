@@ -36,8 +36,8 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
     private int masterX;
     private int masterY;
     
-    private short[][] inputs = new short[][]{};
-    private short[][] outputs = new short[][]{};
+    private short[][] inputs = new short[512][2];
+    private short[][] outputs = new short[512][2];
     
     public TileEntityAllocator(final IWorld world, final int x, final int y) 
     {
@@ -319,12 +319,65 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		{
 			this.isMaster = true;
 		}
+		
+		
+		
+		
+		if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof IHasInventory)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y + 1, world);
+		}
+		if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof IHasInventory)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y - 1, world);
+		}
+		if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof IHasInventory)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x - 1, y, world);
+			// there is an inventory to the left
+			if (!(adjacentTile instanceof TileEntityAllocator))
+			{
+				// see if there is any slots that the adjacent tile can output from
+				if (adjacentTile.getOutputs() != null)
+				{
+					// store the inventory to the master
+					addToMaster(new Pos2(x - 1, y), false);
+				}
+				
+			}
+		}
+		if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof IHasInventory)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x + 1, y, world);
+		}
 	}
 	
 	
 	public void addToMaster(Pos2 inventory, boolean isInput)
 	{
-		
+		if (isMaster)
+		{
+			if (isInput)
+			{
+				for (int curInput = 0; curInput < 512 ; curInput++ )
+				{
+					if (inputs[curInput] == null)
+					{
+						inputs[curInput] = new short[]{(short)inventory.getX(), (short)inventory.getY()};
+					}
+				}
+			}
+			else
+			{
+				for (int curOutput = 0; curOutput < 512 ; curOutput++ )
+				{
+					if (outputs[curOutput] == null)
+					{
+						outputs[curOutput] = new short[]{(short)inventory.getX(), (short)inventory.getY()};
+					}
+				}
+			}
+		}
 	}
 	
 	public void removeFromMaster(Pos2 inventory, boolean isInput)
