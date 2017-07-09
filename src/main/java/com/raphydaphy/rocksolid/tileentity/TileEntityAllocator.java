@@ -14,6 +14,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class TileEntityAllocator extends TileEntity implements IHasInventory
 {
@@ -30,6 +31,13 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
     private int modeDown = 0;
     private int modeLeft = 0;
     private int modeRight = 0;
+    
+    private boolean isMaster;
+    private int masterX;
+    private int masterY;
+    
+    private short[][] inputs = new short[][]{};
+    private short[][] outputs = new short[][]{};
     
     public TileEntityAllocator(final IWorld world, final int x, final int y) 
     {
@@ -227,6 +235,11 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
         set.addInt("momdeDown", this.modeDown);
         set.addInt("modeLeft", this.modeLeft);
         set.addInt("modeRight", this.modeRight);
+        set.addBoolean("isMaster", this.isMaster);
+        set.addInt("masterX", this.masterX);
+        set.addInt("masterY", this.masterY);
+        set.addShortShortArray("inputs", this.inputs);
+        set.addShortShortArray("outputs", this.outputs);
     }
     
     @Override
@@ -239,6 +252,11 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
         this.modeDown = set.getInt("modeDown");
         this.modeLeft = set.getInt("modeLeft");
         this.modeRight = set.getInt("modeRight");
+        this.isMaster = set.getBoolean("isMaster");
+        this.masterX = set.getInt("masterX");
+        this.masterY = set.getInt("masterY");
+        this.inputs = set.getShortShortArray("inputs", 1024);
+        this.outputs = set.getShortShortArray("outputs", 1024);
     }
 
 	@Override
@@ -264,6 +282,119 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		extractSlots.add(4);
 		extractSlots.add(5);
 		return extractSlots;
+	}
+	
+	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileEntityAllocator adjacentTile = null;
+		if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof TileEntityAllocator)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y + 1, world);
+			this.isMaster = false;
+			this.masterX = adjacentTile.getMaster().getX();
+			this.masterY = adjacentTile.getMaster().getY();
+		}
+		else if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof TileEntityAllocator)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y - 1, world);
+			this.isMaster = false;
+			this.masterX = adjacentTile.getMaster().getX();
+			this.masterY = adjacentTile.getMaster().getY();
+		}
+		else if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof TileEntityAllocator)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x - 1, y, world);
+			this.isMaster = false;
+			this.masterX = adjacentTile.getMaster().getX();
+			this.masterY = adjacentTile.getMaster().getY();
+		}
+		else if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof TileEntityAllocator)
+		{
+			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x + 1, y, world);
+			this.isMaster = false;
+			this.masterX = adjacentTile.getMaster().getX();
+			this.masterY = adjacentTile.getMaster().getY();
+		}
+		else
+		{
+			this.isMaster = true;
+		}
+	}
+	
+	
+	public void addToMaster(Pos2 inventory, boolean isInput)
+	{
+		
+	}
+	
+	public void removeFromMaster(Pos2 inventory, boolean isInput)
+	{
+		
+	}
+	
+	public Pos2 getMaster()
+	{
+		return new Pos2(masterX, masterY);
+	}
+	
+	public void onChangedAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY, TileLayer changedLayer)
+	{
+		TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
+		if (changedTile != null)
+		{
+			updateSide(RockSolidLib.posAndOffsetToConduitSide(new Pos2(x,y), new Pos2(changedX, changedY)), world, new Pos2(x,y), new Pos2(changedX, changedY));
+		}
+	}
+	
+	public void updateSide(int side, IWorld world, Pos2 center, Pos2 changed)
+	{
+		TileEntity changedTile = RockSolidLib.getTileFromPos(changed.getX(), changed.getY(), world);
+		if (changedTile instanceof TileEntityAllocator)
+		{
+			switch(side)
+			{
+			case 0:
+				//up
+				System.out.println("updating upwards");
+				
+				break;
+			case 1:
+				//down
+				System.out.println("updating downwards");
+				break;
+			case 2:
+				//left
+				System.out.println("updating to the left");
+				break;
+			case 3:
+				//right
+				System.out.println("updating to the right");
+				break;
+			}
+		}
+		else if (changedTile instanceof IHasInventory)
+		{
+			switch(side)
+			{
+			case 0:
+				//up
+				System.out.println("updating upwards");
+				
+				break;
+			case 1:
+				//down
+				System.out.println("updating downwards");
+				break;
+			case 2:
+				//left
+				System.out.println("updating to the left");
+				break;
+			case 3:
+				//right
+				System.out.println("updating to the right");
+				break;
+			}
+		}
 	}
 
 }

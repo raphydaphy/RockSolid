@@ -124,4 +124,30 @@ public class BlockAllocator extends Tile
 	{
         return false;
     }
+	
+	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	{
+		super.onAdded(world, x, y, layer);
+		
+		TileEntityAllocator tile = (TileEntityAllocator) world.getTileEntity(x, y);
+		
+		if (tile != null)
+		{
+			tile.onAdded(world, x, y, layer);
+		}
+    }
+	
+	@Override
+	public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY, TileLayer changedLayer)
+	{
+		super.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
+		
+		TileEntityAllocator tile = (TileEntityAllocator) world.getTileEntity(x, y);
+		
+		if (tile != null)
+		{
+			tile.onChangedAround(world, x, y, layer, changedX, changedY, changedLayer);
+		}
+	}
+
 }

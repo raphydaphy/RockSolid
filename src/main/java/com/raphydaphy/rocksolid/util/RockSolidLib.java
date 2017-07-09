@@ -59,5 +59,29 @@ public class RockSolidLib {
 		return null;
 	}
 	
+	public static int posAndOffsetToConduitSide(Pos2 center, Pos2 side)
+	{
+		Pos2 difference = center.add(-side.getX(), -side.getY());
+		if (difference.getY() == -1)
+		{
+			return 0;
+		}
+		else if (difference.getY() == 1)
+		{
+			return 1;
+		}
+		else if (difference.getX() == 1)
+		{
+			return 2;
+		}
+		else if (difference.getX() == -1)
+		{
+			return 3;
+		}
+		
+		
+		return 0;
+	}
+	
 	
 }
