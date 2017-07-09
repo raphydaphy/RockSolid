@@ -72,7 +72,16 @@ public class GuiAllocatorConfig extends Gui
     {
     	editingSide = direction;
     	this.components.clear();
-    	this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
+    	
+    	if (tile.getIsMaster() == true)
+    	{
+    		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Master Back"));
+    	}
+    	else
+    	{
+    		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
+    	}
+    	
     	if (tile.getSideMode(direction) == 0)
 		{
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output", "Outputs into connected inventory"));

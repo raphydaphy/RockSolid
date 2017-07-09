@@ -43,6 +43,8 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
     {
         super(world, x, y);
         this.inventory = new ContainerInventory(this, 6);
+        
+        onAdded( world, x, y);
     }
     
     @Override
@@ -284,13 +286,14 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		return extractSlots;
 	}
 	
-	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	public void onAdded(IWorld world, int x, int y)
 	{
 		TileEntityAllocator adjacentTile = null;
 		if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof TileEntityAllocator)
 		{
 			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y + 1, world);
 			this.isMaster = false;
+			System.out.println("A worthy servant was added to the world.");
 			this.masterX = adjacentTile.getMaster().getX();
 			this.masterY = adjacentTile.getMaster().getY();
 		}
@@ -298,6 +301,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		{
 			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y - 1, world);
 			this.isMaster = false;
+			System.out.println("A worthy servant was added to the world.");
 			this.masterX = adjacentTile.getMaster().getX();
 			this.masterY = adjacentTile.getMaster().getY();
 		}
@@ -305,6 +309,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		{
 			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x - 1, y, world);
 			this.isMaster = false;
+			System.out.println("A worthy servant was added to the world.");
 			this.masterX = adjacentTile.getMaster().getX();
 			this.masterY = adjacentTile.getMaster().getY();
 		}
@@ -312,48 +317,122 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		{
 			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x + 1, y, world);
 			this.isMaster = false;
+			System.out.println("A worthy servant was added to the world.");
 			this.masterX = adjacentTile.getMaster().getX();
 			this.masterY = adjacentTile.getMaster().getY();
 		}
 		else
 		{
+			System.out.println("A new block was added to the world. It is the masterr!");
 			this.isMaster = true;
 		}
 		
 		
-		
+		TileEntity adjacentBlock = null;
 		
 		if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof IHasInventory)
 		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y + 1, world);
+			adjacentBlock = RockSolidLib.getTileFromPos(x, y + 1, world);
+			
+			if (!(adjacentBlock instanceof TileEntityAllocator))
+			{
+				// see if there is any slots that the adjacent tile can output from
+				if (((IHasInventory)adjacentBlock).getOutputs() != null)
+				{
+					// store the inventory to the master
+					addToMaster(new Pos2(x, y + 1), false, world);
+				}
+				
+			}
 		}
 		if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof IHasInventory)
 		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y - 1, world);
+			adjacentBlock = RockSolidLib.getTileFromPos(x, y - 1, world);
+			
+			if (!(adjacentBlock instanceof TileEntityAllocator))
+			{
+				// see if there is any slots that the adjacent tile can output from
+				if (((IHasInventory)adjacentBlock).getOutputs() != null)
+				{
+					// store the inventory to the master
+					addToMaster(new Pos2(x, y - 1), false, world);
+				}
+				
+			}
 		}
 		if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof IHasInventory)
 		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x - 1, y, world);
-			// there is an inventory to the left
-			if (!(adjacentTile instanceof TileEntityAllocator))
+			adjacentBlock = RockSolidLib.getTileFromPos(x - 1, y, world);
+			
+			if (!(adjacentBlock instanceof TileEntityAllocator))
 			{
 				// see if there is any slots that the adjacent tile can output from
-				if (adjacentTile.getOutputs() != null)
+				if (((IHasInventory)adjacentBlock).getOutputs() != null)
 				{
 					// store the inventory to the master
-					addToMaster(new Pos2(x - 1, y), false);
+					addToMaster(new Pos2(x - 1, y), false, world);
 				}
 				
 			}
 		}
 		if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof IHasInventory)
 		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x + 1, y, world);
+			adjacentBlock = RockSolidLib.getTileFromPos(x + 1, y, world);
+			
+			if (!(adjacentTile instanceof TileEntityAllocator))
+			{
+				// see if there is any slots that the adjacent tile can output from
+				if (((IHasInventory)adjacentBlock).getOutputs() != null)
+				{
+					// store the inventory to the master
+					addToMaster(new Pos2(x + 1, y), false, world);
+				}
+				
+			}
 		}
 	}
 	
+	public void assignNewMaster(Pos2 newMaster, IWorld world)
+	{
+		TileEntityAllocator newMasterTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(newMaster.getX(), newMaster.getY(), world);
+		
+		if (isMaster)
+		{
+			// add all known inputs to the new master
+			for (int curInput = 0; curInput < 512 ; curInput++ )
+			{
+				if (inputs[curInput] == null)
+				{
+					break;
+				}
+				
+				newMasterTile.addToMaster(new Pos2(inputs[curInput][0], inputs[curInput][1]), true, world);
+			}
+			
+			// add all known outputs to the new master
+			for (int curOutput = 0; curOutput < 512 ; curOutput++ )
+			{
+				if (outputs[curOutput] == null)
+				{
+					break;
+				}
+				
+				newMasterTile.addToMaster(new Pos2(outputs[curOutput][0], outputs[curOutput][1]), true, world);
+			}
+			
+			isMaster = false;
+		}
+		
+		masterX = newMaster.getX();
+		masterY = newMaster.getY();
+	}
 	
-	public void addToMaster(Pos2 inventory, boolean isInput)
+	public boolean getIsMaster()
+	{
+		return isMaster;
+	}
+	
+	public void addToMaster(Pos2 inventory, boolean isInput, IWorld world)
 	{
 		if (isMaster)
 		{
@@ -378,6 +457,15 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 				}
 			}
 		}
+		else
+		{
+			TileEntity masterTile = RockSolidLib.getTileFromPos(masterX, masterY, world);
+			
+			if (masterTile instanceof TileEntityAllocator)
+			{
+				((TileEntityAllocator)masterTile).addToMaster(inventory, isInput, world);
+			}
+		}
 	}
 	
 	public void removeFromMaster(Pos2 inventory, boolean isInput)
@@ -395,6 +483,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
 		if (changedTile != null)
 		{
+			System.out.println("an update has been found");
 			updateSide(RockSolidLib.posAndOffsetToConduitSide(new Pos2(x,y), new Pos2(changedX, changedY)), world, new Pos2(x,y), new Pos2(changedX, changedY));
 		}
 	}
@@ -404,26 +493,32 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 		TileEntity changedTile = RockSolidLib.getTileFromPos(changed.getX(), changed.getY(), world);
 		if (changedTile instanceof TileEntityAllocator)
 		{
-			switch(side)
+			TileEntityAllocator changedAllocator = ((TileEntityAllocator)changedTile);
+			if (!(changedAllocator.getMaster().equals(this.getMaster())))
 			{
-			case 0:
-				//up
-				System.out.println("updating upwards");
-				
-				break;
-			case 1:
-				//down
-				System.out.println("updating downwards");
-				break;
-			case 2:
-				//left
-				System.out.println("updating to the left");
-				break;
-			case 3:
-				//right
-				System.out.println("updating to the right");
-				break;
+				System.out.println("a different master has been found");
+				switch(side)
+				{
+				case 0:
+					//up
+					System.out.println("upwards connection has different master block!");
+					
+					break;
+				case 1:
+					//down
+					System.out.println("downwards connection has different master block!");
+					break;
+				case 2:
+					//left
+					System.out.println("left connection has different master block!");
+					break;
+				case 3:
+					//right
+					System.out.println("right connection has different master block!");
+					break;
+				}
 			}
+			
 		}
 		else if (changedTile instanceof IHasInventory)
 		{

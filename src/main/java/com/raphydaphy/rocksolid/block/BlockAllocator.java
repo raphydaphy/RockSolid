@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -125,17 +126,6 @@ public class BlockAllocator extends Tile
         return false;
     }
 	
-	public void onAdded(IWorld world, int x, int y, TileLayer layer)
-	{
-		super.onAdded(world, x, y, layer);
-		
-		TileEntityAllocator tile = (TileEntityAllocator) world.getTileEntity(x, y);
-		
-		if (tile != null)
-		{
-			tile.onAdded(world, x, y, layer);
-		}
-    }
 	
 	@Override
 	public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY, TileLayer changedLayer)
