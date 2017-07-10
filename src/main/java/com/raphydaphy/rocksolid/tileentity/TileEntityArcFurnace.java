@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.gui.inventory.IHasInventory;
 import com.raphydaphy.rocksolid.recipe.ArcFurnaceRecipe;
+import com.raphydaphy.rocksolid.util.IHasInventory;
 import com.raphydaphy.rocksolid.util.RockSolidAPI;
 
 import de.ellpeck.rockbottom.api.IGameInstance;

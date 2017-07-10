@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.gui.inventory.IHasInventory;
+import com.raphydaphy.rocksolid.util.IEnergyProducer;
+import com.raphydaphy.rocksolid.util.IHasInventory;
 
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
@@ -12,7 +13,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInventory
+public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInventory, IEnergyProducer
 {
 
     public static final int COAL = 0;
@@ -59,7 +60,7 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
     @Override
     protected float getFuelModifier() 
     {
-        return 1.0f;
+        return 0.25f;
     }
     
     @Override
@@ -131,6 +132,34 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
 	public List<Integer> getOutputs() 
 	{
 		return null;
+	}
+
+	@Override
+	public int getCurrentEnergy() 
+	{
+		return this.powerStored;
+	}
+
+	@Override
+	public int getMaxEnergy() 
+	{
+		return this.maxPower;
+	}
+
+	@Override
+	public boolean removeEnergy(int amount) 
+	{
+		if (this.powerStored >= amount)
+		{
+			System.out.println("Able to supply " + amount + " power.");
+			this.powerStored -= amount;
+			return true;
+		}
+		else
+		{
+			System.out.println("Cannot supply " + amount + " power, only " + this.powerStored + " in buffer.");
+		}
+		return false;
 	}
 
 }

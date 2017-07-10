@@ -1,16 +1,13 @@
 package com.raphydaphy.rocksolid.block;
 
-import com.raphydaphy.rocksolid.gui.GuiCoalGenerator;
-import com.raphydaphy.rocksolid.gui.container.ContainerCoalGenerator;
-import com.raphydaphy.rocksolid.render.CoalGeneratorRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityCoalGenerator;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import com.raphydaphy.rocksolid.gui.GuiBattery;
+import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
+import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
 
-import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
+import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -20,11 +17,11 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockCoalGenerator extends MultiTile
+public class BlockBattery extends MultiTile
 {
 	protected final ITileRenderer<Tile> renderer;
 	
-	public BlockCoalGenerator(IResourceName name) 
+	public BlockBattery(IResourceName name) 
 	{
 		super(name);
 		this.renderer = this.createRenderer(name);
@@ -33,25 +30,19 @@ public class BlockCoalGenerator extends MultiTile
 	}
 	
 	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
+	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
-        if (mainTile != null && ((TileEntityCoalGenerator)mainTile).isActive()) 
-        {
-            return 50;
-        }
-        return 0;
+        return new TileEntityBattery(world, x, y);
     }
 	
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y)
-	{
-        return new TileEntityCoalGenerator(world, x, y);
+    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
+        return 20;
     }
 	
 	protected ITileRenderer createRenderer(final IResourceName name) 
 	{
-		return new CoalGeneratorRenderer(name, this);
+		return new MultiTileRenderer(name, this);
     }
 
     @Override
@@ -68,32 +59,17 @@ public class BlockCoalGenerator extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
-		TileEntityCoalGenerator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCoalGenerator.class);
+		TileEntityBattery tile = world.getTileEntity(main.getX(), main.getY(), TileEntityBattery.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiCoalGenerator(player, tile), new ContainerCoalGenerator(player, tile));
+			player.openGuiContainer(new GuiBattery(player, tile), new ContainerEmpty(player));
 			return true;
 		}
 		else
 		{
 			return false;
 		}
-    }
-	
-	@Override
-    public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop)
-    {
-        super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-        if (!RockBottomAPI.getNet().isClient()) 
-        {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
-            final TileEntityCoalGenerator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCoalGenerator.class);
-            if (tile != null) 
-            {
-                tile.dropInventory(tile.inventory);
-            }
-        }
     }
 	
 	@Override
@@ -122,7 +98,7 @@ public class BlockCoalGenerator extends MultiTile
 
 	@Override
 	protected boolean[][] makeStructure() {
-		return new boolean[][] { { true, true, true }, { true, true, true } };
+		return new boolean[][] { { true, true, true }, { true, true, true }, { true, true, true } };
 	}
 
 	@Override
@@ -133,7 +109,7 @@ public class BlockCoalGenerator extends MultiTile
 	@Override
 	public int getHeight() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 3;
 	}
 
 	@Override

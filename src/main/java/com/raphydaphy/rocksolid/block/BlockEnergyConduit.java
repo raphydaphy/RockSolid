@@ -1,31 +1,31 @@
 package com.raphydaphy.rocksolid.block;
 
-import com.raphydaphy.rocksolid.gui.GuiCoalGenerator;
-import com.raphydaphy.rocksolid.gui.container.ContainerCoalGenerator;
-import com.raphydaphy.rocksolid.render.CoalGeneratorRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityCoalGenerator;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Input;
+
+import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
+import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
+import com.raphydaphy.rocksolid.item.ItemWrench;
+import com.raphydaphy.rocksolid.render.ConduitRenderer;
+import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
+import com.raphydaphy.rocksolid.tileentity.TileEntityEnergyConduit;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
-import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.BoundBox;
-import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockCoalGenerator extends MultiTile
+public class BlockEnergyConduit extends Tile
 {
 	protected final ITileRenderer<Tile> renderer;
-	
-	public BlockCoalGenerator(IResourceName name) 
-	{
+	public BlockEnergyConduit(IResourceName name) {
 		super(name);
 		this.renderer = this.createRenderer(name);
 		this.setHardness((float)20);
@@ -33,25 +33,14 @@ public class BlockCoalGenerator extends MultiTile
 	}
 	
 	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
-	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
-        if (mainTile != null && ((TileEntityCoalGenerator)mainTile).isActive()) 
-        {
-            return 50;
-        }
-        return 0;
-    }
-	
-	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
-        return new TileEntityCoalGenerator(world, x, y);
+        return new TileEntityEnergyConduit(world, x, y);
     }
 	
-	protected ITileRenderer createRenderer(final IResourceName name) 
+	protected ITileRenderer<Tile> createRenderer(IResourceName name)
 	{
-		return new CoalGeneratorRenderer(name, this);
+		return new ConduitRenderer<Tile>(name);
     }
 
     @Override
@@ -67,12 +56,28 @@ public class BlockCoalGenerator extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
-		TileEntityCoalGenerator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCoalGenerator.class);
+		TileEntityEnergyConduit tile = world.getTileEntity(x, y, TileEntityEnergyConduit.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiCoalGenerator(player, tile), new ContainerCoalGenerator(player, tile));
+			Input input = RockBottomAPI.getGame().getInput();
+            if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
+            {
+            	
+            	if (player.getInvContainer().getSlot(player.getSelectedSlot()).get().getItem() instanceof ItemWrench)
+            	{
+            		if (input.isKeyDown(Keyboard.KEY_LSHIFT))
+            		{
+            			world.destroyTile(x, y, TileLayer.MAIN, player, true);
+            			return true;
+            		}
+            		else
+            		{
+            			player.openGuiContainer(new GuiConduitConfig(player, tile), new ContainerEmpty(player));
+            			return true;
+            		}
+            	}
+            }
 			return true;
 		}
 		else
@@ -87,8 +92,7 @@ public class BlockCoalGenerator extends MultiTile
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) 
         {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
-            final TileEntityCoalGenerator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCoalGenerator.class);
+            final TileEntityAllocator tile = world.getTileEntity(x,y, TileEntityAllocator.class);
             if (tile != null) 
             {
                 tile.dropInventory(tile.inventory);
@@ -119,33 +123,7 @@ public class BlockCoalGenerator extends MultiTile
 	{
         return false;
     }
-
-	@Override
-	protected boolean[][] makeStructure() {
-		return new boolean[][] { { true, true, true }, { true, true, true } };
-	}
-
-	@Override
-	public int getWidth() {
-		return 3;
-	}
-
-	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 2;
-	}
-
-	@Override
-	public int getMainX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getMainY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
+	
 
 }

@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.block;
 import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
 import com.raphydaphy.rocksolid.gui.container.ContainerArcFurnace;
 import com.raphydaphy.rocksolid.render.ArcFurnaceRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
 import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -34,12 +34,12 @@ public class BlockArcFurnace extends MultiTile
     }
 	
 	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
-        if (this.isMainPos(x, y, world.getMeta(x, y))) {
-            final TileEntityArcFurnace tile = world.getTileEntity(x, y, TileEntityArcFurnace.class);
-            if (tile != null && tile.isActive()) {
-                return 30;
-            }
+    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
+	{
+		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+        if (mainTile != null && ((TileEntityArcFurnace)mainTile).isActive()) 
+        {
+            return 30;
         }
         return 0;
     }

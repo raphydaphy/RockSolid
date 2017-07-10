@@ -22,7 +22,6 @@ public class GuiCoalGenerator extends GuiContainer
 	@Override
 	public void initGui(final IGameInstance game) {
 	    super.initGui(game);
-	    System.out.println(this.tile.getGeneratorFullness());
 	    this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10, Color.red, false, this.tile::getGeneratorFullness));
 	    this.components.add(new ComponentProgressBar(this, this.guiLeft + 74, this.guiTop + 30, 8, 18, GuiCoalGenerator.FIRE_COLOR, true, this.tile::getFuelPercentage));
 	}

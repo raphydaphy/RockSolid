@@ -1,19 +1,20 @@
 package com.raphydaphy.rocksolid.gui;
 
-import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
+import com.raphydaphy.rocksolid.util.IConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
+import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 
-public class GuiAllocatorConfig extends Gui
+public class GuiConduitConfig extends Gui
 {
-    private final TileEntityAllocator tile;
+    private final TileEntity tile;
     // true = input false = output
     private int itemMode;
     private int editingSide;
-    public GuiAllocatorConfig(final AbstractEntityPlayer player, final TileEntityAllocator tile) 
+    public GuiConduitConfig(final AbstractEntityPlayer player, final TileEntity tile) 
     {
         super(198, 150);
         this.tile = tile;
@@ -46,7 +47,7 @@ public class GuiAllocatorConfig extends Gui
     			itemMode++;
     		}
     		
-    		tile.setSideMode(editingSide, itemMode);
+    		((IConduit)tile).setSideMode(editingSide, itemMode);
     		buildSingleGui(game, editingSide);
     		return true;
     	}
@@ -73,26 +74,19 @@ public class GuiAllocatorConfig extends Gui
     	editingSide = direction;
     	this.components.clear();
     	
-    	if (tile.getIsMaster() == true)
-    	{
-    		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Master Back"));
-    	}
-    	else
-    	{
-    		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
-    	}
+    	this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
     	
-    	if (tile.getSideMode(direction) == 0)
+    	if (((IConduit)tile).getSideMode(direction) == 0)
 		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output", "Outputs into connected inventory"));
+			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output", "Outputs power/items into connected block."));
 		}
-		else if (tile.getSideMode(direction) == 1) 
+		else if (((IConduit)tile).getSideMode(direction) == 1) 
 		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input", "Pulls inventory contents into the conduit."));
+			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input", "Pulls items/energy into the conduit."));
 		}
-		else if (tile.getSideMode(direction) == 2)
+		else if (((IConduit)tile).getSideMode(direction) == 2)
 		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled", "The conduit won't connect to this inventory"));
+			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled", "The conduit won't connect on this side."));
 		}
     }
 

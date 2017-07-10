@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.gui.GuiAllocator;
-import com.raphydaphy.rocksolid.gui.GuiAllocatorConfig;
+import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
@@ -74,7 +74,7 @@ public class BlockAllocator extends Tile
             		}
             		else
             		{
-            			player.openGuiContainer(new GuiAllocatorConfig(player, tile), new ContainerAllocator(player, tile));
+            			player.openGuiContainer(new GuiConduitConfig(player, tile), new ContainerAllocator(player, tile));
             			return true;
             		}
             	}

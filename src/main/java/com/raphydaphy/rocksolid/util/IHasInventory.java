@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.gui.inventory;
+package com.raphydaphy.rocksolid.util;
 
 import java.util.List;
 

@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.gui.GuiAlloySmelter;
 import com.raphydaphy.rocksolid.gui.container.ContainerAlloySmelter;
 import com.raphydaphy.rocksolid.render.AlloySmelterRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -34,12 +35,12 @@ public class BlockAlloySmelter extends MultiTile
     }
 	
 	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
-        if (this.isMainPos(x, y, world.getMeta(x, y))) {
-            final TileEntityAlloySmelter tile = world.getTileEntity(x, y, TileEntityAlloySmelter.class);
-            if (tile != null && tile.isActive()) {
-                return 20;
-            }
+    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
+	{
+		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+        if (mainTile != null && ((TileEntityAlloySmelter)mainTile).isActive()) 
+        {
+            return 20;
         }
         return 0;
     }

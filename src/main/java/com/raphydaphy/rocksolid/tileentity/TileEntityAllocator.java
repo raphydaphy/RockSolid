@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.gui.inventory.IHasInventory;
+import com.raphydaphy.rocksolid.util.IConduit;
+import com.raphydaphy.rocksolid.util.IHasInventory;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -16,7 +17,7 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileEntityAllocator extends TileEntity implements IHasInventory
+public class TileEntityAllocator extends TileEntity implements IHasInventory, IConduit
 {
 
 	public static final int INPUT = 0;
@@ -544,5 +545,10 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory
 			}
 		}
 	}
-
+	
+	@Override
+	public boolean canConnectTo(Class<?> adjacentBlock) 
+	{
+		return IHasInventory.class.isAssignableFrom(adjacentBlock);
+	}
 }
