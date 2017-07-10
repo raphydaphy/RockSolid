@@ -23,7 +23,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     private int energyStored = 0;
     private int maxEnergy = 1000;
     
-    private int transferRate = 100;
+    private int transferRate = 50;
     
     public TileEntityEnergyConduit(final IWorld world, final int x, final int y) 
     {
@@ -45,70 +45,64 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     @Override
     public void update(IGameInstance game) 
     {
-    	// run conduit processing code every 10 ticks to prevent lag
-    	// also causes a less op item processing rate of 1 every 10 ticks
-	   	if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
-	   	{
-	   		// first we extract stuff from nearby inventories into the pipes inventory
-	   		for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
-	   		{
-	   			Pos2 adjacentTilePos = RockSolidLib.conduitSideToPos(new Pos2(x, y), adjacentTile);
-	   			TileEntity adjacentTileEntity = RockSolidLib.getTileFromPos(adjacentTilePos.getX(), adjacentTilePos.getY(), world);
-	   			
-	   			if (adjacentTileEntity != null)
-	   			{
-		   			// return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
-	   				if (adjacentTileEntity instanceof TileEntityEnergyConduit)
-	   				{
-	   					if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() > this.getCurrentEnergy())
+   		// first we extract stuff from nearby inventories into the pipes inventory
+   		for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
+   		{
+   			Pos2 adjacentTilePos = RockSolidLib.conduitSideToPos(new Pos2(x, y), adjacentTile);
+   			TileEntity adjacentTileEntity = RockSolidLib.getTileFromPos(adjacentTilePos.getX(), adjacentTilePos.getY(), world);
+   			
+   			if (adjacentTileEntity != null)
+   			{
+	   			// return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
+   				if (adjacentTileEntity instanceof TileEntityEnergyConduit)
+   				{
+   					if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() > this.getCurrentEnergy())
+					{
+						if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() >= transferRate)
 						{
-							if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() >= transferRate)
+							if (this.addEnergy(transferRate))
 							{
-								if (this.addEnergy(transferRate))
-								{
-									((TileEntityEnergyConduit)adjacentTileEntity).removeEnergy(transferRate);
-								}
+								((TileEntityEnergyConduit)adjacentTileEntity).removeEnergy(transferRate);
 							}
 						}
-	   				}
-	   				else if (IEnergyBlock.class.isAssignableFrom(adjacentTileEntity.getClass()))
-	   				{
-	   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
-	   	   				{
-	   						// Conduit is set to input mode
-	   	   					if (this.getSideMode(adjacentTile) == 1)
-	   	   					{
-	   	   						if (this.energyStored < (this.maxEnergy - transferRate))
-	   	   						{
-		   	   						if (((IEnergyProducer)adjacentTileEntity).removeEnergy(transferRate))
-		   	   						{
-		   	   							System.out.println("Recieved " + transferRate + " energy from side " + adjacentTile);
-		   	   							this.energyStored += transferRate;
-		   	   						}
-	   	   						}
-	   	   					}
-	   	   				}
-	   					
-	   					if (IEnergyAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
-	   	   				{
-	   						// Conduit is set to output mode
-	   	   					if (this.getSideMode(adjacentTile) == 0)
-	   	   					{
-	   	   						if (this.energyStored >= transferRate)
-	   	   						{
-		   	   						if (((IEnergyAcceptor)adjacentTileEntity).addEnergy(transferRate))
-		   	   						{
-		   	   							this.removeEnergy(transferRate);
-		   	   						}
-	   	   						}
-	   	   					}
-	   	   				}
-	   				}
-   					
+					}
    				}
-	   		}
-	       
-	   	}
+   				else if (IEnergyBlock.class.isAssignableFrom(adjacentTileEntity.getClass()))
+   				{
+   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
+   	   				{
+   						// Conduit is set to input mode
+   	   					if (this.getSideMode(adjacentTile) == 1)
+   	   					{
+   	   						if (this.energyStored < (this.maxEnergy - transferRate))
+   	   						{
+	   	   						if (((IEnergyProducer)adjacentTileEntity).removeEnergy(transferRate))
+	   	   						{
+	   	   							System.out.println("Recieved " + transferRate + " energy from side " + adjacentTile);
+	   	   							this.energyStored += transferRate;
+	   	   						}
+   	   						}
+   	   					}
+   	   				}
+   					
+   					if (IEnergyAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
+   	   				{
+   						// Conduit is set to output mode
+   	   					if (this.getSideMode(adjacentTile) == 0)
+   	   					{
+   	   						if (this.energyStored >= transferRate)
+   	   						{
+	   	   						if (((IEnergyAcceptor)adjacentTileEntity).addEnergy(transferRate))
+	   	   						{
+	   	   							this.removeEnergy(transferRate);
+	   	   						}
+   	   						}
+   	   					}
+   	   				}
+   				}
+				
+			}
+   		}
     }
     
     public void setSideMode(int side, int mode)

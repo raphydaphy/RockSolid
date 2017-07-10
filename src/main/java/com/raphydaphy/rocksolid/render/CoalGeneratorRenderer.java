@@ -22,24 +22,9 @@ public class CoalGeneratorRenderer extends MultiTileRenderer<BlockCoalGenerator>
 {
 	protected final Map<Pos2, IResourceName> texturesActive;
 	
-	protected final Map<Pos2, IResourceName> textures0;
-	protected final Map<Pos2, IResourceName> textures1;
-	protected final Map<Pos2, IResourceName> textures2;
-	protected final Map<Pos2, IResourceName> textures3;
-	protected final Map<Pos2, IResourceName> textures4;
-	protected final Map<Pos2, IResourceName> textures5;
-	protected final Map<Pos2, IResourceName> textures6;
-	
 	public CoalGeneratorRenderer(final IResourceName texture, final MultiTile tile) {
         super(texture, tile);
         this.texturesActive = new HashMap<Pos2, IResourceName>();
-        this.textures0 = new HashMap<Pos2, IResourceName>();
-        this.textures1 = new HashMap<Pos2, IResourceName>();
-        this.textures2 = new HashMap<Pos2, IResourceName>();
-        this.textures3 = new HashMap<Pos2, IResourceName>();
-        this.textures4 = new HashMap<Pos2, IResourceName>();
-        this.textures5 = new HashMap<Pos2, IResourceName>();
-        this.textures6 = new HashMap<Pos2, IResourceName>();
         
         for (int x = 0; x < tile.getWidth(); x++)
         {
@@ -50,12 +35,6 @@ public class CoalGeneratorRenderer extends MultiTileRenderer<BlockCoalGenerator>
 	            	if (x == 0)
 	            	{
 	            		this.texturesActive.put(new Pos2(x, y), this.texture.addSuffix(".active." + x + "." + y));
-	            	}
-	            	else if (x == 2)
-	            	{
-	            		this.texturesActive.put(new Pos2(x, y), this.texture.addSuffix("." + x + "." + y));
-	            		
-	            		this.textures0.put(new Pos2(x, y), this.texture.addSuffix("_0." + x + "." + y));
 	            	}
 	            	else
 	            	{
