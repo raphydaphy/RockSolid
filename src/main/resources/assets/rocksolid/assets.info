@@ -32,6 +32,17 @@ tex.tiles.arcFurnace.active.0.0=/blocks/arc_furnace_active.0.0.png
 tex.tiles.arcFurnace.active.1.0=/blocks/arc_furnace_active.1.0.png
 tex.tiles.arcFurnace.active.0.1=/blocks/arc_furnace_active.0.1.png
 tex.tiles.arcFurnace.active.1.1=/blocks/arc_furnace_active.1.1.png
+
+tex.tiles.electricArcFurnace.item=/blocks/arc_furnace_item.png
+tex.tiles.electricArcFurnace.0.0=/blocks/arc_furnace.0.0.png
+tex.tiles.electricArcFurnace.1.0=/blocks/arc_furnace.1.0.png
+tex.tiles.electricArcFurnace.0.1=/blocks/arc_furnace.0.1.png
+tex.tiles.electricArcFurnace.1.1=/blocks/arc_furnace.1.1.png
+tex.tiles.electricArcFurnace.active.0.0=/blocks/arc_furnace_active.0.0.png
+tex.tiles.electricArcFurnace.active.1.0=/blocks/arc_furnace_active.1.0.png
+tex.tiles.electricArcFurnace.active.0.1=/blocks/arc_furnace_active.0.1.png
+tex.tiles.electricArcFurnace.active.1.1=/blocks/arc_furnace_active.1.1.png
+
 tex.tiles.allocator=/blocks/allocator.png
 tex.tiles.energyConduit=/blocks/energy_conduit.png
 tex.tiles.coalGenerator.item=/blocks/coal_generator_item.png

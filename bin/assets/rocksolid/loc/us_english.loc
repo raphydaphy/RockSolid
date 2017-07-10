@@ -4,24 +4,32 @@ rocksolid/item.ingotBronze=Bronze Ingot
 rocksolid/item.ingotIron=Iron Ingot
 rocksolid/item.ingotSteel=Steel Ingot
 rocksolid/item.gemCoke=Coal Coke
+
 rocksolid/item.clusterTin=Tin Cluster
 rocksolid/item.clusterIron=Iron Cluster
+
 rocksolid/item.gritTin=Tin Grit
 rocksolid/item.gritIron=Iron Grit
+
 rocksolid/item.pickaxeTin=Tin Pickaxe
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
 rocksolid/item.pickaxeCopper=Copper Pickaxe
 rocksolid/item.pickaxeIron=Iron Pickaxe
 rocksolid/item.pickaxeSteel=Steel Pickaxe
+
 rocksolid/item.wrench=Wrench
 
 #Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
 rocksolid/item.arcFurnace=Arc Furnace
+
 rocksolid/item.allocator=Allocator
 rocksolid/item.energyConduit=Energy Conduit
 rocksolid/item.chest=Chest
+
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.battery=Battery
+rocksolid/item.electricArcFurnace=Electric Arc Furnace
+
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore

@@ -56,16 +56,19 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 	   			// return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
    				if (adjacentTileEntity instanceof TileEntityEnergyConduit)
    				{
-   					if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() > this.getCurrentEnergy())
-					{
-						if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() >= transferRate)
+   					if (this.getSideMode(adjacentTile) != 2)
+   					{
+	   					if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() > this.getCurrentEnergy())
 						{
-							if (this.addEnergy(transferRate))
+							if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() >= transferRate)
 							{
-								((TileEntityEnergyConduit)adjacentTileEntity).removeEnergy(transferRate);
+								if (this.addEnergy(transferRate))
+								{
+									((TileEntityEnergyConduit)adjacentTileEntity).removeEnergy(transferRate);
+								}
 							}
 						}
-					}
+   					}
    				}
    				else if (IEnergyBlock.class.isAssignableFrom(adjacentTileEntity.getClass()))
    				{
