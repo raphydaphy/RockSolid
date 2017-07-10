@@ -23,7 +23,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     private int energyStored = 0;
     private int maxEnergy = 1000;
     
-    private int transferRate = 50;
+    private int transferRate = 300;
     
     public TileEntityEnergyConduit(final IWorld world, final int x, final int y) 
     {
@@ -148,7 +148,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     public void save(final DataSet set, final boolean forSync) {
         super.save(set, forSync);
         set.addInt("modeUp", this.modeUp);
-        set.addInt("momdeDown", this.modeDown);
+        set.addInt("modeDown", this.modeDown);
         set.addInt("modeLeft", this.modeLeft);
         set.addInt("modeRight", this.modeRight);
         set.addInt("energyStored", this.energyStored);

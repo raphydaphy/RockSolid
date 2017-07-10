@@ -235,7 +235,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
             this.inventory.save(set);
         }
         set.addInt("modeUp", this.modeUp);
-        set.addInt("momdeDown", this.modeDown);
+        set.addInt("modeDown", this.modeDown);
         set.addInt("modeLeft", this.modeLeft);
         set.addInt("modeRight", this.modeRight);
         set.addBoolean("isMaster", this.isMaster);
