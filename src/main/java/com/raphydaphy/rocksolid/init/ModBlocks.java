@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.block.BlockArcFurnace;
 import com.raphydaphy.rocksolid.block.BlockBattery;
 import com.raphydaphy.rocksolid.block.BlockChest;
 import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
+import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
 import com.raphydaphy.rocksolid.block.BlockElectricArcFurnace;
 import com.raphydaphy.rocksolid.block.BlockEnergyConduit;
 import com.raphydaphy.rocksolid.block.BlockOre;
@@ -26,6 +27,7 @@ public class ModBlocks
 	public static Tile coalGenerator;
 	public static Tile battery;
 	public static Tile electricArcFurnace;
+	public static Tile electricAlloySmelter;
 	
 	public static Tile oreTin;
 	public static Tile oreIron;
@@ -33,16 +35,17 @@ public class ModBlocks
 	public static void init() 
 	{
 		
-		alloySmelter = new BlockAlloySmelter(RockSolidLib.makeRes("alloySmelter")).register();
-		arcFurnace = new BlockArcFurnace(RockSolidLib.makeRes("arcFurnace")).register();
+		alloySmelter = new BlockAlloySmelter();
+		arcFurnace = new BlockArcFurnace();
 		
-		allocator = new BlockAllocator(RockSolidLib.makeRes("allocator")).register();
-		energyConduit = new BlockEnergyConduit(RockSolidLib.makeRes("energyConduit")).register();
-		chest = new BlockChest(RockSolidLib.makeRes("chest")).register();
+		allocator = new BlockAllocator();
+		energyConduit = new BlockEnergyConduit();
+		chest = new BlockChest().register();
 		
-		coalGenerator = new BlockCoalGenerator(RockSolidLib.makeRes("coalGenerator")).register();
-		battery = new BlockBattery(RockSolidLib.makeRes("battery")).register();
-		electricArcFurnace = new BlockElectricArcFurnace(RockSolidLib.makeRes("electricArcFurnace")).register();
+		coalGenerator = new BlockCoalGenerator();
+		battery = new BlockBattery();
+		electricArcFurnace = new BlockElectricArcFurnace();
+		electricAlloySmelter = new BlockElectricAlloySmelter();
 		
 		oreTin = new BlockOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2).register();
 		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3).register();

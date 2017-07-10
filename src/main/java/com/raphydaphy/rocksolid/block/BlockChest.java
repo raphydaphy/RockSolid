@@ -1,28 +1,33 @@
 package com.raphydaphy.rocksolid.block;
 
+import java.util.List;
+
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiChest;
 import com.raphydaphy.rocksolid.gui.container.ContainerChest;
 import com.raphydaphy.rocksolid.tileentity.TileEntityChest;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
-import de.ellpeck.rockbottom.api.render.tile.DefaultTileRenderer;
-import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
-import de.ellpeck.rockbottom.api.tile.Tile;
+import de.ellpeck.rockbottom.api.tile.TileBasic;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockChest extends Tile
+public class BlockChest extends TileBasic
 {
-	protected final ITileRenderer<Tile> renderer;
-	public BlockChest(IResourceName name) {
-		super(name);
-		this.renderer = this.createRenderer(name);
+	private static final String name = "chest";
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
+	
+	public BlockChest() {
+		super(RockSolidLib.makeRes(name));
 		this.setHardness((float)20);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
 	}
@@ -31,16 +36,6 @@ public class BlockChest extends Tile
 	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
         return new TileEntityChest(world, x, y);
-    }
-	
-	protected ITileRenderer<Tile> createRenderer(IResourceName name)
-	{
-		return new DefaultTileRenderer<Tile>(name);
-    }
-
-    @Override
-    public ITileRenderer<Tile> getRenderer(){
-        return this.renderer;
     }
 
 	@Override
@@ -101,5 +96,11 @@ public class BlockChest extends Tile
 	{
         return false;
     }
+	
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
+        super.describeItem(manager, instance, desc, isAdvanced);
+        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
+    }
+
 }
 

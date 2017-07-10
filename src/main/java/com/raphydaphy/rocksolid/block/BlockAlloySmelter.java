@@ -1,5 +1,8 @@
 package com.raphydaphy.rocksolid.block;
 
+import java.util.List;
+
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiAlloySmelter;
 import com.raphydaphy.rocksolid.gui.container.ContainerAlloySmelter;
 import com.raphydaphy.rocksolid.render.AlloySmelterRenderer;
@@ -7,8 +10,10 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -21,12 +26,14 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class BlockAlloySmelter extends MultiTile
 {
-
-	public BlockAlloySmelter(IResourceName name) 
+	private static final String name = "alloySmelter";
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
+	public BlockAlloySmelter() 
 	{
-		super(name);
+		super(RockSolidLib.makeRes(name));
 		this.setHardness(4);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
+        this.register();
 	}
 	
 	@Override
@@ -127,5 +134,11 @@ public class BlockAlloySmelter extends MultiTile
     public boolean isFullTile() 
 	{
         return false;
+    }
+	
+	@Override
+    public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
+        super.describeItem(manager, instance, desc, isAdvanced);
+        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
     }
 }

@@ -81,7 +81,6 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
    	   						{
 	   	   						if (((IEnergyProducer)adjacentTileEntity).removeEnergy(transferRate))
 	   	   						{
-	   	   							System.out.println("Recieved " + transferRate + " energy from side " + adjacentTile);
 	   	   							this.energyStored += transferRate;
 	   	   						}
    	   						}

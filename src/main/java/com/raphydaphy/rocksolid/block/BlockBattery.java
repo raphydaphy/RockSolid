@@ -1,15 +1,21 @@
 package com.raphydaphy.rocksolid.block;
 
+import java.util.List;
+
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiBattery;
 import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
-import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -19,14 +25,15 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class BlockBattery extends MultiTile
 {
-	protected final ITileRenderer<Tile> renderer;
+	private static final String name = "battery";
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
 	
-	public BlockBattery(IResourceName name) 
+	public BlockBattery() 
 	{
-		super(name);
-		this.renderer = this.createRenderer(name);
+		super(RockSolidLib.makeRes(name));
 		this.setHardness((float)20);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
+        this.register();
 	}
 	
 	@Override
@@ -40,14 +47,10 @@ public class BlockBattery extends MultiTile
         return 20;
     }
 	
+	@Override
 	protected ITileRenderer createRenderer(final IResourceName name) 
 	{
 		return new MultiTileRenderer(name, this);
-    }
-
-    @Override
-    public ITileRenderer<Tile> getRenderer(){
-        return this.renderer;
     }
 
 	@Override
@@ -97,31 +100,38 @@ public class BlockBattery extends MultiTile
     }
 
 	@Override
-	protected boolean[][] makeStructure() {
+	protected boolean[][] makeStructure() 
+	{
 		return new boolean[][] { { true, true, true }, { true, true, true }, { true, true, true } };
 	}
 
 	@Override
-	public int getWidth() {
+	public int getWidth() 
+	{
 		return 3;
 	}
 
 	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
+	public int getHeight()
+	{
 		return 3;
 	}
 
 	@Override
-	public int getMainX() {
-		// TODO Auto-generated method stub
+	public int getMainX() 
+	{
 		return 0;
 	}
 
 	@Override
-	public int getMainY() {
-		// TODO Auto-generated method stub
+	public int getMainY() 
+	{
 		return 0;
 	}
+	
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
+        super.describeItem(manager, instance, desc, isAdvanced);
+        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
+    }
 
 }

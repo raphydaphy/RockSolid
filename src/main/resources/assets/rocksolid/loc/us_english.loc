@@ -1,4 +1,4 @@
-#Items
+# Items
 rocksolid/item.ingotTin=Tin Ingot
 rocksolid/item.ingotBronze=Bronze Ingot
 rocksolid/item.ingotIron=Iron Ingot
@@ -19,7 +19,7 @@ rocksolid/item.pickaxeSteel=Steel Pickaxe
 
 rocksolid/item.wrench=Wrench
 
-#Blocks
+# Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
 rocksolid/item.arcFurnace=Arc Furnace
 
@@ -30,6 +30,20 @@ rocksolid/item.chest=Chest
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.battery=Battery
 rocksolid/item.electricArcFurnace=Electric Arc Furnace
+rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
 
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore
+
+# Item Details
+rocksolid/details.wrench=Used to configure conduits. Right-click on a conduit to access the configuration and shift+right-click to destroy a conduit.
+
+# Block Details
+rocksolid/details.alloySmelter=Used to create alloys! Requires coal to run.
+rocksolid/details.arcFurnace=Used to turn coal/charcoal into Coal Coke. Can be upgraded to increase speed.
+rocksolid/details.battery=Stores Power. Power can be inserted and extracted through any side using Energy Conduits.
+rocksolid/details.allocator=Transfers Items. Very unstable and hard to use at the moment :)
+rocksolid/details.chest=A clone of the vanilla chest that supports RockSolid conduits. Use this one!
+rocksolid/details.coalGenerator=Generates power using a solid fuel. Energy can be extracted using Energy Conduits connected to any side
+rocksolid/details.electricArcFurnace=A faster Arc Furnace powered by electricity. Use Energy Conduits to supply power.
+rocksolid/details.energyConduit=Used to transfer electricity. Right-click with a wrench to configure.

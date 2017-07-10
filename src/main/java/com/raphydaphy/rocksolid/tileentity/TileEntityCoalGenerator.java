@@ -151,13 +151,8 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
 	{
 		if (this.powerStored >= amount)
 		{
-			System.out.println("Able to supply " + amount + " power.");
 			this.powerStored -= amount;
 			return true;
-		}
-		else
-		{
-			System.out.println("Cannot supply " + amount + " power, only " + this.powerStored + " in buffer.");
 		}
 		return false;
 	}

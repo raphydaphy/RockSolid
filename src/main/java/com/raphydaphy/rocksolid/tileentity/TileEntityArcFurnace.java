@@ -24,6 +24,9 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
     protected int maxProcessTime;
     private int lastSmelt;
     
+    private boolean running = false;
+    private boolean lastRunning;
+    
     public TileEntityArcFurnace(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
@@ -59,6 +62,10 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
                     final ItemInstance output = this.inventory.get(1);
                     if (output == null || (output.isEffectivelyEqual(recipeOut) && output.getAmount() + recipeOut.getAmount() <= output.getMaxAmount())) 
                     {
+                    	if (this.processTime == 0)
+                    	{
+                    		this.world.causeLightUpdate(this.x, this.y);
+                    	}
                         if (this.maxProcessTime <= 0) 
                         {
                             this.maxProcessTime = recipe.getTime();
@@ -77,13 +84,7 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
                         {
                             this.inventory.add(1, recipeOut.getAmount());
                         }
-                    	/*
-                        else if (this.processTime > 0) 
-                        {
-                            this.processTime = Math.max(this.processTime - 2, 0);
-                            return;
-                        }
-                        */
+                        this.world.causeLightUpdate(this.x, this.y);
                     }
                 }
             }
@@ -108,6 +109,8 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
         }
         set.addInt("process", this.processTime);
         set.addInt("max_process", this.maxProcessTime);
+        set.addBoolean("running", this.running);
+        set.addBoolean("lastRunning", this.lastRunning);
     }
     
     @Override
@@ -118,6 +121,8 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
         }
         this.processTime = set.getInt("process");
         this.maxProcessTime = set.getInt("max_process");
+        this.running = set.getBoolean("running");
+        this.lastRunning = set.getBoolean("lastRunning");
     }
 
 	@Override

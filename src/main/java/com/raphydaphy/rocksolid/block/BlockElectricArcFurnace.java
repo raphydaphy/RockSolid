@@ -1,5 +1,8 @@
 package com.raphydaphy.rocksolid.block;
 
+import java.util.List;
+
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiElectricArcFurnace;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricArcFurnace;
 import com.raphydaphy.rocksolid.render.ElectricArcFurnaceRenderer;
@@ -7,8 +10,10 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityElectricArcFurnace;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -21,12 +26,15 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class BlockElectricArcFurnace extends MultiTile
 {
-
-	public BlockElectricArcFurnace(IResourceName name) 
+	private static final String name = "electricArcFurnace";
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
+	
+	public BlockElectricArcFurnace() 
 	{
-		super(name);
+		super(RockSolidLib.makeRes(name));
 		this.setHardness(4);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
+        this.register();
 	}
 	@Override
     protected ITileRenderer createRenderer(final IResourceName name) {
@@ -126,5 +134,10 @@ public class BlockElectricArcFurnace extends MultiTile
     public boolean isFullTile() 
 	{
         return false;
+    }
+	
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
+        super.describeItem(manager, instance, desc, isAdvanced);
+        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
     }
 }

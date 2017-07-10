@@ -3,10 +3,10 @@ package com.raphydaphy.rocksolid.block;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
-import com.raphydaphy.rocksolid.gui.container.ContainerArcFurnace;
-import com.raphydaphy.rocksolid.render.ArcFurnaceRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.gui.GuiElectricAlloySmelter;
+import com.raphydaphy.rocksolid.gui.container.ContainerElectricAlloySmelter;
+import com.raphydaphy.rocksolid.render.ElectricAlloySmelterRenderer;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -24,37 +24,37 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockArcFurnace extends MultiTile
+public class BlockElectricAlloySmelter extends MultiTile
 {
-	private static final String name = "arcFurnace";
+	private static final String name = "electricAlloySmelter";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	
-	public BlockArcFurnace() 
+	public BlockElectricAlloySmelter() 
 	{
 		super(RockSolidLib.makeRes(name));
 		this.setHardness(4);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
         this.register();
 	}
+	
 	@Override
     protected ITileRenderer createRenderer(final IResourceName name) {
-        return new ArcFurnaceRenderer(name, this);
+        return new ElectricAlloySmelterRenderer(name, this);
     }
 	
 	@Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
 	{
 		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
-        if (mainTile != null && ((TileEntityArcFurnace)mainTile).isActive()) 
+        if (mainTile != null && ((TileEntityElectricAlloySmelter)mainTile).isActive()) 
         {
-            return 30;
+            return 40;
         }
         return 0;
     }
 	
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y){
-        return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityArcFurnace(world, x, y) : null;
+		return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityElectricAlloySmelter(world, x, y) : null;
     }
 
 	@Override
@@ -66,11 +66,11 @@ public class BlockArcFurnace extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
-		TileEntityArcFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
+		TileEntityElectricAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricAlloySmelter.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiArcFurnace(player, tile), new ContainerArcFurnace(player, tile));
+			player.openGuiContainer(new GuiElectricAlloySmelter(player, tile), new ContainerElectricAlloySmelter(player, tile));
 			return true;
 		}
 		else
@@ -86,7 +86,7 @@ public class BlockArcFurnace extends MultiTile
         if (!RockBottomAPI.getNet().isClient()) 
         {
             final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
-            final TileEntityArcFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
+            final TileEntityElectricAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricAlloySmelter.class);
             if (tile != null) 
             {
                 tile.dropInventory(tile.inventory);

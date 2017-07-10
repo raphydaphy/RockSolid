@@ -51,6 +51,6 @@ public class ModItems
 		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
 		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
 		
-		wrench = new ItemWrench(RockSolidLib.makeRes("wrench")).register();
+		wrench = new ItemWrench().register();
     }
 }
