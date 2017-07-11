@@ -113,6 +113,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered
         }
         set.addInt("smelt", this.smeltTime);
         set.addInt("max_smelt", this.maxSmeltTime);
+        set.addInt("powerStored", this.powerStored);
     }
    
     @Override
@@ -123,6 +124,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered
         }
         this.smeltTime = set.getInt("smelt");
         this.maxSmeltTime = set.getInt("max_smelt");
+        this.powerStored = set.getInt("powerStored");
     }
     
     @Override
