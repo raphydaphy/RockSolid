@@ -31,6 +31,7 @@ rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.battery=Battery
 rocksolid/item.electricArcFurnace=Electric Arc Furnace
 rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
+rocksolid/item.electricSeparator=Electric Separator
 
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore
@@ -49,3 +50,4 @@ rocksolid/details.chest=A clone of the vanilla chest that supports RockSolid con
 rocksolid/details.coalGenerator=Generates power using a solid fuel. Energy can be extracted using Energy Conduits connected to any side
 rocksolid/details.electricArcFurnace=A faster Arc Furnace powered by electricity. Use Energy Conduits to supply power.
 rocksolid/details.energyConduit=Used to transfer electricity. Right-click with a wrench to configure.
+rocksolid/details.electricSeparator=A quicker and more efficient Separator. Requires electricity to run.
