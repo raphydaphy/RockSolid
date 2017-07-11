@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.raphydaphy.rocksolid.api.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
-import com.raphydaphy.rocksolid.util.IHasInventory;
 import com.raphydaphy.rocksolid.util.RockSolidAPI;
 
 import de.ellpeck.rockbottom.api.data.set.DataSet;

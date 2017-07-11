@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.util;
+package com.raphydaphy.rocksolid.api;
 
 public interface IEnergyProducer extends IEnergyBlock
 {

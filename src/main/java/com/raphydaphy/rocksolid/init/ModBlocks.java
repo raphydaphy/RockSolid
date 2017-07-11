@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.block.BlockAllocator;
 import com.raphydaphy.rocksolid.block.BlockAlloySmelter;
 import com.raphydaphy.rocksolid.block.BlockArcFurnace;
@@ -11,7 +12,6 @@ import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
 import com.raphydaphy.rocksolid.block.BlockElectricArcFurnace;
 import com.raphydaphy.rocksolid.block.BlockEnergyConduit;
 import com.raphydaphy.rocksolid.block.BlockOre;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.Tile;

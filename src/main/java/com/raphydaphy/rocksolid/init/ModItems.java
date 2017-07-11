@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
 import com.raphydaphy.rocksolid.item.ItemWrench;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.item.Item;
 

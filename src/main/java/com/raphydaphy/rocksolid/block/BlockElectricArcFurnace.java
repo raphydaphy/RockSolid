@@ -3,11 +3,11 @@ package com.raphydaphy.rocksolid.block;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.gui.GuiElectricArcFurnace;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricArcFurnace;
 import com.raphydaphy.rocksolid.render.ElectricArcFurnaceRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricArcFurnace;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;

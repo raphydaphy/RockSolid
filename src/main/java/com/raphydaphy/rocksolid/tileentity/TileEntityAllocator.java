@@ -3,10 +3,10 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.raphydaphy.rocksolid.api.IConduit;
+import com.raphydaphy.rocksolid.api.IHasInventory;
+import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.util.IConduit;
-import com.raphydaphy.rocksolid.util.IHasInventory;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;

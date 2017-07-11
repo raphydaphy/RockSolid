@@ -6,13 +6,13 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.gui.GuiAllocator;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;

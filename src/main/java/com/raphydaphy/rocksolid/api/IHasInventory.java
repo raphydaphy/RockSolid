@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.util;
+package com.raphydaphy.rocksolid.api;
 
 import java.util.List;
 

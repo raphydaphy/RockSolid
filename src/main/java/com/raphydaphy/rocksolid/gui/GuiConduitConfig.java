@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.gui;
 
-import com.raphydaphy.rocksolid.util.IConduit;
+import com.raphydaphy.rocksolid.api.IConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;

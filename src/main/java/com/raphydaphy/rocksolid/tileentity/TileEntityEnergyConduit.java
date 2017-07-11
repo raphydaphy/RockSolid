@@ -1,10 +1,10 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.util.IConduit;
-import com.raphydaphy.rocksolid.util.IEnergyAcceptor;
-import com.raphydaphy.rocksolid.util.IEnergyBlock;
-import com.raphydaphy.rocksolid.util.IEnergyProducer;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import com.raphydaphy.rocksolid.api.IConduit;
+import com.raphydaphy.rocksolid.api.IEnergyAcceptor;
+import com.raphydaphy.rocksolid.api.IEnergyBlock;
+import com.raphydaphy.rocksolid.api.IEnergyProducer;
+import com.raphydaphy.rocksolid.api.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
