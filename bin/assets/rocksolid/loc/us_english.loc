@@ -35,6 +35,8 @@ rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore
 
+rocksolid/item.coonstructionBlockSteel=Steel Construction Block
+
 # Item Details
 rocksolid/details.wrench=Used to configure conduits. Right-click on a conduit to access the configuration and shift+right-click to destroy a conduit.
 

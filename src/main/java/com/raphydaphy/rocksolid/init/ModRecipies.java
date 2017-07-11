@@ -47,6 +47,14 @@ public class ModRecipies
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.chest), new ItemInstance[]{new ItemInstance(GameContent.TILE_WOOD_BOARDS, 20)}));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.wrench), new ItemInstance[]{new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotSteel, 2)}));
 		
+		// Electric manual crafting
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.constructionBlockSteel), new ItemInstance[]{new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotSteel, 8)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.coalGenerator), new ItemInstance[]{new ItemInstance(ModBlocks.constructionBlockSteel, 1), new ItemInstance(ModItems.gemCoke, 4), new ItemInstance(ModItems.ingotBronze, 8), new ItemInstance(GameContent.TILE_ROCK, 40), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.battery), new ItemInstance[]{new ItemInstance(ModBlocks.constructionBlockSteel, 1), new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(ModItems.ingotBronze, 8), new ItemInstance(GameContent.TILE_ROCK, 80), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.energyConduit, 8), new ItemInstance[]{new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(GameContent.TILE_ROCK, 20), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.electricAlloySmelter), new ItemInstance[]{new ItemInstance(ModBlocks.constructionBlockSteel, 2), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 50), new ItemInstance(GameContent.TILE_ROCK, 100), new ItemInstance(ModItems.ingotBronze, 18)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.electricArcFurnace), new ItemInstance[]{new ItemInstance(ModBlocks.constructionBlockSteel, 2), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60), new ItemInstance(GameContent.TILE_ROCK, 120), new ItemInstance(ModItems.ingotBronze, 30), new ItemInstance(ModItems.gemCoke, 10), new ItemInstance(GameContent.ITEM_COAL, 30)}));
+		
 		// Pickaxe manual crafting
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeTin), new ItemInstance[]{new ItemInstance(ModItems.ingotTin, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeBronze), new ItemInstance[]{new ItemInstance(ModItems.ingotBronze, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));

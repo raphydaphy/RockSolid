@@ -19,6 +19,8 @@ public class BlockOre extends TileBasic
 		itemDrop = drop;
 		this.setHardness((float)oreHardness);
         this.addEffectiveTool(ToolType.PICKAXE, toolLevel);
+        
+        this.register();
 	}
 	
 	@Override
