@@ -3,11 +3,11 @@ package com.raphydaphy.rocksolid.block;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.RockSolidLib;
-import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
-import com.raphydaphy.rocksolid.gui.container.ContainerArcFurnace;
-import com.raphydaphy.rocksolid.render.ArcFurnaceRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.gui.GuiElectricBlastFurnace;
+import com.raphydaphy.rocksolid.gui.container.ContainerElectricBlastFurnace;
+import com.raphydaphy.rocksolid.render.ElectricBlastFurnaceRenderer;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -24,12 +24,12 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockArcFurnace extends MultiTile
+public class BlockElectricBlastFurnace extends MultiTile
 {
-	private static final String name = "arcFurnace";
+	private static final String name = "electricBlastFurnace";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
 	
-	public BlockArcFurnace() 
+	public BlockElectricBlastFurnace() 
 	{
 		super(RockSolidLib.makeRes(name));
 		this.setHardness(4);
@@ -38,14 +38,14 @@ public class BlockArcFurnace extends MultiTile
 	}
 	@Override
     protected ITileRenderer createRenderer(final IResourceName name) {
-        return new ArcFurnaceRenderer(name, this);
+        return new ElectricBlastFurnaceRenderer(name, this);
     }
 	
 	@Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
 	{
 		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
-        if (mainTile != null && ((TileEntityArcFurnace)mainTile).isActive()) 
+        if (mainTile != null && ((TileEntityElectricBlastFurnace)mainTile).isActive()) 
         {
             return 30;
         }
@@ -54,7 +54,7 @@ public class BlockArcFurnace extends MultiTile
 	
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y){
-        return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityArcFurnace(world, x, y) : null;
+        return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityElectricBlastFurnace(world, x, y) : null;
     }
 
 	@Override
@@ -66,11 +66,11 @@ public class BlockArcFurnace extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
-		TileEntityArcFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
+		TileEntityElectricBlastFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricBlastFurnace.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiArcFurnace(player, tile), new ContainerArcFurnace(player, tile));
+			player.openGuiContainer(new GuiElectricBlastFurnace(player, tile), new ContainerElectricBlastFurnace(player, tile));
 			return true;
 		}
 		else
@@ -86,7 +86,7 @@ public class BlockArcFurnace extends MultiTile
         if (!RockBottomAPI.getNet().isClient()) 
         {
             final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
-            final TileEntityArcFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
+            final TileEntityElectricBlastFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricBlastFurnace.class);
             if (tile != null) 
             {
                 tile.dropInventory(tile.inventory);
@@ -136,8 +136,7 @@ public class BlockArcFurnace extends MultiTile
         return false;
     }
 	
-	@Override
-    public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
         super.describeItem(manager, instance, desc, isAdvanced);
         desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
     }

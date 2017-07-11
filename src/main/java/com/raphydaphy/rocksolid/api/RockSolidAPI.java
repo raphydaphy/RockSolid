@@ -1,10 +1,10 @@
-package com.raphydaphy.rocksolid.util;
+package com.raphydaphy.rocksolid.api;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
-import com.raphydaphy.rocksolid.recipe.ArcFurnaceRecipe;
+import com.raphydaphy.rocksolid.recipe.BlastFurnaceRecipe;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
@@ -12,7 +12,7 @@ public class RockSolidAPI {
 	 public static final String VERSION = "0.0.8";
 	 
 	 public static final List<AlloySmelterRecipe> ALLOY_SMELTER_RECIPES = new ArrayList<>();
-	 public static final List<ArcFurnaceRecipe> ARC_FURNACE_RECIPES = new ArrayList<>();
+	 public static final List<BlastFurnaceRecipe> BLAST_FURNACE_RECIPES = new ArrayList<>();
 	 
 	 public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
 	 {
@@ -26,9 +26,9 @@ public class RockSolidAPI {
         return null;
     }
 	 
-	 public static ArcFurnaceRecipe getArcFurnaceRecipe(ItemInstance input)
+	 public static BlastFurnaceRecipe getArcFurnaceRecipe(ItemInstance input)
 	 {
-        for(ArcFurnaceRecipe recipe : ARC_FURNACE_RECIPES){
+        for(BlastFurnaceRecipe recipe : BLAST_FURNACE_RECIPES){
             if(input.isEffectivelyEqualWithWildcard(recipe.getInput()))
             {
                 return recipe;

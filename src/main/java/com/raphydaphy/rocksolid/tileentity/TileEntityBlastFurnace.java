@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.IHasInventory;
+import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.recipe.ArcFurnaceRecipe;
-import com.raphydaphy.rocksolid.util.RockSolidAPI;
+import com.raphydaphy.rocksolid.recipe.BlastFurnaceRecipe;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -14,7 +14,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityArcFurnace extends TileEntity implements IHasInventory
+public class TileEntityBlastFurnace extends TileEntity implements IHasInventory
 {
 
 	public static final int INPUT = 0;
@@ -27,7 +27,7 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
     private boolean running = false;
     private boolean lastRunning;
     
-    public TileEntityArcFurnace(final IWorld world, final int x, final int y) 
+    public TileEntityBlastFurnace(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
         this.inventory = new ContainerInventory(this, 2);
@@ -52,7 +52,7 @@ public class TileEntityArcFurnace extends TileEntity implements IHasInventory
         final ItemInstance input = this.inventory.get(0);
         if (input != null) 
         {
-            final ArcFurnaceRecipe recipe = RockSolidAPI.getArcFurnaceRecipe(input);
+            final BlastFurnaceRecipe recipe = RockSolidAPI.getArcFurnaceRecipe(input);
             if (recipe != null) 
             {
                 final ItemInstance recipeIngredient = recipe.getInput();

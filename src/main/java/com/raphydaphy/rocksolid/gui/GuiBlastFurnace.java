@@ -1,18 +1,18 @@
 package com.raphydaphy.rocksolid.gui;
 
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityBlastFurnace;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 
-public class GuiArcFurnace extends GuiContainer
+public class GuiBlastFurnace extends GuiContainer
 {
 
-    private final TileEntityArcFurnace tile;
+    private final TileEntityBlastFurnace tile;
     
-    public GuiArcFurnace(final AbstractEntityPlayer player, final TileEntityArcFurnace tile) {
+    public GuiBlastFurnace(final AbstractEntityPlayer player, final TileEntityBlastFurnace tile) {
         super(player, 198, 150);
         this.tile = tile;
     }
@@ -20,7 +20,7 @@ public class GuiArcFurnace extends GuiContainer
     @Override
     public void initGui(final IGameInstance game) {
         super.initGui(game);
-        this.components.add(new ComponentProgressBar(this, this.guiLeft + 80, this.guiTop + 15, 40, 8, GuiArcFurnace.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
+        this.components.add(new ComponentProgressBar(this, this.guiLeft + 80, this.guiTop + 15, 40, 8, GuiBlastFurnace.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
     }
 
 }

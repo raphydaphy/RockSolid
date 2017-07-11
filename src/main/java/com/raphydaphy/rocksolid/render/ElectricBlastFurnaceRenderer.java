@@ -7,8 +7,8 @@ import java.util.Map;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.block.BlockElectricArcFurnace;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricArcFurnace;
+import com.raphydaphy.rocksolid.block.BlockElectricBlastFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -18,11 +18,11 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class ElectricArcFurnaceRenderer extends MultiTileRenderer<BlockElectricArcFurnace>
+public class ElectricBlastFurnaceRenderer extends MultiTileRenderer<BlockElectricBlastFurnace>
 {
 	protected final Map<Pos2, IResourceName> texturesActive;
 	
-	public ElectricArcFurnaceRenderer(final IResourceName texture, final MultiTile tile) {
+	public ElectricBlastFurnaceRenderer(final IResourceName texture, final MultiTile tile) {
         super(texture, tile);
         this.texturesActive = new HashMap<Pos2, IResourceName>();
         for (int x = 0; x < tile.getWidth(); ++x) {
@@ -35,11 +35,11 @@ public class ElectricArcFurnaceRenderer extends MultiTileRenderer<BlockElectricA
     }
     
     @Override
-    public void render(final IGameInstance game, final IAssetManager manager, final Graphics g, final IWorld world, final BlockElectricArcFurnace tile, final int x, final int y, final float renderX, final float renderY, final float scale, final Color[] light) {
+    public void render(final IGameInstance game, final IAssetManager manager, final Graphics g, final IWorld world, final BlockElectricBlastFurnace tile, final int x, final int y, final float renderX, final float renderY, final float scale, final Color[] light) {
         final int meta = world.getMeta(x, y);
         final Pos2 innerCoord = tile.getInnerCoord(meta);
         final Pos2 mainPos = tile.getMainPos(x, y, meta);
-        final TileEntityElectricArcFurnace tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityElectricArcFurnace.class);
+        final TileEntityElectricBlastFurnace tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityElectricBlastFurnace.class);
         IResourceName tex;
         if (tileEntity != null && tileEntity.isActive()) {
             tex = this.texturesActive.get(innerCoord);

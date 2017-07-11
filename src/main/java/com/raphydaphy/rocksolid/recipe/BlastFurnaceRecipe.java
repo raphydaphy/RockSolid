@@ -2,13 +2,13 @@ package com.raphydaphy.rocksolid.recipe;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
-public class ArcFurnaceRecipe 
+public class BlastFurnaceRecipe 
 {
 	private final ItemInstance input;
     private final ItemInstance output;
     private final int time;
 
-    public ArcFurnaceRecipe(ItemInstance output,  ItemInstance input, int time){
+    public BlastFurnaceRecipe(ItemInstance output,  ItemInstance input, int time){
         this.input = input;
         this.output = output;
         this.time = time;

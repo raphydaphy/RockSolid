@@ -3,11 +3,11 @@ package com.raphydaphy.rocksolid.block;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.gui.GuiElectricAlloySmelter;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricAlloySmelter;
 import com.raphydaphy.rocksolid.render.ElectricAlloySmelterRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;

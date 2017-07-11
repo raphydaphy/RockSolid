@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.util;
 
 import com.raphydaphy.rocksolid.RockSolid;
 

@@ -4,7 +4,7 @@ import com.raphydaphy.rocksolid.api.IConduit;
 import com.raphydaphy.rocksolid.api.IEnergyAcceptor;
 import com.raphydaphy.rocksolid.api.IEnergyBlock;
 import com.raphydaphy.rocksolid.api.IEnergyProducer;
-import com.raphydaphy.rocksolid.api.RockSolidLib;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;

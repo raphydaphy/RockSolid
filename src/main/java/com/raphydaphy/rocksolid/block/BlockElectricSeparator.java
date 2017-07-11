@@ -3,11 +3,11 @@ package com.raphydaphy.rocksolid.block;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.RockSolidLib;
 import com.raphydaphy.rocksolid.gui.GuiElectricSeparator;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricSeparator;
 import com.raphydaphy.rocksolid.render.ElectricSeparatorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;

@@ -1,14 +1,14 @@
 package com.raphydaphy.rocksolid.gui.container;
 
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
 
-public class ContainerArcFurnace extends ItemContainer
+public class ContainerElectricBlastFurnace extends ItemContainer
 {
-	public ContainerArcFurnace(final AbstractEntityPlayer player, final TileEntityArcFurnace tile) 
+	public ContainerElectricBlastFurnace(final AbstractEntityPlayer player, final TileEntityElectricBlastFurnace tile) 
 	{
         super(player, new IInventory[] { player.getInv(), tile.inventory });
         this.addSlot(new InputSlot(tile.inventory, 0, 40, 10));
