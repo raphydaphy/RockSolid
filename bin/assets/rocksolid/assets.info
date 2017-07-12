@@ -1,4 +1,4 @@
-#Localization
+# Localization
 loc.us_english=/loc/us_english.loc
 
 # Items
@@ -110,7 +110,6 @@ tex.tiles.electricSmelter.item=/blocks/electric_smelter/electric_smelter_item.pn
 ## Misc
 tex.tiles.constructionBlockSteel=/blocks/misc/construction_block_steel.png
 tex.tiles.chest=/blocks/misc/chest.png
-tex.tiles.allocator=/blocks/misc/allocator.png
 tex.tiles.creativePowerSource=/blocks/misc/creative_power_source.png
 
 ## Energy Conduit
@@ -119,6 +118,13 @@ tex.tiles.energyConduit.up=/blocks/energy_conduit/energy_conduit_up.png
 tex.tiles.energyConduit.down=/blocks/energy_conduit/energy_conduit_down.png
 tex.tiles.energyConduit.left=/blocks/energy_conduit/energy_conduit_left.png
 tex.tiles.energyConduit.right=/blocks/energy_conduit/energy_conduit_right.png
+
+## Allocator
+tex.tiles.allocator=/blocks/allocator/allocator_conduit.png
+tex.tiles.allocator.up=/blocks/allocator/allocator_up.png
+tex.tiles.allocator.down=/blocks/allocator/allocator_conduit_down.png
+tex.tiles.allocator.left=/blocks/allocator/allocator_conduit_left.png
+tex.tiles.allocator.right=/blocks/allocator/allocator_conduit_right.png
 
 ## Coal Generator
 tex.tiles.coalGenerator.item=/blocks/coal_generator/coal_generator_item.png
