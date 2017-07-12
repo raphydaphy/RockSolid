@@ -32,6 +32,8 @@ public class ModItems
 	public static Item pickaxeCopper;
 	public static Item pickaxeIron;
 	public static Item pickaxeSteel;
+	public static Item pickaxeMagnesium;
+	public static Item pickaxeTitanium;
 	
 	public static Item wrench;
 	
@@ -60,6 +62,8 @@ public class ModItems
 		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
 		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
 		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
+		pickaxeMagnesium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeMagnesium"), 9, 5).register();
+		pickaxeTitanium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTitanium"), 11, 6).register();
 		
 		wrench = new ItemWrench().register();
     }

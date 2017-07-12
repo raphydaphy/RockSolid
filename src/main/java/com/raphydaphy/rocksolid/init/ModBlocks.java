@@ -61,7 +61,7 @@ public class ModBlocks
 		oreTin = new BlockOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2);
 		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);
 		oreMagnesium = new BlockOre(RockSolidLib.makeRes("oreMagnesium"), new ItemInstance(ModItems.clusterMagnesium, 1), 20, 4);
-		oreRutile = new BlockBase(RockSolidLib.makeRes("oreRutile"), 30, 4);
+		oreRutile = new BlockBase(RockSolidLib.makeRes("oreRutile"), 30, 5);
 		
 		constructionBlockSteel = new BlockBase(RockSolidLib.makeRes("constructionBlockSteel"), 10, 3);
     }

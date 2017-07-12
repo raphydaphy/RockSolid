@@ -85,5 +85,7 @@ public class ModRecipies
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeCopper), new ItemInstance[]{new ItemInstance(GameContent.ITEM_COPPER_INGOT, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeIron), new ItemInstance[]{new ItemInstance(ModItems.ingotIron, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeSteel), new ItemInstance[]{new ItemInstance(ModItems.ingotSteel, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeMagnesium), new ItemInstance[]{new ItemInstance(ModItems.ingotMagnesium, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeTitanium), new ItemInstance[]{new ItemInstance(ModItems.ingotTitanium, 8),new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8)}));
 	}
 }

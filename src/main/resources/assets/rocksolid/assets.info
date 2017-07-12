@@ -21,6 +21,8 @@ tex.items.pickaxeBronze=/items/pickaxe_bronze.png
 tex.items.pickaxeCopper=/items/pickaxe_copper.png
 tex.items.pickaxeIron=/items/pickaxe_iron.png
 tex.items.pickaxeSteel=/items/pickaxe_steel.png
+tex.items.pickaxeMagnesium=/items/pickaxe_magnesium.png
+tex.items.pickaxeTitanium=/items/pickaxe_titanium.png
 tex.items.wrench=/items/wrench.png
 
 #Blocks
