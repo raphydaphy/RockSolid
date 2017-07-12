@@ -33,7 +33,6 @@ public class ModItems
 	public static Item pickaxeCopper;
 	public static Item pickaxeIron;
 	public static Item pickaxeSteel;
-	public static Item pickaxeMagnesium;
 	public static Item pickaxeTitanium;
 	
 	public static Item axeWood;
@@ -43,7 +42,6 @@ public class ModItems
 	public static Item axeBronze;
 	public static Item axeIron;
 	public static Item axeSteel;
-	public static Item axeMagnesium;
 	public static Item axeTitanium;
 	
 	public static Item wrench;
@@ -73,8 +71,7 @@ public class ModItems
 		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
 		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
 		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
-		pickaxeMagnesium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeMagnesium"), 9, 5).register();
-		pickaxeTitanium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTitanium"), 11, 6).register();
+		pickaxeTitanium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTitanium"), 10, 5).register();
 		
 		axeWood = new ItemAxe(RockSolidLib.makeRes("axeWood"), 2f, 1).register();
 		axeRock = new ItemAxe(RockSolidLib.makeRes("axeRock"), 3f, 1).register();
@@ -83,8 +80,7 @@ public class ModItems
 		axeBronze = new ItemAxe(RockSolidLib.makeRes("axeBronze"), 6f, 1).register();
 		axeIron = new ItemAxe(RockSolidLib.makeRes("axeIron"), 7f, 1).register();
 		axeSteel = new ItemAxe(RockSolidLib.makeRes("axeSteel"), 8f, 1).register();
-		axeMagnesium = new ItemAxe(RockSolidLib.makeRes("axeMagnesium"), 9f, 1).register();
-		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 11f, 1).register();
+		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 10f, 1).register();
 		
 		wrench = new ItemWrench().register();
     }
