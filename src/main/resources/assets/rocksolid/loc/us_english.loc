@@ -3,13 +3,19 @@ rocksolid/item.ingotTin=Tin Ingot
 rocksolid/item.ingotBronze=Bronze Ingot
 rocksolid/item.ingotIron=Iron Ingot
 rocksolid/item.ingotSteel=Steel Ingot
+rocksolid/item.ingotMagnesium=Magnesium Ingot
+rocksolid/item.ingotImpureTitanium=Impure Titanium Ingot
+rocksolid/item.ingotTitanium=Titanium Ingot
+
 rocksolid/item.gemCoke=Coal Coke
 
 rocksolid/item.clusterTin=Tin Cluster
 rocksolid/item.clusterIron=Iron Cluster
+rocksolid/item.clusterMagnesium=Magnesium Cluster
 
 rocksolid/item.gritTin=Tin Grit
 rocksolid/item.gritIron=Iron Grit
+rocksolid/item.gritMagnesium=Magnesium Grit
 
 rocksolid/item.pickaxeTin=Tin Pickaxe
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
@@ -36,6 +42,8 @@ rocksolid/item.electricSmelter=Electric Smelter
 
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore
+rocksolid/item.oreMagnesium=Magnesium Ore
+rocksolid/item.oreRutile=Rutile Ore
 
 rocksolid/item.constructionBlockSteel=Steel Construction Block
 

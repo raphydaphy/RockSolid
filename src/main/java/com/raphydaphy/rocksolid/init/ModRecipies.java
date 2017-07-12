@@ -21,14 +21,17 @@ public class ModRecipies
 		// Alloy recipes
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(GameContent.ITEM_COPPER_INGOT, 3), new ItemInstance(ModItems.ingotTin, 1), 500));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotSteel, 1), new ItemInstance(ModItems.ingotIron, 1), new ItemInstance(ModItems.gemCoke, 1), 500));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotTitanium, 1), new ItemInstance(ModItems.ingotMagnesium, 1), new ItemInstance(ModItems.ingotImpureTitanium, 1), 1000));
 		
 		// Arc furnace recipes
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 0), 5000));
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 1), 5000));
+		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(ModItems.ingotImpureTitanium), new ItemInstance(ModBlocks.oreRutile, 1), 5000));
 		
 		// Cluster to grit (separator)
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(ModItems.gritTin, 2), new ItemInstance(ModItems.clusterTin), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.25f));
-		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(ModItems.gritIron, 2), new ItemInstance(ModItems.clusterIron), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.25f));
+		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(ModItems.gritIron, 2), new ItemInstance(ModItems.clusterIron), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.4f));
+		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(ModItems.gritMagnesium, 2), new ItemInstance(ModItems.clusterMagnesium), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.8f));
 		
 		// misc separator recipies
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(GameContent.ITEM_COPPER_INGOT, 3), new ItemInstance(ModItems.ingotBronze, 4), 450, new ItemInstance(ModItems.ingotTin), 1));
@@ -36,6 +39,7 @@ public class ModRecipies
 		// grit to ingot (smelter)
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(ModItems.ingotTin), new ItemInstance(ModItems.gritTin), 300));
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(ModItems.ingotIron), new ItemInstance(ModItems.gritIron), 300));
+		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(ModItems.ingotMagnesium), new ItemInstance(ModItems.gritMagnesium), 300));
 		
 		// Remove super pickaxe recipe
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.remove(6);

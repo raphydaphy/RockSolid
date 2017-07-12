@@ -2,9 +2,9 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.block.BlockAllocator;
 import com.raphydaphy.rocksolid.block.BlockAlloySmelter;
-import com.raphydaphy.rocksolid.block.BlockBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockBase;
 import com.raphydaphy.rocksolid.block.BlockBattery;
+import com.raphydaphy.rocksolid.block.BlockBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockChest;
 import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
 import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
@@ -36,6 +36,8 @@ public class ModBlocks
 	
 	public static Tile oreTin;
 	public static Tile oreIron;
+	public static Tile oreMagnesium;
+	public static Tile oreRutile;
 	
 	public static Tile constructionBlockSteel;
 	
@@ -58,6 +60,8 @@ public class ModBlocks
 		
 		oreTin = new BlockOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2);
 		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);
+		oreMagnesium = new BlockOre(RockSolidLib.makeRes("oreMagnesium"), new ItemInstance(ModItems.clusterMagnesium, 1), 20, 4);
+		oreRutile = new BlockBase(RockSolidLib.makeRes("oreRutile"), 30, 4);
 		
 		constructionBlockSteel = new BlockBase(RockSolidLib.makeRes("constructionBlockSteel"), 10, 3);
     }
