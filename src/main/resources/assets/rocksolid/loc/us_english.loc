@@ -25,6 +25,15 @@ rocksolid/item.pickaxeSteel=Steel Pickaxe
 rocksolid/item.pickaxeMagnesium=Magnesium Pickaxe
 rocksolid/item.pickaxeTitanium=Titanium Pickaxe
 
+rocksolid/item.axeWood=Wood Axe
+rocksolid/item.axeRock=Rock Axe
+rocksolid/item.axeTin=Tin Axe
+rocksolid/item.axeCopper=Copper Axe
+rocksolid/item.axeBronze=Bronze Axe
+rocksolid/item.axeIron=Iron Axe
+rocksolid/item.axeSteel=Steel Axe
+rocksolid/item.axeMagnesium=Magnesium Axe
+rocksolid/item.axeTitanium=Titanium Axe
 rocksolid/item.wrench=Wrench
 
 # Blocks

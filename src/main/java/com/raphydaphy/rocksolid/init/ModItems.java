@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
 import com.raphydaphy.rocksolid.item.ItemWrench;
@@ -35,6 +36,16 @@ public class ModItems
 	public static Item pickaxeMagnesium;
 	public static Item pickaxeTitanium;
 	
+	public static Item axeWood;
+	public static Item axeRock;
+	public static Item axeTin;
+	public static Item axeCopper;
+	public static Item axeBronze;
+	public static Item axeIron;
+	public static Item axeSteel;
+	public static Item axeMagnesium;
+	public static Item axeTitanium;
+	
 	public static Item wrench;
 	
 	public static void init() 
@@ -64,6 +75,16 @@ public class ModItems
 		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
 		pickaxeMagnesium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeMagnesium"), 9, 5).register();
 		pickaxeTitanium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTitanium"), 11, 6).register();
+		
+		axeWood = new ItemAxe(RockSolidLib.makeRes("axeWood"), 2f, 1).register();
+		axeRock = new ItemAxe(RockSolidLib.makeRes("axeRock"), 3f, 1).register();
+		axeTin = new ItemAxe(RockSolidLib.makeRes("axeTin"), 4.5f, 1).register();
+		axeCopper = new ItemAxe(RockSolidLib.makeRes("axeCopper"), 4.5f, 1).register();
+		axeBronze = new ItemAxe(RockSolidLib.makeRes("axeBronze"), 6f, 1).register();
+		axeIron = new ItemAxe(RockSolidLib.makeRes("axeIron"), 7f, 1).register();
+		axeSteel = new ItemAxe(RockSolidLib.makeRes("axeSteel"), 8f, 1).register();
+		axeMagnesium = new ItemAxe(RockSolidLib.makeRes("axeMagnesium"), 9f, 1).register();
+		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 11f, 1).register();
 		
 		wrench = new ItemWrench().register();
     }

@@ -23,6 +23,15 @@ tex.items.pickaxeIron=/items/pickaxe_iron.png
 tex.items.pickaxeSteel=/items/pickaxe_steel.png
 tex.items.pickaxeMagnesium=/items/pickaxe_magnesium.png
 tex.items.pickaxeTitanium=/items/pickaxe_titanium.png
+tex.items.axeWood=/items/axe_wood.png
+tex.items.axeRock=/items/axe_rock.png
+tex.items.axeTin=/items/axe_tin.png
+tex.items.axeCopper=/items/axe_copper.png
+tex.items.axeBronze=/items/axe_bronze.png
+tex.items.axeIron=/items/axe_iron.png
+tex.items.axeSteel=/items/axe_steel.png
+tex.items.axeMagnesium=/items/axe_magnesium.png
+tex.items.axeTitanium=/items/axe_titanium.png
 tex.items.wrench=/items/wrench.png
 
 #Blocks
