@@ -58,10 +58,8 @@ rocksolid/item.oreRutile=Rutile Ore
 
 rocksolid/item.constructionBlockSteel=Steel Construction Block
 
-# Item Details
+# Details
 rocksolid/details.wrench=Used to configure conduits. Right-click on a conduit to access the configuration and shift+right-click to destroy a conduit.
-
-# Block Details
 rocksolid/details.alloySmelter=Used to create alloys! Requires coal to run.
 rocksolid/details.blastFurnace=Used to turn coal/charcoal into Coal Coke. Can be upgraded to increase speed.
 rocksolid/details.battery=Stores Power. Power can be inserted and extracted through any side using Energy Conduits.
@@ -74,3 +72,4 @@ rocksolid/details.electricSeparator=A quicker and more efficient Separator. Requ
 rocksolid/details.electricSmelter=A faster, more efficient Smelter. Needs power to run.
 rocksolid/details.electricAlloySmelter=A more efficient and faster Alloy Smelter. Requires energy for operation.
 rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires a lot of power to run.
+rocksolid/details.creativePowerSource=Supplies infinite power from all sides. Not meant to be obtained in survival.
