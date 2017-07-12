@@ -43,6 +43,7 @@ rocksolid/item.blastFurnace=Blast Furnace
 rocksolid/item.allocator=Allocator
 rocksolid/item.energyConduit=Energy Conduit
 rocksolid/item.chest=Chest
+rocksolid/item.quarry=Quarry
 
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.battery=Battery
@@ -73,3 +74,4 @@ rocksolid/details.energyConduit=Used to transfer electricity. Right-click with a
 rocksolid/details.electricSeparator=A quicker and more efficient Separator. Requires electricity to run.
 rocksolid/details.electricSmelter=A faster, more efficient Smelter. Needs power to run.
 rocksolid/details.electricAlloySmelter=A more efficient and faster Alloy Smelter. Requires energy for operation.
+rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires a lot of power to run.

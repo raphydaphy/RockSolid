@@ -86,7 +86,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	   		    		extractInventory =  ((IHasInventory)tryExtract).getInventory();
 	   		    		   extractSlots = ((IHasInventory)tryExtract).getOutputs();
 	   		    		   
-	   		    		   if (extractSlots == null)
+	   		    		   if (extractSlots == null || extractSlots.size() == 0)
 	   		    		   {
 	   		    			extractInventory = null;
 	   		    		   }
@@ -150,7 +150,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	   		    		insertInventory =  ((IHasInventory)tryInsert).getInventory();
 	   		    		   insertSlots = ((IHasInventory)tryInsert).getInputs();
 	   		    		   
-	   		    		   if (insertSlots == null)
+	   		    		   if (insertSlots == null || insertSlots.size() == 0)
 	   		    		   {
 	   		    			insertInventory = null;
 	   		    		   }
@@ -170,6 +170,10 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	   	        						   this.inventory.remove(invCount, 1);
 	   	        						   break;
 	   	        					   }
+	   	    						   else if (insertInventory.get(insertSlots.get(curInsertSlot)).getAmount() >= insertInventory.get(insertSlots.get(curInsertSlot)).getMaxAmount())
+	   	    						   {
+	   	    							   continue;
+	   	    						   }
 	   	        					   else if (insertInventory.get(insertSlots.get(curInsertSlot)).getItem().equals(this.inventory.get(invCount).getItem()))
 	   	        					   {
 	   	        						   this.inventory.remove(invCount, 1);

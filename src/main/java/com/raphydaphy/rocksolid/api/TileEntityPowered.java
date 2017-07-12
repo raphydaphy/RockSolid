@@ -44,7 +44,7 @@ public abstract class TileEntityPowered extends TileEntity implements IHasInvent
         if(!RockBottomAPI.getNet().isClient()){
             boolean smelted = this.tryTickAction();
 
-            if(this.getPower() > 0 && smelted)
+            if(this.getPower() >= (0 + this.powerPerOperation) && smelted)
             {
                 this.setPower(this.getPower() - this.powerPerOperation);
             }

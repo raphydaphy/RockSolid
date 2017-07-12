@@ -29,7 +29,7 @@ public class BlockChest extends TileBasic
 	public BlockChest() {
 		super(RockSolidLib.makeRes(name));
 		this.setHardness((float)20);
-        this.addEffectiveTool(ToolType.PICKAXE, 1);
+        this.addEffectiveTool(ToolType.AXE, 1);
 	}
 	
 	@Override

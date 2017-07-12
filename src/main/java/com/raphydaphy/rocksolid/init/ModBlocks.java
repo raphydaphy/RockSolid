@@ -13,6 +13,7 @@ import com.raphydaphy.rocksolid.block.BlockElectricSeparator;
 import com.raphydaphy.rocksolid.block.BlockElectricSmelter;
 import com.raphydaphy.rocksolid.block.BlockEnergyConduit;
 import com.raphydaphy.rocksolid.block.BlockOre;
+import com.raphydaphy.rocksolid.block.BlockQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -26,6 +27,7 @@ public class ModBlocks
 	public static Tile allocator;
 	public static Tile energyConduit;
 	public static Tile chest;
+	public static Tile quarry;
 	
 	public static Tile coalGenerator;
 	public static Tile battery;
@@ -50,6 +52,7 @@ public class ModBlocks
 		allocator = new BlockAllocator();
 		energyConduit = new BlockEnergyConduit();
 		chest = new BlockChest().register();
+		quarry = new BlockQuarry();
 		
 		coalGenerator = new BlockCoalGenerator();
 		battery = new BlockBattery();
