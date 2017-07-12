@@ -11,16 +11,19 @@ tex.items.ingotSteel=/items/ingot/ingot_steel.png
 tex.items.ingotMagnesium=/items/ingot/ingot_magnesium.png
 tex.items.ingotImpureTitanium=/items/ingot/ingot_impure_titanium.png
 tex.items.ingotTitanium=/items/ingot/ingot_titanium.png
+tex.items.ingotUranium=/items/ingot/ingot_uranium.png
 
 ## Cluster
 tex.items.clusterTin=/items/cluster/cluster_tin.png
 tex.items.clusterIron=/items/cluster/cluster_iron.png
 tex.items.clusterMagnesium=/items/cluster/cluster_magnesium.png
+tex.items.clusterUranium=/items/cluster/cluster_uranium.png
 
 ## Grit
 tex.items.gritTin=/items/grit/grit_tin.png
 tex.items.gritIron=/items/grit/grit_iron.png
 tex.items.gritMagnesium=/items/grit/grit_magnesium.png
+tex.items.gritUranium=/items/grit/grit_uranium.png
 
 ## Pickaxe
 tex.items.pickaxeBronze=/items/pickaxe/pickaxe_bronze.png
@@ -109,6 +112,7 @@ tex.tiles.electricSmelter.item=/blocks/electric_smelter/electric_smelter_item.pn
 
 ## Misc
 tex.tiles.constructionBlockSteel=/blocks/misc/construction_block_steel.png
+tex.tiles.constructionBlockTitanium =/blocks/misc/construction_block_titanium.png
 tex.tiles.chest=/blocks/misc/chest.png
 tex.tiles.creativePowerSource=/blocks/misc/creative_power_source.png
 
@@ -120,11 +124,11 @@ tex.tiles.energyConduit.left=/blocks/energy_conduit/energy_conduit_left.png
 tex.tiles.energyConduit.right=/blocks/energy_conduit/energy_conduit_right.png
 
 ## Allocator
-tex.tiles.allocator=/blocks/allocator/allocator_conduit.png
+tex.tiles.allocator=/blocks/allocator/allocator.png
 tex.tiles.allocator.up=/blocks/allocator/allocator_up.png
-tex.tiles.allocator.down=/blocks/allocator/allocator_conduit_down.png
-tex.tiles.allocator.left=/blocks/allocator/allocator_conduit_left.png
-tex.tiles.allocator.right=/blocks/allocator/allocator_conduit_right.png
+tex.tiles.allocator.down=/blocks/allocator/allocator_down.png
+tex.tiles.allocator.left=/blocks/allocator/allocator_left.png
+tex.tiles.allocator.right=/blocks/allocator/allocator_right.png
 
 ## Coal Generator
 tex.tiles.coalGenerator.item=/blocks/coal_generator/coal_generator_item.png
@@ -161,3 +165,4 @@ tex.tiles.oreTin=/blocks/ore/ore_tin.png
 tex.tiles.oreIron=/blocks/ore/ore_iron.png
 tex.tiles.oreMagnesium=/blocks/ore/ore_magnesium.png
 tex.tiles.oreRutile=/blocks/ore/ore_rutile.png
+tex.tiles.oreUranium=/blocks/ore/ore_uranium.png

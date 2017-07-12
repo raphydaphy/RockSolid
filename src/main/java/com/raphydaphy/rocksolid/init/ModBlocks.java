@@ -43,8 +43,10 @@ public class ModBlocks
 	public static Tile oreIron;
 	public static Tile oreMagnesium;
 	public static Tile oreRutile;
+	public static Tile oreUranium;
 	
 	public static Tile constructionBlockSteel;
+	public static Tile constructionBlockTitanium;
 	
 	public static void init() 
 	{
@@ -70,7 +72,9 @@ public class ModBlocks
 		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);
 		oreMagnesium = new BlockOre(RockSolidLib.makeRes("oreMagnesium"), new ItemInstance(ModItems.clusterMagnesium, 1), 20, 4);
 		oreRutile = new BlockBase(RockSolidLib.makeRes("oreRutile"), 30, 4);
+		oreUranium = new BlockOre(RockSolidLib.makeRes("oreUranium"), new ItemInstance(ModItems.clusterUranium, 1), 25, 5);
 		
 		constructionBlockSteel = new BlockBase(RockSolidLib.makeRes("constructionBlockSteel"), 10, 3);
+		constructionBlockTitanium = new BlockBase(RockSolidLib.makeRes("constructionBlockTitanium"), 25, 4);
     }
 }

@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.world.WorldGenIron;
 import com.raphydaphy.rocksolid.world.WorldGenMagnesium;
 import com.raphydaphy.rocksolid.world.WorldGenRutile;
 import com.raphydaphy.rocksolid.world.WorldGenTin;
+import com.raphydaphy.rocksolid.world.WorldGenUranium;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 
@@ -15,5 +16,6 @@ public class ModGenerators
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenIron.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenMagnesium.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenRutile.class);
+		RockBottomAPI.WORLD_GENERATORS.add(WorldGenUranium.class);
 	}
 }

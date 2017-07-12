@@ -17,16 +17,19 @@ public class ModItems
 	public static Item ingotMagnesium;
 	public static Item ingotImpureTitanium;
 	public static Item ingotTitanium;
+	public static Item ingotUranium;
 	
 	public static Item gemCoke;
 	
 	public static Item clusterTin;
 	public static Item clusterIron;
 	public static Item clusterMagnesium;
+	public static Item clusterUranium;
 	
 	public static Item gritTin;
 	public static Item gritIron;
 	public static Item gritMagnesium;
+	public static Item gritUranium;
 	
 	public static Item pickaxeBronze;
 	public static Item pickaxeCopper;
@@ -53,16 +56,19 @@ public class ModItems
 		ingotMagnesium = new ItemBase(RockSolidLib.makeRes("ingotMagnesium")).register();
 		ingotImpureTitanium = new ItemBase(RockSolidLib.makeRes("ingotImpureTitanium")).register();
 		ingotTitanium = new ItemBase(RockSolidLib.makeRes("ingotTitanium")).register();
+		ingotUranium = new ItemBase(RockSolidLib.makeRes("ingotUranium")).register();
 		
 		gemCoke = new ItemBase(RockSolidLib.makeRes("gemCoke")).register();
 		
 		clusterTin = new ItemBase(RockSolidLib.makeRes("clusterTin")).register();
 		clusterIron = new ItemBase(RockSolidLib.makeRes("clusterIron")).register();
 		clusterMagnesium = new ItemBase(RockSolidLib.makeRes("clusterMagnesium")).register();
+		clusterUranium = new ItemBase(RockSolidLib.makeRes("clusterUranium")).register();
 		
 		gritTin = new ItemBase(RockSolidLib.makeRes("gritTin")).register();
 		gritIron = new ItemBase(RockSolidLib.makeRes("gritIron")).register();
 		gritMagnesium = new ItemBase(RockSolidLib.makeRes("gritMagnesium")).register();
+		gritUranium = new ItemBase(RockSolidLib.makeRes("gritUranium")).register();
 		
 		pickaxeCopper = new ItemPickaxe(RockSolidLib.makeRes("pickaxeCopper"), 4.5f, 2).register();
 		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();

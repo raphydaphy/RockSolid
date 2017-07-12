@@ -27,7 +27,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
     
     public TileEntityQuarry(final IWorld world, final int x, final int y) 
     {
-        super(world, x, y, 20000, 1000);
+        super(world, x, y, 20000, 100);
         this.inventory = new ContainerInventory(this, 1);
         
         this.curX = x - 9;
@@ -76,20 +76,26 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    {
 	    	if (this.getCurrentEnergy() >= super.getPowerPerOperation())
 	    	{
+	    		System.out.println(mineTick);
 	    		ableToDig = true;
 	    		if (mineTick == 10)
 	    		{
-	    			List<ItemInstance> curTile = world.getTile(curX, curY).getDrops(world, curX, curY, TileLayer.MAIN, null);
-	    			if (output == null)
+	    			if (world.getTile(curX, curY).canBreak(world, curX, curY, TileLayer.MAIN) &&
+	    				world.getTileEntity(curX, curY) == null)
 	    			{
-	    				this.inventory.set(0, new ItemInstance(curTile.get(0).getItem(), 1));
+	    				List<ItemInstance> curTile = world.getTile(curX, curY).getDrops(world, curX, curY, TileLayer.MAIN, null);
+		    			if (output == null)
+		    			{
+		    				this.inventory.set(0, new ItemInstance(curTile.get(0).getItem(), 1));
+		    			}
+		    			else if (output.getItem().equals(curTile.get(0).getItem()))
+		    			{
+		    				this.inventory.get(0).addAmount(1);
+		    			}
+		    			world.setTile(curX, curY, GameContent.TILE_AIR);
 	    			}
-	    			else if (output.getItem().equals(curTile.get(0).getItem()))
-	    			{
-	    				this.inventory.get(0).addAmount(1);
-	    			}
-	    			world.setTile(curX, curY, GameContent.TILE_AIR);
-		    		curX++;
+	    			curX++;
+		    		mineTick = 0;
 	    		}
 	    		else
 	    		{
