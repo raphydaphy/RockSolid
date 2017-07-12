@@ -23,6 +23,12 @@ public class ModRecipies
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotSteel, 1), new ItemInstance(ModItems.ingotIron, 1), new ItemInstance(ModItems.gemCoke, 1), 500));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.ingotTitanium, 1), new ItemInstance(ModItems.ingotMagnesium, 1), new ItemInstance(ModItems.ingotImpureTitanium, 1), 1000));
 		
+		// Cluster tripling recipies
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.gritIron, 3),  new ItemInstance(ModItems.clusterIron, 1),new ItemInstance(GameContent.ITEM_SLAG, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.gritMagnesium, 3), new ItemInstance(ModItems.clusterMagnesium, 1),new ItemInstance(GameContent.ITEM_SLAG, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.gritTin, 3),  new ItemInstance(ModItems.clusterTin, 1),new ItemInstance(GameContent.ITEM_SLAG, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(GameContent.ITEM_COPPER_GRIT, 3),  new ItemInstance(GameContent.ITEM_COPPER_CLUSTER, 1),new ItemInstance(GameContent.ITEM_SLAG, 1), 750));
+		
 		// Arc furnace recipes
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 0), 5000));
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 1), 5000));
