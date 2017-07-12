@@ -17,7 +17,6 @@ rocksolid/item.gritTin=Tin Grit
 rocksolid/item.gritIron=Iron Grit
 rocksolid/item.gritMagnesium=Magnesium Grit
 
-rocksolid/item.pickaxeTin=Tin Pickaxe
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
 rocksolid/item.pickaxeCopper=Copper Pickaxe
 rocksolid/item.pickaxeIron=Iron Pickaxe
@@ -26,7 +25,6 @@ rocksolid/item.pickaxeTitanium=Titanium Pickaxe
 
 rocksolid/item.axeWood=Wood Axe
 rocksolid/item.axeRock=Rock Axe
-rocksolid/item.axeTin=Tin Axe
 rocksolid/item.axeCopper=Copper Axe
 rocksolid/item.axeBronze=Bronze Axe
 rocksolid/item.axeIron=Iron Axe
@@ -42,7 +40,9 @@ rocksolid/item.blastFurnace=Blast Furnace
 rocksolid/item.allocator=Allocator
 rocksolid/item.energyConduit=Energy Conduit
 rocksolid/item.chest=Chest
+
 rocksolid/item.quarry=Quarry
+rocksolid/item.creativePowerSource=Creative Power Source
 
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.battery=Battery

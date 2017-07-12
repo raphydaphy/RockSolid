@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.block.BlockBattery;
 import com.raphydaphy.rocksolid.block.BlockBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockChest;
 import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
+import com.raphydaphy.rocksolid.block.BlockCreativePowerSource;
 import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
 import com.raphydaphy.rocksolid.block.BlockElectricBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockElectricSeparator;
@@ -27,7 +28,9 @@ public class ModBlocks
 	public static Tile allocator;
 	public static Tile energyConduit;
 	public static Tile chest;
+	
 	public static Tile quarry;
+	public static Tile creativePowerSource;
 	
 	public static Tile coalGenerator;
 	public static Tile battery;
@@ -52,7 +55,9 @@ public class ModBlocks
 		allocator = new BlockAllocator();
 		energyConduit = new BlockEnergyConduit();
 		chest = new BlockChest().register();
+		
 		quarry = new BlockQuarry();
+		creativePowerSource = new BlockCreativePowerSource();
 		
 		coalGenerator = new BlockCoalGenerator();
 		battery = new BlockBattery();

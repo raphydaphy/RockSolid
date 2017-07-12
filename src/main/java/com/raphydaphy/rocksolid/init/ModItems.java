@@ -28,7 +28,6 @@ public class ModItems
 	public static Item gritIron;
 	public static Item gritMagnesium;
 	
-	public static Item pickaxeTin;
 	public static Item pickaxeBronze;
 	public static Item pickaxeCopper;
 	public static Item pickaxeIron;
@@ -37,7 +36,6 @@ public class ModItems
 	
 	public static Item axeWood;
 	public static Item axeRock;
-	public static Item axeTin;
 	public static Item axeCopper;
 	public static Item axeBronze;
 	public static Item axeIron;
@@ -66,7 +64,6 @@ public class ModItems
 		gritIron = new ItemBase(RockSolidLib.makeRes("gritIron")).register();
 		gritMagnesium = new ItemBase(RockSolidLib.makeRes("gritMagnesium")).register();
 		
-		pickaxeTin = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTin"), 4.5f, 2).register();
 		pickaxeCopper = new ItemPickaxe(RockSolidLib.makeRes("pickaxeCopper"), 4.5f, 2).register();
 		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
 		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
@@ -75,7 +72,6 @@ public class ModItems
 		
 		axeWood = new ItemAxe(RockSolidLib.makeRes("axeWood"), 2f, 1).register();
 		axeRock = new ItemAxe(RockSolidLib.makeRes("axeRock"), 3f, 1).register();
-		axeTin = new ItemAxe(RockSolidLib.makeRes("axeTin"), 4.5f, 1).register();
 		axeCopper = new ItemAxe(RockSolidLib.makeRes("axeCopper"), 4.5f, 1).register();
 		axeBronze = new ItemAxe(RockSolidLib.makeRes("axeBronze"), 6f, 1).register();
 		axeIron = new ItemAxe(RockSolidLib.makeRes("axeIron"), 7f, 1).register();

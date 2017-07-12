@@ -31,7 +31,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
         this.inventory = new ContainerInventory(this, 1);
         
         this.curX = x - 9;
-        this.curY = y - 1;
+        this.curY = y - 2;
     }
     
     @Override
