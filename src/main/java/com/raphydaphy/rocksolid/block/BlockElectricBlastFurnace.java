@@ -32,7 +32,7 @@ public class BlockElectricBlastFurnace extends MultiTile
 	public BlockElectricBlastFurnace() 
 	{
 		super(RockSolidLib.makeRes(name));
-		this.setHardness(4);
+		this.setHardness(15);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
         this.register();
 	}

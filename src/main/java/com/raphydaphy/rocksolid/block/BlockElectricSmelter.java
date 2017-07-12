@@ -30,7 +30,7 @@ public class BlockElectricSmelter extends MultiTile
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
     public BlockElectricSmelter() {
         super(RockSolidLib.makeRes(name));
-        this.setHardness(4);
+        this.setHardness(15);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
         this.register();
     }

@@ -26,6 +26,17 @@ public class RockSolidAPI {
         return null;
     }
 	 
+	 public static boolean existsInAlloyRecipe(ItemInstance item)
+	 {
+		 for(AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES){
+	            if(item.isEffectivelyEqualWithWildcard(recipe.getInput1()))
+	            {
+	                return true;
+	            }
+	        }
+	        return false;
+	 }
+	 
 	 public static BlastFurnaceRecipe getArcFurnaceRecipe(ItemInstance input)
 	 {
         for(BlastFurnaceRecipe recipe : BLAST_FURNACE_RECIPES){

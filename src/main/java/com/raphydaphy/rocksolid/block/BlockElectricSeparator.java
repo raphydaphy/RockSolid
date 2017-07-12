@@ -14,6 +14,7 @@ import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -30,6 +31,8 @@ public class BlockElectricSeparator extends MultiTile
 	
     public BlockElectricSeparator() {
         super(RockSolidLib.makeRes(name));
+        this.setHardness(15);
+        this.addEffectiveTool(ToolType.PICKAXE, 1);
         this.register();
     }
    

@@ -31,7 +31,7 @@ public class BlockElectricAlloySmelter extends MultiTile
 	public BlockElectricAlloySmelter() 
 	{
 		super(RockSolidLib.makeRes(name));
-		this.setHardness(4);
+		this.setHardness(15);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
         this.register();
 	}
