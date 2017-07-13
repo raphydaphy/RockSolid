@@ -170,7 +170,16 @@ tex.tiles.quarry.1.2=sub./blocks/quarry/quarry.png,12,0,12,12
 tex.tiles.quarry.2.0=sub./blocks/quarry/quarry.png,24,24,12,12
 tex.tiles.quarry.2.1=sub./blocks/quarry/quarry.png,24,12,12,12
 tex.tiles.quarry.2.2=sub./blocks/quarry/quarry.png,24,0,12,12
-tex.tiles.quarry.item=/blocks/battery/battery_item.png
+tex.tiles.quarry.active.0.0=sub./blocks/quarry/quarry_active.png,0,24,12,12
+tex.tiles.quarry.active.0.1=sub./blocks/quarry/quarry_active.png,0,12,12,12
+tex.tiles.quarry.active.0.2=sub./blocks/quarry/quarry_active.png,0,0,12,12
+tex.tiles.quarry.active.1.0=sub./blocks/quarry/quarry_active.png,12,24,12,12
+tex.tiles.quarry.active.1.1=sub./blocks/quarry/quarry_active.png,12,12,12,12
+tex.tiles.quarry.active.1.2=sub./blocks/quarry/quarry_active.png,12,0,12,12
+tex.tiles.quarry.active.2.0=sub./blocks/quarry/quarry_active.png,24,24,12,12
+tex.tiles.quarry.active.2.1=sub./blocks/quarry/quarry_active.png,24,12,12,12
+tex.tiles.quarry.active.2.2=sub./blocks/quarry/quarry_active.png,24,0,12,12
+tex.tiles.quarry.item=/blocks/quarry/quarry_item.png
 
 ## Ore
 tex.tiles.oreTin=/blocks/ore/ore_tin.png
