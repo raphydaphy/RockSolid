@@ -22,7 +22,7 @@ public class GuiBattery extends GuiContainer
 	@Override
 	public void initGui(final IGameInstance game) {
 	    super.initGui(game);
-	    this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10, Color.red, false, this.tile::getBatteryFullness));
+	    this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10, new Color(148,0,211), false, this.tile::getBatteryFullness));
 	}
 
 }

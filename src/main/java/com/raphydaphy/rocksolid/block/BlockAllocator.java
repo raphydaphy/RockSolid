@@ -10,7 +10,7 @@ import com.raphydaphy.rocksolid.gui.GuiAllocator;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.item.ItemWrench;
-import com.raphydaphy.rocksolid.render.ConduitRenderer;
+import com.raphydaphy.rocksolid.render.ItemConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -50,7 +50,7 @@ public class BlockAllocator extends TileBasic
 	@Override
 	protected ITileRenderer<Tile> createRenderer(IResourceName name)
 	{
-		return new ConduitRenderer<Tile>(name);
+		return new ItemConduitRenderer<Tile>(name);
     }
 
 	@Override

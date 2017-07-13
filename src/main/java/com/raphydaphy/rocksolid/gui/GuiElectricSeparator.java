@@ -22,6 +22,6 @@ public class GuiElectricSeparator extends GuiContainer
     public void initGui(final IGameInstance game) {
         super.initGui(game);
         this.components.add(new ComponentProgressBar(this, this.guiLeft + 70, this.guiTop + 15, 40, 8, GuiElectricSeparator.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
-        this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 38, 80, 10, Color.red, false, this.tile::getEnergyFullness));
+        this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 38, 80, 10, new Color(148,0,211), false, this.tile::getEnergyFullness));
     }
 }

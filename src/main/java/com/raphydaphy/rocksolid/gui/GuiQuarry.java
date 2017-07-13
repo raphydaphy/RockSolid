@@ -22,7 +22,7 @@ public class GuiQuarry extends GuiContainer
     @Override
     public void initGui(final IGameInstance game) {
         super.initGui(game);
-        this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 38, 80, 10, Color.red, false, this.tile::getEnergyFullness));
+        this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 38, 80, 10, new Color(148,0,211), false, this.tile::getEnergyFullness));
     }
 
 }

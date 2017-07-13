@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
+import com.raphydaphy.rocksolid.item.ItemJetBooster;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -46,6 +47,7 @@ public class ModItems
 	public static Item axeTitanium;
 	
 	public static Item wrench;
+	public static Item jetBooster;
 	
 	public static void init() 
 	{
@@ -85,5 +87,6 @@ public class ModItems
 		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 10f, 1).register();
 		
 		wrench = new ItemWrench().register();
+		jetBooster = new ItemJetBooster();
     }
 }

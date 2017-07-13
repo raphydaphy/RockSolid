@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid;
 import org.newdawn.slick.util.Log;
 
 import com.raphydaphy.rocksolid.init.ModBlocks;
+import com.raphydaphy.rocksolid.init.ModEvents;
 import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModRecipies;
@@ -67,6 +68,7 @@ public class RockSolid implements IMod{
     	ModItems.init();
     	ModBlocks.init();
     	ModGenerators.init();
+    	ModEvents.init(eventHandler);
     }
     
     @Override
