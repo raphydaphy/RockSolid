@@ -40,7 +40,16 @@ public class JetpackInventory implements IInventory {
             		{
 	            		if (instance.getItem().equals(ModItems.jetpack))
 	                	{
+	            			if (instance.getAdditionalData() != null)
+	            			{
+	            				data.addInt("jetpackEnergy", instance.getAdditionalData().getInt("itemPowerStored"));
+	            			}
+	            			else
+	            			{
+	            				data.addInt("jetpackEnergy", 0);
+	            			}
 	            			data.addBoolean("hasJetpack", true);
+	            			
 	                	}
             		}
             		
@@ -106,7 +115,11 @@ public class JetpackInventory implements IInventory {
             	
             	if (data.getBoolean("hasJetpack"))
             	{
-            		return new ItemInstance(ModItems.jetpack);
+            		ItemInstance jetpackItem = new ItemInstance(ModItems.jetpack);
+            		DataSet jetpackData = new DataSet();
+            		jetpackData.addInt("itemPowerStored", data.getInt("jetpackEnergy"));
+            		jetpackItem.setAdditionalData(jetpackData);
+            		return jetpackItem;
             	}
             }
 		}

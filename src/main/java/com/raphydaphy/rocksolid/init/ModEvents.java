@@ -25,6 +25,7 @@ public class ModEvents {
 			{
 				boolean engineActive = false;
 				boolean hoverActive = false;
+				int jetpackEnergy = 0;
 				
 				AbstractEntityPlayer player = (AbstractEntityPlayer)event.entity;
 				Input input = RockBottomAPI.getGame().getInput();
@@ -33,13 +34,12 @@ public class ModEvents {
                 if (player.getAdditionalData() != null) 	
                 {
                 	data = player.getAdditionalData();
-                	System.out.println(data.getBoolean("jetpackInventoryOpen"));
                 	engineActive = data.getBoolean("engineActive");
                 	hoverActive = data.getBoolean("hoverActive");
+                	jetpackEnergy = data.getInt("jetpackEnergy");
                 }
                 else
                 {
-                	System.out.println("set new playerdata");
                 	data = new DataSet();
                 	player.setAdditionalData(data);
                 }
@@ -64,18 +64,23 @@ public class ModEvents {
 				{
 					if (input.isKeyDown(Keyboard.KEY_SPACE))
 					{
-						if (engineActive)
+						if (engineActive && jetpackEnergy > 3)
 						{
+							data.addInt("jetpackEnergy", jetpackEnergy - 3);
 							player.motionY += 0.05;
 							player.fallAmount = 0;
 						}
 					}
 					
-					if (hoverActive && engineActive)
+					if (hoverActive && engineActive && jetpackEnergy > 4)
 					{
 						if (!input.isKeyDown(Keyboard.KEY_SPACE))
 						{
-							player.motionY = -0.0005f;
+							if (player.motionY < 0)
+							{
+								player.motionY = -0.0005f;
+								data.addInt("jetpackEnergy", jetpackEnergy - 4);
+							}
 						}
 						player.fallAmount = 0;
 					}
@@ -102,9 +107,29 @@ public class ModEvents {
 		e.registerListener(WorldRenderEvent.class, (result, event) -> {
             if (event.world != null && RockBottomAPI.getNet().isThePlayer(event.player)) {
                 DataSet data = event.player.getAdditionalData();
-                if (data != null && data.getBoolean("hasJetpack") && !data.getBoolean("is_creative")) {
+                if (data != null && data.getBoolean("hasJetpack") && !data.getBoolean("is_creative")) 
+                {
+                	int jetpackEnergy = data.getInt("jetpackEnergy");
+					if (jetpackEnergy > 0)
+					{
+						jetpackEnergy = jetpackEnergy / 10000;
+					}
+                	String jetpackEnergyString = FormattingCode.RED.toString() + "Depleted";
+                	if (jetpackEnergy >= 70)
+                	{
+                		jetpackEnergyString = FormattingCode.GREEN.toString() +  jetpackEnergy + " Percent";
+                	}
+                	else if (jetpackEnergy >=20)
+                	{
+                		jetpackEnergyString = FormattingCode.YELLOW.toString() +  jetpackEnergy + " Percent";
+                	}
+                	else if (jetpackEnergy > 0)
+                	{
+                		jetpackEnergyString = FormattingCode.RED.toString() +  jetpackEnergy + " Percent";
+                	}
                     Font font = event.assetManager.getFont();
-                    font.drawString(0.2F, 0.2F, FormattingCode.WHITE.toString() + "Jetpack fuel:" + FormattingCode.GREEN.toString() +  " 100%", 0.0175F);
+                    
+                    font.drawString(0.2F, 0.2F, FormattingCode.WHITE.toString() + "Jetpack fuel: " +  jetpackEnergyString, 0.0175F);
                     
                     String engine = FormattingCode.RED.toString() + "Engine";
                     String hover = FormattingCode.RED.toString() + "Hover";
