@@ -35,6 +35,7 @@ rocksolid/item.axeSteel=Steel Axe
 rocksolid/item.axeTitanium=Titanium Axe
 
 rocksolid/item.wrench=Wrench
+rocksolid/item.jetpack=Jetpack
 
 # Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
@@ -78,3 +79,4 @@ rocksolid/details.electricSmelter=A faster, more efficient Smelter. Needs power 
 rocksolid/details.electricAlloySmelter=A more efficient and faster Alloy Smelter. Requires energy for operation.
 rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires a lot of power to run.
 rocksolid/details.creativePowerSource=Supplies infinite power from all sides. Not meant to be obtained in survival.
+rocksolid/details.jetpack=Allows you to fly while holding space. Press F to access addon inventory and place the jetpack in the slot. Press Q to toggle the engine and R to toggle hover mode.

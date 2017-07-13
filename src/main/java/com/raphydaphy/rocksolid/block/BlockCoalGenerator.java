@@ -99,6 +99,7 @@ public class BlockCoalGenerator extends MultiTile
 	@Override
 	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
 	{
+		super.canPlace(world, x, y, layer);
         if(!this.canPlaceInLayer(layer))
         {
             return false;

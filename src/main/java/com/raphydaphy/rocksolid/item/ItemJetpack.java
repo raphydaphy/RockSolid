@@ -10,12 +10,12 @@ import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
-public class ItemJetBooster extends ItemBase
+public class ItemJetpack extends ItemBase
 {
-	private static final String name = "jetBooster";
+	private static final String name = "jetpack";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
 	
-	public ItemJetBooster() {
+	public ItemJetpack() {
 		super(RockSolidLib.makeRes(name));
 		this.maxAmount = 1;
 		this.register();
