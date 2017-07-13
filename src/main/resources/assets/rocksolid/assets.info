@@ -149,6 +149,22 @@ tex.tiles.coalGenerator.4.2.1=/blocks/coal_generator/coal_generator.4.2.1.png
 tex.tiles.coalGenerator.5.2.1=/blocks/coal_generator/coal_generator.5.2.1.png
 tex.tiles.coalGenerator.6.2.1=/blocks/coal_generator/coal_generator.6.2.1.png
 
+## Charger
+tex.tiles.charger.item=/blocks/charger/charger_item.png
+tex.tiles.charger.0.0=/blocks/charger/charger.0.0.png
+tex.tiles.charger.0.1=/blocks/charger/charger.0.1.png
+tex.tiles.charger.1.0=/blocks/charger/charger.1.0.png
+tex.tiles.charger.1.1=/blocks/charger/charger.1.1.png
+tex.tiles.charger.2.0=/blocks/coal_generator/coal_generator.0.2.0.png
+tex.tiles.charger.2.1=/blocks/coal_generator/coal_generator.0.2.1.png
+tex.tiles.charger.1.2.0=/blocks/coal_generator/coal_generator.1.2.0.png
+tex.tiles.charger.2.2.0=/blocks/coal_generator/coal_generator.2.2.0.png
+tex.tiles.charger.3.2.0=/blocks/coal_generator/coal_generator.3.2.0.png
+tex.tiles.charger.4.2.0=/blocks/coal_generator/coal_generator.4.2.0.png
+tex.tiles.charger.4.2.1=/blocks/coal_generator/coal_generator.4.2.1.png
+tex.tiles.charger.5.2.1=/blocks/coal_generator/coal_generator.5.2.1.png
+tex.tiles.charger.6.2.1=/blocks/coal_generator/coal_generator.6.2.1.png
+
 ## Battery
 tex.tiles.battery.0.0=sub./blocks/battery/battery.png,0,24,12,12
 tex.tiles.battery.0.1=sub./blocks/battery/battery.png,0,12,12,12

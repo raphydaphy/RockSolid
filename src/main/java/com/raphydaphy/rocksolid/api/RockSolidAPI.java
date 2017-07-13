@@ -16,7 +16,8 @@ public class RockSolidAPI {
 	 
 	 public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
 	 {
-        for(AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES){
+        for(AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES)
+        {
             if(input1.isEffectivelyEqualWithWildcard(recipe.getInput1()) &&
             	input2.isEffectivelyEqualWithWildcard(recipe.getInput2()))
             {
@@ -28,18 +29,20 @@ public class RockSolidAPI {
 	 
 	 public static boolean existsInAlloyRecipe(ItemInstance item)
 	 {
-		 for(AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES){
-	            if(item.isEffectivelyEqualWithWildcard(recipe.getInput1()))
-	            {
-	                return true;
-	            }
-	        }
-	        return false;
+		 for(AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES)
+		 {
+            if(item.isEffectivelyEqualWithWildcard(recipe.getInput1()))
+            {
+                return true;
+            }
+        }
+        return false;
 	 }
 	 
 	 public static BlastFurnaceRecipe getArcFurnaceRecipe(ItemInstance input)
 	 {
-        for(BlastFurnaceRecipe recipe : BLAST_FURNACE_RECIPES){
+        for(BlastFurnaceRecipe recipe : BLAST_FURNACE_RECIPES)
+        {
             if(input.isEffectivelyEqualWithWildcard(recipe.getInput()))
             {
                 return recipe;
