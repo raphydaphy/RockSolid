@@ -160,6 +160,18 @@ tex.tiles.battery.2.1=sub./blocks/battery/battery.png,24,12,12,12
 tex.tiles.battery.2.2=sub./blocks/battery/battery.png,24,0,12,12
 tex.tiles.battery.item=/blocks/battery/battery_item.png
 
+## Quarry
+tex.tiles.quarry.0.0=sub./blocks/quarry/quarry.png,0,24,12,12
+tex.tiles.quarry.0.1=sub./blocks/quarry/quarry.png,0,12,12,12
+tex.tiles.quarry.0.2=sub./blocks/quarry/quarry.png,0,0,12,12
+tex.tiles.quarry.1.0=sub./blocks/quarry/quarry.png,12,24,12,12
+tex.tiles.quarry.1.1=sub./blocks/quarry/quarry.png,12,12,12,12
+tex.tiles.quarry.1.2=sub./blocks/quarry/quarry.png,12,0,12,12
+tex.tiles.quarry.2.0=sub./blocks/quarry/quarry.png,24,24,12,12
+tex.tiles.quarry.2.1=sub./blocks/quarry/quarry.png,24,12,12,12
+tex.tiles.quarry.2.2=sub./blocks/quarry/quarry.png,24,0,12,12
+tex.tiles.quarry.item=/blocks/battery/battery_item.png
+
 ## Ore
 tex.tiles.oreTin=/blocks/ore/ore_tin.png
 tex.tiles.oreIron=/blocks/ore/ore_iron.png

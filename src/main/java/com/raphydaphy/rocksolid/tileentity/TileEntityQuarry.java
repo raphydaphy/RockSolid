@@ -76,7 +76,6 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    {
 	    	if (this.getCurrentEnergy() >= super.getPowerPerOperation())
 	    	{
-	    		System.out.println(mineTick);
 	    		ableToDig = true;
 	    		if (mineTick == 10)
 	    		{
