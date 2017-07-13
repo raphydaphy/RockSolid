@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.gui.container;
 
+import com.raphydaphy.rocksolid.gui.slot.OutputSlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityQuarry;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;

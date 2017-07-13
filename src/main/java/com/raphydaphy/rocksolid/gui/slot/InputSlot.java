@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.gui.container;
+package com.raphydaphy.rocksolid.gui.slot;
 
 import java.util.function.Predicate;
 

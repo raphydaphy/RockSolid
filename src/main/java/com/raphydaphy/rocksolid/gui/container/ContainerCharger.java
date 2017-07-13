@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.gui.container;
 
 import com.raphydaphy.rocksolid.api.IItemWithPower;
+import com.raphydaphy.rocksolid.gui.slot.InputSlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;

@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.init;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Input;
 
-import com.raphydaphy.rocksolid.gui.inventory.JetpackSlot;
+import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.font.Font;
@@ -41,15 +41,21 @@ public class ModEvents {
                 	hoverActive = data.getBoolean("hoverActive");
                 	if (data.getDataSet("jetpackData") != null)
                 	{
-	                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
-	                	if (jetpack != null)
-	                	{
-	                		jetpackData = jetpack.getAdditionalData();
-		                	if (jetpackData != null)
-		                	{
-		                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
-		                	}
-	                	}
+                		if (data.getDataSet("jetpackData").getString("item_name") != null)
+                		{
+	                		if (data.getDataSet("jetpackData").getString("item_name").equals("") == false)
+	                		{
+			                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
+			                	if (jetpack != null)
+			                	{
+			                		jetpackData = jetpack.getAdditionalData();
+				                	if (jetpackData != null)
+				                	{
+				                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
+				                	}
+			                	}
+	                		}
+                		}
                 	}
                 }
                 else
@@ -120,15 +126,21 @@ public class ModEvents {
                 	int jetpackEnergy = 0;
                 	if (data.getDataSet("jetpackData") != null)
                 	{
-	                	ItemInstance jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
-	                	if (jetpack != null)
-	                	{
-	                		DataSet jetpackData = jetpack.getAdditionalData();
-		                	if (jetpackData != null)
-		                	{
-		                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
-		                	}
-	                	}
+                		if (data.getDataSet("jetpackData").getString("item_name") != null)
+                		{
+	                		if (data.getDataSet("jetpackData").getString("item_name").equals("") == false)
+	                		{
+			                	ItemInstance jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
+			                	if (jetpack != null)
+			                	{
+			                		DataSet jetpackData = jetpack.getAdditionalData();
+				                	if (jetpackData != null)
+				                	{
+				                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
+				                	}
+			                	}
+	                		}
+                		}
                 	}
 					if (jetpackEnergy > 0)
 					{
@@ -173,13 +185,27 @@ public class ModEvents {
         });
 		
 		e.registerListener(ContainerOpenEvent.class, (result, event) -> {
-            AbstractEntityPlayer player = event.player;
-            if (player != null)
-            {
-	           event.container.addSlot(new JetpackSlot(player, 80, 15));;
+            
+            
+        	if (event.container != null && event.container.getClass().getName().equals("de.ellpeck.rockbottom.gui.container.ContainerInventory"))
+        	{
+        		AbstractEntityPlayer player = event.player;
+        		if (player != null)
+                {
+            		if (player.getAdditionalData() != null)
+            		{
+            			if (!player.getAdditionalData().getBoolean("is_creative"))
+    					{
+            				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
+            				event.container.addSlot(new PlayerInvSlot(player, "accessory2", null, 165, 45));
+            				event.container.addSlot(new PlayerInvSlot(player, "accessory3", null, 165, 65));
+    					}
+            			
+            		}
+            	}
 			}
 			 
-            return EventResult.DEFAULT;
+            return EventResult.MODIFIED;
 		});
        	 
 	}

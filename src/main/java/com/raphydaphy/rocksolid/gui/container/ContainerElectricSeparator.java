@@ -1,5 +1,7 @@
 package com.raphydaphy.rocksolid.gui.container;
 
+import com.raphydaphy.rocksolid.gui.slot.InputSlot;
+import com.raphydaphy.rocksolid.gui.slot.OutputSlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;

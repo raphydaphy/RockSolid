@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.gui.container;
+package com.raphydaphy.rocksolid.gui.slot;
 
 import de.ellpeck.rockbottom.api.gui.container.ContainerSlot;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
