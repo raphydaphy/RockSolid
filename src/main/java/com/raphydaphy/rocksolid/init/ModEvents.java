@@ -70,6 +70,7 @@ public class ModEvents {
 					{
 						if (engineActive && jetpackEnergy > 3)
 						{
+							RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(), player.x, player.y - 0.5, -player.motionX, player.motionY, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 							jetpackData.addInt("itemPowerStored", jetpackEnergy - 3);
 							player.motionY += 0.05;
 							player.fallAmount = 0;
