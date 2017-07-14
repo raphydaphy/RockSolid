@@ -85,5 +85,4 @@ rocksolid/details.electricSmelter=A faster, more efficient Smelter. Needs power 
 rocksolid/details.electricAlloySmelter=A more efficient and faster Alloy Smelter. Requires energy for operation.
 rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires a lot of power to run.
 rocksolid/details.creativePowerSource=Supplies infinite power from all sides. Not meant to be obtained in survival.
-rocksolid/details.charger=Charges items that hold power, such as Jetpacks. 
-rocksolid/details.jetpack=Allows you to fly while holding space. Press F to access addon inventory and place the jetpack in the slot. Press Q to toggle the engine and R to toggle hover mode.
+rocksolid/details.charger=Charges items that hold power, such as Jetpacks.
