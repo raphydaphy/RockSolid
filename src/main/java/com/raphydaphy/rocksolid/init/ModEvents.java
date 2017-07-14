@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
-import org.lwjgl.input.Keyboard;
+import java.util.Random;
+
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
@@ -14,6 +15,7 @@ import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
 import de.ellpeck.rockbottom.api.event.impl.ContainerOpenEvent;
 import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
+import de.ellpeck.rockbottom.api.event.impl.PlayerRenderEvent;
 import de.ellpeck.rockbottom.api.event.impl.WorldRenderEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
@@ -66,11 +68,17 @@ public class ModEvents {
 				
 				if (jetpack != null)
 				{
-					if (input.isKeyDown(Keyboard.KEY_SPACE))
+					
+					if (input.isKeyDown(RockBottomAPI.getGame().getSettings().keyJump.key))
 					{
 						if (engineActive && jetpackEnergy > 3)
 						{
-							RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(), player.x, player.y - 0.5, -player.motionX, player.motionY, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+							Random random = new Random();
+							for (int i = 0; i < (int)(random.nextFloat() * 10); i++)
+							{
+								RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(), player.x- 0.5 + random.nextFloat(), player.y - 0.3,0, -0, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+							}
+							
 							jetpackData.addInt("itemPowerStored", jetpackEnergy - 3);
 							player.motionY += 0.05;
 							player.fallAmount = 0;
@@ -79,11 +87,13 @@ public class ModEvents {
 					
 					if (hoverActive && engineActive && jetpackEnergy > 4)
 					{
-						if (!input.isKeyDown(Keyboard.KEY_SPACE))
+						if (!input.isKeyDown(RockBottomAPI.getGame().getSettings().keyJump.key))
 						{
 							if (player.motionY < 0)
 							{
 								player.motionY = -0.0005f;
+								Random random = new Random();
+								RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(), player.x- 0.5 + random.nextFloat(), player.y - 0.3, 0, 0, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 								jetpackData.addInt("itemPowerStored", jetpackEnergy - 4);
 							}
 						}
@@ -93,12 +103,13 @@ public class ModEvents {
 					
 					if (engineActive)
 					{
-		                if (input.isKeyPressed(Keyboard.KEY_R))
+						
+		                if (input.isKeyPressed(ModKeybinds.keyJetpackHover.key))
 		                {
 		                	data.addBoolean("hoverActive", !hoverActive);
 		                }
 					}
-	                if (input.isKeyPressed(Keyboard.KEY_Q))
+	                if (input.isKeyPressed(ModKeybinds.keyJetpackEngine.key))
 	                {
 	                	data.addBoolean("engineActive", !engineActive);
 	                }
@@ -122,6 +133,7 @@ public class ModEvents {
 		e.registerListener(WorldRenderEvent.class, (result, event) -> {
             if (event.world != null && RockBottomAPI.getNet().isThePlayer(event.player)) {
                 DataSet data = event.player.getAdditionalData();
+                ItemInstance jetpack = null;
                 if (data != null && !data.getBoolean("is_creative")) 
                 {
                 	int jetpackEnergy = 0;
@@ -131,7 +143,7 @@ public class ModEvents {
                 		{
 	                		if (data.getDataSet("jetpackData").getString("item_name").equals("") == false)
 	                		{
-			                	ItemInstance jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
+			                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
 			                	if (jetpack != null)
 			                	{
 			                		DataSet jetpackData = jetpack.getAdditionalData();
@@ -143,43 +155,46 @@ public class ModEvents {
 	                		}
                 		}
                 	}
-					if (jetpackEnergy > 0)
-					{
-						jetpackEnergy = jetpackEnergy / 10000;
-					}
-                	String jetpackEnergyString = FormattingCode.RED.toString() + "Depleted";
-                	if (jetpackEnergy >= 70)
+                	if (jetpack != null)
                 	{
-                		jetpackEnergyString = FormattingCode.GREEN.toString() +  jetpackEnergy + " Percent";
-                	}
-                	else if (jetpackEnergy >=20)
-                	{
-                		jetpackEnergyString = FormattingCode.YELLOW.toString() +  jetpackEnergy + " Percent";
-                	}
-                	else if (jetpackEnergy > 0)
-                	{
-                		jetpackEnergyString = FormattingCode.RED.toString() +  jetpackEnergy + " Percent";
-                	}
-                    Font font = event.assetManager.getFont();
+						if (jetpackEnergy > 0)
+						{
+							jetpackEnergy = jetpackEnergy / 10000;
+						}
+	                	String jetpackEnergyString = FormattingCode.RED.toString() + "Depleted";
+	                	if (jetpackEnergy >= 70)
+	                	{
+	                		jetpackEnergyString = FormattingCode.GREEN.toString() +  jetpackEnergy + " Percent";
+	                	}
+	                	else if (jetpackEnergy >=20)
+	                	{
+	                		jetpackEnergyString = FormattingCode.YELLOW.toString() +  jetpackEnergy + " Percent";
+	                	}
+	                	else if (jetpackEnergy > 0)
+	                	{
+	                		jetpackEnergyString = FormattingCode.RED.toString() +  jetpackEnergy + " Percent";
+	                	}
+	                    Font font = event.assetManager.getFont();
+	                    
+	                    font.drawString(0.2F, 0.2F, FormattingCode.WHITE.toString() + "Jetpack fuel: " +  jetpackEnergyString, 0.0175F);
+	                    
+	                    String engine = FormattingCode.RED.toString() + "Engine";
+	                    String hover = FormattingCode.RED.toString() + "Hover";
+	                    
+	                    
+	                    if (data.getBoolean("engineActive"))
+	                    {
+	                    	engine = FormattingCode.GREEN.toString() + "Engine";
+	                    	
+	                    	if (data.getBoolean("hoverActive"))	
+	                    	{
+	                        	hover = FormattingCode.GREEN.toString() + "Hover";
+	                    	}
+	                    }
                     
-                    font.drawString(0.2F, 0.2F, FormattingCode.WHITE.toString() + "Jetpack fuel: " +  jetpackEnergyString, 0.0175F);
-                    
-                    String engine = FormattingCode.RED.toString() + "Engine";
-                    String hover = FormattingCode.RED.toString() + "Hover";
-                    
-                    
-                    if (data.getBoolean("engineActive"))
-                    {
-                    	engine = FormattingCode.GREEN.toString() + "Engine";
                     	
-                    	if (data.getBoolean("hoverActive"))	
-                    	{
-                        	hover = FormattingCode.GREEN.toString() + "Hover";
-                    	}
-                    }
-                    
-                    	
-            		font.drawString(0.2F, 0.7F, String.format(engine + FormattingCode.WHITE.toString() + " - " + hover), 0.0175F);
+	                    font.drawString(0.2F, 0.7F, String.format(engine + FormattingCode.WHITE.toString() + " - " + hover), 0.0175F);
+                	}
                 }
             }
             return EventResult.DEFAULT;
@@ -200,13 +215,42 @@ public class ModEvents {
             				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
             				event.container.addSlot(new PlayerInvSlot(player, "accessory2", null, 165, 45));
             				event.container.addSlot(new PlayerInvSlot(player, "accessory3", null, 165, 65));
+            				return EventResult.MODIFIED;
     					}
             			
             		}
             	}
 			}
 			 
-            return EventResult.MODIFIED;
+            return EventResult.DEFAULT;
+		});
+		
+		e.registerListener(PlayerRenderEvent.class, (result, event) -> {
+			AbstractEntityPlayer player = event.player;
+			if (player != null)
+			{
+				 DataSet data = event.player.getAdditionalData();
+	                ItemInstance jetpack = null;
+	                if (data != null) 
+	                {
+	                	if (data.getDataSet("jetpackData") != null)
+	                	{
+	                		if (data.getDataSet("jetpackData").getString("item_name") != null)
+	                		{
+		                		if (data.getDataSet("jetpackData").getString("item_name").equals("") == false)
+		                		{
+				                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
+		                		}
+	                		}
+	                	}
+	                	if (jetpack != null)
+	                	{
+	                		//event.assetManager.getTexture(RockSolidLib.makeRes(ModItems.jetpack.getName().addPrefix("items.").getResourceName().toString())).drawWithLight(event.x * RockBottomAPI.getGame().getWorldScale() - (RockBottomAPI.getGame().getWorldScale()*1.3f), event.y * RockBottomAPI.getGame().getWorldScale() * +(RockBottomAPI.getGame().getWorldScale()*0.92f), RockBottomAPI.getGame().getWorldScale(), RockBottomAPI.getGame().getWorldScale(), new Color[]{Color.white, Color.white, Color.white, Color.white});
+	                		//return EventResult.MODIFIED;
+	                	}
+	                }
+			}
+			return EventResult.DEFAULT;
 		});
        	 
 	}

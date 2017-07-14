@@ -62,7 +62,8 @@ public class BlockQuarry extends MultiTile
     }
    
     @Override
-    public boolean onInteractWith(final IWorld world, final int x, final int y, final AbstractEntityPlayer player) {
+    public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
+    {
         final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
         final TileEntityQuarry tile = world.getTileEntity(main.getX(), main.getY(), TileEntityQuarry.class);
         if (tile != null) {

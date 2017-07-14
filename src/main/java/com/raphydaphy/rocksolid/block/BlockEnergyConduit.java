@@ -2,12 +2,12 @@ package com.raphydaphy.rocksolid.block;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
+import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
@@ -58,7 +58,7 @@ public class BlockEnergyConduit extends TileBasic
     }
 	
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntityEnergyConduit tile = world.getTileEntity(x, y, TileEntityEnergyConduit.class);
 		
@@ -70,7 +70,7 @@ public class BlockEnergyConduit extends TileBasic
             	
             	if (player.getInvContainer().getSlot(player.getSelectedSlot()).get().getItem() instanceof ItemWrench)
             	{
-            		if (input.isKeyDown(Keyboard.KEY_LSHIFT))
+            		if (input.isKeyDown(ModKeybinds.keyWrenchMode.key))
             		{
             			world.destroyTile(x, y, TileLayer.MAIN, player, true);
             			return true;

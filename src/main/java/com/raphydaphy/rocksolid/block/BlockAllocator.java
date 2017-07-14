@@ -2,13 +2,13 @@ package com.raphydaphy.rocksolid.block;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiAllocator;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
+import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.render.ItemConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
@@ -59,7 +59,7 @@ public class BlockAllocator extends TileBasic
     }
 	
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
 		
@@ -71,7 +71,7 @@ public class BlockAllocator extends TileBasic
             	
             	if (player.getInvContainer().getSlot(player.getSelectedSlot()).get().getItem() instanceof ItemWrench)
             	{
-            		if (input.isKeyDown(Keyboard.KEY_LSHIFT))
+            		if (input.isKeyDown(ModKeybinds.keyWrenchMode.key))
             		{
             			world.destroyTile(x, y, TileLayer.MAIN, player, true);
             			return true;

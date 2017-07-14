@@ -44,7 +44,7 @@ public class BlockChest extends TileBasic
     }
 	
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntityChest tile = world.getTileEntity(x, y, TileEntityChest.class);
 		
