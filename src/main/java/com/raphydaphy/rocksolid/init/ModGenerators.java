@@ -18,7 +18,5 @@ public class ModGenerators
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenMagnesium.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenRutile.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenUranium.class);
-		
-		RockBottomAPI.WORLD_GENERATORS.add(WorldGenCaves.class);
 	}
 }

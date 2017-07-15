@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.init.ModBlocks;
 import com.raphydaphy.rocksolid.init.ModEvents;
 import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
+import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.init.ModRecipies;
 
 import de.ellpeck.rockbottom.api.IApiHandler;
@@ -69,6 +70,7 @@ public class RockSolid implements IMod{
     	ModBlocks.init();
     	ModGenerators.init();
     	ModEvents.init(eventHandler);
+    	ModKeybinds.init();
     	
     }
     
