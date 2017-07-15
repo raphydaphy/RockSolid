@@ -19,6 +19,7 @@ public class RockSolid implements IMod{
 	public static RockSolid INSTANCE;
 	public RockSolid(){
 		INSTANCE = this;
+		
 	}
     @Override
     public String getDisplayName()
@@ -58,7 +59,7 @@ public class RockSolid implements IMod{
     
     public void preInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
     {
-    	
+    	ModKeybinds.init();
     }
     
     @Override
@@ -70,7 +71,7 @@ public class RockSolid implements IMod{
     	ModBlocks.init();
     	ModGenerators.init();
     	ModEvents.init(eventHandler);
-    	ModKeybinds.init();
+    	
     	
     }
     

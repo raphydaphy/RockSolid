@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.world.WorldGenCaves;
 import com.raphydaphy.rocksolid.world.WorldGenIron;
 import com.raphydaphy.rocksolid.world.WorldGenMagnesium;
 import com.raphydaphy.rocksolid.world.WorldGenRutile;
