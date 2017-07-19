@@ -36,7 +36,7 @@ public class BlockQuarry extends MultiTile
     }
    
     @Override
-    protected ITileRenderer createRenderer(final IResourceName name) {
+    protected ITileRenderer<BlockQuarry> createRenderer(final IResourceName name) {
         return new QuarryRenderer(name, this);
     }
    

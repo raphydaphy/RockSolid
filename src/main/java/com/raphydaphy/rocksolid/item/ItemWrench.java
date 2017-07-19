@@ -23,8 +23,8 @@ public class ItemWrench extends ItemBase
 	}
 	
 	@Override
-    protected IItemRenderer createRenderer(final IResourceName name) {
-        return new ToolRenderer(name);
+    protected IItemRenderer<ItemWrench> createRenderer(final IResourceName name) {
+        return new ToolRenderer<ItemWrench>(name);
     }
 	
 	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {

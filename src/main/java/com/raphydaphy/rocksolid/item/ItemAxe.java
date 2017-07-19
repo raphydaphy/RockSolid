@@ -19,7 +19,6 @@ public class ItemAxe extends ItemBasic
 	// Thanks to Elucent for the axe textures <3
 	
     private final float miningSpeed;
-    private final int miningLevel;
     private final Map<ToolType, Integer> toolTypes;
     
     public ItemAxe(final IResourceName name, final float miningSpeed, final int miningLevel) {
@@ -27,7 +26,6 @@ public class ItemAxe extends ItemBasic
         this.toolTypes = new HashMap<ToolType, Integer>();
         this.miningSpeed = miningSpeed;
         this.maxAmount = 1;
-        this.miningLevel = miningLevel;
         
         addToolType(ToolType.AXE, miningLevel);
     }
@@ -38,8 +36,8 @@ public class ItemAxe extends ItemBasic
     }
     
     @Override
-    protected IItemRenderer createRenderer(final IResourceName name) {
-        return new ToolRenderer(name);
+    protected IItemRenderer<ItemAxe> createRenderer(final IResourceName name) {
+        return new ToolRenderer<ItemAxe>(name);
     }
     
     @Override

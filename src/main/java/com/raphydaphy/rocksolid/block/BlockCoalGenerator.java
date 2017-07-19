@@ -54,7 +54,7 @@ public class BlockCoalGenerator extends MultiTile
         return new TileEntityCoalGenerator(world, x, y);
     }
 	
-	protected ITileRenderer createRenderer(final IResourceName name) 
+	protected ITileRenderer<BlockCoalGenerator> createRenderer(final IResourceName name) 
 	{
 		return new CoalGeneratorRenderer(name, this);
     }

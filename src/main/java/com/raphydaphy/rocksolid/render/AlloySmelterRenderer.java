@@ -14,7 +14,7 @@ import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class AlloySmelterRenderer extends MultiTileRenderer<BlockAlloySmelter>
+public class AlloySmelterRenderer<T extends BlockAlloySmelter> extends MultiTileRenderer<T>
 {
 	private final IResourceName texActive;
 	
@@ -26,7 +26,7 @@ public class AlloySmelterRenderer extends MultiTileRenderer<BlockAlloySmelter>
 
 
     @Override
-    public void render(final IGameInstance game, final IAssetManager manager, final Graphics g, final IWorld world, final BlockAlloySmelter tile, final int x, final int y, final float renderX, final float renderY, final float scale, final Color[] light) 
+    public void render(final IGameInstance game, final IAssetManager manager, final Graphics g, final IWorld world, final T tile, final int x, final int y, final float renderX, final float renderY, final float scale, final Color[] light) 
     {
         if (tile.isMainPos(x, y, world.getMeta(x, y))) 
         {

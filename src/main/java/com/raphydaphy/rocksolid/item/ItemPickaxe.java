@@ -17,7 +17,6 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class ItemPickaxe extends ItemBasic
 {
     private final float miningSpeed;
-    private final int miningLevel;
     private final Map<ToolType, Integer> toolTypes;
     
     public ItemPickaxe(final IResourceName name, final float miningSpeed, final int miningLevel) {
@@ -25,7 +24,6 @@ public class ItemPickaxe extends ItemBasic
         this.toolTypes = new HashMap<ToolType, Integer>();
         this.miningSpeed = miningSpeed;
         this.maxAmount = 1;
-        this.miningLevel = miningLevel;
         
         addToolType(ToolType.PICKAXE, miningLevel);
     }
@@ -36,8 +34,8 @@ public class ItemPickaxe extends ItemBasic
     }
     
     @Override
-    protected IItemRenderer createRenderer(final IResourceName name) {
-        return new ToolRenderer(name);
+    protected IItemRenderer<ItemPickaxe> createRenderer(final IResourceName name) {
+        return new ToolRenderer<ItemPickaxe>(name);
     }
     
     @Override

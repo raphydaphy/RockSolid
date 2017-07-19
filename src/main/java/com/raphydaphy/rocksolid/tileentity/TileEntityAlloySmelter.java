@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -45,6 +46,12 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInve
         this.lastSmelt = this.processTime;
     }
     
+    private void sync()
+    {
+    	this.sendToClients();
+    	this.onSync();
+    }
+    
     @Override
     protected boolean tryTickAction() 
     {
@@ -68,29 +75,43 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInve
                         hasRecipeAndSpace = true;
                         if (this.coalTime > 0) 
                         {
-                            if (this.maxProcessTime <= 0) 
-                            {
-                                this.maxProcessTime = recipe.getTime();
-                            }
+                        	if (RockBottomAPI.getNet().isClient() == false)
+                        	{
+	                            if (this.maxProcessTime <= 0) 
+	                            {
+	                                this.maxProcessTime = recipe.getTime();
+	                                this.sync();
+	                            }
+                        	}
                             ++this.processTime;
+                            
                             if (this.processTime < this.maxProcessTime) 
                             {
                                 return hasRecipeAndSpace;
                             }
-                            this.inventory.remove(0, recipeIngredient1.getAmount());
-                            this.inventory.remove(1, recipeIngredient2.getAmount());
-                            if (output == null) 
-                            {
-                                this.inventory.set(3, recipeOut.copy());
-                            }
-                            else 
-                            {
-                                this.inventory.add(3, recipeOut.getAmount());
-                            }
+                            
+                            if (RockBottomAPI.getNet().isClient() == false)
+                        	{
+	                            this.inventory.remove(0, recipeIngredient1.getAmount());
+	                            this.inventory.remove(1, recipeIngredient2.getAmount());
+	                            if (output == null) 
+	                            {
+	                                this.inventory.set(3, recipeOut.copy());
+	                            }
+	                            else 
+	                            {
+	                                this.inventory.add(3, recipeOut.getAmount());
+	                            }
+	                            this.sync();
+                        	}
                         }
                         else if (this.processTime > 0) 
                         {
-                            this.processTime = Math.max(this.processTime - 2, 0);
+                        	if (RockBottomAPI.getNet().isClient() == false)
+                        	{
+                        		this.processTime = Math.max(this.processTime - 2, 0);
+                        		this.sync();
+                        	}
                             return hasRecipeAndSpace;
                         }
                     }

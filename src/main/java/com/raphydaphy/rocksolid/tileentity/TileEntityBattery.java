@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.api.IEnergyAcceptor;
 import com.raphydaphy.rocksolid.api.IEnergyProducer;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -21,16 +22,10 @@ public class TileEntityBattery extends TileEntity implements IEnergyAcceptor, IE
         maxPower = 1000000;
     }
     
-    @Override
-    protected boolean needsSync() 
+    private void sync()
     {
-        return super.needsSync();
-    }
-    
-    @Override
-    protected void onSync() 
-    {
-        super.onSync();
+    	this.sendToClients();
+    	this.onSync();
     }
     
     @Override
@@ -84,7 +79,11 @@ public class TileEntityBattery extends TileEntity implements IEnergyAcceptor, IE
 	{
 		if (this.powerStored >= amount)
 		{
-			this.powerStored -= amount;
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				this.powerStored -= amount;
+				this.sync();
+			}
 			return true;
 		}
 		return false;
@@ -95,7 +94,11 @@ public class TileEntityBattery extends TileEntity implements IEnergyAcceptor, IE
 	{
 		if (this.powerStored <= (this.maxPower - amount))
 		{
-			this.powerStored += amount;
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				this.powerStored += amount;
+				this.sync();
+			}
 			return true;
 		}
 		return false;

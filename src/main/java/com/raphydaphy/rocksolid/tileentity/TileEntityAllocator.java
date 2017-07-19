@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -37,6 +38,8 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     private int masterX;
     private int masterY;
     
+    private boolean shouldSync = false;
+    
     private short[][] inputs = new short[512][2];
     private short[][] outputs = new short[512][2];
     
@@ -51,13 +54,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     @Override
     protected boolean needsSync() 
     {
-    	return super.needsSync();
-    }
-    
-    @Override
-    protected void onSync() 
-    {
-        super.onSync();
+    	return super.needsSync() || shouldSync;
     }
     
     @Override
@@ -65,7 +62,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     {
     	// run conduit processing code every 10 ticks to prevent lag
     	// also causes a less op item processing rate of 1 every 10 ticks
-	   	if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
+	   	if (world.getWorldInfo().totalTimeInWorld % 10 == 0 && RockBottomAPI.getNet().isClient() == false)
 	   	{
 	   		// first we extract stuff from nearby inventories into the pipes inventory
 	   		for (int adjacentTiles = 0; adjacentTiles < 4; adjacentTiles++)
@@ -104,6 +101,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 		   			    			   {
 		   			    				   this.inventory.set(invCount, new ItemInstance(extractInventory.get(extractSlots.get(curExtractSlot)).getItem(), 1));
 		   			    				extractInventory.remove(extractSlots.get(curExtractSlot), 1);
+		   			    				shouldSync = true;
 		   			    				   break;
 		   			    			   }
 		   		    				   else if (this.inventory.get(invCount).getItem().equals(extractInventory.get(extractSlots.get(curExtractSlot)).getItem()))
@@ -117,6 +115,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 		   		    					   {
 		   			    					   this.inventory.add(invCount, 1);
 		   			    					   extractInventory.remove(extractSlots.get(curExtractSlot), 1);
+		   			    					   shouldSync = true;
 		   				    				   break;
 		   		    					   }
 		   		    				   }
@@ -168,6 +167,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	   	        					   {
 	   	    							insertInventory.set(insertSlots.get(curInsertSlot), new ItemInstance(this.inventory.get(invCount).getItem(), 1));
 	   	        						   this.inventory.remove(invCount, 1);
+	   	        						shouldSync = true;
 	   	        						   break;
 	   	        					   }
 	   	    						   else if (insertInventory.get(insertSlots.get(curInsertSlot)).getAmount() >= insertInventory.get(insertSlots.get(curInsertSlot)).getMaxAmount())
@@ -178,6 +178,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	   	        					   {
 	   	        						   this.inventory.remove(invCount, 1);
 	   	        						insertInventory.add(insertSlots.get(curInsertSlot), 1);
+	   	        						shouldSync = true;
 	   	        	    				   break;
 	   	        					   }
 	   	    					   }
@@ -247,6 +248,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
         set.addInt("masterY", this.masterY);
         set.addShortShortArray("inputs", this.inputs);
         set.addShortShortArray("outputs", this.outputs);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
     
     @Override
@@ -264,6 +266,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
         this.masterY = set.getInt("masterY");
         this.inputs = set.getShortShortArray("inputs", 1024);
         this.outputs = set.getShortShortArray("outputs", 1024);
+        this.shouldSync = set.getBoolean("shouldSync");
     }
 
 	@Override
@@ -293,143 +296,156 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	
 	public void onAdded(IWorld world, int x, int y)
 	{
-		TileEntityAllocator adjacentTile = null;
-		if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof TileEntityAllocator)
+		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y + 1, world);
-			this.isMaster = false;
-			System.out.println("A worthy servant was added to the world.");
-			this.masterX = adjacentTile.getMaster().getX();
-			this.masterY = adjacentTile.getMaster().getY();
-		}
-		else if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof TileEntityAllocator)
-		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y - 1, world);
-			this.isMaster = false;
-			System.out.println("A worthy servant was added to the world.");
-			this.masterX = adjacentTile.getMaster().getX();
-			this.masterY = adjacentTile.getMaster().getY();
-		}
-		else if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof TileEntityAllocator)
-		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x - 1, y, world);
-			this.isMaster = false;
-			System.out.println("A worthy servant was added to the world.");
-			this.masterX = adjacentTile.getMaster().getX();
-			this.masterY = adjacentTile.getMaster().getY();
-		}
-		else if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof TileEntityAllocator)
-		{
-			adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x + 1, y, world);
-			this.isMaster = false;
-			System.out.println("A worthy servant was added to the world.");
-			this.masterX = adjacentTile.getMaster().getX();
-			this.masterY = adjacentTile.getMaster().getY();
-		}
-		else
-		{
-			System.out.println("A new block was added to the world. It is the masterr!");
-			this.isMaster = true;
-		}
-		
-		
-		TileEntity adjacentBlock = null;
-		
-		if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof IHasInventory)
-		{
-			adjacentBlock = RockSolidLib.getTileFromPos(x, y + 1, world);
-			
-			if (!(adjacentBlock instanceof TileEntityAllocator))
+			TileEntityAllocator adjacentTile = null;
+			if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof TileEntityAllocator)
 			{
-				// see if there is any slots that the adjacent tile can output from
-				if (((IHasInventory)adjacentBlock).getOutputs() != null)
-				{
-					// store the inventory to the master
-					addToMaster(new Pos2(x, y + 1), false, world);
-				}
-				
+				adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y + 1, world);
+				this.isMaster = false;
+				System.out.println("A worthy servant was added to the world.");
+				this.masterX = adjacentTile.getMaster().getX();
+				this.masterY = adjacentTile.getMaster().getY();
+				shouldSync = true;
 			}
-		}
-		if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof IHasInventory)
-		{
-			adjacentBlock = RockSolidLib.getTileFromPos(x, y - 1, world);
-			
-			if (!(adjacentBlock instanceof TileEntityAllocator))
+			else if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof TileEntityAllocator)
 			{
-				// see if there is any slots that the adjacent tile can output from
-				if (((IHasInventory)adjacentBlock).getOutputs() != null)
-				{
-					// store the inventory to the master
-					addToMaster(new Pos2(x, y - 1), false, world);
-				}
-				
+				adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x, y - 1, world);
+				this.isMaster = false;
+				System.out.println("A worthy servant was added to the world.");
+				this.masterX = adjacentTile.getMaster().getX();
+				this.masterY = adjacentTile.getMaster().getY();
+				shouldSync = true;
 			}
-		}
-		if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof IHasInventory)
-		{
-			adjacentBlock = RockSolidLib.getTileFromPos(x - 1, y, world);
-			
-			if (!(adjacentBlock instanceof TileEntityAllocator))
+			else if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof TileEntityAllocator)
 			{
-				// see if there is any slots that the adjacent tile can output from
-				if (((IHasInventory)adjacentBlock).getOutputs() != null)
-				{
-					// store the inventory to the master
-					addToMaster(new Pos2(x - 1, y), false, world);
-				}
-				
+				adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x - 1, y, world);
+				this.isMaster = false;
+				System.out.println("A worthy servant was added to the world.");
+				this.masterX = adjacentTile.getMaster().getX();
+				this.masterY = adjacentTile.getMaster().getY();
+				shouldSync = true;
 			}
-		}
-		if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof IHasInventory)
-		{
-			adjacentBlock = RockSolidLib.getTileFromPos(x + 1, y, world);
-			
-			if (!(adjacentTile instanceof TileEntityAllocator))
+			else if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof TileEntityAllocator)
 			{
-				// see if there is any slots that the adjacent tile can output from
-				if (((IHasInventory)adjacentBlock).getOutputs() != null)
-				{
-					// store the inventory to the master
-					addToMaster(new Pos2(x + 1, y), false, world);
-				}
+				adjacentTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(x + 1, y, world);
+				this.isMaster = false;
+				System.out.println("A worthy servant was added to the world.");
+				this.masterX = adjacentTile.getMaster().getX();
+				this.masterY = adjacentTile.getMaster().getY();
+				shouldSync = true;
+			}
+			else
+			{
+				System.out.println("A new block was added to the world. It is the masterr!");
+				this.isMaster = true;
+				shouldSync = true;
+			}
+			
+			
+			TileEntity adjacentBlock = null;
+			
+			if (RockSolidLib.getTileFromPos(x, y + 1, world) != null && RockSolidLib.getTileFromPos(x, y + 1, world) instanceof IHasInventory)
+			{
+				adjacentBlock = RockSolidLib.getTileFromPos(x, y + 1, world);
 				
+				if (!(adjacentBlock instanceof TileEntityAllocator))
+				{
+					// see if there is any slots that the adjacent tile can output from
+					if (((IHasInventory)adjacentBlock).getOutputs() != null)
+					{
+						// store the inventory to the master
+						addToMaster(new Pos2(x, y + 1), false, world);
+					}
+					
+				}
+			}
+			if (RockSolidLib.getTileFromPos(x, y - 1, world) != null && RockSolidLib.getTileFromPos(x, y - 1, world) instanceof IHasInventory)
+			{
+				adjacentBlock = RockSolidLib.getTileFromPos(x, y - 1, world);
+				
+				if (!(adjacentBlock instanceof TileEntityAllocator))
+				{
+					// see if there is any slots that the adjacent tile can output from
+					if (((IHasInventory)adjacentBlock).getOutputs() != null)
+					{
+						// store the inventory to the master
+						addToMaster(new Pos2(x, y - 1), false, world);
+					}
+					
+				}
+			}
+			if (RockSolidLib.getTileFromPos(x - 1, y, world) != null && RockSolidLib.getTileFromPos(x - 1, y, world) instanceof IHasInventory)
+			{
+				adjacentBlock = RockSolidLib.getTileFromPos(x - 1, y, world);
+				
+				if (!(adjacentBlock instanceof TileEntityAllocator))
+				{
+					// see if there is any slots that the adjacent tile can output from
+					if (((IHasInventory)adjacentBlock).getOutputs() != null)
+					{
+						// store the inventory to the master
+						addToMaster(new Pos2(x - 1, y), false, world);
+					}
+					
+				}
+			}
+			if (RockSolidLib.getTileFromPos(x + 1, y, world) != null && RockSolidLib.getTileFromPos(x + 1, y, world) instanceof IHasInventory)
+			{
+				adjacentBlock = RockSolidLib.getTileFromPos(x + 1, y, world);
+				
+				if (!(adjacentTile instanceof TileEntityAllocator))
+				{
+					// see if there is any slots that the adjacent tile can output from
+					if (((IHasInventory)adjacentBlock).getOutputs() != null)
+					{
+						// store the inventory to the master
+						addToMaster(new Pos2(x + 1, y), false, world);
+					}
+					
+				}
 			}
 		}
 	}
 	
 	public void assignNewMaster(Pos2 newMaster, IWorld world)
 	{
-		TileEntityAllocator newMasterTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(newMaster.getX(), newMaster.getY(), world);
-		
-		if (isMaster)
+		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			// add all known inputs to the new master
-			for (int curInput = 0; curInput < 512 ; curInput++ )
+			TileEntityAllocator newMasterTile = (TileEntityAllocator)RockSolidLib.getTileFromPos(newMaster.getX(), newMaster.getY(), world);
+			
+			if (isMaster)
 			{
-				if (inputs[curInput] == null)
+				// add all known inputs to the new master
+				for (int curInput = 0; curInput < 512 ; curInput++ )
 				{
-					break;
+					if (inputs[curInput] == null)
+					{
+						break;
+					}
+					
+					newMasterTile.addToMaster(new Pos2(inputs[curInput][0], inputs[curInput][1]), true, world);
 				}
 				
-				newMasterTile.addToMaster(new Pos2(inputs[curInput][0], inputs[curInput][1]), true, world);
-			}
-			
-			// add all known outputs to the new master
-			for (int curOutput = 0; curOutput < 512 ; curOutput++ )
-			{
-				if (outputs[curOutput] == null)
+				// add all known outputs to the new master
+				for (int curOutput = 0; curOutput < 512 ; curOutput++ )
 				{
-					break;
+					if (outputs[curOutput] == null)
+					{
+						break;
+					}
+					
+					newMasterTile.addToMaster(new Pos2(outputs[curOutput][0], outputs[curOutput][1]), true, world);
 				}
 				
-				newMasterTile.addToMaster(new Pos2(outputs[curOutput][0], outputs[curOutput][1]), true, world);
+				isMaster = false;
 			}
 			
-			isMaster = false;
+			masterX = newMaster.getX();
+			masterY = newMaster.getY();
+			shouldSync = true;
 		}
 		
-		masterX = newMaster.getX();
-		masterY = newMaster.getY();
 	}
 	
 	public boolean getIsMaster()
@@ -439,37 +455,41 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	
 	public void addToMaster(Pos2 inventory, boolean isInput, IWorld world)
 	{
-		if (isMaster)
+		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			if (isInput)
+			if (isMaster)
 			{
-				for (int curInput = 0; curInput < 512 ; curInput++ )
+				if (isInput)
 				{
-					if (inputs[curInput] == null)
+					for (int curInput = 0; curInput < 512 ; curInput++ )
 					{
-						inputs[curInput] = new short[]{(short)inventory.getX(), (short)inventory.getY()};
+						if (inputs[curInput] == null)
+						{
+							inputs[curInput] = new short[]{(short)inventory.getX(), (short)inventory.getY()};
+						}
+					}
+				}
+				else
+				{
+					for (int curOutput = 0; curOutput < 512 ; curOutput++ )
+					{
+						if (outputs[curOutput] == null)
+						{
+							outputs[curOutput] = new short[]{(short)inventory.getX(), (short)inventory.getY()};
+						}
 					}
 				}
 			}
 			else
 			{
-				for (int curOutput = 0; curOutput < 512 ; curOutput++ )
+				TileEntity masterTile = RockSolidLib.getTileFromPos(masterX, masterY, world);
+				
+				if (masterTile instanceof TileEntityAllocator)
 				{
-					if (outputs[curOutput] == null)
-					{
-						outputs[curOutput] = new short[]{(short)inventory.getX(), (short)inventory.getY()};
-					}
+					((TileEntityAllocator)masterTile).addToMaster(inventory, isInput, world);
 				}
 			}
-		}
-		else
-		{
-			TileEntity masterTile = RockSolidLib.getTileFromPos(masterX, masterY, world);
-			
-			if (masterTile instanceof TileEntityAllocator)
-			{
-				((TileEntityAllocator)masterTile).addToMaster(inventory, isInput, world);
-			}
+			shouldSync = true;
 		}
 	}
 	
@@ -485,67 +505,73 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	
 	public void onChangedAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY, TileLayer changedLayer)
 	{
-		TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
-		if (changedTile != null)
+		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			System.out.println("an update has been found");
-			updateSide(RockSolidLib.posAndOffsetToConduitSide(new Pos2(x,y), new Pos2(changedX, changedY)), world, new Pos2(x,y), new Pos2(changedX, changedY));
+			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
+			if (changedTile != null)
+			{
+				System.out.println("an update has been found");
+				updateSide(RockSolidLib.posAndOffsetToConduitSide(new Pos2(x,y), new Pos2(changedX, changedY)), world, new Pos2(x,y), new Pos2(changedX, changedY));
+			}
 		}
 	}
 	
 	public void updateSide(int side, IWorld world, Pos2 center, Pos2 changed)
 	{
-		TileEntity changedTile = RockSolidLib.getTileFromPos(changed.getX(), changed.getY(), world);
-		if (changedTile instanceof TileEntityAllocator)
+		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			TileEntityAllocator changedAllocator = ((TileEntityAllocator)changedTile);
-			if (!(changedAllocator.getMaster().equals(this.getMaster())))
+			TileEntity changedTile = RockSolidLib.getTileFromPos(changed.getX(), changed.getY(), world);
+			if (changedTile instanceof TileEntityAllocator)
 			{
-				System.out.println("a different master has been found");
+				TileEntityAllocator changedAllocator = ((TileEntityAllocator)changedTile);
+				if (!(changedAllocator.getMaster().equals(this.getMaster())))
+				{
+					System.out.println("a different master has been found");
+					switch(side)
+					{
+					case 0:
+						//up
+						System.out.println("upwards connection has different master block!");
+						
+						break;
+					case 1:
+						//down
+						System.out.println("downwards connection has different master block!");
+						break;
+					case 2:
+						//left
+						System.out.println("left connection has different master block!");
+						break;
+					case 3:
+						//right
+						System.out.println("right connection has different master block!");
+						break;
+					}
+				}
+				
+			}
+			else if (changedTile instanceof IHasInventory)
+			{
 				switch(side)
 				{
 				case 0:
 					//up
-					System.out.println("upwards connection has different master block!");
+					System.out.println("updating upwards");
 					
 					break;
 				case 1:
 					//down
-					System.out.println("downwards connection has different master block!");
+					System.out.println("updating downwards");
 					break;
 				case 2:
 					//left
-					System.out.println("left connection has different master block!");
+					System.out.println("updating to the left");
 					break;
 				case 3:
 					//right
-					System.out.println("right connection has different master block!");
+					System.out.println("updating to the right");
 					break;
 				}
-			}
-			
-		}
-		else if (changedTile instanceof IHasInventory)
-		{
-			switch(side)
-			{
-			case 0:
-				//up
-				System.out.println("updating upwards");
-				
-				break;
-			case 1:
-				//down
-				System.out.println("updating downwards");
-				break;
-			case 2:
-				//left
-				System.out.println("updating to the left");
-				break;
-			case 3:
-				//right
-				System.out.println("updating to the right");
-				break;
 			}
 		}
 	}

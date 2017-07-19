@@ -37,7 +37,7 @@ public class BlockBlastFurnace extends MultiTile
         this.register();
 	}
 	@Override
-    protected ITileRenderer createRenderer(final IResourceName name) {
+    protected ITileRenderer<BlockBlastFurnace> createRenderer(final IResourceName name) {
         return new BlastFurnaceRenderer(name, this);
     }
 	

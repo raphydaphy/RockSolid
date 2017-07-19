@@ -48,9 +48,9 @@ public class BlockBattery extends MultiTile
     }
 	
 	@Override
-	protected ITileRenderer createRenderer(final IResourceName name) 
+	protected ITileRenderer<BlockBattery> createRenderer(final IResourceName name) 
 	{
-		return new MultiTileRenderer(name, this);
+		return new MultiTileRenderer<BlockBattery>(name, this);
     }
 
 	@Override

@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.IEnergyProducer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -25,6 +26,8 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     
     private int transferRate = 300;
     
+    private boolean shouldSync = false;
+    
     public TileEntityEnergyConduit(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
@@ -33,78 +36,78 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     @Override
     protected boolean needsSync() 
     {
-    	return super.needsSync();
-    }
-    
-    @Override
-    protected void onSync() 
-    {
-        super.onSync();
+    	return super.needsSync() || shouldSync;
     }
     
     @Override
     public void update(IGameInstance game) 
     {
-   		// first we extract stuff from nearby inventories into the pipes inventory
-   		for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
-   		{
-   			Pos2 adjacentTilePos = RockSolidLib.conduitSideToPos(new Pos2(x, y), adjacentTile);
-   			TileEntity adjacentTileEntity = RockSolidLib.getTileFromPos(adjacentTilePos.getX(), adjacentTilePos.getY(), world);
-   			
-   			if (adjacentTileEntity != null)
-   			{
-	   			// return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
-   				if (adjacentTileEntity instanceof TileEntityEnergyConduit)
-   				{
-   					if (this.getSideMode(adjacentTile) != 2)
-   					{
-	   					if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() > this.getCurrentEnergy())
-						{
-							if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() >= transferRate)
+    	if (RockBottomAPI.getNet().isClient() == false)
+    	{
+	   		// first we extract stuff from nearby inventories into the pipes inventory
+	   		for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
+	   		{
+	   			Pos2 adjacentTilePos = RockSolidLib.conduitSideToPos(new Pos2(x, y), adjacentTile);
+	   			TileEntity adjacentTileEntity = RockSolidLib.getTileFromPos(adjacentTilePos.getX(), adjacentTilePos.getY(), world);
+	   			
+	   			if (adjacentTileEntity != null)
+	   			{
+		   			// return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
+	   				if (adjacentTileEntity instanceof TileEntityEnergyConduit)
+	   				{
+	   					if (this.getSideMode(adjacentTile) != 2)
+	   					{
+		   					if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() > this.getCurrentEnergy())
 							{
-								if (this.addEnergy(transferRate))
+								if (((TileEntityEnergyConduit)adjacentTileEntity).getCurrentEnergy() >= transferRate)
 								{
-									((TileEntityEnergyConduit)adjacentTileEntity).removeEnergy(transferRate);
+									if (this.addEnergy(transferRate))
+									{
+										((TileEntityEnergyConduit)adjacentTileEntity).removeEnergy(transferRate);
+										shouldSync = true;
+									}
 								}
 							}
-						}
-   					}
-   				}
-   				else if (IEnergyBlock.class.isAssignableFrom(adjacentTileEntity.getClass()))
-   				{
-   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
-   	   				{
-   						// Conduit is set to input mode
-   	   					if (this.getSideMode(adjacentTile) == 1)
-   	   					{
-   	   						if (this.energyStored < (this.maxEnergy - transferRate))
-   	   						{
-	   	   						if (((IEnergyProducer)adjacentTileEntity).removeEnergy(transferRate))
+	   					}
+	   				}
+	   				else if (IEnergyBlock.class.isAssignableFrom(adjacentTileEntity.getClass()))
+	   				{
+	   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
+	   	   				{
+	   						// Conduit is set to input mode
+	   	   					if (this.getSideMode(adjacentTile) == 1)
+	   	   					{
+	   	   						if (this.energyStored < (this.maxEnergy - transferRate))
 	   	   						{
-	   	   							this.energyStored += transferRate;
+		   	   						if (((IEnergyProducer)adjacentTileEntity).removeEnergy(transferRate))
+		   	   						{
+		   	   							this.energyStored += transferRate;
+		   	   							shouldSync = true;
+		   	   						}
 	   	   						}
-   	   						}
-   	   					}
-   	   				}
-   					
-   					if (IEnergyAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
-   	   				{
-   						// Conduit is set to output mode
-   	   					if (this.getSideMode(adjacentTile) == 0)
-   	   					{
-   	   						if (this.energyStored >= transferRate)
-   	   						{
-	   	   						if (((IEnergyAcceptor)adjacentTileEntity).addEnergy(transferRate))
+	   	   					}
+	   	   				}
+	   					
+	   					if (IEnergyAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
+	   	   				{
+	   						// Conduit is set to output mode
+	   	   					if (this.getSideMode(adjacentTile) == 0)
+	   	   					{
+	   	   						if (this.energyStored >= transferRate)
 	   	   						{
-	   	   							this.removeEnergy(transferRate);
+		   	   						if (((IEnergyAcceptor)adjacentTileEntity).addEnergy(transferRate))
+		   	   						{
+		   	   							this.removeEnergy(transferRate);
+		   	   							shouldSync = true;
+		   	   						}
 	   	   						}
-   	   						}
-   	   					}
-   	   				}
-   				}
-				
-			}
-   		}
+	   	   					}
+	   	   				}
+	   				}
+					
+				}
+	   		}
+    	}
     }
     
     public void setSideMode(int side, int mode)
@@ -156,6 +159,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
         set.addInt("energyStored", this.energyStored);
         set.addInt("maxEnergy", this.maxEnergy);
         set.addInt("transferRate", this.transferRate);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
     
     @Override
@@ -168,6 +172,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
         this.energyStored = set.getInt("energyStored");
         this.maxEnergy = set.getInt("maxEnergy");
         this.transferRate = set.getInt("transferRate");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
 
 	@Override
@@ -193,7 +198,11 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 	{
 		if (this.energyStored >= amount)
 		{
-			this.energyStored -= amount;
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				this.energyStored -= amount;
+				shouldSync = true;
+			}
 			return true;
 		}
 		return false;
@@ -204,7 +213,11 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 	{
 		if (this.energyStored <= (this.maxEnergy - amount))
 		{
-			this.energyStored += amount;
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				this.energyStored += amount;
+				shouldSync = true;
+			}
 			return true;
 		}
 		return false;

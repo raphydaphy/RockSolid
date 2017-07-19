@@ -54,7 +54,7 @@ public class BlockCharger extends MultiTile
         return new TileEntityCharger(world, x, y);
     }
 	
-	protected ITileRenderer createRenderer(final IResourceName name) 
+	protected ITileRenderer<BlockCharger> createRenderer(final IResourceName name) 
 	{
 		return new ChargerRenderer(name, this);
     }

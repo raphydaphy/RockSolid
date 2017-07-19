@@ -36,7 +36,7 @@ public class BlockElectricSmelter extends MultiTile
     }
    
     @Override
-    protected ITileRenderer createRenderer(final IResourceName name) {
+    protected ITileRenderer<BlockElectricSmelter> createRenderer(final IResourceName name) {
         return new ElectricSmelterRenderer(name, this);
     }
    

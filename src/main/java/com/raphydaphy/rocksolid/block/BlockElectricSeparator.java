@@ -37,7 +37,7 @@ public class BlockElectricSeparator extends MultiTile
     }
    
     @Override
-    protected ITileRenderer createRenderer(final IResourceName name) {
+    protected ITileRenderer<BlockElectricSeparator> createRenderer(final IResourceName name) {
         return new ElectricSeparatorRenderer(name, this);
     }
    

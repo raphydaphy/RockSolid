@@ -9,11 +9,9 @@ import de.ellpeck.rockbottom.api.gui.GuiContainer;
 public class GuiAllocator extends GuiContainer
 {
 
-    private final TileEntityAllocator tile;
     
     public GuiAllocator(final AbstractEntityPlayer player, final TileEntityAllocator tile) {
         super(player, 198, 150);
-        this.tile = tile;
     }
     
     @Override

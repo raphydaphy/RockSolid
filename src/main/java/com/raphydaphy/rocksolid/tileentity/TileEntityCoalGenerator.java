@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -21,6 +22,7 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
     protected int powerStored;
     protected int maxPower;
     protected int productionPerTick;
+    private boolean shouldSync = false;
     
     public TileEntityCoalGenerator(final IWorld world, final int x, final int y) 
     {
@@ -34,7 +36,7 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
     @Override
     protected boolean needsSync() 
     {
-        return super.needsSync();
+        return super.needsSync() || shouldSync;
     }
     
     @Override
@@ -48,9 +50,11 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
     {
     	if (powerStored < (maxPower - productionPerTick - 1))
     	{
-    		if (this.coalTime > 0) 
+    		if (RockBottomAPI.getNet().isClient() == false && this.coalTime > 0) 
             {
             	powerStored += productionPerTick;
+            	shouldSync = true;
+            	
             }
             return true;
     	}
@@ -100,6 +104,7 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
         set.addInt("powerStored", this.powerStored);
         set.addInt("maxPower", this.maxPower);
         set.addInt("productionPerTick", this.productionPerTick);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
     
     @Override
@@ -112,6 +117,7 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
         this.powerStored = set.getInt("powerStored");
         this.maxPower = set.getInt("maxPower");
         this.productionPerTick = set.getInt("productionPerTick");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
 
 	@Override
@@ -151,7 +157,11 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
 	{
 		if (this.powerStored >= amount)
 		{
-			this.powerStored -= amount;
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				this.powerStored -= amount;
+				this.shouldSync = true;
+			}
 			return true;
 		}
 		return false;
