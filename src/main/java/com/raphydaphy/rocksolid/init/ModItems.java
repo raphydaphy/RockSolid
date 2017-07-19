@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
+import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemJetpack;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
 import com.raphydaphy.rocksolid.item.ItemWrench;
@@ -48,6 +49,7 @@ public class ModItems
 	
 	public static Item wrench;
 	public static Item jetpack;
+	public static Item electricLantern;
 	
 	public static void init() 
 	{
@@ -88,5 +90,6 @@ public class ModItems
 		
 		wrench = new ItemWrench().register();
 		jetpack = new ItemJetpack();
+		electricLantern = new ItemElectricLantern();
     }
 }

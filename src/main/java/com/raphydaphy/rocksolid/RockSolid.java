@@ -54,12 +54,12 @@ public class RockSolid implements IMod{
     @Override
     public void initAssets(IGameInstance game, IAssetManager assetManager, IApiHandler apiHandler)
     {
-    	
+    	ModKeybinds.init();
     }
     
     public void preInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
     {
-    	ModKeybinds.init();
+    	
     }
     
     @Override

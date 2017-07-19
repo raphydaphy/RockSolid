@@ -14,4 +14,6 @@ public interface IConduit
 	void setSideMode(int side, int mode);
 	// Returns true if the block can connect to the specified adjacent block type
 	boolean canConnectTo(Class<?> adjacentBlock);
+	
+	void setSync();
 }

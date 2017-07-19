@@ -64,6 +64,29 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     	shouldSync = false;
     }
     
+    private boolean matchesFilter(ItemInstance test)
+    {
+    	if (this.inventory.get(5) != null)
+    	{
+    		if (this.inventory.get(5).getItem().equals(test.getItem()))
+    		{
+    			return true;
+    		}
+    		return false;
+    	}
+    	return true;
+    	
+    }
+    
+    @Override
+    public void setSync()
+    {
+    	if (RockBottomAPI.getNet().isClient() == false)
+		{
+    		shouldSync = true;
+		}
+    }
+    
     @Override
     public void update(IGameInstance game) 
     {
@@ -100,7 +123,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	   		    	   {
 	   		    		   for (int curExtractSlot = 0; curExtractSlot < extractSlots.size(); curExtractSlot++)
 	   		    		   {
-	   		    			   if (extractInventory.get(extractSlots.get(curExtractSlot)) != null)
+	   		    			   if (extractInventory.get(extractSlots.get(curExtractSlot)) != null && matchesFilter(extractInventory.get(extractSlots.get(curExtractSlot))))
 		   		    		   {
 		   		    			   for(int invCount = 0; invCount < 4; invCount++)
 		   		    			   {
@@ -297,7 +320,6 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 		extractSlots.add(2);
 		extractSlots.add(3);
 		extractSlots.add(4);
-		extractSlots.add(5);
 		return extractSlots;
 	}
 	

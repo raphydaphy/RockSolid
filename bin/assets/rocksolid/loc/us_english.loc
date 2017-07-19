@@ -36,6 +36,7 @@ rocksolid/item.axeTitanium=Titanium Axe
 
 rocksolid/item.wrench=Wrench
 rocksolid/item.jetpack=Jetpack
+rocksolid/item.electricLantern=Electric Lantern
 
 # Blocks
 rocksolid/item.alloySmelter=Alloy Smelter

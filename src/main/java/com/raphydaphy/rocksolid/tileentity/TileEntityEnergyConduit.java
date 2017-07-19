@@ -223,4 +223,13 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 		return false;
 	}
 
+	@Override
+	public void setSync() {
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			shouldSync = true;
+		}
+		
+	}
+
 }

@@ -15,7 +15,6 @@ import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
 import de.ellpeck.rockbottom.api.event.impl.ContainerOpenEvent;
 import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
-import de.ellpeck.rockbottom.api.event.impl.PlayerRenderEvent;
 import de.ellpeck.rockbottom.api.event.impl.WorldRenderEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
@@ -23,6 +22,7 @@ public class ModEvents {
 	public static void init(IEventHandler e)
 	{
 		e.registerListener(EntityTickEvent.class, (result, event) -> {
+			
 			if (event.entity instanceof AbstractEntityPlayer)
 			{
 				boolean engineActive = false;
@@ -31,6 +31,11 @@ public class ModEvents {
 				DataSet data;
 				DataSet jetpackData = null;
 				ItemInstance jetpack = null;
+				
+				int lanternEnergy = 0;
+				DataSet lanternData = null;
+				ItemInstance lantern = null;
+				
 				
 				AbstractEntityPlayer player = (AbstractEntityPlayer)event.entity;
 				Input input = RockBottomAPI.getGame().getInput();
@@ -54,6 +59,27 @@ public class ModEvents {
 				                	if (jetpackData != null)
 				                	{
 				                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
+				                	}
+			                	}
+	                		}
+                		}
+                	}
+                	
+                	if (data.getDataSet("lanternData") != null)
+                	{
+                		
+                		if (data.getDataSet("lanternData").getString("item_name") != null)
+                		{
+	                		if (data.getDataSet("lanternData").getString("item_name").equals("") == false)
+	                		{
+			                	lantern = ItemInstance.load(data.getDataSet("lanternData"));
+			                	if (lantern != null)
+			                	{
+			                		System.out.println("something hiding in the dark");
+			                		lanternData = lantern.getAdditionalData();
+				                	if (lanternData != null)
+				                	{
+				                		lanternEnergy = lanternData.getInt("itemPowerStored");
 				                	}
 			                	}
 	                		}
@@ -124,6 +150,11 @@ public class ModEvents {
 	                
 					player.setAdditionalData(data);
 					
+				}
+				
+				if (lantern != null)
+				{
+					System.out.println("boi u got one hell of a lantern");
 				}
 				
 			}
@@ -213,7 +244,7 @@ public class ModEvents {
             			if (!player.getAdditionalData().getBoolean("is_creative"))
     					{
             				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
-            				event.container.addSlot(new PlayerInvSlot(player, "accessory2", null, 165, 45));
+            				event.container.addSlot(new PlayerInvSlot(player, "lanternData", instance -> instance.getItem().equals(ModItems.electricLantern), 165, 45));
             				event.container.addSlot(new PlayerInvSlot(player, "accessory3", null, 165, 65));
             				return EventResult.MODIFIED;
     					}
@@ -223,34 +254,6 @@ public class ModEvents {
 			}
 			 
             return EventResult.DEFAULT;
-		});
-		
-		e.registerListener(PlayerRenderEvent.class, (result, event) -> {
-			AbstractEntityPlayer player = event.player;
-			if (player != null)
-			{
-				 DataSet data = event.player.getAdditionalData();
-	                ItemInstance jetpack = null;
-	                if (data != null) 
-	                {
-	                	if (data.getDataSet("jetpackData") != null)
-	                	{
-	                		if (data.getDataSet("jetpackData").getString("item_name") != null)
-	                		{
-		                		if (data.getDataSet("jetpackData").getString("item_name").equals("") == false)
-		                		{
-				                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
-		                		}
-	                		}
-	                	}
-	                	if (jetpack != null)
-	                	{
-	                		//event.assetManager.getTexture(RockSolidLib.makeRes(ModItems.jetpack.getName().addPrefix("items.").getResourceName().toString())).drawWithLight(event.x * RockBottomAPI.getGame().getWorldScale() - (RockBottomAPI.getGame().getWorldScale()*1.3f), event.y * RockBottomAPI.getGame().getWorldScale() * +(RockBottomAPI.getGame().getWorldScale()*0.92f), RockBottomAPI.getGame().getWorldScale(), RockBottomAPI.getGame().getWorldScale(), new Color[]{Color.white, Color.white, Color.white, Color.white});
-	                		//return EventResult.MODIFIED;
-	                	}
-	                }
-			}
-			return EventResult.DEFAULT;
 		});
        	 
 	}
