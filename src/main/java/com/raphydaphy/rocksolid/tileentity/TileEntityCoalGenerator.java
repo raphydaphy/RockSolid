@@ -43,6 +43,7 @@ public class TileEntityCoalGenerator extends TileEntityFueled implements IHasInv
     protected void onSync() 
     {
         super.onSync();
+        shouldSync = false;
     }
     
     @Override

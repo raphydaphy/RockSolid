@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.api.TileEntityPowered;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -26,6 +27,7 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
     private int lastSmelt;
     
     protected int powerStored = 0;
+    private boolean shouldSync = false;
     
     public TileEntityElectricAlloySmelter(final IWorld world, final int x, final int y) 
     {
@@ -43,6 +45,7 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
     protected void onSync() 
     {
         super.onSync();
+        shouldSync = false;
         this.lastSmelt = this.processTime;
     }
     
@@ -73,39 +76,55 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
                     	hasRecipeAndSpace = true;
                         if (this.getCurrentEnergy() >= this.getPowerPerOperation()) 
                         {
-                            if (this.maxProcessTime <= 0) 
-                            {
-                                this.maxProcessTime = recipe.getTime() / 5;
-                            }
-                            ++this.processTime;
-                            this.powerStored -= super.getPowerPerOperation();
+                        	if (RockBottomAPI.getNet().isClient() == false)
+							{
+	                            if (this.maxProcessTime <= 0) 
+	                            {
+	                                this.maxProcessTime = recipe.getTime() / 5;
+	                            }
+	                            ++this.processTime;
+                            	this.powerStored -= super.getPowerPerOperation();
+                            	shouldSync = true;
+							}
                             if (this.processTime < this.maxProcessTime) 
                             {
                                 return hasRecipeAndSpace;
                             }
-                            this.inventory.remove(0, recipeIngredient1.getAmount());
-                            this.inventory.remove(1, recipeIngredient2.getAmount());
-                            if (output == null) 
-                            {
-                                this.inventory.set(3, recipeOut.copy());
-                            }
-                            else 
-                            {
-                                this.inventory.add(3, recipeOut.getAmount());
-                            }
+                            if (RockBottomAPI.getNet().isClient() == false)
+							{
+	                            this.inventory.remove(0, recipeIngredient1.getAmount());
+	                            this.inventory.remove(1, recipeIngredient2.getAmount());
+	                            if (output == null) 
+	                            {
+	                                this.inventory.set(3, recipeOut.copy());
+	                            }
+	                            else 
+	                            {
+	                                this.inventory.add(3, recipeOut.getAmount());
+	                            }
+	                            shouldSync = true;
+							}
                         }
                         else if (this.processTime > 0) 
                         {
-                            this.processTime = Math.max(this.processTime - 2, 0);
+                        	if (RockBottomAPI.getNet().isClient() == false)
+							{
+                        		this.processTime = Math.max(this.processTime - 2, 0);
+                        		shouldSync = true;
+							}
                             return hasRecipeAndSpace;
                         }
                     }
                 }
             }
         }
-        this.processTime = 0;
-        this.maxProcessTime = 0;
-        return hasRecipeAndSpace;
+        if (RockBottomAPI.getNet().isClient() == false)
+		{
+	        this.processTime = 0;
+	        this.maxProcessTime = 0;
+	        shouldSync = true;
+		}
+	    return hasRecipeAndSpace;
     }
     
     public float getSmeltPercentage(){
@@ -122,6 +141,7 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
         set.addInt("process", this.processTime);
         set.addInt("max_process", this.maxProcessTime);
         set.addInt("powerStored", this.powerStored);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
     
     @Override
@@ -134,6 +154,7 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
         this.processTime = set.getInt("process");
         this.maxProcessTime = set.getInt("max_process");
         this.powerStored = set.getInt("powerStored");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
 
 	@Override

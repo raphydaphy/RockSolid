@@ -23,6 +23,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered
     protected int maxSmeltTime;
     private int lastSmelt;
     private int powerStored;
+    private boolean shouldSync = false;
    
     public TileEntityElectricSeparator(final IWorld world, final int x, final int y) {
         super(world, x, y, 5000, 25);
@@ -31,13 +32,14 @@ public class TileEntityElectricSeparator extends TileEntityPowered
    
     @Override
     protected boolean needsSync() {
-        return super.needsSync() || this.lastSmelt != this.smeltTime;
+        return super.needsSync() || this.lastSmelt != this.smeltTime || this.shouldSync;
     }
    
     @Override
     protected void onSync() {
         super.onSync();
         this.lastSmelt = this.smeltTime;
+        shouldSync = false;
     }
    
     @Override
@@ -57,31 +59,44 @@ public class TileEntityElectricSeparator extends TileEntityPowered
                         if (recipeBy == null || byproduct == null || (byproduct.isEffectivelyEqual(recipeBy) && byproduct.fitsAmount(recipeBy.getAmount()))) {
                             hasRecipeAndSpace = true;
                             if (this.powerStored > 0) {
-                                if (this.maxSmeltTime <= 0) {
-                                    this.maxSmeltTime = recipe.getTime() / 5;
-                                }
-                                ++this.smeltTime;
+                            	if (RockBottomAPI.getNet().isClient() == false)
+								{
+	                                if (this.maxSmeltTime <= 0) {
+	                                    this.maxSmeltTime = recipe.getTime() / 5;
+	                                }
+	                                ++this.smeltTime;
+	                                this.shouldSync = true;
+								}
                                 if (this.smeltTime < this.maxSmeltTime) {
                                     return hasRecipeAndSpace;
                                 }
-                                this.inventory.remove(0, recipeIn.getAmount());
-                                if (output == null) {
-                                    this.inventory.set(1, recipeOut.copy());
-                                }
-                                else {
-                                    this.inventory.add(1, recipeOut.getAmount());
-                                }
-                                if (recipeBy != null && Util.RANDOM.nextFloat() <= recipe.getByproductChance()) {
-                                    if (byproduct == null) {
-                                        this.inventory.set(2, recipeBy.copy());
-                                    }
-                                    else {
-                                        this.inventory.add(2, recipeBy.getAmount());
-                                    }
-                                }
+                                if (RockBottomAPI.getNet().isClient() == false)
+								{
+	                                this.inventory.remove(0, recipeIn.getAmount());
+	                                if (output == null) {
+	                                    this.inventory.set(1, recipeOut.copy());
+	                                }
+	                                else {
+	                                    this.inventory.add(1, recipeOut.getAmount());
+	                                }
+	                                if (recipeBy != null && Util.RANDOM.nextFloat() <= recipe.getByproductChance()) {
+	                                    if (byproduct == null) {
+	                                        this.inventory.set(2, recipeBy.copy());
+	                                    }
+	                                    else {
+	                                        this.inventory.add(2, recipeBy.getAmount());
+	                                    }
+	                                }
+	                                this.shouldSync = true;
+								}
+                                
                             }
                             else if (this.smeltTime > 0) {
-                                this.smeltTime = Math.max(this.smeltTime - 2, 0);
+                            	if (RockBottomAPI.getNet().isClient() == false)
+								{
+                            		this.smeltTime = Math.max(this.smeltTime - 2, 0);
+                            		this.shouldSync = true;
+								}
                                 return hasRecipeAndSpace;
                             }
                         }
@@ -89,8 +104,12 @@ public class TileEntityElectricSeparator extends TileEntityPowered
                 }
             }
         }
-        this.smeltTime = 0;
-        this.maxSmeltTime = 0;
+        if (RockBottomAPI.getNet().isClient() == false)
+		{
+	        this.smeltTime = 0;
+	        this.maxSmeltTime = 0;
+	        this.shouldSync = true;
+		}
         return hasRecipeAndSpace;
     }
    
@@ -114,6 +133,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered
         set.addInt("smelt", this.smeltTime);
         set.addInt("max_smelt", this.maxSmeltTime);
         set.addInt("powerStored", this.powerStored);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
    
     @Override
@@ -125,6 +145,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered
         this.smeltTime = set.getInt("smelt");
         this.maxSmeltTime = set.getInt("max_smelt");
         this.powerStored = set.getInt("powerStored");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
     
     @Override

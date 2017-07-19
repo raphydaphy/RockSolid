@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.api.IItemWithPower;
 import com.raphydaphy.rocksolid.api.TileEntityPowered;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -19,6 +20,7 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
     public static final int INPUT = 0;
     public final ContainerInventory inventory;
     protected int powerStored;
+    private boolean shouldSync = false;
     
     public TileEntityCharger(final IWorld world, final int x, final int y) 
     {
@@ -29,13 +31,14 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
     @Override
     protected boolean needsSync() 
     {
-        return super.needsSync();
+        return super.needsSync() || shouldSync;
     }
     
     @Override
-    protected void onSync() 
+    protected void onSync()
     {
-        super.onSync();
+    	super.onSync();
+    	shouldSync = false;
     }
     
     @Override
@@ -70,42 +73,69 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
 						{
 							if (this.powerStored >= itemMaxTransfer)
 							{
-								itemData.addInt("itemPowerStored", itemPowerStored + itemMaxTransfer);
-								this.powerStored -= itemMaxTransfer;
+								if (RockBottomAPI.getNet().isClient() == false)
+								{
+									itemData.addInt("itemPowerStored", itemPowerStored + itemMaxTransfer);
+									this.powerStored -= itemMaxTransfer;
+									shouldSync = true;
+								}
 								return true;
 							}
 							else
 							{
-								itemData.addInt("itemPowerStored", itemPowerStored + this.powerStored);
-								this.powerStored = 0;
+								if (RockBottomAPI.getNet().isClient() == false)
+								{
+									itemData.addInt("itemPowerStored", itemPowerStored + this.powerStored);
+									this.powerStored = 0;
+									shouldSync = true;
+								}
 								return true;
+								
 							}
 						}
 						else if (this.powerStored > 100)
 						{
 							if (itemMaxPower - itemPowerStored >= 100)
 							{
-								itemData.addInt("itemPowerStored", itemPowerStored + 100);
-								this.powerStored -= 100;
+								if (RockBottomAPI.getNet().isClient() == false)
+								{
+									itemData.addInt("itemPowerStored", itemPowerStored + 100);
+									this.powerStored -= 100;
+									shouldSync = true;
+								}
+								
 								return true;
 							}
 							else if (itemMaxPower - itemPowerStored >= 50)
 							{
-								itemData.addInt("itemPowerStored", itemPowerStored + 50);
-								this.powerStored -= 50;
+								if (RockBottomAPI.getNet().isClient() == false)
+								{
+									itemData.addInt("itemPowerStored", itemPowerStored + 50);
+									this.powerStored -= 50;
+									shouldSync = true;
+								}
 								return true;
 							}
 							else
 							{
-								itemData.addInt("itemPowerStored", itemPowerStored + 1);
-								this.powerStored -= 1;
+								if (RockBottomAPI.getNet().isClient() == false)
+								{
+									itemData.addInt("itemPowerStored", itemPowerStored + 1);
+									this.powerStored -= 1;
+									shouldSync = true;
+								}
 								return true;
 							}
 						}
 						else if (this.powerStored <= (itemMaxPower - itemPowerStored))
 						{
-							itemData.addInt("itemPowerStored", itemPowerStored + this.powerStored);
-							this.powerStored = 0;
+							if (RockBottomAPI.getNet().isClient() == false)
+							{
+								itemData.addInt("itemPowerStored", itemPowerStored + this.powerStored);
+								this.powerStored = 0;
+								shouldSync = true;
+							}
+							return true;
 						}
 					}
 				}
@@ -122,6 +152,7 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
             this.inventory.save(set);
         }
         set.addInt("powerStored", this.powerStored);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
     
     @Override
@@ -132,6 +163,7 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
             this.inventory.load(set);
         }
         this.powerStored = set.getInt("powerStored");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
 
 	@Override

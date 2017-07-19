@@ -21,6 +21,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered
     protected int maxSmeltTime;
     private int lastSmelt;
     private int powerStored;
+    private boolean shouldSync;
    
     public TileEntityElectricSmelter(final IWorld world, final int x, final int y) {
         super(world, x, y, 5000, 20);
@@ -29,13 +30,14 @@ public class TileEntityElectricSmelter extends TileEntityPowered
    
     @Override
     protected boolean needsSync() {
-        return super.needsSync() || this.lastSmelt != this.smeltTime;
+        return super.needsSync() || this.lastSmelt != this.smeltTime || this.shouldSync;
     }
    
     @Override
     protected void onSync() {
         super.onSync();
         this.lastSmelt = this.smeltTime;
+        this.shouldSync = false;
     }
    
     @Override
@@ -52,31 +54,47 @@ public class TileEntityElectricSmelter extends TileEntityPowered
                     if (output == null || (output.isEffectivelyEqual(recipeOut) && output.getAmount() + recipeOut.getAmount() <= output.getMaxAmount())) {
                         hasRecipeAndSpace = true;
                         if (this.powerStored > 0) {
-                            if (this.maxSmeltTime <= 0) {
-                                this.maxSmeltTime = recipe.getTime() / 5;
-                            }
-                            ++this.smeltTime;
+                        	if (RockBottomAPI.getNet().isClient() == false)
+							{
+	                            if (this.maxSmeltTime <= 0) {
+	                                this.maxSmeltTime = recipe.getTime() / 5;
+	                            }
+	                            ++this.smeltTime;
+	                            this.shouldSync = true;
+							}
                             if (this.smeltTime < this.maxSmeltTime) {
                                 return hasRecipeAndSpace;
                             }
-                            this.inventory.remove(0, recipeIn.getAmount());
-                            if (output == null) {
-                                this.inventory.set(1, recipeOut.copy());
-                            }
-                            else {
-                                this.inventory.add(1, recipeOut.getAmount());
-                            }
+                            if (RockBottomAPI.getNet().isClient() == false)
+							{
+	                            this.inventory.remove(0, recipeIn.getAmount());
+	                            if (output == null) {
+	                                this.inventory.set(1, recipeOut.copy());
+	                            }
+	                            else {
+	                                this.inventory.add(1, recipeOut.getAmount());
+	                            }
+	                            shouldSync = true;
+							}
                         }
                         else if (this.smeltTime > 0) {
-                            this.smeltTime = Math.max(this.smeltTime - 2, 0);
+                        	if (RockBottomAPI.getNet().isClient() == false)
+							{
+                        		this.smeltTime = Math.max(this.smeltTime - 2, 0);
+                        		this.shouldSync = true;
+							}
                             return hasRecipeAndSpace;
                         }
                     }
                 }
             }
         }
-        this.smeltTime = 0;
-        this.maxSmeltTime = 0;
+        if (RockBottomAPI.getNet().isClient() == false)
+		{
+	        this.smeltTime = 0;
+	        this.maxSmeltTime = 0;
+	        this.shouldSync = true;
+		}
         return hasRecipeAndSpace;
     }
    
@@ -97,6 +115,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered
         }
         set.addInt("smelt", this.smeltTime);
         set.addInt("max_smelt", this.maxSmeltTime);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
    
     @Override
@@ -107,6 +126,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered
         }
         this.smeltTime = set.getInt("smelt");
         this.maxSmeltTime = set.getInt("max_smelt");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
     
     @Override

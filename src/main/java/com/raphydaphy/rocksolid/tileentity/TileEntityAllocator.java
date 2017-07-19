@@ -58,6 +58,13 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     }
     
     @Override
+    protected void onSync()
+    {
+    	super.onSync();
+    	shouldSync = false;
+    }
+    
+    @Override
     public void update(IGameInstance game) 
     {
     	// run conduit processing code every 10 ticks to prevent lag

@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.api.TileEntityPowered;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -24,6 +25,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
     private int mineTick;
     
     protected int powerStored = 0;
+    private boolean shouldSync = false;
     
     public TileEntityQuarry(final IWorld world, final int x, final int y) 
     {
@@ -37,13 +39,14 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
     @Override
     protected boolean needsSync() 
     {
-        return super.needsSync();
+        return super.needsSync() || shouldSync;
     }
     
     @Override
     protected void onSync() 
     {
         super.onSync();
+        shouldSync = false;
     }
     
     public boolean isActive()
@@ -77,7 +80,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    	if (this.getCurrentEnergy() >= super.getPowerPerOperation())
 	    	{
 	    		ableToDig = true;
-	    		if (mineTick == 10)
+	    		if (mineTick == 10 && RockBottomAPI.getNet().isClient() == false)
 	    		{
 	    			if (world.getTile(curX, curY).canBreak(world, curX, curY, TileLayer.MAIN) &&
 	    				world.getTileEntity(curX, curY) == null)
@@ -95,10 +98,13 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    			}
 	    			curX++;
 		    		mineTick = 0;
+		    		shouldSync = false;
+		    		
 	    		}
-	    		else
+	    		else if (RockBottomAPI.getNet().isClient() == false)
 	    		{
 	    			mineTick++;
+	    			shouldSync = false;
 	    		}
 	    		return ableToDig;
 	    	}
@@ -117,6 +123,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
         set.addInt("curX", this.curX);
         set.addInt("curY", this.curY);
         set.addInt("mineTick", this.mineTick);
+        set.addBoolean("shouldSync", this.shouldSync);
     }
     
     @Override
@@ -130,6 +137,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
         this.curX = set.getInt("curX");
         this.curY = set.getInt("curY");
         this.mineTick = set.getInt("mineTick");
+        this.shouldSync = set.getBoolean("shouldSync");
     }
     
 
