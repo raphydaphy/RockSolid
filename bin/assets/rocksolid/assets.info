@@ -45,6 +45,8 @@ tex.items.axeTitanium=/items/axe/axe_titanium.png
 tex.items.wrench=/items/misc/wrench.png
 tex.items.gemCoke=/items/misc/gem_coke.png
 tex.items.jetpack=/items/misc/jetpack.png
+tex.items.electricLantern=/items/misc/lanternElectric.png
+tex.items.lantern=/items/misc/lantern.png
 
 # Blocks
 

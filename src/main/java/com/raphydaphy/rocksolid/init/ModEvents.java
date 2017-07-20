@@ -5,6 +5,7 @@ import java.util.Random;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
+import com.raphydaphy.rocksolid.network.PacketMovement;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.font.Font;
@@ -17,12 +18,19 @@ import de.ellpeck.rockbottom.api.event.impl.ContainerOpenEvent;
 import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
 import de.ellpeck.rockbottom.api.event.impl.WorldRenderEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.util.Direction;
+import de.ellpeck.rockbottom.api.util.Util;
 
 public class ModEvents {
 	public static void init(IEventHandler e)
 	{
 		e.registerListener(EntityTickEvent.class, (result, event) -> {
 			
+			
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				//return EventResult.DEFAULT;
+			}
 			if (event.entity instanceof AbstractEntityPlayer)
 			{
 				boolean engineActive = false;
@@ -75,7 +83,6 @@ public class ModEvents {
 			                	lantern = ItemInstance.load(data.getDataSet("lanternData"));
 			                	if (lantern != null)
 			                	{
-			                		System.out.println("something hiding in the dark");
 			                		lanternData = lantern.getAdditionalData();
 				                	if (lanternData != null)
 				                	{
@@ -108,6 +115,8 @@ public class ModEvents {
 							jetpackData.addInt("itemPowerStored", jetpackEnergy - 3);
 							player.motionY += 0.05;
 							player.fallAmount = 0;
+							
+							RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY, player.fallAmount));
 						}
 					}
 					
@@ -124,6 +133,8 @@ public class ModEvents {
 							}
 						}
 						player.fallAmount = 0;
+						
+						RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY, player.fallAmount));
 					}
 					
 					
@@ -154,7 +165,43 @@ public class ModEvents {
 				
 				if (lantern != null)
 				{
-					System.out.println("boi u got one hell of a lantern");
+					
+			        if (RockBottomAPI.getGame().getWorld().getWorldInfo().totalTimeInWorld % 20 == 0)
+			        {
+			        	RockBottomAPI.getGame().getWorld().causeLightUpdate(Util.floor(player.x), Util.floor(player.y) );
+			        }
+			        for (int x = -5; x < 6; x++)
+			        {
+			        	for (int y = -5; y < 6; y++)
+			        	{
+			        		if (y == -5 || y == 5)
+			        		{
+			        			if (x > 2 || x < -2)
+			        			{
+			        				continue;
+			        			}
+			        		}
+			        		
+			        		if (y == -4 || y == 4)
+			        		{
+			        			if (x > 3 || x < -3)
+			        			{
+			        				continue;
+			        			}
+			        		}
+			        		
+			        		if (y == -3 || y == 3)
+			        		{
+			        			if (x > 4 || x < -4)
+			        			{
+			        				continue;
+			        			}
+			        		}
+			        		RockBottomAPI.getGame().getWorld().setArtificialLight(Util.floor(player.x) + x, Util.floor(player.y) + y, (byte)30);
+			        	}
+			        }
+			        
+			        
 				}
 				
 			}
