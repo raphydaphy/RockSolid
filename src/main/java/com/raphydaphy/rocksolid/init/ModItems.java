@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemJetpack;
+import com.raphydaphy.rocksolid.item.ItemLantern;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -50,6 +51,7 @@ public class ModItems
 	public static Item wrench;
 	public static Item jetpack;
 	public static Item electricLantern;
+	public static Item lantern;
 	
 	public static void init() 
 	{
@@ -91,5 +93,6 @@ public class ModItems
 		wrench = new ItemWrench().register();
 		jetpack = new ItemJetpack();
 		electricLantern = new ItemElectricLantern();
+		lantern = new ItemLantern();
     }
 }

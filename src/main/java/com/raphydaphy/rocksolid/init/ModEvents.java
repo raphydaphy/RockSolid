@@ -5,8 +5,11 @@ import java.util.Random;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
+import com.raphydaphy.rocksolid.item.ItemElectricLantern;
+import com.raphydaphy.rocksolid.item.ItemLantern;
 import com.raphydaphy.rocksolid.network.PacketMovement;
 
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.font.Font;
 import de.ellpeck.rockbottom.api.assets.font.FormattingCode;
@@ -18,7 +21,7 @@ import de.ellpeck.rockbottom.api.event.impl.ContainerOpenEvent;
 import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
 import de.ellpeck.rockbottom.api.event.impl.WorldRenderEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.util.Direction;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.Util;
 
 public class ModEvents {
@@ -45,13 +48,20 @@ public class ModEvents {
 				ItemInstance lantern = null;
 				
 				
+				
+				
 				AbstractEntityPlayer player = (AbstractEntityPlayer)event.entity;
 				Input input = RockBottomAPI.getGame().getInput();
 				
+				Pos2 pos = new Pos2(Util.floor(player.x), Util.floor(player.y));
+				Pos2 prevPos = null;
 				
                 if (player.getAdditionalData() != null) 	
                 {
                 	data = player.getAdditionalData();
+                	prevPos = new Pos2(data.getInt("prevX"), data.getInt("prevY"));
+                	data.addInt("prevX",Util.floor(pos.getX()));
+                	data.addInt("prevY",Util.floor(pos.getY()));
                 	engineActive = data.getBoolean("engineActive");
                 	hoverActive = data.getBoolean("hoverActive");
                 	if (data.getDataSet("jetpackData") != null)
@@ -72,7 +82,6 @@ public class ModEvents {
 	                		}
                 		}
                 	}
-                	
                 	if (data.getDataSet("lanternData") != null)
                 	{
                 		
@@ -81,12 +90,50 @@ public class ModEvents {
 	                		if (data.getDataSet("lanternData").getString("item_name").equals("") == false)
 	                		{
 			                	lantern = ItemInstance.load(data.getDataSet("lanternData"));
+			                	
 			                	if (lantern != null)
 			                	{
 			                		lanternData = lantern.getAdditionalData();
 				                	if (lanternData != null)
 				                	{
-				                		lanternEnergy = lanternData.getInt("itemPowerStored");
+				                		if (lantern.getItem() instanceof ItemLantern)
+				                		{
+				                			if (lanternData.getInt("itemFuel") == 0)
+				                			{
+					                			if (data.getDataSet("accessory3") != null)
+					                        	{
+					                        		if (data.getDataSet("accessory3").getString("item_name") != null)
+					                        		{
+					        	                		if (data.getDataSet("accessory3").getString("item_name").equals("") == false)
+					        	                		{
+					        	                			ItemInstance accessory3 = ItemInstance.load(data.getDataSet("accessory3"));
+															if (accessory3 != null)
+															{
+																if (accessory3.getAmount() > 0)
+																{
+																	accessory3.setAmount(accessory3.getAmount() - 1);
+																	
+																	lanternData.addInt("itemFuel", 1000);
+																	lanternEnergy = 1000;
+																	DataSet accessory3Data = new DataSet();
+																	accessory3.save(accessory3Data);
+																	
+																	data.addDataSet("accessory3", accessory3Data);
+																}
+															}
+					        	                		}
+					                        		}
+					                        	}
+				                			}
+				                			else
+				                			{
+				                				lanternEnergy = lanternData.getInt("itemFuel");
+				                			}
+				                		}
+				                		else if (lantern.getItem() instanceof ItemElectricLantern)
+				                		{
+				                			lanternEnergy = lanternData.getInt("itemPowerStored");
+				                		}
 				                	}
 			                	}
 	                		}
@@ -165,43 +212,58 @@ public class ModEvents {
 				
 				if (lantern != null)
 				{
-					
-			        if (RockBottomAPI.getGame().getWorld().getWorldInfo().totalTimeInWorld % 20 == 0)
+					if (!prevPos.equals(pos))
 			        {
 			        	RockBottomAPI.getGame().getWorld().causeLightUpdate(Util.floor(player.x), Util.floor(player.y) );
 			        }
-			        for (int x = -5; x < 6; x++)
-			        {
-			        	for (int y = -5; y < 6; y++)
-			        	{
-			        		if (y == -5 || y == 5)
-			        		{
-			        			if (x > 2 || x < -2)
-			        			{
-			        				continue;
-			        			}
-			        		}
-			        		
-			        		if (y == -4 || y == 4)
-			        		{
-			        			if (x > 3 || x < -3)
-			        			{
-			        				continue;
-			        			}
-			        		}
-			        		
-			        		if (y == -3 || y == 3)
-			        		{
-			        			if (x > 4 || x < -4)
-			        			{
-			        				continue;
-			        			}
-			        		}
-			        		RockBottomAPI.getGame().getWorld().setArtificialLight(Util.floor(player.x) + x, Util.floor(player.y) + y, (byte)30);
-			        	}
-			        }
-			        
-			        
+					if (lanternEnergy > 0)
+					{
+				        for (int x = -5; x < 6; x++)
+				        {
+				        	for (int y = -5; y < 6; y++)
+				        	{
+				        		if (y == -5 || y == 5)
+				        		{
+				        			if (x > 2 || x < -2)
+				        			{
+				        				continue;
+				        			}
+				        		}
+				        		
+				        		if (y == -4 || y == 4)
+				        		{
+				        			if (x > 3 || x < -3)
+				        			{
+				        				continue;
+				        			}
+				        		}
+				        		
+				        		if (y == -3 || y == 3)
+				        		{
+				        			if (x > 4 || x < -4)
+				        			{
+				        				continue;
+				        			}
+				        		}
+				        		RockBottomAPI.getGame().getWorld().setArtificialLight(Util.floor(player.x) + x, Util.floor(player.y) + y, (byte)30);
+				        	}
+				        }
+				        
+				        if (lantern.getItem() instanceof ItemLantern)
+				        {
+				        	lanternData.addInt("itemFuel", lanternEnergy - 1);
+				        }
+				        else if (lantern.getItem() instanceof ItemElectricLantern)
+				        {
+				        	lanternData.addInt("itemPowerStored", lanternEnergy - 1);
+				        }
+					}
+					
+					
+	                lantern.setAdditionalData(lanternData);
+	                DataSet lanternSlotData = new DataSet();
+	                lantern.save(lanternSlotData);
+	                data.addDataSet("lanternData", lanternSlotData);
 				}
 				
 			}
@@ -291,8 +353,8 @@ public class ModEvents {
             			if (!player.getAdditionalData().getBoolean("is_creative"))
     					{
             				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
-            				event.container.addSlot(new PlayerInvSlot(player, "lanternData", instance -> instance.getItem().equals(ModItems.electricLantern), 165, 45));
-            				event.container.addSlot(new PlayerInvSlot(player, "accessory3", null, 165, 65));
+            				event.container.addSlot(new PlayerInvSlot(player, "lanternData", instance -> (instance.getItem().equals(ModItems.electricLantern) || instance.getItem().equals(ModItems.lantern)), 165, 45));
+            				event.container.addSlot(new PlayerInvSlot(player, "accessory3", instance -> instance.getItem().equals(GameContent.ITEM_COAL), 165, 65));
             				return EventResult.MODIFIED;
     					}
             			

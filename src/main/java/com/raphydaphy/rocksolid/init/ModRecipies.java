@@ -74,6 +74,9 @@ public class ModRecipies
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_LADDER, 4), new ItemInstance[]{new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8), new ItemInstance(GameContent.TILE_ROCK, 4)}));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.wrench), new ItemInstance[]{new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotSteel, 2)}));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.jetpack), new ItemInstance[]{new ItemInstance(ModBlocks.constructionBlockSteel, 4), new ItemInstance(ModBlocks.constructionBlockTitanium, 2), new ItemInstance(ModItems.ingotImpureTitanium, 5), new ItemInstance(ModItems.ingotSteel, 10), new ItemInstance(ModItems.ingotUranium, 5), new ItemInstance(ModItems.ingotTitanium, 8), new ItemInstance(ModItems.ingotMagnesium, 5), new ItemInstance(GameContent.TILE_ROCK, 50)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.lantern), new ItemInstance[]{new ItemInstance(GameContent.ITEM_COAL, 8), new ItemInstance(ModItems.ingotTin, 10), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 20), new ItemInstance(GameContent.TILE_ROCK, 30)}));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.electricLantern), new ItemInstance[]{new ItemInstance(ModBlocks.constructionBlockSteel, 1), new ItemInstance(ModItems.ingotSteel, 10), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40), new ItemInstance(GameContent.TILE_ROCK, 80)}));
+		
 		
 		// Electric manual crafting
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModBlocks.constructionBlockSteel), new ItemInstance[]{new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotSteel, 8)}));
