@@ -30,9 +30,9 @@ public class ModEvents {
 		e.registerListener(EntityTickEvent.class, (result, event) -> {
 			
 			
-			if (RockBottomAPI.getNet().isClient() == false)
+			if (RockBottomAPI.getNet().isServer())
 			{
-				//return EventResult.DEFAULT;
+				return EventResult.DEFAULT;
 			}
 			if (event.entity instanceof AbstractEntityPlayer)
 			{
@@ -169,7 +169,7 @@ public class ModEvents {
 							player.motionY += 0.05;
 							player.fallAmount = 0;
 							
-							RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY, player.fallAmount));
+							RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY, player.fallAmount, player.x, player.y));
 						}
 					}
 					
@@ -187,7 +187,7 @@ public class ModEvents {
 						}
 						player.fallAmount = 0;
 						
-						RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY, player.fallAmount));
+						RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY, player.fallAmount, player.x, player.y));
 					}
 					
 					

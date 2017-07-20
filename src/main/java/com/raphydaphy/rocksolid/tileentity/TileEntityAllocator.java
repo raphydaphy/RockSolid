@@ -226,6 +226,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     
     public void setSideMode(int side, int mode)
     {
+    	shouldSync = true;
     	switch(side)
     	{
     	case 0:

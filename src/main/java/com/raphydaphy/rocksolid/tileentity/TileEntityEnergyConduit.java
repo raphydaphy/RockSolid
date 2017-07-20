@@ -112,6 +112,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     
     public void setSideMode(int side, int mode)
     {
+    	shouldSync = true;
     	switch(side)
     	{
     	case 0:

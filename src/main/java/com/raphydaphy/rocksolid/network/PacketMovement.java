@@ -16,28 +16,41 @@ public class PacketMovement implements IPacket
 	private UUID uuid;
 	private double motionY;
 	private int fallAmount;
+	private double playerX;
+	private double playerY;
 	
-	public PacketMovement(UUID uuid, double motionY, int fallAmount)
+	public PacketMovement(UUID uuid, double motionY, int fallAmount, double playerX, double playerY)
 	{
 		this.uuid = uuid;
 		this.motionY = motionY;
 		this.fallAmount = fallAmount;
+		this.playerX = playerX;
+		this.playerY = playerY;
+	}
+	
+	public PacketMovement()
+	{
+		
 	}
 	
 	@Override
 	public void toBuffer(ByteBuf buf) throws IOException 
 	{
-		buf.writeBytes(uuid.toString().getBytes(StandardCharsets.UTF_8));
-		buf.writeDouble(motionY);
-		buf.writeInt(fallAmount);
+		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
+		buf.writeDouble(this.motionY);
+		buf.writeInt(this.fallAmount);
+		buf.writeDouble(this.playerX);
+		buf.writeDouble(this.playerY);
 	}
 
 	@Override
 	public void fromBuffer(ByteBuf buf) throws IOException 
 	{
-		uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
-		motionY = buf.readDouble();
-		fallAmount = buf.readInt();
+		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
+		this.motionY = buf.readDouble();
+		this.fallAmount = buf.readInt();
+		this.playerX = buf.readDouble();
+		this.playerY = buf.readDouble();
 	}
 
 	@Override
@@ -47,8 +60,11 @@ public class PacketMovement implements IPacket
 		
 		if (entity instanceof AbstractEntityPlayer)
 		{
+			System.out.println("handled it!");
 			entity.motionY = motionY;
 			entity.fallAmount = fallAmount;
+			entity.x = this.playerX;
+			entity.y = this.playerY;
 		}
 	}
 
