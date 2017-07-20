@@ -354,7 +354,7 @@ public class ModEvents {
     					{
             				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
             				event.container.addSlot(new PlayerInvSlot(player, "lanternData", instance -> (instance.getItem().equals(ModItems.electricLantern) || instance.getItem().equals(ModItems.lantern)), 165, 45));
-            				event.container.addSlot(new PlayerInvSlot(player, "accessory3", instance -> instance.getItem().equals(GameContent.ITEM_COAL), 165, 65));
+            				event.container.addSlot(new PlayerInvSlot(player, "accessory3", instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
             				return EventResult.MODIFIED;
     					}
             			
