@@ -60,7 +60,7 @@ public class PlayerInvSlot extends ContainerSlot
 		        }
 	        	else
 	        	{
-	        		data.addDataSet(slotName, null);
+	        		data.addDataSet(slotName, new DataSet());
 	        		player.setAdditionalData(data);
 	        	}
 			}

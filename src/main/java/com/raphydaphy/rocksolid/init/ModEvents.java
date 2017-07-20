@@ -112,13 +112,19 @@ public class ModEvents {
 																if (accessory3.getAmount() > 0)
 																{
 																	accessory3.setAmount(accessory3.getAmount() - 1);
-																	
 																	lanternData.addInt("itemFuel", 1000);
 																	lanternEnergy = 1000;
-																	DataSet accessory3Data = new DataSet();
-																	accessory3.save(accessory3Data);
-																	
-																	data.addDataSet("accessory3", accessory3Data);
+																	if (accessory3.getAmount() == 0)
+																	{
+																		data.addDataSet("accessory3", new DataSet());
+																	}
+																	else
+																	{
+																		DataSet accessory3Data = new DataSet();
+																		accessory3.save(accessory3Data);
+																		
+																		data.addDataSet("accessory3", accessory3Data);
+																	}
 																}
 															}
 					        	                		}
