@@ -5,30 +5,28 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.net.NetUtil;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
-public class PacketMovement implements IPacket
+public class PacketItemUpdate implements IPacket
 {
 	private UUID uuid;
-	private double motionY;
-	private int fallAmount;
-	private double playerX;
-	private double playerY;
+	private String name;
+	private DataSet item = new DataSet();
 	
-	public PacketMovement(UUID uuid, double motionY, int fallAmount, double playerX, double playerY)
+	public PacketItemUpdate(UUID uuid, String name, DataSet item)
 	{
 		this.uuid = uuid;
-		this.motionY = motionY;
-		this.fallAmount = fallAmount;
-		this.playerX = playerX;
-		this.playerY = playerY;
+		this.name = name;
+		this.item = item;
 	}
 	
-	public PacketMovement()
+	public PacketItemUpdate()
 	{
 		
 	}
@@ -37,20 +35,17 @@ public class PacketMovement implements IPacket
 	public void toBuffer(ByteBuf buf) throws IOException 
 	{
 		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
-		buf.writeDouble(this.motionY);
-		buf.writeInt(this.fallAmount);
-		buf.writeDouble(this.playerX);
-		buf.writeDouble(this.playerY);
+		NetUtil.writeStringToBuffer(name, buf);
+		NetUtil.writeSetToBuffer(item, buf);
+		
 	}
 
 	@Override
 	public void fromBuffer(ByteBuf buf) throws IOException 
 	{
 		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
-		this.motionY = buf.readDouble();
-		this.fallAmount = buf.readInt();
-		this.playerX = buf.readDouble();
-		this.playerY = buf.readDouble();
+		name = NetUtil.readStringFromBuffer(buf);
+		NetUtil.readSetFromBuffer(item, buf);
 	}
 
 	@Override
@@ -60,10 +55,9 @@ public class PacketMovement implements IPacket
 		
 		if (entity instanceof AbstractEntityPlayer)
 		{
-			entity.motionY = motionY;
-			entity.fallAmount = fallAmount;
-			entity.x = this.playerX;
-			entity.y = this.playerY;
+			AbstractEntityPlayer player = (AbstractEntityPlayer)entity;
+			DataSet playerData = player.getAdditionalData();
+			playerData.addDataSet(name, item);
 		}
 	}
 

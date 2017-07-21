@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemLantern;
+import com.raphydaphy.rocksolid.network.PacketItemUpdate;
 import com.raphydaphy.rocksolid.network.PacketMovement;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -117,6 +118,8 @@ public class ModEvents {
 																	if (accessory3.getAmount() == 0)
 																	{
 																		data.addDataSet("accessory3", new DataSet());
+																		
+																		RockBottomAPI.getNet().sendToServer(new PacketItemUpdate(player.getUniqueId(), "accessory3", new DataSet()));
 																	}
 																	else
 																	{
@@ -124,6 +127,8 @@ public class ModEvents {
 																		accessory3.save(accessory3Data);
 																		
 																		data.addDataSet("accessory3", accessory3Data);
+																		
+																		RockBottomAPI.getNet().sendToServer(new PacketItemUpdate(player.getUniqueId(), "accessory3", accessory3Data));
 																	}
 																}
 															}
@@ -210,6 +215,8 @@ public class ModEvents {
 		                DataSet jetpackSlotData = new DataSet();
 		                jetpack.save(jetpackSlotData);
 		                data.addDataSet("jetpackData", jetpackSlotData);
+		                
+		                RockBottomAPI.getNet().sendToServer(new PacketItemUpdate(player.getUniqueId(), "jetpackData", jetpackSlotData));
 	                }
 	                
 					player.setAdditionalData(data);
@@ -270,6 +277,8 @@ public class ModEvents {
 	                DataSet lanternSlotData = new DataSet();
 	                lantern.save(lanternSlotData);
 	                data.addDataSet("lanternData", lanternSlotData);
+	                
+	                RockBottomAPI.getNet().sendToServer(new PacketItemUpdate(player.getUniqueId(), "lanternData", lanternSlotData));
 				}
 				
 			}

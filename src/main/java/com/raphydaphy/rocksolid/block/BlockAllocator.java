@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
+import com.raphydaphy.rocksolid.network.PacketBlockDestroyed;
 import com.raphydaphy.rocksolid.render.ItemConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -65,6 +66,10 @@ public class BlockAllocator extends TileBasic
 		
 		if (tile != null)
 		{
+			if (RockBottomAPI.getNet().isServer())
+			{
+				return true;
+			}
 			Input input = RockBottomAPI.getGame().getInput();
             if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
             {
@@ -74,6 +79,7 @@ public class BlockAllocator extends TileBasic
             		if (input.isKeyDown(ModKeybinds.keyWrenchMode.key))
             		{
             			world.destroyTile(x, y, TileLayer.MAIN, player, true);
+            			RockBottomAPI.getNet().sendToServer(new PacketBlockDestroyed(player.getUniqueId(), x, y, true));
             			return true;
             		}
             		else

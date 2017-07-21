@@ -1,8 +1,10 @@
 package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.api.IConduit;
+import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
@@ -48,6 +50,7 @@ public class GuiConduitConfig extends Gui
     		}
     		
     		((IConduit)tile).setSideMode(editingSide, itemMode);
+    		RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode));
     		buildSingleGui(game, editingSide);
     		return true;
     	}

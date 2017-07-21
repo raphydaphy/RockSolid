@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.IHasInventory;
 import com.raphydaphy.rocksolid.api.IItemWithPower;
 import com.raphydaphy.rocksolid.api.TileEntityPowered;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.network.PacketChargerItem;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -73,21 +74,41 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
 						{
 							if (this.powerStored >= itemMaxTransfer)
 							{
+								
 								if (RockBottomAPI.getNet().isClient() == false)
 								{
 									itemData.addInt("itemPowerStored", itemPowerStored + itemMaxTransfer);
 									this.powerStored -= itemMaxTransfer;
 									shouldSync = true;
+									
+									if (RockBottomAPI.getNet().isServer())
+									{
+										ItemInstance itemToSend = this.inventory.get(0).copy();
+										itemToSend.setAdditionalData(itemData);
+										DataSet itemToSendSet = new DataSet();
+										itemToSend.save(itemToSendSet);
+										RockBottomAPI.getNet().sendToAllPlayers(world, new PacketChargerItem(x, y, itemToSendSet));
+									}
 								}
 								return true;
 							}
 							else
 							{
+								
 								if (RockBottomAPI.getNet().isClient() == false)
 								{
 									itemData.addInt("itemPowerStored", itemPowerStored + this.powerStored);
 									this.powerStored = 0;
 									shouldSync = true;
+									
+									if (RockBottomAPI.getNet().isServer())
+									{
+										ItemInstance itemToSend = this.inventory.get(0).copy();
+										itemToSend.setAdditionalData(itemData);
+										DataSet itemToSendSet = new DataSet();
+										itemToSend.save(itemToSendSet);
+										RockBottomAPI.getNet().sendToAllPlayers(world, new PacketChargerItem(x, y, itemToSendSet));
+									}
 								}
 								return true;
 								
@@ -97,47 +118,88 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
 						{
 							if (itemMaxPower - itemPowerStored >= 100)
 							{
+								
 								if (RockBottomAPI.getNet().isClient() == false)
 								{
 									itemData.addInt("itemPowerStored", itemPowerStored + 100);
 									this.powerStored -= 100;
 									shouldSync = true;
+									
+									if (RockBottomAPI.getNet().isServer())
+									{
+										ItemInstance itemToSend = this.inventory.get(0).copy();
+										itemToSend.setAdditionalData(itemData);
+										DataSet itemToSendSet = new DataSet();
+										itemToSend.save(itemToSendSet);
+										RockBottomAPI.getNet().sendToAllPlayers(world, new PacketChargerItem(x, y, itemToSendSet));
+									}
 								}
 								
 								return true;
 							}
 							else if (itemMaxPower - itemPowerStored >= 50)
 							{
+								
 								if (RockBottomAPI.getNet().isClient() == false)
 								{
 									itemData.addInt("itemPowerStored", itemPowerStored + 50);
 									this.powerStored -= 50;
 									shouldSync = true;
+									
+									if (RockBottomAPI.getNet().isServer())
+									{
+										ItemInstance itemToSend = this.inventory.get(0).copy();
+										itemToSend.setAdditionalData(itemData);
+										DataSet itemToSendSet = new DataSet();
+										itemToSend.save(itemToSendSet);
+										RockBottomAPI.getNet().sendToAllPlayers(world, new PacketChargerItem(x, y, itemToSendSet));
+									}
 								}
 								return true;
 							}
 							else
 							{
+								
 								if (RockBottomAPI.getNet().isClient() == false)
 								{
 									itemData.addInt("itemPowerStored", itemPowerStored + 1);
 									this.powerStored -= 1;
 									shouldSync = true;
+									
+									if (RockBottomAPI.getNet().isServer())
+									{
+										ItemInstance itemToSend = this.inventory.get(0).copy();
+										itemToSend.setAdditionalData(itemData);
+										DataSet itemToSendSet = new DataSet();
+										itemToSend.save(itemToSendSet);
+										RockBottomAPI.getNet().sendToAllPlayers(world, new PacketChargerItem(x, y, itemToSendSet));
+									}
 								}
 								return true;
 							}
 						}
 						else if (this.powerStored <= (itemMaxPower - itemPowerStored))
 						{
+							
 							if (RockBottomAPI.getNet().isClient() == false)
 							{
 								itemData.addInt("itemPowerStored", itemPowerStored + this.powerStored);
 								this.powerStored = 0;
 								shouldSync = true;
+								
+								if (RockBottomAPI.getNet().isServer())
+								{
+									ItemInstance itemToSend = this.inventory.get(0).copy();
+									itemToSend.setAdditionalData(itemData);
+									DataSet itemToSendSet = new DataSet();
+									itemToSend.save(itemToSendSet);
+									RockBottomAPI.getNet().sendToAllPlayers(world, new PacketChargerItem(x, y, itemToSendSet));
+								}
 							}
 							return true;
 						}
 					}
+					
 				}
 			}
         }
@@ -170,6 +232,11 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
 	public Inventory getInventory() 
 	{
 		return this.inventory;
+	}
+	
+	public void setItem(ItemInstance item)
+	{
+		this.inventory.set(0, item);
 	}
 
 	@Override

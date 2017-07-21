@@ -8,27 +8,26 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
+import de.ellpeck.rockbottom.api.world.TileLayer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
-public class PacketMovement implements IPacket
+public class PacketBlockDestroyed implements IPacket
 {
 	private UUID uuid;
-	private double motionY;
-	private int fallAmount;
-	private double playerX;
-	private double playerY;
+	private int x;
+	private int y;
+	private boolean isMain;
 	
-	public PacketMovement(UUID uuid, double motionY, int fallAmount, double playerX, double playerY)
+	public PacketBlockDestroyed(UUID uuid, int x, int y, boolean isMain)
 	{
 		this.uuid = uuid;
-		this.motionY = motionY;
-		this.fallAmount = fallAmount;
-		this.playerX = playerX;
-		this.playerY = playerY;
+		this.x = x;
+		this.y = y;
+		this.isMain = isMain;
 	}
 	
-	public PacketMovement()
+	public PacketBlockDestroyed()
 	{
 		
 	}
@@ -37,20 +36,18 @@ public class PacketMovement implements IPacket
 	public void toBuffer(ByteBuf buf) throws IOException 
 	{
 		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
-		buf.writeDouble(this.motionY);
-		buf.writeInt(this.fallAmount);
-		buf.writeDouble(this.playerX);
-		buf.writeDouble(this.playerY);
+		buf.writeInt(x);
+		buf.writeInt(y);
+		buf.writeBoolean(isMain);
 	}
 
 	@Override
 	public void fromBuffer(ByteBuf buf) throws IOException 
 	{
 		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
-		this.motionY = buf.readDouble();
-		this.fallAmount = buf.readInt();
-		this.playerX = buf.readDouble();
-		this.playerY = buf.readDouble();
+		this.x = buf.readInt();
+		this.y = buf.readInt();
+		this.isMain = buf.readBoolean();
 	}
 
 	@Override
@@ -60,10 +57,9 @@ public class PacketMovement implements IPacket
 		
 		if (entity instanceof AbstractEntityPlayer)
 		{
-			entity.motionY = motionY;
-			entity.fallAmount = fallAmount;
-			entity.x = this.playerX;
-			entity.y = this.playerY;
+			AbstractEntityPlayer player = (AbstractEntityPlayer)entity;
+			
+			game.getWorld().destroyTile(x, y, isMain ? TileLayer.MAIN : TileLayer.BACKGROUND, player, true);
 		}
 	}
 
