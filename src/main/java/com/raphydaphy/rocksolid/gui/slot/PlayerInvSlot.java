@@ -24,6 +24,7 @@ public class PlayerInvSlot extends ContainerSlot
 			isUnlocked = true;
 		}
 		this.allowedInput = allowedInput;
+		
 	}
 
     @Override
@@ -43,7 +44,6 @@ public class PlayerInvSlot extends ContainerSlot
     @Override
     public void set(ItemInstance instance)
     {
-    	
     	DataSet data;
 		if (player != null)
 		{

@@ -48,6 +48,7 @@ public class BlockEnergyConduit extends TileBasic
         return new TileEntityEnergyConduit(world, x, y);
     }
 	
+	@Override
 	protected ITileRenderer<Tile> createRenderer(IResourceName name)
 	{
 		return new ConduitRenderer<Tile>(name);
@@ -65,10 +66,12 @@ public class BlockEnergyConduit extends TileBasic
 		
 		if (tile != null)
 		{
-			if (RockBottomAPI.getNet().isServer())
+			if (RockBottomAPI.getNet().isServer() && RockBottomAPI.getGame().isDedicatedServer())
 			{
+				
 				return true;
 			}
+			System.out.println("not even the server!");
 			Input input = RockBottomAPI.getGame().getInput();
             if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
             {

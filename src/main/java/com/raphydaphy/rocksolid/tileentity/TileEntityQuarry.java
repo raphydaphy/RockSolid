@@ -66,7 +66,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 		}
 	    
 	    
-	    while (world.getTile(curX, curY) == GameContent.TILE_AIR)
+	    while (world.getState(curX, curY).getTile() == GameContent.TILE_AIR)
 	    {
 	    	curX++;
 	    	if (curX > this.x + 11)
@@ -75,17 +75,17 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    		curY--;
 	    	}
 	    }
-	    if ((output == null || output.getItem().equals(world.getTile(curX, curY).getDrops(world, curX, curY, TileLayer.MAIN, null).get(0).getItem()))&& world.isPosLoaded(curX, curY)) 
+	    if ((output == null || output.getItem().equals(world.getState(curX, curY).getTile().getDrops(world, curX, curY, TileLayer.MAIN, null).get(0).getItem()))&& world.isPosLoaded(curX, curY)) 
 	    {
 	    	if (this.getCurrentEnergy() >= super.getPowerPerOperation())
 	    	{
 	    		ableToDig = true;
 	    		if (mineTick == 10 && RockBottomAPI.getNet().isClient() == false)
 	    		{
-	    			if (world.getTile(curX, curY).canBreak(world, curX, curY, TileLayer.MAIN) &&
+	    			if (world.getState(curX, curY).getTile().canBreak(world, curX, curY, TileLayer.MAIN) &&
 	    				world.getTileEntity(curX, curY) == null)
 	    			{
-	    				List<ItemInstance> curTile = world.getTile(curX, curY).getDrops(world, curX, curY, TileLayer.MAIN, null);
+	    				List<ItemInstance> curTile = world.getState(curX, curY).getTile().getDrops(world, curX, curY, TileLayer.MAIN, null);
 		    			if (output == null)
 		    			{
 		    				this.inventory.set(0, new ItemInstance(curTile.get(0).getItem(), 1));
@@ -94,7 +94,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 		    			{
 		    				this.inventory.get(0).addAmount(1);
 		    			}
-		    			world.setTile(curX, curY, GameContent.TILE_AIR);
+		    			world.setState(curX, curY, GameContent.TILE_AIR.getDefState());
 	    			}
 	    			curX++;
 		    		mineTick = 0;

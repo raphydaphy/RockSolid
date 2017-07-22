@@ -14,6 +14,8 @@ import com.raphydaphy.rocksolid.block.BlockElectricBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockElectricSeparator;
 import com.raphydaphy.rocksolid.block.BlockElectricSmelter;
 import com.raphydaphy.rocksolid.block.BlockEnergyConduit;
+import com.raphydaphy.rocksolid.block.BlockLamp;
+import com.raphydaphy.rocksolid.block.BlockNuclearReactor;
 import com.raphydaphy.rocksolid.block.BlockOre;
 import com.raphydaphy.rocksolid.block.BlockQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -33,8 +35,10 @@ public class ModBlocks
 	public static Tile quarry;
 	public static Tile creativePowerSource;
 	public static Tile charger;
+	public static Tile lamp;
 	
 	public static Tile coalGenerator;
+	public static Tile nuclearReactor;
 	public static Tile battery;
 	public static Tile electricBlastFurnace;
 	public static Tile electricAlloySmelter;
@@ -63,8 +67,10 @@ public class ModBlocks
 		quarry = new BlockQuarry();
 		creativePowerSource = new BlockCreativePowerSource();
 		charger = new BlockCharger();
+		lamp = new BlockLamp(RockSolidLib.makeRes("lamp"));
 		
 		coalGenerator = new BlockCoalGenerator();
+		nuclearReactor = new BlockNuclearReactor();
 		battery = new BlockBattery();
 		electricBlastFurnace = new BlockElectricBlastFurnace();
 		electricAlloySmelter = new BlockElectricAlloySmelter();

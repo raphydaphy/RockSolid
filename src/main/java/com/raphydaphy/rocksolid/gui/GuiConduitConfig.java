@@ -51,6 +51,7 @@ public class GuiConduitConfig extends Gui
     		
     		((IConduit)tile).setSideMode(editingSide, itemMode);
     		RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode));
+    		
     		buildSingleGui(game, editingSide);
     		return true;
     	}

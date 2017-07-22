@@ -67,7 +67,7 @@ public class BlockCoalGenerator extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
+		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityCoalGenerator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCoalGenerator.class);
 		
 		if (tile != null)
@@ -87,7 +87,7 @@ public class BlockCoalGenerator extends MultiTile
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) 
         {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
             final TileEntityCoalGenerator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCoalGenerator.class);
             if (tile != null) 
             {

@@ -66,7 +66,7 @@ public class BlockAllocator extends TileBasic
 		
 		if (tile != null)
 		{
-			if (RockBottomAPI.getNet().isServer())
+			if (RockBottomAPI.getNet().isServer() && RockBottomAPI.getGame().isDedicatedServer())
 			{
 				return true;
 			}

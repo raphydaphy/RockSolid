@@ -54,7 +54,7 @@ public class BlockAlloySmelter extends MultiTile
 	
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y){
-		return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityAlloySmelter(world, x, y) : null;
+		return this.isMainPos(x,  y,  world.getState(x,  y)) ? new TileEntityAlloySmelter(world, x, y) : null;
     }
 
 	@Override
@@ -65,7 +65,7 @@ public class BlockAlloySmelter extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
+		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
 		
 		if (tile != null)
@@ -85,7 +85,7 @@ public class BlockAlloySmelter extends MultiTile
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) 
         {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
             final TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
             if (tile != null) 
             {

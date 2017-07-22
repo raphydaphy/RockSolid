@@ -3,10 +3,11 @@ package com.raphydaphy.rocksolid.block;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gui.GuiElectricAlloySmelter;
-import com.raphydaphy.rocksolid.gui.container.ContainerElectricAlloySmelter;
-import com.raphydaphy.rocksolid.render.ElectricAlloySmelterRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
+import com.raphydaphy.rocksolid.gui.GuiNuclearReactor;
+import com.raphydaphy.rocksolid.gui.container.ContainerNuclearReactor;
+import com.raphydaphy.rocksolid.render.NuclearReactorRenderer;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -24,11 +25,12 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockElectricAlloySmelter extends MultiTile
+public class BlockNuclearReactor extends MultiTile
 {
-	private static final String name = "electricAlloySmelter";
+	private static final String name = "nuclearReactor";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	public BlockElectricAlloySmelter() 
+	
+	public BlockNuclearReactor() 
 	{
 		super(RockSolidLib.makeRes(name));
 		this.setHardness(15);
@@ -37,24 +39,20 @@ public class BlockElectricAlloySmelter extends MultiTile
 	}
 	
 	@Override
-    protected ITileRenderer<BlockElectricAlloySmelter> createRenderer(final IResourceName name) {
-        return new ElectricAlloySmelterRenderer(name, this);
+    protected ITileRenderer<BlockNuclearReactor> createRenderer(final IResourceName name) {
+        return new NuclearReactorRenderer(name, this);
     }
 	
 	@Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
-        if (mainTile != null && ((TileEntityElectricAlloySmelter)mainTile).isActive()) 
-        {
-            return 40;
-        }
-        return 0;
+        return 30;
     }
+	
 	
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y){
-		return this.isMainPos(x,  y,  world.getState(x,  y)) ? new TileEntityElectricAlloySmelter(world, x, y) : null;
+        return this.isMainPos(x,  y,  world.getState(x,  y)) ? new TileEntityElectricBlastFurnace(world, x, y) : null;
     }
 
 	@Override
@@ -66,11 +64,11 @@ public class BlockElectricAlloySmelter extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
-		TileEntityElectricAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricAlloySmelter.class);
+		TileEntityNuclearReactor tile = world.getTileEntity(main.getX(), main.getY(), TileEntityNuclearReactor.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiElectricAlloySmelter(player, tile), new ContainerElectricAlloySmelter(player, tile));
+			player.openGuiContainer(new GuiNuclearReactor(player, tile), new ContainerNuclearReactor(player, tile));
 			return true;
 		}
 		else
@@ -86,7 +84,7 @@ public class BlockElectricAlloySmelter extends MultiTile
         if (!RockBottomAPI.getNet().isClient()) 
         {
             final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-            final TileEntityElectricAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricAlloySmelter.class);
+            final TileEntityNuclearReactor tile = world.getTileEntity(main.getX(), main.getY(), TileEntityNuclearReactor.class);
             if (tile != null) 
             {
                 tile.dropInventory(tile.inventory);
@@ -97,19 +95,19 @@ public class BlockElectricAlloySmelter extends MultiTile
 	@Override
 	protected boolean[][] makeStructure() 
 	{
-		return new boolean[][] { { true, true }, { true, true } };
+		return new boolean[][] { { true, true, true }, { true, true, true },{ true, true, true }, { true, true, true } };
 	}
 
 	@Override
 	public int getWidth() 
 	{
-		return 2;
+		return 3;
 	}
 
 	@Override
 	public int getHeight() 
 	{
-		return 2;
+		return 4;
 	}
 
 	@Override
@@ -136,8 +134,7 @@ public class BlockElectricAlloySmelter extends MultiTile
         return false;
     }
 	
-	@Override
-    public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
         super.describeItem(manager, instance, desc, isAdvanced);
         desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
     }

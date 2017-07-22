@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.api.IConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import io.netty.buffer.ByteBuf;
@@ -53,11 +54,18 @@ public class PacketConduitUpdate implements IPacket
 	@Override
 	public void handle(IGameInstance game, ChannelHandlerContext context) 
 	{
-		TileEntity tileAtPos = RockSolidLib.getTileFromPos(x, y, game.getWorld());
-		
-		if (tileAtPos instanceof IConduit)
+		if (game.getWorld().isPosLoaded(x, y))
 		{
-			((IConduit)tileAtPos).setSideMode(side, mode);
+			TileEntity tileAtPos = RockSolidLib.getTileFromPos(x, y, game.getWorld());
+			
+			if (tileAtPos instanceof IConduit)
+			{
+				((IConduit)tileAtPos).setSideMode(side, mode);
+				if (RockBottomAPI.getNet().isServer())
+				{
+					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode));
+				}
+			}
 		}
 	}
 

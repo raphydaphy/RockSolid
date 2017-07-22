@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.world;
 
 import com.raphydaphy.rocksolid.init.ModBlocks;
 
-import de.ellpeck.rockbottom.api.tile.Tile;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.world.gen.WorldGenOre;
 
 public class WorldGenUranium extends WorldGenOre
@@ -45,15 +45,9 @@ public class WorldGenUranium extends WorldGenOre
 	}
 
 	@Override
-	public Tile getOreTile()
+	public TileState getOreState()
 	{
-		return ModBlocks.oreUranium;
-	}
-
-	@Override
-	public int getOreMeta() 
-	{
-		return 0;
+		return ModBlocks.oreUranium.getDefState();
 	}
 
 }

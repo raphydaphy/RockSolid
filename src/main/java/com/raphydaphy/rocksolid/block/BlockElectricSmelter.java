@@ -47,12 +47,12 @@ public class BlockElectricSmelter extends MultiTile
    
     @Override
     public TileEntity provideTileEntity(final IWorld world, final int x, final int y) {
-        return this.isMainPos(x, y, world.getMeta(x, y)) ? new TileEntityElectricSmelter(world, x, y) : null;
+        return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityElectricSmelter(world, x, y) : null;
     }
    
     @Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
-        if (this.isMainPos(x, y, world.getMeta(x, y))) {
+        if (this.isMainPos(x, y, world.getState(x, y))) {
             final TileEntityElectricSmelter tile = world.getTileEntity(x, y, TileEntityElectricSmelter.class);
             if (tile != null && tile.isActive()) {
                 return 20;
@@ -64,7 +64,7 @@ public class BlockElectricSmelter extends MultiTile
     @Override
     public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
     {
-        final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+        final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
         final TileEntityElectricSmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSmelter.class);
         if (tile != null) {
             player.openGuiContainer(new GuiElectricSmelter(player, tile), new ContainerElectricSmelter(player, tile));
@@ -77,7 +77,7 @@ public class BlockElectricSmelter extends MultiTile
     public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop) {
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
             final TileEntityElectricSmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSmelter.class);
             if (tile != null) {
                 tile.dropInventory(tile.inventory);

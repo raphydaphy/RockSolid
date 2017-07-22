@@ -50,8 +50,10 @@ rocksolid/item.chest=Chest
 rocksolid/item.quarry=Quarry
 rocksolid/item.creativePowerSource=Creative Power Source
 rocksolid/item.charger=Charger
+rocksolid/item.lamp=Lamp
 
 rocksolid/item.coalGenerator=Coal Generator
+rocksolid/item.nuclearReactor=Nuclear Reactor
 rocksolid/item.battery=Battery
 rocksolid/item.electricBlastFurnace=Electric Blast Furnace
 rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
@@ -88,3 +90,4 @@ rocksolid/details.electricAlloySmelter=A more efficient and faster Alloy Smelter
 rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires a lot of power to run.
 rocksolid/details.creativePowerSource=Supplies infinite power from all sides. Not meant to be obtained in survival.
 rocksolid/details.charger=Charges items that hold power, such as Jetpacks.
+rocksolid/details.nuclearReactor=Creates energy using nuclear fusion. Be careful, because splitting atoms is not safe!

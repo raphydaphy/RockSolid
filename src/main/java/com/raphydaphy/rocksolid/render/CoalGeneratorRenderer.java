@@ -14,9 +14,11 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class CoalGeneratorRenderer extends MultiTileRenderer<BlockCoalGenerator>
 {
@@ -46,10 +48,10 @@ public class CoalGeneratorRenderer extends MultiTileRenderer<BlockCoalGenerator>
     }
     
     @Override
-    public void render(final IGameInstance game, final IAssetManager manager, final Graphics g, final IWorld world, final BlockCoalGenerator tile, final int x, final int y, final float renderX, final float renderY, final float scale, final Color[] light) {
-        final int meta = world.getMeta(x, y);
-        final Pos2 innerCoord = tile.getInnerCoord(meta);
-        final Pos2 mainPos = tile.getMainPos(x, y, meta);
+    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, BlockCoalGenerator tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+    {
+        final Pos2 innerCoord = tile.getInnerCoord(state);
+        final Pos2 mainPos = tile.getMainPos(x, y, state);
         final TileEntityCoalGenerator tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityCoalGenerator.class);
         IResourceName tex;
         if (innerCoord.getX() == 0)

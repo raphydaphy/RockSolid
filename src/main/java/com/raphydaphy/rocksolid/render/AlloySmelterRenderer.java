@@ -11,8 +11,10 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class AlloySmelterRenderer<T extends BlockAlloySmelter> extends MultiTileRenderer<T>
 {
@@ -26,9 +28,9 @@ public class AlloySmelterRenderer<T extends BlockAlloySmelter> extends MultiTile
 
 
     @Override
-    public void render(final IGameInstance game, final IAssetManager manager, final Graphics g, final IWorld world, final T tile, final int x, final int y, final float renderX, final float renderY, final float scale, final Color[] light) 
+    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, T tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
     {
-        if (tile.isMainPos(x, y, world.getMeta(x, y))) 
+        if (tile.isMainPos(x, y, state))
         {
             final TileEntityAlloySmelter tileEntity = world.getTileEntity(x, y, TileEntityAlloySmelter.class);
             if (tileEntity != null && tileEntity.isActive()) 
@@ -37,6 +39,6 @@ public class AlloySmelterRenderer<T extends BlockAlloySmelter> extends MultiTile
                 return;
             }
         }
-        super.render(game, manager, g, world, tile, x, y, renderX, renderY, scale, light);
+        super.render(game, manager, g, world, tile, state, x, y, layer, renderX, renderY, scale, light);
     }
 }

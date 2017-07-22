@@ -67,7 +67,7 @@ public class BlockCharger extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
+		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityCharger tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCharger.class);
 		
 		if (tile != null)
@@ -87,7 +87,7 @@ public class BlockCharger extends MultiTile
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) 
         {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
             final TileEntityCharger tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCharger.class);
             if (tile != null) 
             {

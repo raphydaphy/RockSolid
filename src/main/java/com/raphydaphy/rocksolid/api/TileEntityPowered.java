@@ -43,7 +43,7 @@ public abstract class TileEntityPowered extends TileEntity implements IHasInvent
     public void update(IGameInstance game){
         super.update(game);
 
-        if(!RockBottomAPI.getNet().isClient()){
+        if(RockBottomAPI.getNet().isClient() == false){
             boolean smelted = this.tryTickAction();
 
             if(this.getPower() >= (0 + this.powerPerOperation) && smelted)
@@ -55,7 +55,7 @@ public abstract class TileEntityPowered extends TileEntity implements IHasInvent
         boolean active = this.isActive();
         
         if(this.lastActive != active){
-        	if (RockBottomAPI.getNet().isServer())
+        	if (RockBottomAPI.getNet().isClient() == false)
             {
         		this.lastActive = active;
         		shouldSync = true;
@@ -110,7 +110,7 @@ public abstract class TileEntityPowered extends TileEntity implements IHasInvent
 	{
 		if (this.getPower() <= (this.maxPower - amount))
 		{
-			if (RockBottomAPI.getNet().isServer())
+			if (RockBottomAPI.getNet().isClient() == false)
 			{
 				this.setPower(this.getPower() + amount);
 				shouldSync = true;

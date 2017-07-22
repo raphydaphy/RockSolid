@@ -31,10 +31,6 @@ public class ModEvents {
 		e.registerListener(EntityTickEvent.class, (result, event) -> {
 			
 			
-			if (RockBottomAPI.getNet().isServer())
-			{
-				return EventResult.DEFAULT;
-			}
 			if (event.entity instanceof AbstractEntityPlayer)
 			{
 				boolean engineActive = false;
@@ -52,6 +48,12 @@ public class ModEvents {
 				
 				
 				AbstractEntityPlayer player = (AbstractEntityPlayer)event.entity;
+				
+				if (RockBottomAPI.getNet().isServer() && RockBottomAPI.getGame().isDedicatedServer())
+				{
+					return EventResult.DEFAULT;
+				}
+				
 				Input input = RockBottomAPI.getGame().getInput();
 				
 				Pos2 pos = new Pos2(Util.floor(player.x), Util.floor(player.y));
@@ -372,7 +374,15 @@ public class ModEvents {
             				event.container.addSlot(new PlayerInvSlot(player, "accessory3", instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
             				return EventResult.MODIFIED;
     					}
-            			
+            			else
+            			{
+            				// yes someone is going to hate me for this but oh well
+            				if (player.getCommandLevel() < 10)
+            				{
+            					System.out.println("[RockSolid Intergration] Don't Cheat! You need command level 10 to access Creative Mode!");
+            					player.getAdditionalData().addBoolean("is_creative", false);
+            				}
+            			}
             		}
             	}
 			}

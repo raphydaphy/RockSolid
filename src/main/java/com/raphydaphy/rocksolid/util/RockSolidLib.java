@@ -23,12 +23,12 @@ public class RockSolidLib {
 	}
 	public static TileEntity getTileFromPos(int x, int y, IWorld world)
 	{
-		Tile realTileDown = world.getTile(x, y);
+		Tile realTileDown = world.getState(x, y).getTile();
 		if (!realTileDown.isAir())
 		{
 		    if (realTileDown instanceof MultiTile)
 		    {
-		 	   Pos2 main = ((MultiTile)realTileDown).getMainPos(x, y, world.getMeta(x,  y));
+		 	   Pos2 main = ((MultiTile)realTileDown).getMainPos(x, y, world.getState(x,  y));
 		 	   return world.getTileEntity(main.getX(), main.getY(), TileEntity.class);
 		    }
 		    else

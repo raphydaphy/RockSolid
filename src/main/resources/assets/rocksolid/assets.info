@@ -119,6 +119,13 @@ tex.tiles.constructionBlockTitanium =/blocks/misc/construction_block_titanium.pn
 tex.tiles.chest=/blocks/misc/chest.png
 tex.tiles.creativePowerSource=/blocks/misc/creative_power_source.png
 
+## Lamp
+tex.tiles.lamp=/blocks/lamp/lamp.png
+tex.tiles.lamp.up=/blocks/lamp/lamp_up.png
+tex.tiles.lamp.down=/blocks/lamp/lamp_down.png
+tex.tiles.lamp.left=/blocks/lamp/lamp_left.png
+tex.tiles.lamp.right=/blocks/lamp/lamp_right.png
+
 ## Energy Conduit
 tex.tiles.energyConduit=/blocks/energy_conduit/energy_conduit.png
 tex.tiles.energyConduit.up=/blocks/energy_conduit/energy_conduit_up.png
@@ -166,6 +173,22 @@ tex.tiles.charger.4.2.0=/blocks/coal_generator/coal_generator.4.2.0.png
 tex.tiles.charger.4.2.1=/blocks/coal_generator/coal_generator.4.2.1.png
 tex.tiles.charger.5.2.1=/blocks/coal_generator/coal_generator.5.2.1.png
 tex.tiles.charger.6.2.1=/blocks/coal_generator/coal_generator.6.2.1.png
+
+
+## Nuclear Reactor
+tex.tiles.nuclearReactor.item=/blocks/nuclear_reactor/nuclear_reactor_item.png
+tex.tiles.nuclearReactor.0.0=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,36,12,12
+tex.tiles.nuclearReactor.0.1=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,24,12,12
+tex.tiles.nuclearReactor.0.2=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,12,12,12
+tex.tiles.nuclearReactor.0.3=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,0,12,12
+tex.tiles.nuclearReactor.1.0=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,36,12,12
+tex.tiles.nuclearReactor.1.1=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,24,12,12
+tex.tiles.nuclearReactor.1.2=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,12,12,12
+tex.tiles.nuclearReactor.1.3=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,0,12,12
+tex.tiles.nuclearReactor.2.0=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,36,12,12
+tex.tiles.nuclearReactor.2.1=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,24,12,12
+tex.tiles.nuclearReactor.2.2=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,12,12,12
+tex.tiles.nuclearReactor.2.3=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,0,12,12
 
 ## Battery
 tex.tiles.battery.0.0=sub./blocks/battery/battery.png,0,24,12,12

@@ -47,12 +47,12 @@ public class BlockQuarry extends MultiTile
    
     @Override
     public TileEntity provideTileEntity(final IWorld world, final int x, final int y) {
-        return this.isMainPos(x, y, world.getMeta(x, y)) ? new TileEntityQuarry(world, x, y) : null;
+        return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityQuarry(world, x, y) : null;
     }
    
     @Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
-        if (this.isMainPos(x, y, world.getMeta(x, y))) {
+        if (this.isMainPos(x, y, world.getState(x, y))) {
             final TileEntityQuarry tile = world.getTileEntity(x, y, TileEntityQuarry.class);
             if (tile != null && tile.isActive()) {
                 return 50;
@@ -64,7 +64,7 @@ public class BlockQuarry extends MultiTile
     @Override
     public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
     {
-        final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+        final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
         final TileEntityQuarry tile = world.getTileEntity(main.getX(), main.getY(), TileEntityQuarry.class);
         if (tile != null) {
             player.openGuiContainer(new GuiQuarry(player, tile), new ContainerQuarry(player, tile));
@@ -77,7 +77,7 @@ public class BlockQuarry extends MultiTile
     public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop) {
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
             final TileEntityQuarry tile = world.getTileEntity(main.getX(), main.getY(), TileEntityQuarry.class);
             if (tile != null) {
                 tile.dropInventory(tile.inventory);

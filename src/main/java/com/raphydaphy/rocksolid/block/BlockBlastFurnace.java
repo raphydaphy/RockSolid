@@ -54,7 +54,7 @@ public class BlockBlastFurnace extends MultiTile
 	
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y){
-        return this.isMainPos(x,  y,  world.getMeta(x,  y)) ? new TileEntityBlastFurnace(world, x, y) : null;
+        return this.isMainPos(x,  y,  world.getState(x,  y)) ? new TileEntityBlastFurnace(world, x, y) : null;
     }
 
 	@Override
@@ -65,7 +65,7 @@ public class BlockBlastFurnace extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getMeta(x,  y));
+		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityBlastFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityBlastFurnace.class);
 		
 		if (tile != null)
@@ -85,7 +85,7 @@ public class BlockBlastFurnace extends MultiTile
         super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
         if (!RockBottomAPI.getNet().isClient()) 
         {
-            final Pos2 main = this.getMainPos(x, y, world.getMeta(x, y));
+            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
             final TileEntityBlastFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityBlastFurnace.class);
             if (tile != null) 
             {
