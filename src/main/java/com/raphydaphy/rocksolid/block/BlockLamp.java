@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.block;
 
-import com.raphydaphy.rocksolid.api.IConduit;
-import com.raphydaphy.rocksolid.render.ConduitRenderer;
+import com.raphydaphy.rocksolid.render.LampRenderer;
 
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
@@ -11,7 +10,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class BlockLamp extends Tile implements IConduit
+public class BlockLamp extends Tile
 {
 	private ITileRenderer<Tile> renderer;
 	public BlockLamp(IResourceName name) 
@@ -39,7 +38,7 @@ public class BlockLamp extends Tile implements IConduit
 	
 	protected ITileRenderer<Tile> createRenderer(IResourceName name)
 	{
-		return new ConduitRenderer<Tile>(name);
+		return new LampRenderer<Tile>(name);
     }
 	
 	@Override
@@ -47,30 +46,8 @@ public class BlockLamp extends Tile implements IConduit
 	{
         return null;
     }
-
-	@Override
-	public int getSideMode(int side) 
-	{
-		return 0;
-	}
-
-	@Override
-	public void setSideMode(int side, int mode) 
-	{
-		// its not actually a conduit
-	}
-
-	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock) {
-		return true;
-	}
-
-	@Override
-	public void setSync() {
-		// dont hurt me
-	}
 	
-	 @Override
+	@Override
     public ITileRenderer<Tile> getRenderer(){
         return this.renderer;
     }

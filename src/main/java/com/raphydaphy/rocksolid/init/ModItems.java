@@ -24,6 +24,8 @@ public class ModItems
 	
 	public static Item gemCoke;
 	
+	public static Item pelletUranium;
+	
 	public static Item clusterTin;
 	public static Item clusterIron;
 	public static Item clusterMagnesium;
@@ -65,6 +67,8 @@ public class ModItems
 		ingotUranium = new ItemBase(RockSolidLib.makeRes("ingotUranium")).register();
 		
 		gemCoke = new ItemBase(RockSolidLib.makeRes("gemCoke")).register();
+		
+		pelletUranium = new ItemBase(RockSolidLib.makeRes("pelletUranium")).register();
 		
 		clusterTin = new ItemBase(RockSolidLib.makeRes("clusterTin")).register();
 		clusterIron = new ItemBase(RockSolidLib.makeRes("clusterIron")).register();

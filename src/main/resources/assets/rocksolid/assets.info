@@ -44,6 +44,7 @@ tex.items.axeTitanium=/items/axe/axe_titanium.png
 ## Misc
 tex.items.wrench=/items/misc/wrench.png
 tex.items.gemCoke=/items/misc/gem_coke.png
+tex.items.pelletUranium=/items/misc/pellet_uranium.png
 tex.items.jetpack=/items/misc/jetpack.png
 tex.items.electricLantern=/items/misc/lanternElectric.png
 tex.items.lantern=/items/misc/lantern.png
@@ -112,6 +113,21 @@ tex.tiles.electricSmelter.active.0.1=/blocks/electric_smelter/electric_smelter_a
 tex.tiles.electricSmelter.active.1.0=/blocks/electric_smelter/electric_smelter_active.1.0.png
 tex.tiles.electricSmelter.active.1.1=/blocks/electric_smelter/electric_smelter_active.1.1.png
 tex.tiles.electricSmelter.item=/blocks/electric_smelter/electric_smelter_item.png
+
+## Compressor
+tex.tiles.compressor.0.0=sub./blocks/compressor/compressor.png,0,12,12,12
+tex.tiles.compressor.1.0=sub./blocks/compressor/compressor.png,12,12,12,12
+tex.tiles.compressor.2.0=sub./blocks/compressor/compressor.png,24,12,12,12
+tex.tiles.compressor.0.1=sub./blocks/compressor/compressor.png,0,0,12,12
+tex.tiles.compressor.1.1=sub./blocks/compressor/compressor.png,12,0,12,12
+tex.tiles.compressor.2.1=sub./blocks/compressor/compressor.png,24,0,12,12
+tex.tiles.compressor.active.0.0=sub./blocks/compressor/compressor_active.png,0,12,12,12
+tex.tiles.compressor.active.1.0=sub./blocks/compressor/compressor_active.png,12,12,12,12
+tex.tiles.compressor.active.2.0=sub./blocks/compressor/compressor_active.png,24,12,12,12
+tex.tiles.compressor.active.0.1=sub./blocks/compressor/compressor_active.png,0,0,12,12
+tex.tiles.compressor.active.1.1=sub./blocks/compressor/compressor_active.png,12,0,12,12
+tex.tiles.compressor.active.2.1=sub./blocks/compressor/compressor_active.png,24,0,12,12
+tex.tiles.compressor.item=/blocks/compressor/compressor_item.png
 
 ## Misc
 tex.tiles.constructionBlockSteel=/blocks/misc/construction_block_steel.png

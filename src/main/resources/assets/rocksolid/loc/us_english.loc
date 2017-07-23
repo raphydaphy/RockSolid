@@ -10,6 +10,8 @@ rocksolid/item.ingotUranium=Uranium Ingot
 
 rocksolid/item.gemCoke=Coal Coke
 
+rocksolid/item.pelletUranium=Uranium Pellet
+
 rocksolid/item.clusterTin=Tin Cluster
 rocksolid/item.clusterIron=Iron Cluster
 rocksolid/item.clusterMagnesium=Magnesium Cluster
@@ -55,10 +57,12 @@ rocksolid/item.lamp=Lamp
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.nuclearReactor=Nuclear Reactor
 rocksolid/item.battery=Battery
+
 rocksolid/item.electricBlastFurnace=Electric Blast Furnace
 rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
 rocksolid/item.electricSeparator=Electric Separator
 rocksolid/item.electricSmelter=Electric Smelter
+rocksolid/item.compressor=Compressor
 
 rocksolid/item.oreTin=Tin Ore
 rocksolid/item.oreIron=Iron Ore

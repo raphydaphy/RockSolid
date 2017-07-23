@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.block.BlockBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockCharger;
 import com.raphydaphy.rocksolid.block.BlockChest;
 import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
+import com.raphydaphy.rocksolid.block.BlockCompressor;
 import com.raphydaphy.rocksolid.block.BlockCreativePowerSource;
 import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
 import com.raphydaphy.rocksolid.block.BlockElectricBlastFurnace;
@@ -40,10 +41,12 @@ public class ModBlocks
 	public static Tile coalGenerator;
 	public static Tile nuclearReactor;
 	public static Tile battery;
+	
 	public static Tile electricBlastFurnace;
 	public static Tile electricAlloySmelter;
 	public static Tile electricSeparator;
 	public static Tile electricSmelter;
+	public static Tile compressor;
 	
 	public static Tile oreTin;
 	public static Tile oreIron;
@@ -72,10 +75,12 @@ public class ModBlocks
 		coalGenerator = new BlockCoalGenerator();
 		nuclearReactor = new BlockNuclearReactor();
 		battery = new BlockBattery();
+		
 		electricBlastFurnace = new BlockElectricBlastFurnace();
 		electricAlloySmelter = new BlockElectricAlloySmelter();
 		electricSeparator = new BlockElectricSeparator();
 		electricSmelter = new BlockElectricSmelter();
+		compressor = new BlockCompressor();
 		
 		oreTin = new BlockOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2);
 		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);

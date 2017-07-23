@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
+import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
@@ -24,6 +25,7 @@ public class TileEntityNuclearReactor extends TileEntityFueled implements IHasIn
     protected int productionPerTick;
     private boolean shouldSync = false;
     
+    private boolean lastActive;
     public TileEntityNuclearReactor(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
@@ -31,6 +33,41 @@ public class TileEntityNuclearReactor extends TileEntityFueled implements IHasIn
         
         maxPower = 1000000;
     	productionPerTick = 150;
+    }
+    
+    @Override
+    public void update(IGameInstance game){
+        super.update(game);
+
+        if(!RockBottomAPI.getNet().isClient()){
+            boolean smelted = this.tryTickAction();
+
+            if(this.coalTime > 0){
+                this.coalTime--;
+            }
+
+            if(smelted){
+                if(this.coalTime <= 0){
+                    ItemInstance inst = this.getFuel();
+                    if(inst != null){
+                        int amount = 600;
+                        if(amount > 0){
+                            super.maxCoalTime = amount;
+                            super.coalTime = amount;
+
+                            this.removeFuel();
+                        }
+                    }
+                }
+            }
+        }
+
+        boolean active = this.isActive();
+        if(lastActive != active){
+            lastActive = active;
+
+            this.onActiveChange(active);
+        }
     }
     
     @Override
