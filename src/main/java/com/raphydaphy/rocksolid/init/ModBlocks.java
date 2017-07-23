@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.block.BlockChest;
 import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
 import com.raphydaphy.rocksolid.block.BlockCompressor;
 import com.raphydaphy.rocksolid.block.BlockCreativePowerSource;
+import com.raphydaphy.rocksolid.block.BlockCustomDrop;
 import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
 import com.raphydaphy.rocksolid.block.BlockElectricBlastFurnace;
 import com.raphydaphy.rocksolid.block.BlockElectricSeparator;
@@ -21,6 +22,7 @@ import com.raphydaphy.rocksolid.block.BlockOre;
 import com.raphydaphy.rocksolid.block.BlockQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.Tile;
 
@@ -36,7 +38,9 @@ public class ModBlocks
 	public static Tile quarry;
 	public static Tile creativePowerSource;
 	public static Tile charger;
+	
 	public static Tile lamp;
+	public static Tile rockLight;
 	
 	public static Tile coalGenerator;
 	public static Tile nuclearReactor;
@@ -70,7 +74,9 @@ public class ModBlocks
 		quarry = new BlockQuarry();
 		creativePowerSource = new BlockCreativePowerSource();
 		charger = new BlockCharger();
+		
 		lamp = new BlockLamp(RockSolidLib.makeRes("lamp"));
+		rockLight = new BlockCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 2);
 		
 		coalGenerator = new BlockCoalGenerator();
 		nuclearReactor = new BlockNuclearReactor();

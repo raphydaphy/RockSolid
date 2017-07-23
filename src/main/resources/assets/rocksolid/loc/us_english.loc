@@ -53,6 +53,7 @@ rocksolid/item.quarry=Quarry
 rocksolid/item.creativePowerSource=Creative Power Source
 rocksolid/item.charger=Charger
 rocksolid/item.lamp=Lamp
+rocksolid/item.rockLight=Light Rock
 
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.nuclearReactor=Nuclear Reactor
@@ -95,3 +96,9 @@ rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires
 rocksolid/details.creativePowerSource=Supplies infinite power from all sides. Not meant to be obtained in survival.
 rocksolid/details.charger=Charges items that hold power, such as Jetpacks.
 rocksolid/details.nuclearReactor=Creates energy using nuclear fusion. Be careful, because splitting atoms is not safe!
+
+# Because Ellpeck is lazy
+rockbottom/item.stone=Stone
+rockbottom/item.coal_ore=Coal Ore
+rockbottom/item.grass=Grass
+rockbottom/item.stamper=Stamper
