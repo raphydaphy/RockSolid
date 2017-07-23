@@ -24,6 +24,7 @@ import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.tile.Tile;
 
 public class ModBlocks 
@@ -41,6 +42,8 @@ public class ModBlocks
 	
 	public static Tile lamp;
 	public static Tile rockLight;
+	public static Tile limestone;
+	public static Tile clay;
 	
 	public static Tile coalGenerator;
 	public static Tile nuclearReactor;
@@ -76,7 +79,9 @@ public class ModBlocks
 		charger = new BlockCharger();
 		
 		lamp = new BlockLamp(RockSolidLib.makeRes("lamp"));
-		rockLight = new BlockCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 2);
+		rockLight = new BlockCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 1);
+		limestone = new BlockBase(RockSolidLib.makeRes("limestone"), 10, 3);
+		clay = new BlockBase(RockSolidLib.makeRes("clay"), 8, 3, ToolType.SHOVEL);
 		
 		coalGenerator = new BlockCoalGenerator();
 		nuclearReactor = new BlockNuclearReactor();

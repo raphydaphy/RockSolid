@@ -52,8 +52,11 @@ rocksolid/item.chest=Chest
 rocksolid/item.quarry=Quarry
 rocksolid/item.creativePowerSource=Creative Power Source
 rocksolid/item.charger=Charger
+
 rocksolid/item.lamp=Lamp
 rocksolid/item.rockLight=Light Rock
+rocksolid/item.limestone=Limestone
+rocksolid/item.clay=Clay
 
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.nuclearReactor=Nuclear Reactor

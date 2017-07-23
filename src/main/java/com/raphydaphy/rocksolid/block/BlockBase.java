@@ -13,5 +13,13 @@ public class BlockBase extends TileBasic
         
         this.register();
 	}
+	
+	public BlockBase(IResourceName name, int oreHardness, int toolLevel, ToolType toolType) {
+		super(name);
+		this.setHardness((float)oreHardness);
+        this.addEffectiveTool(toolType, toolLevel);
+        
+        this.register();
+	}
 
 }

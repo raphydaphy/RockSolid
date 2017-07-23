@@ -135,6 +135,8 @@ tex.tiles.constructionBlockTitanium =/blocks/misc/construction_block_titanium.pn
 tex.tiles.chest=/blocks/misc/chest.png
 tex.tiles.creativePowerSource=/blocks/misc/creative_power_source.png
 tex.tiles.rockLight=/blocks/misc/rock_light.png
+tex.tiles.limestone=/blocks/misc/limestone.png
+tex.tiles.clay=/blocks/misc/clay.png
 
 ## Lamp
 tex.tiles.lamp=/blocks/lamp/lamp.png
