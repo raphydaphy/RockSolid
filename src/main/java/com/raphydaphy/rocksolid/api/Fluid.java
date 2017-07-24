@@ -1,38 +1,65 @@
 package com.raphydaphy.rocksolid.api;
 
-import static de.ellpeck.rockbottom.api.RockBottomAPI.createRes;
-
 import java.util.ArrayList;
 
-import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.render.FluidRenderer;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
+import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.entity.Entity;
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
+import de.ellpeck.rockbottom.api.tile.state.IntProp;
+import de.ellpeck.rockbottom.api.tile.state.TileProp;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.BoundBox;
+import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public abstract class Fluid extends TileBasic
 {
 	// the maximum meta value for a fluid block. meta starts at 1.
 	public static final int MAX_VOLUME = 12;
-	//private double thickness = 0.015;
+	public static final IntProp fluidLevel = new IntProp("volume", 1, MAX_VOLUME + 1);
+	private double thickness = 0.015;
 	
-	public Fluid(String name) {
-		super(createRes(RockSolid.INSTANCE, name));
+	public Fluid(String name)
+	{
+		this(RockSolidLib.makeRes(name));
+	}
+	
+	public Fluid(IResourceName name) 
+	{
+		super(name);
 		this.register();
 	}
 	
 	// set in fluid classes, should return the list of enemy fluids
 	public abstract ArrayList<Fluid> getEnemyFluids();
-	/*
+	
+	@Override
+    public TileProp[] getProperties() {
+        return new TileProp[]{ fluidLevel };
+    }
+	
 	protected ITileRenderer<?> createRenderer(IResourceName name)
 	{
         return new FluidRenderer<Fluid>(name);
     }
 	
 	@Override
-	public int getPlacementMeta(IWorld world, int x, int y, TileLayer layer, ItemInstance instance)
+	public TileState getPlacementState(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
 	{
-		// placed fluids should be a full block
-		return MAX_VOLUME;
-    }
+		
+		return this.getDefStateWithProp(fluidLevel, MAX_VOLUME);
+	}
+	
 	
 	@Override
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
@@ -43,7 +70,7 @@ public abstract class Fluid extends TileBasic
 	// what should happen if there is about to be a collision with an enemy fluid
 	public void onEnemyCollision(Tile enemyTile, Pos2 enemyPos, Pos2 thisPos, IWorld world)
 	{
-		world.setTile(thisPos.getX(), thisPos.getY(), GameContent.TILE_ROCK);
+		world.setState(thisPos.getX(), thisPos.getY(), GameContent.TILE_ROCK.getDefState());
 	}
 	
 	@Override
@@ -66,8 +93,9 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
 	{
+		System.out.println("UPDATE INCOMING!");
 		// store all the block positions that the fluid could possibly move to
-		Tile thisBlock = world.getTile(x, y);
+		Tile thisBlock = world.getState(x, y).getTile();
 		Tile downBlock;
 		Tile leftBlock;
 		Tile rightBlock;
@@ -83,8 +111,9 @@ public abstract class Fluid extends TileBasic
 		int closestRight;
 		
 		// check that this block is actually a fluid
-		if (!(thisBlock instanceof BlockFluid))
+		if (!(thisBlock instanceof Fluid))
 		{
+			System.out.println("I'm not a fluid anymore! I'm a " + thisBlock.getName().toString());
 			return;
 		}
 		
@@ -92,25 +121,29 @@ public abstract class Fluid extends TileBasic
 		world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
 		
 		// only set the variables once we know that this is a fluid block
-		downBlock = world.getTile(x, y - 1);
-		thisMeta = world.getMeta(x, y);
-		downMeta = world.getMeta(x, y - 1);
+		downBlock = world.getState(x, y - 1).getTile();
+		thisMeta = world.getState(x, y).get(fluidLevel);
+		downMeta = 0;
 		
+		System.out.println("Updatinig with " + thisMeta + " fluid!");
+		if (downBlock instanceof Fluid)
+		{
+			downMeta = world.getState(x, y - 1).get(fluidLevel);
+		}
 		
 		// if the block below is either air or the same fluid, and the block below is not full of fluid
 		if ((downBlock == thisBlock || downBlock == GameContent.TILE_AIR) && downMeta < MAX_VOLUME)
 		{
+			System.out.println("i think i can go down!");
 			// if the block below is air
 			if (downBlock == GameContent.TILE_AIR)
 			{
-				// set the block underneath this to the same fluid
-				world.setTile(x, y - 1, thisBlock);
-				
-				// copy the fluid volume from this to the block below
-				world.setMeta(x, y - 1, thisMeta);
+				System.out.println("GOING DOWN TO AIR!");
+				// set the block underneath this to the same fluid with the same volume
+				world.setState(x, y - 1, thisBlock.getDefStateWithProp(fluidLevel, thisMeta));
 				
 				// delete this block
-				world.setTile(x, y, GameContent.TILE_AIR);
+				world.setState(x, y, GameContent.TILE_AIR.getDefState());
 				
 				// stop running the code to prevent duplicating the fluid
 				return;
@@ -121,11 +154,12 @@ public abstract class Fluid extends TileBasic
 				// if there is a small enough volume of fluid to merge the blocks together
 				if (thisMeta <= MAX_VOLUME - downMeta)
 				{
+					System.out.println("GOING DOWN TO NOT FILL!");
 					// move all the fluid into the bottom block
-					world.setMeta(x, y - 1, downMeta + thisMeta);
+					world.setState(x, y - 1, this.getDefStateWithProp(fluidLevel, downMeta + thisMeta));
 					
 					// delete this block
-					world.setTile(x, y, GameContent.TILE_AIR);
+					world.setState(x, y, GameContent.TILE_AIR.getDefState());
 					
 					// this code should stop running since we set the block to air but just in case
 					return;
@@ -133,11 +167,12 @@ public abstract class Fluid extends TileBasic
 				// if we have to keep some fluid in the top block
 				else
 				{
+					System.out.println("GOING DOWN WITH EXCESS!");
 					// remove the most fluid possible from this block
-					world.setMeta(x, y, thisMeta - (MAX_VOLUME - downMeta));
+					world.setState(x, y, this.getDefStateWithProp(fluidLevel, thisMeta - (MAX_VOLUME - downMeta)));
 					
 					// move the maximum volume of fluid possible into the bottom block
-					world.setMeta(x, y - 1, 6);
+					world.setState(x, y - 1, this.getDefStateWithProp(fluidLevel, 6));
 					
 					// stop running now that we have moved as much fluid as we can down
 					return;
@@ -146,10 +181,18 @@ public abstract class Fluid extends TileBasic
 		}
 		
 		// variables for left and right block information
-		leftBlock = world.getTile(x - 1, y);
-		rightBlock = world.getTile(x + 1, y);
-		leftMeta = world.getMeta(x - 1, y);
-		rightMeta = world.getMeta(x + 1, y);
+		leftBlock = world.getState(x - 1, y).getTile();
+		rightBlock = world.getState(x + 1, y).getTile();
+		leftMeta = 0;
+		rightMeta = 0;
+		if (leftBlock instanceof Fluid)
+		{
+			leftMeta = world.getState(x - 1, y).get(fluidLevel);
+		}
+		if (rightBlock instanceof Fluid)
+		{
+			rightMeta = world.getState(x + 1, y).get(fluidLevel); 
+		}
 		
 		// if there is a fluid or air block to the left, and if this block can flow into the block on the left
 		if ((leftBlock == thisBlock || leftBlock == GameContent.TILE_AIR) && leftMeta + 1 < thisMeta)
@@ -184,12 +227,20 @@ public abstract class Fluid extends TileBasic
 			for(int i = 1; i < 13; i++)
 			{
 				// store the left and right block at the current distance
-				Tile tileRight = world.getTile(x + i, y);
-				Tile tileLeft = world.getTile(x - i, y);
+				Tile tileRight = world.getState(x + i, y).getTile();
+				Tile tileLeft = world.getState(x - i, y).getTile();
 				
 				// store the left and right meta values at the current distance
-				int metaRight = world.getMeta(x + i, y);
-				int metaLeft = world.getMeta(x - i, y);
+				int metaRight = 0;
+				int metaLeft = 0;
+				if (tileRight instanceof Fluid)
+				{
+					metaRight = world.getState(x + i, y).get(fluidLevel);
+				}
+				if (tileLeft instanceof Fluid)
+				{
+					metaLeft = world.getState(x - i, y).get(fluidLevel);
+				}
 				
 				// if the current distance to the right is a valid block to flow towards
 				if (!finishedRight && (tileRight == GameContent.TILE_AIR || tileRight == thisBlock))
@@ -272,10 +323,10 @@ public abstract class Fluid extends TileBasic
 	public void displaceLeft(IWorld world, Tile leftBlock, Tile thisBlock, int leftMeta, int thisMeta, int x, int y)
 	{
 		// if the block we would be displacing to is adjacent to an enemy fluid
-		if (getEnemyFluids().contains(world.getTile(x - 2, y)))
+		if (getEnemyFluids().contains(world.getState(x - 2, y).getTile()))
 		{
 			// there has been an enemy collision, calculate a result
-			onEnemyCollision(world.getTile(x + 2, y), new Pos2(x - 2, y), new Pos2(x - 1, y), world);
+			onEnemyCollision(world.getState(x + 2, y).getTile(), new Pos2(x - 2, y), new Pos2(x - 1, y), world);
 			
 			// cancel the displacing
 			return;
@@ -283,16 +334,15 @@ public abstract class Fluid extends TileBasic
 		// if the block to the left is air
 		if (leftBlock == GameContent.TILE_AIR)
 		{
-			// set the left block to the same fluid as this
-			world.setTile(x - 1, y, thisBlock);
 			
 			// remove one from the amount of fluid in this block
-			world.setMeta(x, y, thisMeta - 1);
+			world.setState(x, y, this.getDefStateWithProp(fluidLevel, thisMeta - 1));
+			
+			// schedule a new update because we changed the state
+			world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
 			
 			// make sure the new block has correct fluid level
-			world.setMeta(x - 1, y, 1);
-			
-			System.out.println("made new block to the left. This: " + world.getMeta(x, y) + " That: " + world.getMeta(x - 1, y));
+			world.setState(x - 1, y, this.getDefStateWithProp(fluidLevel, 1));
 			
 			// make sure no more code runs in this update
 			return;
@@ -301,12 +351,16 @@ public abstract class Fluid extends TileBasic
 		else
 		{
 			// add one the the fluid level of the left block
-			world.setMeta(x - 1, y, leftMeta + 1);
+			world.setState(x - 1, y, this.getDefStateWithProp(fluidLevel, leftMeta + 1));
+			
+			// schedule a new update because we changed the state
+			world.scheduleUpdate(x - 1, y, TileLayer.MAIN, 8);
 			
 			// remove one from this blocks fluid level
-			world.setMeta(x, y, thisMeta - 1);
+			world.setState(x, y, this.getDefStateWithProp(fluidLevel, thisMeta - 1));
 			
-			System.out.println("added fluid to the left. This: " + world.getMeta(x, y) + " That: " + world.getMeta(x - 1, y));
+			// schedule a new update because we changed the state
+			world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
 			
 			// exit out of the update
 			return;
@@ -316,10 +370,10 @@ public abstract class Fluid extends TileBasic
 	public void displaceRight(IWorld world, Tile rightBlock, Tile thisBlock, int rightMeta, int thisMeta, int x, int y)
 	{
 		// if the block we would be displacing to is adjacent to an enemy fluid
-		if (getEnemyFluids().contains(world.getTile(x + 2, y)))
+		if (getEnemyFluids().contains(world.getState(x + 2, y).getTile()))
 		{
 			// there has been an enemy collision, so we need to do something
-			onEnemyCollision(world.getTile(x + 2, y), new Pos2(x + 2, y), new Pos2(x + 1, y), world);
+			onEnemyCollision(world.getState(x + 2, y).getTile(), new Pos2(x + 2, y), new Pos2(x + 1, y), world);
 			
 			// cancel the displacing
 			return;
@@ -328,16 +382,15 @@ public abstract class Fluid extends TileBasic
 		// if the right block is air
 		if (rightBlock == GameContent.TILE_AIR)
 		{
-			// set the right block to the same fluid as this
-			world.setTile(x + 1, y, thisBlock);
 			
 			// remove one from the fluid in this block
-			world.setMeta(x, y, thisMeta - 1);
+			world.setState(x, y, this.getDefStateWithProp(fluidLevel, thisMeta - 1));
 			
-			// add fluid to the new block
-			world.setMeta(x + 1, y, 1);
+			// schedule a new update because we changed the state
+			world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
 			
-			System.out.println("made new block to the right. This: " + world.getMeta(x, y) + " That: " + world.getMeta(x + 1, y));
+			// add fluid to a new block to the right
+			world.setState(x + 1, y, this.getDefStateWithProp(fluidLevel, 1));
 			
 			
 			// stop running code
@@ -347,12 +400,16 @@ public abstract class Fluid extends TileBasic
 		else
 		{
 			// increase the right blocks fluid level
-			world.setMeta(x + 1, y, rightMeta + 1);
+			world.setState(x + 1, y, this.getDefStateWithProp(fluidLevel, rightMeta + 1));
 			
+			// schedule a new update because we changed the state
+			world.scheduleUpdate(x + 1, y, TileLayer.MAIN, 8);
+						
 			// decrease this blocks fluid level
-			world.setMeta(x, y, thisMeta - 1);
+			world.setState(x, y, this.getDefStateWithProp(fluidLevel, thisMeta - 1));
 			
-			System.out.println("added fluid to the right. This: " + world.getMeta(x, y) + " That: " + world.getMeta(x + 1, y));
+			// schedule a new update because we changed the state
+			world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
 			
 			// stop to prevent calling code accidently
 			return;
@@ -390,6 +447,6 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public boolean canPlaceInLayer(TileLayer layer){
         return layer != TileLayer.BACKGROUND || !this.canProvideTileEntity();
-    }*/
+    }
 
 }

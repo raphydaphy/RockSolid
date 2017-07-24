@@ -12,7 +12,7 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class FluidWater extends Fluid {
 
 	public FluidWater() {
-		super("water");
+		super("fluidWater");
 	}
 
 	@Override

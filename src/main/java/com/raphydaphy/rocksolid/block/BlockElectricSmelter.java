@@ -62,7 +62,7 @@ public class BlockElectricSmelter extends MultiTile
     }
    
     @Override
-    public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
+    public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
     {
         final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
         final TileEntityElectricSmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSmelter.class);

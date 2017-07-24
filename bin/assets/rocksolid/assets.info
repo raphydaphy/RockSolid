@@ -13,6 +13,11 @@ tex.items.ingotImpureTitanium=/items/ingot/ingot_impure_titanium.png
 tex.items.ingotTitanium=/items/ingot/ingot_titanium.png
 tex.items.ingotUranium=/items/ingot/ingot_uranium.png
 
+## Clay
+tex.items.clumpClay=/items/clay/clump_clay.png
+tex.items.itemClay=/items/clay/clay.png
+tex.items.porcelianClay=/items/clay/porcelian_clay.png
+
 ## Cluster
 tex.items.clusterTin=/items/cluster/cluster_tin.png
 tex.items.clusterIron=/items/cluster/cluster_iron.png
@@ -48,6 +53,14 @@ tex.items.pelletUranium=/items/misc/pellet_uranium.png
 tex.items.jetpack=/items/misc/jetpack.png
 tex.items.electricLantern=/items/misc/lanternElectric.png
 tex.items.lantern=/items/misc/lantern.png
+
+# Fluids
+
+## Water
+tex.tiles.fluidWater=/fluids/water/still.png
+
+## Lava
+tex.tiles.fluidLava=/fluids/lava/still.png
 
 # Blocks
 
@@ -135,6 +148,8 @@ tex.tiles.constructionBlockTitanium =/blocks/misc/construction_block_titanium.pn
 tex.tiles.chest=/blocks/misc/chest.png
 tex.tiles.creativePowerSource=/blocks/misc/creative_power_source.png
 tex.tiles.rockLight=/blocks/misc/rock_light.png
+tex.tiles.limestone=/blocks/misc/limestone.png
+tex.tiles.clay=/blocks/misc/clay.png
 
 ## Lamp
 tex.tiles.lamp=/blocks/lamp/lamp.png

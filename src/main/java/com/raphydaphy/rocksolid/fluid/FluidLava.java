@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import com.raphydaphy.rocksolid.api.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
+import de.ellpeck.rockbottom.api.entity.Entity;
+import de.ellpeck.rockbottom.api.entity.EntityLiving;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class FluidLava extends Fluid {
 
 	public FluidLava() {
-		super("lava");
+		super("fluidLava");
 		//super.setThickness(0.012);
 	}
 	
@@ -27,7 +29,7 @@ public class FluidLava extends Fluid {
 		enemyFluids.add(ModFluids.fluidWater);
 		return enemyFluids;
 	}
-	/*
+	
 	@Override
 	public void onCollideWithEntity(IWorld world, int x, int y, TileLayer layer, Entity entity)
 	{
@@ -36,6 +38,6 @@ public class FluidLava extends Fluid {
 		{
 			((EntityLiving) entity).takeDamage(3);
 		}
-	}*/
+	}
 
 }

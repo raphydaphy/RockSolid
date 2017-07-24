@@ -4,6 +4,7 @@ import org.newdawn.slick.util.Log;
 
 import com.raphydaphy.rocksolid.init.ModBlocks;
 import com.raphydaphy.rocksolid.init.ModEvents;
+import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
@@ -73,7 +74,7 @@ public class RockSolid implements IMod{
     	ModGenerators.init();
     	ModEvents.init(eventHandler);
     	ModPackets.init();
-    	
+    	ModFluids.init();
     }
     
     @Override

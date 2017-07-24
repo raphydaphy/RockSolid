@@ -65,7 +65,7 @@ public class BlockCharger extends MultiTile
     }
 	
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityCharger tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCharger.class);

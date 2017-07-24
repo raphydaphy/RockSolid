@@ -51,7 +51,7 @@ public class BlockCreativePowerSource extends TileBasic
     }
 	
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntityCreativePowerSource tile = world.getTileEntity(x, y, TileEntityCreativePowerSource.class);
 		

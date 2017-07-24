@@ -12,6 +12,10 @@ rocksolid/item.gemCoke=Coal Coke
 
 rocksolid/item.pelletUranium=Uranium Pellet
 
+rocksolid/item.clumpClay=Clay Clumps
+rocksolid/item.itemClay=Clay
+rocksolid/item.porcelianClay=Porcelian Clay
+
 rocksolid/item.clusterTin=Tin Cluster
 rocksolid/item.clusterIron=Iron Cluster
 rocksolid/item.clusterMagnesium=Magnesium Cluster
@@ -40,6 +44,10 @@ rocksolid/item.wrench=Wrench
 rocksolid/item.jetpack=Jetpack
 rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
+
+# Fluids
+rocksolid/item.fluidWater=Water
+rocksolid/item.fluidLava=Lava
 
 # Blocks
 rocksolid/item.alloySmelter=Alloy Smelter
@@ -99,6 +107,7 @@ rocksolid/details.quarry=Digs downwards up to 10 blocks left and right. Requires
 rocksolid/details.creativePowerSource=Supplies infinite power from all sides. Not meant to be obtained in survival.
 rocksolid/details.charger=Charges items that hold power, such as Jetpacks.
 rocksolid/details.nuclearReactor=Creates energy using nuclear fusion. Be careful, because splitting atoms is not safe!
+rocksolid/details.compressor=Compresses ingots into pellets and other useful things. Requires power.
 
 # Because Ellpeck is lazy
 rockbottom/item.stone=Stone

@@ -81,7 +81,7 @@ public class BlockNuclearReactor extends MultiTile
     }
 	
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, double mouseX, double mouseY, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntity tile = RockSolidLib.getTileFromPos(x, y, world);
 		
@@ -132,13 +132,13 @@ public class BlockNuclearReactor extends MultiTile
 	@Override
 	public int getMainX() 
 	{
-		return 1;
+		return 0;
 	}
 
 	@Override
 	public int getMainY() 
 	{
-		return 3;
+		return 0;
 	}
 	
 	@Override
