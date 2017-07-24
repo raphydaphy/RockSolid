@@ -7,7 +7,7 @@ import java.util.Map;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
+import com.raphydaphy.rocksolid.tile.TileCoalGenerator;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCoalGenerator;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -20,7 +20,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class CoalGeneratorRenderer extends MultiTileRenderer<BlockCoalGenerator>
+public class CoalGeneratorRenderer extends MultiTileRenderer<TileCoalGenerator>
 {
 	protected final Map<Pos2, IResourceName> texturesActive;
 	
@@ -48,7 +48,7 @@ public class CoalGeneratorRenderer extends MultiTileRenderer<BlockCoalGenerator>
     }
     
     @Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, BlockCoalGenerator tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileCoalGenerator tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
     {
         final Pos2 innerCoord = tile.getInnerCoord(state);
         final Pos2 mainPos = tile.getMainPos(x, y, state);

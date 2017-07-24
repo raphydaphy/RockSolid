@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.network.PacketBlockDestroyed;
+import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
 import com.raphydaphy.rocksolid.network.PacketChargerItem;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.network.PacketItemUpdate;
@@ -28,7 +28,7 @@ public class ModPackets {
 		RockBottomAPI.PACKET_REGISTRY.register(itemUpdatePacket, PacketItemUpdate.class);
 		
 		blockDestroyedPacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
-		RockBottomAPI.PACKET_REGISTRY.register(blockDestroyedPacket, PacketBlockDestroyed.class);
+		RockBottomAPI.PACKET_REGISTRY.register(blockDestroyedPacket, PacketTileDestroyed.class);
 		
 		conduitUpdatePacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
 		RockBottomAPI.PACKET_REGISTRY.register(conduitUpdatePacket, PacketConduitUpdate.class);

@@ -7,7 +7,7 @@ import java.util.Map;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.block.BlockNuclearReactor;
+import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -19,7 +19,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class NuclearReactorRenderer extends MultiTileRenderer<BlockNuclearReactor>
+public class NuclearReactorRenderer extends MultiTileRenderer<TileNuclearReactor>
 {
 	protected final Map<Pos2, IResourceName> texturesActive;
 	
@@ -36,7 +36,7 @@ public class NuclearReactorRenderer extends MultiTileRenderer<BlockNuclearReacto
     }
     
     @Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, BlockNuclearReactor tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileNuclearReactor tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
     {
         final Pos2 innerCoord = tile.getInnerCoord(state);
         IResourceName tex;

@@ -62,202 +62,202 @@ tex.tiles.fluidWater=/fluids/water/still.png
 ## Lava
 tex.tiles.fluidLava=/fluids/lava/still.png
 
-# Blocks
+# Tiles
 
 ## Alloy Smelter
-tex.tiles.alloySmelter.0.0=/blocks/alloy_smelter/alloy_smelter.png
-tex.tiles.alloySmelter.0.1=/blocks/alloy_smelter/alloy_smelter_top.png
-tex.tiles.alloySmelter.active=/blocks/alloy_smelter/alloy_smelter_active.png
-tex.tiles.alloySmelter.item=/blocks/alloy_smelter/alloy_smelter_item.png
+tex.tiles.alloySmelter.0.0=/tiles/alloy_smelter/alloy_smelter.png
+tex.tiles.alloySmelter.0.1=/tiles/alloy_smelter/alloy_smelter_top.png
+tex.tiles.alloySmelter.active=/tiles/alloy_smelter/alloy_smelter_active.png
+tex.tiles.alloySmelter.item=/tiles/alloy_smelter/alloy_smelter_item.png
 
 ## Arc Furnace
-tex.tiles.blastFurnace.item=/blocks/arc_furnace/arc_furnace_item.png
-tex.tiles.blastFurnace.0.0=/blocks/arc_furnace/arc_furnace.0.0.png
-tex.tiles.blastFurnace.1.0=/blocks/arc_furnace/arc_furnace.1.0.png
-tex.tiles.blastFurnace.0.1=/blocks/arc_furnace/arc_furnace.0.1.png
-tex.tiles.blastFurnace.1.1=/blocks/arc_furnace/arc_furnace.1.1.png
-tex.tiles.blastFurnace.active.0.0=/blocks/arc_furnace/arc_furnace_active.0.0.png
-tex.tiles.blastFurnace.active.1.0=/blocks/arc_furnace/arc_furnace_active.1.0.png
-tex.tiles.blastFurnace.active.0.1=/blocks/arc_furnace/arc_furnace_active.0.1.png
-tex.tiles.blastFurnace.active.1.1=/blocks/arc_furnace/arc_furnace_active.1.1.png
+tex.tiles.blastFurnace.item=/tiles/arc_furnace/arc_furnace_item.png
+tex.tiles.blastFurnace.0.0=/tiles/arc_furnace/arc_furnace.0.0.png
+tex.tiles.blastFurnace.1.0=/tiles/arc_furnace/arc_furnace.1.0.png
+tex.tiles.blastFurnace.0.1=/tiles/arc_furnace/arc_furnace.0.1.png
+tex.tiles.blastFurnace.1.1=/tiles/arc_furnace/arc_furnace.1.1.png
+tex.tiles.blastFurnace.active.0.0=/tiles/arc_furnace/arc_furnace_active.0.0.png
+tex.tiles.blastFurnace.active.1.0=/tiles/arc_furnace/arc_furnace_active.1.0.png
+tex.tiles.blastFurnace.active.0.1=/tiles/arc_furnace/arc_furnace_active.0.1.png
+tex.tiles.blastFurnace.active.1.1=/tiles/arc_furnace/arc_furnace_active.1.1.png
 
 ## Electric Arc Furnace
-tex.tiles.electricBlastFurnace.item=/blocks/electric_arc_furnace/electric_arc_furnace_item.png
-tex.tiles.electricBlastFurnace.0.0=/blocks/electric_arc_furnace/electric_arc_furnace.0.0.png
-tex.tiles.electricBlastFurnace.1.0=/blocks/electric_arc_furnace/electric_arc_furnace.1.0.png
-tex.tiles.electricBlastFurnace.0.1=/blocks/electric_arc_furnace/electric_arc_furnace.0.1.png
-tex.tiles.electricBlastFurnace.1.1=/blocks/electric_arc_furnace/electric_arc_furnace.1.1.png
-tex.tiles.electricBlastFurnace.active.0.0=/blocks/electric_arc_furnace/electric_arc_furnace_active.0.0.png
-tex.tiles.electricBlastFurnace.active.1.0=/blocks/electric_arc_furnace/electric_arc_furnace_active.1.0.png
-tex.tiles.electricBlastFurnace.active.0.1=/blocks/electric_arc_furnace/electric_arc_furnace_active.0.1.png
-tex.tiles.electricBlastFurnace.active.1.1=/blocks/electric_arc_furnace/electric_arc_furnace_active.1.1.png
+tex.tiles.electricBlastFurnace.item=/tiles/electric_arc_furnace/electric_arc_furnace_item.png
+tex.tiles.electricBlastFurnace.0.0=/tiles/electric_arc_furnace/electric_arc_furnace.0.0.png
+tex.tiles.electricBlastFurnace.1.0=/tiles/electric_arc_furnace/electric_arc_furnace.1.0.png
+tex.tiles.electricBlastFurnace.0.1=/tiles/electric_arc_furnace/electric_arc_furnace.0.1.png
+tex.tiles.electricBlastFurnace.1.1=/tiles/electric_arc_furnace/electric_arc_furnace.1.1.png
+tex.tiles.electricBlastFurnace.active.0.0=/tiles/electric_arc_furnace/electric_arc_furnace_active.0.0.png
+tex.tiles.electricBlastFurnace.active.1.0=/tiles/electric_arc_furnace/electric_arc_furnace_active.1.0.png
+tex.tiles.electricBlastFurnace.active.0.1=/tiles/electric_arc_furnace/electric_arc_furnace_active.0.1.png
+tex.tiles.electricBlastFurnace.active.1.1=/tiles/electric_arc_furnace/electric_arc_furnace_active.1.1.png
 
 ## Electric Alloy Smelter
-tex.tiles.electricAlloySmelter.item=/blocks/electric_alloy_smelter/electric_alloy_smelter_item.png
-tex.tiles.electricAlloySmelter.active.0.0=/blocks/electric_alloy_smelter/electric_alloy_smelter_active.0.0.png
-tex.tiles.electricAlloySmelter.active.0.1=/blocks/electric_alloy_smelter/electric_alloy_smelter_active.0.1.png
-tex.tiles.electricAlloySmelter.active.1.0=/blocks/electric_alloy_smelter/electric_alloy_smelter_active.1.0.png
-tex.tiles.electricAlloySmelter.active.1.1=/blocks/electric_alloy_smelter/electric_alloy_smelter_active.1.1.png
-tex.tiles.electricAlloySmelter.0.0=/blocks/electric_alloy_smelter/electric_alloy_smelter.0.0.png
-tex.tiles.electricAlloySmelter.0.1=/blocks/electric_alloy_smelter/electric_alloy_smelter.0.1.png
-tex.tiles.electricAlloySmelter.1.0=/blocks/electric_alloy_smelter/electric_alloy_smelter.1.0.png
-tex.tiles.electricAlloySmelter.1.1=/blocks/electric_alloy_smelter/electric_alloy_smelter.1.1.png
+tex.tiles.electricAlloySmelter.item=/tiles/electric_alloy_smelter/electric_alloy_smelter_item.png
+tex.tiles.electricAlloySmelter.active.0.0=/tiles/electric_alloy_smelter/electric_alloy_smelter_active.0.0.png
+tex.tiles.electricAlloySmelter.active.0.1=/tiles/electric_alloy_smelter/electric_alloy_smelter_active.0.1.png
+tex.tiles.electricAlloySmelter.active.1.0=/tiles/electric_alloy_smelter/electric_alloy_smelter_active.1.0.png
+tex.tiles.electricAlloySmelter.active.1.1=/tiles/electric_alloy_smelter/electric_alloy_smelter_active.1.1.png
+tex.tiles.electricAlloySmelter.0.0=/tiles/electric_alloy_smelter/electric_alloy_smelter.0.0.png
+tex.tiles.electricAlloySmelter.0.1=/tiles/electric_alloy_smelter/electric_alloy_smelter.0.1.png
+tex.tiles.electricAlloySmelter.1.0=/tiles/electric_alloy_smelter/electric_alloy_smelter.1.0.png
+tex.tiles.electricAlloySmelter.1.1=/tiles/electric_alloy_smelter/electric_alloy_smelter.1.1.png
 
 ## Electric Separator
-tex.tiles.electricSeparator.0.0=sub./blocks/electric_separator/electric_separator.png,0,24,12,12
-tex.tiles.electricSeparator.1.0=sub./blocks/electric_separator/electric_separator.png,12,24,12,12
-tex.tiles.electricSeparator.0.1=sub./blocks/electric_separator/electric_separator.png,0,12,12,12
-tex.tiles.electricSeparator.1.1=sub./blocks/electric_separator/electric_separator.png,12,12,12,12
-tex.tiles.electricSeparator.1.2=sub./blocks/electric_separator/electric_separator.png,12,0,12,12
-tex.tiles.electricSeparator.active.0.0=sub./blocks/electric_separator/electric_separator_active.png,0,24,12,12
-tex.tiles.electricSeparator.active.1.0=sub./blocks/electric_separator/electric_separator_active.png,12,24,12,12
-tex.tiles.electricSeparator.active.0.1=sub./blocks/electric_separator/electric_separator_active.png,0,12,12,12
-tex.tiles.electricSeparator.active.1.1=sub./blocks/electric_separator/electric_separator_active.png,12,12,12,12
-tex.tiles.electricSeparator.active.1.2=sub./blocks/electric_separator/electric_separator_active.png,12,0,12,12
-tex.tiles.electricSeparator.item=/blocks/electric_separator/electric_separator_item.png
+tex.tiles.electricSeparator.0.0=sub./tiles/electric_separator/electric_separator.png,0,24,12,12
+tex.tiles.electricSeparator.1.0=sub./tiles/electric_separator/electric_separator.png,12,24,12,12
+tex.tiles.electricSeparator.0.1=sub./tiles/electric_separator/electric_separator.png,0,12,12,12
+tex.tiles.electricSeparator.1.1=sub./tiles/electric_separator/electric_separator.png,12,12,12,12
+tex.tiles.electricSeparator.1.2=sub./tiles/electric_separator/electric_separator.png,12,0,12,12
+tex.tiles.electricSeparator.active.0.0=sub./tiles/electric_separator/electric_separator_active.png,0,24,12,12
+tex.tiles.electricSeparator.active.1.0=sub./tiles/electric_separator/electric_separator_active.png,12,24,12,12
+tex.tiles.electricSeparator.active.0.1=sub./tiles/electric_separator/electric_separator_active.png,0,12,12,12
+tex.tiles.electricSeparator.active.1.1=sub./tiles/electric_separator/electric_separator_active.png,12,12,12,12
+tex.tiles.electricSeparator.active.1.2=sub./tiles/electric_separator/electric_separator_active.png,12,0,12,12
+tex.tiles.electricSeparator.item=/tiles/electric_separator/electric_separator_item.png
 
 ## Electric Smelter
-tex.tiles.electricSmelter.0.0=/blocks/electric_smelter/electric_smelter.0.0.png
-tex.tiles.electricSmelter.0.1=/blocks/electric_smelter/electric_smelter.0.1.png
-tex.tiles.electricSmelter.1.0=/blocks/electric_smelter/electric_smelter.1.0.png
-tex.tiles.electricSmelter.1.1=/blocks/electric_smelter/electric_smelter.1.1.png
-tex.tiles.electricSmelter.active.0.0=/blocks/electric_smelter/electric_smelter_active.0.0.png
-tex.tiles.electricSmelter.active.0.1=/blocks/electric_smelter/electric_smelter_active.0.1.png
-tex.tiles.electricSmelter.active.1.0=/blocks/electric_smelter/electric_smelter_active.1.0.png
-tex.tiles.electricSmelter.active.1.1=/blocks/electric_smelter/electric_smelter_active.1.1.png
-tex.tiles.electricSmelter.item=/blocks/electric_smelter/electric_smelter_item.png
+tex.tiles.electricSmelter.0.0=/tiles/electric_smelter/electric_smelter.0.0.png
+tex.tiles.electricSmelter.0.1=/tiles/electric_smelter/electric_smelter.0.1.png
+tex.tiles.electricSmelter.1.0=/tiles/electric_smelter/electric_smelter.1.0.png
+tex.tiles.electricSmelter.1.1=/tiles/electric_smelter/electric_smelter.1.1.png
+tex.tiles.electricSmelter.active.0.0=/tiles/electric_smelter/electric_smelter_active.0.0.png
+tex.tiles.electricSmelter.active.0.1=/tiles/electric_smelter/electric_smelter_active.0.1.png
+tex.tiles.electricSmelter.active.1.0=/tiles/electric_smelter/electric_smelter_active.1.0.png
+tex.tiles.electricSmelter.active.1.1=/tiles/electric_smelter/electric_smelter_active.1.1.png
+tex.tiles.electricSmelter.item=/tiles/electric_smelter/electric_smelter_item.png
 
 ## Compressor
-tex.tiles.compressor.0.0=sub./blocks/compressor/compressor.png,0,12,12,12
-tex.tiles.compressor.1.0=sub./blocks/compressor/compressor.png,12,12,12,12
-tex.tiles.compressor.2.0=sub./blocks/compressor/compressor.png,24,12,12,12
-tex.tiles.compressor.0.1=sub./blocks/compressor/compressor.png,0,0,12,12
-tex.tiles.compressor.1.1=sub./blocks/compressor/compressor.png,12,0,12,12
-tex.tiles.compressor.2.1=sub./blocks/compressor/compressor.png,24,0,12,12
-tex.tiles.compressor.active.0.0=sub./blocks/compressor/compressor_active.png,0,12,12,12
-tex.tiles.compressor.active.1.0=sub./blocks/compressor/compressor_active.png,12,12,12,12
-tex.tiles.compressor.active.2.0=sub./blocks/compressor/compressor_active.png,24,12,12,12
-tex.tiles.compressor.active.0.1=sub./blocks/compressor/compressor_active.png,0,0,12,12
-tex.tiles.compressor.active.1.1=sub./blocks/compressor/compressor_active.png,12,0,12,12
-tex.tiles.compressor.active.2.1=sub./blocks/compressor/compressor_active.png,24,0,12,12
-tex.tiles.compressor.item=/blocks/compressor/compressor_item.png
+tex.tiles.compressor.0.0=sub./tiles/compressor/compressor.png,0,12,12,12
+tex.tiles.compressor.1.0=sub./tiles/compressor/compressor.png,12,12,12,12
+tex.tiles.compressor.2.0=sub./tiles/compressor/compressor.png,24,12,12,12
+tex.tiles.compressor.0.1=sub./tiles/compressor/compressor.png,0,0,12,12
+tex.tiles.compressor.1.1=sub./tiles/compressor/compressor.png,12,0,12,12
+tex.tiles.compressor.2.1=sub./tiles/compressor/compressor.png,24,0,12,12
+tex.tiles.compressor.active.0.0=sub./tiles/compressor/compressor_active.png,0,12,12,12
+tex.tiles.compressor.active.1.0=sub./tiles/compressor/compressor_active.png,12,12,12,12
+tex.tiles.compressor.active.2.0=sub./tiles/compressor/compressor_active.png,24,12,12,12
+tex.tiles.compressor.active.0.1=sub./tiles/compressor/compressor_active.png,0,0,12,12
+tex.tiles.compressor.active.1.1=sub./tiles/compressor/compressor_active.png,12,0,12,12
+tex.tiles.compressor.active.2.1=sub./tiles/compressor/compressor_active.png,24,0,12,12
+tex.tiles.compressor.item=/tiles/compressor/compressor_item.png
 
 ## Misc
-tex.tiles.constructionBlockSteel=/blocks/misc/construction_block_steel.png
-tex.tiles.constructionBlockTitanium =/blocks/misc/construction_block_titanium.png
-tex.tiles.chest=/blocks/misc/chest.png
-tex.tiles.creativePowerSource=/blocks/misc/creative_power_source.png
-tex.tiles.rockLight=/blocks/misc/rock_light.png
-tex.tiles.limestone=/blocks/misc/limestone.png
-tex.tiles.clay=/blocks/misc/clay.png
+tex.tiles.constructionBlockSteel=/tiles/misc/construction_block_steel.png
+tex.tiles.constructionBlockTitanium =/tiles/misc/construction_block_titanium.png
+tex.tiles.chest=/tiles/misc/chest.png
+tex.tiles.creativePowerSource=/tiles/misc/creative_power_source.png
+tex.tiles.rockLight=/tiles/misc/rock_light.png
+tex.tiles.limestone=/tiles/misc/limestone.png
+tex.tiles.clay=/tiles/misc/clay.png
 
 ## Lamp
-tex.tiles.lamp=/blocks/lamp/lamp.png
-tex.tiles.lamp.up=/blocks/lamp/lamp_up.png
-tex.tiles.lamp.down=/blocks/lamp/lamp_down.png
-tex.tiles.lamp.left=/blocks/lamp/lamp_left.png
-tex.tiles.lamp.right=/blocks/lamp/lamp_right.png
+tex.tiles.lamp=/tiles/lamp/lamp.png
+tex.tiles.lamp.up=/tiles/lamp/lamp_up.png
+tex.tiles.lamp.down=/tiles/lamp/lamp_down.png
+tex.tiles.lamp.left=/tiles/lamp/lamp_left.png
+tex.tiles.lamp.right=/tiles/lamp/lamp_right.png
 
 ## Energy Conduit
-tex.tiles.energyConduit=/blocks/energy_conduit/energy_conduit.png
-tex.tiles.energyConduit.up=/blocks/energy_conduit/energy_conduit_up.png
-tex.tiles.energyConduit.down=/blocks/energy_conduit/energy_conduit_down.png
-tex.tiles.energyConduit.left=/blocks/energy_conduit/energy_conduit_left.png
-tex.tiles.energyConduit.right=/blocks/energy_conduit/energy_conduit_right.png
+tex.tiles.energyConduit=/tiles/energy_conduit/energy_conduit.png
+tex.tiles.energyConduit.up=/tiles/energy_conduit/energy_conduit_up.png
+tex.tiles.energyConduit.down=/tiles/energy_conduit/energy_conduit_down.png
+tex.tiles.energyConduit.left=/tiles/energy_conduit/energy_conduit_left.png
+tex.tiles.energyConduit.right=/tiles/energy_conduit/energy_conduit_right.png
 
 ## Allocator
-tex.tiles.allocator=/blocks/allocator/allocator.png
-tex.tiles.allocator.up=/blocks/allocator/allocator_up.png
-tex.tiles.allocator.down=/blocks/allocator/allocator_down.png
-tex.tiles.allocator.left=/blocks/allocator/allocator_left.png
-tex.tiles.allocator.right=/blocks/allocator/allocator_right.png
+tex.tiles.allocator=/tiles/allocator/allocator.png
+tex.tiles.allocator.up=/tiles/allocator/allocator_up.png
+tex.tiles.allocator.down=/tiles/allocator/allocator_down.png
+tex.tiles.allocator.left=/tiles/allocator/allocator_left.png
+tex.tiles.allocator.right=/tiles/allocator/allocator_right.png
 
 ## Coal Generator
-tex.tiles.coalGenerator.item=/blocks/coal_generator/coal_generator_item.png
-tex.tiles.coalGenerator.active.0.0=/blocks/coal_generator/coal_generator_active.0.0.png
-tex.tiles.coalGenerator.active.0.1=/blocks/coal_generator/coal_generator_active.0.1.png
-tex.tiles.coalGenerator.0.0=/blocks/coal_generator/coal_generator.0.0.png
-tex.tiles.coalGenerator.0.1=/blocks/coal_generator/coal_generator.0.1.png
-tex.tiles.coalGenerator.1.0=/blocks/coal_generator/coal_generator.1.0.png
-tex.tiles.coalGenerator.1.1=/blocks/coal_generator/coal_generator.1.1.png
-tex.tiles.coalGenerator.2.0=/blocks/coal_generator/coal_generator.0.2.0.png
-tex.tiles.coalGenerator.2.1=/blocks/coal_generator/coal_generator.0.2.1.png
-tex.tiles.coalGenerator.1.2.0=/blocks/coal_generator/coal_generator.1.2.0.png
-tex.tiles.coalGenerator.2.2.0=/blocks/coal_generator/coal_generator.2.2.0.png
-tex.tiles.coalGenerator.3.2.0=/blocks/coal_generator/coal_generator.3.2.0.png
-tex.tiles.coalGenerator.4.2.0=/blocks/coal_generator/coal_generator.4.2.0.png
-tex.tiles.coalGenerator.4.2.1=/blocks/coal_generator/coal_generator.4.2.1.png
-tex.tiles.coalGenerator.5.2.1=/blocks/coal_generator/coal_generator.5.2.1.png
-tex.tiles.coalGenerator.6.2.1=/blocks/coal_generator/coal_generator.6.2.1.png
+tex.tiles.coalGenerator.item=/tiles/coal_generator/coal_generator_item.png
+tex.tiles.coalGenerator.active.0.0=/tiles/coal_generator/coal_generator_active.0.0.png
+tex.tiles.coalGenerator.active.0.1=/tiles/coal_generator/coal_generator_active.0.1.png
+tex.tiles.coalGenerator.0.0=/tiles/coal_generator/coal_generator.0.0.png
+tex.tiles.coalGenerator.0.1=/tiles/coal_generator/coal_generator.0.1.png
+tex.tiles.coalGenerator.1.0=/tiles/coal_generator/coal_generator.1.0.png
+tex.tiles.coalGenerator.1.1=/tiles/coal_generator/coal_generator.1.1.png
+tex.tiles.coalGenerator.2.0=/tiles/coal_generator/coal_generator.0.2.0.png
+tex.tiles.coalGenerator.2.1=/tiles/coal_generator/coal_generator.0.2.1.png
+tex.tiles.coalGenerator.1.2.0=/tiles/coal_generator/coal_generator.1.2.0.png
+tex.tiles.coalGenerator.2.2.0=/tiles/coal_generator/coal_generator.2.2.0.png
+tex.tiles.coalGenerator.3.2.0=/tiles/coal_generator/coal_generator.3.2.0.png
+tex.tiles.coalGenerator.4.2.0=/tiles/coal_generator/coal_generator.4.2.0.png
+tex.tiles.coalGenerator.4.2.1=/tiles/coal_generator/coal_generator.4.2.1.png
+tex.tiles.coalGenerator.5.2.1=/tiles/coal_generator/coal_generator.5.2.1.png
+tex.tiles.coalGenerator.6.2.1=/tiles/coal_generator/coal_generator.6.2.1.png
 
 ## Charger
-tex.tiles.charger.item=/blocks/charger/charger_item.png
-tex.tiles.charger.0.0=/blocks/charger/charger.0.0.png
-tex.tiles.charger.0.1=/blocks/charger/charger.0.1.png
-tex.tiles.charger.1.0=/blocks/charger/charger.1.0.png
-tex.tiles.charger.1.1=/blocks/charger/charger.1.1.png
-tex.tiles.charger.2.0=/blocks/coal_generator/coal_generator.0.2.0.png
-tex.tiles.charger.2.1=/blocks/coal_generator/coal_generator.0.2.1.png
-tex.tiles.charger.1.2.0=/blocks/coal_generator/coal_generator.1.2.0.png
-tex.tiles.charger.2.2.0=/blocks/coal_generator/coal_generator.2.2.0.png
-tex.tiles.charger.3.2.0=/blocks/coal_generator/coal_generator.3.2.0.png
-tex.tiles.charger.4.2.0=/blocks/coal_generator/coal_generator.4.2.0.png
-tex.tiles.charger.4.2.1=/blocks/coal_generator/coal_generator.4.2.1.png
-tex.tiles.charger.5.2.1=/blocks/coal_generator/coal_generator.5.2.1.png
-tex.tiles.charger.6.2.1=/blocks/coal_generator/coal_generator.6.2.1.png
+tex.tiles.charger.item=/tiles/charger/charger_item.png
+tex.tiles.charger.0.0=/tiles/charger/charger.0.0.png
+tex.tiles.charger.0.1=/tiles/charger/charger.0.1.png
+tex.tiles.charger.1.0=/tiles/charger/charger.1.0.png
+tex.tiles.charger.1.1=/tiles/charger/charger.1.1.png
+tex.tiles.charger.2.0=/tiles/coal_generator/coal_generator.0.2.0.png
+tex.tiles.charger.2.1=/tiles/coal_generator/coal_generator.0.2.1.png
+tex.tiles.charger.1.2.0=/tiles/coal_generator/coal_generator.1.2.0.png
+tex.tiles.charger.2.2.0=/tiles/coal_generator/coal_generator.2.2.0.png
+tex.tiles.charger.3.2.0=/tiles/coal_generator/coal_generator.3.2.0.png
+tex.tiles.charger.4.2.0=/tiles/coal_generator/coal_generator.4.2.0.png
+tex.tiles.charger.4.2.1=/tiles/coal_generator/coal_generator.4.2.1.png
+tex.tiles.charger.5.2.1=/tiles/coal_generator/coal_generator.5.2.1.png
+tex.tiles.charger.6.2.1=/tiles/coal_generator/coal_generator.6.2.1.png
 
 
 ## Nuclear Reactor
-tex.tiles.nuclearReactor.item=/blocks/nuclear_reactor/nuclear_reactor_item.png
-tex.tiles.nuclearReactor.0.0=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,36,12,12
-tex.tiles.nuclearReactor.0.1=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,24,12,12
-tex.tiles.nuclearReactor.0.2=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,12,12,12
-tex.tiles.nuclearReactor.0.3=sub./blocks/nuclear_reactor/nuclear_reactor.png,0,0,12,12
-tex.tiles.nuclearReactor.1.0=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,36,12,12
-tex.tiles.nuclearReactor.1.1=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,24,12,12
-tex.tiles.nuclearReactor.1.2=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,12,12,12
-tex.tiles.nuclearReactor.1.3=sub./blocks/nuclear_reactor/nuclear_reactor.png,12,0,12,12
-tex.tiles.nuclearReactor.2.0=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,36,12,12
-tex.tiles.nuclearReactor.2.1=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,24,12,12
-tex.tiles.nuclearReactor.2.2=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,12,12,12
-tex.tiles.nuclearReactor.2.3=sub./blocks/nuclear_reactor/nuclear_reactor.png,24,0,12,12
+tex.tiles.nuclearReactor.item=/tiles/nuclear_reactor/nuclear_reactor_item.png
+tex.tiles.nuclearReactor.0.0=sub./tiles/nuclear_reactor/nuclear_reactor.png,0,36,12,12
+tex.tiles.nuclearReactor.0.1=sub./tiles/nuclear_reactor/nuclear_reactor.png,0,24,12,12
+tex.tiles.nuclearReactor.0.2=sub./tiles/nuclear_reactor/nuclear_reactor.png,0,12,12,12
+tex.tiles.nuclearReactor.0.3=sub./tiles/nuclear_reactor/nuclear_reactor.png,0,0,12,12
+tex.tiles.nuclearReactor.1.0=sub./tiles/nuclear_reactor/nuclear_reactor.png,12,36,12,12
+tex.tiles.nuclearReactor.1.1=sub./tiles/nuclear_reactor/nuclear_reactor.png,12,24,12,12
+tex.tiles.nuclearReactor.1.2=sub./tiles/nuclear_reactor/nuclear_reactor.png,12,12,12,12
+tex.tiles.nuclearReactor.1.3=sub./tiles/nuclear_reactor/nuclear_reactor.png,12,0,12,12
+tex.tiles.nuclearReactor.2.0=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,36,12,12
+tex.tiles.nuclearReactor.2.1=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,24,12,12
+tex.tiles.nuclearReactor.2.2=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,12,12,12
+tex.tiles.nuclearReactor.2.3=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,0,12,12
 
 ## Battery
-tex.tiles.battery.0.0=sub./blocks/battery/battery.png,0,24,12,12
-tex.tiles.battery.0.1=sub./blocks/battery/battery.png,0,12,12,12
-tex.tiles.battery.0.2=sub./blocks/battery/battery.png,0,0,12,12
-tex.tiles.battery.1.0=sub./blocks/battery/battery.png,12,24,12,12
-tex.tiles.battery.1.1=sub./blocks/battery/battery.png,12,12,12,12
-tex.tiles.battery.1.2=sub./blocks/battery/battery.png,12,0,12,12
-tex.tiles.battery.2.0=sub./blocks/battery/battery.png,24,24,12,12
-tex.tiles.battery.2.1=sub./blocks/battery/battery.png,24,12,12,12
-tex.tiles.battery.2.2=sub./blocks/battery/battery.png,24,0,12,12
-tex.tiles.battery.item=/blocks/battery/battery_item.png
+tex.tiles.battery.0.0=sub./tiles/battery/battery.png,0,24,12,12
+tex.tiles.battery.0.1=sub./tiles/battery/battery.png,0,12,12,12
+tex.tiles.battery.0.2=sub./tiles/battery/battery.png,0,0,12,12
+tex.tiles.battery.1.0=sub./tiles/battery/battery.png,12,24,12,12
+tex.tiles.battery.1.1=sub./tiles/battery/battery.png,12,12,12,12
+tex.tiles.battery.1.2=sub./tiles/battery/battery.png,12,0,12,12
+tex.tiles.battery.2.0=sub./tiles/battery/battery.png,24,24,12,12
+tex.tiles.battery.2.1=sub./tiles/battery/battery.png,24,12,12,12
+tex.tiles.battery.2.2=sub./tiles/battery/battery.png,24,0,12,12
+tex.tiles.battery.item=/tiles/battery/battery_item.png
 
 ## Quarry
-tex.tiles.quarry.0.0=sub./blocks/quarry/quarry.png,0,24,12,12
-tex.tiles.quarry.0.1=sub./blocks/quarry/quarry.png,0,12,12,12
-tex.tiles.quarry.0.2=sub./blocks/quarry/quarry.png,0,0,12,12
-tex.tiles.quarry.1.0=sub./blocks/quarry/quarry.png,12,24,12,12
-tex.tiles.quarry.1.1=sub./blocks/quarry/quarry.png,12,12,12,12
-tex.tiles.quarry.1.2=sub./blocks/quarry/quarry.png,12,0,12,12
-tex.tiles.quarry.2.0=sub./blocks/quarry/quarry.png,24,24,12,12
-tex.tiles.quarry.2.1=sub./blocks/quarry/quarry.png,24,12,12,12
-tex.tiles.quarry.2.2=sub./blocks/quarry/quarry.png,24,0,12,12
-tex.tiles.quarry.active.0.0=sub./blocks/quarry/quarry_active.png,0,24,12,12
-tex.tiles.quarry.active.0.1=sub./blocks/quarry/quarry_active.png,0,12,12,12
-tex.tiles.quarry.active.0.2=sub./blocks/quarry/quarry_active.png,0,0,12,12
-tex.tiles.quarry.active.1.0=sub./blocks/quarry/quarry_active.png,12,24,12,12
-tex.tiles.quarry.active.1.1=sub./blocks/quarry/quarry_active.png,12,12,12,12
-tex.tiles.quarry.active.1.2=sub./blocks/quarry/quarry_active.png,12,0,12,12
-tex.tiles.quarry.active.2.0=sub./blocks/quarry/quarry_active.png,24,24,12,12
-tex.tiles.quarry.active.2.1=sub./blocks/quarry/quarry_active.png,24,12,12,12
-tex.tiles.quarry.active.2.2=sub./blocks/quarry/quarry_active.png,24,0,12,12
-tex.tiles.quarry.item=/blocks/quarry/quarry_item.png
+tex.tiles.quarry.0.0=sub./tiles/quarry/quarry.png,0,24,12,12
+tex.tiles.quarry.0.1=sub./tiles/quarry/quarry.png,0,12,12,12
+tex.tiles.quarry.0.2=sub./tiles/quarry/quarry.png,0,0,12,12
+tex.tiles.quarry.1.0=sub./tiles/quarry/quarry.png,12,24,12,12
+tex.tiles.quarry.1.1=sub./tiles/quarry/quarry.png,12,12,12,12
+tex.tiles.quarry.1.2=sub./tiles/quarry/quarry.png,12,0,12,12
+tex.tiles.quarry.2.0=sub./tiles/quarry/quarry.png,24,24,12,12
+tex.tiles.quarry.2.1=sub./tiles/quarry/quarry.png,24,12,12,12
+tex.tiles.quarry.2.2=sub./tiles/quarry/quarry.png,24,0,12,12
+tex.tiles.quarry.active.0.0=sub./tiles/quarry/quarry_active.png,0,24,12,12
+tex.tiles.quarry.active.0.1=sub./tiles/quarry/quarry_active.png,0,12,12,12
+tex.tiles.quarry.active.0.2=sub./tiles/quarry/quarry_active.png,0,0,12,12
+tex.tiles.quarry.active.1.0=sub./tiles/quarry/quarry_active.png,12,24,12,12
+tex.tiles.quarry.active.1.1=sub./tiles/quarry/quarry_active.png,12,12,12,12
+tex.tiles.quarry.active.1.2=sub./tiles/quarry/quarry_active.png,12,0,12,12
+tex.tiles.quarry.active.2.0=sub./tiles/quarry/quarry_active.png,24,24,12,12
+tex.tiles.quarry.active.2.1=sub./tiles/quarry/quarry_active.png,24,12,12,12
+tex.tiles.quarry.active.2.2=sub./tiles/quarry/quarry_active.png,24,0,12,12
+tex.tiles.quarry.item=/tiles/quarry/quarry_item.png
 
 ## Ore
-tex.tiles.oreTin=/blocks/ore/ore_tin.png
-tex.tiles.oreIron=/blocks/ore/ore_iron.png
-tex.tiles.oreMagnesium=/blocks/ore/ore_magnesium.png
-tex.tiles.oreRutile=/blocks/ore/ore_rutile.png
-tex.tiles.oreUranium=/blocks/ore/ore_uranium.png
+tex.tiles.oreTin=/tiles/ore/ore_tin.png
+tex.tiles.oreIron=/tiles/ore/ore_iron.png
+tex.tiles.oreMagnesium=/tiles/ore/ore_magnesium.png
+tex.tiles.oreRutile=/tiles/ore/ore_rutile.png
+tex.tiles.oreUranium=/tiles/ore/ore_uranium.png

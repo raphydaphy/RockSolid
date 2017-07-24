@@ -4,7 +4,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.block.BlockCharger;
+import com.raphydaphy.rocksolid.tile.TileCharger;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -19,7 +19,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class ChargerRenderer extends MultiTileRenderer<BlockCharger>
+public class ChargerRenderer extends MultiTileRenderer<TileCharger>
 {
 	
     public ChargerRenderer(final IResourceName texture, final MultiTile tile) 
@@ -29,7 +29,7 @@ public class ChargerRenderer extends MultiTileRenderer<BlockCharger>
 
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, BlockCharger tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileCharger tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
     {
         final Pos2 innerCoord = tile.getInnerCoord(state);
         final Pos2 mainPos = tile.getMainPos(x, y, state);

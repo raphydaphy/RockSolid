@@ -4,7 +4,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.block.BlockAlloySmelter;
+import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -16,7 +16,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class AlloySmelterRenderer<T extends BlockAlloySmelter> extends MultiTileRenderer<T>
+public class AlloySmelterRenderer<T extends TileAlloySmelter> extends MultiTileRenderer<T>
 {
 	private final IResourceName texActive;
 	

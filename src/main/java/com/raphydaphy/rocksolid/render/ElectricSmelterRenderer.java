@@ -6,7 +6,7 @@ import java.util.Map;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.block.BlockElectricSmelter;
+import com.raphydaphy.rocksolid.tile.TileElectricSmelter;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSmelter;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -19,7 +19,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class ElectricSmelterRenderer extends MultiTileRenderer<BlockElectricSmelter>
+public class ElectricSmelterRenderer extends MultiTileRenderer<TileElectricSmelter>
 {
 protected final Map<Pos2, IResourceName> texturesActive;
 	
@@ -35,7 +35,7 @@ protected final Map<Pos2, IResourceName> texturesActive;
         }
     }
     
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, BlockElectricSmelter tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileElectricSmelter tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
     {
         final Pos2 innerCoord = tile.getInnerCoord(state);
         final Pos2 mainPos = tile.getMainPos(x, y, state);

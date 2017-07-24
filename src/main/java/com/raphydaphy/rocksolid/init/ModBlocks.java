@@ -1,25 +1,25 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.block.BlockAllocator;
-import com.raphydaphy.rocksolid.block.BlockAlloySmelter;
-import com.raphydaphy.rocksolid.block.BlockBase;
-import com.raphydaphy.rocksolid.block.BlockBattery;
-import com.raphydaphy.rocksolid.block.BlockBlastFurnace;
-import com.raphydaphy.rocksolid.block.BlockCharger;
-import com.raphydaphy.rocksolid.block.BlockChest;
-import com.raphydaphy.rocksolid.block.BlockCoalGenerator;
-import com.raphydaphy.rocksolid.block.BlockCompressor;
-import com.raphydaphy.rocksolid.block.BlockCreativePowerSource;
-import com.raphydaphy.rocksolid.block.BlockCustomDrop;
-import com.raphydaphy.rocksolid.block.BlockElectricAlloySmelter;
-import com.raphydaphy.rocksolid.block.BlockElectricBlastFurnace;
-import com.raphydaphy.rocksolid.block.BlockElectricSeparator;
-import com.raphydaphy.rocksolid.block.BlockElectricSmelter;
-import com.raphydaphy.rocksolid.block.BlockEnergyConduit;
-import com.raphydaphy.rocksolid.block.BlockLamp;
-import com.raphydaphy.rocksolid.block.BlockNuclearReactor;
-import com.raphydaphy.rocksolid.block.BlockOre;
-import com.raphydaphy.rocksolid.block.BlockQuarry;
+import com.raphydaphy.rocksolid.tile.TileAllocator;
+import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
+import com.raphydaphy.rocksolid.tile.TileBase;
+import com.raphydaphy.rocksolid.tile.TileBattery;
+import com.raphydaphy.rocksolid.tile.TileBlastFurnace;
+import com.raphydaphy.rocksolid.tile.TileCharger;
+import com.raphydaphy.rocksolid.tile.TileChest;
+import com.raphydaphy.rocksolid.tile.TileCoalGenerator;
+import com.raphydaphy.rocksolid.tile.TileCompressor;
+import com.raphydaphy.rocksolid.tile.TileCreativePowerSource;
+import com.raphydaphy.rocksolid.tile.TileCustomDrop;
+import com.raphydaphy.rocksolid.tile.TileElectricAlloySmelter;
+import com.raphydaphy.rocksolid.tile.TileElectricBlastFurnace;
+import com.raphydaphy.rocksolid.tile.TileElectricSeparator;
+import com.raphydaphy.rocksolid.tile.TileElectricSmelter;
+import com.raphydaphy.rocksolid.tile.TileEnergyConduit;
+import com.raphydaphy.rocksolid.tile.TileLamp;
+import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
+import com.raphydaphy.rocksolid.tile.TileOre;
+import com.raphydaphy.rocksolid.tile.TileQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -67,39 +67,39 @@ public class ModBlocks
 	public static void init() 
 	{
 		
-		alloySmelter = new BlockAlloySmelter();
-		blastFurnace = new BlockBlastFurnace();
+		alloySmelter = new TileAlloySmelter();
+		blastFurnace = new TileBlastFurnace();
 		
-		allocator = new BlockAllocator();
-		energyConduit = new BlockEnergyConduit();
-		chest = new BlockChest().register();
+		allocator = new TileAllocator();
+		energyConduit = new TileEnergyConduit();
+		chest = new TileChest().register();
 		
-		quarry = new BlockQuarry();
-		creativePowerSource = new BlockCreativePowerSource();
-		charger = new BlockCharger();
+		quarry = new TileQuarry();
+		creativePowerSource = new TileCreativePowerSource();
+		charger = new TileCharger();
 		
-		lamp = new BlockLamp(RockSolidLib.makeRes("lamp"));
-		rockLight = new BlockCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 1);
-		limestone = new BlockBase(RockSolidLib.makeRes("limestone"), 10, 3);
-		clay = new BlockBase(RockSolidLib.makeRes("clay"), 8, 3, ToolType.SHOVEL);
+		lamp = new TileLamp(RockSolidLib.makeRes("lamp"));
+		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 1);
+		limestone = new TileBase(RockSolidLib.makeRes("limestone"), 10, 3);
+		clay = new TileBase(RockSolidLib.makeRes("clay"), 8, 3, ToolType.SHOVEL);
 		
-		coalGenerator = new BlockCoalGenerator();
-		nuclearReactor = new BlockNuclearReactor();
-		battery = new BlockBattery();
+		coalGenerator = new TileCoalGenerator();
+		nuclearReactor = new TileNuclearReactor();
+		battery = new TileBattery();
 		
-		electricBlastFurnace = new BlockElectricBlastFurnace();
-		electricAlloySmelter = new BlockElectricAlloySmelter();
-		electricSeparator = new BlockElectricSeparator();
-		electricSmelter = new BlockElectricSmelter();
-		compressor = new BlockCompressor();
+		electricBlastFurnace = new TileElectricBlastFurnace();
+		electricAlloySmelter = new TileElectricAlloySmelter();
+		electricSeparator = new TileElectricSeparator();
+		electricSmelter = new TileElectricSmelter();
+		compressor = new TileCompressor();
 		
-		oreTin = new BlockOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2);
-		oreIron = new BlockOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);
-		oreMagnesium = new BlockOre(RockSolidLib.makeRes("oreMagnesium"), new ItemInstance(ModItems.clusterMagnesium, 1), 20, 4);
-		oreRutile = new BlockBase(RockSolidLib.makeRes("oreRutile"), 30, 4);
-		oreUranium = new BlockOre(RockSolidLib.makeRes("oreUranium"), new ItemInstance(ModItems.clusterUranium, 1), 25, 5);
+		oreTin = new TileOre(RockSolidLib.makeRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2);
+		oreIron = new TileOre(RockSolidLib.makeRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);
+		oreMagnesium = new TileOre(RockSolidLib.makeRes("oreMagnesium"), new ItemInstance(ModItems.clusterMagnesium, 1), 20, 4);
+		oreRutile = new TileBase(RockSolidLib.makeRes("oreRutile"), 30, 4);
+		oreUranium = new TileOre(RockSolidLib.makeRes("oreUranium"), new ItemInstance(ModItems.clusterUranium, 1), 25, 5);
 		
-		constructionBlockSteel = new BlockBase(RockSolidLib.makeRes("constructionBlockSteel"), 10, 3);
-		constructionBlockTitanium = new BlockBase(RockSolidLib.makeRes("constructionBlockTitanium"), 25, 4);
+		constructionBlockSteel = new TileBase(RockSolidLib.makeRes("constructionBlockSteel"), 10, 3);
+		constructionBlockTitanium = new TileBase(RockSolidLib.makeRes("constructionBlockTitanium"), 25, 4);
     }
 }

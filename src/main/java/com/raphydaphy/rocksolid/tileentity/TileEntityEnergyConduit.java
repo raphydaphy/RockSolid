@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.IConduit;
 import com.raphydaphy.rocksolid.api.IEnergyAcceptor;
-import com.raphydaphy.rocksolid.api.IEnergyBlock;
+import com.raphydaphy.rocksolid.api.IEnergyTile;
 import com.raphydaphy.rocksolid.api.IEnergyProducer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -70,7 +70,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 							}
 	   					}
 	   				}
-	   				else if (IEnergyBlock.class.isAssignableFrom(adjacentTileEntity.getClass()))
+	   				else if (IEnergyTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
 	   				{
 	   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
 	   	   				{
@@ -179,7 +179,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 	@Override
 	public boolean canConnectTo(Class<?> adjacentBlock) 
 	{
-		return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
+		return IEnergyTile.class.isAssignableFrom(adjacentBlock);
 	}
 
 	@Override
