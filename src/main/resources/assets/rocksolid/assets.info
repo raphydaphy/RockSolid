@@ -50,7 +50,7 @@ tex.items.axeTitanium=/items/axe/axe_titanium.png
 tex.items.shovelWood=/items/shovel/shovel_wood.png
 tex.items.shovelRock=/items/shovel/shovel_rock.png
 tex.items.shovelCopper=/items/shovel/shovel_copper.png
-tex.items.shovelIron=/items/shovel_iron.png
+tex.items.shovelIron=/items/shovel/shovel_iron.png
 
 ## Misc
 tex.items.wrench=/items/misc/wrench.png
@@ -65,6 +65,7 @@ tex.items.lantern=/items/misc/lantern.png
 ## Empty
 tex.tiles.tank.0.0=sub./fluids/empty/tank.png,0,12,12,12
 tex.tiles.tank.0.1=sub./fluids/empty/tank.png,0,0,12,12
+tex.tiles.tank.item=/fluids/empty/tank_item.png
 tex.items.bucket=/fluids/empty/bucket.png
 
 ## Water

@@ -2,6 +2,8 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
+import com.raphydaphy.rocksolid.api.Fluid;
+import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -64,8 +66,6 @@ public class WorldGenCaves implements IWorldGenerator {
 			fluidHeight = (rand.nextInt(3) + 2);
 		}
 		
-		hasFluid = false;
-		
 		
 		boolean[][] terrain = new boolean[chunkMapSizeX][chunkMapSizeY];
 		
@@ -110,13 +110,11 @@ public class WorldGenCaves implements IWorldGenerator {
 						}
 						else if (fluidIsWater)
 						{
-						//	world.setTile(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidWater);
-						//	world.setMeta(chunk.getX() + x + startX, chunk.getY() + y+ startY, BlockFluid.MAX_VOLUME);
+							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME));
 						}
 						else
 						{
-						//	world.setTile(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidLava);
-						//	world.setMeta(chunk.getX() + x + startX, chunk.getY() + y+ startY, BlockFluid.MAX_VOLUME);
+							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidLava.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME));
 						}
 						world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModTiles.rockLight.getDefState());
 					}
