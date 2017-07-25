@@ -43,6 +43,12 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
     }
     
     @Override
+    protected void onSync()
+    {
+    	super.onSync();
+    	this.shouldSync = false;
+    }
+    @Override
     public void update(IGameInstance game) 
     {
     	if (RockBottomAPI.getNet().isClient() == false)
@@ -58,7 +64,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		   			// return IEnergyBlock.class.isAssignableFrom(adjacentBlock);
 	   				if (adjacentTileEntity instanceof TileEntityFluidConduit)
 	   				{
-	   					if (this.getSideMode(adjacentTile) != 2 && ((TileEntityFluidConduit)adjacentTileEntity).getFluidType() == this.fluidType)
+	   					if (this.getSideMode(adjacentTile) != 2 && ((TileEntityFluidConduit)adjacentTileEntity).getFluidType().equals(this.fluidType))
 	   					{
 		   					if (((TileEntityFluidConduit)adjacentTileEntity).getCurrentFluid() > this.getCurrentFluid())
 							{
@@ -71,29 +77,38 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	   				}
 	   				else if (IFluidTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
 	   				{
-	   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
-	   	   				{
-	   						// Conduit is set to input mode
-	   	   					if (this.getSideMode(adjacentTile) == 1)
-	   	   					{
-	   	   						if (this.fluidStored < (this.maxFluid - transferRate))
-	   	   						{
-	   	   							// pull fluid from adjacent tile
-	   	   						}
-	   	   					}
-	   	   				}
-	   					
-	   					if (IFluidAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
-	   	   				{
-	   						// Conduit is set to output mode
-	   	   					if (this.getSideMode(adjacentTile) == 0)
-	   	   					{
-	   	   						if (this.fluidStored >= transferRate)
-	   	   						{
-	   	   							// send fluid to adjacent tile
-	   	   						}
-	   	   					}
-	   	   				}
+	   					if (((IFluidTile)adjacentTileEntity).getFluidType().equals(this.fluidType) || ((IFluidTile)adjacentTileEntity).getFluidType().equals(ModFluids.fluidEmpty.toString()))
+	   					{
+		   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()) && ((IFluidTile)adjacentTileEntity).getFluidType().equals(this.fluidType))
+		   	   				{
+		   						// Conduit is set to input mode
+		   	   					if (this.getSideMode(adjacentTile) == 1)
+		   	   					{
+		   	   						
+		   	   						if (this.fluidStored < (this.maxFluid - transferRate))
+		   	   						{
+		   	   							// pull fluid from adjacent tile
+		   	   						}
+		   	   					}
+		   	   				}
+		   					
+		   					if (IFluidAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
+		   	   				{
+		   						// Conduit is set to output mode
+		   	   					if (this.getSideMode(adjacentTile) == 0)
+		   	   					{
+			   	   					if (((IFluidTile)adjacentTileEntity).getFluidType().equals(ModFluids.fluidEmpty.toString()))
+		   	   						{
+			   	   						// set the fluid type in the adjacent tile to match this
+		   	   							((IFluidAcceptor)adjacentTileEntity).setFluidType(this.fluidType);
+		   	   						}
+		   	   						if (this.fluidStored >= transferRate)
+		   	   						{
+		   	   							// send fluid to adjacent tile
+		   	   						}
+		   	   					}
+		   	   				}
+	   					}
 	   				}
 					
 				}
@@ -206,6 +221,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			this.fluidStored += amount;
+			this.shouldSync = true;
 			return true;
 		}
 		return false;
@@ -217,6 +233,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		if (this.fluidStored >= amount)
 		{
 			this.fluidStored -= amount;
+			this.shouldSync = true;
 			return true;
 		}
 		return false;
@@ -226,6 +243,18 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	public String getFluidType()
 	{
 		return this.fluidType;
+	}
+
+	@Override
+	public boolean setFluidType(String type) 
+	{
+		if (this.fluidType.equals(ModFluids.fluidEmpty.toString()) || this.fluidStored == 0)
+		{
+			this.fluidType = type;
+			this.shouldSync = true;
+			return true;
+		}
+		return false;
 	}
 
 

@@ -21,6 +21,7 @@ import com.raphydaphy.rocksolid.tile.TileLamp;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.TileQuarry;
+import com.raphydaphy.rocksolid.tile.TileTank;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -46,6 +47,8 @@ public class ModTiles
 	public static Tile rockLight;
 	public static Tile limestone;
 	public static Tile clay;
+	
+	public static Tile tank;
 	
 	public static Tile coalGenerator;
 	public static Tile nuclearReactor;
@@ -85,6 +88,8 @@ public class ModTiles
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 1);
 		limestone = new TileBase(RockSolidLib.makeRes("limestone"), 10, 3);
 		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 8, 3, ToolType.SHOVEL);
+		
+		tank = new TileTank();
 		
 		coalGenerator = new TileCoalGenerator();
 		nuclearReactor = new TileNuclearReactor();

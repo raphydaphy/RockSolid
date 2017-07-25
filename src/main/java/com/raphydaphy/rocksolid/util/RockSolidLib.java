@@ -1,6 +1,9 @@
 package com.raphydaphy.rocksolid.util;
 
+import org.newdawn.slick.Color;
+
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -13,6 +16,19 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 public class RockSolidLib {
 	public static IResourceName makeRes(String name){
 	   return RockBottomAPI.createRes(RockSolid.INSTANCE, name);
+	}
+	
+	public static Color getFluidColor(String fluid)
+	{
+		if (fluid.equals(ModFluids.fluidLava.toString()))
+		{
+			return Color.orange;
+		}
+		else if (fluid.equals(ModFluids.fluidWater.toString()))
+		{
+			return Color.blue;
+		}
+		return Color.lightGray;
 	}
 	
 	public static TileEntity getTileFromConduitSide(Pos2 center, int side, IWorld world)
