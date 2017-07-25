@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.util;
 import org.newdawn.slick.Color;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -18,6 +19,17 @@ public class RockSolidLib {
 	   return RockBottomAPI.createRes(RockSolid.INSTANCE, name);
 	}
 	
+	public static Fluid bucketMetaToFluid(int meta)
+	{
+		switch(meta)
+		{
+		case 1:
+			return ModFluids.fluidWater;
+		case 2:
+			return ModFluids.fluidLava;
+		}
+		return ModFluids.fluidEmpty;
+	}
 	public static Color getFluidColor(String fluid)
 	{
 		if (fluid.equals(ModFluids.fluidLava.toString()))

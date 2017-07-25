@@ -61,20 +61,23 @@ public abstract class Fluid extends TileBasic
 	
 	@Override
 	public TileState getPlacementState(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
-	{
+	{	
 		System.out.println("set the placement state");
 		TileState existingBlock = world.getState(x, y);
 		if (existingBlock.getTile() == GameContent.TILE_AIR)
 		{
 			return this.getDefStateWithProp(fluidLevel,BUCKET_VOLUME);
 		}
-		else if (existingBlock.get(fluidLevel) + BUCKET_VOLUME <= MAX_VOLUME)
-		{
-			return existingBlock.prop(fluidLevel, existingBlock.get(fluidLevel) + BUCKET_VOLUME);
-		}
 		else
 		{
-			return existingBlock.prop(fluidLevel, MAX_VOLUME);
+			if (existingBlock.get(fluidLevel) + BUCKET_VOLUME <= MAX_VOLUME)
+			{
+				return existingBlock.prop(fluidLevel, existingBlock.get(fluidLevel) + BUCKET_VOLUME);
+			}
+			else
+			{
+				return existingBlock.prop(fluidLevel, MAX_VOLUME);
+			}
 		}
 	}
 	

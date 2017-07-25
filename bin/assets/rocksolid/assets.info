@@ -115,6 +115,46 @@ tex.tiles.tank.fluidWater.20.0.1=sub./fluids/water/tank/tank_20.png,0,0,12,12
 ## Lava
 tex.tiles.fluidLava=/fluids/lava/still.png
 tex.items.bucket.lava=/fluids/lava/bucket.png
+tex.tiles.tank.fluidLava.1.0.0=sub./fluids/lava/tank/tank_1.png,0,12,12,12
+tex.tiles.tank.fluidLava.1.0.1=sub./fluids/lava/tank/tank_1.png,0,0,12,12
+tex.tiles.tank.fluidLava.2.0.0=sub./fluids/lava/tank/tank_2.png,0,12,12,12
+tex.tiles.tank.fluidLava.2.0.1=sub./fluids/lava/tank/tank_2.png,0,0,12,12
+tex.tiles.tank.fluidLava.3.0.0=sub./fluids/lava/tank/tank_3.png,0,12,12,12
+tex.tiles.tank.fluidLava.3.0.1=sub./fluids/lava/tank/tank_3.png,0,0,12,12
+tex.tiles.tank.fluidLava.4.0.0=sub./fluids/lava/tank/tank_4.png,0,12,12,12
+tex.tiles.tank.fluidLava.4.0.1=sub./fluids/lava/tank/tank_4.png,0,0,12,12
+tex.tiles.tank.fluidLava.5.0.0=sub./fluids/lava/tank/tank_5.png,0,12,12,12
+tex.tiles.tank.fluidLava.5.0.1=sub./fluids/lava/tank/tank_5.png,0,0,12,12
+tex.tiles.tank.fluidLava.6.0.0=sub./fluids/lava/tank/tank_6.png,0,12,12,12
+tex.tiles.tank.fluidLava.6.0.1=sub./fluids/lava/tank/tank_6.png,0,0,12,12
+tex.tiles.tank.fluidLava.7.0.0=sub./fluids/lava/tank/tank_7.png,0,12,12,12
+tex.tiles.tank.fluidLava.7.0.1=sub./fluids/lava/tank/tank_7.png,0,0,12,12
+tex.tiles.tank.fluidLava.8.0.0=sub./fluids/lava/tank/tank_8.png,0,12,12,12
+tex.tiles.tank.fluidLava.8.0.1=sub./fluids/lava/tank/tank_8.png,0,0,12,12
+tex.tiles.tank.fluidLava.9.0.0=sub./fluids/lava/tank/tank_9.png,0,12,12,12
+tex.tiles.tank.fluidLava.9.0.1=sub./fluids/lava/tank/tank_9.png,0,0,12,12
+tex.tiles.tank.fluidLava.10.0.0=sub./fluids/lava/tank/tank_10.png,0,12,12,12
+tex.tiles.tank.fluidLava.10.0.1=sub./fluids/lava/tank/tank_10.png,0,0,12,12
+tex.tiles.tank.fluidLava.11.0.0=sub./fluids/lava/tank/tank_11.png,0,12,12,12
+tex.tiles.tank.fluidLava.11.0.1=sub./fluids/lava/tank/tank_11.png,0,0,12,12
+tex.tiles.tank.fluidLava.12.0.0=sub./fluids/lava/tank/tank_12.png,0,12,12,12
+tex.tiles.tank.fluidLava.12.0.1=sub./fluids/lava/tank/tank_12.png,0,0,12,12
+tex.tiles.tank.fluidLava.13.0.0=sub./fluids/lava/tank/tank_13.png,0,12,12,12
+tex.tiles.tank.fluidLava.13.0.1=sub./fluids/lava/tank/tank_13.png,0,0,12,12
+tex.tiles.tank.fluidLava.14.0.0=sub./fluids/lava/tank/tank_14.png,0,12,12,12
+tex.tiles.tank.fluidLava.14.0.1=sub./fluids/lava/tank/tank_14.png,0,0,12,12
+tex.tiles.tank.fluidLava.15.0.0=sub./fluids/lava/tank/tank_15.png,0,12,12,12
+tex.tiles.tank.fluidLava.15.0.1=sub./fluids/lava/tank/tank_15.png,0,0,12,12
+tex.tiles.tank.fluidLava.16.0.0=sub./fluids/lava/tank/tank_16.png,0,12,12,12
+tex.tiles.tank.fluidLava.16.0.1=sub./fluids/lava/tank/tank_16.png,0,0,12,12
+tex.tiles.tank.fluidLava.17.0.0=sub./fluids/lava/tank/tank_17.png,0,12,12,12
+tex.tiles.tank.fluidLava.17.0.1=sub./fluids/lava/tank/tank_17.png,0,0,12,12
+tex.tiles.tank.fluidLava.18.0.0=sub./fluids/lava/tank/tank_18.png,0,12,12,12
+tex.tiles.tank.fluidLava.18.0.1=sub./fluids/lava/tank/tank_18.png,0,0,12,12
+tex.tiles.tank.fluidLava.19.0.0=sub./fluids/lava/tank/tank_19.png,0,12,12,12
+tex.tiles.tank.fluidLava.19.0.1=sub./fluids/lava/tank/tank_19.png,0,0,12,12
+tex.tiles.tank.fluidLava.20.0.0=sub./fluids/lava/tank/tank_20.png,0,12,12,12
+tex.tiles.tank.fluidLava.20.0.1=sub./fluids/lava/tank/tank_20.png,0,0,12,12
 
 # Tiles
 

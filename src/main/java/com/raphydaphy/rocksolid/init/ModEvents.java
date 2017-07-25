@@ -380,7 +380,7 @@ public class ModEvents {
             				if (player.getCommandLevel() < 10)
             				{
             					System.out.println("[RockSolid Intergration] Don't Cheat! You need command level 10 to access Creative Mode!");
-            					player.getAdditionalData().addBoolean("is_creative", false);
+            					//player.getAdditionalData().addBoolean("is_creative", false);
             				}
             			}
             		}

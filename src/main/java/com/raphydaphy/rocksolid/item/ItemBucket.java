@@ -40,17 +40,7 @@ public class ItemBucket extends ItemBase {
 		TileEntity atPos = RockSolidLib.getTileFromPos(x, y, world);
 		TileState atState = world.getState(x, y);
 		
-		Fluid fluid = ModFluids.fluidEmpty;
-		switch(instance.getMeta())
-		{
-		//water
-		case 1:
-			fluid = ModFluids.fluidWater;
-			break;
-		case 2:
-			fluid = ModFluids.fluidLava;
-			break;
-		}
+		Fluid fluid = RockSolidLib.bucketMetaToFluid(instance.getMeta());
 		
 		// if the bucket is empty
 		if (instance.getMeta() == 0)
@@ -58,7 +48,7 @@ public class ItemBucket extends ItemBase {
 			if (atPos instanceof TileEntityTank)
 			{
 				TileEntityTank tank = (TileEntityTank)atPos;
-				if (tank.getCurrentFluid() > 1000)
+				if (tank.getCurrentFluid() >= 1000)
 				{
 					if (!(tank.getFluidType().equals(ModFluids.fluidEmpty.toString())))
 					{
@@ -122,29 +112,12 @@ public class ItemBucket extends ItemBase {
 				}
 				
 			}
-			else if (atState.getTile() == GameContent.TILE_AIR || atState.getTile() instanceof Fluid)
+			else if (atState.getTile() == GameContent.TILE_AIR || atState.getTile() == fluid)
 			{
-				if (atState.getTile() == GameContent.TILE_AIR)
-				{
-					world.setState(x, y, fluid.getDefStateWithProp(Fluid.fluidLevel, Fluid.BUCKET_VOLUME));
-					instance.setMeta(0);
-				}
-				else if (atState.getTile() == fluid)
-				{
-					if ((atState.get(Fluid.fluidLevel) + Fluid.BUCKET_VOLUME) <= Fluid.MAX_VOLUME)
-					{
-						world.setState(x, y, atState.prop(Fluid.fluidLevel, atState.get(Fluid.fluidLevel) + Fluid.BUCKET_VOLUME));
-						instance.setMeta(0);
-						return true;
-					}
-					else
-					{
-						world.setState(x, y, atState.prop(Fluid.fluidLevel, Fluid.MAX_VOLUME));
-						instance.setMeta(0);
-						return true;
-					}
-					
-				}
+				System.out.println(fluid.toString());
+				fluid.doPlace(world, x, y, layer, instance, null);
+				instance.setMeta(0);
+				return true;
 			}
 		}
         return false;

@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.api.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.IFluidProducer;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -103,9 +104,11 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
 				System.out.println("Accepted the fluid!");
-				if (this.fluidType == null || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+				if (this.fluidType == null || !this.fluidType.equals(type))
 				{
+					System.out.println("set a new fluid type when adding fluid");
 					this.fluidType = type;
+					RockBottomAPI.getGame().getWorld().causeLightUpdate(x, y);
 				}
 				this.fluidStored += amount;
 				this.sync();

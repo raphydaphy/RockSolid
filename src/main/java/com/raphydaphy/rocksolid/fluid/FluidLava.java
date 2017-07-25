@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.raphydaphy.rocksolid.api.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.EntityLiving;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -39,6 +40,12 @@ public class FluidLava extends Fluid {
 		{
 			((EntityLiving) entity).takeDamage(3);
 		}
+	}
+	
+	@Override
+	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
+	{
+		return super.canPlace(world, x, y, layer) && ((world.getState(x, y).getTile() == this) || world.getState(x, y).getTile() == GameContent.TILE_AIR);
 	}
 
 }

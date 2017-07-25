@@ -5,6 +5,7 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiTank;
 import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
+import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.render.TankRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
@@ -45,8 +46,20 @@ public class TileTank extends MultiTile
 	
 	
 	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
-        return 20;
+    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
+	{
+		TileEntityTank tank = (TileEntityTank)RockSolidLib.getTileFromPos(x, y, world);
+		if (tank != null)
+		{
+			if (tank.getFluidType() != null)
+			{
+				if (tank.getFluidType().equals(ModFluids.fluidLava.toString()))
+				{
+					return 20;
+				}
+			}
+		}
+        return 0;
     }
 	
 	@Override
