@@ -77,6 +77,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	@Override
 	public boolean removeFluid(int amount) 
 	{
+		System.out.println("Something is removing " + amount + " fluid.");
 		if (this.fluidStored >= amount)
 		{
 			this.fluidStored -= amount;

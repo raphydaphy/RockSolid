@@ -76,11 +76,12 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 								if (((TileEntityFluidConduit)adjacentTileEntity).getCurrentFluid() <= transferRate)
 								{
 									System.out.println("conduit has enough fluid to pull");
+									String wasFluidType = ((TileEntityFluidConduit)adjacentTileEntity).getFluidType();
 									// pull fluid from adjacent conduit
 									if (((TileEntityFluidConduit)adjacentTileEntity).removeFluid(transferRate))
 									{
-										this.addFluid(transferRate, ((TileEntityFluidConduit)adjacentTileEntity).getFluidType());
-										System.out.println("Pulled " + ((TileEntityFluidConduit)adjacentTileEntity).getFluidType() + " from adjacent conduit at position #" + adjacentTile);
+										this.addFluid(transferRate, wasFluidType);
+										System.out.println("Pulled " + wasFluidType + " from adjacent conduit at position #" + adjacentTile);
 										shouldSync = true;
 									}
 								}
@@ -100,11 +101,12 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		   	   						if (this.fluidStored < (this.maxFluid - transferRate) && ((IFluidProducer)adjacentTileEntity).getCurrentFluid() >= transferRate)
 		   	   						{
 		   	   							System.out.println("found a tile to pull fluid from. Currently holding " + this.fluidStored + " liquid.");
+		   	   							String wasFluidType = ((IFluidProducer)adjacentTileEntity).getFluidType();
 		   	   							// pull fluid from adjacent tile
 		   	   							if (((IFluidProducer)adjacentTileEntity).removeFluid(transferRate))
 		   	   							{
-		   	   								this.addFluid(transferRate, ((IFluidProducer)adjacentTileEntity).getFluidType());
-		   	   								System.out.println("pulled " + ((IFluidProducer)adjacentTileEntity).getFluidType() + " from adjacent tile at position " + adjacentTile);
+		   	   								this.addFluid(transferRate, wasFluidType);
+		   	   								System.out.println("pulled " + wasFluidType + " from adjacent tile at position " + adjacentTile);
 		   	   								this.shouldSync = true;
 		   	   							}
 		   	   						}
