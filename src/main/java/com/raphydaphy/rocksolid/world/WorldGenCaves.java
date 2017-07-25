@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
@@ -54,14 +55,12 @@ public class WorldGenCaves implements IWorldGenerator {
 		int startX = rand.nextInt(32 - chunkMapSizeX);
 		int startY = rand.nextInt(32 - chunkMapSizeY);
 		
-		boolean hasFluid = rand.nextInt(10) == 1;
-		boolean fluidIsWater = false;
+		boolean hasFeature = rand.nextInt(10) == 1;
+		int feature = rand.nextInt(3);
 		int fluidHeight = 0;
 		
-		if (hasFluid)
+		if (hasFeature)
 		{
-			// true = water, false = lava
-			fluidIsWater = rand.nextBoolean();
 			// used to calculate highest fluid in the chunk with chunkMapSizeY / this
 			fluidHeight = (rand.nextInt(3) + 2);
 		}
@@ -104,19 +103,33 @@ public class WorldGenCaves implements IWorldGenerator {
 								continue;
 							}
 						}
-						if (!hasFluid || y > (chunkMapSizeY / fluidHeight))
+						TileState background = ModTiles.rockLight.getDefState();
+						if (!hasFeature || (feature != 2 && y > (chunkMapSizeY / fluidHeight)))
 						{
 							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, GameContent.TILE_AIR.getDefState());
 						}
-						else if (fluidIsWater)
-						{
-							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME));
-						}
 						else
 						{
-							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidLava.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME));
+							
+							TileState featureTile = GameContent.TILE_AIR.getDefState();
+							
+							switch(feature)
+							{
+							case 0:
+								featureTile = ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								break;
+							case 1:
+								featureTile = ModFluids.fluidLava.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								break;
+							case 2:
+								featureTile = ModTiles.limestone.getDefState();
+								background = GameContent.TILE_ROCK.getDefState();
+								break;
+							}
+							
+							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, featureTile);
 						}
-						world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModTiles.rockLight.getDefState());
+						world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, background);
 					}
 				}
 			}
