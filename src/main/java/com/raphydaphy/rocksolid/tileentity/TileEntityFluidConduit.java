@@ -23,10 +23,10 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
     private int modeRight = 0;
     
     private int fluidStored = 0;
-    private int maxFluid = 1000;
+    private int maxFluid = 3000;
     private String fluidType;
     
-    private int transferRate = 300;
+    private int transferRate = 250;
     
     private boolean shouldSync = false;
     
@@ -205,7 +205,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
         this.shouldSync = set.getBoolean("shouldSync");
         this.fluidType = set.getString("fluidType");
     }
-
+    
 	@Override
 	public boolean canConnectTo(Class<?> adjacentBlock) 
 	{

@@ -38,7 +38,6 @@ public abstract class Fluid extends TileBasic
 	public Fluid(IResourceName name) 
 	{
 		super(name);
-		this.register();
 	}
 	
 	@Override

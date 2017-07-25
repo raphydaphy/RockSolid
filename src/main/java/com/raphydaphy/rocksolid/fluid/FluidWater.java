@@ -13,6 +13,7 @@ public class FluidWater extends Fluid {
 
 	public FluidWater() {
 		super("fluidWater");
+		this.register();
 	}
 
 	@Override

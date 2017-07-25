@@ -14,6 +14,7 @@ public class FluidLava extends Fluid {
 
 	public FluidLava() {
 		super("fluidLava");
+		this.register();
 		//super.setThickness(0.012);
 	}
 	

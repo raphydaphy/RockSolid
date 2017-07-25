@@ -6,7 +6,6 @@ import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
-import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
 public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluidProducer
@@ -14,24 +13,12 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 
     protected int fluidStored;
     protected int maxFluid;
-    protected String fluidType;
+    protected String fluidType = ModFluids.fluidEmpty.toString();
     
     public TileEntityTank(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
-        maxFluid = 100000;
-        
-        if (fluidType == null)
-        {
-	    	if (Util.RANDOM.nextBoolean() == true)
-	        {
-	        	addFluid(10000, ModFluids.fluidWater.toString());
-	        }
-	    	else
-	    	{
-	    		fluidType = ModFluids.fluidEmpty.toString();
-	    	}
-        }
+        maxFluid = 20000;
         
         sync();
     }
@@ -57,6 +44,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
         super.save(set, forSync);
         set.addInt("fluidStored", this.fluidStored);
         set.addInt("maxFluid", this.maxFluid);
+        set.addString("fluidType", this.fluidType);
     }
     
     @Override
@@ -65,6 +53,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
         super.load(set, forSync);
         this.fluidStored = set.getInt("fluidStored");
         this.maxFluid = set.getInt("maxFluid");
+        this.fluidType = set.getString("fluidType");
     }
 
 	@Override

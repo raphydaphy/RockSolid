@@ -31,7 +31,7 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
     {
         final Pos2 innerCoord = tile.getInnerCoord(state);
         final Pos2 mainPos = tile.getMainPos(x, y, state);
-        final TileEntityTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityTank.class);
+        TileEntityTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityTank.class);
         IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
         float fullness = tileEntity.getTankFullnesss();
         int stage = Util.floor(fullness * 20);
