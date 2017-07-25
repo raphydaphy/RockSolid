@@ -68,22 +68,18 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	   			{
 	   				if (adjacentTileEntity instanceof TileEntityFluidConduit)
 	   				{
-	   					if (this.getSideMode(adjacentTile) != 2 && ((TileEntityFluidConduit)adjacentTileEntity).getFluidType().equals(this.fluidType))
+	   					if (this.getSideMode(adjacentTile) != 2 && (((TileEntityFluidConduit)adjacentTileEntity).getFluidType().equals(this.fluidType)) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 	   					{
 		   					if (((TileEntityFluidConduit)adjacentTileEntity).getCurrentFluid() > this.getCurrentFluid())
 							{
 		   						System.out.println("can pull fluid, adjacent conduit has more. This conduit has " + this.fluidStored);
-								if (((TileEntityFluidConduit)adjacentTileEntity).getCurrentFluid() <= transferRate)
+								String wasFluidType = ((TileEntityFluidConduit)adjacentTileEntity).getFluidType();
+								// pull fluid from adjacent conduit
+								if (((TileEntityFluidConduit)adjacentTileEntity).removeFluid(transferRate))
 								{
-									System.out.println("conduit has enough fluid to pull");
-									String wasFluidType = ((TileEntityFluidConduit)adjacentTileEntity).getFluidType();
-									// pull fluid from adjacent conduit
-									if (((TileEntityFluidConduit)adjacentTileEntity).removeFluid(transferRate))
-									{
-										this.addFluid(transferRate, wasFluidType);
-										System.out.println("Pulled " + wasFluidType + " from adjacent conduit at position #" + adjacentTile);
-										shouldSync = true;
-									}
+									this.addFluid(transferRate, wasFluidType);
+									System.out.println("Pulled " + wasFluidType + " from adjacent conduit at position #" + adjacentTile);
+									shouldSync = true;
 								}
 							}
 	   					}
