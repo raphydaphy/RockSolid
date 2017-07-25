@@ -26,7 +26,14 @@ public class BucketRenderer<T extends ItemBucket> implements IItemRenderer<T>
     	switch(instance.getMeta())
     	{
     	case 1:
+    		curTex = curTex.addSuffix(".water");
+    		break;
+    	case 2:
     		curTex = curTex.addSuffix(".lava");
+    		break;
+    	case 3:
+    		curTex = curTex.addSuffix(".oil");
+    		break;
     	}
     	
     	manager.getTexture(curTex).draw(x, y, 1F*scale, 1F*scale, filter);

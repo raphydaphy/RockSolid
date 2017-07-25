@@ -59,9 +59,11 @@ tex.items.lantern=/items/misc/lantern.png
 ## Empty
 tex.tiles.tank.0.0=sub./fluids/empty/tank.png,0,12,12,12
 tex.tiles.tank.0.1=sub./fluids/empty/tank.png,0,0,12,12
+tex.items.bucket=/fluids/empty/bucket.png
 
 ## Water
 tex.tiles.fluidWater=/fluids/water/still.png
+tex.items.bucket.water=/fluids/water/bucket.png
 tex.tiles.tank.fluidWater.1.0.0=sub./fluids/water/tank/tank_1.png,0,12,12,12
 tex.tiles.tank.fluidWater.1.0.1=sub./fluids/water/tank/tank_1.png,0,0,12,12
 tex.tiles.tank.fluidWater.2.0.0=sub./fluids/water/tank/tank_2.png,0,12,12,12
@@ -105,6 +107,7 @@ tex.tiles.tank.fluidWater.20.0.1=sub./fluids/water/tank/tank_20.png,0,0,12,12
 
 ## Lava
 tex.tiles.fluidLava=/fluids/lava/still.png
+tex.items.bucket.lava=/fluids/lava/bucket.png
 
 # Tiles
 

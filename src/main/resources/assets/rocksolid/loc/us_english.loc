@@ -46,6 +46,10 @@ rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
 
 # Fluids
+rocksolid/item.bucket=Empty Bucket
+rocksolid/item.bucket.water=Water Bucket
+rocksolid/item.bucket.lava=Lava Bucket
+rocksolid/item.bucket.oil=Oil Bucket
 rocksolid/item.fluidWater=Water
 rocksolid/item.fluidLava=Lava
 

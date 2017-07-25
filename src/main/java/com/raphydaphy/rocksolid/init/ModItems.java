@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
+import com.raphydaphy.rocksolid.item.ItemBucket;
 import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemJetpack;
 import com.raphydaphy.rocksolid.item.ItemLantern;
@@ -59,6 +60,8 @@ public class ModItems
 	public static Item electricLantern;
 	public static Item lantern;
 	
+	public static Item bucket;
+	
 	public static void init() 
 	{
 		ingotTin = new ItemBase(RockSolidLib.makeRes("ingotTin")).register();
@@ -106,5 +109,7 @@ public class ModItems
 		jetpack = new ItemJetpack();
 		electricLantern = new ItemElectricLantern();
 		lantern = new ItemLantern();
+		
+		bucket = new ItemBucket("bucket");
     }
 }

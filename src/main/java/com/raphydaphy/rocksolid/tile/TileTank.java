@@ -5,6 +5,7 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.GuiTank;
 import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
+import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.render.TankRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -62,10 +63,16 @@ public class TileTank extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		System.out.println("Interacting!");
+		ItemInstance selected = player.getInv().get(player.getSelectedSlot());
+		if (selected != null)
+		{
+			if (selected.getItem().equals(ModItems.bucket))
+			{
+				return false;
+			}
+		}
 		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityTank tile = world.getTileEntity(main.getX(), main.getY(), TileEntityTank.class);
-		
 		if (tile != null)
 		{
 			player.openGuiContainer(new GuiTank(player, tile), new ContainerEmpty(player));
