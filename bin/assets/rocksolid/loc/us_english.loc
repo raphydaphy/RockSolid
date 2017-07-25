@@ -40,6 +40,11 @@ rocksolid/item.axeIron=Iron Axe
 rocksolid/item.axeSteel=Steel Axe
 rocksolid/item.axeTitanium=Titanium Axe
 
+rocksolid/item.shovelWood=Wood Shovel
+rocksolid/item.shovelRock=Rock Shovel
+rocksolid/item.shovelCopper=Copper Shovel
+rocksolid/item.shovelIron=Iron Shovel
+
 rocksolid/item.wrench=Wrench
 rocksolid/item.jetpack=Jetpack
 rocksolid/item.electricLantern=Electric Lantern

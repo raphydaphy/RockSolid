@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemJetpack;
 import com.raphydaphy.rocksolid.item.ItemLantern;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
+import com.raphydaphy.rocksolid.item.ItemShovel;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -54,6 +55,11 @@ public class ModItems
 	public static Item axeIron;
 	public static Item axeSteel;
 	public static Item axeTitanium;
+	
+	public static Item shovelWood;
+	public static Item shovelRock;
+	public static Item shovelCopper;
+	public static Item shovelIron;
 	
 	public static Item wrench;
 	public static Item jetpack;
@@ -104,6 +110,11 @@ public class ModItems
 		axeIron = new ItemAxe(RockSolidLib.makeRes("axeIron"), 7f, 1).register();
 		axeSteel = new ItemAxe(RockSolidLib.makeRes("axeSteel"), 8f, 1).register();
 		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 10f, 1).register();
+		
+		shovelWood = new ItemShovel(RockSolidLib.makeRes("shovelWood"), 2f, 1).register();
+		shovelRock = new ItemShovel(RockSolidLib.makeRes("shovelRock"), 3f, 1).register();
+		shovelCopper = new ItemShovel(RockSolidLib.makeRes("shovelCopper"), 4.5f, 1).register();
+		shovelIron = new ItemShovel(RockSolidLib.makeRes("shovelIron"), 7f, 1).register();
 		
 		wrench = new ItemWrench().register();
 		jetpack = new ItemJetpack();
