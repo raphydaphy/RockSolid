@@ -86,8 +86,8 @@ public class ModTiles
 		
 		lamp = new TileLamp(RockSolidLib.makeRes("lamp"));
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 1);
-		limestone = new TileBase(RockSolidLib.makeRes("limestone"), 10, 3);
-		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 8, 3, ToolType.SHOVEL);
+		limestone = new TileBase(RockSolidLib.makeRes("limestone"), 10, 1);
+		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 4, 0, ToolType.SHOVEL);
 		
 		tank = new TileTank();
 		
