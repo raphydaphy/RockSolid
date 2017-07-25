@@ -78,14 +78,12 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	@Override
 	public boolean removeFluid(int amount) 
 	{
-		System.out.println("Something is removing " + amount + " fluid.");
 		if (this.fluidStored >= amount)
 		{
 			this.fluidStored -= amount;
 			
 			if (this.fluidStored == 0)
 			{
-				System.out.println("The last fluid was taken from a tank");
 				this.fluidType = ModFluids.fluidEmpty.toString();
 			}
 			this.sync();
@@ -97,16 +95,12 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	@Override
 	public boolean addFluid(int amount, String type) 
 	{
-		System.out.println("Something is attempting to add " + amount + " " + type);
 		if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 		{
-			System.out.println("Can accept the fluid!");
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
-				System.out.println("Accepted the fluid!");
 				if (this.fluidType == null || !this.fluidType.equals(type))
 				{
-					System.out.println("set a new fluid type when adding fluid");
 					this.fluidType = type;
 					RockBottomAPI.getGame().getWorld().causeLightUpdate(x, y);
 				}

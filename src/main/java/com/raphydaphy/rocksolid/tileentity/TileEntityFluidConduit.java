@@ -72,13 +72,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	   					{
 		   					if (((TileEntityFluidConduit)adjacentTileEntity).getCurrentFluid() > this.getCurrentFluid())
 							{
-		   						System.out.println("can pull fluid, adjacent conduit has more. This conduit has " + this.fluidStored);
 								String wasFluidType = ((TileEntityFluidConduit)adjacentTileEntity).getFluidType();
 								// pull fluid from adjacent conduit
 								if (((TileEntityFluidConduit)adjacentTileEntity).removeFluid(transferRate))
 								{
 									this.addFluid(transferRate, wasFluidType);
-									System.out.println("Pulled " + wasFluidType + " from adjacent conduit at position #" + adjacentTile);
 									shouldSync = true;
 								}
 							}
@@ -96,13 +94,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		   	   						
 		   	   						if (this.fluidStored < (this.maxFluid - transferRate) && ((IFluidProducer)adjacentTileEntity).getCurrentFluid() >= transferRate)
 		   	   						{
-		   	   							System.out.println("found a tile to pull fluid from. Currently holding " + this.fluidStored + " liquid.");
 		   	   							String wasFluidType = ((IFluidProducer)adjacentTileEntity).getFluidType();
 		   	   							// pull fluid from adjacent tile
 		   	   							if (((IFluidProducer)adjacentTileEntity).removeFluid(transferRate))
 		   	   							{
 		   	   								this.addFluid(transferRate, wasFluidType);
-		   	   								System.out.println("pulled " + wasFluidType + " from adjacent tile at position " + adjacentTile);
 		   	   								this.shouldSync = true;
 		   	   							}
 		   	   						}
@@ -122,11 +118,9 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 				   	   						// set the fluid type in the adjacent tile to match this
 			   	   							((IFluidAcceptor)adjacentTileEntity).setFluidType(this.fluidType);
 			   	   						}
-		   	   							System.out.println("Found a tile to push fluid to. Currently holding " + this.fluidStored + " fluid.");
 		   	   							// send fluid to adjacent tile
 		   	   							if (((IFluidAcceptor)adjacentTileEntity).addFluid(transferRate, this.fluidType))
 		   	   							{
-		   	   								System.out.println("Sent " + this.fluidType + " to adjacent tile #" + adjacentTile);
 		   	   								this.removeFluid(transferRate);
 		   	   								shouldSync = true;
 		   	   							}
@@ -249,7 +243,6 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 			{
 				if (this.fluidType == null || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 				{
-					System.out.println("a new type of fluid was added to a conduit, the type was set accordingly");
 					this.fluidType = type;
 				}
 				this.fluidStored += amount;
@@ -270,7 +263,6 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 			
 			if (this.fluidStored == 0)
 			{
-				System.out.println("The last fluid was removed from a conduit!");
 				this.fluidType = ModFluids.fluidEmpty.toString();
 			}
 			this.shouldSync = true;
