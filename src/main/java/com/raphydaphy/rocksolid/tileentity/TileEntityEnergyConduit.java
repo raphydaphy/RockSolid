@@ -42,6 +42,7 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
     @Override
     public void update(IGameInstance game) 
     {
+    	super.update(game);
     	if (RockBottomAPI.getNet().isClient() == false)
     	{
 	   		// first we extract stuff from nearby inventories into the pipes inventory

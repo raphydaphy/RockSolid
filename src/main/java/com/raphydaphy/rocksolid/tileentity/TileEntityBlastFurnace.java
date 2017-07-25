@@ -49,6 +49,7 @@ public class TileEntityBlastFurnace extends TileEntity implements IHasInventory
     @Override
     public void update(IGameInstance game) 
     {
+    	super.update(game);
         final ItemInstance input = this.inventory.get(0);
         if (input != null) 
         {

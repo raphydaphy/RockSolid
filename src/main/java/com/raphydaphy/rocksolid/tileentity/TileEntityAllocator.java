@@ -90,6 +90,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
     @Override
     public void update(IGameInstance game) 
     {
+    	super.update(game);
     	// run conduit processing code every 10 ticks to prevent lag
     	// also causes a less op item processing rate of 1 every 10 ticks
 	   	if (world.getWorldInfo().totalTimeInWorld % 10 == 0 && RockBottomAPI.getNet().isClient() == false)

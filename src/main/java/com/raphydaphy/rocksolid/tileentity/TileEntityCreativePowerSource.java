@@ -2,7 +2,6 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.IEnergyProducer;
 
-import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -29,11 +28,6 @@ public class TileEntityCreativePowerSource extends TileEntity implements IEnergy
     protected void onSync() 
     {
         super.onSync();
-    }
-    
-    @Override
-    public void update(IGameInstance game)
-    {
     }
     
     public float getBatteryFullness()

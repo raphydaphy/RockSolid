@@ -4,9 +4,9 @@ import com.raphydaphy.rocksolid.api.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.IFluidProducer;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
-import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
 public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluidProducer
@@ -14,12 +14,25 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 
     protected int fluidStored;
     protected int maxFluid;
-    protected String fluidType = ModFluids.fluidEmpty.toString();
+    protected String fluidType;
     
     public TileEntityTank(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
         maxFluid = 100000;
+        
+        if (fluidType == null)
+        {
+	    	if (Util.RANDOM.nextBoolean() == true)
+	        {
+	        	addFluid(10000, ModFluids.fluidWater.toString());
+	        }
+	    	else
+	    	{
+	    		fluidType = ModFluids.fluidEmpty.toString();
+	    	}
+        }
+        
         sync();
     }
     
@@ -27,15 +40,6 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
     {
     	this.sendToClients();
     	this.onSync();
-    }
-    
-    @Override
-    public void update(IGameInstance game)
-    {
-    	super.update(game);
-    	
-    	this.addFluid(100);
-    	sync();
     }
     
     public float getTankFullnesss()
@@ -87,6 +91,11 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 		if (this.fluidStored >= amount)
 		{
 			this.fluidStored -= amount;
+			
+			if (this.fluidStored == 0)
+			{
+				this.fluidType = ModFluids.fluidEmpty.toString();
+			}
 			this.sync();
 			return true;
 		}
@@ -94,13 +103,20 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	}
 
 	@Override
-	public boolean addFluid(int amount) 
+	public boolean addFluid(int amount, String type) 
 	{
-		if (this.fluidStored + amount <= this.maxFluid)
+		if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 		{
-			this.fluidStored += amount;
-			this.sync();
-			return true;
+			if (this.fluidStored + amount <= this.maxFluid)
+			{
+				if (this.fluidType == null || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+				{
+					this.fluidType = type;
+				}
+				this.fluidStored += amount;
+				this.sync();
+				return true;
+			}
 		}
 		return false;
 	}

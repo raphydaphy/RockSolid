@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.IConduit;
-import com.raphydaphy.rocksolid.api.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.IFluidProducer;
 import com.raphydaphy.rocksolid.api.IFluidTile;
@@ -25,7 +24,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
     
     private int fluidStored = 0;
     private int maxFluid = 1000;
-    private String fluidType = ModFluids.fluidEmpty.toString();
+    private String fluidType;
     
     private int transferRate = 300;
     
@@ -34,6 +33,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
     public TileEntityFluidConduit(final IWorld world, final int x, final int y) 
     {
         super(world, x, y);
+        
+        if (this.fluidType == null)
+        {
+        	this.fluidType = ModFluids.fluidEmpty.toString();
+        }
     }
     
     @Override
@@ -51,6 +55,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
     @Override
     public void update(IGameInstance game) 
     {
+    	super.update(game);
     	if (RockBottomAPI.getNet().isClient() == false)
     	{
 	   		// first we extract stuff from nearby inventories into the pipes inventory
@@ -71,15 +76,19 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 								if (((TileEntityFluidConduit)adjacentTileEntity).getCurrentFluid() >= transferRate)
 								{
 									// pull fluid from adjacent conduit
+									if (((TileEntityFluidConduit)adjacentTileEntity).removeFluid(transferRate))
+									{
+										this.addFluid(transferRate, ((TileEntityFluidConduit)adjacentTileEntity).getFluidType());
+									}
 								}
 							}
 	   					}
 	   				}
 	   				else if (IFluidTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
 	   				{
-	   					if (((IFluidTile)adjacentTileEntity).getFluidType().equals(this.fluidType) || ((IFluidTile)adjacentTileEntity).getFluidType().equals(ModFluids.fluidEmpty.toString()))
+	   					if (((IFluidTile)adjacentTileEntity).getFluidType().equals(this.fluidType) || this.fluidType.equals(ModFluids.fluidEmpty.toString()) || ((IFluidTile)adjacentTileEntity).getFluidType().equals(ModFluids.fluidEmpty.toString()))
 	   					{
-		   					if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()) && ((IFluidTile)adjacentTileEntity).getFluidType().equals(this.fluidType))
+		   					if (IFluidProducer.class.isAssignableFrom(adjacentTileEntity.getClass()) && (((IFluidTile)adjacentTileEntity).getFluidType().equals(this.fluidType)) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 		   	   				{
 		   						// Conduit is set to input mode
 		   	   					if (this.getSideMode(adjacentTile) == 1)
@@ -88,6 +97,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		   	   						if (this.fluidStored < (this.maxFluid - transferRate))
 		   	   						{
 		   	   							// pull fluid from adjacent tile
+		   	   							if (((IFluidProducer)adjacentTileEntity).removeFluid(transferRate))
+		   	   							{
+		   	   								this.addFluid(transferRate, ((IFluidProducer)adjacentTileEntity).getFluidType());
+		   	   								this.shouldSync = true;
+		   	   							}
 		   	   						}
 		   	   					}
 		   	   				}
@@ -105,6 +119,10 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		   	   						if (this.fluidStored >= transferRate)
 		   	   						{
 		   	   							// send fluid to adjacent tile
+		   	   							if (((IFluidAcceptor)adjacentTileEntity).addFluid(transferRate, this.fluidType))
+		   	   							{
+		   	   								this.removeFluid(transferRate);
+		   	   							}
 		   	   						}
 		   	   					}
 		   	   				}
@@ -216,14 +234,22 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	}
 
 	@Override
-	public boolean addFluid(int amount) 
+	public boolean addFluid(int amount, String type) 
 	{
-		if (this.fluidStored + amount <= this.maxFluid)
+		if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 		{
-			this.fluidStored += amount;
-			this.shouldSync = true;
-			return true;
+			if (this.fluidStored + amount <= this.maxFluid)
+			{
+				if (this.fluidType == null || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+				{
+					this.fluidType = type;
+				}
+				this.fluidStored += amount;
+				this.shouldSync = true;
+				return true;
+			}
 		}
+		
 		return false;
 	}
 
@@ -233,6 +259,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		if (this.fluidStored >= amount)
 		{
 			this.fluidStored -= amount;
+			
+			if (this.fluidStored == 0)
+			{
+				this.fluidType = ModFluids.fluidEmpty.toString();
+			}
 			this.shouldSync = true;
 			return true;
 		}

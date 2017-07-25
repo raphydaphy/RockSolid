@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.api.IEnergyAcceptor;
 import com.raphydaphy.rocksolid.api.IEnergyProducer;
 
-import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -26,14 +25,6 @@ public class TileEntityBattery extends TileEntity implements IEnergyAcceptor, IE
     {
     	this.sendToClients();
     	this.onSync();
-    }
-    
-    @Override
-    public void update(IGameInstance game)
-    {
-    	if (powerStored < maxPower)
-    	{
-    	}
     }
     
     public float getBatteryFullness()

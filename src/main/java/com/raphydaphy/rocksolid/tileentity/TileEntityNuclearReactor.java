@@ -36,7 +36,8 @@ public class TileEntityNuclearReactor extends TileEntityFueled implements IHasIn
     }
     
     @Override
-    public void update(IGameInstance game){
+    public void update(IGameInstance game)
+    {
         super.update(game);
 
         if(!RockBottomAPI.getNet().isClient()){
