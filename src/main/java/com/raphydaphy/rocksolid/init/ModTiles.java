@@ -16,6 +16,7 @@ import com.raphydaphy.rocksolid.tile.TileElectricBlastFurnace;
 import com.raphydaphy.rocksolid.tile.TileElectricSeparator;
 import com.raphydaphy.rocksolid.tile.TileElectricSmelter;
 import com.raphydaphy.rocksolid.tile.TileEnergyConduit;
+import com.raphydaphy.rocksolid.tile.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.TileLamp;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
@@ -27,13 +28,14 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.tile.Tile;
 
-public class ModBlocks 
+public class ModTiles 
 {
 	public static Tile alloySmelter;
 	public static Tile blastFurnace;
 	
 	public static Tile allocator;
 	public static Tile energyConduit;
+	public static Tile fluidConduit;
 	public static Tile chest;
 	
 	public static Tile quarry;
@@ -72,6 +74,7 @@ public class ModBlocks
 		
 		allocator = new TileAllocator();
 		energyConduit = new TileEnergyConduit();
+		fluidConduit = new TileFluidConduit();
 		chest = new TileChest().register();
 		
 		quarry = new TileQuarry();
@@ -81,7 +84,7 @@ public class ModBlocks
 		lamp = new TileLamp(RockSolidLib.makeRes("lamp"));
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_ROCK, 1), 5, 1);
 		limestone = new TileBase(RockSolidLib.makeRes("limestone"), 10, 3);
-		clay = new TileBase(RockSolidLib.makeRes("clay"), 8, 3, ToolType.SHOVEL);
+		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 8, 3, ToolType.SHOVEL);
 		
 		coalGenerator = new TileCoalGenerator();
 		nuclearReactor = new TileNuclearReactor();

@@ -41,6 +41,12 @@ public abstract class Fluid extends TileBasic
 		this.register();
 	}
 	
+	@Override
+	public Fluid register(){
+		RockSolidAPI.FLUID_REGISTRY.register(this.getName(), this);
+        return (Fluid)super.register();
+    }
+	
 	// set in fluid classes, should return the list of enemy fluids
 	public abstract ArrayList<Fluid> getEnemyFluids();
 	

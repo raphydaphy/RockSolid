@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.world;
 
-import com.raphydaphy.rocksolid.init.ModBlocks;
+import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.world.gen.WorldGenOre;
@@ -47,7 +47,7 @@ public class WorldGenIron extends WorldGenOre
 	@Override
 	public TileState getOreState()
 	{
-		return ModBlocks.oreIron.getDefState();
+		return ModTiles.oreIron.getDefState();
 	}
 
 }

@@ -55,6 +55,7 @@ rocksolid/item.blastFurnace=Blast Furnace
 
 rocksolid/item.allocator=Allocator
 rocksolid/item.energyConduit=Energy Conduit
+rocksolid/item.fluidConduit=Fluid Conduit
 rocksolid/item.chest=Chest
 
 rocksolid/item.quarry=Quarry

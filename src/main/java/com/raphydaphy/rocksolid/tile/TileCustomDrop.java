@@ -7,14 +7,22 @@ import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class TileCustomDrop extends TileBase
 {
 	private final ItemInstance itemDrop;
-	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel) {
+	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel) 
+	{
 		super(RockSolidLib.makeRes(name), oreHardness, toolLevel);
+		itemDrop = drop;
+	}
+	
+	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel, ToolType toolType)
+	{
+		super(RockSolidLib.makeRes(name), oreHardness, toolLevel, toolType);
 		itemDrop = drop;
 	}
 	

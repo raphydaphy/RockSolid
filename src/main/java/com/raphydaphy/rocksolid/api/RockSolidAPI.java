@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.recipe.CompressorRecipe;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 
 public class RockSolidAPI {
 	 public static final String VERSION = "0.0.8";
@@ -15,6 +16,8 @@ public class RockSolidAPI {
 	 public static final List<AlloySmelterRecipe> ALLOY_SMELTER_RECIPES = new ArrayList<>();
 	 public static final List<BlastFurnaceRecipe> BLAST_FURNACE_RECIPES = new ArrayList<>();
 	 public static final List<CompressorRecipe> COMPRESSOR_RECIPES = new ArrayList<>();
+	 
+	 public static final NameRegistry<Fluid> FLUID_REGISTRY = new NameRegistry<>("fluid_registry");
 	 
 	 public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
 	 {

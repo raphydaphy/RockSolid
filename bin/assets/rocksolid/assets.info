@@ -165,6 +165,13 @@ tex.tiles.energyConduit.down=/tiles/energy_conduit/energy_conduit_down.png
 tex.tiles.energyConduit.left=/tiles/energy_conduit/energy_conduit_left.png
 tex.tiles.energyConduit.right=/tiles/energy_conduit/energy_conduit_right.png
 
+## Fluid Conduit
+tex.tiles.fluidConduit=/tiles/fluid_conduit/fluid_conduit.png
+tex.tiles.fluidConduit.up=/tiles/fluid_conduit/fluid_conduit_up.png
+tex.tiles.fluidConduit.down=/tiles/fluid_conduit/fluid_conduit_down.png
+tex.tiles.fluidConduit.left=/tiles/fluid_conduit/fluid_conduit_left.png
+tex.tiles.fluidConduit.right=/tiles/fluid_conduit/fluid_conduit_right.png
+
 ## Allocator
 tex.tiles.allocator=/tiles/allocator/allocator.png
 tex.tiles.allocator.up=/tiles/allocator/allocator_up.png

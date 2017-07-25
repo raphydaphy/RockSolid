@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
-import com.raphydaphy.rocksolid.init.ModBlocks;
+import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.world.IChunk;
@@ -118,7 +118,7 @@ public class WorldGenCaves implements IWorldGenerator {
 						//	world.setTile(chunk.getX() + x + startX, chunk.getY() + y+ startY, ModFluids.fluidLava);
 						//	world.setMeta(chunk.getX() + x + startX, chunk.getY() + y+ startY, BlockFluid.MAX_VOLUME);
 						}
-						world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModBlocks.rockLight.getDefState());
+						world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModTiles.rockLight.getDefState());
 					}
 				}
 			}
