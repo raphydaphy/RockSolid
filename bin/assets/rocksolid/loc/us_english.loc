@@ -51,6 +51,7 @@ rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
 
 # Fluids
+rocksolid/item.tank=Tank
 rocksolid/item.bucket=Empty Bucket
 rocksolid/item.bucket.water=Water Bucket
 rocksolid/item.bucket.lava=Lava Bucket
@@ -118,6 +119,8 @@ rocksolid/details.creativePowerSource=Supplies infinite power from all sides. No
 rocksolid/details.charger=Charges items that hold power, such as Jetpacks.
 rocksolid/details.nuclearReactor=Creates energy using nuclear fusion. Be careful, because splitting atoms is not safe!
 rocksolid/details.compressor=Compresses ingots into pellets and other useful things. Requires power.
+rocksolid/details.tank=Stores 20 buckets of a liquid! Liquids can be pumped in and out using Fluid Conduits.
+rocksolid/details.fluidConduit=Moves fluids between containers and machines. Can be configured using a wrench.
 
 # Because Ellpeck is lazy
 rockbottom/item.stone=Stone
