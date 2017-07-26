@@ -177,6 +177,7 @@ tex.tiles.blastFurnace.active.0.1=/tiles/arc_furnace/arc_furnace_active.0.1.png
 tex.tiles.blastFurnace.active.1.1=/tiles/arc_furnace/arc_furnace_active.1.1.png
 
 ## Electric Purifier
+tex.tiles.electricPurifier.item=/tiles/purifier/electric_purifier_item.png
 tex.tiles.electricPurifier.0.0=sub./tiles/purifier/electric_purifier.png,0,12,12,12
 tex.tiles.electricPurifier.0.1=sub./tiles/purifier/electric_purifier.png,0,0,12,12
 tex.tiles.electricPurifier.1.0=sub./tiles/purifier/electric_purifier.png,12,12,12,12

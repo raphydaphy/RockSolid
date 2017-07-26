@@ -122,6 +122,7 @@ rocksolid/details.nuclearReactor=Creates energy using nuclear fusion. Be careful
 rocksolid/details.compressor=Compresses ingots into pellets and other useful things. Requires power.
 rocksolid/details.tank=Stores 20 buckets of a liquid! Liquids can be pumped in and out using Fluid Conduits.
 rocksolid/details.fluidConduit=Moves fluids between containers and machines. Can be configured using a wrench.
+rocksolid/details.electricPurifier=Purifies items using a liquid filtration medium.
 
 # Because Ellpeck is lazy
 rockbottom/item.stone=Stone
