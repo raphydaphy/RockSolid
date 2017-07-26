@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiBattery;
-import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 

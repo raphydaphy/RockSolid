@@ -5,8 +5,8 @@ import java.util.List;
 import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
-import com.raphydaphy.rocksolid.gui.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;

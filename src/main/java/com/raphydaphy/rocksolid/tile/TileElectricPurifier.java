@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.gui.GuiElectricPurifier;
-import com.raphydaphy.rocksolid.gui.container.ContainerElectricPurifier;
 import com.raphydaphy.rocksolid.render.ElectricPurifierRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -70,7 +70,7 @@ public class TileElectricPurifier extends MultiTile
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiElectricPurifier(player, tile), new ContainerElectricPurifier(player, tile));
+			player.openGuiContainer(new GuiElectricPurifier(player, tile), new ContainerBasicIO(player, tile));
 			return true;
 		}
 		else

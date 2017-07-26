@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.gui.GuiCompressor;
-import com.raphydaphy.rocksolid.gui.container.ContainerCompressor;
 import com.raphydaphy.rocksolid.render.CompressorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCompressor;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -70,7 +70,7 @@ public class TileCompressor extends MultiTile
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiCompressor(player, tile), new ContainerCompressor(player, tile));
+			player.openGuiContainer(new GuiCompressor(player, tile), new ContainerBasicIO(player, tile));
 			return true;
 		}
 		else

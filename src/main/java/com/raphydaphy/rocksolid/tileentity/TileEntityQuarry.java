@@ -178,4 +178,16 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 		this.world.causeLightUpdate(this.x, this.y);
 	}
 
+	@Override
+	public float getSmeltPercentage() {
+		if (mineTick == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return mineTick / 10;
+		}
+	}
+
 }

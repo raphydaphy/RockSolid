@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gui.GuiElectricBlastFurnace;
-import com.raphydaphy.rocksolid.gui.container.ContainerElectricBlastFurnace;
+import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
+import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
 import com.raphydaphy.rocksolid.render.ElectricBlastFurnaceRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -70,7 +70,7 @@ public class TileElectricBlastFurnace extends MultiTile
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiElectricBlastFurnace(player, tile), new ContainerElectricBlastFurnace(player, tile));
+			player.openGuiContainer(new GuiBasicPowered(player, tile), new ContainerBasicIO(player, tile));
 			return true;
 		}
 		else

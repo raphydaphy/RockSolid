@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gui.GuiElectricAlloySmelter;
+import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricAlloySmelter;
 import com.raphydaphy.rocksolid.render.ElectricAlloySmelterRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
@@ -70,7 +70,7 @@ public class TileElectricAlloySmelter extends MultiTile
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiElectricAlloySmelter(player, tile), new ContainerElectricAlloySmelter(player, tile));
+			player.openGuiContainer(new GuiBasicPowered(player, tile), new ContainerElectricAlloySmelter(player, tile));
 			return true;
 		}
 		else

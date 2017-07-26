@@ -266,14 +266,21 @@ public class TileEntityCharger extends TileEntityPowered implements IHasInventor
 	}
 
 	@Override
-	protected void onActiveChange(boolean active) {
+	protected void onActiveChange(boolean active) 
+	{
 		this.world.causeLightUpdate(this.x, this.y);
 	}
 
 	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
+	public boolean isActive() 
+	{
 		return false;
+	}
+
+	@Override
+	public float getSmeltPercentage()
+	{
+		return 0;
 	}
 
 }

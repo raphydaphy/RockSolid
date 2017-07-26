@@ -40,6 +40,7 @@ public abstract class TileEntityPowered extends TileEntity implements IHasInvent
     protected abstract boolean tryTickAction();
     protected abstract void onActiveChange(boolean active);
     protected abstract boolean isActive();
+    public abstract float getSmeltPercentage();
     
     @Override
     public void update(IGameInstance game){

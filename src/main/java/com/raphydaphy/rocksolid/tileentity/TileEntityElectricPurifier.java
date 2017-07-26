@@ -7,7 +7,7 @@ import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
+import com.raphydaphy.rocksolid.api.util.IBasicIO;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
@@ -16,7 +16,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityElectricPurifier extends TileEntityPowered implements IHasInventory, IFluidAcceptor
+public class TileEntityElectricPurifier extends TileEntityPowered implements IBasicIO, IFluidAcceptor
 {
 
 	public static final int INPUT = 0;
@@ -263,6 +263,12 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IHa
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isValidInput(ItemInstance item) 
+	{
+		return RockSolidAPI.existsInPurifierRecipe(item);
 	}
 
 }

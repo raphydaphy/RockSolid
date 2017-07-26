@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
+import com.raphydaphy.rocksolid.api.util.IBasicIO;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -12,7 +13,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityElectricSmelter extends TileEntityPowered
+public class TileEntityElectricSmelter extends TileEntityPowered implements IBasicIO
 {
     public static final int INPUT = 0;
     public static final int OUTPUT = 1;
@@ -167,4 +168,10 @@ public class TileEntityElectricSmelter extends TileEntityPowered
    	{
        return this.smeltTime > 0;
    }
+
+	@Override
+	public boolean isValidInput(ItemInstance item) 
+	{
+		return RockBottomAPI.getSmelterRecipe(item) != null;
+	}
 }
