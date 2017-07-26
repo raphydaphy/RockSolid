@@ -1,9 +1,10 @@
 package com.raphydaphy.rocksolid.item;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
+import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -45,9 +46,9 @@ public class ItemBucket extends ItemBase {
 		// if the bucket is empty
 		if (instance.getMeta() == 0)
 		{
-			if (atPos instanceof TileEntityTank)
+			if (atPos instanceof IFluidProducer)
 			{
-				TileEntityTank tank = (TileEntityTank)atPos;
+				IFluidProducer tank = (IFluidProducer)atPos;
 				if (tank.getCurrentFluid() >= 1000)
 				{
 					if (!(tank.getFluidType().equals(ModFluids.fluidEmpty.toString())))
@@ -101,9 +102,9 @@ public class ItemBucket extends ItemBase {
 		// if the bucket already has liquid in it
 		else
 		{
-			if (atPos instanceof TileEntityTank)
+			if (atPos instanceof IFluidAcceptor)
 			{
-				TileEntityTank tank = (TileEntityTank)atPos;
+				IFluidAcceptor tank = (IFluidAcceptor)atPos;
 				String fluidString = fluid.toString();
 				if (tank.addFluid(1000,fluidString))
 				{
