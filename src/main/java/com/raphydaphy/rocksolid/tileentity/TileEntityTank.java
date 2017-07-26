@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.IFluidAcceptor;
-import com.raphydaphy.rocksolid.api.IFluidProducer;
+import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
+import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;

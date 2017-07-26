@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.energy;
 
 public interface IEnergyAcceptor extends IEnergyTile
 {

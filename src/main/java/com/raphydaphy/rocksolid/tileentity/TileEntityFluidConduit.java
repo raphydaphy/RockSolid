@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.IConduit;
-import com.raphydaphy.rocksolid.api.IFluidAcceptor;
-import com.raphydaphy.rocksolid.api.IFluidProducer;
-import com.raphydaphy.rocksolid.api.IFluidTile;
+import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
+import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
+import com.raphydaphy.rocksolid.api.fluid.IFluidTile;
+import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 

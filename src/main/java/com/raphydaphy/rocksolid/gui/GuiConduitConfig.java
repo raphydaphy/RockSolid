@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.gui;
 
-import com.raphydaphy.rocksolid.api.IConduit;
+import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 
 import de.ellpeck.rockbottom.api.IGameInstance;

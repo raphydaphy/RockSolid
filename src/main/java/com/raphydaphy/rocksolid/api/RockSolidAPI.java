@@ -3,9 +3,12 @@ package com.raphydaphy.rocksolid.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
-import com.raphydaphy.rocksolid.recipe.BlastFurnaceRecipe;
-import com.raphydaphy.rocksolid.recipe.CompressorRecipe;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
+import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
+import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
+import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
+import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
@@ -16,6 +19,7 @@ public class RockSolidAPI {
 	 public static final List<AlloySmelterRecipe> ALLOY_SMELTER_RECIPES = new ArrayList<>();
 	 public static final List<BlastFurnaceRecipe> BLAST_FURNACE_RECIPES = new ArrayList<>();
 	 public static final List<CompressorRecipe> COMPRESSOR_RECIPES = new ArrayList<>();
+	 public static final List<PurifierRecipe> PURIFIER_RECIPES = new ArrayList<>();
 	 
 	 public static final NameRegistry<Fluid> FLUID_REGISTRY = new NameRegistry<>("fluid_registry");
 	 
@@ -31,6 +35,32 @@ public class RockSolidAPI {
         }
         return null;
     }
+	 
+	 public static PurifierRecipe getPurifierRecipe(ItemInstance item, String fluid, int fluidVolume)
+	 {
+		 for (PurifierRecipe recipe : PURIFIER_RECIPES)
+		 {
+			 boolean fluidMatches = fluid.equals(recipe.getFluid()) || (recipe.getFluid().equals(ModFluids.fluidEmpty.toString()));
+			 if (fluidVolume >= recipe.getFluidVolume() &&
+				 fluidMatches && item.isEffectivelyEqualWithWildcard(recipe.getInput()))
+			 {
+				 return recipe;
+			 }
+		 }
+		 return null;
+	 }
+	 
+	 public static boolean existsInPurifierRecipe(ItemInstance item)
+	 {
+		 for(PurifierRecipe recipe : PURIFIER_RECIPES)
+		 {
+            if(item.isEffectivelyEqualWithWildcard(recipe.getInput()))
+            {
+                return true;
+            }
+        }
+        return false;
+	 }
 	 
 	 public static boolean existsInAlloyRecipe(ItemInstance item)
 	 {

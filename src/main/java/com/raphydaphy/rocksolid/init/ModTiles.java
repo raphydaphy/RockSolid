@@ -13,6 +13,7 @@ import com.raphydaphy.rocksolid.tile.TileCreativePowerSource;
 import com.raphydaphy.rocksolid.tile.TileCustomDrop;
 import com.raphydaphy.rocksolid.tile.TileElectricAlloySmelter;
 import com.raphydaphy.rocksolid.tile.TileElectricBlastFurnace;
+import com.raphydaphy.rocksolid.tile.TileElectricPurifier;
 import com.raphydaphy.rocksolid.tile.TileElectricSeparator;
 import com.raphydaphy.rocksolid.tile.TileElectricSmelter;
 import com.raphydaphy.rocksolid.tile.TileEnergyConduit;
@@ -54,6 +55,7 @@ public class ModTiles
 	public static Tile nuclearReactor;
 	public static Tile battery;
 	
+	public static Tile electricPurifier;
 	public static Tile electricBlastFurnace;
 	public static Tile electricAlloySmelter;
 	public static Tile electricSeparator;
@@ -95,6 +97,7 @@ public class ModTiles
 		nuclearReactor = new TileNuclearReactor();
 		battery = new TileBattery();
 		
+		electricPurifier = new TileElectricPurifier();
 		electricBlastFurnace = new TileElectricBlastFurnace();
 		electricAlloySmelter = new TileElectricAlloySmelter();
 		electricSeparator = new TileElectricSeparator();

@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.api.IEnergyProducer;
-import com.raphydaphy.rocksolid.api.IHasInventory;
+import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
+import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;

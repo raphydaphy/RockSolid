@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.item;
 
-import com.raphydaphy.rocksolid.api.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTank;

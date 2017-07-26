@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.energy;
 
 // Should be implemented on any items that can hold power
 public interface IItemWithPower {

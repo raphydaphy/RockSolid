@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
-import com.raphydaphy.rocksolid.api.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModTiles;
 
@@ -19,7 +19,7 @@ public class WorldGenLakes implements IWorldGenerator {
 	@Override
 	public boolean shouldGenerate(IWorld world, IChunk chunk, Random rand) 
 	{
-		if(chunk.getGridY() == 0)
+		if(chunk.getGridY() == 0 && chunk.getGridX() != 0)
 		{
 			return rand.nextInt(6) == 2;
 		}

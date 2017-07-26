@@ -1,14 +1,14 @@
-package com.raphydaphy.rocksolid.recipe;
+package com.raphydaphy.rocksolid.api.recipe;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
-public class BlastFurnaceRecipe 
+public class CompressorRecipe 
 {
 	private final ItemInstance input;
     private final ItemInstance output;
     private final int time;
 
-    public BlastFurnaceRecipe(ItemInstance output,  ItemInstance input, int time){
+    public CompressorRecipe(ItemInstance output,  ItemInstance input, int time){
         this.input = input;
         this.output = output;
         this.time = time;

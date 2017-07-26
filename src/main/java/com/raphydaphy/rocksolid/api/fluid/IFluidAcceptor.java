@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.fluid;
 
 public interface IFluidAcceptor extends IFluidTile
 {

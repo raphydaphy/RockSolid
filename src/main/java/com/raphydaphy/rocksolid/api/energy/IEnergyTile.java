@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.energy;
 
 public interface IEnergyTile {
 	// Returns the currently stored amount of energy in the block

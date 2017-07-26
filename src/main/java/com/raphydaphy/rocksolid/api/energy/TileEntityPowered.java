@@ -1,4 +1,6 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.energy;
+
+import com.raphydaphy.rocksolid.api.util.IHasInventory;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;

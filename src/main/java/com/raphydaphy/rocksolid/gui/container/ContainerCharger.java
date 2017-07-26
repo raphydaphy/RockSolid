@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.gui.container;
 
-import com.raphydaphy.rocksolid.api.IItemWithPower;
+import com.raphydaphy.rocksolid.api.energy.IItemWithPower;
 import com.raphydaphy.rocksolid.gui.slot.InputSlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
 

@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.item;
 
 import java.util.List;
 
-import com.raphydaphy.rocksolid.api.IItemWithPower;
+import com.raphydaphy.rocksolid.api.energy.IItemWithPower;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.assets.IAssetManager;

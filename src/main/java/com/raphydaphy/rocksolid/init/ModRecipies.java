@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
-import com.raphydaphy.rocksolid.recipe.BlastFurnaceRecipe;
-import com.raphydaphy.rocksolid.recipe.CompressorRecipe;
+import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
+import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
+import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;

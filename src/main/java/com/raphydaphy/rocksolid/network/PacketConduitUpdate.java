@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.network;
 
 import java.io.IOException;
 
-import com.raphydaphy.rocksolid.api.IConduit;
+import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;

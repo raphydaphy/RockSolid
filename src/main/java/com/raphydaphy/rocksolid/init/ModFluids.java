@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.api.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.fluid.FluidEmpty;
 import com.raphydaphy.rocksolid.fluid.FluidLava;
 import com.raphydaphy.rocksolid.fluid.FluidWater;

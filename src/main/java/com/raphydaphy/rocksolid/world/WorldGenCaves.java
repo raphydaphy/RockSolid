@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
-import com.raphydaphy.rocksolid.api.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModTiles;
 

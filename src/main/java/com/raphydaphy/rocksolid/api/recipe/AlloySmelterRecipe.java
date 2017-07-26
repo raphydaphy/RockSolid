@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.recipe;
+package com.raphydaphy.rocksolid.api.recipe;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 

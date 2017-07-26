@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.api.IHasInventory;
-import com.raphydaphy.rocksolid.api.IItemWithPower;
-import com.raphydaphy.rocksolid.api.TileEntityPowered;
+import com.raphydaphy.rocksolid.api.energy.IItemWithPower;
+import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
+import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.network.PacketChargerItem;
 

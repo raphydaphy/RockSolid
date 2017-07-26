@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.util;
 
 // Should be implemented on any block that uses the ConduitRenderer system to connect the textures
 public interface IConduit 

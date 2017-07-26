@@ -1,7 +1,8 @@
-package com.raphydaphy.rocksolid.api;
+package com.raphydaphy.rocksolid.api.fluid;
 
 import java.util.ArrayList;
 
+import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.render.FluidRenderer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 

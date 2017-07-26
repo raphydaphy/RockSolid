@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.IEnergyAcceptor;
-import com.raphydaphy.rocksolid.api.IEnergyProducer;
+import com.raphydaphy.rocksolid.api.energy.IEnergyAcceptor;
+import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;

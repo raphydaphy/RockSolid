@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.fluid;
 
 import java.util.ArrayList;
 
-import com.raphydaphy.rocksolid.api.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.world.IWorld;
