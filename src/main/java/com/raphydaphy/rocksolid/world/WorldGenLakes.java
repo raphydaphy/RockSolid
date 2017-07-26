@@ -4,44 +4,23 @@ import java.util.Random;
 
 import com.raphydaphy.rocksolid.api.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
 
-public class WorldGenCaves implements IWorldGenerator {
+public class WorldGenLakes implements IWorldGenerator {
 
 	
 	@Override
 	public boolean shouldGenerate(IWorld world, IChunk chunk, Random rand) 
 	{
-		if(chunk.getGridY() < 2)
+		if(chunk.getGridY() == 0)
 		{
-			if (chunk.getGridY() < -50)
-			{
-				return rand.nextInt(3) == 1;
-			}
-			else if (chunk.getGridY() < -25)
-			{
-				return rand.nextInt(8) == 1;
-			}
-			else if (chunk.getGridY() < -15)
-			{
-				return rand.nextInt(15) == 1;
-			}
-			else if (chunk.getGridY() < -5)
-			{
-				return rand.nextInt(18) == 1;
-			}
-			else
-			{
-				return rand.nextInt(23) == 1;
-			}
-			
+			return rand.nextInt(6) == 2;
 		}
 		
 		return false;
@@ -50,50 +29,14 @@ public class WorldGenCaves implements IWorldGenerator {
 	@Override
 	public void generate(IWorld world, IChunk chunk, Random rand) 
 	{
-		int chunkMapSizeX = rand.nextInt(16) + 16;
-		int chunkMapSizeY = rand.nextInt(16) + 16;
+		int chunkMapSizeX = 32;
+		int chunkMapSizeY = 32;
 		
-		boolean hasFeature = rand.nextInt(3) == 1;
-		int feature = rand.nextInt(20);
-		int fluidHeight = 0;
 		
-		if (feature < 13)
-		{
-			feature = 0;
-		}
-		else if (feature < 16)
-		{
-			feature = 1;
-		}
-		else if (feature < 18)
-		{
-			feature = 2;
-		}
-		else
-		{
-			feature = 3;
-		}
+		int startX = -10;
+		int startY = -10;
 		
-		if (hasFeature)
-		{
-			switch (feature)
-			{
-			case 0:
-			case 1:
-				// used to calculate highest fluid in the chunk with chunkMapSizeY / this
-				fluidHeight = (rand.nextInt(3) + 2);
-				break;
-			case 2:
-				//chunkMapSizeX = Util.floor(chunkMapSizeX / 2);
-				//chunkMapSizeY = Util.floor(chunkMapSizeY / 2);
-				break;
-			}
-			
-		}
-		
-		int startX = rand.nextInt(32 - chunkMapSizeX);
-		int startY = rand.nextInt(32 - chunkMapSizeY);
-		
+		int fluidStart = 1 - rand.nextInt(3);
 		
 		boolean[][] terrain = new boolean[chunkMapSizeX][chunkMapSizeY];
 		
@@ -102,7 +45,7 @@ public class WorldGenCaves implements IWorldGenerator {
 		{
 			for (int y = 0; y < chunkMapSizeY; y++)
 			{
-				if (rand.nextFloat() > rand.nextFloat() )
+				if (rand.nextFloat() > 0.5f)
 				{
 					terrain[x][y] = true;
 				}
@@ -114,55 +57,35 @@ public class WorldGenCaves implements IWorldGenerator {
 			terrain = doSimulationStep(terrain).clone();
 		}
 		
-		
+		for (int x = 0; x < 32; x++)
+		{
+			for (int y = 0; y < 32; y++)
+			{
+				Tile thisTile = world.getState(chunk.getX() + x + startX, chunk.getY() + y + startY).getTile();
+				if (thisTile == GameContent.TILE_LEAVES || thisTile == GameContent.TILE_LOG)
+				{
+					world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY, GameContent.TILE_AIR.getDefState());
+				}
+			}
+		}
 		for (int x = 0; x < chunkMapSizeX; x++)
 		{
 			for (int y = 0; y < chunkMapSizeY; y++)
 			{
 				if (!terrain[x][y])
 				{
-						
-						
-					if (chunk.getGridY() < 0)
+					if (world.getState(chunk.getX() + x + startX, chunk.getY() + y + startY).getTile() != GameContent.TILE_AIR)
 					{
-						if (chunk.getGridY() == -1)
+						if (chunk.getY() + y+startY < fluidStart)
 						{
-							if (y > chunkMapSizeY - 2)
-							{
-								continue;
-							}
-						}
-						TileState background = ModTiles.rockLight.getDefState();
-						if (!hasFeature || (feature < 2 && y > (chunkMapSizeY / fluidHeight)))
-						{
-							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, GameContent.TILE_AIR.getDefState());
+							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, 12));
 						}
 						else
 						{
-							
-							TileState featureTile = GameContent.TILE_AIR.getDefState();
-							
-							switch(feature)
-							{
-							case 0:
-								featureTile = ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME);
-								break;
-							case 1:
-								featureTile = ModFluids.fluidLava.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME);
-								break;
-							case 2:
-								featureTile = ModTiles.limestone.getDefState();
-								background = GameContent.TILE_ROCK.getDefState();
-								break;
-							case 3:
-								featureTile = ModTiles.clay.getDefState();
-								background = GameContent.TILE_ROCK.getDefState();
-								break;
-							}
-							
-							world.setState(chunk.getX() + x + startX, chunk.getY() + y+ startY, featureTile);
+							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, GameContent.TILE_AIR.getDefState());
+							world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, GameContent.TILE_AIR.getDefState());
 						}
-						world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, background);
+						
 					}
 				}
 			}

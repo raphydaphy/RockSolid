@@ -85,7 +85,7 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
 	{
-		System.out.println("added and scheduled update with meta of " + world.getState(x, y).get(fluidLevel));
+		//System.out.println("added and scheduled update with meta of " + world.getState(x, y).get(fluidLevel));
 		world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
     }
 	

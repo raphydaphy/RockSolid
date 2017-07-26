@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.world.WorldGenCaves;
 import com.raphydaphy.rocksolid.world.WorldGenIron;
+import com.raphydaphy.rocksolid.world.WorldGenLakes;
 import com.raphydaphy.rocksolid.world.WorldGenMagnesium;
 import com.raphydaphy.rocksolid.world.WorldGenRutile;
 import com.raphydaphy.rocksolid.world.WorldGenTin;
@@ -19,6 +20,7 @@ public class ModGenerators
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenRutile.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenUranium.class);
 		
+		RockBottomAPI.WORLD_GENERATORS.add(WorldGenLakes.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenCaves.class);
 	}
 }
