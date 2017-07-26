@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gui.GuiElectricSeparator;
+import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricSeparator;
 import com.raphydaphy.rocksolid.render.ElectricSeparatorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
@@ -68,7 +68,7 @@ public class TileElectricSeparator extends MultiTile
         final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
         final TileEntityElectricSeparator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSeparator.class);
         if (tile != null) {
-            player.openGuiContainer(new GuiElectricSeparator(player, tile), new ContainerElectricSeparator(player, tile));
+            player.openGuiContainer(new GuiBasicPowered(player, tile, new Pos2(70, 15)), new ContainerElectricSeparator(player, tile));
             return true;
         }
         return false;

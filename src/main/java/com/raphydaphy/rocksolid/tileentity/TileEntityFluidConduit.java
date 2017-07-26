@@ -23,7 +23,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
     private int modeRight = 0;
     
     private int fluidStored = 0;
-    private int maxFluid = 3000;
+    private int maxFluid = 1000;
     private String fluidType;
     
     private int transferRate = 250;

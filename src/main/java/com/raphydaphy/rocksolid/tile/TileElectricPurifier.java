@@ -5,6 +5,7 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.gui.GuiElectricPurifier;
+import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.render.ElectricPurifierRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -65,6 +66,15 @@ public class TileElectricPurifier extends MultiTile
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
+		ItemInstance selected = player.getInv().get(player.getSelectedSlot());
+		if (selected != null)
+		{
+			if (selected.getItem().equals(ModItems.bucket) && selected.getMeta() != 0)
+			{
+				return false;
+			}
+		}
+		
 		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
 		TileEntityElectricPurifier tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricPurifier.class);
 		
