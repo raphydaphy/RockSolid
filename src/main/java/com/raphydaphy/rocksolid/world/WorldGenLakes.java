@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.raphydaphy.rocksolid.api.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
+import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -79,6 +80,18 @@ public class WorldGenLakes implements IWorldGenerator {
 						if (chunk.getY() + y+startY < fluidStart)
 						{
 							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, 12));
+							
+							if (chunk.getY() + y + startY == fluidStart - 7)
+							{
+								if (rand.nextBoolean())
+								{
+									world.setState(chunk.getX() + x+ startX, chunk.getY() + y+ startY,ModTiles.clay.getDefState());
+								}
+							}
+							else if (chunk.getY() + y + startY < fluidStart - 7)
+							{
+								world.setState(chunk.getX() + x+ startX, chunk.getY() + y+ startY,ModTiles.clay.getDefState());
+							}
 						}
 						else
 						{
