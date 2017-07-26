@@ -81,6 +81,7 @@ rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.nuclearReactor=Nuclear Reactor
 rocksolid/item.battery=Battery
 
+rocksolid/item.electricPurifier=Electric Purifier
 rocksolid/item.electricBlastFurnace=Electric Blast Furnace
 rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
 rocksolid/item.electricSeparator=Electric Separator

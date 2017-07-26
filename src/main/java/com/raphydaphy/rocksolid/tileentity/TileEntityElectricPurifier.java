@@ -28,7 +28,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IHa
     
     protected int fluidStored = 0;
     protected int maxFluid = 5000;
-    protected String fluidType;
+    protected String fluidType = ModFluids.fluidEmpty.toString();
     
     protected int powerStored = 0;
     private boolean shouldSync = false;
@@ -205,6 +205,15 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IHa
 	{
 		return this.powerStored;
 	}
+	
+	public float getTankFullnesss()
+    {
+    	if (fluidStored == 0)
+    	{
+    		return 0;
+    	}
+        return (float)this.fluidStored/(float)this.maxFluid;
+    }
 
 	@Override
 	protected void onActiveChange(boolean active) {

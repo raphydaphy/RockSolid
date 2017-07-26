@@ -3,10 +3,9 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gui.GuiElectricBlastFurnace;
-import com.raphydaphy.rocksolid.gui.container.ContainerElectricBlastFurnace;
+import com.raphydaphy.rocksolid.gui.GuiElectricPurifier;
+import com.raphydaphy.rocksolid.gui.container.ContainerElectricPurifier;
 import com.raphydaphy.rocksolid.render.ElectricPurifierRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -27,7 +26,7 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class TileElectricPurifier extends MultiTile
 {
-	private static final String name = "electricBlastFurnace";
+	private static final String name = "electricPurifier";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
 	
 	public TileElectricPurifier() 
@@ -67,11 +66,11 @@ public class TileElectricPurifier extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
-		TileEntityElectricBlastFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricBlastFurnace.class);
+		TileEntityElectricPurifier tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricPurifier.class);
 		
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiElectricBlastFurnace(player, tile), new ContainerElectricBlastFurnace(player, tile));
+			player.openGuiContainer(new GuiElectricPurifier(player, tile), new ContainerElectricPurifier(player, tile));
 			return true;
 		}
 		else
@@ -87,7 +86,7 @@ public class TileElectricPurifier extends MultiTile
         if (!RockBottomAPI.getNet().isClient()) 
         {
             final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-            final TileEntityElectricBlastFurnace tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricBlastFurnace.class);
+            final TileEntityElectricPurifier tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricPurifier.class);
             if (tile != null) 
             {
                 tile.dropInventory(tile.inventory);

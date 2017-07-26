@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
+import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -42,6 +43,9 @@ public class ModRecipies
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.gritTin, 3),new ItemInstance(GameContent.ITEM_SLAG, 1), new ItemInstance(ModItems.clusterTin, 1), 750));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(ModItems.gritUranium, 3),  new ItemInstance(GameContent.ITEM_SLAG, 1), new ItemInstance(ModItems.clusterUranium, 1),750));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(GameContent.ITEM_COPPER_GRIT, 3),  new ItemInstance(GameContent.ITEM_SLAG, 1),new ItemInstance(GameContent.ITEM_COPPER_CLUSTER, 1), 750));
+		
+		// Purifier Recipes
+		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(ModItems.clay), new ItemInstance(ModItems.clumpClay), ModFluids.fluidWater.toString(), 100, 850));
 		
 		// Arc furnace recipes
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(ModItems.gemCoke), new ItemInstance(GameContent.ITEM_COAL, 1, 0), 5000));

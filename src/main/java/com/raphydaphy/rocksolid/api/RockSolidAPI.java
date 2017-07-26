@@ -42,7 +42,8 @@ public class RockSolidAPI {
 		 {
 			 boolean fluidMatches = fluid.equals(recipe.getFluid()) || (recipe.getFluid().equals(ModFluids.fluidEmpty.toString()));
 			 if (fluidVolume >= recipe.getFluidVolume() &&
-				 fluidMatches && item.isEffectivelyEqualWithWildcard(recipe.getInput()))
+				 fluidMatches && 
+				 item.isEffectivelyEqualWithWildcard(recipe.getInput()))
 			 {
 				 return recipe;
 			 }
