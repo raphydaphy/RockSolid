@@ -30,7 +30,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
     	this.onSync();
     }
     
-    public float getTankFullnesss()
+    public float getGasTankFullnesss()
     {
     	if (gasStored == 0)
     	{

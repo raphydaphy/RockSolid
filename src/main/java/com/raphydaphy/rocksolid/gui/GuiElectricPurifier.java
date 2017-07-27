@@ -1,11 +1,14 @@
 package com.raphydaphy.rocksolid.gui;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
@@ -25,8 +28,29 @@ public class GuiElectricPurifier extends GuiContainer
     {
         super.initGui(game);
         this.components.add(new ComponentProgressBar(this, this.guiLeft + 80, this.guiTop + 15, 35, 8, GuiElectricPurifier.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
-        this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 30, 80, 10, RockSolidLib.getFluidColor(tile.getFluidType()), false, this.tile::getTankFullnesss));
+        this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 30, 80, 10, RockSolidLib.getFluidColor(tile.getFluidType()), false, this.tile::getFluidTankFullnesss));
         this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 45, 80, 10, new Color(148,0,211), false, this.tile::getEnergyFullness));
     }
+    
+    @Override
+	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
+	{
+    	super.renderOverlay(game, manager, g);
+		boolean mouseOverPowerBarX = (game.getMouseInGuiX() >= this.guiLeft + 60) && (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
+		boolean mouseOverPowerBarY = (game.getMouseInGuiY() >= this.guiTop + 45) && (game.getMouseInGuiY() <= (this.guiTop + 45 + 10));
+		
+		if (mouseOverPowerBarX && mouseOverPowerBarY)
+		{
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy");
+		}
+		
+		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60) && (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
+		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop + 30) && (game.getMouseInGuiY() <= (this.guiTop + 30 + 10));
+		
+		if (mouseOverFluidBarX && mouseOverFluidBarY)
+		{
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing " + this.tile.getCurrentFluid() + "mL of Fluid");
+		}
+	}
 
 }

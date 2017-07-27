@@ -206,7 +206,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		return this.powerStored;
 	}
 	
-	public float getTankFullnesss()
+	public float getFluidTankFullnesss()
     {
     	if (fluidStored == 0)
     	{

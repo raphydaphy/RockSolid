@@ -30,7 +30,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
     	this.onSync();
     }
     
-    public float getTankFullnesss()
+    public float getFluidTankFullnesss()
     {
     	if (fluidStored == 0)
     	{

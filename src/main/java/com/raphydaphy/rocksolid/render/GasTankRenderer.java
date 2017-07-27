@@ -38,7 +38,7 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
         
         manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
         
-        float fullness = tileEntity.getTankFullnesss();
+        float fullness = tileEntity.getGasTankFullnesss();
         int stage = Util.floor(fullness * 20);
         if (stage > 0)
         {
