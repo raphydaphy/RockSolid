@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -12,6 +13,7 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiBasicPowered extends GuiContainer
 {
@@ -48,6 +50,12 @@ public class GuiBasicPowered extends GuiContainer
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[]{"Storing " + this.tile.getCurrentEnergy() + "kWh of Energy", "Uses " + tile.getPowerPerOperation() + "kWh per tick"});
 		}
+	}
+    
+    @Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("guiBasicPowered");
 	}
 
 }

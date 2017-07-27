@@ -1,9 +1,12 @@
 package com.raphydaphy.rocksolid.gui;
 
+import com.raphydaphy.rocksolid.util.RockSolidLib;
+
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiInventorySpecial extends GuiContainer
 {
@@ -64,6 +67,12 @@ public class GuiInventorySpecial extends GuiContainer
 	        
 	        player.setAdditionalData(data);
 		}
+	}
+	
+	@Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("guiInventorySpecial");
 	}
 	
 }

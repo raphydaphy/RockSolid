@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.tileentity.TileEntityCreativePowerSource;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -11,6 +12,7 @@ import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiCreativePowerSource extends GuiContainer
 {
@@ -42,6 +44,12 @@ public class GuiCreativePowerSource extends GuiContainer
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[]{"Storing " + this.tile.getCurrentEnergy() + "kWh of Energy", "Produces Infinite kWh per tick"});
 		}
+	}
+	
+	@Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("guiCreativePowerSource");
 	}
 
 }

@@ -12,6 +12,7 @@ import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiElectricPurifier extends GuiContainer
 {
@@ -51,6 +52,12 @@ public class GuiElectricPurifier extends GuiContainer
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[]{"Storing " + this.tile.getCurrentFluid() + "mL of Fluid", "Uses 100mL per operation"});
 		}
+	}
+    
+    @Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("guiElectricPurifier");
 	}
 
 }

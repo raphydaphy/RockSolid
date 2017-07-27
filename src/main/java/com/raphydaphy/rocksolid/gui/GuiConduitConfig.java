@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -9,6 +10,7 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiConduitConfig extends Gui
 {
@@ -93,5 +95,11 @@ public class GuiConduitConfig extends Gui
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled", "The conduit won't connect on this side."));
 		}
     }
+    
+    @Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("guiConduitConfig");
+	}
 
 }

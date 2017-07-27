@@ -11,6 +11,7 @@ import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiTank extends GuiContainer
 {
@@ -40,6 +41,12 @@ public class GuiTank extends GuiContainer
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing " + this.tile.getCurrentFluid() + "mL of Fluid");
 		}
+	}
+	
+	@Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("guiTank");
 	}
 
 }

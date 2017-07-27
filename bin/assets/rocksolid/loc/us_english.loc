@@ -102,9 +102,9 @@ rocksolid/item.constructionBlockSteel=Steel Construction Block
 rocksolid/item.constructionBlockTitanium=Titanium Construction Block
 
 # Keybinds
-rockbottom/key.jetpackEngine=Jetpack Engine
-rockbottom/key.jetpackHover=Jetpack Hover
-rockbottom/key.wrenchMode=Wrench Mode
+rocksolid/key.keyJetpackEngine=Jetpack
+rocksolid/key.keyJetpackHover=Hover
+rocksolid/key.keyWrenchMode=Wrench
 
 # Details
 rocksolid/details.wrench=Used to configure conduits. Right-click on a conduit to access the configuration and shift+right-click to destroy a conduit.

@@ -2,21 +2,21 @@ package com.raphydaphy.rocksolid.init;
 
 import org.newdawn.slick.Input;
 
+import com.raphydaphy.rocksolid.util.RockSolidLib;
+
 import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.data.settings.Settings.Keybind;
+import de.ellpeck.rockbottom.api.data.settings.Keybind;
 
 public class ModKeybinds {
-	public static Keybind keyJetpackEngine;
-	public static Keybind keyJetpackHover;
-	public static Keybind keyWrenchMode;
+	public static Keybind keyJetpackEngine = new Keybind(RockSolidLib.makeRes("keyJetpackEngine"), Input.KEY_Q, false);
+	public static Keybind keyJetpackHover = new Keybind(RockSolidLib.makeRes("keyJetpackHover"), Input.KEY_R, false);
+	public static Keybind keyWrenchMode = new Keybind(RockSolidLib.makeRes("keyWrenchMode"), Input.KEY_LSHIFT, false);
 	
 	public static void init()
 	{
-		
-		keyJetpackEngine = RockBottomAPI.getGame().getSettings().new Keybind("jetpackEngine", Input.KEY_Q);
-		keyJetpackHover = RockBottomAPI.getGame().getSettings().new Keybind("jetpackHover", Input.KEY_R);
-		keyWrenchMode = RockBottomAPI.getGame().getSettings().new Keybind("wrenchMode", Input.KEY_LSHIFT);
-		
+		RockBottomAPI.KEYBIND_REGISTRY.register(RockSolidLib.makeRes("keyJetpackEngine"), ModKeybinds.keyJetpackEngine);
+		RockBottomAPI.KEYBIND_REGISTRY.register(RockSolidLib.makeRes("keyJetpackHover"), ModKeybinds.keyJetpackHover);
+		RockBottomAPI.KEYBIND_REGISTRY.register(RockSolidLib.makeRes("keyWrenchMode"), ModKeybinds.keyWrenchMode);
 	}
 }
 	

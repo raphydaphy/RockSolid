@@ -7,7 +7,7 @@ import com.raphydaphy.rocksolid.api.render.FluidRenderer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -105,7 +105,7 @@ public abstract class Fluid extends TileBasic
 		}
 		if (entity instanceof AbstractEntityPlayer)
 		{
-			if (RockBottomAPI.getGame().getInput().isKeyDown(RockBottomAPI.getGame().getSettings().keyJump.key))
+			if (Settings.KEY_JUMP.isDown())
 			{
 				entity.onGround = true;
 				entity.motionY += thickness * 3;

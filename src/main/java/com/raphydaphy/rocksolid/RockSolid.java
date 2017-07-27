@@ -2,7 +2,6 @@ package com.raphydaphy.rocksolid;
 
 import org.newdawn.slick.util.Log;
 
-import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.init.ModEvents;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
@@ -11,17 +10,24 @@ import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.init.ModPackets;
 import com.raphydaphy.rocksolid.init.ModRecipies;
+import com.raphydaphy.rocksolid.init.ModTiles;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IApiHandler;
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
+import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
+import de.ellpeck.rockbottom.api.event.impl.LoadSettingsEvent;
 import de.ellpeck.rockbottom.api.mod.IMod;
 
 public class RockSolid implements IMod{
 	public static RockSolid INSTANCE;
+	
 	public RockSolid(){
 		INSTANCE = this;
+		ModKeybinds.init();
 		
 	}
     @Override
@@ -57,12 +63,10 @@ public class RockSolid implements IMod{
     @Override
     public void initAssets(IGameInstance game, IAssetManager assetManager, IApiHandler apiHandler)
     {
-    	ModKeybinds.init();
     }
     
     public void preInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
     {
-    	
     }
     
     @Override
@@ -73,10 +77,10 @@ public class RockSolid implements IMod{
     	ModItems.init();
     	ModTiles.init();
     	ModGenerators.init();
-    	ModEvents.init(eventHandler);
     	ModPackets.init();
     	ModFluids.init();
     	ModGasses.init();
+    	ModEvents.init(eventHandler);
     }
     
     @Override

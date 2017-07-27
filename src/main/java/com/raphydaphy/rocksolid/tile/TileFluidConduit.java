@@ -2,8 +2,6 @@ package com.raphydaphy.rocksolid.tile;
 
 import java.util.List;
 
-import org.newdawn.slick.Input;
-
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
@@ -71,13 +69,12 @@ public class TileFluidConduit extends TileBasic
 				
 				return true;
 			}
-			Input input = RockBottomAPI.getGame().getInput();
             if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
             {
             	
             	if (player.getInvContainer().getSlot(player.getSelectedSlot()).get().getItem() instanceof ItemWrench)
             	{
-            		if (input.isKeyDown(ModKeybinds.keyWrenchMode.key))
+            		if (ModKeybinds.keyWrenchMode.isDown())
             		{
             			world.destroyTile(x, y, TileLayer.MAIN, player, true);
             			RockBottomAPI.getNet().sendToServer(new PacketTileDestroyed(player.getUniqueId(), x, y, true));

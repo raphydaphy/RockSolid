@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
+import de.ellpeck.rockbottom.api.assets.tex.Texture;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -63,14 +64,16 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 	        	{
 	        		stage = 10;
 	        	}
-	        	manager.getTexture(tex).drawWithLight(renderX, renderY + ((scaleY * (13 - stage - 2)) - scaleY), scale, scaleY * stage, light);
+	        	Texture curTex = manager.getTexture(tex).getSubTexture(x, y, 12,stage);
+	        	//curTex.drawWithLight(renderX, renderY, scale, scaleY * stage, light);
+	        	
+	        	manager.getTexture(tex).getSubTexture(x, y, 12, 6).drawWithLight(renderX, renderY, scale, scale / 2, light);
 	        }
 	        else if (innerCoord.getY() == 1 && (stage > 10))
 	        {
-	        	stage -= 10;
-	        	manager.getTexture(tex).drawWithLight(renderX, renderY + ((scaleY * (13 - stage)) - scaleY), scale, scaleY * stage, light);
-	        	
-	        	//curTex.drawWithLight(renderX, renderY + (((scale / 12) * (13 - blockMeta)) - (scale /12)), scale, (scale / 12) * (blockMeta), light);
+	        	//stage -= 10;
+	        	//Texture curTex = manager.getTexture(tex).getSubTexture(x, y, 12, stage);
+	        	//curTex.drawWithLight(renderX, renderY + ((scaleY * (13 - stage)) - scaleY), scale, scaleY * stage, light);
 	        }
 	        
 	        

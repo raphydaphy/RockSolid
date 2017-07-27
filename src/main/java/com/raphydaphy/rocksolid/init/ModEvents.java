@@ -15,6 +15,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.font.Font;
 import de.ellpeck.rockbottom.api.assets.font.FormattingCode;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
@@ -161,8 +162,7 @@ public class ModEvents {
 				
 				if (jetpack != null)
 				{
-					
-					if (input.isKeyDown(RockBottomAPI.getGame().getSettings().keyJump.key))
+					if (Settings.KEY_JUMP.isDown())
 					{
 						if (engineActive && jetpackEnergy > 3)
 						{
@@ -182,7 +182,7 @@ public class ModEvents {
 					
 					if (hoverActive && engineActive && jetpackEnergy > 4)
 					{
-						if (!input.isKeyDown(RockBottomAPI.getGame().getSettings().keyJump.key))
+						if (!Settings.KEY_JUMP.isDown())
 						{
 							if (player.motionY < 0)
 							{
@@ -201,12 +201,12 @@ public class ModEvents {
 					if (engineActive)
 					{
 						
-		                if (input.isKeyPressed(ModKeybinds.keyJetpackHover.key))
+		                if (ModKeybinds.keyJetpackHover.isPressed())
 		                {
 		                	data.addBoolean("hoverActive", !hoverActive);
 		                }
 					}
-	                if (input.isKeyPressed(ModKeybinds.keyJetpackEngine.key))
+	                if (ModKeybinds.keyJetpackEngine.isPressed())
 	                {
 	                	data.addBoolean("engineActive", !engineActive);
 	                }
@@ -359,8 +359,12 @@ public class ModEvents {
 		
 		e.registerListener(ContainerOpenEvent.class, (result, event) -> {
             
-            
-        	if (event.container != null && event.container.getClass().getName().equals("de.ellpeck.rockbottom.gui.container.ContainerInventory"))
+            System.out.println("opened a container!");
+            if (event.container != null)
+            {
+            	System.out.println(event.container.getClass().getName());
+            }
+        	if (event.container != null && event.container.getClass().getName().equals("de.ellpeck.rockbottom.z"))
         	{
         		AbstractEntityPlayer player = event.player;
         		if (player != null)
@@ -369,20 +373,11 @@ public class ModEvents {
             		{
             			if (!player.getAdditionalData().getBoolean("is_creative"))
     					{
-            				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
+         	   				event.container.addSlot(new PlayerInvSlot(player, "jetpackData",instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
             				event.container.addSlot(new PlayerInvSlot(player, "lanternData", instance -> (instance.getItem().equals(ModItems.electricLantern) || instance.getItem().equals(ModItems.lantern)), 165, 45));
             				event.container.addSlot(new PlayerInvSlot(player, "accessory3", instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
             				return EventResult.MODIFIED;
     					}
-            			else
-            			{
-            				// yes someone is going to hate me for this but oh well
-            				if (player.getCommandLevel() < 10)
-            				{
-            					System.out.println("[RockSolid Intergration] Don't Cheat! You need command level 10 to access Creative Mode!");
-            					//player.getAdditionalData().addBoolean("is_creative", false);
-            				}
-            			}
             		}
             	}
 			}
@@ -390,5 +385,7 @@ public class ModEvents {
             return EventResult.DEFAULT;
 		});
        	 
+		
+            
 	}
 }

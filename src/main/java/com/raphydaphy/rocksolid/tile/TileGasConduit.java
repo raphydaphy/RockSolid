@@ -75,7 +75,7 @@ public class TileGasConduit extends TileBasic
             	
             	if (player.getInvContainer().getSlot(player.getSelectedSlot()).get().getItem() instanceof ItemWrench)
             	{
-            		if (input.isKeyDown(ModKeybinds.keyWrenchMode.key))
+            		if (ModKeybinds.keyWrenchMode.isDown())
             		{
             			world.destroyTile(x, y, TileLayer.MAIN, player, true);
             			RockBottomAPI.getNet().sendToServer(new PacketTileDestroyed(player.getUniqueId(), x, y, true));
