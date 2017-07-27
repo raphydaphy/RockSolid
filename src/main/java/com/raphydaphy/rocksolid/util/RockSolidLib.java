@@ -5,6 +5,7 @@ import org.newdawn.slick.Color;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.init.ModFluids;
+import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -41,6 +42,15 @@ public class RockSolidLib {
 			return Color.blue;
 		}
 		return Color.lightGray;
+	}
+	
+	public static Color getGasColor(String gas)
+	{
+		if (gas.equals(ModGasses.gasOxygen.toString()))
+		{
+			return new Color(224,255,255);
+		}
+		return new Color(199,136,53);
 	}
 	
 	public static TileEntity getTileFromConduitSide(Pos2 center, int side, IWorld world)

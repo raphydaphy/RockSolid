@@ -6,11 +6,11 @@ import org.newdawn.slick.Input;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
+import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
-import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 import com.raphydaphy.rocksolid.tileentity.TileEntityFluidConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;

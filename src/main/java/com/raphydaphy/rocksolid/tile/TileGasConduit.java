@@ -11,13 +11,11 @@ import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
-import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
-import com.raphydaphy.rocksolid.tileentity.TileEntityEnergyConduit;
+import com.raphydaphy.rocksolid.tileentity.TileEntityGasConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -30,12 +28,12 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileEnergyConduit extends TileBasic
+public class TileGasConduit extends TileBasic
 {
-	private static final String name = "energyConduit";
+	private static final String name = "gasConduit";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
 	
-	public TileEnergyConduit() {
+	public TileGasConduit() {
 		super(RockSolidLib.makeRes(name));
 		this.setHardness((float)20);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
@@ -45,7 +43,7 @@ public class TileEnergyConduit extends TileBasic
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
-        return new TileEntityEnergyConduit(world, x, y);
+        return new TileEntityGasConduit(world, x, y);
     }
 	
 	@Override
@@ -62,7 +60,7 @@ public class TileEnergyConduit extends TileBasic
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityEnergyConduit tile = world.getTileEntity(x, y, TileEntityEnergyConduit.class);
+		TileEntityGasConduit tile = world.getTileEntity(x, y, TileEntityGasConduit.class);
 		
 		if (tile != null)
 		{
@@ -71,7 +69,6 @@ public class TileEnergyConduit extends TileBasic
 				
 				return true;
 			}
-			System.out.println("not even the server!");
 			Input input = RockBottomAPI.getGame().getInput();
             if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
             {
@@ -97,20 +94,6 @@ public class TileEnergyConduit extends TileBasic
 		{
 			return false;
 		}
-    }
-	
-	@Override
-    public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop)
-    {
-        super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-        if (!RockBottomAPI.getNet().isClient()) 
-        {
-            final TileEntityAllocator tile = world.getTileEntity(x,y, TileEntityAllocator.class);
-            if (tile != null) 
-            {
-                tile.dropInventory(tile.inventory);
-            }
-        }
     }
 	
 	@Override

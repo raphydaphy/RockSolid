@@ -60,6 +60,11 @@ tex.items.jetpack=/items/misc/jetpack.png
 tex.items.electricLantern=/items/misc/lanternElectric.png
 tex.items.lantern=/items/misc/lantern.png
 
+# Gasses
+
+## Oxygen
+tex.tiles.gasOxygen=/gasses/oxygen/still.png
+
 # Fluids
 
 ## Empty
@@ -71,6 +76,10 @@ tex.items.bucket=/fluids/empty/bucket.png
 ## Water
 tex.tiles.fluidWater=/fluids/water/still.png
 tex.items.bucket.water=/fluids/water/bucket.png
+
+tex.tiles.tank.fluidWater.0.0=sub./fluids/water/tank/tank_20.png,0,12,12,12
+tex.tiles.tank.fluidWater.0.1=sub./fluids/water/tank/tank_20.png,0,0,12,12
+
 tex.tiles.tank.fluidWater.1.0.0=sub./fluids/water/tank/tank_1.png,0,12,12,12
 tex.tiles.tank.fluidWater.1.0.1=sub./fluids/water/tank/tank_1.png,0,0,12,12
 tex.tiles.tank.fluidWater.2.0.0=sub./fluids/water/tank/tank_2.png,0,12,12,12
@@ -116,6 +125,10 @@ tex.tiles.tank.fluidWater.20.0.1=sub./fluids/water/tank/tank_20.png,0,0,12,12
 anim.tiles.fluidLava=/fluids/lava/still.png,/fluids/lava/still.anim
 tex.tiles.fluidLava=/fluids/lava/still.png
 tex.items.bucket.lava=/fluids/lava/bucket.png
+
+tex.tiles.tank.fluidLava.0.0=sub./fluids/lava/tank/tank_20.png,0,12,12,12
+tex.tiles.tank.fluidLava.0.1=sub./fluids/lava/tank/tank_20.png,0,0,12,12
+
 tex.tiles.tank.fluidLava.1.0.0=sub./fluids/lava/tank/tank_1.png,0,12,12,12
 tex.tiles.tank.fluidLava.1.0.1=sub./fluids/lava/tank/tank_1.png,0,0,12,12
 tex.tiles.tank.fluidLava.2.0.0=sub./fluids/lava/tank/tank_2.png,0,12,12,12
@@ -276,6 +289,14 @@ tex.tiles.fluidConduit.up=/tiles/fluid_conduit/fluid_conduit_up.png
 tex.tiles.fluidConduit.down=/tiles/fluid_conduit/fluid_conduit_down.png
 tex.tiles.fluidConduit.left=/tiles/fluid_conduit/fluid_conduit_left.png
 tex.tiles.fluidConduit.right=/tiles/fluid_conduit/fluid_conduit_right.png
+
+
+## Gas Conduit
+tex.tiles.gasConduit=/tiles/gas_conduit/gas_conduit.png
+tex.tiles.gasConduit.up=/tiles/gas_conduit/gas_conduit_up.png
+tex.tiles.gasConduit.down=/tiles/gas_conduit/gas_conduit_down.png
+tex.tiles.gasConduit.left=/tiles/gas_conduit/gas_conduit_left.png
+tex.tiles.gasConduit.right=/tiles/gas_conduit/gas_conduit_right.png
 
 ## Allocator
 tex.tiles.allocator=/tiles/allocator/allocator.png

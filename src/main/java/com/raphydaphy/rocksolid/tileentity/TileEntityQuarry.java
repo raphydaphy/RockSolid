@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -66,7 +69,9 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 		}
 	    
 	    
-	    while (world.getState(curX, curY).getTile() == GameContent.TILE_AIR)
+	    while (world.getState(curX, curY).getTile() == GameContent.TILE_AIR || 
+	    	   world.getState(curX, curY).getTile() instanceof Fluid ||
+	    	   world.getState(curX, curY).getTile() instanceof Gas)
 	    {
 	    	curX++;
 	    	if (curX > this.x + 11)
@@ -83,7 +88,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    		if (mineTick == 10 && RockBottomAPI.getNet().isClient() == false)
 	    		{
 	    			if (world.getState(curX, curY).getTile().canBreak(world, curX, curY, TileLayer.MAIN) &&
-	    				world.getTileEntity(curX, curY) == null)
+	    				RockSolidLib.getTileFromPos(curX, curY, world) == null)
 	    			{
 	    				List<ItemInstance> curTile = world.getState(curX, curY).getTile().getDrops(world, curX, curY, TileLayer.MAIN, null);
 		    			if (output == null)

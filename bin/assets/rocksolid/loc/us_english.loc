@@ -50,6 +50,9 @@ rocksolid/item.jetpack=Jetpack
 rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
 
+# Gasses
+rocksolid/item.gasOxygen=Oxygen
+
 # Fluids
 rocksolid/item.tank=Tank
 rocksolid/item.bucket=Empty Bucket
@@ -66,6 +69,7 @@ rocksolid/item.blastFurnace=Blast Furnace
 rocksolid/item.allocator=Allocator
 rocksolid/item.energyConduit=Energy Conduit
 rocksolid/item.fluidConduit=Fluid Conduit
+rocksolid/item.gasConduit=Gas Conduit
 rocksolid/item.chest=Chest
 
 rocksolid/item.quarry=Quarry
@@ -123,6 +127,7 @@ rocksolid/details.compressor=Compresses ingots into pellets and other useful thi
 rocksolid/details.tank=Stores 20 buckets of a liquid! Liquids can be pumped in and out using Fluid Conduits.
 rocksolid/details.fluidConduit=Moves fluids between containers and machines. Can be configured using a wrench.
 rocksolid/details.electricPurifier=Purifies items using a liquid filtration medium.
+rocksolid/details.gasConduit=Moves gas between locations! Can be configured using a wrench.
 
 # Because Ellpeck is lazy
 rockbottom/item.stone=Stone

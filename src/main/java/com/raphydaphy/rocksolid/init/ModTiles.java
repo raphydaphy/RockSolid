@@ -18,6 +18,8 @@ import com.raphydaphy.rocksolid.tile.TileElectricSeparator;
 import com.raphydaphy.rocksolid.tile.TileElectricSmelter;
 import com.raphydaphy.rocksolid.tile.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.TileFluidConduit;
+import com.raphydaphy.rocksolid.tile.TileGasConduit;
+import com.raphydaphy.rocksolid.tile.TileGasTank;
 import com.raphydaphy.rocksolid.tile.TileLamp;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
@@ -38,6 +40,7 @@ public class ModTiles
 	public static Tile allocator;
 	public static Tile energyConduit;
 	public static Tile fluidConduit;
+	public static Tile gasConduit;
 	public static Tile chest;
 	
 	public static Tile quarry;
@@ -50,6 +53,7 @@ public class ModTiles
 	public static Tile clay;
 	
 	public static Tile tank;
+	public static Tile gasTank;
 	
 	public static Tile coalGenerator;
 	public static Tile nuclearReactor;
@@ -80,6 +84,7 @@ public class ModTiles
 		allocator = new TileAllocator();
 		energyConduit = new TileEnergyConduit();
 		fluidConduit = new TileFluidConduit();
+		gasConduit = new TileGasConduit();
 		chest = new TileChest().register();
 		
 		quarry = new TileQuarry();
@@ -92,6 +97,7 @@ public class ModTiles
 		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 4, 0, ToolType.SHOVEL);
 		
 		tank = new TileTank();
+		gasTank = new TileGasTank();
 		
 		coalGenerator = new TileCoalGenerator();
 		nuclearReactor = new TileNuclearReactor();

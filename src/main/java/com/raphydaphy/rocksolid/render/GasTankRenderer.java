@@ -4,9 +4,9 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.tile.TileTank;
-import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
+import com.raphydaphy.rocksolid.init.ModGasses;
+import com.raphydaphy.rocksolid.tile.TileGasTank;
+import com.raphydaphy.rocksolid.tileentity.TileEntityGasTank;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -18,20 +18,20 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TankRenderer extends MultiTileRenderer<TileTank>
+public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 {
 	
-	public TankRenderer(final IResourceName texture, final TileTank tile) {
+	public GasTankRenderer(final IResourceName texture, final TileGasTank tile) {
         super(texture, tile);
         
     }
     
     @Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileTank tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileGasTank tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
     {
         final Pos2 innerCoord = tile.getInnerCoord(state);
         final Pos2 mainPos = tile.getMainPos(x, y, state);
-        TileEntityTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityTank.class);
+        TileEntityGasTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityGasTank.class);
         
         
         IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
@@ -46,13 +46,9 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
         	{
         		stage = 20;
         	}
-	        if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
+	        if (tileEntity.getGasType().equals(ModGasses.gasOxygen.toString()))
 	        {
-	        	tex = this.texture.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
-	        }
-	        else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
-	        {
-	        	tex = this.texture.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
+	        	tex = this.texture.addSuffix(".gasOxygen." + innerCoord.getX() + "." + innerCoord.getY());
 	        }
 	        
 	        float scaleY = (float)(scale / 12);

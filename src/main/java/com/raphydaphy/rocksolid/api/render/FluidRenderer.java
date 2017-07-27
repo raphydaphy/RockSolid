@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.render;
+package com.raphydaphy.rocksolid.api.render;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;

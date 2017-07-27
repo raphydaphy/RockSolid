@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
@@ -22,6 +23,7 @@ public class RockSolidAPI {
 	 public static final List<PurifierRecipe> PURIFIER_RECIPES = new ArrayList<>();
 	 
 	 public static final NameRegistry<Fluid> FLUID_REGISTRY = new NameRegistry<>("fluid_registry");
+	 public static final NameRegistry<Gas> GAS_REGISTRY = new NameRegistry<>("gas_registry");
 	 
 	 public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
 	 {

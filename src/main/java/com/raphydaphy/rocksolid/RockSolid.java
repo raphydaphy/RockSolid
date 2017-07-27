@@ -5,6 +5,7 @@ import org.newdawn.slick.util.Log;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.init.ModEvents;
 import com.raphydaphy.rocksolid.init.ModFluids;
+import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
@@ -50,7 +51,7 @@ public class RockSolid implements IMod{
     @Override
     public String getDescription()
     {
-        return "Adds more machines and ore!";
+        return "Adds caves, fluids, gasses, electricity, machines, ore and much, much more!";
     }
 
     @Override
@@ -75,6 +76,7 @@ public class RockSolid implements IMod{
     	ModEvents.init(eventHandler);
     	ModPackets.init();
     	ModFluids.init();
+    	ModGasses.init();
     }
     
     @Override
