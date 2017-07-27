@@ -35,7 +35,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
     
     public TileEntityElectricPurifier(final IWorld world, final int x, final int y) 
     {
-        super(world, x, y, 5000, 3);
+        super(world, x, y, 5000, 30);
         this.inventory = new ContainerInventory(this, 2);
     }
     
@@ -206,7 +206,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		return this.powerStored;
 	}
 	
-	public float getFluidTankFullnesss()
+	public float getFluidTankFullness()
     {
     	if (fluidStored == 0)
     	{

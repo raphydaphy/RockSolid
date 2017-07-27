@@ -40,7 +40,7 @@ public class GuiCreativePowerSource extends GuiContainer
 		
 		if (mouseOverBarX && mouseOverBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing " + this.tile.getCurrentEnergy() + "kAh of Energy");
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[]{"Storing " + this.tile.getCurrentEnergy() + "kWh of Energy", "Produces Infinite kWh per tick"});
 		}
 	}
 

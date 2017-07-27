@@ -38,7 +38,7 @@ public class GuiNuclearReactor extends GuiContainer
 		
 		if (mouseOverPowerBarX && mouseOverPowerBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy");
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[]{"Storing " + this.tile.getCurrentEnergy() + "kWh of Energy", "Produces 150kWh per tick"});
 		}
 	}
 
