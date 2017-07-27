@@ -10,7 +10,6 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.assets.tex.Texture;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -37,7 +36,7 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
         
         IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
         
-        manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+       
         
         float fullness = tileEntity.getFluidTankFullnesss();
         int stage = Util.floor(fullness * 20);
@@ -49,13 +48,14 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
         	}
 	        if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
 	        {
-	        	tex = this.texture.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
+	        	tex = this.texture.addSuffix(".fluidWater." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
 	        }
 	        else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
 	        {
-	        	tex = this.texture.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
+	        	tex = this.texture.addSuffix(".fluidLava." + stage + "."+ innerCoord.getX() + "." + innerCoord.getY());
 	        }
 	        
+	        /*
 	        float scaleY = (float)(scale / 12);
 	        
 	        if (innerCoord.getY() == 0)
@@ -74,10 +74,14 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 	        	//stage -= 10;
 	        	//Texture curTex = manager.getTexture(tex).getSubTexture(x, y, 12, stage);
 	        	//curTex.drawWithLight(renderX, renderY + ((scaleY * (13 - stage)) - scaleY), scale, scaleY * stage, light);
-	        }
+	        }*/
+	        
+	        
 	        
 	        
         }
+        
+        manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
     }
 
 }

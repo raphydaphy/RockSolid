@@ -162,7 +162,7 @@ public class ModEvents {
 				
 				if (jetpack != null)
 				{
-					if (Settings.KEY_JUMP.isDown())
+					if (Settings.KEY_JUMP.isDown() && RockBottomAPI.getGame().getGuiManager().getGui() == null)
 					{
 						if (engineActive && jetpackEnergy > 3)
 						{
@@ -182,7 +182,7 @@ public class ModEvents {
 					
 					if (hoverActive && engineActive && jetpackEnergy > 4)
 					{
-						if (!Settings.KEY_JUMP.isDown())
+						if (!Settings.KEY_JUMP.isDown() || RockBottomAPI.getGame().getGuiManager().getGui() != null)
 						{
 							if (player.motionY < 0)
 							{
@@ -201,12 +201,12 @@ public class ModEvents {
 					if (engineActive)
 					{
 						
-		                if (ModKeybinds.keyJetpackHover.isPressed())
+		                if (ModKeybinds.keyJetpackHover.isPressed() && RockBottomAPI.getGame().getGuiManager().getGui() == null)
 		                {
 		                	data.addBoolean("hoverActive", !hoverActive);
 		                }
 					}
-	                if (ModKeybinds.keyJetpackEngine.isPressed())
+	                if (ModKeybinds.keyJetpackEngine.isPressed() && RockBottomAPI.getGame().getGuiManager().getGui() == null)
 	                {
 	                	data.addBoolean("engineActive", !engineActive);
 	                }

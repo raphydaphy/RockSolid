@@ -11,15 +11,11 @@ import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.init.ModPackets;
 import com.raphydaphy.rocksolid.init.ModRecipies;
 import com.raphydaphy.rocksolid.init.ModTiles;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IApiHandler;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
-import de.ellpeck.rockbottom.api.event.impl.LoadSettingsEvent;
 import de.ellpeck.rockbottom.api.mod.IMod;
 
 public class RockSolid implements IMod{
