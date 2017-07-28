@@ -122,7 +122,6 @@ tex.tiles.tank.fluidWater.20.0.0=sub./fluids/water/tank/tank_20.png,0,12,12,12
 tex.tiles.tank.fluidWater.20.0.1=sub./fluids/water/tank/tank_20.png,0,0,12,12
 
 ## Lava
-anim.tiles.fluidLava=/fluids/lava/still.png,/fluids/lava/still.anim
 tex.tiles.fluidLava=/fluids/lava/still.png
 tex.items.bucket.lava=/fluids/lava/bucket.png
 

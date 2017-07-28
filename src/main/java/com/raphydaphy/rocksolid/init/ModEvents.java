@@ -66,20 +66,17 @@ public class ModEvents {
                 	hoverActive = data.getBoolean("hoverActive");
                 	if (data.getDataSet("jetpackData") != null)
                 	{
-                		if (data.getDataSet("jetpackData").getString("item_name") != null)
+                		if (data.getDataSet("jetpackData").isEmpty() == false)
                 		{
-	                		if (data.getDataSet("jetpackData").getString("item_name").equals("") == false)
-	                		{
-			                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
-			                	if (jetpack != null)
+		                	jetpack = ItemInstance.load(data.getDataSet("jetpackData"));
+		                	if (jetpack != null)
+		                	{
+		                		jetpackData = jetpack.getAdditionalData();
+			                	if (jetpackData != null)
 			                	{
-			                		jetpackData = jetpack.getAdditionalData();
-				                	if (jetpackData != null)
-				                	{
-				                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
-				                	}
+			                		jetpackEnergy = jetpackData.getInt("itemPowerStored");
 			                	}
-	                		}
+		                	}
                 		}
                 	}
                 	if (data.getDataSet("lanternData") != null)
@@ -153,6 +150,9 @@ public class ModEvents {
                 else
                 {
                 	data = new DataSet();
+                	data.addDataSet("jetpackData", new DataSet());
+                	data.addDataSet("lanternData", new DataSet());
+                	data.addDataSet("accessory3Data", new DataSet());
                 	player.setAdditionalData(data);
                 }
 				
@@ -374,6 +374,14 @@ public class ModEvents {
             				event.container.addSlot(new PlayerInvSlot(player, "accessory3", instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
             				return EventResult.MODIFIED;
     					}
+            		}
+            		else
+            		{
+            			DataSet data = new DataSet();
+                    	data.addDataSet("jetpackData", new DataSet());
+                    	data.addDataSet("lanternData", new DataSet());
+                    	data.addDataSet("accessory3Data", new DataSet());
+                    	player.setAdditionalData(data);
             		}
             	}
 			}

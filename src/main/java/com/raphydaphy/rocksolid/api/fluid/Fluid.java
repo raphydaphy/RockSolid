@@ -102,6 +102,7 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onCollideWithEntity(IWorld world, int x, int y, TileLayer layer, Entity entity)
 	{
+		/*
 		if (entity.onGround == false)
 		{
 			entity.motionY = -thickness;
@@ -113,7 +114,7 @@ public abstract class Fluid extends TileBasic
 				entity.onGround = true;
 				entity.motionY += thickness * 3;
 			}
-		}
+		}*/
 	}
 	
 	@Override

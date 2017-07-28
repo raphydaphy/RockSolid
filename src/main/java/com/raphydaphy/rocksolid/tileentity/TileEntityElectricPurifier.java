@@ -42,7 +42,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
     @Override
     protected boolean needsSync() 
     {
-        return super.needsSync() || this.lastSmelt != this.processTime;
+        return super.needsSync() || this.lastSmelt != this.processTime || this.shouldSync;
     }
     
     @Override
@@ -124,6 +124,12 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		{
         	this.processTime = 0;
         	this.maxProcessTime = 0;
+        	
+        	 if (this.fluidStored == 0)
+             {
+             	this.setFluidType(ModFluids.fluidEmpty.toString());
+             }
+        	 
         	shouldSync = true;
 		}
         return hasRecipeAndSpace;
