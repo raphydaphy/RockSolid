@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.render.FluidRenderer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -86,8 +87,10 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
 	{
-		//System.out.println("added and scheduled update with meta of " + world.getState(x, y).get(fluidLevel));
-		world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
+		}
     }
 	
 	// what should happen if there is about to be a collision with an enemy fluid
@@ -116,7 +119,6 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
 	{
-		System.out.println("updating at " + x + ", "+ y);
 		TileState thisState = world.getState(x, y);
 		TileState downState = world.getState(x, y - 1);
 		TileState leftState = world.getState(x - 1, y);
@@ -124,7 +126,10 @@ public abstract class Fluid extends TileBasic
 		
 		if (thisState.getTile() instanceof Fluid)
 		{
-			world.scheduleUpdate(x, y, layer, 8);
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				world.scheduleUpdate(x, y, layer, 8);
+			}
 		}
 		
 		// if the tile below is the same fluid as this
@@ -133,7 +138,6 @@ public abstract class Fluid extends TileBasic
 			// if the tile below is not full of fluid
 			if (downState.get(fluidLevel) < MAX_VOLUME)
 			{
-			
 				// if we can safely move all the fluid into the lower block
 				if (downState.get(fluidLevel) + thisState.get(fluidLevel) <= MAX_VOLUME)
 				{

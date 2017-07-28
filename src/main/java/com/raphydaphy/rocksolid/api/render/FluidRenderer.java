@@ -4,7 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
-import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -30,15 +29,8 @@ public class FluidRenderer<T extends Fluid> extends DefaultTileRenderer<Fluid>
 		
         if (blockMeta > 0)
         {
-        	if (world.getState(x, y).getTile() == ModFluids.fluidLava)
-        	{
-        		manager.getAnimation(super.texture).drawRow(0, renderX, renderY, scale, light, Color.white);
-        	}
-        	else
-        	{
-        		Texture curTex = manager.getTexture(super.texture).getSubTexture(0, 0, 12,  blockMeta);
-        		curTex.drawWithLight(renderX, renderY + (((scale / 12) * (13 - blockMeta)) - (scale /12)), scale, (scale / 12) * (blockMeta), light);
-        	}
+    		Texture curTex = manager.getTexture(super.texture).getSubTexture(0, 0, 12,  blockMeta);
+    		curTex.drawWithLight(renderX, renderY + (((scale / 12) * (13 - blockMeta)) - (scale /12)), scale, (scale / 12) * (blockMeta), light);
         }
     }
 
