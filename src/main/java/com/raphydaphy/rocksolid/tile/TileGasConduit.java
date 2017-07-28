@@ -2,8 +2,6 @@ package com.raphydaphy.rocksolid.tile;
 
 import java.util.List;
 
-import org.newdawn.slick.Input;
-
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
@@ -69,7 +67,6 @@ public class TileGasConduit extends TileBasic
 				
 				return true;
 			}
-			Input input = RockBottomAPI.getGame().getInput();
             if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null) 
             {
             	

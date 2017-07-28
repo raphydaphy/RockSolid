@@ -116,10 +116,11 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
 	{
+		System.out.println("updating at " + x + ", "+ y);
 		TileState thisState = world.getState(x, y);
 		TileState downState = world.getState(x, y - 1);
-		TileState leftTile = world.getState(x - 1, y);
-		TileState rightTile = world.getState(x + 1, y);
+		TileState leftState = world.getState(x - 1, y);
+		TileState rightState = world.getState(x + 1, y);
 		
 		if (thisState.getTile() instanceof Fluid)
 		{
@@ -127,21 +128,28 @@ public abstract class Fluid extends TileBasic
 		}
 		
 		// if the tile below is the same fluid as this
-		if (downState.getTile() == thisState.getTile() && downState.get(fluidLevel) < MAX_VOLUME)
+		if (downState.getTile() == thisState.getTile())
 		{
-			// if we can safely move all the fluid into the lower block
-			if (downState.get(fluidLevel) + thisState.get(fluidLevel) <= MAX_VOLUME)
+			// if the tile below is not full of fluid
+			if (downState.get(fluidLevel) < MAX_VOLUME)
 			{
-				// move the fluid into the lower block
-				world.setState(x, y - 1, downState.prop(fluidLevel, downState.get(fluidLevel) + thisState.get(fluidLevel)));
-				world.scheduleUpdate(x, y - 1, layer, 8);
-				world.setState(x, y, GameContent.TILE_AIR.getDefState());
-				return;
-			}
-			// if we need to keep some fluid in the top block
-			else
-			{
-				
+			
+				// if we can safely move all the fluid into the lower block
+				if (downState.get(fluidLevel) + thisState.get(fluidLevel) <= MAX_VOLUME)
+				{
+					// move the fluid into the lower block
+					world.setState(x, y - 1, downState.prop(fluidLevel, downState.get(fluidLevel) + thisState.get(fluidLevel)));
+					world.setState(x, y, GameContent.TILE_AIR.getDefState());
+					return;
+				}
+				// if we need to keep some fluid in the top block
+				else
+				{
+					// move the most fluid we can to the bottom block and keep the remains in the top
+					world.setState(x, y - 1, downState.prop(fluidLevel, MAX_VOLUME));
+					world.setState(x, y, thisState.prop(fluidLevel, (downState.get(fluidLevel) + thisState.get(fluidLevel) - 12)));
+					return;
+				}
 			}
 		}
 		// if the tile below is air
@@ -152,6 +160,138 @@ public abstract class Fluid extends TileBasic
 			world.setState(x, y, GameContent.TILE_AIR.getDefState());
 			return;
 		}
+		
+		int furthestLeft = 0;
+		int furthestRight = 0;
+		
+		boolean finishedLeft = false;
+		boolean finishedRight = false;
+		
+		for (int curX = 0; curX < MAX_VOLUME + 1; curX++)
+		{
+			TileState curRight = world.getState(x + curX, y);
+			TileState curLeft = world.getState(x - curX, y);
+			
+			if (!finishedRight)
+			{
+				// if the tile to the right is 
+				if (curRight.getTile() == thisState.getTile() || curRight.getTile() == GameContent.TILE_AIR)
+				{
+					if (curRight.getTile() == thisState.getTile())
+					{
+						if (curRight.get(fluidLevel) < MAX_VOLUME)
+						{
+							furthestRight = curX;
+						}
+						else
+						{
+							finishedRight = true;
+						}
+					}
+					else
+					{
+						furthestRight = curX;
+					}
+				}
+				else
+				{
+					finishedRight = true;
+				}
+			}
+			
+			if (!finishedLeft)
+			{
+				if (curLeft.getTile() == thisState.getTile() || curLeft.getTile() == GameContent.TILE_AIR)
+				{
+					if (curLeft.getTile() == thisState.getTile())
+					{
+						if (curLeft.get(fluidLevel) < MAX_VOLUME)
+						{
+							furthestLeft = curX;
+						}
+						else
+						{
+							finishedLeft = true;
+						}
+					}
+					else
+					{
+						finishedLeft = true;
+					}
+				}
+				else
+				{
+					finishedLeft = true;
+				}
+			}
+			
+			if (finishedRight && finishedLeft)
+			{
+				break;
+			}
+		}
+		
+		if (furthestLeft == 0 && furthestRight == 0)
+		{
+			return;
+		}
+		
+		if (thisState.get(fluidLevel) > 1)
+		{
+			// if we should flow fluid to the left
+			if (furthestLeft >= furthestRight)
+			{
+				// if the tile to the left is not full of fluid
+				if (leftState.getTile() == thisState.getTile())
+				{
+					// if the fluid to the left is the same as this
+					if (leftState.get(fluidLevel) < MAX_VOLUME)
+					{
+						// if there is less fluid in the left tile than this
+						if (leftState.get(fluidLevel) < thisState.get(fluidLevel))
+						{
+							world.setState(x - 1, y, leftState.prop(fluidLevel, leftState.get(fluidLevel) + 1));
+							world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+							return;
+						}
+					}
+				}
+				// if there is air to the left
+				else if (leftState.getTile() == GameContent.TILE_AIR)
+				{
+					world.setState(x - 1, y, thisState.prop(fluidLevel, 1));
+					world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+					return;
+				}
+			}
+			// if we should flow fluid to the right
+			else
+			{
+				// if the fluid to the left is the same as this
+				if (rightState.getTile() == thisState.getTile())
+				{
+					// if the tile to the left is not full of fluid
+					if (rightState.get(fluidLevel) < MAX_VOLUME)
+					{
+						// if there is less fluid in the left tile than this
+						if (rightState.get(fluidLevel) < rightState.get(fluidLevel))
+						{
+							world.setState(x + 1, y, rightState.prop(fluidLevel, rightState.get(fluidLevel) + 1));
+							world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+							return;
+						}
+					}
+				}
+				// if there is air to the left
+				else if (rightState.getTile() == GameContent.TILE_AIR)
+				{
+					world.setState(x + 1, y, thisState.prop(fluidLevel, 1));
+					world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+					return;
+				}
+			}
+		}
+		
     }
 	
 	

@@ -2,8 +2,6 @@ package com.raphydaphy.rocksolid.init;
 
 import java.util.Random;
 
-import org.newdawn.slick.Input;
-
 import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemLantern;
@@ -54,8 +52,6 @@ public class ModEvents {
 				{
 					return EventResult.DEFAULT;
 				}
-				
-				Input input = RockBottomAPI.getGame().getInput();
 				
 				Pos2 pos = new Pos2(Util.floor(player.x), Util.floor(player.y));
 				Pos2 prevPos = null;

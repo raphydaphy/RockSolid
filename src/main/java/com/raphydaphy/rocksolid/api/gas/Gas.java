@@ -84,8 +84,8 @@ public abstract class Gas extends TileBasic
 	{
 		TileState thisState = world.getState(x, y);
 		TileState upState = world.getState(x, y + 1);
-		TileState leftTile = world.getState(x - 1, y);
-		TileState rightTile = world.getState(x + 1, y);
+		//TileState leftTile = world.getState(x - 1, y);
+		//TileState rightTile = world.getState(x + 1, y);
 		
 		if (thisState.getTile() instanceof Gas)
 		{
