@@ -48,7 +48,7 @@ public class ItemJetpack extends ItemBase implements IItemWithPower
 	@Override
 	public int getMaxPower() 
 	{
-		return 1000000;
+		return 100000;
 	}
 
 

@@ -312,7 +312,7 @@ public class ModEvents {
                 	{
 						if (jetpackEnergy > 0)
 						{
-							jetpackEnergy = jetpackEnergy / 10000;
+							jetpackEnergy = jetpackEnergy / 1000;
 						}
 	                	String jetpackEnergyString = FormattingCode.RED.toString() + "Depleted";
 	                	if (jetpackEnergy >= 70)
