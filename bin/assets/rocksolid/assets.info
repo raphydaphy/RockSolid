@@ -72,6 +72,7 @@ tex.tiles.tank.0.0=sub./fluids/empty/tank.png,0,12,12,12
 tex.tiles.tank.0.1=sub./fluids/empty/tank.png,0,0,12,12
 tex.tiles.tank.item=/fluids/empty/tank_item.png
 tex.items.bucket=/fluids/empty/bucket.png
+tex.tiles.fluidPump.item=/fluilds/empty/pump_item.png
 tex.tiles.fluidPump.0.0=sub./fluids/empty/pump.png,0,12,12,12
 tex.tiles.fluidPump.1.0=sub./fluids/empty/pump.png,12,12,12,12
 tex.tiles.fluidPump.0.1=sub./fluids/empty/pump.png,0,0,12,12
@@ -83,6 +84,27 @@ tex.items.bucket.water=/fluids/water/bucket.png
 
 tex.tiles.tank.fluidWater.0.0=sub./fluids/water/tank/tank_20.png,0,12,12,12
 tex.tiles.tank.fluidWater.0.1=sub./fluids/water/tank/tank_20.png,0,0,12,12
+
+tex.tiles.fluidPump.fluidWater.1.0.1=sub./fluids/water/pump/pump_1.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.1.1.1=sub./fluids/water/pump/pump_1.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.2.0.1=sub./fluids/water/pump/pump_2.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.2.1.1=sub./fluids/water/pump/pump_2.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.3.0.1=sub./fluids/water/pump/pump_3.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.3.1.1=sub./fluids/water/pump/pump_3.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.4.0.1=sub./fluids/water/pump/pump_4.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.4.1.1=sub./fluids/water/pump/pump_4.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.5.0.1=sub./fluids/water/pump/pump_5.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.5.1.1=sub./fluids/water/pump/pump_5.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.6.0.1=sub./fluids/water/pump/pump_6.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.6.1.1=sub./fluids/water/pump/pump_6.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.7.0.1=sub./fluids/water/pump/pump_7.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.7.1.1=sub./fluids/water/pump/pump_7.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.8.0.1=sub./fluids/water/pump/pump_8.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.8.1.1=sub./fluids/water/pump/pump_8.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.9.0.1=sub./fluids/water/pump/pump_9.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.9.1.1=sub./fluids/water/pump/pump_9.png,12,0,12,12
+tex.tiles.fluidPump.fluidWater.10.0.1=sub./fluids/water/pump/pump_10.png,0,0,12,12
+tex.tiles.fluidPump.fluidWater.10.1.1=sub./fluids/water/pump/pump_10.png,12,0,12,12
 
 tex.tiles.tank.fluidWater.1.0.0=sub./fluids/water/tank/tank_1.png,0,12,12,12
 tex.tiles.tank.fluidWater.1.0.1=sub./fluids/water/tank/tank_1.png,0,0,12,12
@@ -131,6 +153,27 @@ tex.items.bucket.lava=/fluids/lava/bucket.png
 
 tex.tiles.tank.fluidLava.0.0=sub./fluids/lava/tank/tank_20.png,0,12,12,12
 tex.tiles.tank.fluidLava.0.1=sub./fluids/lava/tank/tank_20.png,0,0,12,12
+
+tex.tiles.fluidPump.fluidLava.1.0.1=sub./fluids/lava/pump/pump_1.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.1.1.1=sub./fluids/lava/pump/pump_1.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.2.0.1=sub./fluids/lava/pump/pump_2.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.2.1.1=sub./fluids/lava/pump/pump_2.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.3.0.1=sub./fluids/lava/pump/pump_3.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.3.1.1=sub./fluids/lava/pump/pump_3.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.4.0.1=sub./fluids/lava/pump/pump_4.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.4.1.1=sub./fluids/lava/pump/pump_4.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.5.0.1=sub./fluids/lava/pump/pump_5.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.5.1.1=sub./fluids/lava/pump/pump_5.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.6.0.1=sub./fluids/lava/pump/pump_6.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.6.1.1=sub./fluids/lava/pump/pump_6.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.7.0.1=sub./fluids/lava/pump/pump_7.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.7.1.1=sub./fluids/lava/pump/pump_7.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.8.0.1=sub./fluids/lava/pump/pump_8.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.8.1.1=sub./fluids/lava/pump/pump_8.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.9.0.1=sub./fluids/lava/pump/pump_9.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.9.1.1=sub./fluids/lava/pump/pump_9.png,12,0,12,12
+tex.tiles.fluidPump.fluidLava.10.0.1=sub./fluids/lava/pump/pump_10.png,0,0,12,12
+tex.tiles.fluidPump.fluidLava.10.1.1=sub./fluids/lava/pump/pump_10.png,12,0,12,12
 
 tex.tiles.tank.fluidLava.1.0.0=sub./fluids/lava/tank/tank_1.png,0,12,12,12
 tex.tiles.tank.fluidLava.1.0.1=sub./fluids/lava/tank/tank_1.png,0,0,12,12

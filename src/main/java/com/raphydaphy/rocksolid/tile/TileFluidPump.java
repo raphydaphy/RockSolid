@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
-import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.gui.GuiFluidPump;
+import com.raphydaphy.rocksolid.render.PumpRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityFluidPump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -36,8 +36,8 @@ public class TileFluidPump extends MultiTile
     }
    
     @Override
-    protected ITileRenderer<MultiTile> createRenderer(final IResourceName name) {
-        return new PoweredMultiTileRenderer(name, this);
+    protected ITileRenderer<TileFluidPump> createRenderer(final IResourceName name) {
+        return new PumpRenderer(name, this);
     }
    
     @Override
