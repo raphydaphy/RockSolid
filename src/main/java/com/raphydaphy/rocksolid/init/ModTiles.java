@@ -18,6 +18,7 @@ import com.raphydaphy.rocksolid.tile.TileElectricSeparator;
 import com.raphydaphy.rocksolid.tile.TileElectricSmelter;
 import com.raphydaphy.rocksolid.tile.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.TileFluidConduit;
+import com.raphydaphy.rocksolid.tile.TileFluidPump;
 import com.raphydaphy.rocksolid.tile.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.TileGasTank;
 import com.raphydaphy.rocksolid.tile.TileLamp;
@@ -53,6 +54,7 @@ public class ModTiles
 	public static Tile clay;
 	
 	public static Tile tank;
+	public static Tile fluidPump;
 	public static Tile gasTank;
 	
 	public static Tile coalGenerator;
@@ -97,6 +99,7 @@ public class ModTiles
 		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 4, 0, ToolType.SHOVEL);
 		
 		tank = new TileTank();
+		fluidPump = new TileFluidPump();
 		gasTank = new TileGasTank();
 		
 		coalGenerator = new TileCoalGenerator();

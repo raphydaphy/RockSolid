@@ -5,7 +5,7 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
-import com.raphydaphy.rocksolid.render.ElectricBlastFurnaceRenderer;
+import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -37,8 +37,8 @@ public class TileElectricBlastFurnace extends MultiTile
         this.register();
 	}
 	@Override
-    protected ITileRenderer<TileElectricBlastFurnace> createRenderer(final IResourceName name) {
-        return new ElectricBlastFurnaceRenderer(name, this);
+    protected ITileRenderer<MultiTile> createRenderer(final IResourceName name) {
+        return new PoweredMultiTileRenderer(name, this);
     }
 	
 	@Override

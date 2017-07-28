@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.gui.GuiQuarry;
 import com.raphydaphy.rocksolid.gui.container.ContainerQuarry;
-import com.raphydaphy.rocksolid.render.QuarryRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -36,8 +36,8 @@ public class TileQuarry extends MultiTile
     }
    
     @Override
-    protected ITileRenderer<TileQuarry> createRenderer(final IResourceName name) {
-        return new QuarryRenderer(name, this);
+    protected ITileRenderer<MultiTile> createRenderer(final IResourceName name) {
+        return new PoweredMultiTileRenderer(name, this);
     }
    
     @Override

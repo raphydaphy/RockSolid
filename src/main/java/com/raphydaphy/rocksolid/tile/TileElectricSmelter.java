@@ -5,7 +5,7 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
-import com.raphydaphy.rocksolid.render.ElectricSmelterRenderer;
+import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSmelter;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -36,8 +36,8 @@ public class TileElectricSmelter extends MultiTile
     }
    
     @Override
-    protected ITileRenderer<TileElectricSmelter> createRenderer(final IResourceName name) {
-        return new ElectricSmelterRenderer(name, this);
+    protected ITileRenderer<MultiTile> createRenderer(final IResourceName name) {
+        return new PoweredMultiTileRenderer(name, this);
     }
    
     @Override

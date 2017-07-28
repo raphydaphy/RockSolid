@@ -1,14 +1,12 @@
 package com.raphydaphy.rocksolid.api.energy;
 
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public abstract class TileEntityPowered extends TileEntity implements IHasInventory, IEnergyAcceptor
+public abstract class TileEntityPowered extends TileEntity implements IEnergyAcceptor
 {
     private boolean lastActive;
     private int maxPower;
@@ -39,7 +37,7 @@ public abstract class TileEntityPowered extends TileEntity implements IHasInvent
     protected abstract int getPower();
     protected abstract boolean tryTickAction();
     protected abstract void onActiveChange(boolean active);
-    protected abstract boolean isActive();
+    public abstract boolean isActive();
     public abstract float getSmeltPercentage();
     
     @Override

@@ -72,6 +72,10 @@ tex.tiles.tank.0.0=sub./fluids/empty/tank.png,0,12,12,12
 tex.tiles.tank.0.1=sub./fluids/empty/tank.png,0,0,12,12
 tex.tiles.tank.item=/fluids/empty/tank_item.png
 tex.items.bucket=/fluids/empty/bucket.png
+tex.tiles.fluidPump.0.0=sub./fluids/empty/pump.png,0,12,12,12
+tex.tiles.fluidPump.1.0=sub./fluids/empty/pump.png,12,12,12,12
+tex.tiles.fluidPump.0.1=sub./fluids/empty/pump.png,0,0,12,12
+tex.tiles.fluidPump.1.1=sub./fluids/empty/pump.png,12,0,12,12
 
 ## Water
 tex.tiles.fluidWater=/fluids/water/still.png

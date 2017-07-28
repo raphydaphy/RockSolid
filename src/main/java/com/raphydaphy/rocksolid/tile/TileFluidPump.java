@@ -3,15 +3,15 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
+import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
-import com.raphydaphy.rocksolid.gui.container.ContainerElectricSeparator;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
+import com.raphydaphy.rocksolid.gui.GuiFluidPump;
+import com.raphydaphy.rocksolid.tileentity.TileEntityFluidPump;
+import com.raphydaphy.rocksolid.tileentity.TileEntityQuarry;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -24,14 +24,13 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileElectricSeparator extends MultiTile
+public class TileFluidPump extends MultiTile
 {
-	private static final String name = "electricSeparator";
+	private static final String name = "fluidPump";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	
-    public TileElectricSeparator() {
+    public TileFluidPump() {
         super(RockSolidLib.makeRes(name));
-        this.setHardness(15);
+        this.setHardness(25);
         this.addEffectiveTool(ToolType.PICKAXE, 1);
         this.register();
     }
@@ -48,15 +47,15 @@ public class TileElectricSeparator extends MultiTile
    
     @Override
     public TileEntity provideTileEntity(final IWorld world, final int x, final int y) {
-        return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityElectricSeparator(world, x, y) : null;
+        return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityFluidPump(world, x, y) : null;
     }
    
     @Override
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
         if (this.isMainPos(x, y, world.getState(x, y))) {
-            final TileEntityElectricSeparator tile = world.getTileEntity(x, y, TileEntityElectricSeparator.class);
+            final TileEntityQuarry tile = world.getTileEntity(x, y, TileEntityQuarry.class);
             if (tile != null && tile.isActive()) {
-                return 30;
+                return 50;
             }
         }
         return 0;
@@ -66,26 +65,13 @@ public class TileElectricSeparator extends MultiTile
     public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
     {
         final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-        final TileEntityElectricSeparator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSeparator.class);
+        final TileEntityFluidPump tile = world.getTileEntity(main.getX(), main.getY(), TileEntityFluidPump.class);
         if (tile != null) {
-            player.openGuiContainer(new GuiBasicPowered(player, tile, new Pos2(70, 15)), new ContainerElectricSeparator(player, tile));
+            player.openGuiContainer(new GuiFluidPump(player, tile), new ContainerEmpty(player));
             return true;
         }
         return false;
     }
-   
-    @Override
-    public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop) {
-        super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-        if (!RockBottomAPI.getNet().isClient()) {
-            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-            final TileEntityElectricSeparator tile = world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSeparator.class);
-            if (tile != null) {
-                tile.dropInventory(tile.inventory);
-            }
-        }
-    }
-   
     @Override
     public BoundBox getBoundBox(final IWorld world, final int x, final int y) {
         return null;
@@ -98,7 +84,7 @@ public class TileElectricSeparator extends MultiTile
    
     @Override
     protected boolean[][] makeStructure() {
-        return new boolean[][] { { false, true }, { true, true }, { true, true } };
+    	return new boolean[][] { { true, true }, { true, true } };
     }
    
     @Override
@@ -108,7 +94,7 @@ public class TileElectricSeparator extends MultiTile
    
     @Override
     public int getHeight() {
-        return 3;
+        return 2;
     }
    
     @Override
@@ -121,6 +107,7 @@ public class TileElectricSeparator extends MultiTile
         return 0;
     }
     
+    @Override
     public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
         super.describeItem(manager, instance, desc, isAdvanced);
         desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));

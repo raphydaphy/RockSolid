@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
+import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.gui.GuiElectricPurifier;
 import com.raphydaphy.rocksolid.init.ModItems;
-import com.raphydaphy.rocksolid.render.ElectricPurifierRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -38,8 +38,8 @@ public class TileElectricPurifier extends MultiTile
         this.register();
 	}
 	@Override
-    protected ITileRenderer<TileElectricPurifier> createRenderer(final IResourceName name) {
-        return new ElectricPurifierRenderer(name, this);
+    protected ITileRenderer<MultiTile> createRenderer(final IResourceName name) {
+        return new PoweredMultiTileRenderer(name, this);
     }
 	
 	@Override

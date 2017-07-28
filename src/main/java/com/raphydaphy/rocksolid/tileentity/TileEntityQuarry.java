@@ -103,13 +103,13 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	    			}
 	    			curX++;
 		    		mineTick = 0;
-		    		shouldSync = false;
+		    		shouldSync = true;
 		    		
 	    		}
 	    		else if (RockBottomAPI.getNet().isClient() == false)
 	    		{
 	    			mineTick++;
-	    			shouldSync = false;
+	    			shouldSync = true;
 	    		}
 	    		return ableToDig;
 	    	}
