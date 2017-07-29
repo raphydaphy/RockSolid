@@ -355,12 +355,11 @@ public class ModEvents {
 		
 		e.registerListener(ContainerOpenEvent.class, (result, event) -> {
             
-            System.out.println("opened a container!");
             if (event.container != null)
             {
-            	System.out.println(event.container.getClass().getName());
+            	System.out.println(event.container.getName());
             }
-        	if (event.container != null && event.container.getClass().getName().equals("de.ellpeck.rockbottom.z"))
+        	if (event.container != null && event.container.getName().toString().equals("rockbottom/inventory"))
         	{
         		AbstractEntityPlayer player = event.player;
         		if (player != null)

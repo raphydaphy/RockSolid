@@ -15,7 +15,6 @@ import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
 import de.ellpeck.rockbottom.api.tile.state.IntProp;
-import de.ellpeck.rockbottom.api.tile.state.TileProp;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -34,6 +33,7 @@ public abstract class Fluid extends TileBasic
 	public Fluid(String name)
 	{
 		this(RockSolidLib.makeRes(name));
+		this.addProps(fluidLevel);
 	}
 	
 	public Fluid(IResourceName name) 
@@ -44,16 +44,12 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public Fluid register(){
 		RockSolidAPI.FLUID_REGISTRY.register(this.getName(), this);
-        return (Fluid)super.register();
+		return (Fluid)super.register();
     }
 	
 	// set in fluid classes, should return the list of enemy fluids
 	public abstract ArrayList<Fluid> getEnemyFluids();
 	
-	@Override
-    public TileProp[] getProperties() {
-        return new TileProp[]{ fluidLevel };
-    }
 	
 	protected ITileRenderer<?> createRenderer(IResourceName name)
 	{
@@ -67,7 +63,7 @@ public abstract class Fluid extends TileBasic
 		TileState existingBlock = world.getState(x, y);
 		if (existingBlock.getTile() == GameContent.TILE_AIR)
 		{
-			return this.getDefStateWithProp(fluidLevel,BUCKET_VOLUME);
+			return this.getDefState().prop(fluidLevel,BUCKET_VOLUME);
 		}
 		else
 		{

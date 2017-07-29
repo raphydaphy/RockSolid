@@ -79,7 +79,7 @@ public class WorldGenLakes implements IWorldGenerator {
 					{
 						if (chunk.getY() + y+startY < fluidStart)
 						{
-							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, 12));
+							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
 							
 							if (chunk.getY() + y + startY == fluidStart - 7)
 							{

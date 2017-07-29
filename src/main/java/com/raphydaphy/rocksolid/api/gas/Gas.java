@@ -11,7 +11,6 @@ import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
 import de.ellpeck.rockbottom.api.tile.state.IntProp;
-import de.ellpeck.rockbottom.api.tile.state.TileProp;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
@@ -28,6 +27,7 @@ public abstract class Gas extends TileBasic
 	public Gas(String name)
 	{
 		this(RockSolidLib.makeRes(name));
+		this.addProps(gasLevel);
 	}
 	
 	public Gas (IResourceName name)
@@ -39,11 +39,6 @@ public abstract class Gas extends TileBasic
 	public Gas register(){
 		RockSolidAPI.GAS_REGISTRY.register(this.getName(), this);
         return (Gas)super.register();
-    }
-	
-	@Override
-    public TileProp[] getProperties() {
-        return new TileProp[]{ gasLevel };
     }
 	
 	protected ITileRenderer<?> createRenderer(IResourceName name)
@@ -64,7 +59,7 @@ public abstract class Gas extends TileBasic
 		TileState existingBlock = world.getState(x, y);
 		if (existingBlock.getTile() == GameContent.TILE_AIR)
 		{
-			return this.getDefStateWithProp(gasLevel,CANISTER_VOLUME);
+			return this.getDefState().prop(gasLevel,CANISTER_VOLUME);
 		}
 		else
 		{

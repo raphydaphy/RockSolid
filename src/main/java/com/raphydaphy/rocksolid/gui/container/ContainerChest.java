@@ -1,10 +1,12 @@
 package com.raphydaphy.rocksolid.gui.container;
 
 import com.raphydaphy.rocksolid.tileentity.TileEntityChest;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerChest extends ItemContainer
 {
@@ -27,5 +29,11 @@ public class ContainerChest extends ItemContainer
 	public void onClosed()
 	{
 	  this.tile.openCount -= 1;
+	}
+	
+	@Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("containerChest");
 	}
 }

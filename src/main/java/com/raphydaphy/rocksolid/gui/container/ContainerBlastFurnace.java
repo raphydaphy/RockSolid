@@ -4,10 +4,12 @@ import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.gui.slot.InputSlot;
 import com.raphydaphy.rocksolid.gui.slot.OutputSlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBlastFurnace;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerBlastFurnace extends ItemContainer
 {
@@ -18,4 +20,10 @@ public class ContainerBlastFurnace extends ItemContainer
         this.addSlot(new OutputSlot(tile.inventory, 1, 140, 10));
         this.addPlayerInventory(player, 20, 60);
     }
+		
+	@Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("containerBlastFurnace");
+	}
 }

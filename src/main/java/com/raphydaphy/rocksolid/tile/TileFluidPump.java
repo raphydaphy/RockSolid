@@ -54,7 +54,7 @@ public class TileFluidPump extends MultiTile
     public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) {
         if (this.isMainPos(x, y, world.getState(x, y))) {
             final TileEntityQuarry tile = world.getTileEntity(x, y, TileEntityQuarry.class);
-            if (tile != null && tile.isActive()) {
+            if (tile != null && tile.isActive()) {	
                 return 50;
             }
         }

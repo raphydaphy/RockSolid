@@ -145,10 +145,10 @@ public class WorldGenCaves implements IWorldGenerator {
 							switch(feature)
 							{
 							case 0:
-								featureTile = ModFluids.fluidWater.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								featureTile = ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
 								break;
 							case 1:
-								featureTile = ModFluids.fluidLava.getDefStateWithProp(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								featureTile = ModFluids.fluidLava.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
 								break;
 							case 2:
 								featureTile = ModTiles.limestone.getDefState();

@@ -68,6 +68,7 @@ public class RockSolid implements IMod{
     @Override
     public void init(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
     {
+    	Log.setVerbose(false);
     	Log.info("Starting RockSolid");
     	
     	ModItems.init();

@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityFluidPump;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 

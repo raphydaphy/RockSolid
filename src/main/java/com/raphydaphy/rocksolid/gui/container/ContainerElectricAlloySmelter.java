@@ -4,10 +4,12 @@ import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.gui.slot.InputSlot;
 import com.raphydaphy.rocksolid.gui.slot.OutputSlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerElectricAlloySmelter extends ItemContainer
 {
@@ -21,6 +23,12 @@ public class ContainerElectricAlloySmelter extends ItemContainer
         		
         		
     }
+	
+	@Override
+	public IResourceName getName() 
+	{
+		return RockSolidLib.makeRes("containerElectricAlloySmelter");
+	}
 
 
 }
