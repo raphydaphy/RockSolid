@@ -7,5 +7,9 @@
 /eclipse
 /rockbottom
 /.gradle
+/bin/*
+/.classpath
+/.settings
+/.project
 /gamedata/*
 !/gamedata/info.txt
