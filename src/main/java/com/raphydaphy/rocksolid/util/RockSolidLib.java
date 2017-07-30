@@ -30,6 +30,9 @@ public class RockSolidLib
 		} else if (gas.equals(ModGasses.gasOxygen.toString()))
 		{
 			return "Oxygen";
+		} else if (gas.equals(ModGasses.gasSteam.toString()))
+		{
+			return "Steam";
 		}
 		return "Gas";
 	}
@@ -78,6 +81,9 @@ public class RockSolidLib
 		} else if (gas.equals(ModGasses.gasHydrogen.toString()))
 		{
 			return new Color(200, 147, 216);
+		} else if (gas.equals(ModGasses.gasSteam.toString()))
+		{
+			return new Color(165, 165, 165);
 		}
 		return new Color(199, 136, 53);
 	}

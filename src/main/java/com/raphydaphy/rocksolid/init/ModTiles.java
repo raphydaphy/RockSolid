@@ -7,7 +7,7 @@ import com.raphydaphy.rocksolid.tile.TileBattery;
 import com.raphydaphy.rocksolid.tile.TileBlastFurnace;
 import com.raphydaphy.rocksolid.tile.TileCharger;
 import com.raphydaphy.rocksolid.tile.TileChest;
-import com.raphydaphy.rocksolid.tile.TileCoalGenerator;
+import com.raphydaphy.rocksolid.tile.TileBoiler;
 import com.raphydaphy.rocksolid.tile.TileCompressor;
 import com.raphydaphy.rocksolid.tile.TileCreativePowerSource;
 import com.raphydaphy.rocksolid.tile.TileCustomDrop;
@@ -59,7 +59,7 @@ public class ModTiles
 	public static Tile gasTank;
 	public static Tile electrolyzer;
 
-	public static Tile coalGenerator;
+	public static Tile boiler;
 	public static Tile nuclearReactor;
 	public static Tile battery;
 
@@ -105,7 +105,7 @@ public class ModTiles
 		gasTank = new TileGasTank();
 		electrolyzer = new TileElectrolyzer();
 
-		coalGenerator = new TileCoalGenerator();
+		boiler = new TileBoiler();
 		nuclearReactor = new TileNuclearReactor();
 		battery = new TileBattery();
 

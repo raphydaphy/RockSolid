@@ -67,6 +67,50 @@ tex.tiles.gasTank.0.0=sub./gasses/vacuum/tank.png,0,12,12,12
 tex.tiles.gasTank.0.1=sub./gasses/vacuum/tank.png,0,0,12,12
 tex.tiles.gasTank.item=/gasses/vacuum/tank_item.png
 
+## Steam
+tex.tiles.gasSteam=/gasses/steam/still.png
+
+tex.tiles.gasTank.gasSteam.1.0.0=sub./gasses/steam/tank/tank_1.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.1.0.1=sub./gasses/steam/tank/tank_1.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.2.0.0=sub./gasses/steam/tank/tank_2.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.2.0.1=sub./gasses/steam/tank/tank_2.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.3.0.0=sub./gasses/steam/tank/tank_3.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.3.0.1=sub./gasses/steam/tank/tank_3.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.4.0.0=sub./gasses/steam/tank/tank_4.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.4.0.1=sub./gasses/steam/tank/tank_4.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.5.0.0=sub./gasses/steam/tank/tank_5.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.5.0.1=sub./gasses/steam/tank/tank_5.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.6.0.0=sub./gasses/steam/tank/tank_6.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.6.0.1=sub./gasses/steam/tank/tank_6.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.7.0.0=sub./gasses/steam/tank/tank_7.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.7.0.1=sub./gasses/steam/tank/tank_7.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.8.0.0=sub./gasses/steam/tank/tank_8.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.8.0.1=sub./gasses/steam/tank/tank_8.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.9.0.0=sub./gasses/steam/tank/tank_9.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.9.0.1=sub./gasses/steam/tank/tank_9.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.10.0.0=sub./gasses/steam/tank/tank_10.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.10.0.1=sub./gasses/steam/tank/tank_10.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.11.0.0=sub./gasses/steam/tank/tank_11.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.11.0.1=sub./gasses/steam/tank/tank_11.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.12.0.0=sub./gasses/steam/tank/tank_12.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.12.0.1=sub./gasses/steam/tank/tank_12.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.13.0.0=sub./gasses/steam/tank/tank_13.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.13.0.1=sub./gasses/steam/tank/tank_13.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.14.0.0=sub./gasses/steam/tank/tank_14.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.14.0.1=sub./gasses/steam/tank/tank_14.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.15.0.0=sub./gasses/steam/tank/tank_15.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.15.0.1=sub./gasses/steam/tank/tank_15.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.16.0.0=sub./gasses/steam/tank/tank_16.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.16.0.1=sub./gasses/steam/tank/tank_16.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.17.0.0=sub./gasses/steam/tank/tank_17.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.17.0.1=sub./gasses/steam/tank/tank_17.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.18.0.0=sub./gasses/steam/tank/tank_18.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.18.0.1=sub./gasses/steam/tank/tank_18.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.19.0.0=sub./gasses/steam/tank/tank_19.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.19.0.1=sub./gasses/steam/tank/tank_19.png,0,0,12,12
+tex.tiles.gasTank.gasSteam.20.0.0=sub./gasses/steam/tank/tank_20.png,0,12,12,12
+tex.tiles.gasTank.gasSteam.20.0.1=sub./gasses/steam/tank/tank_20.png,0,0,12,12
+
 ## Oxygen
 tex.tiles.gasOxygen=/gasses/oxygen/still.png
 
@@ -453,23 +497,23 @@ tex.tiles.allocator.down=/tiles/allocator/allocator_down.png
 tex.tiles.allocator.left=/tiles/allocator/allocator_left.png
 tex.tiles.allocator.right=/tiles/allocator/allocator_right.png
 
-## Coal Generator
-tex.tiles.coalGenerator.item=/tiles/coal_generator/coal_generator_item.png
-tex.tiles.coalGenerator.active.0.0=/tiles/coal_generator/coal_generator_active.0.0.png
-tex.tiles.coalGenerator.active.0.1=/tiles/coal_generator/coal_generator_active.0.1.png
-tex.tiles.coalGenerator.0.0=/tiles/coal_generator/coal_generator.0.0.png
-tex.tiles.coalGenerator.0.1=/tiles/coal_generator/coal_generator.0.1.png
-tex.tiles.coalGenerator.1.0=/tiles/coal_generator/coal_generator.1.0.png
-tex.tiles.coalGenerator.1.1=/tiles/coal_generator/coal_generator.1.1.png
-tex.tiles.coalGenerator.2.0=/tiles/coal_generator/coal_generator.0.2.0.png
-tex.tiles.coalGenerator.2.1=/tiles/coal_generator/coal_generator.0.2.1.png
-tex.tiles.coalGenerator.1.2.0=/tiles/coal_generator/coal_generator.1.2.0.png
-tex.tiles.coalGenerator.2.2.0=/tiles/coal_generator/coal_generator.2.2.0.png
-tex.tiles.coalGenerator.3.2.0=/tiles/coal_generator/coal_generator.3.2.0.png
-tex.tiles.coalGenerator.4.2.0=/tiles/coal_generator/coal_generator.4.2.0.png
-tex.tiles.coalGenerator.4.2.1=/tiles/coal_generator/coal_generator.4.2.1.png
-tex.tiles.coalGenerator.5.2.1=/tiles/coal_generator/coal_generator.5.2.1.png
-tex.tiles.coalGenerator.6.2.1=/tiles/coal_generator/coal_generator.6.2.1.png
+## Boiler
+tex.tiles.boiler.item=/tiles/boiler/boiler_item.png
+tex.tiles.boiler.active.0.0=/tiles/boiler/boiler_active.0.0.png
+tex.tiles.boiler.active.0.1=/tiles/boiler/boiler_active.0.1.png
+tex.tiles.boiler.0.0=/tiles/boiler/boiler.0.0.png
+tex.tiles.boiler.0.1=/tiles/boiler/boiler.0.1.png
+tex.tiles.boiler.1.0=/tiles/boiler/boiler.1.0.png
+tex.tiles.boiler.1.1=/tiles/boiler/boiler.1.1.png
+tex.tiles.boiler.2.0=/tiles/boiler/boiler.0.2.0.png
+tex.tiles.boiler.2.1=/tiles/boiler/boiler.0.2.1.png
+tex.tiles.boiler.1.2.0=/tiles/boiler/boiler.1.2.0.png
+tex.tiles.boiler.2.2.0=/tiles/boiler/boiler.2.2.0.png
+tex.tiles.boiler.3.2.0=/tiles/boiler/boiler.3.2.0.png
+tex.tiles.boiler.4.2.0=/tiles/boiler/boiler.4.2.0.png
+tex.tiles.boiler.4.2.1=/tiles/boiler/boiler.4.2.1.png
+tex.tiles.boiler.5.2.1=/tiles/boiler/boiler.5.2.1.png
+tex.tiles.boiler.6.2.1=/tiles/boiler/boiler.6.2.1.png
 
 ## Charger
 tex.tiles.charger.item=/tiles/charger/charger_item.png
@@ -477,15 +521,15 @@ tex.tiles.charger.0.0=/tiles/charger/charger.0.0.png
 tex.tiles.charger.0.1=/tiles/charger/charger.0.1.png
 tex.tiles.charger.1.0=/tiles/charger/charger.1.0.png
 tex.tiles.charger.1.1=/tiles/charger/charger.1.1.png
-tex.tiles.charger.2.0=/tiles/coal_generator/coal_generator.0.2.0.png
-tex.tiles.charger.2.1=/tiles/coal_generator/coal_generator.0.2.1.png
-tex.tiles.charger.1.2.0=/tiles/coal_generator/coal_generator.1.2.0.png
-tex.tiles.charger.2.2.0=/tiles/coal_generator/coal_generator.2.2.0.png
-tex.tiles.charger.3.2.0=/tiles/coal_generator/coal_generator.3.2.0.png
-tex.tiles.charger.4.2.0=/tiles/coal_generator/coal_generator.4.2.0.png
-tex.tiles.charger.4.2.1=/tiles/coal_generator/coal_generator.4.2.1.png
-tex.tiles.charger.5.2.1=/tiles/coal_generator/coal_generator.5.2.1.png
-tex.tiles.charger.6.2.1=/tiles/coal_generator/coal_generator.6.2.1.png
+tex.tiles.charger.2.0=/tiles/charger/coal_generator.0.2.0.png
+tex.tiles.charger.2.1=/tiles/charger/coal_generator.0.2.1.png
+tex.tiles.charger.1.2.0=/tiles/charger/coal_generator.1.2.0.png
+tex.tiles.charger.2.2.0=/tiles/charger/coal_generator.2.2.0.png
+tex.tiles.charger.3.2.0=/tiles/charger/coal_generator.3.2.0.png
+tex.tiles.charger.4.2.0=/tiles/charger/coal_generator.4.2.0.png
+tex.tiles.charger.4.2.1=/tiles/charger/coal_generator.4.2.1.png
+tex.tiles.charger.5.2.1=/tiles/charger/coal_generator.5.2.1.png
+tex.tiles.charger.6.2.1=/tiles/charger/coal_generator.6.2.1.png
 
 
 ## Nuclear Reactor

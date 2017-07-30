@@ -157,7 +157,7 @@ public class ModRecipies
 				.add(new BasicRecipe(new ItemInstance(ModTiles.constructionBlockTitanium), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(ModItems.ingotTitanium, 8) }));
 
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.coalGenerator),
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.boiler),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(ModItems.gemCoke, 4), new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 40),
@@ -179,8 +179,8 @@ public class ModRecipies
 						new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(GameContent.TILE_ROCK, 10),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10) }));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasTank),
-				new ItemInstance[] { new ItemInstance(ModItems.ingotTitanium, 4),
-						new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(GameContent.TILE_ROCK, 30),
+				new ItemInstance[] { new ItemInstance(ModItems.ingotSteel, 4),
+						new ItemInstance(ModItems.ingotTin, 4), new ItemInstance(GameContent.TILE_ROCK, 30),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 15) }));
 
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.bucket),
@@ -206,7 +206,7 @@ public class ModRecipies
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 5) }));
 
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.fluidPump),
-				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
+				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 55), new ItemInstance(GameContent.TILE_ROCK, 50),
 						new ItemInstance(ModTiles.tank, 1), new ItemInstance(ModItems.ingotSteel, 5) }));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricPurifier),

@@ -54,6 +54,7 @@ rocksolid/item.lantern=Lantern
 rocksolid/item.gasTank=Gas Tank
 rocksolid/item.gasOxygen=Oxygen
 rocksolid/item.gasHydrogen=Hydrogen
+rocksolid/item.gasSteam=Steam
 
 # Fluids
 rocksolid/item.tank=Tank
@@ -84,7 +85,7 @@ rocksolid/item.rockLight=Light Rock
 rocksolid/item.limestone=Limestone
 rocksolid/item.clay=Clay
 
-rocksolid/item.coalGenerator=Coal Generator
+rocksolid/item.boiler=Solid Fueled Boiler
 rocksolid/item.nuclearReactor=Nuclear Reactor
 rocksolid/item.battery=Battery
 
@@ -118,7 +119,7 @@ rocksolid/details.blastFurnace=Used to turn coal/charcoal into Coal Coke. Can be
 rocksolid/details.battery=Stores Power. Power can be inserted and extracted through any side using Energy Conduits.
 rocksolid/details.allocator=Transfers Items. Very unstable and hard to use at the moment :)
 rocksolid/details.chest=A clone of the vanilla chest that supports RockSolid conduits. Use this one!
-rocksolid/details.coalGenerator=Generates power using a solid fuel. Energy can be extracted using Energy Conduits connected to any side
+rocksolid/details.boiler=Generates steam using a solid fuel. Steam can be extracted using Gas Conduits connected to any side
 rocksolid/details.electricBlastFurnace=A faster Blast Furnace powered by electricity. Use Energy Conduits to supply power.
 rocksolid/details.energyConduit=Used to transfer electricity. Right-click with a wrench to configure.
 rocksolid/details.electricSeparator=A quicker and more efficient Separator. Requires electricity to run.
