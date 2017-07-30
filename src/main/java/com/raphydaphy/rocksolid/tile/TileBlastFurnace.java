@@ -99,6 +99,32 @@ public class TileBlastFurnace extends MultiTile
 			}
 		}
 	}
+	
+	@Override
+	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
+	{
+
+		int startX = x - this.getMainX();
+		int startY = y - this.getMainY();
+
+		for (int addX = 0; addX < this.getWidth(); addX++)
+		{
+			for (int addY = 0; addY < this.getHeight(); addY++)
+			{
+				if (this.isStructurePart(addX, addY))
+				{
+					int theX = startX + addX;
+					int theY = startY + addY;
+
+					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer, this))
+					{
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
 
 	@Override
 	protected boolean[][] makeStructure()

@@ -162,6 +162,12 @@ public class ModRecipies
 						new ItemInstance(ModItems.gemCoke, 4), new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 40),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40) }));
+
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.turbine),
+				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
+						new ItemInstance(ModItems.ingotTin, 6), new ItemInstance(ModItems.ingotBronze, 12),
+						new ItemInstance(GameContent.TILE_ROCK, 30),
+						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 70) }));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.nuclearReactor),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(ModTiles.constructionBlockTitanium),

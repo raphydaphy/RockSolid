@@ -5,9 +5,9 @@ import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
 import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tile.TileBattery;
 import com.raphydaphy.rocksolid.tile.TileBlastFurnace;
+import com.raphydaphy.rocksolid.tile.TileBoiler;
 import com.raphydaphy.rocksolid.tile.TileCharger;
 import com.raphydaphy.rocksolid.tile.TileChest;
-import com.raphydaphy.rocksolid.tile.TileBoiler;
 import com.raphydaphy.rocksolid.tile.TileCompressor;
 import com.raphydaphy.rocksolid.tile.TileCreativePowerSource;
 import com.raphydaphy.rocksolid.tile.TileCustomDrop;
@@ -27,6 +27,7 @@ import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.TileQuarry;
 import com.raphydaphy.rocksolid.tile.TileTank;
+import com.raphydaphy.rocksolid.tile.TileTurbine;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -60,6 +61,8 @@ public class ModTiles
 	public static Tile electrolyzer;
 
 	public static Tile boiler;
+	public static Tile turbine;
+	
 	public static Tile nuclearReactor;
 	public static Tile battery;
 
@@ -106,6 +109,8 @@ public class ModTiles
 		electrolyzer = new TileElectrolyzer();
 
 		boiler = new TileBoiler();
+		turbine = new TileTurbine();
+		
 		nuclearReactor = new TileNuclearReactor();
 		battery = new TileBattery();
 

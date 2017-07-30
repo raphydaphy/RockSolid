@@ -86,6 +86,7 @@ rocksolid/item.limestone=Limestone
 rocksolid/item.clay=Clay
 
 rocksolid/item.boiler=Solid Fueled Boiler
+rocksolid/item.turbine=Turbine
 rocksolid/item.nuclearReactor=Nuclear Reactor
 rocksolid/item.battery=Battery
 
@@ -136,6 +137,7 @@ rocksolid/details.electricPurifier=Purifies items using a liquid filtration medi
 rocksolid/details.gasConduit=Moves gas between locations! Can be configured using a wrench.
 rocksolid/details.fluidPump=Uses power to collect nearby fluid and stores it in the internal buffer. Fluid can be extracted with buckets or conduits.
 rocksolid/details.electrolyzer=Uses power to split a fluid into its atomic compositions. 
+rocksolid/details.turbine=Uses steam to power a motor, thus generating power. Steam can be pumped in using Gas Conduits.
 
 # Because Ellpeck is lazy
 rockbottom/item.stone=Stone

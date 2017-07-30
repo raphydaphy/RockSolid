@@ -452,6 +452,15 @@ tex.tiles.compressor.active.1.1=sub./tiles/compressor/compressor_active.png,12,0
 tex.tiles.compressor.active.2.1=sub./tiles/compressor/compressor_active.png,24,0,12,12
 tex.tiles.compressor.item=/tiles/compressor/compressor_item.png
 
+## Turbine
+tex.tiles.turbine.0.0=sub./tiles/turbine/turbine.png,0,12,12,12
+tex.tiles.turbine.1.0=sub./tiles/turbine/turbine.png,12,12,12,12
+tex.tiles.turbine.2.0=sub./tiles/turbine/turbine.png,24,12,12,12
+tex.tiles.turbine.0.1=sub./tiles/turbine/turbine.png,0,0,12,12
+tex.tiles.turbine.1.1=sub./tiles/turbine/turbine.png,12,0,12,12
+tex.tiles.turbine.2.1=sub./tiles/turbine/turbine.png,24,0,12,12
+tex.tiles.turbine.item=/tiles/turbine/turbine_item.png
+
 ## Misc
 tex.tiles.constructionBlockSteel=/tiles/misc/construction_block_steel.png
 tex.tiles.constructionBlockTitanium =/tiles/misc/construction_block_titanium.png
