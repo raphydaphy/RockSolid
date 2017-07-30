@@ -59,8 +59,11 @@ public class GuiElectricPurifier extends GuiContainer
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentFluid() + "mL of Fluid", "Uses 100mL per operation" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] {
+							"Storing " + this.tile.getCurrentFluid() + "mL of "
+									+ RockSolidLib.getFluidLocName(this.tile.getFluidType()),
+							"Uses 100mL per operation" });
 		}
 	}
 

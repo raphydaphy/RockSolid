@@ -62,8 +62,98 @@ tex.items.lantern=/items/misc/lantern.png
 
 # Gasses
 
+## Vacuum
+tex.tiles.gasTank.0.0=sub./gasses/vacuum/tank.png,0,12,12,12
+tex.tiles.gasTank.0.1=sub./gasses/vacuum/tank.png,0,0,12,12
+tex.tiles.gasTank.item=/gasses/vacuum/tank_item.png
+
 ## Oxygen
 tex.tiles.gasOxygen=/gasses/oxygen/still.png
+
+tex.tiles.gasTank.gasOxygen.1.0.0=sub./gasses/oxygen/tank/tank_1.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.1.0.1=sub./gasses/oxygen/tank/tank_1.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.2.0.0=sub./gasses/oxygen/tank/tank_2.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.2.0.1=sub./gasses/oxygen/tank/tank_2.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.3.0.0=sub./gasses/oxygen/tank/tank_3.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.3.0.1=sub./gasses/oxygen/tank/tank_3.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.4.0.0=sub./gasses/oxygen/tank/tank_4.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.4.0.1=sub./gasses/oxygen/tank/tank_4.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.5.0.0=sub./gasses/oxygen/tank/tank_5.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.5.0.1=sub./gasses/oxygen/tank/tank_5.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.6.0.0=sub./gasses/oxygen/tank/tank_6.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.6.0.1=sub./gasses/oxygen/tank/tank_6.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.7.0.0=sub./gasses/oxygen/tank/tank_7.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.7.0.1=sub./gasses/oxygen/tank/tank_7.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.8.0.0=sub./gasses/oxygen/tank/tank_8.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.8.0.1=sub./gasses/oxygen/tank/tank_8.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.9.0.0=sub./gasses/oxygen/tank/tank_9.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.9.0.1=sub./gasses/oxygen/tank/tank_9.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.10.0.0=sub./gasses/oxygen/tank/tank_10.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.10.0.1=sub./gasses/oxygen/tank/tank_10.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.11.0.0=sub./gasses/oxygen/tank/tank_11.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.11.0.1=sub./gasses/oxygen/tank/tank_11.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.12.0.0=sub./gasses/oxygen/tank/tank_12.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.12.0.1=sub./gasses/oxygen/tank/tank_12.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.13.0.0=sub./gasses/oxygen/tank/tank_13.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.13.0.1=sub./gasses/oxygen/tank/tank_13.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.14.0.0=sub./gasses/oxygen/tank/tank_14.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.14.0.1=sub./gasses/oxygen/tank/tank_14.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.15.0.0=sub./gasses/oxygen/tank/tank_15.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.15.0.1=sub./gasses/oxygen/tank/tank_15.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.16.0.0=sub./gasses/oxygen/tank/tank_16.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.16.0.1=sub./gasses/oxygen/tank/tank_16.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.17.0.0=sub./gasses/oxygen/tank/tank_17.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.17.0.1=sub./gasses/oxygen/tank/tank_17.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.18.0.0=sub./gasses/oxygen/tank/tank_18.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.18.0.1=sub./gasses/oxygen/tank/tank_18.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.19.0.0=sub./gasses/oxygen/tank/tank_19.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.19.0.1=sub./gasses/oxygen/tank/tank_19.png,0,0,12,12
+tex.tiles.gasTank.gasOxygen.20.0.0=sub./gasses/oxygen/tank/tank_20.png,0,12,12,12
+tex.tiles.gasTank.gasOxygen.20.0.1=sub./gasses/oxygen/tank/tank_20.png,0,0,12,12
+
+## Hydrogen
+tex.tiles.gasHydrogen=/gasses/hydrogen/still.png
+
+tex.tiles.gasTank.gasHydrogen.1.0.0=sub./gasses/hydrogen/tank/tank_1.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.1.0.1=sub./gasses/hydrogen/tank/tank_1.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.2.0.0=sub./gasses/hydrogen/tank/tank_2.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.2.0.1=sub./gasses/hydrogen/tank/tank_2.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.3.0.0=sub./gasses/hydrogen/tank/tank_3.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.3.0.1=sub./gasses/hydrogen/tank/tank_3.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.4.0.0=sub./gasses/hydrogen/tank/tank_4.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.4.0.1=sub./gasses/hydrogen/tank/tank_4.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.5.0.0=sub./gasses/hydrogen/tank/tank_5.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.5.0.1=sub./gasses/hydrogen/tank/tank_5.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.6.0.0=sub./gasses/hydrogen/tank/tank_6.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.6.0.1=sub./gasses/hydrogen/tank/tank_6.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.7.0.0=sub./gasses/hydrogen/tank/tank_7.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.7.0.1=sub./gasses/hydrogen/tank/tank_7.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.8.0.0=sub./gasses/hydrogen/tank/tank_8.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.8.0.1=sub./gasses/hydrogen/tank/tank_8.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.9.0.0=sub./gasses/hydrogen/tank/tank_9.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.9.0.1=sub./gasses/hydrogen/tank/tank_9.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.10.0.0=sub./gasses/hydrogen/tank/tank_10.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.10.0.1=sub./gasses/hydrogen/tank/tank_10.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.11.0.0=sub./gasses/hydrogen/tank/tank_11.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.11.0.1=sub./gasses/hydrogen/tank/tank_11.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.12.0.0=sub./gasses/hydrogen/tank/tank_12.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.12.0.1=sub./gasses/hydrogen/tank/tank_12.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.13.0.0=sub./gasses/hydrogen/tank/tank_13.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.13.0.1=sub./gasses/hydrogen/tank/tank_13.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.14.0.0=sub./gasses/hydrogen/tank/tank_14.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.14.0.1=sub./gasses/hydrogen/tank/tank_14.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.15.0.0=sub./gasses/hydrogen/tank/tank_15.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.15.0.1=sub./gasses/hydrogen/tank/tank_15.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.16.0.0=sub./gasses/hydrogen/tank/tank_16.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.16.0.1=sub./gasses/hydrogen/tank/tank_16.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.17.0.0=sub./gasses/hydrogen/tank/tank_17.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.17.0.1=sub./gasses/hydrogen/tank/tank_17.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.18.0.0=sub./gasses/hydrogen/tank/tank_18.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.18.0.1=sub./gasses/hydrogen/tank/tank_18.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.19.0.0=sub./gasses/hydrogen/tank/tank_19.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.19.0.1=sub./gasses/hydrogen/tank/tank_19.png,0,0,12,12
+tex.tiles.gasTank.gasHydrogen.20.0.0=sub./gasses/hydrogen/tank/tank_20.png,0,12,12,12
+tex.tiles.gasTank.gasHydrogen.20.0.1=sub./gasses/hydrogen/tank/tank_20.png,0,0,12,12
 
 # Fluids
 
@@ -245,6 +335,18 @@ tex.tiles.electricPurifier.active.0.0=sub./tiles/purifier/electric_purifier_acti
 tex.tiles.electricPurifier.active.0.1=sub./tiles/purifier/electric_purifier_active.png,0,0,12,12
 tex.tiles.electricPurifier.active.1.0=sub./tiles/purifier/electric_purifier_active.png,12,12,12,12
 tex.tiles.electricPurifier.active.1.1=sub./tiles/purifier/electric_purifier_active.png,12,0,12,12
+
+## Electrolyzer
+tex.tiles.electrolyzer.item=/tiles/electrolyzer/electrolyzer_item.png
+tex.tiles.electrolyzer.0.0=sub./tiles/electrolyzer/electrolyzer.png,0,12,12,12
+tex.tiles.electrolyzer.0.1=sub./tiles/electrolyzer/electrolyzer.png,0,0,12,12
+tex.tiles.electrolyzer.1.0=sub./tiles/electrolyzer/electrolyzer.png,12,12,12,12
+tex.tiles.electrolyzer.1.1=sub./tiles/electrolyzer/electrolyzer.png,12,0,12,12
+tex.tiles.electrolyzer.active.0.0=sub./tiles/electrolyzer/electrolyzer_active.png,0,12,12,12
+tex.tiles.electrolyzer.active.0.1=sub./tiles/electrolyzer/electrolyzer_active.png,0,0,12,12
+tex.tiles.electrolyzer.active.1.0=sub./tiles/electrolyzer/electrolyzer_active.png,12,12,12,12
+tex.tiles.electrolyzer.active.1.1=sub./tiles/electrolyzer/electrolyzer_active.png,12,0,12,12
+
 ## Electric Arc Furnace
 tex.tiles.electricBlastFurnace.item=/tiles/electric_arc_furnace/electric_arc_furnace_item.png
 tex.tiles.electricBlastFurnace.0.0=/tiles/electric_arc_furnace/electric_arc_furnace.0.0.png

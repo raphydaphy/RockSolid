@@ -44,8 +44,8 @@ public class GuiGasTank extends GuiContainer
 
 		if (mouseOverGasBarX && mouseOverGasBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
-					"Storing " + this.tile.getCurrentGas() + "cc of Gas");
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, "Storing "
+					+ this.tile.getCurrentGas() + "cc of " + RockSolidLib.getGasLocName(this.tile.getGasType()));
 		}
 	}
 

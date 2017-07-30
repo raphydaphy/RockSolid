@@ -3,16 +3,17 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
-import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidAcceptor, IMultiGasTile
+public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidAcceptor, IMultiGasProducer
 {
 	protected int processTime;
 	protected int maxProcessTime;
@@ -326,6 +327,52 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 	public int getMaxGas()
 	{
 		return this.maxGasStorage;
+	}
+
+	@Override
+	// 0 == outputs into conduit, 1 == inputs from conduit, 2 == disabled
+	public int getSideMode(int posX, int posY)
+	{
+		if (posY == 0)
+		{
+			return 0;
+		}
+		return 2;
+	}
+
+	@Override
+	public int getTankNumber(Pos2 tankLocation)
+	{
+		if (tankLocation.getY() == 0)
+		{
+			if (tankLocation.getX() == 0)
+			{
+				return 1;
+			} else if (tankLocation.getX() == 1)
+			{
+				return 0;
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public boolean removeGas(int amount, int tank)
+	{
+		if (this.getGasTanksStorage()[tank] >= amount)
+		{
+			if (tank == 0)
+			{
+				this.gasTank1Storage -= amount;
+			} else if (tank == 1)
+			{
+				this.gasTank2Storage -= amount;
+			}
+			this.shouldSync = true;
+			return true;
+
+		}
+		return false;
 	}
 
 }

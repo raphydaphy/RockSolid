@@ -631,7 +631,7 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock)
+	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
 	{
 		return IHasInventory.class.isAssignableFrom(adjacentBlock);
 	}

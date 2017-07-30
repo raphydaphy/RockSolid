@@ -108,13 +108,11 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 				if (world.getState(curX, curY).getTile() instanceof Fluid)
 				{
 					ableToDig = true;
-					System.out.println("got dis far");
 					if (mineTick == 10 && RockBottomAPI.getNet().isClient() == false)
 					{
 
 						if (thisTile.get(Fluid.fluidLevel) >= Fluid.BUCKET_VOLUME)
 						{
-							System.out.println("rather far");
 							if (thisTile.get(Fluid.fluidLevel) - Fluid.BUCKET_VOLUME >= 1)
 							{
 								world.setState(curX, curY, thisTile.prop(Fluid.fluidLevel,
@@ -128,12 +126,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 							if (this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 							{
-								System.out.println("got sum " + tileType);
-								System.out.println(thisTile.getTile().toString());
 								this.fluidType = tileType;
 
 							}
-							System.out.println("did get fluid");
 							this.fluidStored += 1000;
 							this.mineTick = 0;
 						} else

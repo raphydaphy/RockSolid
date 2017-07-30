@@ -82,11 +82,11 @@ public class GuiConduitConfig extends Gui
 		if (((IConduit) tile).getSideMode(direction) == 0)
 		{
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output",
-					"Outputs power/items into connected block."));
+					"Outputs contents into connected block."));
 		} else if (((IConduit) tile).getSideMode(direction) == 1)
 		{
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input",
-					"Pulls items/energy into the conduit."));
+					"Pulls contents into the conduit."));
 		} else if (((IConduit) tile).getSideMode(direction) == 2)
 		{
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled",

@@ -1,5 +1,8 @@
 package com.raphydaphy.rocksolid.api.util;
 
+import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Pos2;
+
 // Should be implemented on any block that uses the ConduitRenderer system to connect the textures
 public interface IConduit
 {
@@ -16,7 +19,7 @@ public interface IConduit
 
 	// Returns true if the block can connect to the specified adjacent block
 	// type
-	boolean canConnectTo(Class<?> adjacentBlock);
+	boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile);
 
 	void setSync();
 }

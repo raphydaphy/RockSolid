@@ -51,7 +51,9 @@ rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
 
 # Gasses
+rocksolid/item.gasTank=Gas Tank
 rocksolid/item.gasOxygen=Oxygen
+rocksolid/item.gasHydrogen=Hydrogen
 
 # Fluids
 rocksolid/item.tank=Tank
@@ -85,6 +87,8 @@ rocksolid/item.clay=Clay
 rocksolid/item.coalGenerator=Coal Generator
 rocksolid/item.nuclearReactor=Nuclear Reactor
 rocksolid/item.battery=Battery
+
+rocksolid/item.electrolyzer=Electrolyzer
 
 rocksolid/item.electricPurifier=Electric Purifier
 rocksolid/item.electricBlastFurnace=Electric Blast Furnace
@@ -130,6 +134,7 @@ rocksolid/details.fluidConduit=Moves fluids between containers and machines. Can
 rocksolid/details.electricPurifier=Purifies items using a liquid filtration medium.
 rocksolid/details.gasConduit=Moves gas between locations! Can be configured using a wrench.
 rocksolid/details.fluidPump=Uses power to collect nearby fluid and stores it in the internal buffer. Fluid can be extracted with buckets or conduits.
+rocksolid/details.electrolyzer=Uses power to split a fluid into its atomic compositions. 
 
 # Because Ellpeck is lazy
 rockbottom/item.stone=Stone

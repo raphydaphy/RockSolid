@@ -36,8 +36,6 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 
 		IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
 
-		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
-
 		float fullness = tileEntity.getGasTankFullnesss();
 		int stage = Util.floor(fullness * 20);
 		if (stage > 0)
@@ -48,31 +46,16 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 			}
 			if (tileEntity.getGasType().equals(ModGasses.gasOxygen.toString()))
 			{
-				tex = this.texture.addSuffix(".gasOxygen." + innerCoord.getX() + "." + innerCoord.getY());
-			}
-
-			float scaleY = (float) (scale / 12);
-
-			if (innerCoord.getY() == 0)
+				tex = this.texture.addSuffix(".gasOxygen." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
+			} else if (tileEntity.getGasType().equals(ModGasses.gasHydrogen.toString()))
 			{
-				if (stage > 10)
-				{
-					stage = 10;
-				}
-				manager.getTexture(tex).drawWithLight(renderX, renderY + ((scaleY * (13 - stage - 2)) - scaleY), scale,
-						scaleY * stage, light);
-			} else if (innerCoord.getY() == 1 && (stage > 10))
-			{
-				stage -= 10;
-				manager.getTexture(tex).drawWithLight(renderX, renderY + ((scaleY * (13 - stage)) - scaleY), scale,
-						scaleY * stage, light);
-
-				// curTex.drawWithLight(renderX, renderY + (((scale / 12) * (13
-				// - blockMeta)) - (scale /12)), scale, (scale / 12) *
-				// (blockMeta), light);
+				tex = this.texture
+						.addSuffix(".gasHydrogen." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
 			}
 
 		}
+
+		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
 	}
 
 }

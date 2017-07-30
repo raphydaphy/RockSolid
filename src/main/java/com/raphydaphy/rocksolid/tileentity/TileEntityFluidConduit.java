@@ -222,7 +222,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock)
+	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
 	{
 		return IFluidTile.class.isAssignableFrom(adjacentBlock);
 	}

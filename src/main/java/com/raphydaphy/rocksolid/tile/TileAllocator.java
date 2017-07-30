@@ -3,13 +3,13 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.gui.GuiAllocator;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
-import com.raphydaphy.rocksolid.render.ItemConduitRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -50,7 +50,7 @@ public class TileAllocator extends TileBasic
 	@Override
 	protected ITileRenderer<Tile> createRenderer(IResourceName name)
 	{
-		return new ItemConduitRenderer<Tile>(name);
+		return new ConduitRenderer<Tile>(name);
 	}
 
 	@Override

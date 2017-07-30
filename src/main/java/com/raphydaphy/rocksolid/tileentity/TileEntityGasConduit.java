@@ -3,6 +3,9 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IGasTile;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasAcceptor;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -10,6 +13,7 @@ import com.raphydaphy.rocksolid.util.RockSolidLib;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -139,6 +143,75 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 								}
 							}
 						}
+					} else if (IMultiGasTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
+					{
+						IMultiGasTile adjMultiGas = (IMultiGasTile) adjacentTileEntity;
+						MultiTile theMultiTile = (MultiTile) world
+								.getState(adjacentTilePos.getX(), adjacentTilePos.getY()).getTile();
+						Pos2 innerCoord = theMultiTile
+								.getInnerCoord(world.getState(adjacentTilePos.getX(), adjacentTilePos.getY()));
+						int thisGasTank = adjMultiGas.getTankNumber(innerCoord);
+						if (thisGasTank != -1)
+						{
+							if (adjMultiGas.getGasTanksType()[thisGasTank].equals(this.gasType)
+									|| this.gasType.equals(ModGasses.gasVacuum.toString())
+									|| ((IMultiGasTile) adjacentTileEntity).getGasTanksType()[thisGasTank]
+											.equals(ModGasses.gasVacuum.toString()))
+							{
+								if (IMultiGasProducer.class.isAssignableFrom(adjacentTileEntity.getClass())
+										&& (((IMultiGasTile) adjacentTileEntity).getGasTanksType()[thisGasTank]
+												.equals(this.gasType))
+										|| this.gasType.equals(ModGasses.gasVacuum.toString()))
+								{
+									// Conduit is set to input mode
+									if (this.getSideMode(adjacentTile) == 1)
+									{
+
+										if (this.gasStored < (this.maxGas - transferRate)
+												&& ((IMultiGasProducer) adjacentTileEntity)
+														.getGasTanksStorage()[thisGasTank] >= transferRate)
+										{
+											String wasGasType = ((IMultiGasProducer) adjacentTileEntity)
+													.getGasTanksType()[thisGasTank];
+											// pull fluid from adjacent tile
+											if (((IMultiGasProducer) adjacentTileEntity).removeGas(transferRate,
+													thisGasTank))
+											{
+												this.addGas(transferRate, wasGasType);
+												this.shouldSync = true;
+											}
+										}
+									}
+								}
+
+								if (IMultiGasAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
+								{
+									// Conduit is set to output mode
+									if (this.getSideMode(adjacentTile) == 0)
+									{
+
+										if (this.gasStored >= transferRate)
+										{
+											if (((IMultiGasTile) adjacentTileEntity).getGasTanksType()[thisGasTank]
+													.equals(ModGasses.gasVacuum.toString()))
+											{
+												// set the fluid type in the
+												// adjacent tile to match this
+												((IMultiGasAcceptor) adjacentTileEntity).setGasType(this.gasType,
+														thisGasTank);
+											}
+											// send fluid to adjacent tile
+											if (((IMultiGasAcceptor) adjacentTileEntity).addGas(transferRate,
+													this.gasType, thisGasTank))
+											{
+												this.removeGas(transferRate);
+												shouldSync = true;
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 
 				}
@@ -219,9 +292,21 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock)
+	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
 	{
-		return IGasTile.class.isAssignableFrom(adjacentBlock);
+		if (IGasTile.class.isAssignableFrom(adjacentBlock))
+		{
+			return true;
+		} else if (IMultiGasTile.class.isAssignableFrom(adjacentBlock))
+		{
+			Pos2 innerCoord = ((MultiTile) world.getState(pos.getX(), pos.getY()).getTile())
+					.getInnerCoord(world.getState(pos.getX(), pos.getY()));
+			if (((IMultiGasTile) tile).getSideMode(innerCoord.getX(), innerCoord.getY()) != 2)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

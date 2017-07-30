@@ -44,8 +44,8 @@ public class GuiTank extends GuiContainer
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100,
-					"Storing " + this.tile.getCurrentFluid() + "mL of Fluid");
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing "
+					+ this.tile.getCurrentFluid() + "mL of " + RockSolidLib.getFluidLocName(this.tile.getFluidType()));
 		}
 	}
 

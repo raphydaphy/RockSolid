@@ -66,8 +66,11 @@ public class GuiElectrolyzer extends GuiContainer
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentFluid() + "mL of Fluid", "Uses 150mL per operation" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] {
+							"Storing " + this.tile.getCurrentFluid() + "mL of "
+									+ RockSolidLib.getFluidLocName(this.tile.getFluidType()),
+							"Uses 150mL per operation" });
 		}
 
 		boolean mouseOverGasBar1X = (game.getMouseInGuiX() >= this.guiLeft + 125)
@@ -78,7 +81,9 @@ public class GuiElectrolyzer extends GuiContainer
 		if (mouseOverGasBar1X && mouseOverGasBar1Y)
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
-					new String[] { "Storing " + this.tile.getGasTanksStorage()[0] + "cc of Gas",
+					new String[] {
+							"Storing " + this.tile.getGasTanksStorage()[0] + "cc of "
+									+ RockSolidLib.getGasLocName(this.tile.getGasTanksType()[0]),
 							"Produces up to 100mL per operation" });
 		}
 
@@ -90,7 +95,9 @@ public class GuiElectrolyzer extends GuiContainer
 		if (mouseOverGasBar2X && mouseOverGasBar2Y)
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
-					new String[] { "Storing " + this.tile.getGasTanksStorage()[1] + "cc of Gas",
+					new String[] {
+							"Storing " + this.tile.getGasTanksStorage()[1] + "cc of "
+									+ RockSolidLib.getGasLocName(this.tile.getGasTanksType()[1]),
 							"Produces up to 100mL per operation" });
 		}
 	}

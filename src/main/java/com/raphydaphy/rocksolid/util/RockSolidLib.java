@@ -22,6 +22,30 @@ public class RockSolidLib
 		return RockBottomAPI.createRes(RockSolid.INSTANCE, name);
 	}
 
+	public static String getGasLocName(String gas)
+	{
+		if (gas.equals(ModGasses.gasHydrogen.toString()))
+		{
+			return "Hydrogen";
+		} else if (gas.equals(ModGasses.gasOxygen.toString()))
+		{
+			return "Oxygen";
+		}
+		return "Gas";
+	}
+
+	public static String getFluidLocName(String fluid)
+	{
+		if (fluid.equals(ModFluids.fluidWater.toString()))
+		{
+			return "Water";
+		} else if (fluid.equals(ModFluids.fluidLava.toString()))
+		{
+			return "Lava";
+		}
+		return "Fluid";
+	}
+
 	public static Fluid bucketMetaToFluid(int meta)
 	{
 		switch (meta)
