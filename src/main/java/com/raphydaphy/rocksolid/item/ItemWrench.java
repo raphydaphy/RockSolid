@@ -15,21 +15,24 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 public class ItemWrench extends ItemBase
 {
 	private static final String name = "wrench";
-	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	
-	public ItemWrench() {
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE, "details." + name);
+
+	public ItemWrench()
+	{
 		super(RockSolidLib.makeRes(name));
 		this.maxAmount = 1;
 	}
-	
+
 	@Override
-    protected IItemRenderer<ItemWrench> createRenderer(final IResourceName name) {
-        return new ToolRenderer<ItemWrench>(name);
-    }
-	
-	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
-        super.describeItem(manager, instance, desc, isAdvanced);
-        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
-    }
+	protected IItemRenderer<ItemWrench> createRenderer(final IResourceName name)
+	{
+		return new ToolRenderer<ItemWrench>(name);
+	}
+
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
+	{
+		super.describeItem(manager, instance, desc, isAdvanced);
+		desc.addAll(manager.getFont().splitTextToLength(500, 1f, true, manager.localize(this.desc)));
+	}
 
 }

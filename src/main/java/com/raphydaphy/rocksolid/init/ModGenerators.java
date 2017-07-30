@@ -10,7 +10,7 @@ import com.raphydaphy.rocksolid.world.WorldGenUranium;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 
-public class ModGenerators 
+public class ModGenerators
 {
 	public static void init()
 	{
@@ -19,7 +19,7 @@ public class ModGenerators
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenMagnesium.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenRutile.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenUranium.class);
-		
+
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenLakes.class);
 		RockBottomAPI.WORLD_GENERATORS.add(WorldGenCaves.class);
 	}

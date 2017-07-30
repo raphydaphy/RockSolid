@@ -18,7 +18,7 @@ public class PacketConduitUpdate implements IPacket
 	private int y;
 	private int side;
 	private int mode;
-	
+
 	public PacketConduitUpdate(int x, int y, int side, int mode)
 	{
 		this.x = x;
@@ -26,24 +26,24 @@ public class PacketConduitUpdate implements IPacket
 		this.side = side;
 		this.mode = mode;
 	}
-	
+
 	public PacketConduitUpdate()
 	{
-		
+
 	}
-	
+
 	@Override
-	public void toBuffer(ByteBuf buf) throws IOException 
+	public void toBuffer(ByteBuf buf) throws IOException
 	{
 		buf.writeInt(x);
 		buf.writeInt(y);
 		buf.writeInt(side);
 		buf.writeInt(mode);
-		
+
 	}
 
 	@Override
-	public void fromBuffer(ByteBuf buf) throws IOException 
+	public void fromBuffer(ByteBuf buf) throws IOException
 	{
 		x = buf.readInt();
 		y = buf.readInt();
@@ -52,15 +52,15 @@ public class PacketConduitUpdate implements IPacket
 	}
 
 	@Override
-	public void handle(IGameInstance game, ChannelHandlerContext context) 
+	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
 		if (game.getWorld().isPosLoaded(x, y))
 		{
 			TileEntity tileAtPos = RockSolidLib.getTileFromPos(x, y, game.getWorld());
-			
+
 			if (tileAtPos instanceof IConduit)
 			{
-				((IConduit)tileAtPos).setSideMode(side, mode);
+				((IConduit) tileAtPos).setSideMode(side, mode);
 				if (RockBottomAPI.getNet().isServer())
 				{
 					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode));

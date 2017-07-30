@@ -11,62 +11,61 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 public class TileEntityBattery extends TileEntity implements IEnergyAcceptor, IEnergyProducer
 {
 
-    protected int powerStored;
-    protected int maxPower;
-    
-    public TileEntityBattery(final IWorld world, final int x, final int y) 
-    {
-        super(world, x, y);
-        
-        maxPower = 1000000;
-    }
-    
-    private void sync()
-    {
-    	this.sendToClients();
-    	this.onSync();
-    }
-    
-    public float getBatteryFullness()
-    {
-    	if (powerStored == 0)
-    	{
-    		return 0;
-    	}
-        return (float)this.powerStored/(float)this.maxPower;
-    }
-    
-    @Override
-    public void save(final DataSet set, final boolean forSync) 
-    {
-        super.save(set, forSync);
-        set.addInt("powerStored", this.powerStored);
-        set.addInt("maxPower", this.maxPower);
-    }
-    
-    @Override
-    public void load(final DataSet set, final boolean forSync) 
-    {
-        super.load(set, forSync);
-        this.powerStored = set.getInt("powerStored");
-        this.maxPower = set.getInt("maxPower");
-    }
+	protected int powerStored;
+	protected int maxPower;
 
+	public TileEntityBattery(final IWorld world, final int x, final int y)
+	{
+		super(world, x, y);
+
+		maxPower = 1000000;
+	}
+
+	private void sync()
+	{
+		this.sendToClients();
+		this.onSync();
+	}
+
+	public float getBatteryFullness()
+	{
+		if (powerStored == 0)
+		{
+			return 0;
+		}
+		return (float) this.powerStored / (float) this.maxPower;
+	}
 
 	@Override
-	public int getCurrentEnergy() 
+	public void save(final DataSet set, final boolean forSync)
+	{
+		super.save(set, forSync);
+		set.addInt("powerStored", this.powerStored);
+		set.addInt("maxPower", this.maxPower);
+	}
+
+	@Override
+	public void load(final DataSet set, final boolean forSync)
+	{
+		super.load(set, forSync);
+		this.powerStored = set.getInt("powerStored");
+		this.maxPower = set.getInt("maxPower");
+	}
+
+	@Override
+	public int getCurrentEnergy()
 	{
 		return this.powerStored;
 	}
 
 	@Override
-	public int getMaxEnergy() 
+	public int getMaxEnergy()
 	{
 		return this.maxPower;
 	}
 
 	@Override
-	public boolean removeEnergy(int amount) 
+	public boolean removeEnergy(int amount)
 	{
 		if (this.powerStored >= amount)
 		{
@@ -81,7 +80,7 @@ public class TileEntityBattery extends TileEntity implements IEnergyAcceptor, IE
 	}
 
 	@Override
-	public boolean addEnergy(int amount) 
+	public boolean addEnergy(int amount)
 	{
 		if (this.powerStored <= (this.maxPower - amount))
 		{

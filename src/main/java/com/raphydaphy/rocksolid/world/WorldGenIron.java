@@ -9,37 +9,37 @@ public class WorldGenIron extends WorldGenOre
 {
 
 	@Override
-	public int getPriority() 
+	public int getPriority()
 	{
 		return 210;
 	}
 
 	@Override
-	public int getHighestGridPos() 
+	public int getHighestGridPos()
 	{
 		return -4;
 	}
-	
+
 	@Override
-	public int getLowestGridPos() 
+	public int getLowestGridPos()
 	{
 		return -10;
 	}
 
 	@Override
-	public int getMaxAmount() 
+	public int getMaxAmount()
 	{
 		return 3;
 	}
 
 	@Override
-	public int getClusterRadiusX() 
+	public int getClusterRadiusX()
 	{
 		return 8;
 	}
 
 	@Override
-	public int getClusterRadiusY() 
+	public int getClusterRadiusY()
 	{
 		return 3;
 	}

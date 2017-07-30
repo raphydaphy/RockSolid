@@ -12,15 +12,16 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerNuclearReactor extends ItemContainer
 {
-	public ContainerNuclearReactor(final AbstractEntityPlayer player, final TileEntityNuclearReactor tile) 
+	public ContainerNuclearReactor(final AbstractEntityPlayer player, final TileEntityNuclearReactor tile)
 	{
-        super(player, new IInventory[] { player.getInv(), tile.inventory });
-        this.addSlot(new InputSlot(tile.inventory, 0, 90, 30, instance -> (instance.getItem().equals(ModItems.pelletUranium))));
-        this.addPlayerInventory(player, 20, 60);
-    }
-	
+		super(player, new IInventory[] { player.getInv(), tile.inventory });
+		this.addSlot(new InputSlot(tile.inventory, 0, 90, 30,
+				instance -> (instance.getItem().equals(ModItems.pelletUranium))));
+		this.addPlayerInventory(player, 20, 60);
+	}
+
 	@Override
-	public IResourceName getName() 
+	public IResourceName getName()
 	{
 		return RockSolidLib.makeRes("containerNuclearReactor");
 	}

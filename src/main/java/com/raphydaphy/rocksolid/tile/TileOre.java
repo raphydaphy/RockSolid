@@ -14,18 +14,22 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileOre extends TileBasic
 {
 	private final ItemInstance itemDrop;
-	public TileOre(IResourceName name, ItemInstance drop, int oreHardness, int toolLevel) {
+
+	public TileOre(IResourceName name, ItemInstance drop, int oreHardness, int toolLevel)
+	{
 		super(name);
 		itemDrop = drop;
-		this.setHardness((float)oreHardness);
-        this.addEffectiveTool(ToolType.PICKAXE, toolLevel);
-        
-        this.register();
+		this.setHardness((float) oreHardness);
+		this.addEffectiveTool(ToolType.PICKAXE, toolLevel);
+
+		this.register();
 	}
-	
+
 	@Override
-    public List<ItemInstance> getDrops(final IWorld world, final int x, final int y, final TileLayer layer, final Entity destroyer) {
-        return Collections.singletonList(itemDrop);
-    }
+	public List<ItemInstance> getDrops(final IWorld world, final int x, final int y, final TileLayer layer,
+			final Entity destroyer)
+	{
+		return Collections.singletonList(itemDrop);
+	}
 
 }

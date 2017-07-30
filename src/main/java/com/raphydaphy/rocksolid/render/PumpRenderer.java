@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.render;
 
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -21,37 +20,41 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 {
-	
-	public PumpRenderer(final IResourceName texture, final MultiTile tile) {
-        super(texture, tile);
-    }
-    
-    @Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileFluidPump tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
-    {
-        final Pos2 innerCoord = tile.getInnerCoord(state);
-        final Pos2 mainPos = tile.getMainPos(x, y, state);
-        final TileEntityFluidPump tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityFluidPump.class);
-        IResourceName tex = this.textures.get(innerCoord);
-        if (tileEntity != null && tileEntity.getCurrentFluid() >= 1000) {
-        	int fullness = Util.floor(tileEntity.getFluidTankFullness() * 10);
-        	
-        	if (innerCoord.getY() == 1)
-        	{
-        		String fluid = "fluidEmpty";
-        		if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
-        		{
-        			fluid = "fluidWater";
-        		}
-        		else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
-        		{
-        			fluid = "fluidLava";
-        		}
-        		tex =  this.texture.addSuffix("." + fluid + "." + fullness + "." + innerCoord.getX() + "." + innerCoord.getY());
-        	}
-        	
-        }
-        manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
-    }
+
+	public PumpRenderer(final IResourceName texture, final MultiTile tile)
+	{
+		super(texture, tile);
+	}
+
+	@Override
+	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileFluidPump tile,
+			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	{
+		final Pos2 innerCoord = tile.getInnerCoord(state);
+		final Pos2 mainPos = tile.getMainPos(x, y, state);
+		final TileEntityFluidPump tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(),
+				TileEntityFluidPump.class);
+		IResourceName tex = this.textures.get(innerCoord);
+		if (tileEntity != null && tileEntity.getCurrentFluid() >= 1000)
+		{
+			int fullness = Util.floor(tileEntity.getFluidTankFullness() * 10);
+
+			if (innerCoord.getY() == 1)
+			{
+				String fluid = "fluidEmpty";
+				if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
+				{
+					fluid = "fluidWater";
+				} else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
+				{
+					fluid = "fluidLava";
+				}
+				tex = this.texture
+						.addSuffix("." + fluid + "." + fullness + "." + innerCoord.getX() + "." + innerCoord.getY());
+			}
+
+		}
+		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+	}
 
 }

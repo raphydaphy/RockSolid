@@ -16,35 +16,41 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 public class GuiTank extends GuiContainer
 {
 
-    private final TileEntityTank tile;
-    
-	public GuiTank(final AbstractEntityPlayer player, final TileEntityTank tile) {
-	    super(player, 198, 150);
-	    this.tile = tile;
+	private final TileEntityTank tile;
+
+	public GuiTank(final AbstractEntityPlayer player, final TileEntityTank tile)
+	{
+		super(player, 198, 150);
+		this.tile = tile;
 	}
-	
+
 	@Override
-	public void initGui(final IGameInstance game) {
-	    super.initGui(game);
-	    this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10, RockSolidLib.getFluidColor(this.tile.getFluidType()), false, this.tile::getFluidTankFullnesss));
+	public void initGui(final IGameInstance game)
+	{
+		super.initGui(game);
+		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
+				RockSolidLib.getFluidColor(this.tile.getFluidType()), false, this.tile::getFluidTankFullnesss));
 	}
-	
+
 	@Override
 	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
 	{
-    	super.renderOverlay(game, manager, g);
-		
-		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60) && (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop + 10) && (game.getMouseInGuiY() <= (this.guiTop + 10 + 10));
-		
+		super.renderOverlay(game, manager, g);
+
+		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
+				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
+		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop + 10)
+				&& (game.getMouseInGuiY() <= (this.guiTop + 10 + 10));
+
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing " + this.tile.getCurrentFluid() + "mL of Fluid");
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100,
+					"Storing " + this.tile.getCurrentFluid() + "mL of Fluid");
 		}
 	}
-	
+
 	@Override
-	public IResourceName getName() 
+	public IResourceName getName()
 	{
 		return RockSolidLib.makeRes("guiTank");
 	}

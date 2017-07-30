@@ -12,49 +12,45 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 public class ItemElectricLantern extends ItemBase implements IItemWithPower
 {
 	private static final String name = "electricLantern";
-	
-	public ItemElectricLantern() {
+
+	public ItemElectricLantern()
+	{
 		super(RockSolidLib.makeRes(name));
 		this.maxAmount = 1;
-		this.register();	
+		this.register();
 	}
-	
-	
-	
-	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
-        super.describeItem(manager, instance, desc, isAdvanced);
-        
-        DataSet itemData;
+
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
+	{
+		super.describeItem(manager, instance, desc, isAdvanced);
+
+		DataSet itemData;
 		int itemPowerStored = 0;
 		int itemMaxPower = this.getMaxPower();
-		
+
 		if (instance.getAdditionalData() != null)
 		{
 			itemData = instance.getAdditionalData();
 			itemPowerStored = itemData.getInt("itemPowerStored");
-		}
-		else
+		} else
 		{
 			itemData = new DataSet();
 			itemData.addInt("itemPowerStored", 0);
 			instance.setAdditionalData(itemData);
 		}
-		
-        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, "Storing " + itemPowerStored + " / " + itemMaxPower + " Energy"));
-    }
 
-
+		desc.addAll(manager.getFont().splitTextToLength(500, 1f, true,
+				"Storing " + itemPowerStored + " / " + itemMaxPower + " Energy"));
+	}
 
 	@Override
-	public int getMaxPower() 
+	public int getMaxPower()
 	{
 		return 100000;
 	}
 
-
-
 	@Override
-	public int getMaxTransfer() 
+	public int getMaxTransfer()
 	{
 		return 1000;
 	}

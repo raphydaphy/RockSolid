@@ -18,30 +18,30 @@ public class PacketItemUpdate implements IPacket
 	private UUID uuid;
 	private String name;
 	private DataSet item = new DataSet();
-	
+
 	public PacketItemUpdate(UUID uuid, String name, DataSet item)
 	{
 		this.uuid = uuid;
 		this.name = name;
 		this.item = item;
 	}
-	
+
 	public PacketItemUpdate()
 	{
-		
+
 	}
-	
+
 	@Override
-	public void toBuffer(ByteBuf buf) throws IOException 
+	public void toBuffer(ByteBuf buf) throws IOException
 	{
 		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
 		NetUtil.writeStringToBuffer(name, buf);
 		NetUtil.writeSetToBuffer(item, buf);
-		
+
 	}
 
 	@Override
-	public void fromBuffer(ByteBuf buf) throws IOException 
+	public void fromBuffer(ByteBuf buf) throws IOException
 	{
 		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
 		name = NetUtil.readStringFromBuffer(buf);
@@ -49,13 +49,13 @@ public class PacketItemUpdate implements IPacket
 	}
 
 	@Override
-	public void handle(IGameInstance game, ChannelHandlerContext context) 
+	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
 		Entity entity = game.getWorld().getEntity(uuid);
-		
+
 		if (entity instanceof AbstractEntityPlayer)
 		{
-			AbstractEntityPlayer player = (AbstractEntityPlayer)entity;
+			AbstractEntityPlayer player = (AbstractEntityPlayer) entity;
 			DataSet playerData = player.getAdditionalData();
 			playerData.addDataSet(name, item);
 		}

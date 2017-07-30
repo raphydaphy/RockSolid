@@ -12,5 +12,5 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.ellpeck.rockbottom.Main"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--unpackedModsDir ./build/classes/main"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="RockSolid"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Rock Bottom Modding"/>
 </launchConfiguration>

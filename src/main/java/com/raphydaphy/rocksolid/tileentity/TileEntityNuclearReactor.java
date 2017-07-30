@@ -18,155 +18,165 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 public class TileEntityNuclearReactor extends TileEntityFueled implements IHasInventory, IEnergyProducer
 {
 
-    public static final int COAL = 0;
-    public final ContainerInventory inventory;
-    protected int powerStored;
-    protected int maxPower;
-    protected int productionPerTick;
-    private boolean shouldSync = false;
-    
-    private boolean lastActive;
-    public TileEntityNuclearReactor(final IWorld world, final int x, final int y) 
-    {
-        super(world, x, y);
-        this.inventory = new ContainerInventory(this, 4);
-        
-        maxPower = 1000000;
-    	productionPerTick = 150;
-    }
-    
-    @Override
-    public void update(IGameInstance game)
-    {
-        super.update(game);
+	public static final int COAL = 0;
+	public final ContainerInventory inventory;
+	protected int powerStored;
+	protected int maxPower;
+	protected int productionPerTick;
+	private boolean shouldSync = false;
 
-        if(!RockBottomAPI.getNet().isClient()){
-            boolean smelted = this.tryTickAction();
+	private boolean lastActive;
 
-            if(this.coalTime > 0){
-                this.coalTime--;
-            }
+	public TileEntityNuclearReactor(final IWorld world, final int x, final int y)
+	{
+		super(world, x, y);
+		this.inventory = new ContainerInventory(this, 4);
 
-            if(smelted){
-                if(this.coalTime <= 0){
-                    ItemInstance inst = this.getFuel();
-                    if(inst != null){
-                        int amount = 600;
-                        if(amount > 0){
-                            super.maxCoalTime = amount;
-                            super.coalTime = amount;
-
-                            this.removeFuel();
-                        }
-                    }
-                }
-            }
-        }
-
-        boolean active = this.isActive();
-        if(lastActive != active){
-            lastActive = active;
-
-            this.onActiveChange(active);
-        }
-    }
-    
-    @Override
-    protected boolean needsSync() 
-    {
-        return super.needsSync() || shouldSync;
-    }
-    
-    @Override
-    protected void onSync() 
-    {
-        super.onSync();
-        shouldSync = false;
-    }
-    
-    @Override
-    protected boolean tryTickAction() 
-    {
-    	if (powerStored < (maxPower - productionPerTick - 1))
-    	{
-    		if (RockBottomAPI.getNet().isClient() == false && this.coalTime > 0) 
-            {
-            	powerStored += productionPerTick;
-            	shouldSync = true;
-            	
-            }
-            return true;
-    	}
-        return false;
-    }
-    
-    @Override
-    protected float getFuelModifier() 
-    {
-        return 0.25f;
-    }
-    
-    @Override
-    protected ItemInstance getFuel() 
-    {
-        return this.inventory.get(0);
-    }
-    
-    @Override
-    protected void removeFuel() 
-    {
-        this.inventory.remove(0, 1);
-    }
-    
-    @Override
-    protected void onActiveChange(final boolean active) 
-    {
-        this.world.causeLightUpdate(this.x, this.y);
-    }
-    
-    public float getGeneratorFullness()
-    {
-    	if (powerStored == 0)
-    	{
-    		return 0;
-    	}
-        return (float)this.powerStored/(float)this.maxPower;
-    }
-    
-    @Override
-    public void save(final DataSet set, final boolean forSync) 
-    {
-        super.save(set, forSync);
-        if (!forSync) {
-            this.inventory.save(set);
-        }
-        set.addInt("powerStored", this.powerStored);
-        set.addInt("maxPower", this.maxPower);
-        set.addInt("productionPerTick", this.productionPerTick);
-        set.addBoolean("shouldSync", this.shouldSync);
-    }
-    
-    @Override
-    public void load(final DataSet set, final boolean forSync) 
-    {
-        super.load(set, forSync);
-        if (!forSync) {
-            this.inventory.load(set);
-        }
-        this.powerStored = set.getInt("powerStored");
-        this.maxPower = set.getInt("maxPower");
-        this.productionPerTick = set.getInt("productionPerTick");
-        this.shouldSync = set.getBoolean("shouldSync");
-    }
+		maxPower = 1000000;
+		productionPerTick = 150;
+	}
 
 	@Override
-	public Inventory getInventory() 
+	public void update(IGameInstance game)
+	{
+		super.update(game);
+
+		if (!RockBottomAPI.getNet().isClient())
+		{
+			boolean smelted = this.tryTickAction();
+
+			if (this.coalTime > 0)
+			{
+				this.coalTime--;
+			}
+
+			if (smelted)
+			{
+				if (this.coalTime <= 0)
+				{
+					ItemInstance inst = this.getFuel();
+					if (inst != null)
+					{
+						int amount = 600;
+						if (amount > 0)
+						{
+							super.maxCoalTime = amount;
+							super.coalTime = amount;
+
+							this.removeFuel();
+						}
+					}
+				}
+			}
+		}
+
+		boolean active = this.isActive();
+		if (lastActive != active)
+		{
+			lastActive = active;
+
+			this.onActiveChange(active);
+		}
+	}
+
+	@Override
+	protected boolean needsSync()
+	{
+		return super.needsSync() || shouldSync;
+	}
+
+	@Override
+	protected void onSync()
+	{
+		super.onSync();
+		shouldSync = false;
+	}
+
+	@Override
+	protected boolean tryTickAction()
+	{
+		if (powerStored < (maxPower - productionPerTick - 1))
+		{
+			if (RockBottomAPI.getNet().isClient() == false && this.coalTime > 0)
+			{
+				powerStored += productionPerTick;
+				shouldSync = true;
+
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	protected float getFuelModifier()
+	{
+		return 0.25f;
+	}
+
+	@Override
+	protected ItemInstance getFuel()
+	{
+		return this.inventory.get(0);
+	}
+
+	@Override
+	protected void removeFuel()
+	{
+		this.inventory.remove(0, 1);
+	}
+
+	@Override
+	protected void onActiveChange(final boolean active)
+	{
+		this.world.causeLightUpdate(this.x, this.y);
+	}
+
+	public float getGeneratorFullness()
+	{
+		if (powerStored == 0)
+		{
+			return 0;
+		}
+		return (float) this.powerStored / (float) this.maxPower;
+	}
+
+	@Override
+	public void save(final DataSet set, final boolean forSync)
+	{
+		super.save(set, forSync);
+		if (!forSync)
+		{
+			this.inventory.save(set);
+		}
+		set.addInt("powerStored", this.powerStored);
+		set.addInt("maxPower", this.maxPower);
+		set.addInt("productionPerTick", this.productionPerTick);
+		set.addBoolean("shouldSync", this.shouldSync);
+	}
+
+	@Override
+	public void load(final DataSet set, final boolean forSync)
+	{
+		super.load(set, forSync);
+		if (!forSync)
+		{
+			this.inventory.load(set);
+		}
+		this.powerStored = set.getInt("powerStored");
+		this.maxPower = set.getInt("maxPower");
+		this.productionPerTick = set.getInt("productionPerTick");
+		this.shouldSync = set.getBoolean("shouldSync");
+	}
+
+	@Override
+	public Inventory getInventory()
 	{
 		return this.inventory;
 	}
 
 	@Override
-	public List<Integer> getInputs() 
+	public List<Integer> getInputs()
 	{
 		List<Integer> insertSlots = new ArrayList<Integer>();
 		insertSlots.add(0);
@@ -174,25 +184,25 @@ public class TileEntityNuclearReactor extends TileEntityFueled implements IHasIn
 	}
 
 	@Override
-	public List<Integer> getOutputs() 
+	public List<Integer> getOutputs()
 	{
 		return null;
 	}
 
 	@Override
-	public int getCurrentEnergy() 
+	public int getCurrentEnergy()
 	{
 		return this.powerStored;
 	}
 
 	@Override
-	public int getMaxEnergy() 
+	public int getMaxEnergy()
 	{
 		return this.maxPower;
 	}
 
 	@Override
-	public boolean removeEnergy(int amount) 
+	public boolean removeEnergy(int amount)
 	{
 		if (this.powerStored >= amount)
 		{

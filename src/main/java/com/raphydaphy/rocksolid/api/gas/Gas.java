@@ -17,76 +17,76 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public abstract class Gas extends TileBasic 
+public abstract class Gas extends TileBasic
 {
 	public static final int MAX_VOLUME = 12;
 	public static final int CANISTER_VOLUME = 5;
 	public static final IntProp gasLevel = new IntProp("volume", 1, MAX_VOLUME + 1);
 	public float weight = 1;
-	
+
 	public Gas(String name)
 	{
 		this(RockSolidLib.makeRes(name));
 		this.addProps(gasLevel);
 	}
-	
-	public Gas (IResourceName name)
+
+	public Gas(IResourceName name)
 	{
 		super(name);
 	}
-	
+
 	@Override
-	public Gas register(){
+	public Gas register()
+	{
 		RockSolidAPI.GAS_REGISTRY.register(this.getName(), this);
-        return (Gas)super.register();
-    }
-	
+		return (Gas) super.register();
+	}
+
 	protected ITileRenderer<?> createRenderer(IResourceName name)
 	{
-        return new GasRenderer<Gas>(name);
-    }
-	
+		return new GasRenderer<Gas>(name);
+	}
+
 	@Override
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
 	{
 		world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
-    }
-	
+	}
+
 	@Override
-	public TileState getPlacementState(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
-	{	
+	public TileState getPlacementState(IWorld world, int x, int y, TileLayer layer, ItemInstance instance,
+			AbstractEntityPlayer placer)
+	{
 		System.out.println("set the placement state");
 		TileState existingBlock = world.getState(x, y);
 		if (existingBlock.getTile() == GameContent.TILE_AIR)
 		{
-			return this.getDefState().prop(gasLevel,CANISTER_VOLUME);
-		}
-		else
+			return this.getDefState().prop(gasLevel, CANISTER_VOLUME);
+		} else
 		{
 			if (existingBlock.get(gasLevel) + CANISTER_VOLUME <= MAX_VOLUME)
 			{
 				return existingBlock.prop(gasLevel, existingBlock.get(gasLevel) + CANISTER_VOLUME);
-			}
-			else
+			} else
 			{
 				return existingBlock.prop(gasLevel, MAX_VOLUME);
 			}
 		}
 	}
-	
+
 	@Override
 	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState thisState = world.getState(x, y);
 		TileState upState = world.getState(x, y + 1);
-		//TileState leftTile = world.getState(x - 1, y);
-		//TileState rightTile = world.getState(x + 1, y);
-		
+		// TileState leftTile = world.getState(x - 1, y);
+		// TileState rightTile = world.getState(x + 1, y);
+
 		if (thisState.getTile() instanceof Gas)
 		{
 			world.scheduleUpdate(x, y, layer, 8);
 		}
-		
+
 		// if the tile below is the same fluid as this
 		if (upState.getTile() == thisState.getTile() && upState.get(gasLevel) < MAX_VOLUME)
 		{
@@ -102,7 +102,7 @@ public abstract class Gas extends TileBasic
 			// if we need to keep some fluid in the top block
 			else
 			{
-				
+
 			}
 		}
 		// if the tile below is air
@@ -113,33 +113,35 @@ public abstract class Gas extends TileBasic
 			world.setState(x, y, GameContent.TILE_AIR.getDefState());
 			return;
 		}
-    }
-	
+	}
+
 	@Override
 	public boolean isFullTile()
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean canBreak(IWorld world, int x, int y, TileLayer layer)
 	{
 		return false;
-    }
-	 
+	}
+
 	@Override
 	public BoundBox getBoundBox(IWorld world, int x, int y)
 	{
-        return null;
-    }
-	
+		return null;
+	}
+
 	@Override
-	public boolean canReplace(IWorld world, int x, int y, TileLayer layer, Tile replacementTile){
-        return true;
-    }
-	
+	public boolean canReplace(IWorld world, int x, int y, TileLayer layer, Tile replacementTile)
+	{
+		return true;
+	}
+
 	@Override
-	public boolean canPlaceInLayer(TileLayer layer){
-        return layer != TileLayer.BACKGROUND || !this.canProvideTileEntity();
-    }
+	public boolean canPlaceInLayer(TileLayer layer)
+	{
+		return layer != TileLayer.BACKGROUND || !this.canProvideTileEntity();
+	}
 }

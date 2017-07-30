@@ -12,76 +12,76 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluidProducer
 {
 
-    protected int fluidStored;
-    protected int maxFluid;
-    protected String fluidType = ModFluids.fluidEmpty.toString();
-    
-    public TileEntityTank(final IWorld world, final int x, final int y) 
-    {
-        super(world, x, y);
-        maxFluid = 20000;
-        
-        sync();
-    }
-    
-    private void sync()
-    {
-    	this.sendToClients();
-    	this.onSync();
-    }
-    
-    public float getFluidTankFullnesss()
-    {
-    	if (fluidStored == 0)
-    	{
-    		return 0;
-    	}
-        return (float)this.fluidStored/(float)this.maxFluid;
-    }
-    
-    @Override
-    public void save(final DataSet set, final boolean forSync) 
-    {
-        super.save(set, forSync);
-        set.addInt("fluidStored", this.fluidStored);
-        set.addInt("maxFluid", this.maxFluid);
-        set.addString("fluidType", this.fluidType);
-    }
-    
-    @Override
-    public void load(final DataSet set, final boolean forSync) 
-    {
-        super.load(set, forSync);
-        this.fluidStored = set.getInt("fluidStored");
-        this.maxFluid = set.getInt("maxFluid");
-        this.fluidType = set.getString("fluidType");
-    }
+	protected int fluidStored;
+	protected int maxFluid;
+	protected String fluidType = ModFluids.fluidEmpty.toString();
+
+	public TileEntityTank(final IWorld world, final int x, final int y)
+	{
+		super(world, x, y);
+		maxFluid = 20000;
+
+		sync();
+	}
+
+	private void sync()
+	{
+		this.sendToClients();
+		this.onSync();
+	}
+
+	public float getFluidTankFullnesss()
+	{
+		if (fluidStored == 0)
+		{
+			return 0;
+		}
+		return (float) this.fluidStored / (float) this.maxFluid;
+	}
 
 	@Override
-	public int getCurrentFluid() 
+	public void save(final DataSet set, final boolean forSync)
+	{
+		super.save(set, forSync);
+		set.addInt("fluidStored", this.fluidStored);
+		set.addInt("maxFluid", this.maxFluid);
+		set.addString("fluidType", this.fluidType);
+	}
+
+	@Override
+	public void load(final DataSet set, final boolean forSync)
+	{
+		super.load(set, forSync);
+		this.fluidStored = set.getInt("fluidStored");
+		this.maxFluid = set.getInt("maxFluid");
+		this.fluidType = set.getString("fluidType");
+	}
+
+	@Override
+	public int getCurrentFluid()
 	{
 		return this.fluidStored;
 	}
 
 	@Override
-	public int getMaxFluid() 
+	public int getMaxFluid()
 	{
 		return this.maxFluid;
 	}
 
 	@Override
-	public String getFluidType() 
+	public String getFluidType()
 	{
 		return this.fluidType;
 	}
 
 	@Override
-	public boolean removeFluid(int amount) 
+	public boolean removeFluid(int amount)
 	{
 		if (this.fluidStored >= amount)
 		{
 			this.fluidStored -= amount;
-			
+
 			if (this.fluidStored == 0)
 			{
 				this.fluidType = ModFluids.fluidEmpty.toString();
@@ -93,9 +93,10 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	}
 
 	@Override
-	public boolean addFluid(int amount, String type) 
+	public boolean addFluid(int amount, String type)
 	{
-		if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+		if (this.fluidType == null || type.equals(this.fluidType)
+				|| this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
@@ -113,7 +114,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	}
 
 	@Override
-	public boolean setFluidType(String type) 
+	public boolean setFluidType(String type)
 	{
 		if (this.fluidType == ModFluids.fluidEmpty.toString() || this.fluidStored == 0)
 		{

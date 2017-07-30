@@ -11,15 +11,15 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerQuarry extends ItemContainer
 {
-	public ContainerQuarry(final AbstractEntityPlayer player, final TileEntityQuarry tile) 
+	public ContainerQuarry(final AbstractEntityPlayer player, final TileEntityQuarry tile)
 	{
-        super(player, new IInventory[] { player.getInv(), tile.inventory });
-        this.addSlot(new OutputSlot(tile.inventory, 0, 90, 10));
-        this.addPlayerInventory(player, 20, 60);
-    }
-	
+		super(player, new IInventory[] { player.getInv(), tile.inventory });
+		this.addSlot(new OutputSlot(tile.inventory, 0, 90, 10));
+		this.addPlayerInventory(player, 20, 60);
+	}
+
 	@Override
-	public IResourceName getName() 
+	public IResourceName getName()
 	{
 		return RockSolidLib.makeRes("containerQuarry");
 	}

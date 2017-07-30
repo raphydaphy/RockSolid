@@ -19,21 +19,21 @@ public class PacketChargerItem implements IPacket
 	private int x;
 	private int y;
 	private DataSet item;
-	
+
 	public PacketChargerItem(int x, int y, DataSet item)
 	{
 		this.x = x;
 		this.y = y;
 		this.item = item;
 	}
-	
+
 	public PacketChargerItem()
 	{
 		item = new DataSet();
 	}
-	
+
 	@Override
-	public void toBuffer(ByteBuf buf) throws IOException 
+	public void toBuffer(ByteBuf buf) throws IOException
 	{
 		buf.writeInt(x);
 		buf.writeInt(y);
@@ -41,7 +41,7 @@ public class PacketChargerItem implements IPacket
 	}
 
 	@Override
-	public void fromBuffer(ByteBuf buf) throws IOException 
+	public void fromBuffer(ByteBuf buf) throws IOException
 	{
 		x = buf.readInt();
 		y = buf.readInt();
@@ -49,13 +49,13 @@ public class PacketChargerItem implements IPacket
 	}
 
 	@Override
-	public void handle(IGameInstance game, ChannelHandlerContext context) 
+	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
 		TileEntity charger = RockSolidLib.getTileFromPos(x, y, game.getWorld());
-		
+
 		if (charger instanceof TileEntityCharger)
 		{
-			((TileEntityCharger)charger).setItem(ItemInstance.load(item));
+			((TileEntityCharger) charger).setItem(ItemInstance.load(item));
 		}
 	}
 

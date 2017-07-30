@@ -9,14 +9,14 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerEmpty extends ItemContainer
 {
-	public ContainerEmpty(final AbstractEntityPlayer player) 
+	public ContainerEmpty(final AbstractEntityPlayer player)
 	{
-        super(player, new IInventory[] { player.getInv() });
-        this.addPlayerInventory(player, 20, 60);
-    }
-	
+		super(player, new IInventory[] { player.getInv() });
+		this.addPlayerInventory(player, 20, 60);
+	}
+
 	@Override
-	public IResourceName getName() 
+	public IResourceName getName()
 	{
 		return RockSolidLib.makeRes("containerEmpty");
 	}

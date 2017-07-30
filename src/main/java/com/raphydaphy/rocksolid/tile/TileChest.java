@@ -24,83 +24,85 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileChest extends TileBasic
 {
 	private static final String name = "chest";
-	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	
-	public TileChest() {
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE, "details." + name);
+
+	public TileChest()
+	{
 		super(RockSolidLib.makeRes(name));
-		this.setHardness((float)20);
-        this.addEffectiveTool(ToolType.AXE, 1);
+		this.setHardness((float) 20);
+		this.addEffectiveTool(ToolType.AXE, 1);
 	}
-	
+
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
-        return new TileEntityChest(world, x, y);
-    }
+		return new TileEntityChest(world, x, y);
+	}
 
 	@Override
-    public boolean canProvideTileEntity(){
-        return true;
-    }
-	
+	public boolean canProvideTileEntity()
+	{
+		return true;
+	}
+
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+			AbstractEntityPlayer player)
 	{
 		TileEntityChest tile = world.getTileEntity(x, y, TileEntityChest.class);
-		
+
 		if (tile != null)
 		{
 			player.openGuiContainer(new GuiChest(player), new ContainerChest(player, tile));
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
-    }
-	
+	}
+
 	@Override
-    public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop)
-    {
-        super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-        if (!RockBottomAPI.getNet().isClient()) 
-        {
-            final TileEntityChest tile = world.getTileEntity(x,y, TileEntityChest.class);
-            if (tile != null) 
-            {
-                tile.dropInventory(tile.inventory);
-            }
-        }
-    }
-	
+	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
+			final boolean forceDrop)
+	{
+		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
+		if (!RockBottomAPI.getNet().isClient())
+		{
+			final TileEntityChest tile = world.getTileEntity(x, y, TileEntityChest.class);
+			if (tile != null)
+			{
+				tile.dropInventory(tile.inventory);
+			}
+		}
+	}
+
 	@Override
 	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
 	{
-        if(!this.canPlaceInLayer(layer))
-        {
-            return false;
-        }
-        
-        return true;
-    }
-	
-	
+		if (!this.canPlaceInLayer(layer))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	@Override
-    public BoundBox getBoundBox(final IWorld world, final int x, final int y) 
+	public BoundBox getBoundBox(final IWorld world, final int x, final int y)
 	{
-        return null;
-    }
-	
+		return null;
+	}
+
 	@Override
-    public boolean isFullTile() 
+	public boolean isFullTile()
 	{
-        return false;
-    }
-	
-	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
-        super.describeItem(manager, instance, desc, isAdvanced);
-        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
-    }
+		return false;
+	}
+
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
+	{
+		super.describeItem(manager, instance, desc, isAdvanced);
+		desc.addAll(manager.getFont().splitTextToLength(500, 1f, true, manager.localize(this.desc)));
+	}
 
 }
-

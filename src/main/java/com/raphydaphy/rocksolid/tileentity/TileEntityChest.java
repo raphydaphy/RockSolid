@@ -13,36 +13,38 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 
 public class TileEntityChest extends TileEntity implements IHasInventory
 {
-  public final ContainerInventory inventory = new ContainerInventory(this, 20);
-  public int openCount;
-  
-  public TileEntityChest(IWorld world, int x, int y)
-  {
-    super(world, x, y);
-  }
-  
-  public void save(DataSet set, boolean forSync)
-  {
-    if (!forSync) {
-      this.inventory.save(set);
-    }
-  }
-  
-  public void load(DataSet set, boolean forSync)
-  {
-    if (!forSync) {
-      this.inventory.load(set);
-    }
-  }
+	public final ContainerInventory inventory = new ContainerInventory(this, 20);
+	public int openCount;
+
+	public TileEntityChest(IWorld world, int x, int y)
+	{
+		super(world, x, y);
+	}
+
+	public void save(DataSet set, boolean forSync)
+	{
+		if (!forSync)
+		{
+			this.inventory.save(set);
+		}
+	}
+
+	public void load(DataSet set, boolean forSync)
+	{
+		if (!forSync)
+		{
+			this.inventory.load(set);
+		}
+	}
 
 	@Override
-	public Inventory getInventory() 
+	public Inventory getInventory()
 	{
 		return this.inventory;
 	}
-	
+
 	@Override
-	public List<Integer> getInputs() 
+	public List<Integer> getInputs()
 	{
 		// i hope canitzp dosent find this...
 		List<Integer> insertSlots = new ArrayList<Integer>();
@@ -70,7 +72,7 @@ public class TileEntityChest extends TileEntity implements IHasInventory
 	}
 
 	@Override
-	public List<Integer> getOutputs() 
+	public List<Integer> getOutputs()
 	{
 		// or this...
 		List<Integer> outputSlots = new ArrayList<Integer>();

@@ -13,35 +13,33 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
 
-public class WorldGenLakes implements IWorldGenerator {
+public class WorldGenLakes implements IWorldGenerator
+{
 
-	
 	@Override
-	public boolean shouldGenerate(IWorld world, IChunk chunk, Random rand) 
+	public boolean shouldGenerate(IWorld world, IChunk chunk, Random rand)
 	{
-		if(chunk.getGridY() == 0 && chunk.getGridX() != 0)
+		if (chunk.getGridY() == 0 && chunk.getGridX() != 0)
 		{
 			return rand.nextInt(6) == 2;
 		}
-		
+
 		return false;
 	}
 
 	@Override
-	public void generate(IWorld world, IChunk chunk, Random rand) 
+	public void generate(IWorld world, IChunk chunk, Random rand)
 	{
 		int chunkMapSizeX = 32;
 		int chunkMapSizeY = 32;
-		
-		
+
 		int startX = -10;
 		int startY = -10;
-		
+
 		int fluidStart = 1 - rand.nextInt(3);
-		
+
 		boolean[][] terrain = new boolean[chunkMapSizeX][chunkMapSizeY];
-		
-		
+
 		for (int x = 0; x < chunkMapSizeX; x++)
 		{
 			for (int y = 0; y < chunkMapSizeY; y++)
@@ -57,7 +55,7 @@ public class WorldGenLakes implements IWorldGenerator {
 		{
 			terrain = doSimulationStep(terrain).clone();
 		}
-		
+
 		for (int x = 0; x < 32; x++)
 		{
 			for (int y = 0; y < 32; y++)
@@ -65,7 +63,8 @@ public class WorldGenLakes implements IWorldGenerator {
 				Tile thisTile = world.getState(chunk.getX() + x + startX, chunk.getY() + y + startY).getTile();
 				if (thisTile == GameContent.TILE_LEAVES || thisTile == GameContent.TILE_LOG)
 				{
-					world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY, GameContent.TILE_AIR.getDefState());
+					world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
+							GameContent.TILE_AIR.getDefState());
 				}
 			}
 		}
@@ -75,97 +74,115 @@ public class WorldGenLakes implements IWorldGenerator {
 			{
 				if (!terrain[x][y])
 				{
-					if (world.getState(chunk.getX() + x + startX, chunk.getY() + y + startY).getTile() != GameContent.TILE_AIR)
+					if (world.getState(chunk.getX() + x + startX, chunk.getY() + y + startY)
+							.getTile() != GameContent.TILE_AIR)
 					{
-						if (chunk.getY() + y+startY < fluidStart)
+						if (chunk.getY() + y + startY < fluidStart)
 						{
-							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
-							
+							world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
+									ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
+
 							if (chunk.getY() + y + startY == fluidStart - 7)
 							{
 								if (rand.nextBoolean())
 								{
-									world.setState(chunk.getX() + x+ startX, chunk.getY() + y+ startY,ModTiles.clay.getDefState());
+									world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
+											ModTiles.clay.getDefState());
 								}
-							}
-							else if (chunk.getY() + y + startY < fluidStart - 7)
+							} else if (chunk.getY() + y + startY < fluidStart - 7)
 							{
-								world.setState(chunk.getX() + x+ startX, chunk.getY() + y+ startY,ModTiles.clay.getDefState());
+								world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
+										ModTiles.clay.getDefState());
 							}
-						}
-						else
+						} else
 						{
-							world.setState(TileLayer.MAIN, chunk.getX() + x+ startX, chunk.getY() + y+ startY, GameContent.TILE_AIR.getDefState());
-							world.setState(TileLayer.BACKGROUND, chunk.getX() + x+ startX, chunk.getY() + y+ startY, GameContent.TILE_AIR.getDefState());
+							world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
+									GameContent.TILE_AIR.getDefState());
+							world.setState(TileLayer.BACKGROUND, chunk.getX() + x + startX, chunk.getY() + y + startY,
+									GameContent.TILE_AIR.getDefState());
 						}
-						
+
 					}
 				}
 			}
 		}
 	}
-	
-	public boolean[][] doSimulationStep(boolean[][] oldMap){
-	    boolean[][] newMap = new boolean[oldMap.length][oldMap[0].length];
-	    
-	    int deathLimit = 4;
-	    int birthLimit = 4;
-	    //Loop over each row and column of the map
-	    for(int x=0; x<oldMap.length; x++)
-	    {
-	        for(int y=0; y<oldMap[0].length; y++){
-	            int nbs = countAliveNeighbours(oldMap, x, y);
-	            //The new value is based on our simulation rules
-	            //First, if a cell is alive but has too few neighbours, kill it.
-	            if(oldMap[x][y]){
-	                if(nbs < deathLimit){
-	                    newMap[x][y] = false;
-	                }
-	                else{
-	                    newMap[x][y] = true;
-	                }
-	            } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
-	            else{
-	                if(nbs > birthLimit){
-	                    newMap[x][y] = true;
-	                }
-	                else{
-	                    newMap[x][y] = false;
-	                }
-	            }
-	        }
-	    }
-	    return newMap;
+
+	public boolean[][] doSimulationStep(boolean[][] oldMap)
+	{
+		boolean[][] newMap = new boolean[oldMap.length][oldMap[0].length];
+
+		int deathLimit = 4;
+		int birthLimit = 4;
+		// Loop over each row and column of the map
+		for (int x = 0; x < oldMap.length; x++)
+		{
+			for (int y = 0; y < oldMap[0].length; y++)
+			{
+				int nbs = countAliveNeighbours(oldMap, x, y);
+				// The new value is based on our simulation rules
+				// First, if a cell is alive but has too few neighbours, kill
+				// it.
+				if (oldMap[x][y])
+				{
+					if (nbs < deathLimit)
+					{
+						newMap[x][y] = false;
+					} else
+					{
+						newMap[x][y] = true;
+					}
+				} // Otherwise, if the cell is dead now, check if it has the
+					// right number of neighbours to be 'born'
+				else
+				{
+					if (nbs > birthLimit)
+					{
+						newMap[x][y] = true;
+					} else
+					{
+						newMap[x][y] = false;
+					}
+				}
+			}
+		}
+		return newMap;
 	}
-	
-	public int countAliveNeighbours(boolean[][] map, int x, int y){
-	    int count = 0;
-	    for(int i=-1; i<2; i++){
-	        for(int j=-1; j<2; j++){
-	            int neighbour_x = x+i;
-	            int neighbour_y = y+j;
-	            //If we're looking at the middle point
-	            if(i == 0 && j == 0){
-	                //Do nothing, we don't want to add ourselves in!
-	            }
-	            //In case the index we're looking at it off the edge of the map
-	            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length){
-	                count = count + 1;
-	            }
-	            //Otherwise, a normal check of the neighbour
-	            else if(map[neighbour_x][neighbour_y])
-	            {
-	                count = count + 1;
-	            }
-	        }
-	    }
-	    return count;
+
+	public int countAliveNeighbours(boolean[][] map, int x, int y)
+	{
+		int count = 0;
+		for (int i = -1; i < 2; i++)
+		{
+			for (int j = -1; j < 2; j++)
+			{
+				int neighbour_x = x + i;
+				int neighbour_y = y + j;
+				// If we're looking at the middle point
+				if (i == 0 && j == 0)
+				{
+					// Do nothing, we don't want to add ourselves in!
+				}
+				// In case the index we're looking at it off the edge of the map
+				else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length
+						|| neighbour_y >= map[0].length)
+				{
+					count = count + 1;
+				}
+				// Otherwise, a normal check of the neighbour
+				else if (map[neighbour_x][neighbour_y])
+				{
+					count = count + 1;
+				}
+			}
+		}
+		return count;
 	}
 
 	@Override
-	public int getPriority() {
+	public int getPriority()
+	{
 		return 250;
 	}
-	
-	
+
 }

@@ -27,118 +27,125 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileAlloySmelter extends MultiTile
 {
 	private static final String name = "alloySmelter";
-	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	public TileAlloySmelter() 
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE, "details." + name);
+
+	public TileAlloySmelter()
 	{
 		super(RockSolidLib.makeRes(name));
 		this.setHardness(15);
-        this.addEffectiveTool(ToolType.PICKAXE, 1);
-        this.register();
+		this.addEffectiveTool(ToolType.PICKAXE, 1);
+		this.register();
 	}
-	
-	@Override
-    protected ITileRenderer<TileAlloySmelter> createRenderer(final IResourceName name) {
-        return new AlloySmelterRenderer<TileAlloySmelter>(name, this);
-    }
-	
-	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
-	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
-        if (mainTile != null && ((TileEntityAlloySmelter)mainTile).isActive()) 
-        {
-            return 20;
-        }
-        return 0;
-    }
-	
-	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y){
-		return this.isMainPos(x,  y,  world.getState(x,  y)) ? new TileEntityAlloySmelter(world, x, y) : null;
-    }
 
 	@Override
-    public boolean canProvideTileEntity(){
-        return true;
-    }
-	
-	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
+	protected ITileRenderer<TileAlloySmelter> createRenderer(final IResourceName name)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
+		return new AlloySmelterRenderer<TileAlloySmelter>(name, this);
+	}
+
+	@Override
+	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
+	{
+		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+		if (mainTile != null && ((TileEntityAlloySmelter) mainTile).isActive())
+		{
+			return 20;
+		}
+		return 0;
+	}
+
+	@Override
+	public TileEntity provideTileEntity(IWorld world, int x, int y)
+	{
+		return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityAlloySmelter(world, x, y) : null;
+	}
+
+	@Override
+	public boolean canProvideTileEntity()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+			AbstractEntityPlayer player)
+	{
+		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
 		TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
-		
+
 		if (tile != null)
 		{
 			player.openGuiContainer(new GuiAlloySmelter(player, tile), new ContainerAlloySmelter(player, tile));
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
-    }
-	
+	}
+
 	@Override
-    public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer, final boolean forceDrop)
-    {
-        super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-        if (!RockBottomAPI.getNet().isClient()) 
-        {
-            final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-            final TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
-            if (tile != null) 
-            {
-                tile.dropInventory(tile.inventory);
-            }
-        }
-    }
-	
+	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
+			final boolean forceDrop)
+	{
+		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
+		if (!RockBottomAPI.getNet().isClient())
+		{
+			final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
+			final TileEntityAlloySmelter tile = world.getTileEntity(main.getX(), main.getY(),
+					TileEntityAlloySmelter.class);
+			if (tile != null)
+			{
+				tile.dropInventory(tile.inventory);
+			}
+		}
+	}
+
 	@Override
-	protected boolean[][] makeStructure() 
+	protected boolean[][] makeStructure()
 	{
 		return new boolean[][] { { true }, { true } };
 	}
 
 	@Override
-	public int getWidth() 
+	public int getWidth()
 	{
 		return 1;
 	}
 
 	@Override
-	public int getHeight() 
+	public int getHeight()
 	{
 		return 2;
 	}
 
 	@Override
-	public int getMainX() 
+	public int getMainX()
 	{
 		return 0;
 	}
 
 	@Override
-	public int getMainY() 
+	public int getMainY()
 	{
 		return 0;
 	}
-	
+
 	@Override
-    public BoundBox getBoundBox(final IWorld world, final int x, final int y) 
+	public BoundBox getBoundBox(final IWorld world, final int x, final int y)
 	{
-        return null;
-    }
-	
+		return null;
+	}
+
 	@Override
-    public boolean isFullTile() 
+	public boolean isFullTile()
 	{
-        return false;
-    }
-	
+		return false;
+	}
+
 	@Override
-    public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
-        super.describeItem(manager, instance, desc, isAdvanced);
-        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
-    }
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
+	{
+		super.describeItem(manager, instance, desc, isAdvanced);
+		desc.addAll(manager.getFont().splitTextToLength(500, 1f, true, manager.localize(this.desc)));
+	}
 }

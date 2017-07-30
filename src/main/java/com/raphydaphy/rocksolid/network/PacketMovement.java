@@ -18,7 +18,7 @@ public class PacketMovement implements IPacket
 	private int fallAmount;
 	private double playerX;
 	private double playerY;
-	
+
 	public PacketMovement(UUID uuid, double motionY, int fallAmount, double playerX, double playerY)
 	{
 		this.uuid = uuid;
@@ -27,14 +27,14 @@ public class PacketMovement implements IPacket
 		this.playerX = playerX;
 		this.playerY = playerY;
 	}
-	
+
 	public PacketMovement()
 	{
-		
+
 	}
-	
+
 	@Override
-	public void toBuffer(ByteBuf buf) throws IOException 
+	public void toBuffer(ByteBuf buf) throws IOException
 	{
 		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
 		buf.writeDouble(this.motionY);
@@ -44,7 +44,7 @@ public class PacketMovement implements IPacket
 	}
 
 	@Override
-	public void fromBuffer(ByteBuf buf) throws IOException 
+	public void fromBuffer(ByteBuf buf) throws IOException
 	{
 		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
 		this.motionY = buf.readDouble();
@@ -54,10 +54,10 @@ public class PacketMovement implements IPacket
 	}
 
 	@Override
-	public void handle(IGameInstance game, ChannelHandlerContext context) 
+	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
 		Entity entity = game.getWorld().getEntity(uuid);
-		
+
 		if (entity instanceof AbstractEntityPlayer)
 		{
 			entity.motionY = motionY;

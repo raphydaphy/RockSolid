@@ -11,27 +11,30 @@ import de.ellpeck.rockbottom.api.entity.EntityLiving;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class FluidLava extends Fluid {
+public class FluidLava extends Fluid
+{
 
-	public FluidLava() {
+	public FluidLava()
+	{
 		super("fluidLava");
 		this.register();
-		//super.setThickness(0.012);
+		// super.setThickness(0.012);
 	}
-	
+
 	@Override
-    public int getLight(final IWorld world, final int x, final int y, final TileLayer layer) 
+	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
 		return 20;
-    }
-	
+	}
+
 	@Override
-	public ArrayList<Fluid> getEnemyFluids() {
+	public ArrayList<Fluid> getEnemyFluids()
+	{
 		ArrayList<Fluid> enemyFluids = new ArrayList<Fluid>();
 		enemyFluids.add(ModFluids.fluidWater);
 		return enemyFluids;
 	}
-	
+
 	@Override
 	public void onCollideWithEntity(IWorld world, int x, int y, TileLayer layer, Entity entity)
 	{
@@ -41,11 +44,12 @@ public class FluidLava extends Fluid {
 			((EntityLiving) entity).takeDamage(3);
 		}
 	}
-	
+
 	@Override
 	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
 	{
-		return super.canPlace(world, x, y, layer) && ((world.getState(x, y).getTile() == this) || world.getState(x, y).getTile() == GameContent.TILE_AIR);
+		return super.canPlace(world, x, y, layer)
+				&& ((world.getState(x, y).getTile() == this) || world.getState(x, y).getTile() == GameContent.TILE_AIR);
 	}
 
 }

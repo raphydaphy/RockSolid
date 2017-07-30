@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.render;
 
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -19,26 +18,26 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class AlloySmelterRenderer<T extends TileAlloySmelter> extends MultiTileRenderer<T>
 {
 	private final IResourceName texActive;
-	
-    public AlloySmelterRenderer(final IResourceName texture, final MultiTile tile) 
-    {
-        super(texture, tile);
-        this.texActive = this.texture.addSuffix(".active");
-    }
 
+	public AlloySmelterRenderer(final IResourceName texture, final MultiTile tile)
+	{
+		super(texture, tile);
+		this.texActive = this.texture.addSuffix(".active");
+	}
 
-    @Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, T tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
-    {
-        if (tile.isMainPos(x, y, state))
-        {
-            final TileEntityAlloySmelter tileEntity = world.getTileEntity(x, y, TileEntityAlloySmelter.class);
-            if (tileEntity != null && tileEntity.isActive()) 
-            {
-                manager.getTexture(this.texActive).drawWithLight(renderX, renderY, scale, scale, light);
-                return;
-            }
-        }
-        super.render(game, manager, g, world, tile, state, x, y, layer, renderX, renderY, scale, light);
-    }
+	@Override
+	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, T tile, TileState state,
+			int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	{
+		if (tile.isMainPos(x, y, state))
+		{
+			final TileEntityAlloySmelter tileEntity = world.getTileEntity(x, y, TileEntityAlloySmelter.class);
+			if (tileEntity != null && tileEntity.isActive())
+			{
+				manager.getTexture(this.texActive).drawWithLight(renderX, renderY, scale, scale, light);
+				return;
+			}
+		}
+		super.render(game, manager, g, world, tile, state, x, y, layer, renderX, renderY, scale, light);
+	}
 }

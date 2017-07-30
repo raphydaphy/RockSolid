@@ -18,7 +18,7 @@ public class PacketTileDestroyed implements IPacket
 	private int x;
 	private int y;
 	private boolean isMain;
-	
+
 	public PacketTileDestroyed(UUID uuid, int x, int y, boolean isMain)
 	{
 		this.uuid = uuid;
@@ -26,14 +26,14 @@ public class PacketTileDestroyed implements IPacket
 		this.y = y;
 		this.isMain = isMain;
 	}
-	
+
 	public PacketTileDestroyed()
 	{
-		
+
 	}
-	
+
 	@Override
-	public void toBuffer(ByteBuf buf) throws IOException 
+	public void toBuffer(ByteBuf buf) throws IOException
 	{
 		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
 		buf.writeInt(x);
@@ -42,7 +42,7 @@ public class PacketTileDestroyed implements IPacket
 	}
 
 	@Override
-	public void fromBuffer(ByteBuf buf) throws IOException 
+	public void fromBuffer(ByteBuf buf) throws IOException
 	{
 		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
 		this.x = buf.readInt();
@@ -51,14 +51,14 @@ public class PacketTileDestroyed implements IPacket
 	}
 
 	@Override
-	public void handle(IGameInstance game, ChannelHandlerContext context) 
+	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
 		Entity entity = game.getWorld().getEntity(uuid);
-		
+
 		if (entity instanceof AbstractEntityPlayer)
 		{
-			AbstractEntityPlayer player = (AbstractEntityPlayer)entity;
-			
+			AbstractEntityPlayer player = (AbstractEntityPlayer) entity;
+
 			game.getWorld().destroyTile(x, y, isMain ? TileLayer.MAIN : TileLayer.BACKGROUND, player, true);
 		}
 	}

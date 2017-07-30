@@ -8,16 +8,17 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class GasOxygen extends Gas
 {
-	public GasOxygen() 
+	public GasOxygen()
 	{
 		super("gasOxygen");
 		this.register();
 	}
-	
+
 	@Override
 	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
 	{
-		return super.canPlace(world, x, y, layer) && ((world.getState(x, y).getTile() == this) || world.getState(x, y).getTile() == GameContent.TILE_AIR);
+		return super.canPlace(world, x, y, layer)
+				&& ((world.getState(x, y).getTile() == this) || world.getState(x, y).getTile() == GameContent.TILE_AIR);
 	}
 
 }

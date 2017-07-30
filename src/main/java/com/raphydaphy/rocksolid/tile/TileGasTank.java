@@ -27,35 +27,37 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileGasTank extends MultiTile
 {
 	private static final String name = "gasTank";
-	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE,"details." + name);
-	
-	public TileGasTank() 
+	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE, "details." + name);
+
+	public TileGasTank()
 	{
 		super(RockSolidLib.makeRes(name));
-		this.setHardness((float)20);
-        this.addEffectiveTool(ToolType.PICKAXE, 1);
-        this.register();
+		this.setHardness((float) 20);
+		this.addEffectiveTool(ToolType.PICKAXE, 1);
+		this.register();
 	}
-	
+
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
-        return new TileEntityGasTank(world, x, y);
-    }
-	
-	@Override
-	protected ITileRenderer<TileGasTank> createRenderer(final IResourceName name) 
-	{
-		return new GasTankRenderer(name, this);
-    }
+		return new TileEntityGasTank(world, x, y);
+	}
 
 	@Override
-    public boolean canProvideTileEntity(){
-        return true;
-    }
-	
+	protected ITileRenderer<TileGasTank> createRenderer(final IResourceName name)
+	{
+		return new GasTankRenderer(name, this);
+	}
+
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
+	public boolean canProvideTileEntity()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+			AbstractEntityPlayer player)
 	{
 		ItemInstance selected = player.getInv().get(player.getSelectedSlot());
 		if (selected != null)
@@ -65,51 +67,49 @@ public class TileGasTank extends MultiTile
 				return false;
 			}
 		}
-		Pos2 main = this.getMainPos(x, y, world.getState(x,  y));
+		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
 		TileEntityGasTank tile = world.getTileEntity(main.getX(), main.getY(), TileEntityGasTank.class);
 		if (tile != null)
 		{
 			player.openGuiContainer(new GuiGasTank(player, tile), new ContainerEmpty(player));
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
-    }
-	
-	@Override
-	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
-	{
-        if(!this.canPlaceInLayer(layer))
-        {
-            return false;
-        }
-        
-        return true;
-    }
-	
-	
-	@Override
-    public BoundBox getBoundBox(final IWorld world, final int x, final int y) 
-	{
-        return null;
-    }
-	
-	@Override
-    public boolean isFullTile() 
-	{
-        return false;
-    }
-
-	@Override
-	protected boolean[][] makeStructure() 
-	{
-		return new boolean[][] { { true}, { true} };
 	}
 
 	@Override
-	public int getWidth() 
+	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
+	{
+		if (!this.canPlaceInLayer(layer))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public BoundBox getBoundBox(final IWorld world, final int x, final int y)
+	{
+		return null;
+	}
+
+	@Override
+	public boolean isFullTile()
+	{
+		return false;
+	}
+
+	@Override
+	protected boolean[][] makeStructure()
+	{
+		return new boolean[][] { { true }, { true } };
+	}
+
+	@Override
+	public int getWidth()
 	{
 		return 1;
 	}
@@ -121,20 +121,21 @@ public class TileGasTank extends MultiTile
 	}
 
 	@Override
-	public int getMainX() 
+	public int getMainX()
 	{
 		return 0;
 	}
 
 	@Override
-	public int getMainY() 
+	public int getMainY()
 	{
 		return 0;
 	}
-	
-	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced) {
-        super.describeItem(manager, instance, desc, isAdvanced);
-        desc.addAll(manager.getFont().splitTextToLength(500,1f,true, manager.localize(this.desc)));
-    }
+
+	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
+	{
+		super.describeItem(manager, instance, desc, isAdvanced);
+		desc.addAll(manager.getFont().splitTextToLength(500, 1f, true, manager.localize(this.desc)));
+	}
 
 }

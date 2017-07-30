@@ -12,15 +12,16 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerCharger extends ItemContainer
 {
-	public ContainerCharger(final AbstractEntityPlayer player, final TileEntityCharger tile) 
+	public ContainerCharger(final AbstractEntityPlayer player, final TileEntityCharger tile)
 	{
-        super(player, new IInventory[] { player.getInv(), tile.inventory });
-        this.addSlot(new InputSlot(tile.inventory, 0, 90, 30, instance -> IItemWithPower.class.isAssignableFrom(instance.getItem().getClass())));
-        this.addPlayerInventory(player, 20, 60);
-    }
-	
+		super(player, new IInventory[] { player.getInv(), tile.inventory });
+		this.addSlot(new InputSlot(tile.inventory, 0, 90, 30,
+				instance -> IItemWithPower.class.isAssignableFrom(instance.getItem().getClass())));
+		this.addPlayerInventory(player, 20, 60);
+	}
+
 	@Override
-	public IResourceName getName() 
+	public IResourceName getName()
 	{
 		return RockSolidLib.makeRes("containerCharger");
 	}

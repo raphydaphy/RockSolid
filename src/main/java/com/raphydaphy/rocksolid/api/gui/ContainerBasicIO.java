@@ -12,16 +12,16 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class ContainerBasicIO extends ItemContainer
 {
-	public ContainerBasicIO(final AbstractEntityPlayer player, final IBasicIO tile) 
+	public ContainerBasicIO(final AbstractEntityPlayer player, final IBasicIO tile)
 	{
-        super(player, new IInventory[] { player.getInv(), tile.getInventory() });
-        this.addSlot(new InputSlot(tile.getInventory(), 0, 40, 10, instance -> tile.isValidInput(instance)));
-        this.addSlot(new OutputSlot(tile.getInventory(), 1, 140, 10));
-        this.addPlayerInventory(player, 20, 60);
-    }
-	
+		super(player, new IInventory[] { player.getInv(), tile.getInventory() });
+		this.addSlot(new InputSlot(tile.getInventory(), 0, 40, 10, instance -> tile.isValidInput(instance)));
+		this.addSlot(new OutputSlot(tile.getInventory(), 1, 140, 10));
+		this.addPlayerInventory(player, 20, 60);
+	}
+
 	@Override
-	public IResourceName getName() 
+	public IResourceName getName()
 	{
 		return RockSolidLib.makeRes("containerBasicIO");
 	}

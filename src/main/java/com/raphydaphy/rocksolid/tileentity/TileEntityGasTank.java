@@ -12,76 +12,76 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasProducer
 {
 
-    protected int gasStored;
-    protected int maxGas;
-    protected String gasType = ModGasses.gasVacuum.toString();
-    
-    public TileEntityGasTank(final IWorld world, final int x, final int y) 
-    {
-        super(world, x, y);
-        maxGas = 10000;
-        
-        sync();
-    }
-    
-    private void sync()
-    {
-    	this.sendToClients();
-    	this.onSync();
-    }
-    
-    public float getGasTankFullnesss()
-    {
-    	if (gasStored == 0)
-    	{
-    		return 0;
-    	}
-        return (float)this.gasStored/(float)this.maxGas;
-    }
-    
-    @Override
-    public void save(final DataSet set, final boolean forSync) 
-    {
-        super.save(set, forSync);
-        set.addInt("gasStored", this.gasStored);
-        set.addInt("maxGas", this.maxGas);
-        set.addString("gasType", this.gasType);
-    }
-    
-    @Override
-    public void load(final DataSet set, final boolean forSync) 
-    {
-        super.load(set, forSync);
-        this.gasStored = set.getInt("gasStored");
-        this.maxGas = set.getInt("maxGas");
-        this.gasType = set.getString("gasType");
-    }
+	protected int gasStored;
+	protected int maxGas;
+	protected String gasType = ModGasses.gasVacuum.toString();
+
+	public TileEntityGasTank(final IWorld world, final int x, final int y)
+	{
+		super(world, x, y);
+		maxGas = 10000;
+
+		sync();
+	}
+
+	private void sync()
+	{
+		this.sendToClients();
+		this.onSync();
+	}
+
+	public float getGasTankFullnesss()
+	{
+		if (gasStored == 0)
+		{
+			return 0;
+		}
+		return (float) this.gasStored / (float) this.maxGas;
+	}
 
 	@Override
-	public int getCurrentGas() 
+	public void save(final DataSet set, final boolean forSync)
+	{
+		super.save(set, forSync);
+		set.addInt("gasStored", this.gasStored);
+		set.addInt("maxGas", this.maxGas);
+		set.addString("gasType", this.gasType);
+	}
+
+	@Override
+	public void load(final DataSet set, final boolean forSync)
+	{
+		super.load(set, forSync);
+		this.gasStored = set.getInt("gasStored");
+		this.maxGas = set.getInt("maxGas");
+		this.gasType = set.getString("gasType");
+	}
+
+	@Override
+	public int getCurrentGas()
 	{
 		return this.gasStored;
 	}
 
 	@Override
-	public int getMaxGas() 
+	public int getMaxGas()
 	{
 		return this.maxGas;
 	}
 
 	@Override
-	public String getGasType() 
+	public String getGasType()
 	{
 		return this.gasType;
 	}
 
 	@Override
-	public boolean removeGas(int amount) 
+	public boolean removeGas(int amount)
 	{
 		if (this.gasStored >= amount)
 		{
 			this.gasStored -= amount;
-			
+
 			if (this.gasStored == 0)
 			{
 				this.gasType = ModGasses.gasVacuum.toString();
@@ -93,7 +93,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	}
 
 	@Override
-	public boolean addGas(int amount, String type) 
+	public boolean addGas(int amount, String type)
 	{
 		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(ModGasses.gasVacuum.toString()))
 		{
@@ -113,7 +113,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	}
 
 	@Override
-	public boolean setGasType(String type) 
+	public boolean setGasType(String type)
 	{
 		if (this.gasType == ModGasses.gasVacuum.toString() || this.gasStored == 0)
 		{

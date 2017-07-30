@@ -6,11 +6,12 @@ import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class GasVacuum extends Gas
+public class GasHydrogen extends Gas
 {
-	public GasVacuum()
+	public GasHydrogen()
 	{
-		super("gasVacuum");
+		super("gasHydrogen");
+		this.register();
 	}
 
 	@Override

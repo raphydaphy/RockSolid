@@ -14,21 +14,24 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileCustomDrop extends TileBase
 {
 	private final ItemInstance itemDrop;
-	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel) 
+
+	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel)
 	{
 		super(RockSolidLib.makeRes(name), oreHardness, toolLevel);
 		itemDrop = drop;
 	}
-	
+
 	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel, ToolType toolType)
 	{
 		super(RockSolidLib.makeRes(name), oreHardness, toolLevel, toolType);
 		itemDrop = drop;
 	}
-	
+
 	@Override
-    public List<ItemInstance> getDrops(final IWorld world, final int x, final int y, final TileLayer layer, final Entity destroyer) {
-        return Collections.singletonList(itemDrop);
-    }
+	public List<ItemInstance> getDrops(final IWorld world, final int x, final int y, final TileLayer layer,
+			final Entity destroyer)
+	{
+		return Collections.singletonList(itemDrop);
+	}
 
 }

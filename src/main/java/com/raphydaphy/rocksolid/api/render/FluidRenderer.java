@@ -16,22 +16,24 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class FluidRenderer<T extends Fluid> extends DefaultTileRenderer<Fluid>
 {
-	public FluidRenderer(IResourceName texture) 
+	public FluidRenderer(IResourceName texture)
 	{
 		super(texture);
 	}
-		
+
 	@Override
-    public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, Fluid tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
-    {
-		
+	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, Fluid tile, TileState state,
+			int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	{
+
 		int blockMeta = world.getState(x, y).get(Fluid.fluidLevel);
-		
-        if (blockMeta > 0)
-        {
-    		Texture curTex = manager.getTexture(super.texture).getSubTexture(0, 0, 12,  blockMeta);
-    		curTex.drawWithLight(renderX, renderY + (((scale / 12) * (13 - blockMeta)) - (scale /12)), scale, (scale / 12) * (blockMeta), light);
-        }
-    }
+
+		if (blockMeta > 0)
+		{
+			Texture curTex = manager.getTexture(super.texture).getSubTexture(0, 0, 12, blockMeta);
+			curTex.drawWithLight(renderX, renderY + (((scale / 12) * (13 - blockMeta)) - (scale / 12)), scale,
+					(scale / 12) * (blockMeta), light);
+		}
+	}
 
 }
