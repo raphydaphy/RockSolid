@@ -60,10 +60,11 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 	{
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored >= fluidConsumptionPerTick && this.fluidType.equals(ModFluids.fluidWater.toString()))
 		{
-			if (RockBottomAPI.getNet().isClient() == false)
+			if (this.coalTime > 0)
 			{
-				if (this.coalTime > 0)
+				if (RockBottomAPI.getNet().isClient() == false)
 				{
+			
 					if (this.gasType.equals(ModGasses.gasVacuum.toString()))
 					{
 						this.gasType = ModGasses.gasSteam.toString();

@@ -9,7 +9,7 @@ import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.init.ModPackets;
-import com.raphydaphy.rocksolid.init.ModRecipies;
+import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.IApiHandler;
@@ -86,7 +86,7 @@ public class RockSolid implements IMod
 	@Override
 	public void postInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
 	{
-		ModRecipies.init();
+		ModRecipes.init();
 
 	}
 }

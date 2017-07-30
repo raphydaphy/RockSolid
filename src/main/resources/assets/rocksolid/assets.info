@@ -524,6 +524,21 @@ tex.tiles.boiler.4.2.1=/tiles/boiler/boiler.4.2.1.png
 tex.tiles.boiler.5.2.1=/tiles/boiler/boiler.5.2.1.png
 tex.tiles.boiler.6.2.1=/tiles/boiler/boiler.6.2.1.png
 
+## Liquid Boiler
+tex.tiles.liquidBoiler.0.0=sub./tiles/liquid_boiler/liquid_boiler.png,0,24,12,12
+tex.tiles.liquidBoiler.1.0=sub./tiles/liquid_boiler/liquid_boiler.png,12,24,12,12
+tex.tiles.liquidBoiler.0.1=sub./tiles/liquid_boiler/liquid_boiler.png,0,12,12,12
+tex.tiles.liquidBoiler.0.2=sub./tiles/liquid_boiler/liquid_boiler.png,0,0,12,12
+tex.tiles.liquidBoiler.1.1=sub./tiles/liquid_boiler/liquid_boiler.png,12,12,12,12
+tex.tiles.liquidBoiler.1.2=sub./tiles/liquid_boiler/liquid_boiler.png,12,0,12,12
+tex.tiles.liquidBoiler.active.0.0=sub./tiles/liquid_boiler/liquid_boiler_active.png,0,24,12,12
+tex.tiles.liquidBoiler.active.1.0=sub./tiles/liquid_boiler/liquid_boiler_active.png,12,24,12,12
+tex.tiles.liquidBoiler.active.0.1=sub./tiles/liquid_boiler/liquid_boiler_active.png,0,12,12,12
+tex.tiles.liquidBoiler.active.0.2=sub./tiles/liquid_boiler/liquid_boiler_active.png,0,0,12,12
+tex.tiles.liquidBoiler.active.1.1=sub./tiles/liquid_boiler/liquid_boiler_active.png,12,12,12,12
+tex.tiles.liquidBoiler.active.1.2=sub./tiles/liquid_boiler/liquid_boiler_active.png,12,0,12,12
+tex.tiles.liquidBoiler.item=/tiles/liquid_boiler/liquid_boiler_item.png
+
 ## Charger
 tex.tiles.charger.item=/tiles/charger/charger_item.png
 tex.tiles.charger.0.0=/tiles/charger/charger.0.0.png

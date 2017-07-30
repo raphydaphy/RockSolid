@@ -14,7 +14,7 @@ import de.ellpeck.rockbottom.api.construction.SeparatorRecipe;
 import de.ellpeck.rockbottom.api.construction.SmelterRecipe;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
-public class ModRecipies
+public class ModRecipes
 {
 	public static void init()
 	{
@@ -162,6 +162,11 @@ public class ModRecipies
 						new ItemInstance(ModItems.gemCoke, 4), new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 40),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40) }));
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.liquidBoiler),
+				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockTitanium, 1),
+						new ItemInstance(ModItems.ingotMagnesium, 4), new ItemInstance(ModItems.ingotSteel, 8),
+						new ItemInstance(GameContent.TILE_ROCK, 80),
+						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60) }));
 
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.turbine),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),

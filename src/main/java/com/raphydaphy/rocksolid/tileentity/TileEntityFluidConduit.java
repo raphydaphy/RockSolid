@@ -3,6 +3,9 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 import com.raphydaphy.rocksolid.api.fluid.IFluidTile;
+import com.raphydaphy.rocksolid.api.fluid.IMultiFluidAcceptor;
+import com.raphydaphy.rocksolid.api.fluid.IMultiFluidProducer;
+import com.raphydaphy.rocksolid.api.fluid.IMultiFluidTile;
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -10,6 +13,7 @@ import com.raphydaphy.rocksolid.util.RockSolidLib;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -142,6 +146,72 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 								}
 							}
 						}
+					} else if (IMultiFluidTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
+					{
+						IMultiFluidTile adjMultiFluid = (IMultiFluidTile) adjacentTileEntity;
+						MultiTile theMultiTile = (MultiTile) world
+								.getState(adjacentTilePos.getX(), adjacentTilePos.getY()).getTile();
+						Pos2 innerCoord = theMultiTile
+								.getInnerCoord(world.getState(adjacentTilePos.getX(), adjacentTilePos.getY()));
+						int thisFluidTank = adjMultiFluid.getTankNumber(innerCoord);
+						if (thisFluidTank != -1)
+						{
+							if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank].equals(this.fluidType)
+									|| this.fluidType.equals(ModFluids.fluidEmpty.toString())
+									|| ((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
+											.equals(ModFluids.fluidEmpty.toString()))
+							{
+								if (IMultiFluidProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
+								{
+									if ((((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank].equals(this.fluidType))
+										|| this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+									{
+										// Conduit is set to input mode
+										if (this.getSideMode(adjacentTile) == 1)
+										{
+		
+											if (this.fluidStored < (this.maxFluid - transferRate)
+													&& ((IMultiFluidProducer) adjacentTileEntity).getFluidTanksStorage()[thisFluidTank] >= transferRate)
+											{
+												String wasFluidType = ((IMultiFluidProducer) adjacentTileEntity).getFluidTanksType()[thisFluidTank];
+												// pull fluid from adjacent tile
+												if (((IMultiFluidProducer) adjacentTileEntity).removeFluid(transferRate, thisFluidTank))
+												{
+													this.addFluid(transferRate, wasFluidType);
+													this.shouldSync = true;
+												}
+											}
+										}
+									}
+								}
+	
+								if (IMultiFluidAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
+								{
+									// Conduit is set to output mode
+									if (this.getSideMode(adjacentTile) == 0)
+									{
+	
+										if (this.fluidStored >= transferRate)
+										{
+											if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
+													.equals(ModFluids.fluidEmpty.toString()))
+											{
+												// set the fluid type in the
+												// adjacent tile to match this
+												((IMultiFluidAcceptor) adjacentTileEntity).setFluidType(this.fluidType, thisFluidTank);
+											}
+											// send fluid to adjacent tile
+											if (((IMultiFluidAcceptor) adjacentTileEntity).addFluid(transferRate,
+													this.fluidType, thisFluidTank))
+											{
+												this.removeFluid(transferRate);
+												shouldSync = true;
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 
 				}
@@ -224,7 +294,19 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	@Override
 	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
 	{
-		return IFluidTile.class.isAssignableFrom(adjacentBlock);
+		if (IFluidTile.class.isAssignableFrom(adjacentBlock))
+		{
+			return true;
+		} else if (IMultiFluidTile.class.isAssignableFrom(adjacentBlock))
+		{
+			Pos2 innerCoord = ((MultiTile) world.getState(pos.getX(), pos.getY()).getTile())
+					.getInnerCoord(world.getState(pos.getX(), pos.getY()));
+			if (((IMultiFluidTile) tile).getSideMode(innerCoord.getX(), innerCoord.getY()) != 2)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

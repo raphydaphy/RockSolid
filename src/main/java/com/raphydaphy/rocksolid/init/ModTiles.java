@@ -23,6 +23,7 @@ import com.raphydaphy.rocksolid.tile.TileFluidPump;
 import com.raphydaphy.rocksolid.tile.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.TileGasTank;
 import com.raphydaphy.rocksolid.tile.TileLamp;
+import com.raphydaphy.rocksolid.tile.TileLiquidBoiler;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.TileQuarry;
@@ -61,6 +62,7 @@ public class ModTiles
 	public static Tile electrolyzer;
 
 	public static Tile boiler;
+	public static Tile liquidBoiler;
 	public static Tile turbine;
 	
 	public static Tile nuclearReactor;
@@ -109,6 +111,7 @@ public class ModTiles
 		electrolyzer = new TileElectrolyzer();
 
 		boiler = new TileBoiler();
+		liquidBoiler = new TileLiquidBoiler();
 		turbine = new TileTurbine();
 		
 		nuclearReactor = new TileNuclearReactor();
