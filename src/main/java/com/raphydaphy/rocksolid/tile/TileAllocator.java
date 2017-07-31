@@ -3,10 +3,9 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
-import com.raphydaphy.rocksolid.gui.GuiAllocator;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
-import com.raphydaphy.rocksolid.gui.container.ContainerAllocator;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
@@ -15,7 +14,6 @@ import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -83,32 +81,15 @@ public class TileAllocator extends TileBasic
 						return true;
 					} else
 					{
-						player.openGuiContainer(new GuiConduitConfig(player, tile),
-								new ContainerAllocator(player, tile));
+						player.openGuiContainer(new GuiConduitConfig(player, tile), new ContainerEmpty(player));
 						return true;
 					}
 				}
 			}
-			player.openGuiContainer(new GuiAllocator(player, tile), new ContainerAllocator(player, tile));
-			return true;
+			return false;
 		} else
 		{
 			return false;
-		}
-	}
-
-	@Override
-	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
-			final boolean forceDrop)
-	{
-		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-		if (!RockBottomAPI.getNet().isClient())
-		{
-			final TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
-			if (tile != null)
-			{
-				tile.dropInventory(tile.inventory);
-			}
 		}
 	}
 
@@ -135,17 +116,36 @@ public class TileAllocator extends TileBasic
 		return false;
 	}
 
+	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
+		if (tile != null)
+		{
+			tile.onAdded(world, x, y);
+		}
+	}
+
 	@Override
 	public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
 			TileLayer changedLayer)
 	{
 		super.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
 
-		TileEntityAllocator tile = (TileEntityAllocator) world.getTileEntity(x, y);
+		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
 
 		if (tile != null)
 		{
-			tile.onChangedAround(world, x, y, layer, changedX, changedY, changedLayer);
+			tile.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
+		}
+	}
+
+	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
+
+		if (tile != null)
+		{
+			tile.onRemoved(world, x, y, layer);
 		}
 	}
 

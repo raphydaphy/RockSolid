@@ -183,9 +183,9 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
+	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		return IEnergyTile.class.isAssignableFrom(adjacentBlock);
+		return tile instanceof IEnergyTile;
 	}
 
 	@Override

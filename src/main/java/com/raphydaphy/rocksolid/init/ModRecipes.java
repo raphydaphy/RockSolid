@@ -105,23 +105,26 @@ public class ModRecipes
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(ModItems.ingotUranium),
 				new ItemInstance(ModItems.gritUranium), 300));
 
-		// Remove super pickaxe recipe
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.remove(6);
-
+		// Remove super pickaxe recipe?
+		
+		
 		// misc manual crafting recipies
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.alloySmelter),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.alloySmelter),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotTin, 10),
 						new ItemInstance(GameContent.ITEM_COPPER_INGOT, 10),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 30),
 						new ItemInstance(GameContent.TILE_ROCK, 60) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.blastFurnace),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.blastFurnace),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotIron, 15),
 						new ItemInstance(ModItems.ingotBronze, 5), new ItemInstance(GameContent.TILE_ROCK, 130),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40) }));
-
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.chest),
+		
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_CONSTRUCTION_TABLE, 1),
+				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8),
+						new ItemInstance(GameContent.TILE_LOG, 4) }));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.chest),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 20) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_DOOR),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_DOOR),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10),
 						new ItemInstance(GameContent.TILE_ROCK, 5) }));
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_LADDER, 4),
@@ -130,17 +133,17 @@ public class ModRecipes
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModItems.wrench), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotTin, 2) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.jetpack),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.jetpack),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 4),
 						new ItemInstance(ModTiles.constructionBlockTitanium, 2),
 						new ItemInstance(ModItems.ingotImpureTitanium, 5), new ItemInstance(ModItems.ingotSteel, 10),
 						new ItemInstance(ModItems.ingotUranium, 5), new ItemInstance(ModItems.ingotTitanium, 8),
 						new ItemInstance(ModItems.ingotMagnesium, 5), new ItemInstance(GameContent.TILE_ROCK, 50) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.lantern),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.lantern),
 				new ItemInstance[] { new ItemInstance(GameContent.ITEM_GLOW_CLUSTER, 8),
 						new ItemInstance(ModItems.ingotTin, 10), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 20),
 						new ItemInstance(GameContent.TILE_ROCK, 30) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.electricLantern),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.electricLantern),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(ModItems.ingotSteel, 10), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40),
 						new ItemInstance(GameContent.TILE_ROCK, 80) }));
@@ -150,46 +153,46 @@ public class ModRecipes
 						new ItemInstance(GameContent.TILE_ROCK, 4) }));
 
 		// Electric manual crafting
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModTiles.constructionBlockSteel), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotSteel, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModTiles.constructionBlockTitanium), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(ModItems.ingotTitanium, 8) }));
 
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.boiler),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.boiler),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(ModItems.gemCoke, 4), new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 40),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.liquidBoiler),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.liquidBoiler),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockTitanium, 1),
 						new ItemInstance(ModItems.ingotMagnesium, 4), new ItemInstance(ModItems.ingotSteel, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 80),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60) }));
 
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.turbine),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.turbine),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(ModItems.ingotTin, 6), new ItemInstance(ModItems.ingotBronze, 12),
 						new ItemInstance(GameContent.TILE_ROCK, 30),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 70) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.nuclearReactor),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.nuclearReactor),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(ModTiles.constructionBlockTitanium),
 						new ItemInstance(ModItems.pelletUranium, 4), new ItemInstance(ModItems.ingotSteel, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 80),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 50) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.battery),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.battery),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 80),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60) }));
 
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.tank),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.tank),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotSteel, 4),
 						new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(GameContent.TILE_ROCK, 10),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasTank),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasTank),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotSteel, 4),
 						new ItemInstance(ModItems.ingotTin, 4), new ItemInstance(GameContent.TILE_ROCK, 30),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 15) }));
@@ -199,66 +202,66 @@ public class ModRecipes
 						new ItemInstance(GameContent.TILE_ROCK, 10),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 5) }));
 
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.energyConduit, 8),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.energyConduit, 8),
 				new ItemInstance[] { new ItemInstance(GameContent.ITEM_COPPER_INGOT, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 20),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.fluidConduit, 8),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.fluidConduit, 8),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotIron, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 20),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasConduit, 8),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasConduit, 8),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotSteel, 8),
 						new ItemInstance(GameContent.TILE_ROCK, 20),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.allocator, 8),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.allocator, 8),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotIron, 4), new ItemInstance(ModItems.ingotTin, 4),
 						new ItemInstance(GameContent.TILE_ROCK, 10),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 5) }));
 
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.fluidPump),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.fluidPump),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 1),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 55), new ItemInstance(GameContent.TILE_ROCK, 50),
 						new ItemInstance(ModTiles.tank, 1), new ItemInstance(ModItems.ingotSteel, 5) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricPurifier),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricPurifier),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60),
 						new ItemInstance(GameContent.TILE_ROCK, 120), new ItemInstance(ModItems.ingotBronze, 30),
 						new ItemInstance(ModItems.clumpClay, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electrolyzer),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electrolyzer),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockTitanium, 1),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 100),
 						new ItemInstance(GameContent.TILE_ROCK, 150), new ItemInstance(ModItems.ingotMagnesium, 30),
 						new ItemInstance(ModTiles.tank, 1) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricAlloySmelter),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricAlloySmelter),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 50),
 						new ItemInstance(GameContent.TILE_ROCK, 100), new ItemInstance(ModItems.ingotBronze, 18),
 						new ItemInstance(ModItems.ingotSteel, 5) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricBlastFurnace),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricBlastFurnace),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 60),
 						new ItemInstance(GameContent.TILE_ROCK, 120), new ItemInstance(ModItems.ingotBronze, 30),
 						new ItemInstance(ModItems.gemCoke, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricSeparator),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricSeparator),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 65),
 						new ItemInstance(GameContent.TILE_ROCK, 130), new ItemInstance(ModItems.ingotBronze, 25),
 						new ItemInstance(ModItems.ingotIron, 25) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricSmelter),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricSmelter),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 35), new ItemInstance(GameContent.TILE_ROCK, 80),
 						new ItemInstance(ModItems.ingotBronze, 15), new ItemInstance(ModItems.ingotTin, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.compressor),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.compressor),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 55), new ItemInstance(GameContent.TILE_ROCK, 50),
 						new ItemInstance(ModItems.ingotUranium, 15), new ItemInstance(ModItems.ingotMagnesium, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.charger),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.charger),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 35), new ItemInstance(GameContent.TILE_ROCK, 80),
 						new ItemInstance(ModItems.ingotBronze, 25), new ItemInstance(ModItems.ingotTin, 10),
 						new ItemInstance(ModItems.ingotMagnesium, 10) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.quarry),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.quarry),
 				new ItemInstance[] { new ItemInstance(ModTiles.constructionBlockTitanium, 4),
 						new ItemInstance(ModTiles.constructionBlockSteel, 2),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 150),
@@ -266,54 +269,54 @@ public class ModRecipes
 						new ItemInstance(ModItems.ingotTitanium, 10) }));
 
 		// Pickaxe manual crafting
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeBronze),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeBronze),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeCopper),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeCopper),
 				new ItemInstance[] { new ItemInstance(GameContent.ITEM_COPPER_INGOT, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeIron), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotIron, 8), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeSteel), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotSteel, 8), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeTitanium),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.pickaxeTitanium),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotTitanium, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
 
 		// Axe manual crafting
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeWood),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeWood),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 16) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeRock),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeRock),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_ROCK, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeCopper),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeCopper),
 				new ItemInstance[] { new ItemInstance(GameContent.ITEM_COPPER_INGOT, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeBronze),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeBronze),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModItems.axeIron), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotIron, 8), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES
 				.add(new BasicRecipe(new ItemInstance(ModItems.axeSteel), new ItemInstance[] {
 						new ItemInstance(ModItems.ingotSteel, 8), new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeTitanium),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.axeTitanium),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotTitanium, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
 
 		// Shovel manual crafting
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelWood),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelWood),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 16) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelRock),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelRock),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_ROCK, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelCopper),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelCopper),
 				new ItemInstance[] { new ItemInstance(GameContent.ITEM_COPPER_INGOT, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelIron),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.shovelIron),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotBronze, 8),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8) }));
 	}

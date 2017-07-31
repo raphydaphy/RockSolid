@@ -292,12 +292,12 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
+	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		if (IGasTile.class.isAssignableFrom(adjacentBlock))
+		if (tile instanceof IGasTile)
 		{
 			return true;
-		} else if (IMultiGasTile.class.isAssignableFrom(adjacentBlock))
+		} else if (tile instanceof IMultiGasTile)
 		{
 			Pos2 innerCoord = ((MultiTile) world.getState(pos.getX(), pos.getY()).getTile())
 					.getInnerCoord(world.getState(pos.getX(), pos.getY()));

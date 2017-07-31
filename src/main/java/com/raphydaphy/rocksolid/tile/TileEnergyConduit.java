@@ -9,13 +9,11 @@ import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
-import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
 import com.raphydaphy.rocksolid.tileentity.TileEntityEnergyConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -94,21 +92,6 @@ public class TileEnergyConduit extends TileBasic
 		} else
 		{
 			return false;
-		}
-	}
-
-	@Override
-	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
-			final boolean forceDrop)
-	{
-		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-		if (!RockBottomAPI.getNet().isClient())
-		{
-			final TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
-			if (tile != null)
-			{
-				tile.dropInventory(tile.inventory);
-			}
 		}
 	}
 

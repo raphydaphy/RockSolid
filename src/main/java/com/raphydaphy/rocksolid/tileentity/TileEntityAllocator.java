@@ -1,29 +1,23 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.IHasInventory;
-import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileEntityAllocator extends TileEntity implements IHasInventory, IConduit
+public class TileEntityAllocator extends TileEntity implements IConduit
 {
-
-	public static final int INPUT = 0;
-	public static final int OUTPUT = 1;
-	public final ContainerInventory inventory;
 
 	// 0 = output to the inventory
 	// 1 = input from the inventory
@@ -35,20 +29,23 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	private int modeRight = 0;
 
 	private boolean isMaster;
+	public boolean isDead;
 	private int masterX;
 	private int masterY;
 
 	private boolean shouldSync = false;
 
-	private short[][] inputs = new short[512][2];
-	private short[][] outputs = new short[512][2];
+	// format is {x, y, mode}
+	private short[][] network = new short[512][3];
+	private short networkLength = 0;
 
 	public TileEntityAllocator(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
-		this.inventory = new ContainerInventory(this, 6);
-
-		onAdded(world, x, y);
+		this.masterX = x;
+		this.masterY = y;
+		this.isMaster = true;
+		// onAdded(world, x, y);
 	}
 
 	@Override
@@ -62,20 +59,6 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	{
 		super.onSync();
 		shouldSync = false;
-	}
-
-	private boolean matchesFilter(ItemInstance test)
-	{
-		if (this.inventory.get(5) != null)
-		{
-			if (this.inventory.get(5).getItem().equals(test.getItem()))
-			{
-				return true;
-			}
-			return false;
-		}
-		return true;
-
 	}
 
 	@Override
@@ -95,150 +78,96 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 		// also causes a less op item processing rate of 1 every 10 ticks
 		if (world.getWorldInfo().totalTimeInWorld % 10 == 0 && RockBottomAPI.getNet().isClient() == false)
 		{
-			// first we extract stuff from nearby inventories into the pipes
-			// inventory
-			for (int adjacentTiles = 0; adjacentTiles < 4; adjacentTiles++)
+			if (this.isMaster)
 			{
-				// if the selected adjacent tile is specified for input into the
-				// conduits
-				if (this.getSideMode(adjacentTiles) == 1)
+				for (int curNet = 0; curNet < networkLength; curNet++)
 				{
-					// try to get a tileentity from the selected adjacent side
-					// block
-					TileEntity tryExtract = RockSolidLib.getTileFromConduitSide(new Pos2(x, y), adjacentTiles, world);
-
-					if (tryExtract != null)
+					Pos2 tilePos = new Pos2(this.network[curNet][0], this.network[curNet][1]);
+					TileEntity tile = RockSolidLib.getTileFromPos(tilePos.getX(), tilePos.getY(), world);
+					if (tile != null && tile instanceof IHasInventory)
 					{
-						Inventory extractInventory = null;
-						List<Integer> extractSlots = new ArrayList<Integer>();
-
-						if (tryExtract instanceof IHasInventory)
+						// if the inventory is set to input into the network (
+						// INPUT )
+						if (this.network[curNet][2] == 1)
 						{
-							extractInventory = ((IHasInventory) tryExtract).getInventory();
-							extractSlots = ((IHasInventory) tryExtract).getOutputs();
-
-							if (extractSlots == null || extractSlots.size() == 0)
+							IHasInventory invTile = ((IHasInventory) tile);
+							ItemInstance wouldInput = RockSolidLib.getToExtract(invTile, 1);
+							if (wouldInput != null)
 							{
-								extractInventory = null;
-							}
-						}
-
-						if (extractInventory != null)
-						{
-							for (int curExtractSlot = 0; curExtractSlot < extractSlots.size(); curExtractSlot++)
-							{
-								if (extractInventory.get(extractSlots.get(curExtractSlot)) != null
-										&& matchesFilter(extractInventory.get(extractSlots.get(curExtractSlot))))
+								for (int curNetOut = 0; curNetOut < networkLength; curNetOut++)
 								{
-									for (int invCount = 0; invCount < 4; invCount++)
+									Pos2 tilePosOut = new Pos2(this.network[curNetOut][0], this.network[curNetOut][1]);
+									TileEntity tileOut = RockSolidLib.getTileFromPos(tilePosOut.getX(),
+											tilePosOut.getY(), world);
+									if (tile != null && tile instanceof IHasInventory)
 									{
-										if (this.inventory.get(invCount) == null)
+										// if the inventory is set to output
+										// into from the network (OUTPUT )
+										if (this.network[curNetOut][2] == 0 && tileOut instanceof IHasInventory)
 										{
-											this.inventory
-													.set(invCount,
-															new ItemInstance(extractInventory
-																	.get(extractSlots.get(curExtractSlot)).getItem(),
-																	1));
-											extractInventory.remove(extractSlots.get(curExtractSlot), 1);
-											shouldSync = true;
-											break;
-										} else if (this.inventory.get(invCount).getItem().equals(
-												extractInventory.get(extractSlots.get(curExtractSlot)).getItem()))
-										{
-											if (this.inventory.get(invCount)
-													.getAmount() > this.inventory.get(invCount).getMaxAmount() - 1)
+											if (RockSolidLib.canInsert((IHasInventory) tileOut, wouldInput))
 											{
-												// wait for next inventory count
-												continue;
-											} else
-											{
-												this.inventory.add(invCount, 1);
-												extractInventory.remove(extractSlots.get(curExtractSlot), 1);
-												shouldSync = true;
+												ItemInstance input = RockSolidLib.extract(invTile, 1);
+												RockSolidLib.insert((IHasInventory) tileOut, input);
 												break;
 											}
 										}
-
 									}
 								}
+
 							}
-
 						}
-
 					}
-				}
-			}
-
-			// now we insert stuff
-			for (int adjacentTiles = 0; adjacentTiles < 4; adjacentTiles++)
-			{
-				// if the selected adjacent tile is specified for output from
-				// the conduits
-				if (this.getSideMode(adjacentTiles) == 0)
-				{
-					// try to get a tileentity from the selected adjacent side
-					// block
-					TileEntity tryInsert = RockSolidLib.getTileFromConduitSide(new Pos2(x, y), adjacentTiles, world);
-
-					if (tryInsert != null)
+					else if (tile == null)
 					{
-						Inventory insertInventory = null;
-						List<Integer> insertSlots = new ArrayList<Integer>();
-
-						if (tryInsert instanceof IHasInventory)
-						{
-							insertInventory = ((IHasInventory) tryInsert).getInventory();
-							insertSlots = ((IHasInventory) tryInsert).getInputs();
-
-							if (insertSlots == null || insertSlots.size() == 0)
-							{
-								insertInventory = null;
-							}
-						}
-
-						if (insertInventory != null)
-						{
-							for (int invCount = 0; invCount < 4; invCount++)
-							{
-								if (this.inventory.get(invCount) != null)
-								{
-									for (int curInsertSlot = 0; curInsertSlot < insertSlots.size(); curInsertSlot++)
-									{
-										if (insertInventory.get(insertSlots.get(curInsertSlot)) == null)
-										{
-											insertInventory.set(insertSlots.get(curInsertSlot),
-													new ItemInstance(this.inventory.get(invCount).getItem(), 1));
-											this.inventory.remove(invCount, 1);
-											shouldSync = true;
-											break;
-										} else if (insertInventory.get(insertSlots.get(curInsertSlot))
-												.getAmount() >= insertInventory.get(insertSlots.get(curInsertSlot))
-														.getMaxAmount())
-										{
-											continue;
-										} else if (insertInventory.get(insertSlots.get(curInsertSlot)).getItem()
-												.equals(this.inventory.get(invCount).getItem()))
-										{
-											this.inventory.remove(invCount, 1);
-											insertInventory.add(insertSlots.get(curInsertSlot), 1);
-											shouldSync = true;
-											break;
-										}
-									}
-
-								}
-							}
-						}
+						this.removeFromNetwork(curNet);
 					}
 				}
 			}
-
+			else
+			{
+				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				if (master == null)
+				{
+					for (Direction dir : Direction.SURROUNDING)
+					{
+						Pos2 pos = new Pos2(x + dir.x, y + dir.y);
+						
+						if (pos.getX() == masterX && pos.getY() == masterY)
+						{
+							System.out.println("Found old master at " + masterX + ", " + masterY + ", moving to here at " + x + ", " + y);
+							this.setMaster(new Pos2(x, y));
+						}
+					}
+					
+				}
+			}
+		}
+	}
+	
+	public void removeFromNetwork(int id)
+	{
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			if (this.isMaster)
+			{
+				this.networkLength--;
+				this.network[id] = this.network[networkLength];
+				this.network[networkLength] = new short[]{0,0,2};
+			}
+			else
+			{
+				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				if (master != null)
+				{
+					master.removeFromNetwork(id);
+				}
+			}
 		}
 	}
 
 	public void setSideMode(int side, int mode)
 	{
-		shouldSync = true;
 		switch (side)
 		{
 		case 0:
@@ -258,6 +187,9 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 			modeRight = mode;
 			break;
 		}
+		Pos2 pos = RockSolidLib.conduitSideToPos(new Pos2(this.x, this.y), side);
+		this.onChangeAround(world, x, y, TileLayer.MAIN, pos.getX(), pos.getY(), TileLayer.MAIN);
+		shouldSync = true;
 	}
 
 	public int getSideMode(int side)
@@ -280,10 +212,6 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 	public void save(final DataSet set, final boolean forSync)
 	{
 		super.save(set, forSync);
-		if (!forSync)
-		{
-			this.inventory.save(set);
-		}
 		set.addInt("modeUp", this.modeUp);
 		set.addInt("modeDown", this.modeDown);
 		set.addInt("modeLeft", this.modeLeft);
@@ -291,19 +219,16 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 		set.addBoolean("isMaster", this.isMaster);
 		set.addInt("masterX", this.masterX);
 		set.addInt("masterY", this.masterY);
-		set.addShortShortArray("inputs", this.inputs);
-		set.addShortShortArray("outputs", this.outputs);
+		set.addShortShortArray("network", this.network);
 		set.addBoolean("shouldSync", this.shouldSync);
+		set.addBoolean("isDead", this.isDead);
+		set.addShort("networkLength", this.networkLength);
 	}
 
 	@Override
 	public void load(final DataSet set, final boolean forSync)
 	{
 		super.load(set, forSync);
-		if (!forSync)
-		{
-			this.inventory.load(set);
-		}
 		this.modeUp = set.getInt("modeUp");
 		this.modeDown = set.getInt("modeDown");
 		this.modeLeft = set.getInt("modeLeft");
@@ -311,328 +236,273 @@ public class TileEntityAllocator extends TileEntity implements IHasInventory, IC
 		this.isMaster = set.getBoolean("isMaster");
 		this.masterX = set.getInt("masterX");
 		this.masterY = set.getInt("masterY");
-		this.inputs = set.getShortShortArray("inputs", 1024);
-		this.outputs = set.getShortShortArray("outputs", 1024);
+		this.network = set.getShortShortArray("network", 512);
 		this.shouldSync = set.getBoolean("shouldSync");
-	}
-
-	@Override
-	public Inventory getInventory()
-	{
-		return this.inventory;
-	}
-
-	@Override
-	public List<Integer> getInputs()
-	{
-		return null;
-	}
-
-	@Override
-	public List<Integer> getOutputs()
-	{
-
-		List<Integer> extractSlots = new ArrayList<Integer>();
-		extractSlots.add(0);
-		extractSlots.add(1);
-		extractSlots.add(2);
-		extractSlots.add(3);
-		extractSlots.add(4);
-		return extractSlots;
+		this.isDead = set.getBoolean("isDead");
+		this.networkLength = set.getShort("inputLength");
 	}
 
 	public void onAdded(IWorld world, int x, int y)
 	{
-		if (RockBottomAPI.getNet().isClient() == false)
+		if (!world.isClient())
 		{
-			TileEntityAllocator adjacentTile = null;
-			if (RockSolidLib.getTileFromPos(x, y + 1, world) != null
-					&& RockSolidLib.getTileFromPos(x, y + 1, world) instanceof TileEntityAllocator)
+			System.out.println("new allocator added.");
+			for (Direction dir : Direction.ADJACENT)
 			{
-				adjacentTile = (TileEntityAllocator) RockSolidLib.getTileFromPos(x, y + 1, world);
-				this.isMaster = false;
-				System.out.println("A worthy servant was added to the world.");
-				this.masterX = adjacentTile.getMaster().getX();
-				this.masterY = adjacentTile.getMaster().getY();
-				shouldSync = true;
-			} else if (RockSolidLib.getTileFromPos(x, y - 1, world) != null
-					&& RockSolidLib.getTileFromPos(x, y - 1, world) instanceof TileEntityAllocator)
-			{
-				adjacentTile = (TileEntityAllocator) RockSolidLib.getTileFromPos(x, y - 1, world);
-				this.isMaster = false;
-				System.out.println("A worthy servant was added to the world.");
-				this.masterX = adjacentTile.getMaster().getX();
-				this.masterY = adjacentTile.getMaster().getY();
-				shouldSync = true;
-			} else if (RockSolidLib.getTileFromPos(x - 1, y, world) != null
-					&& RockSolidLib.getTileFromPos(x - 1, y, world) instanceof TileEntityAllocator)
-			{
-				adjacentTile = (TileEntityAllocator) RockSolidLib.getTileFromPos(x - 1, y, world);
-				this.isMaster = false;
-				System.out.println("A worthy servant was added to the world.");
-				this.masterX = adjacentTile.getMaster().getX();
-				this.masterY = adjacentTile.getMaster().getY();
-				shouldSync = true;
-			} else if (RockSolidLib.getTileFromPos(x + 1, y, world) != null
-					&& RockSolidLib.getTileFromPos(x + 1, y, world) instanceof TileEntityAllocator)
-			{
-				adjacentTile = (TileEntityAllocator) RockSolidLib.getTileFromPos(x + 1, y, world);
-				this.isMaster = false;
-				System.out.println("A worthy servant was added to the world.");
-				this.masterX = adjacentTile.getMaster().getX();
-				this.masterY = adjacentTile.getMaster().getY();
-				shouldSync = true;
-			} else
-			{
-				System.out.println("A new block was added to the world. It is the masterr!");
-				this.isMaster = true;
-				shouldSync = true;
-			}
+				this.onChangeAround(world, x, y, TileLayer.MAIN, x + dir.x, y + dir.y, TileLayer.MAIN);
+				/*
+				TileEntity thisTile = world.getTileEntity(x + dir.x, y + dir.y);
 
-			TileEntity adjacentBlock = null;
-
-			if (RockSolidLib.getTileFromPos(x, y + 1, world) != null
-					&& RockSolidLib.getTileFromPos(x, y + 1, world) instanceof IHasInventory)
-			{
-				adjacentBlock = RockSolidLib.getTileFromPos(x, y + 1, world);
-
-				if (!(adjacentBlock instanceof TileEntityAllocator))
+				if (thisTile instanceof TileEntityAllocator
+						&& this.canConnectTo(new Pos2(x + dir.x, y + dir.y), thisTile))
 				{
-					// see if there is any slots that the adjacent tile can
-					// output from
-					if (((IHasInventory) adjacentBlock).getOutputs() != null)
+					TileEntityAllocator allocator = (TileEntityAllocator) thisTile;
+
+					// if not the same master
+					if (!(this.getMaster().equals(allocator.getMaster())))
 					{
-						// store the inventory to the master
-						addToMaster(new Pos2(x, y + 1), false, world);
+						System.out.println("New allocator is not the master");
+						this.setMaster(allocator.getMaster());
 					}
-
-				}
-			}
-			if (RockSolidLib.getTileFromPos(x, y - 1, world) != null
-					&& RockSolidLib.getTileFromPos(x, y - 1, world) instanceof IHasInventory)
-			{
-				adjacentBlock = RockSolidLib.getTileFromPos(x, y - 1, world);
-
-				if (!(adjacentBlock instanceof TileEntityAllocator))
+				} else if (thisTile instanceof IHasInventory)
 				{
-					// see if there is any slots that the adjacent tile can
-					// output from
-					if (((IHasInventory) adjacentBlock).getOutputs() != null)
-					{
-						// store the inventory to the master
-						addToMaster(new Pos2(x, y - 1), false, world);
-					}
+					int thisMode = this.getSideMode(
+							RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(x + dir.x, y + dir.y)));
+					this.addToNetwork((short) thisTile.x, (short) thisTile.y, (short) thisMode);
+				}*/
 
-				}
-			}
-			if (RockSolidLib.getTileFromPos(x - 1, y, world) != null
-					&& RockSolidLib.getTileFromPos(x - 1, y, world) instanceof IHasInventory)
-			{
-				adjacentBlock = RockSolidLib.getTileFromPos(x - 1, y, world);
-
-				if (!(adjacentBlock instanceof TileEntityAllocator))
-				{
-					// see if there is any slots that the adjacent tile can
-					// output from
-					if (((IHasInventory) adjacentBlock).getOutputs() != null)
-					{
-						// store the inventory to the master
-						addToMaster(new Pos2(x - 1, y), false, world);
-					}
-
-				}
-			}
-			if (RockSolidLib.getTileFromPos(x + 1, y, world) != null
-					&& RockSolidLib.getTileFromPos(x + 1, y, world) instanceof IHasInventory)
-			{
-				adjacentBlock = RockSolidLib.getTileFromPos(x + 1, y, world);
-
-				if (!(adjacentTile instanceof TileEntityAllocator))
-				{
-					// see if there is any slots that the adjacent tile can
-					// output from
-					if (((IHasInventory) adjacentBlock).getOutputs() != null)
-					{
-						// store the inventory to the master
-						addToMaster(new Pos2(x + 1, y), false, world);
-					}
-
-				}
 			}
 		}
 	}
 
-	public void assignNewMaster(Pos2 newMaster, IWorld world)
-	{
-		if (RockBottomAPI.getNet().isClient() == false)
-		{
-			TileEntityAllocator newMasterTile = (TileEntityAllocator) RockSolidLib.getTileFromPos(newMaster.getX(),
-					newMaster.getY(), world);
-
-			if (isMaster)
-			{
-				// add all known inputs to the new master
-				for (int curInput = 0; curInput < 512; curInput++)
-				{
-					if (inputs[curInput] == null)
-					{
-						break;
-					}
-
-					newMasterTile.addToMaster(new Pos2(inputs[curInput][0], inputs[curInput][1]), true, world);
-				}
-
-				// add all known outputs to the new master
-				for (int curOutput = 0; curOutput < 512; curOutput++)
-				{
-					if (outputs[curOutput] == null)
-					{
-						break;
-					}
-
-					newMasterTile.addToMaster(new Pos2(outputs[curOutput][0], outputs[curOutput][1]), true, world);
-				}
-
-				isMaster = false;
-			}
-
-			masterX = newMaster.getX();
-			masterY = newMaster.getY();
-			shouldSync = true;
-		}
-
-	}
-
-	public boolean getIsMaster()
-	{
-		return isMaster;
-	}
-
-	public void addToMaster(Pos2 inventory, boolean isInput, IWorld world)
+	public void sendAllToMaster()
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
 			if (isMaster)
 			{
-				if (isInput)
-				{
-					for (int curInput = 0; curInput < 512; curInput++)
-					{
-						if (inputs[curInput] == null)
-						{
-							inputs[curInput] = new short[] { (short) inventory.getX(), (short) inventory.getY() };
-						}
-					}
-				} else
-				{
-					for (int curOutput = 0; curOutput < 512; curOutput++)
-					{
-						if (outputs[curOutput] == null)
-						{
-							outputs[curOutput] = new short[] { (short) inventory.getX(), (short) inventory.getY() };
-						}
-					}
-				}
+				return;
 			} else
 			{
-				TileEntity masterTile = RockSolidLib.getTileFromPos(masterX, masterY, world);
-
-				if (masterTile instanceof TileEntityAllocator)
+				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				if (master != null)
 				{
-					((TileEntityAllocator) masterTile).addToMaster(inventory, isInput, world);
+					master.updateNetwork(this.network, this.networkLength);
 				}
 			}
-			shouldSync = true;
 		}
 	}
 
-	public void removeFromMaster(Pos2 inventory, boolean isInput)
+	public void sendToMaster(short[][] sendNetwork, int sendNetworkLength)
 	{
-
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			if (isMaster)
+			{
+				return;
+			} else
+			{
+				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				if (master != null)
+				{
+					if (sendNetworkLength > 0)
+					{
+						master.updateNetwork(sendNetwork, sendNetworkLength);
+					}
+				}
+			}
+		}
 	}
 
-	public Pos2 getMaster()
+	public void updateNetwork(short[][] newNetwork, int length)
 	{
-		return new Pos2(masterX, masterY);
+		if (isMaster)
+		{
+			if (length > 0)
+			{
+				for (int i = 0; i < length; i++)
+				{
+					this.addToNetwork(newNetwork[i][0], newNetwork[i][1], newNetwork[i][2]);
+				}
+			}
+		} else if (isDead)
+		{
+			return;
+		} else
+		{
+			TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+
+			if (master != null && master != this)
+			{
+				master.updateNetwork(newNetwork, length);
+			}
+		}
 	}
 
-	public void onChangedAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
+	public void setMaster(Pos2 newMaster)
+	{
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			TileEntityAllocator newMasterTile = world.getTileEntity(newMaster.getX(), newMaster.getY(),
+					TileEntityAllocator.class);
+			TileState masterState = world.getState(newMaster.getX(), newMaster.getY());
+			if (newMasterTile != null && !newMasterTile.isDead && masterState.getTile() == ModTiles.allocator)
+			{
+				if (!this.getMaster().equals(newMaster))
+				{
+					System.out.println("setting the allocator at " + this.x + ", " + this.y +" to a new master at " + newMaster.getX() + ", " + newMaster.getY());
+					this.masterX = newMaster.getX();
+					this.masterY = newMaster.getY();
+					this.sendAllToMaster();
+
+					if (masterX != this.x || masterY != this.y)
+					{
+						this.isMaster = false;
+					}
+					
+					else if (masterX == this.x && masterY == this.y)
+					{
+						this.isMaster = true;
+					}
+					for (Direction dir : Direction.ADJACENT)
+					{
+						TileEntityAllocator found = world.getTileEntity(x + dir.x, y + dir.y,
+								TileEntityAllocator.class);
+						if (found != null && this.canConnectTo(new Pos2(x + dir.x, y + dir.y), found))
+						{
+							// if the adjacent tile dosent have the same master
+							// as
+							// this
+							if (!found.getMaster().equals(this.getMaster()))
+							{
+								found.setMaster(newMaster);
+							}
+						}
+					}
+					this.shouldSync = true;
+				}
+			}
+			else
+			{
+				this.setMaster(new Pos2(this.x, this.y));
+			}
+		}
+	}
+
+	public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
 			TileLayer changedLayer)
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
-			if (changedTile != null)
+			System.out.println("The thing changed at " + changedX + ", " + changedY);
+			if (x > Short.MAX_VALUE || y > Short.MAX_VALUE || x < Short.MIN_VALUE || y < Short.MIN_VALUE)
 			{
-				System.out.println("an update has been found");
-				updateSide(RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)), world,
-						new Pos2(x, y), new Pos2(changedX, changedY));
+				System.out
+						.println("GO BACK YOU WENT TOO FAR YOU CAN ONLY GO " + Short.MAX_VALUE + " BLOCKS PLEASE SIR!");
+				return;
+			}
+
+			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
+
+			if (changedTile instanceof TileEntityAllocator)
+			{
+				if (!((TileEntityAllocator) changedTile).isDead)
+				{
+					// if it has a different master
+					if (!((TileEntityAllocator) changedTile).getMaster().equals(this.getMaster()))
+					{
+						this.setMaster(((TileEntityAllocator) changedTile).getMaster());
+					}
+				}
+			} else if (changedTile instanceof IHasInventory)
+			{
+				int thisMode = this.getSideMode(
+						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+				System.out.println(
+						"A new inventory was placed near an allocator to a side with mode " + thisMode + " on side "
+								+ RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+				this.addToNetwork(changedX, changedY, thisMode);
 			}
 		}
 	}
 
-	public void updateSide(int side, IWorld world, Pos2 center, Pos2 changed)
+	public void addToNetwork(int x, int y, int mode)
 	{
-		if (RockBottomAPI.getNet().isClient() == false)
+		if (world.isClient() == false)
 		{
-			TileEntity changedTile = RockSolidLib.getTileFromPos(changed.getX(), changed.getY(), world);
-			if (changedTile instanceof TileEntityAllocator)
+			System.out.println("Adding to network #" + networkLength);
+			if (this.isMaster)
 			{
-				TileEntityAllocator changedAllocator = ((TileEntityAllocator) changedTile);
-				if (!(changedAllocator.getMaster().equals(this.getMaster())))
+				boolean alreadyHad = false;
+				for (int curInv = 0; curInv < networkLength; curInv++)
 				{
-					System.out.println("a different master has been found");
-					switch (side)
+					if (!alreadyHad)
 					{
-					case 0:
-						// up
-						System.out.println("upwards connection has different master block!");
-
-						break;
-					case 1:
-						// down
-						System.out.println("downwards connection has different master block!");
-						break;
-					case 2:
-						// left
-						System.out.println("left connection has different master block!");
-						break;
-					case 3:
-						// right
-						System.out.println("right connection has different master block!");
-						break;
+						if (network[curInv][0] == (short) x && network[curInv][1] == (short) y)
+						{
+							network[curInv][2] = (short) mode;
+							this.shouldSync = true;
+							alreadyHad = true;
+							break;
+						}
 					}
 				}
-
-			} else if (changedTile instanceof IHasInventory)
-			{
-				switch (side)
+				if (!alreadyHad)
 				{
-				case 0:
-					// up
-					System.out.println("updating upwards");
+					network[networkLength] = new short[] { (short) x, (short) y, (short) mode };
+					networkLength++;
+					this.shouldSync = true;
+				}
 
-					break;
-				case 1:
-					// down
-					System.out.println("updating downwards");
-					break;
-				case 2:
-					// left
-					System.out.println("updating to the left");
-					break;
-				case 3:
-					// right
-					System.out.println("updating to the right");
-					break;
+			} else
+			{
+				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				if (master != null)
+				{
+					master.addToNetwork(x, y, mode);
+				}
+			}
+		}
+	}
+
+	public Pos2 getMaster()
+	{
+		return new Pos2(this.masterX, this.masterY);
+	}
+
+	public boolean isMaster()
+	{
+		return this.isMaster;
+	}
+
+	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
+	{
+		
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			System.out.println("I was removed :( Goodbye");
+			this.isDead = true;
+			this.shouldSync = true;
+			
+			for (Direction dir : Direction.ADJACENT)
+			{
+				TileEntityAllocator thisTileHere = world.getTileEntity(x + dir.x, y + dir.y, TileEntityAllocator.class);
+				if (canConnectTo(new Pos2(x + dir.x, y + dir.y), thisTileHere))
+				{
+					thisTileHere.setMaster(new Pos2(thisTileHere.x, thisTileHere.y));
 				}
 			}
 		}
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
+	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		return IHasInventory.class.isAssignableFrom(adjacentBlock);
+		if (tile instanceof TileEntityAllocator)
+		{
+			return ((TileEntityAllocator) tile)
+					.getSideMode(RockSolidLib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2 && !((TileEntityAllocator)tile).isDead;
+		}
+		return tile instanceof IHasInventory;
 	}
 }

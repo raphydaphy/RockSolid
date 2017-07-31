@@ -19,7 +19,7 @@ public interface IConduit
 
 	// Returns true if the block can connect to the specified adjacent block
 	// type
-	boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile);
+	boolean canConnectTo(Pos2 pos, TileEntity tile);
 
 	void setSync();
 }

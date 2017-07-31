@@ -292,12 +292,12 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	}
 
 	@Override
-	public boolean canConnectTo(Class<?> adjacentBlock, Pos2 pos, TileEntity tile)
+	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		if (IFluidTile.class.isAssignableFrom(adjacentBlock))
+		if (tile instanceof IFluidTile)
 		{
 			return true;
-		} else if (IMultiFluidTile.class.isAssignableFrom(adjacentBlock))
+		} else if (tile instanceof IMultiFluidTile)
 		{
 			Pos2 innerCoord = ((MultiTile) world.getState(pos.getX(), pos.getY()).getTile())
 					.getInnerCoord(world.getState(pos.getX(), pos.getY()));

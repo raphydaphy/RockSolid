@@ -4,10 +4,13 @@ import org.newdawn.slick.Color;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.inventory.Inventory;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -134,22 +137,147 @@ public class RockSolidLib
 
 	public static int posAndOffsetToConduitSide(Pos2 center, Pos2 side)
 	{
-		Pos2 difference = center.add(-side.getX(), -side.getY());
+		Pos2 difference = center.add(-side.getX(),-side.getY());
+		difference.set(-difference.getX(), -difference.getY());
 		if (difference.getY() == -1)
 		{
-			return 0;
+			return 1;
 		} else if (difference.getY() == 1)
 		{
-			return 1;
+			return 0;
 		} else if (difference.getX() == 1)
 		{
-			return 2;
+			return 3;
 		} else if (difference.getX() == -1)
 		{
-			return 3;
+			return 2;
 		}
 
 		return 0;
+	}
+	
+	public static int invertSide(int side)
+	{
+		switch(side)
+		{
+		case 1:
+			return 0;
+		case 0:
+			return 1;
+		case 2:
+			return 3;
+		case 3:
+			return 2;
+		}
+		return 0;
+	}
+	
+	public static Inventory insert(IHasInventory container, ItemInstance item)
+	{
+		Inventory inv = container.getInventory();
+		if (item == null || container.getInputs().size() == 0)
+		{
+			return inv;
+		}
+		for (int slot : container.getInputs())
+		{
+			if (inv.get(slot) != null)
+			{
+				// if the slot has the same item and we can fit the stack in
+				if (inv.get(slot).getItem().equals(item.getItem()) && inv.get(slot).fitsAmount(1))
+				{
+					inv.set(slot, new ItemInstance(item.getItem(), item.getAmount() + inv.get(slot).getAmount()));
+					return inv;
+				}
+			}
+			else
+			{
+				inv.set(slot, item);
+				return inv;
+			}
+		}
+		return inv;
+	}
+	
+	public static ItemInstance extract(IHasInventory container, int maxAmount)
+	{
+		Inventory inv = container.getInventory();
+		if (container.getOutputs().size() == 0)
+		{
+			return null;
+		}
+		for (int slot : container.getOutputs())
+		{
+			if (inv.get(slot) != null)
+			{
+				// If we can pull the max amount
+				if (inv.get(slot).getAmount() > maxAmount)
+				{
+					ItemInstance output = inv.get(slot).copy().setAmount(maxAmount);
+					inv.remove(slot, maxAmount);
+					return output;
+				}
+				// if we have to pull only a portion of the max amount
+				else
+				{
+					ItemInstance output = inv.get(slot).copy();
+					inv.set(slot, null);
+					return output;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static ItemInstance getToExtract(IHasInventory container, int maxAmount)
+	{
+		Inventory inv = container.getInventory();
+		if (container.getOutputs().size() == 0)
+		{
+			return null;
+		}
+		for (int slot : container.getOutputs())
+		{
+			if (inv.get(slot) != null)
+			{
+				// If we can pull the max amount
+				if (inv.get(slot).getAmount() > maxAmount)
+				{
+					return inv.get(slot).copy().setAmount(maxAmount);
+				}
+				// if we have to pull only a portion of the max amount
+				else
+				{
+					return inv.get(slot).copy();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static boolean canInsert(IHasInventory container, ItemInstance item)
+	{
+		Inventory inv = container.getInventory();
+		if (item == null || container.getInputs().size() == 0)
+		{
+			return false;
+		}
+		for (int slot : container.getInputs())
+		{
+			if (inv.get(slot) != null)
+			{
+				// if the slot has the same item and we can fit the stack in
+				if (inv.get(slot).getItem().equals(item.getItem()) && inv.get(slot).fitsAmount(1))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
