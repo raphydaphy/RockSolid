@@ -117,14 +117,12 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 							}
 						}
-					}
-					else if (tile == null)
+					} else if (tile == null)
 					{
 						this.removeFromNetwork(curNet);
 					}
 				}
-			}
-			else
+			} else
 			{
 				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
 				if (master == null)
@@ -132,19 +130,20 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 					for (Direction dir : Direction.SURROUNDING)
 					{
 						Pos2 pos = new Pos2(x + dir.x, y + dir.y);
-						
+
 						if (pos.getX() == masterX && pos.getY() == masterY)
 						{
-							System.out.println("Found old master at " + masterX + ", " + masterY + ", moving to here at " + x + ", " + y);
+							System.out.println("Found old master at " + masterX + ", " + masterY
+									+ ", moving to here at " + x + ", " + y);
 							this.setMaster(new Pos2(x, y));
 						}
 					}
-					
+
 				}
 			}
 		}
 	}
-	
+
 	public void removeFromNetwork(int id)
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
@@ -153,9 +152,8 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			{
 				this.networkLength--;
 				this.network[id] = this.network[networkLength];
-				this.network[networkLength] = new short[]{0,0,2};
-			}
-			else
+				this.network[networkLength] = new short[] { 0, 0, 2 };
+			} else
 			{
 				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
 				if (master != null)
@@ -250,26 +248,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			for (Direction dir : Direction.ADJACENT)
 			{
 				this.onChangeAround(world, x, y, TileLayer.MAIN, x + dir.x, y + dir.y, TileLayer.MAIN);
-				/*
-				TileEntity thisTile = world.getTileEntity(x + dir.x, y + dir.y);
-
-				if (thisTile instanceof TileEntityAllocator
-						&& this.canConnectTo(new Pos2(x + dir.x, y + dir.y), thisTile))
-				{
-					TileEntityAllocator allocator = (TileEntityAllocator) thisTile;
-
-					// if not the same master
-					if (!(this.getMaster().equals(allocator.getMaster())))
-					{
-						System.out.println("New allocator is not the master");
-						this.setMaster(allocator.getMaster());
-					}
-				} else if (thisTile instanceof IHasInventory)
-				{
-					int thisMode = this.getSideMode(
-							RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(x + dir.x, y + dir.y)));
-					this.addToNetwork((short) thisTile.x, (short) thisTile.y, (short) thisMode);
-				}*/
 
 			}
 		}
@@ -339,6 +317,24 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 		}
 	}
 
+	public void resetMasterNetwork()
+	{
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			if (isMaster)
+			{
+				this.network = new short[512][3];
+			} else
+			{
+				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				if (master != null)
+				{
+					master.resetMasterNetwork();
+				}
+			}
+		}
+	}
+
 	public void setMaster(Pos2 newMaster)
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
@@ -350,7 +346,18 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			{
 				if (!this.getMaster().equals(newMaster))
 				{
-					System.out.println("setting the allocator at " + this.x + ", " + this.y +" to a new master at " + newMaster.getX() + ", " + newMaster.getY());
+					System.out.println("setting the allocator at " + this.x + ", " + this.y + " to a new master at "
+							+ newMaster.getX() + ", " + newMaster.getY());
+
+					for (Direction dir : Direction.ADJACENT)
+					{
+						TileEntity found = world.getTileEntity(x + dir.x, y + dir.y, TileEntity.class);
+						if (found instanceof IHasInventory)
+						{
+							this.onInventoryChanged(world, x, y, x + dir.x, y + dir.y);
+						}
+					}
+
 					this.masterX = newMaster.getX();
 					this.masterY = newMaster.getY();
 					this.sendAllToMaster();
@@ -359,7 +366,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 					{
 						this.isMaster = false;
 					}
-					
+
 					else if (masterX == this.x && masterY == this.y)
 					{
 						this.isMaster = true;
@@ -381,10 +388,36 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 					}
 					this.shouldSync = true;
 				}
-			}
-			else
+			} else
 			{
 				this.setMaster(new Pos2(this.x, this.y));
+			}
+		}
+	}
+
+	public void onInventoryChanged(IWorld world, int x, int y, int changedX, int changedY)
+	{
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			System.out.println("The thing changed at " + changedX + ", " + changedY);
+			if (x > Short.MAX_VALUE || y > Short.MAX_VALUE || x < Short.MIN_VALUE || y < Short.MIN_VALUE)
+			{
+				System.out
+						.println("GO BACK YOU WENT TOO FAR YOU CAN ONLY GO " + Short.MAX_VALUE + " BLOCKS PLEASE SIR!");
+				System.out.println(0 / 0);
+				return;
+			}
+
+			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
+
+			if (changedTile instanceof IHasInventory)
+			{
+				int thisMode = this.getSideMode(
+						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+				System.out.println(
+						"A new inventory was placed near an allocator to a side with mode " + thisMode + " on side "
+								+ RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+				this.addToNetwork(changedX, changedY, thisMode);
 			}
 		}
 	}
@@ -399,6 +432,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			{
 				System.out
 						.println("GO BACK YOU WENT TOO FAR YOU CAN ONLY GO " + Short.MAX_VALUE + " BLOCKS PLEASE SIR!");
+				System.out.println(0 / 0);
 				return;
 			}
 
@@ -416,12 +450,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				}
 			} else if (changedTile instanceof IHasInventory)
 			{
-				int thisMode = this.getSideMode(
-						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
-				System.out.println(
-						"A new inventory was placed near an allocator to a side with mode " + thisMode + " on side "
-								+ RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
-				this.addToNetwork(changedX, changedY, thisMode);
+				this.onInventoryChanged(world, x, y, changedX, changedY);
 			}
 		}
 	}
@@ -477,19 +506,21 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
 	{
-		
+
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
 			System.out.println("I was removed :( Goodbye");
 			this.isDead = true;
 			this.shouldSync = true;
-			
+
 			for (Direction dir : Direction.ADJACENT)
 			{
 				TileEntityAllocator thisTileHere = world.getTileEntity(x + dir.x, y + dir.y, TileEntityAllocator.class);
 				if (canConnectTo(new Pos2(x + dir.x, y + dir.y), thisTileHere))
 				{
+					thisTileHere.resetMasterNetwork();
 					thisTileHere.setMaster(new Pos2(thisTileHere.x, thisTileHere.y));
+					// thisTileHere.regenerateAll(true);
 				}
 			}
 		}
@@ -501,7 +532,8 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 		if (tile instanceof TileEntityAllocator)
 		{
 			return ((TileEntityAllocator) tile)
-					.getSideMode(RockSolidLib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2 && !((TileEntityAllocator)tile).isDead;
+					.getSideMode(RockSolidLib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2
+					&& !((TileEntityAllocator) tile).isDead;
 		}
 		return tile instanceof IHasInventory;
 	}
