@@ -31,7 +31,7 @@ public class GuiTurbine extends GuiContainer
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 40, 80, 10,
 				new Color(148, 0, 211), false, this.tile::getGeneratorFullness));
-		
+
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 25, 80, 10,
 				RockSolidLib.getGasColor(tile.getGasType()), false, this.tile::getGasTankFullness));
 	}
@@ -47,10 +47,11 @@ public class GuiTurbine extends GuiContainer
 
 		if (mouseOverBarX && mouseOverBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentEnergy() + "kWh of Energy", "Produces " + TileEntityTurbine.productionPerTick + "kWh per tick" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] { "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy",
+							"Produces " + TileEntityTurbine.productionPerTick + "kWh per tick" });
 		}
-		
+
 		boolean mouseOverGasBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
 				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
 		boolean mouseOverGasBarY = (game.getMouseInGuiY() >= this.guiTop + 25)
@@ -58,8 +59,11 @@ public class GuiTurbine extends GuiContainer
 
 		if (mouseOverGasBarX && mouseOverGasBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentGas() + "cc of " + RockSolidLib.getGasLocName(this.tile.getGasType()), "Consumes " + TileEntityTurbine.gasConsumptionPerTick + "cc per tick" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] {
+							"Storing " + this.tile.getCurrentGas() + "cc of "
+									+ RockSolidLib.getGasLocName(this.tile.getGasType()),
+							"Consumes " + TileEntityTurbine.gasConsumptionPerTick + "cc per tick" });
 		}
 	}
 

@@ -30,10 +30,10 @@ public class GuiBoiler extends GuiContainer
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 15, 80, 10,
 				RockSolidLib.getGasColor(tile.getGasType()), false, this.tile::getGeneratorFullness));
-		
+
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 0, 80, 10,
 				RockSolidLib.getFluidColor(tile.getFluidType()), false, this.tile::getFluidTankFullness));
-		
+
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 74, this.guiTop + 30, 8, 18,
 				GuiBoiler.FIRE_COLOR, true, this.tile::getFuelPercentage));
 	}
@@ -49,10 +49,13 @@ public class GuiBoiler extends GuiContainer
 
 		if (mouseOverBarX && mouseOverBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentGas() + "cc of " + RockSolidLib.getGasLocName(this.tile.getGasType()), "Produces " + TileEntityBoiler.productionPerTick + "cc per tick" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] {
+							"Storing " + this.tile.getCurrentGas() + "cc of "
+									+ RockSolidLib.getGasLocName(this.tile.getGasType()),
+							"Produces " + TileEntityBoiler.productionPerTick + "cc per tick" });
 		}
-		
+
 		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
 				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
 		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop + 0)
@@ -60,8 +63,11 @@ public class GuiBoiler extends GuiContainer
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentFluid() + "mL of " + RockSolidLib.getFluidLocName(this.tile.getFluidType()), "Consumes " + TileEntityBoiler.fluidConsumptionPerTick + "mL per tick" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] {
+							"Storing " + this.tile.getCurrentFluid() + "mL of "
+									+ RockSolidLib.getFluidLocName(this.tile.getFluidType()),
+							"Consumes " + TileEntityBoiler.fluidConsumptionPerTick + "mL per tick" });
 		}
 	}
 

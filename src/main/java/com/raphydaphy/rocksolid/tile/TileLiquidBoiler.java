@@ -77,7 +77,7 @@ public class TileLiquidBoiler extends MultiTile
 				return false;
 			}
 		}
-		
+
 		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
 		TileEntityLiquidBoiler tile = world.getTileEntity(main.getX(), main.getY(), TileEntityLiquidBoiler.class);
 
@@ -132,7 +132,7 @@ public class TileLiquidBoiler extends MultiTile
 	@Override
 	protected boolean[][] makeStructure()
 	{
-		return new boolean[][] { { true, true }, { true, true }, {true, true} };
+		return new boolean[][] { { true, true }, { true, true }, { true, true } };
 	}
 
 	@Override

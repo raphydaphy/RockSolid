@@ -81,12 +81,11 @@ public class GuiConduitConfig extends Gui
 		if (tile instanceof TileEntityAllocator && ((TileEntityAllocator) tile).isMaster())
 		{
 			this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Master"));
-		}
-		else
+		} else
 		{
 			this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
 		}
-		
+
 		if (((IConduit) tile).getSideMode(direction) == 0)
 		{
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output",

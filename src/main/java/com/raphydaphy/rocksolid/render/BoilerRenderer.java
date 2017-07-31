@@ -52,8 +52,7 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 	{
 		final Pos2 innerCoord = tile.getInnerCoord(state);
 		final Pos2 mainPos = tile.getMainPos(x, y, state);
-		final TileEntityBoiler tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(),
-				TileEntityBoiler.class);
+		final TileEntityBoiler tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityBoiler.class);
 		IResourceName tex;
 		if (innerCoord.getX() == 0)
 		{

@@ -91,7 +91,7 @@ public class TileElectrolyzer extends MultiTile
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
 	{

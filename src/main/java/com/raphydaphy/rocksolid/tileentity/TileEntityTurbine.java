@@ -15,14 +15,14 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 
 	private boolean shouldSync = false;
 	private boolean lastActive;
-	
+
 	public static final int productionPerTick = 30;
 	public static final int gasConsumptionPerTick = 1;
-	
+
 	protected int gasStored;
 	protected int maxGas = 5000;
 	protected String gasType = ModGasses.gasVacuum.toString();
-	
+
 	protected int energyStored;
 	protected int maxEnergy = 25000;
 
@@ -47,13 +47,14 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	@Override
 	public void update(IGameInstance game)
 	{
-		if (this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy && this.gasType.equals(ModGasses.gasSteam.toString()))
+		if (this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy
+				&& this.gasType.equals(ModGasses.gasSteam.toString()))
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
 			{
 				this.gasStored -= gasConsumptionPerTick;
 				this.energyStored += productionPerTick;
-				
+
 				if (this.gasStored == 0)
 				{
 					this.gasType = ModGasses.gasVacuum.toString();
@@ -61,9 +62,9 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 				this.shouldSync = true;
 			}
 		}
-		
+
 		boolean active = this.isActive();
-		
+
 		if (this.lastActive != active)
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
@@ -88,12 +89,13 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 		}
 		return (float) this.energyStored / (float) this.maxEnergy;
 	}
-	
+
 	public boolean isActive()
 	{
-		return this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy && this.gasType.equals(ModGasses.gasSteam.toString());
+		return this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy
+				&& this.gasType.equals(ModGasses.gasSteam.toString());
 	}
-	
+
 	public float getGasTankFullness()
 	{
 		if (this.gasStored == 0)
@@ -128,37 +130,37 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	}
 
 	@Override
-	public int getCurrentGas() 
+	public int getCurrentGas()
 	{
 		return this.gasStored;
 	}
 
 	@Override
-	public int getMaxGas() 
+	public int getMaxGas()
 	{
 		return this.maxGas;
 	}
 
 	@Override
-	public String getGasType() 
+	public String getGasType()
 	{
 		return this.gasType;
 	}
 
 	@Override
-	public int getCurrentEnergy() 
+	public int getCurrentEnergy()
 	{
 		return this.energyStored;
 	}
 
 	@Override
-	public int getMaxEnergy() 
+	public int getMaxEnergy()
 	{
 		return this.maxEnergy;
 	}
 
 	@Override
-	public boolean removeEnergy(int amount) 
+	public boolean removeEnergy(int amount)
 	{
 		if (this.energyStored >= amount)
 		{
@@ -173,7 +175,7 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	}
 
 	@Override
-	public boolean addGas(int amount, String type) 
+	public boolean addGas(int amount, String type)
 	{
 		if (type.equals(this.gasType) || this.gasType.equals(ModGasses.gasVacuum.toString()))
 		{
@@ -195,7 +197,7 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	}
 
 	@Override
-	public boolean setGasType(String type) 
+	public boolean setGasType(String type)
 	{
 		if (this.gasStored == 0 || this.gasType.equals(type))
 		{

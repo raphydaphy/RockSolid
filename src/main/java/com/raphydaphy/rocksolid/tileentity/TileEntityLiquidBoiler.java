@@ -48,13 +48,17 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	}
 
 	@Override
-	public void update(IGameInstance game) {
+	public void update(IGameInstance game)
+	{
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
 				&& this.fluidType[0].equals(ModFluids.fluidWater.toString())
-				&& this.fluidType[1].equals(ModFluids.fluidLava.toString())) {
-			if (RockBottomAPI.getNet().isClient() == false) {
-				if (this.gasType.equals(ModGasses.gasVacuum.toString())) {
+				&& this.fluidType[1].equals(ModFluids.fluidLava.toString()))
+		{
+			if (RockBottomAPI.getNet().isClient() == false)
+			{
+				if (this.gasType.equals(ModGasses.gasVacuum.toString()))
+				{
 					this.gasType = ModGasses.gasSteam.toString();
 				}
 
@@ -62,11 +66,13 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 				this.fluidStored[1] -= fluidConsumptionPerTick[1];
 				this.gasStored += productionPerTick;
 
-				if (this.fluidStored[0] == 0) {
+				if (this.fluidStored[0] == 0)
+				{
 					this.fluidType[0] = ModFluids.fluidEmpty.toString();
 				}
-				
-				if (this.fluidStored[1] == 0) {
+
+				if (this.fluidStored[1] == 0)
+				{
 					this.fluidType[1] = ModFluids.fluidEmpty.toString();
 				}
 				shouldSync = true;
@@ -83,7 +89,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		}
 		return (float) this.fluidStored[0] / (float) this.maxFluid;
 	}
-	
+
 	public float getFluidTank1Fullness()
 	{
 		if (fluidStored[1] == 0)
@@ -97,10 +103,11 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	{
 		this.world.causeLightUpdate(this.x, this.y);
 	}
-	
+
 	public boolean isActive()
 	{
-		return (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored[0] >= fluidConsumptionPerTick[0]
+		return (this.gasStored < (this.maxGas - productionPerTick - 1)
+				&& this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
 				&& this.fluidType[0].equals(ModFluids.fluidWater.toString())
 				&& this.fluidType[1].equals(ModFluids.fluidLava.toString()));
@@ -143,7 +150,6 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		this.maxFluid = set.getInt("maxFluid");
 	}
 
-
 	@Override
 	public int getCurrentGas()
 	{
@@ -182,7 +188,6 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		return false;
 	}
 
-
 	@Override
 	public boolean addFluid(int amount, String type, int tank)
 	{
@@ -194,7 +199,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		{
 			return false;
 		}
-		
+
 		if (this.fluidStored[tank] + amount <= this.maxFluid)
 		{
 			if (this.fluidType[tank] == null || type.equals(this.fluidType[tank])
@@ -220,8 +225,9 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		{
 			return false;
 		}
-		
-		if (this.fluidType[tank] == null || this.fluidType[tank].equals(ModFluids.fluidEmpty.toString()) || this.fluidStored[tank] == 0)
+
+		if (this.fluidType[tank] == null || this.fluidType[tank].equals(ModFluids.fluidEmpty.toString())
+				|| this.fluidStored[tank] == 0)
 		{
 			this.fluidType[tank] = type;
 			return true;

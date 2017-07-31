@@ -23,14 +23,14 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 	public static final int COAL = 0;
 	public final ContainerInventory inventory;
 	private boolean shouldSync = false;
-	
+
 	public static final int productionPerTick = 1;
 	public static final int fluidConsumptionPerTick = 1;
-	
+
 	protected int gasStored;
 	protected int maxGas = 5000;
 	protected String gasType = ModGasses.gasVacuum.toString();
-	
+
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
 	protected String fluidType = ModFluids.fluidEmpty.toString();
@@ -58,21 +58,22 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 	@Override
 	protected boolean tryTickAction()
 	{
-		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored >= fluidConsumptionPerTick && this.fluidType.equals(ModFluids.fluidWater.toString()))
+		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored >= fluidConsumptionPerTick
+				&& this.fluidType.equals(ModFluids.fluidWater.toString()))
 		{
 			if (this.coalTime > 0)
 			{
 				if (RockBottomAPI.getNet().isClient() == false)
 				{
-			
+
 					if (this.gasType.equals(ModGasses.gasVacuum.toString()))
 					{
 						this.gasType = ModGasses.gasSteam.toString();
 					}
-					
+
 					this.fluidStored -= fluidConsumptionPerTick;
 					this.gasStored += productionPerTick;
-					
+
 					if (this.fluidStored == 0)
 					{
 						this.fluidType = ModFluids.fluidEmpty.toString();
@@ -103,7 +104,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 	{
 		this.inventory.remove(0, 1);
 	}
-	
+
 	public float getFluidTankFullness()
 	{
 		if (fluidStored == 0)
@@ -181,32 +182,32 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 	}
 
 	@Override
-	public int getCurrentGas() 
+	public int getCurrentGas()
 	{
 		return this.gasStored;
 	}
 
 	@Override
-	public int getMaxGas() 
+	public int getMaxGas()
 	{
 		return this.maxGas;
 	}
 
 	@Override
-	public String getGasType() 
+	public String getGasType()
 	{
 		return this.gasType;
 	}
 
 	@Override
-	public boolean removeGas(int amount) 
+	public boolean removeGas(int amount)
 	{
 		if (this.gasStored >= amount)
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
 			{
 				this.gasStored -= amount;
-				
+
 				if (this.gasStored == 0)
 				{
 					this.gasType = ModGasses.gasVacuum.toString();
@@ -217,7 +218,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int getCurrentFluid()
 	{

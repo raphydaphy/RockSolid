@@ -2,7 +2,8 @@ package com.raphydaphy.rocksolid.api.fluid;
 
 import de.ellpeck.rockbottom.api.util.Pos2;
 
-public interface IMultiFluidTile {
+public interface IMultiFluidTile
+{
 	// Returns the currently stored amount of fluid in each tank of the tile
 	int[] getFluidTanksStorage();
 

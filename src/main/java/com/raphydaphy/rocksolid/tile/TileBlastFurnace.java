@@ -99,7 +99,7 @@ public class TileBlastFurnace extends MultiTile
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
 	{

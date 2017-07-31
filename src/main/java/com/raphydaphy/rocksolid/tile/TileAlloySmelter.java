@@ -62,6 +62,7 @@ public class TileAlloySmelter extends MultiTile
 		}
 		return true;
 	}
+
 	@Override
 	protected ITileRenderer<TileAlloySmelter> createRenderer(final IResourceName name)
 	{

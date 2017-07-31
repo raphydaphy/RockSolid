@@ -106,8 +106,7 @@ public class ModRecipes
 				new ItemInstance(ModItems.gritUranium), 300));
 
 		// Remove super pickaxe recipe?
-		
-		
+
 		// misc manual crafting recipies
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.alloySmelter),
 				new ItemInstance[] { new ItemInstance(ModItems.ingotTin, 10),
@@ -118,10 +117,11 @@ public class ModRecipes
 				new ItemInstance[] { new ItemInstance(ModItems.ingotIron, 15),
 						new ItemInstance(ModItems.ingotBronze, 5), new ItemInstance(GameContent.TILE_ROCK, 130),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 40) }));
-		
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_CONSTRUCTION_TABLE, 1),
-				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8),
-						new ItemInstance(GameContent.TILE_LOG, 4) }));
+
+		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES
+				.add(new BasicRecipe(new ItemInstance(GameContent.TILE_CONSTRUCTION_TABLE, 1),
+						new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 8),
+								new ItemInstance(GameContent.TILE_LOG, 4) }));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.chest),
 				new ItemInstance[] { new ItemInstance(GameContent.TILE_WOOD_BOARDS, 20) }));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(GameContent.TILE_DOOR),
@@ -193,8 +193,8 @@ public class ModRecipes
 						new ItemInstance(ModItems.ingotBronze, 4), new ItemInstance(GameContent.TILE_ROCK, 10),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 10) }));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasTank),
-				new ItemInstance[] { new ItemInstance(ModItems.ingotSteel, 4),
-						new ItemInstance(ModItems.ingotTin, 4), new ItemInstance(GameContent.TILE_ROCK, 30),
+				new ItemInstance[] { new ItemInstance(ModItems.ingotSteel, 4), new ItemInstance(ModItems.ingotTin, 4),
+						new ItemInstance(GameContent.TILE_ROCK, 30),
 						new ItemInstance(GameContent.TILE_WOOD_BOARDS, 15) }));
 
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(ModItems.bucket),

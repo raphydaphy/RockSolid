@@ -137,7 +137,7 @@ public class RockSolidLib
 
 	public static int posAndOffsetToConduitSide(Pos2 center, Pos2 side)
 	{
-		Pos2 difference = center.add(-side.getX(),-side.getY());
+		Pos2 difference = center.add(-side.getX(), -side.getY());
 		difference.set(-difference.getX(), -difference.getY());
 		if (difference.getY() == -1)
 		{
@@ -155,10 +155,10 @@ public class RockSolidLib
 
 		return 0;
 	}
-	
+
 	public static int invertSide(int side)
 	{
-		switch(side)
+		switch (side)
 		{
 		case 1:
 			return 0;
@@ -171,7 +171,7 @@ public class RockSolidLib
 		}
 		return 0;
 	}
-	
+
 	public static Inventory insert(IHasInventory container, ItemInstance item)
 	{
 		Inventory inv = container.getInventory();
@@ -189,8 +189,7 @@ public class RockSolidLib
 					inv.set(slot, new ItemInstance(item.getItem(), item.getAmount() + inv.get(slot).getAmount()));
 					return inv;
 				}
-			}
-			else
+			} else
 			{
 				inv.set(slot, item);
 				return inv;
@@ -198,7 +197,7 @@ public class RockSolidLib
 		}
 		return inv;
 	}
-	
+
 	public static ItemInstance extract(IHasInventory container, int maxAmount)
 	{
 		Inventory inv = container.getInventory();
@@ -228,7 +227,7 @@ public class RockSolidLib
 		}
 		return null;
 	}
-	
+
 	public static ItemInstance getToExtract(IHasInventory container, int maxAmount)
 	{
 		Inventory inv = container.getInventory();
@@ -254,7 +253,7 @@ public class RockSolidLib
 		}
 		return null;
 	}
-	
+
 	public static boolean canInsert(IHasInventory container, ItemInstance item)
 	{
 		Inventory inv = container.getInventory();
@@ -271,8 +270,7 @@ public class RockSolidLib
 				{
 					return true;
 				}
-			}
-			else
+			} else
 			{
 				return true;
 			}

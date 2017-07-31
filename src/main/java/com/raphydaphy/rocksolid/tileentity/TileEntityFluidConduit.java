@@ -156,26 +156,30 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 						int thisFluidTank = adjMultiFluid.getTankNumber(innerCoord);
 						if (thisFluidTank != -1)
 						{
-							if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank].equals(this.fluidType)
-									|| this.fluidType.equals(ModFluids.fluidEmpty.toString())
+							if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
+									.equals(this.fluidType) || this.fluidType.equals(ModFluids.fluidEmpty.toString())
 									|| ((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
 											.equals(ModFluids.fluidEmpty.toString()))
 							{
 								if (IMultiFluidProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
 								{
-									if ((((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank].equals(this.fluidType))
-										|| this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+									if ((((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
+											.equals(this.fluidType))
+											|| this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 									{
 										// Conduit is set to input mode
 										if (this.getSideMode(adjacentTile) == 1)
 										{
-		
+
 											if (this.fluidStored < (this.maxFluid - transferRate)
-													&& ((IMultiFluidProducer) adjacentTileEntity).getFluidTanksStorage()[thisFluidTank] >= transferRate)
+													&& ((IMultiFluidProducer) adjacentTileEntity)
+															.getFluidTanksStorage()[thisFluidTank] >= transferRate)
 											{
-												String wasFluidType = ((IMultiFluidProducer) adjacentTileEntity).getFluidTanksType()[thisFluidTank];
+												String wasFluidType = ((IMultiFluidProducer) adjacentTileEntity)
+														.getFluidTanksType()[thisFluidTank];
 												// pull fluid from adjacent tile
-												if (((IMultiFluidProducer) adjacentTileEntity).removeFluid(transferRate, thisFluidTank))
+												if (((IMultiFluidProducer) adjacentTileEntity).removeFluid(transferRate,
+														thisFluidTank))
 												{
 													this.addFluid(transferRate, wasFluidType);
 													this.shouldSync = true;
@@ -184,21 +188,23 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 										}
 									}
 								}
-	
+
 								if (IMultiFluidAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
 								{
 									// Conduit is set to output mode
 									if (this.getSideMode(adjacentTile) == 0)
 									{
-	
+
 										if (this.fluidStored >= transferRate)
 										{
-											if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
-													.equals(ModFluids.fluidEmpty.toString()))
+											if (((IMultiFluidTile) adjacentTileEntity)
+													.getFluidTanksType()[thisFluidTank]
+															.equals(ModFluids.fluidEmpty.toString()))
 											{
 												// set the fluid type in the
 												// adjacent tile to match this
-												((IMultiFluidAcceptor) adjacentTileEntity).setFluidType(this.fluidType, thisFluidTank);
+												((IMultiFluidAcceptor) adjacentTileEntity).setFluidType(this.fluidType,
+														thisFluidTank);
 											}
 											// send fluid to adjacent tile
 											if (((IMultiFluidAcceptor) adjacentTileEntity).addFluid(transferRate,

@@ -108,7 +108,7 @@ public class TileFluidPump extends MultiTile
 		}
 		return true;
 	}
-	
+
 	@Override
 	public BoundBox getBoundBox(final IWorld world, final int x, final int y)
 	{

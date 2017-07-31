@@ -78,7 +78,7 @@ public class TileBoiler extends MultiTile
 				return false;
 			}
 		}
-		
+
 		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
 		TileEntityBoiler tile = world.getTileEntity(main.getX(), main.getY(), TileEntityBoiler.class);
 
@@ -100,8 +100,7 @@ public class TileBoiler extends MultiTile
 		if (!RockBottomAPI.getNet().isClient())
 		{
 			final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-			final TileEntityBoiler tile = world.getTileEntity(main.getX(), main.getY(),
-					TileEntityBoiler.class);
+			final TileEntityBoiler tile = world.getTileEntity(main.getX(), main.getY(), TileEntityBoiler.class);
 			if (tile != null)
 			{
 				tile.dropInventory(tile.inventory);

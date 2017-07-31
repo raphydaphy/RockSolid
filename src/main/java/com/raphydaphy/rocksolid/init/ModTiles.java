@@ -64,7 +64,7 @@ public class ModTiles
 	public static Tile boiler;
 	public static Tile liquidBoiler;
 	public static Tile turbine;
-	
+
 	public static Tile nuclearReactor;
 	public static Tile battery;
 
@@ -113,7 +113,7 @@ public class ModTiles
 		boiler = new TileBoiler();
 		liquidBoiler = new TileLiquidBoiler();
 		turbine = new TileTurbine();
-		
+
 		nuclearReactor = new TileNuclearReactor();
 		battery = new TileBattery();
 
