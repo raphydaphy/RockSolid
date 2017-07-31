@@ -28,10 +28,10 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	private int modeLeft = 0;
 	private int modeRight = 0;
 
-	private boolean isMaster;
+	private boolean isMaster = true;
 	public boolean isDead;
-	private int masterX;
-	private int masterY;
+	private int masterX = y;
+	private int masterY = x;
 
 	private boolean shouldSync = false;
 
@@ -42,9 +42,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	public TileEntityAllocator(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
-		this.masterX = x;
-		this.masterY = y;
-		this.isMaster = true;
 		// onAdded(world, x, y);
 	}
 
@@ -58,6 +55,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	protected void onSync()
 	{
 		super.onSync();
+		System.out.println("Synced allocator with " + this.networkLength + " connections");
 		shouldSync = false;
 	}
 
@@ -80,8 +78,10 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 		{
 			if (this.isMaster)
 			{
+				System.out.println("Network has " + networkLength + " connections with the first being at " + network[0][0] + ", " + network[0][1] + " in mode " + network[0][2] + " Network secondary parts: " + network[0].length);
 				for (int curNet = 0; curNet < networkLength; curNet++)
 				{
+					System.out.println("Looping through the network at #" + networkLength);
 					Pos2 tilePos = new Pos2(this.network[curNet][0], this.network[curNet][1]);
 					TileEntity tile = RockSolidLib.getTileFromPos(tilePos.getX(), tilePos.getY(), world);
 					if (tile != null && tile instanceof IHasInventory)
@@ -153,6 +153,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				this.networkLength--;
 				this.network[id] = this.network[networkLength];
 				this.network[networkLength] = new short[] { 0, 0, 2 };
+				this.shouldSync = true;
 			} else
 			{
 				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
@@ -237,7 +238,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 		this.network = set.getShortShortArray("network", 512);
 		this.shouldSync = set.getBoolean("shouldSync");
 		this.isDead = set.getBoolean("isDead");
-		this.networkLength = set.getShort("inputLength");
+		this.networkLength = set.getShort("networkLength");
 	}
 
 	public void onAdded(IWorld world, int x, int y)
