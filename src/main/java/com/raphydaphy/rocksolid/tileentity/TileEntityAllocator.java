@@ -55,7 +55,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	protected void onSync()
 	{
 		super.onSync();
-		System.out.println("Synced allocator with " + this.networkLength + " connections");
 		shouldSync = false;
 	}
 
@@ -78,10 +77,8 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 		{
 			if (this.isMaster)
 			{
-				System.out.println("Network has " + networkLength + " connections with the first being at " + network[0][0] + ", " + network[0][1] + " in mode " + network[0][2] + " Network secondary parts: " + network[0].length);
 				for (int curNet = 0; curNet < networkLength; curNet++)
 				{
-					System.out.println("Looping through the network at #" + networkLength);
 					Pos2 tilePos = new Pos2(this.network[curNet][0], this.network[curNet][1]);
 					TileEntity tile = RockSolidLib.getTileFromPos(tilePos.getX(), tilePos.getY(), world);
 					if (tile != null && tile instanceof IHasInventory)
@@ -133,8 +130,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 						if (pos.getX() == masterX && pos.getY() == masterY)
 						{
-							System.out.println("Found old master at " + masterX + ", " + masterY
-									+ ", moving to here at " + x + ", " + y);
 							this.setMaster(new Pos2(x, y));
 						}
 					}
@@ -245,7 +240,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	{
 		if (!world.isClient())
 		{
-			System.out.println("new allocator added.");
 			for (Direction dir : Direction.ADJACENT)
 			{
 				this.onChangeAround(world, x, y, TileLayer.MAIN, x + dir.x, y + dir.y, TileLayer.MAIN);
@@ -311,9 +305,20 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 		{
 			TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
 
-			if (master != null && master != this)
+			if (master != null && !master.isDead && master != this && (master.x != this.x || master.y != this.y) && master.isMaster)
 			{
+				//TODO: causes stackoverflow when logging in sometimes... dunno why
 				master.updateNetwork(newNetwork, length);
+			}
+			else if (master != null && !master.isMaster)
+			{
+				if (RockBottomAPI.getNet().isClient() ==false)
+				{
+					for (Direction dir : Direction.ADJACENT)
+					{
+						this.onChangeAround(world, x, y, TileLayer.MAIN, x + dir.x, y + dir.y, TileLayer.MAIN);
+					}
+				}
 			}
 		}
 	}
@@ -347,12 +352,10 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			{
 				if (!this.getMaster().equals(newMaster))
 				{
-					System.out.println("setting the allocator at " + this.x + ", " + this.y + " to a new master at "
-							+ newMaster.getX() + ", " + newMaster.getY());
 
 					for (Direction dir : Direction.ADJACENT)
 					{
-						TileEntity found = world.getTileEntity(x + dir.x, y + dir.y, TileEntity.class);
+						TileEntity found = RockSolidLib.getTileFromPos(x + dir.x, y + dir.y, world);
 						if (found instanceof IHasInventory)
 						{
 							this.onInventoryChanged(world, x, y, x + dir.x, y + dir.y);
@@ -400,7 +403,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			System.out.println("The thing changed at " + changedX + ", " + changedY);
 			if (x > Short.MAX_VALUE || y > Short.MAX_VALUE || x < Short.MIN_VALUE || y < Short.MIN_VALUE)
 			{
 				System.out
@@ -415,10 +417,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			{
 				int thisMode = this.getSideMode(
 						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
-				System.out.println(
-						"A new inventory was placed near an allocator to a side with mode " + thisMode + " on side "
-								+ RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
-				this.addToNetwork(changedX, changedY, thisMode);
+				this.addToNetwork(changedTile.x, changedTile.y, thisMode);
 			}
 		}
 	}
@@ -428,7 +427,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			System.out.println("The thing changed at " + changedX + ", " + changedY);
 			if (x > Short.MAX_VALUE || y > Short.MAX_VALUE || x < Short.MIN_VALUE || y < Short.MIN_VALUE)
 			{
 				System.out
@@ -460,7 +458,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	{
 		if (world.isClient() == false)
 		{
-			System.out.println("Adding to network #" + networkLength);
 			if (this.isMaster)
 			{
 				boolean alreadyHad = false;
@@ -487,7 +484,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			} else
 			{
 				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
-				if (master != null)
+				if (master != null && master != this && master.isMaster)
 				{
 					master.addToNetwork(x, y, mode);
 				}
@@ -510,7 +507,6 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			System.out.println("I was removed :( Goodbye");
 			this.isDead = true;
 			this.shouldSync = true;
 
