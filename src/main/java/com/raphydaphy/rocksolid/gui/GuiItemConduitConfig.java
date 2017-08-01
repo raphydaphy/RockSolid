@@ -140,7 +140,7 @@ public class GuiItemConduitConfig extends GuiContainer
 			this.components.add(new ComponentButton(this, 999, this.guiLeft + 85, this.guiTop, 30, 18, Integer.toString(priority)));
 			this.components.add(new ComponentButton(this, 7, this.guiLeft + 50, this.guiTop, 30, 18, "-"));
 			this.components.add(new ComponentButton(this, 6, this.guiLeft + 120, this.guiTop , 30, 18, "+"));
-			this.components.add(new ComponentSlot(this, new ContainerSlot(tile.inventory,0, this.guiLeft + 90, this.guiTop + 26), 10, this.guiLeft + 90, this.guiTop + 26));
+			this.components.add(new ComponentSlot(this, new ContainerSlot(tile.inventory,editingSide, this.guiLeft + 90, this.guiTop + 26), 10, this.guiLeft + 90, this.guiTop + 26));
 			this.addPlayerInventory(player, this.guiLeft + 20, this.guiTop + 75);
 			
 			if (isWhitelist)

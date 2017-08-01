@@ -14,6 +14,7 @@ import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
+import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -55,6 +56,21 @@ public class TileItemConduit extends TileBasic
 	public boolean canProvideTileEntity()
 	{
 		return true;
+	}
+
+	@Override
+	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
+			final boolean forceDrop)
+	{
+		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
+		if (!RockBottomAPI.getNet().isClient())
+		{
+			final TileEntityItemConduit tile = world.getTileEntity(x, y, TileEntityItemConduit.class);
+			if (tile != null)
+			{
+				tile.dropInventory(tile.inventory);
+			}
+		}
 	}
 
 	@Override
