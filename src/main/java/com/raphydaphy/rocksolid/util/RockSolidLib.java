@@ -4,16 +4,17 @@ import org.newdawn.slick.Color;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.inventory.Inventory;
+import de.ellpeck.rockbottom.api.inventory.IInventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -172,14 +173,14 @@ public class RockSolidLib
 		return 0;
 	}
 
-	public static Inventory insert(IHasInventory container, ItemInstance item)
+	public static IInventory insert(IInventoryHolder container, ItemInstance item)
 	{
-		Inventory inv = container.getInventory();
-		if (item == null || container.getInputs().size() == 0)
+		IInventory inv = container.getInventory();
+		if (item == null || container.getInputSlots(item, Direction.NONE) == null ||container.getInputSlots(item, Direction.NONE).size() == 0)
 		{
 			return inv;
 		}
-		for (int slot : container.getInputs())
+		for (int slot : container.getInputSlots(item, Direction.NONE))
 		{
 			if (inv.get(slot) != null)
 			{
@@ -198,14 +199,14 @@ public class RockSolidLib
 		return inv;
 	}
 
-	public static ItemInstance extract(IHasInventory container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
+	public static ItemInstance extract(IInventoryHolder container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
 	{
-		Inventory inv = container.getInventory();
-		if (container.getOutputs().size() == 0)
+		IInventory inv = container.getInventory();
+		if (container.getOutputSlots(Direction.NONE) == null || container.getOutputSlots(Direction.NONE).size() == 0)
 		{
 			return null;
 		}
-		for (int slot : container.getOutputs())
+		for (int slot : container.getOutputSlots(Direction.NONE))
 		{
 			if (inv.get(slot) != null)
 			{
@@ -244,14 +245,14 @@ public class RockSolidLib
 		return null;
 	}
 
-	public static ItemInstance getToExtract(IHasInventory container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
+	public static ItemInstance getToExtract(IInventoryHolder container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
 	{
-		Inventory inv = container.getInventory();
-		if (container.getOutputs().size() == 0)
+		IInventory inv = container.getInventory();
+		if (container.getOutputSlots(Direction.NONE) == null || container.getOutputSlots(Direction.NONE).size() == 0)
 		{
 			return null;
 		}
-		for (int slot : container.getOutputs())
+		for (int slot : container.getOutputSlots(Direction.NONE))
 		{
 			if (inv.get(slot) != null)
 			{
@@ -286,14 +287,14 @@ public class RockSolidLib
 		return null;
 	}
 
-	public static boolean canInsert(IHasInventory container, ItemInstance item)
+	public static boolean canInsert(IInventoryHolder container, ItemInstance item)
 	{
-		Inventory inv = container.getInventory();
-		if (item == null || container.getInputs().size() == 0)
+		IInventory inv = container.getInventory();
+		if (item == null || container.getInputSlots(item, Direction.NONE) == null ||container.getInputSlots(item, Direction.NONE).size() == 0)
 		{
 			return false;
 		}
-		for (int slot : container.getInputs())
+		for (int slot : container.getInputSlots(item, Direction.NONE))
 		{
 			if (inv.get(slot) != null)
 			{

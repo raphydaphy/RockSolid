@@ -5,17 +5,18 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityBlastFurnace extends TileEntity implements IHasInventory
+public class TileEntityBlastFurnace extends TileEntity implements IInventoryHolder
 {
 
 	public static final int INPUT = 0;
@@ -140,7 +141,7 @@ public class TileEntityBlastFurnace extends TileEntity implements IHasInventory
 	}
 
 	@Override
-	public List<Integer> getInputs()
+	public List<Integer> getInputSlots(ItemInstance item, Direction dir)
 	{
 		List<Integer> insertSlots = new ArrayList<Integer>();
 		insertSlots.add(0);
@@ -148,7 +149,7 @@ public class TileEntityBlastFurnace extends TileEntity implements IHasInventory
 	}
 
 	@Override
-	public List<Integer> getOutputs()
+	public List<Integer> getOutputSlots(Direction dir)
 	{
 		List<Integer> outputSlots = new ArrayList<Integer>();
 		outputSlots.add(1);

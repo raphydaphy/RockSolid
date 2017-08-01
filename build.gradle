@@ -1,5 +1,5 @@
 group 'com.raphydaphy.rocksolid'
-version '1.7'
+version '1.8'
 
 apply from: "https://github.com/RockBottomGame/Gradle/raw/master/buildscript.gradle"
 

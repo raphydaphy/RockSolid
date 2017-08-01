@@ -1,21 +1,22 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.SeparatorRecipe;
-import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityElectricSeparator extends TileEntityPowered implements IHasInventory
+public class TileEntityElectricSeparator extends TileEntityPowered implements IInventoryHolder
 {
 	public static final int INPUT = 0;
 	public static final int OUTPUT = 1;
@@ -57,7 +58,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements IH
 			final SeparatorRecipe recipe = RockBottomAPI.getSeparatorRecipe(input);
 			if (recipe != null)
 			{
-				final ResUseInfo recipeIn = recipe.getInput();
+				final IUseInfo recipeIn = recipe.getInput();
 				if (input.getAmount() >= recipeIn.getAmount())
 				{
 					final ItemInstance recipeOut = recipe.getOutput();
@@ -178,20 +179,15 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements IH
 	}
 
 	@Override
-	public List<Integer> getInputs()
+	public List<Integer> getInputSlots(ItemInstance input, Direction dir)
 	{
-		List<Integer> insertSlots = new ArrayList<Integer>();
-		insertSlots.add(0);
-		return insertSlots;
+		return Arrays.asList(0);
 	}
 
 	@Override
-	public List<Integer> getOutputs()
+	public List<Integer> getOutputSlots(Direction dir)
 	{
-		List<Integer> outputSlots = new ArrayList<Integer>();
-		outputSlots.add(1);
-		outputSlots.add(2);
-		return outputSlots;
+		return Arrays.asList(1,2);
 	}
 
 	@Override

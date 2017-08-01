@@ -145,11 +145,11 @@ public class GuiItemConduitConfig extends GuiContainer
 			
 			if (isWhitelist)
 			{
-				this.components.add(new ComponentButton(this, 8, this.guiLeft + 75, this.guiTop + 50, 50, 18, "Whitelist"));
+				this.components.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Whitelist"));
 			}
 			else
 			{
-				this.components.add(new ComponentButton(this, 8, this.guiLeft + 75, this.guiTop + 50, 50, 18, "Blacklist"));
+				this.components.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Blacklist"));
 			}
 		}
 		

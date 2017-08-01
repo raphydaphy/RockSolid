@@ -1,11 +1,10 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -13,10 +12,12 @@ import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInventory
+public class TileEntityAlloySmelter extends TileEntityFueled implements IInventoryHolder
 {
 
 	public static final int INPUT1 = 0;
@@ -183,21 +184,15 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IHasInve
 	}
 
 	@Override
-	public List<Integer> getInputs()
+	public List<Integer> getInputSlots(ItemInstance item, Direction dir)
 	{
-		List<Integer> insertSlots = new ArrayList<Integer>();
-		insertSlots.add(0);
-		insertSlots.add(1);
-		insertSlots.add(2);
-		return insertSlots;
+		return Arrays.asList(0,1,2);
 	}
 
 	@Override
-	public List<Integer> getOutputs()
+	public List<Integer> getOutputSlots(Direction dir)
 	{
-		List<Integer> outputSlots = new ArrayList<Integer>();
-		outputSlots.add(3);
-		return outputSlots;
+		return Arrays.asList(3);
 	}
 
 }

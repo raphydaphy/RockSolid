@@ -1,12 +1,12 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.gas.Gas;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -14,10 +14,12 @@ import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
+public class TileEntityQuarry extends TileEntityPowered implements IInventoryHolder
 {
 
 	public static final int OUTPUT = 0;
@@ -153,17 +155,15 @@ public class TileEntityQuarry extends TileEntityPowered implements IHasInventory
 	}
 
 	@Override
-	public List<Integer> getInputs()
+	public List<Integer> getInputSlots(ItemInstance input, Direction dir)
 	{
 		return new ArrayList<Integer>();
 	}
 
 	@Override
-	public List<Integer> getOutputs()
+	public List<Integer> getOutputSlots(Direction dir)
 	{
-		List<Integer> outputSlots = new ArrayList<Integer>();
-		outputSlots.add(0);
-		return outputSlots;
+		return Arrays.asList(0);
 	}
 
 	@Override

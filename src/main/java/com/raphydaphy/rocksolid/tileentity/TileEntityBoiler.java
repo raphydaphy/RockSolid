@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
@@ -14,10 +13,12 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityBoiler extends TileEntityFueled implements IHasInventory, IGasProducer, IFluidAcceptor
+public class TileEntityBoiler extends TileEntityFueled implements IInventoryHolder, IGasProducer, IFluidAcceptor
 {
 
 	public static final int COAL = 0;
@@ -170,13 +171,13 @@ public class TileEntityBoiler extends TileEntityFueled implements IHasInventory,
 	}
 
 	@Override
-	public List<Integer> getInputs()
+	public List<Integer> getInputSlots(ItemInstance input, Direction dir)
 	{
 		return Arrays.asList(0);
 	}
 
 	@Override
-	public List<Integer> getOutputs()
+	public List<Integer> getOutputSlots(Direction dir)
 	{
 		return null;
 	}

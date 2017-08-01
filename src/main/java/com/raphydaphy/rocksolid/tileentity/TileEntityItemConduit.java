@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
-import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -9,6 +8,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -144,13 +144,13 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						continue;
 					}
 					TileEntity tile = RockSolidLib.getTileFromConduitSide(centerPos, network[curNet][2], world);
-					if (tile != null && tile instanceof IHasInventory)
+					if (tile != null && tile instanceof IInventoryHolder)
 					{
 						// if the inventory is set to input into the network (
 						// INPUT )
 						if (this.network[curNet][3] == 1)
 						{
-							IHasInventory invTile = ((IHasInventory) tile);
+							IInventoryHolder invTile = ((IInventoryHolder) tile);
 							
 							for (int curNetOut = 0; curNetOut < networkLength; curNetOut++)
 							{
@@ -168,22 +168,21 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 									TileEntity tileOut = RockSolidLib.getTileFromConduitSide(centerPosOut, network[curNetOut][2], world);
 									
 									
-									if (tile != null && tile instanceof IHasInventory)
+									if (tile != null && tile instanceof IInventoryHolder)
 									{
 										// if the inventory is set to output
 										// from from the network (OUTPUT )
-										if (this.network[curNetOut][3] == 0 && this.network[curNetOut][4] >= highestPriority && tileOut instanceof IHasInventory)
+										if (this.network[curNetOut][3] == 0 && this.network[curNetOut][4] >= highestPriority && tileOut instanceof IInventoryHolder)
 										{
-											if (RockSolidLib.canInsert((IHasInventory) tileOut, wouldInput))
+											if (RockSolidLib.canInsert((IInventoryHolder) tileOut, wouldInput))
 											{
 												ItemInstance input = RockSolidLib.extract(invTile, 1, inputFilter, this.network[curNetOut][5] == 1);
-												RockSolidLib.insert((IHasInventory) tileOut, input);
+												RockSolidLib.insert((IInventoryHolder) tileOut, input);
 												//break;
 											}
 										}
 									}
 								}
-
 							}
 						}
 					} else if (tile == null)
@@ -199,7 +198,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 					for (Direction dir : Direction.SURROUNDING)
 					{
 						Pos2 pos = new Pos2(x + dir.x, y + dir.y);
-
 						if (pos.getX() == masterX && pos.getY() == masterY)
 						{
 							this.setMaster(new Pos2(x, y));
@@ -559,7 +557,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 					for (Direction dir : Direction.ADJACENT)
 					{
 						TileEntity found = RockSolidLib.getTileFromPos(x + dir.x, y + dir.y, world);
-						if (found instanceof IHasInventory)
+						if (found instanceof IInventoryHolder)
 						{
 							this.onInventoryChanged(world, x, y, x + dir.x, y + dir.y);
 						}
@@ -617,7 +615,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
 
-			if (changedTile instanceof IHasInventory)
+			if (changedTile instanceof IInventoryHolder)
 			{
 				int side = RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY));
 				int thisMode = this.getSideMode(side);
@@ -664,7 +662,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						this.setMaster(((TileEntityItemConduit) changedTile).getMaster());
 					}
 				}
-			} else if (changedTile instanceof IHasInventory)
+			} else if (changedTile instanceof IInventoryHolder)
 			{
 				this.onInventoryChanged(world, x, y, changedX, changedY);
 			}
@@ -780,6 +778,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 					.getSideMode(RockSolidLib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2
 					&& !((TileEntityItemConduit) tile).isDead;
 		}
-		return tile instanceof IHasInventory;
+		return tile instanceof IInventoryHolder;
 	}
 }
