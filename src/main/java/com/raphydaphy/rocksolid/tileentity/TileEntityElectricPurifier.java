@@ -12,6 +12,7 @@ import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -63,7 +64,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 			final PurifierRecipe recipe = RockSolidAPI.getPurifierRecipe(input, this.fluidType, this.fluidStored);
 			if (recipe != null)
 			{
-				final ItemInstance recipeIngredient = recipe.getInput();
+				final ResUseInfo recipeIngredient = recipe.getInput();
 				if (input.getAmount() >= recipeIngredient.getAmount())
 				{
 					final ItemInstance recipeOut = recipe.getOutput();

@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.SeparatorRecipe;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Util;
@@ -56,7 +57,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements IH
 			final SeparatorRecipe recipe = RockBottomAPI.getSeparatorRecipe(input);
 			if (recipe != null)
 			{
-				final ItemInstance recipeIn = recipe.getInput();
+				final ResUseInfo recipeIn = recipe.getInput();
 				if (input.getAmount() >= recipeIn.getAmount())
 				{
 					final ItemInstance recipeOut = recipe.getOutput();

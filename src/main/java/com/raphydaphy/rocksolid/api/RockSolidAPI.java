@@ -35,8 +35,7 @@ public class RockSolidAPI
 	{
 		for (AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES)
 		{
-			if (input1.isEffectivelyEqualWithWildcard(recipe.getInput1())
-					&& input2.isEffectivelyEqualWithWildcard(recipe.getInput2()))
+			if (recipe.getInput1().containsItem(input1) && recipe.getInput2().containsItem(input2))
 			{
 				return recipe;
 			}
@@ -51,7 +50,7 @@ public class RockSolidAPI
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
 					|| (recipe.getFluid().equals(ModFluids.fluidEmpty.toString()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
-					&& item.isEffectivelyEqualWithWildcard(recipe.getInput()))
+					&&recipe.getInput().containsItem(item))
 			{
 				return recipe;
 			}
@@ -80,7 +79,7 @@ public class RockSolidAPI
 	{
 		for (PurifierRecipe recipe : PURIFIER_RECIPES)
 		{
-			if (item.isEffectivelyEqualWithWildcard(recipe.getInput()))
+			if (recipe.getInput().containsItem(item))
 			{
 				return true;
 			}
@@ -92,7 +91,7 @@ public class RockSolidAPI
 	{
 		for (AlloySmelterRecipe recipe : ALLOY_SMELTER_RECIPES)
 		{
-			if (item.isEffectivelyEqualWithWildcard(recipe.getInput1()))
+			if (recipe.getInput1().containsItem(item))
 			{
 				return true;
 			}
@@ -104,7 +103,7 @@ public class RockSolidAPI
 	{
 		for (BlastFurnaceRecipe recipe : BLAST_FURNACE_RECIPES)
 		{
-			if (input.isEffectivelyEqualWithWildcard(recipe.getInput()))
+			if (recipe.getInput().containsItem(input))
 			{
 				return recipe;
 			}
@@ -116,7 +115,7 @@ public class RockSolidAPI
 	{
 		for (CompressorRecipe recipe : COMPRESSOR_RECIPES)
 		{
-			if (input.isEffectivelyEqualWithWildcard(recipe.getInput()))
+			if (recipe.getInput().containsItem(input))
 			{
 				return recipe;
 			}

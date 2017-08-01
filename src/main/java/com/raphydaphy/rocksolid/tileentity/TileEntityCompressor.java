@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.api.util.IBasicIO;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -57,7 +58,7 @@ public class TileEntityCompressor extends TileEntityPowered implements IBasicIO
 			final CompressorRecipe recipe = RockSolidAPI.getCompressorRecipe(input);
 			if (recipe != null)
 			{
-				final ItemInstance recipeIngredient = recipe.getInput();
+				final ResUseInfo recipeIngredient = recipe.getInput();
 				if (input.getAmount() >= recipeIngredient.getAmount())
 				{
 					final ItemInstance recipeOut = recipe.getOutput();

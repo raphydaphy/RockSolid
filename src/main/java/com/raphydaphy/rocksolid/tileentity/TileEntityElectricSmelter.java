@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.SmelterRecipe;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -54,7 +55,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered implements IBas
 			final SmelterRecipe recipe = RockBottomAPI.getSmelterRecipe(input);
 			if (recipe != null)
 			{
-				final ItemInstance recipeIn = recipe.getInput();
+				final ResUseInfo recipeIn = recipe.getInput();
 				if (input.getAmount() >= recipeIn.getAmount())
 				{
 					final ItemInstance recipeOut = recipe.getOutput();

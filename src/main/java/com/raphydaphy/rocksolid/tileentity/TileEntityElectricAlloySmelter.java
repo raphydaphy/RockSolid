@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.api.util.IHasInventory;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -65,8 +66,8 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
 			final AlloySmelterRecipe recipe = RockSolidAPI.getAlloySmelterRecipe(input1, input2);
 			if (recipe != null)
 			{
-				final ItemInstance recipeIngredient1 = recipe.getInput1();
-				final ItemInstance recipeIngredient2 = recipe.getInput2();
+				final ResUseInfo recipeIngredient1 = recipe.getInput1();
+				final ResUseInfo recipeIngredient2 = recipe.getInput2();
 				if (input1.getAmount() >= recipeIngredient1.getAmount()
 						&& input2.getAmount() >= recipeIngredient2.getAmount())
 				{
