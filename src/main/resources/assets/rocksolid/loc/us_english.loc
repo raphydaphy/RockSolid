@@ -141,6 +141,7 @@ rocksolid/details.fluidPump=Uses power to collect nearby fluid and stores it in 
 rocksolid/details.electrolyzer=Uses power to split a fluid into its atomic compositions. 
 rocksolid/details.turbine=Uses steam to power a motor, thus generating power. Steam can be pumped in using Gas Conduits.
 rocksolid/details.liquidFueledBoiler=Uses a liquid fuel to heat water into steam. Steam can be extreacted using Gas Conduits.
+rocksolid/details.gasTank=Stores 20 cubic meters of gas. Gas can be inserted and extracted using Gas Conduits.
 
 # Because Ellpeck is lazy. Dunno if I still need this.
 rockbottom/item.stone=Stone

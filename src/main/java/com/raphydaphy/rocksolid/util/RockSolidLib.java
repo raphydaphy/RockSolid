@@ -198,7 +198,7 @@ public class RockSolidLib
 		return inv;
 	}
 
-	public static ItemInstance extract(IHasInventory container, int maxAmount)
+	public static ItemInstance extract(IHasInventory container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
 	{
 		Inventory inv = container.getInventory();
 		if (container.getOutputs().size() == 0)
@@ -209,26 +209,42 @@ public class RockSolidLib
 		{
 			if (inv.get(slot) != null)
 			{
-				// If we can pull the max amount
-				if (inv.get(slot).getAmount() > maxAmount)
+				boolean matchesFilter = false;
+				if (filterItem == null)
 				{
-					ItemInstance output = inv.get(slot).copy().setAmount(maxAmount);
-					inv.remove(slot, maxAmount);
-					return output;
+					matchesFilter = true;
 				}
-				// if we have to pull only a portion of the max amount
 				else
 				{
-					ItemInstance output = inv.get(slot).copy();
-					inv.set(slot, null);
-					return output;
+					matchesFilter = inv.get(slot).getItem().equals(filterItem.getItem());
+					if (!isWhitelist)
+					{
+						matchesFilter = !matchesFilter;
+					}
+				}
+				if (matchesFilter)
+				{
+					// If we can pull the max amount
+					if (inv.get(slot).getAmount() > maxAmount)
+					{
+						ItemInstance output = inv.get(slot).copy().setAmount(maxAmount);
+						inv.remove(slot, maxAmount);
+						return output;
+					}
+					// if we have to pull only a portion of the max amount
+					else
+					{
+						ItemInstance output = inv.get(slot).copy();
+						inv.set(slot, null);
+						return output;
+					}
 				}
 			}
 		}
 		return null;
 	}
 
-	public static ItemInstance getToExtract(IHasInventory container, int maxAmount)
+	public static ItemInstance getToExtract(IHasInventory container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
 	{
 		Inventory inv = container.getInventory();
 		if (container.getOutputs().size() == 0)
@@ -239,15 +255,31 @@ public class RockSolidLib
 		{
 			if (inv.get(slot) != null)
 			{
-				// If we can pull the max amount
-				if (inv.get(slot).getAmount() > maxAmount)
+				boolean matchesFilter = false;
+				if (filterItem == null)
 				{
-					return inv.get(slot).copy().setAmount(maxAmount);
+					matchesFilter = true;
 				}
-				// if we have to pull only a portion of the max amount
 				else
 				{
-					return inv.get(slot).copy();
+					matchesFilter = inv.get(slot).getItem().equals(filterItem.getItem());
+					if (!isWhitelist)
+					{
+						matchesFilter = !matchesFilter;
+					}
+				}
+				if (matchesFilter)
+				{
+					// If we can pull the max amount
+					if (inv.get(slot).getAmount() > maxAmount)
+					{
+						return inv.get(slot).copy().setAmount(maxAmount);
+					}
+					// if we have to pull only a portion of the max amount
+					else
+					{
+						return inv.get(slot).copy();
+					}
 				}
 			}
 		}

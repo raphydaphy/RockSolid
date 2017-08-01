@@ -141,15 +141,17 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 					
 					if (tile != null && tile instanceof IHasInventory)
 					{
+						System.out.println(" Mode: " + this.network[curNet][2] + " Priority: " + this.network[curNet][3] + " Whitelist: " + this.network[curNet][4]);
 						// if the inventory is set to input into the network (
 						// INPUT )
-						if (this.network[curNet][2] == 1)
+						if (this.network[curNet][2] == 1 && this.network[curNet][4] == 1)
 						{
 							IHasInventory invTile = ((IHasInventory) tile);
-							ItemInstance wouldInput = RockSolidLib.getToExtract(invTile, 1);
-							if (wouldInput != null)
+							
+							for (int curNetOut = 0; curNetOut < networkLength; curNetOut++)
 							{
-								for (int curNetOut = 0; curNetOut < networkLength; curNetOut++)
+								ItemInstance wouldInput = RockSolidLib.getToExtract(invTile, 1, this.inventory.get(0), this.network[curNetOut][4] == 1);
+								if (wouldInput != null)
 								{
 									Pos2 tilePosOut = new Pos2(this.network[curNetOut][0], this.network[curNetOut][1]);
 									TileEntity tileOut = RockSolidLib.getTileFromPos(tilePosOut.getX(),
@@ -160,11 +162,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 									{
 										// if the inventory is set to output
 										// from from the network (OUTPUT )
-										if (this.network[curNetOut][2] == 0 && this.network[curNetOut][3] >= highestPriority && tileOut instanceof IHasInventory)
+										if (this.network[curNetOut][2] == 0&& this.network[curNetOut][4] == 1 && this.network[curNetOut][3] >= highestPriority && tileOut instanceof IHasInventory)
 										{
 											if (RockSolidLib.canInsert((IHasInventory) tileOut, wouldInput))
 											{
-												ItemInstance input = RockSolidLib.extract(invTile, 1);
+												ItemInstance input = RockSolidLib.extract(invTile, 1, this.inventory.get(0), this.network[curNetOut][4] == 1);
 												RockSolidLib.insert((IHasInventory) tileOut, input);
 												//break;
 											}
@@ -208,6 +210,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				if (network[net].length > 3)
 				{
+					// this is the highest priority yet
 					if (network[net][3] > highest)
 					{
 						highest = network[net][3];
@@ -225,6 +228,33 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			}
 		}
 		return 0;
+	}
+	
+	public boolean canAccept(int container)
+	{
+		if (this.isMaster)
+		{
+			// if the container is within the network limit
+			if (container < networkLength)
+			{
+				TileEntity networkPos = RockSolidLib.getTileFromPos(network[container][0], network[container][1], world);
+				
+				// if the container actually exists
+				if (networkPos != null)
+				{
+					
+				}
+			}
+		}
+		else
+		{
+			TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
+			if (master != null)
+			{
+				return master.canAccept(container);
+			}
+		}
+		return false;
 	}
 
 	public void removeFromNetwork(int id)
@@ -527,6 +557,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 					this.masterX = newMaster.getX();
 					this.masterY = newMaster.getY();
+					newMasterTile.isMaster = true;
 					this.sendAllToMaster();
 
 					if (masterX != this.x || masterY != this.y)
