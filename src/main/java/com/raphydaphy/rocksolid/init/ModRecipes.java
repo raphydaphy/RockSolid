@@ -246,7 +246,7 @@ public class ModRecipes
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasConduit, 8),
 				new ResUseInfo(ModResources.PROCESSED_STEEL, 8), new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.allocator, 8),
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.itemConduit, 8),
 				new ResUseInfo(ModResources.PROCESSED_TIN, 4), new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 5),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 5)));
 

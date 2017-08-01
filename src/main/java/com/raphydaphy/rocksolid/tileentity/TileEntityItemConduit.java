@@ -16,7 +16,7 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileEntityAllocator extends TileEntity implements IConduit
+public class TileEntityItemConduit extends TileEntity implements IConduit
 {
 
 	// 0 = output to the inventory
@@ -39,7 +39,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	private short[][] network = new short[512][3];
 	private short networkLength = 0;
 
-	public TileEntityAllocator(final IWorld world, final int x, final int y)
+	public TileEntityItemConduit(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
 		// onAdded(world, x, y);
@@ -121,7 +121,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				}
 			} else
 			{
-				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master == null)
 				{
 					for (Direction dir : Direction.SURROUNDING)
@@ -151,7 +151,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				this.shouldSync = true;
 			} else
 			{
-				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null)
 				{
 					master.removeFromNetwork(id);
@@ -257,7 +257,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				return;
 			} else
 			{
-				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null)
 				{
 					master.updateNetwork(this.network, this.networkLength);
@@ -275,7 +275,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				return;
 			} else
 			{
-				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null)
 				{
 					if (sendNetworkLength > 0)
@@ -303,7 +303,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 			return;
 		} else
 		{
-			TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+			TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 
 			if (master != null && !master.isDead && master != this && (master.x != this.x || master.y != this.y) && master.isMaster)
 			{
@@ -332,7 +332,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 				this.network = new short[512][3];
 			} else
 			{
-				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null)
 				{
 					master.resetMasterNetwork();
@@ -345,10 +345,10 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	{
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
-			TileEntityAllocator newMasterTile = world.getTileEntity(newMaster.getX(), newMaster.getY(),
-					TileEntityAllocator.class);
+			TileEntityItemConduit newMasterTile = world.getTileEntity(newMaster.getX(), newMaster.getY(),
+					TileEntityItemConduit.class);
 			TileState masterState = world.getState(newMaster.getX(), newMaster.getY());
-			if (newMasterTile != null && !newMasterTile.isDead && masterState.getTile() == ModTiles.allocator)
+			if (newMasterTile != null && !newMasterTile.isDead && masterState.getTile() == ModTiles.itemConduit)
 			{
 				if (!this.getMaster().equals(newMaster))
 				{
@@ -377,8 +377,8 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 					}
 					for (Direction dir : Direction.ADJACENT)
 					{
-						TileEntityAllocator found = world.getTileEntity(x + dir.x, y + dir.y,
-								TileEntityAllocator.class);
+						TileEntityItemConduit found = world.getTileEntity(x + dir.x, y + dir.y,
+								TileEntityItemConduit.class);
 						if (found != null && this.canConnectTo(new Pos2(x + dir.x, y + dir.y), found))
 						{
 							// if the adjacent tile dosent have the same master
@@ -437,14 +437,14 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
 
-			if (changedTile instanceof TileEntityAllocator)
+			if (changedTile instanceof TileEntityItemConduit)
 			{
-				if (!((TileEntityAllocator) changedTile).isDead)
+				if (!((TileEntityItemConduit) changedTile).isDead)
 				{
 					// if it has a different master
-					if (!((TileEntityAllocator) changedTile).getMaster().equals(this.getMaster()))
+					if (!((TileEntityItemConduit) changedTile).getMaster().equals(this.getMaster()))
 					{
-						this.setMaster(((TileEntityAllocator) changedTile).getMaster());
+						this.setMaster(((TileEntityItemConduit) changedTile).getMaster());
 					}
 				}
 			} else if (changedTile instanceof IHasInventory)
@@ -483,7 +483,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 			} else
 			{
-				TileEntityAllocator master = world.getTileEntity(masterX, masterY, TileEntityAllocator.class);
+				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null && master != this && master.isMaster)
 				{
 					master.addToNetwork(x, y, mode);
@@ -512,7 +512,7 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 
 			for (Direction dir : Direction.ADJACENT)
 			{
-				TileEntityAllocator thisTileHere = world.getTileEntity(x + dir.x, y + dir.y, TileEntityAllocator.class);
+				TileEntityItemConduit thisTileHere = world.getTileEntity(x + dir.x, y + dir.y, TileEntityItemConduit.class);
 				if (canConnectTo(new Pos2(x + dir.x, y + dir.y), thisTileHere))
 				{
 					thisTileHere.resetMasterNetwork();
@@ -526,11 +526,11 @@ public class TileEntityAllocator extends TileEntity implements IConduit
 	@Override
 	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		if (tile instanceof TileEntityAllocator)
+		if (tile instanceof TileEntityItemConduit)
 		{
-			return ((TileEntityAllocator) tile)
+			return ((TileEntityItemConduit) tile)
 					.getSideMode(RockSolidLib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2
-					&& !((TileEntityAllocator) tile).isDead;
+					&& !((TileEntityItemConduit) tile).isDead;
 		}
 		return tile instanceof IHasInventory;
 	}

@@ -70,7 +70,7 @@ rocksolid/item.fluidLava=Lava
 rocksolid/item.alloySmelter=Alloy Smelter
 rocksolid/item.blastFurnace=Blast Furnace
 
-rocksolid/item.allocator=Allocator
+rocksolid/item.itemConduit=Item Conduit
 rocksolid/item.energyConduit=Energy Conduit
 rocksolid/item.fluidConduit=Fluid Conduit
 rocksolid/item.gasConduit=Gas Conduit
@@ -120,7 +120,7 @@ rocksolid/details.wrench=Used to configure conduits. Right-click on a conduit to
 rocksolid/details.alloySmelter=Used to create alloys! Requires coal to run.
 rocksolid/details.blastFurnace=Used to turn coal/charcoal into Coal Coke. Can be upgraded to increase speed.
 rocksolid/details.battery=Stores Power. Power can be inserted and extracted through any side using Energy Conduits.
-rocksolid/details.allocator=Transfers Items. Very unstable and hard to use at the moment :)
+rocksolid/details.itemConduit=Transfers Items. Might break your world, so be careful.
 rocksolid/details.chest=A clone of the vanilla chest that supports RockSolid conduits. Use this one!
 rocksolid/details.boiler=Generates steam using a solid fuel. Steam can be extracted using Gas Conduits connected to any side
 rocksolid/details.electricBlastFurnace=A faster Blast Furnace powered by electricity. Use Energy Conduits to supply power.
@@ -142,7 +142,7 @@ rocksolid/details.electrolyzer=Uses power to split a fluid into its atomic compo
 rocksolid/details.turbine=Uses steam to power a motor, thus generating power. Steam can be pumped in using Gas Conduits.
 rocksolid/details.liquidFueledBoiler=Uses a liquid fuel to heat water into steam. Steam can be extreacted using Gas Conduits.
 
-# Because Ellpeck is lazy
+# Because Ellpeck is lazy. Dunno if I still need this.
 rockbottom/item.stone=Stone
 rockbottom/item.coal_ore=Coal Ore
 rockbottom/item.grass=Grass

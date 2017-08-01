@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.tile.TileAllocator;
+import com.raphydaphy.rocksolid.tile.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
 import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tile.TileBattery;
@@ -41,7 +41,7 @@ public class ModTiles
 	public static Tile alloySmelter;
 	public static Tile blastFurnace;
 
-	public static Tile allocator;
+	public static Tile itemConduit;
 	public static Tile energyConduit;
 	public static Tile fluidConduit;
 	public static Tile gasConduit;
@@ -90,7 +90,7 @@ public class ModTiles
 		alloySmelter = new TileAlloySmelter();
 		blastFurnace = new TileBlastFurnace();
 
-		allocator = new TileAllocator();
+		itemConduit = new TileItemConduit();
 		energyConduit = new TileEnergyConduit();
 		fluidConduit = new TileFluidConduit();
 		gasConduit = new TileGasConduit();

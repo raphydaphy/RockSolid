@@ -9,7 +9,7 @@ import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
-import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
+import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -26,12 +26,12 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileAllocator extends TileBasic
+public class TileItemConduit extends TileBasic
 {
-	private static final String name = "allocator";
+	private static final String name = "itemConduit";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE, "details." + name);
 
-	public TileAllocator()
+	public TileItemConduit()
 	{
 		super(RockSolidLib.makeRes(name));
 		this.setHardness((float) 20);
@@ -42,7 +42,7 @@ public class TileAllocator extends TileBasic
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y)
 	{
-		return new TileEntityAllocator(world, x, y);
+		return new TileEntityItemConduit(world, x, y);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class TileAllocator extends TileBasic
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player)
 	{
-		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
+		TileEntityItemConduit tile = world.getTileEntity(x, y, TileEntityItemConduit.class);
 
 		if (tile != null)
 		{
@@ -118,7 +118,7 @@ public class TileAllocator extends TileBasic
 
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
 	{
-		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
+		TileEntityItemConduit tile = world.getTileEntity(x, y, TileEntityItemConduit.class);
 		if (tile != null)
 		{
 			tile.onAdded(world, x, y);
@@ -131,7 +131,7 @@ public class TileAllocator extends TileBasic
 	{
 		super.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
 
-		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
+		TileEntityItemConduit tile = world.getTileEntity(x, y, TileEntityItemConduit.class);
 
 		if (tile != null)
 		{
@@ -141,7 +141,7 @@ public class TileAllocator extends TileBasic
 
 	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
 	{
-		TileEntityAllocator tile = world.getTileEntity(x, y, TileEntityAllocator.class);
+		TileEntityItemConduit tile = world.getTileEntity(x, y, TileEntityItemConduit.class);
 
 		if (tile != null)
 		{

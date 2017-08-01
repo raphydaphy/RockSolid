@@ -499,12 +499,12 @@ tex.tiles.gasConduit.down=/tiles/gas_conduit/gas_conduit_down.png
 tex.tiles.gasConduit.left=/tiles/gas_conduit/gas_conduit_left.png
 tex.tiles.gasConduit.right=/tiles/gas_conduit/gas_conduit_right.png
 
-## Allocator
-tex.tiles.allocator=/tiles/allocator/allocator.png
-tex.tiles.allocator.up=/tiles/allocator/allocator_up.png
-tex.tiles.allocator.down=/tiles/allocator/allocator_down.png
-tex.tiles.allocator.left=/tiles/allocator/allocator_left.png
-tex.tiles.allocator.right=/tiles/allocator/allocator_right.png
+## Item Conduit
+tex.tiles.itemConduit=/tiles/item_conduit/item_conduit.png
+tex.tiles.itemConduit.up=/tiles/item_conduit/item_conduit_up.png
+tex.tiles.itemConduit.down=/tiles/item_conduit/item_conduit_down.png
+tex.tiles.itemConduit.left=/tiles/item_conduit/item_conduit_left.png
+tex.tiles.itemConduit.right=/tiles/item_conduit/item_conduit_right.png
 
 ## Boiler
 tex.tiles.boiler.item=/tiles/boiler/boiler_item.png

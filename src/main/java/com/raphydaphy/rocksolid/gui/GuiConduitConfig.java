@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
-import com.raphydaphy.rocksolid.tileentity.TileEntityAllocator;
+import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -78,7 +78,7 @@ public class GuiConduitConfig extends Gui
 		editingSide = direction;
 		this.components.clear();
 
-		if (tile instanceof TileEntityAllocator && ((TileEntityAllocator) tile).isMaster())
+		if (tile instanceof TileEntityItemConduit && ((TileEntityItemConduit) tile).isMaster())
 		{
 			this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Master"));
 		} else
