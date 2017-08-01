@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.IHasInventory;
+import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -21,6 +22,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	// 1 = input from the inventory
 	// 2 = disabled
 
+	public final ContainerInventory inventory;
+	
 	private int modeUp = 0;
 	private int modeDown = 0;
 	private int modeLeft = 0;
@@ -30,6 +33,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	private int priorityDown = 1;
 	private int priorityLeft = 1;
 	private int priorityRight = 1;
+	
+	private boolean isWhitelistUp = true;
+	private boolean isWhitelistDown = true;
+	private boolean isWhitelistLeft = true;
+	private boolean isWhitelistRight = true;
 
 	private boolean isMaster = true;
 	public boolean isDead;
@@ -39,12 +47,13 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	private boolean shouldSync = false;
 
 	// format is {x, y, mode}
-	private short[][] network = new short[512][4];
+	private short[][] network = new short[512][5];
 	private short networkLength = 0;
 
 	public TileEntityItemConduit(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
+		this.inventory = new ContainerInventory(this, 1);
 		// onAdded(world, x, y);
 	}
 
@@ -226,7 +235,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				this.networkLength--;
 				this.network[id] = this.network[networkLength];
-				this.network[networkLength] = new short[] { 0, 0, 2 };
+				this.network[networkLength] = new short[] { 0, 0, 2, 1};
 				this.shouldSync = true;
 			} else
 			{
@@ -265,6 +274,52 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		shouldSync = true;
 	}
 
+	public boolean getIsWhitelist(int side)
+	{
+		switch (side)
+		{
+		case 0:
+			return isWhitelistUp;
+		case 1:
+			return isWhitelistDown;
+		case 2:
+			return isWhitelistLeft;
+		case 3:
+			return isWhitelistRight;
+		}
+		return true;
+	}
+	
+	public void setIsWhitelist(int side, boolean isWhitelist)
+	{
+		if (RockBottomAPI.getNet().isClient() == false)
+		{
+			switch (side)
+			{
+			case 0:
+				// up
+				this.isWhitelistUp = isWhitelist;
+				break;
+			case 1:
+				// down
+				this.isWhitelistDown = isWhitelist;
+				break;
+			case 2:
+				// left
+				this.isWhitelistLeft = isWhitelist;
+				break;
+			case 3:
+				// right
+				this.isWhitelistRight = isWhitelist;
+				break;
+			}
+			
+			Pos2 pos = RockSolidLib.conduitSideToPos(new Pos2(this.x, this.y), side);
+			this.onChangeAround(world, x, y, TileLayer.MAIN, pos.getX(), pos.getY(), TileLayer.MAIN);
+			shouldSync = true;
+		}
+	}
+
 	public int getSideMode(int side)
 	{
 		switch (side)
@@ -280,11 +335,17 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		}
 		return 0;
 	}
+	
+	
 
 	@Override
 	public void save(final DataSet set, final boolean forSync)
 	{
 		super.save(set, forSync);
+		if (!forSync)
+		{
+			this.inventory.save(set);
+		}
 		set.addInt("modeUp", this.modeUp);
 		set.addInt("modeDown", this.modeDown);
 		set.addInt("modeLeft", this.modeLeft);
@@ -300,12 +361,20 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		set.addInt("priorityDown", this.priorityDown);
 		set.addInt("priorityLeft", this.priorityLeft);
 		set.addInt("priorityRight", this.priorityRight);
+		set.addBoolean("isWhitelistUp", this.isWhitelistUp);
+		set.addBoolean("isWhitelistDown", this.isWhitelistDown);
+		set.addBoolean("isWhitelistLeft", this.isWhitelistLeft);
+		set.addBoolean("isWhitelistRight", this.isWhitelistRight);
 	}
 
 	@Override
 	public void load(final DataSet set, final boolean forSync)
 	{
 		super.load(set, forSync);
+		if (!forSync)
+		{
+			this.inventory.load(set);
+		}
 		this.modeUp = set.getInt("modeUp");
 		this.modeDown = set.getInt("modeDown");
 		this.modeLeft = set.getInt("modeLeft");
@@ -321,6 +390,10 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		this.priorityDown = set.getInt("priorityDown");
 		this.priorityLeft = set.getInt("priorityLeft");
 		this.priorityRight = set.getInt("priorityRight");
+		this.isWhitelistUp = set.getBoolean("isWhitelistUp");
+		this.isWhitelistDown = set.getBoolean("isWhitelistDown");
+		this.isWhitelistLeft = set.getBoolean("isWhitelistLeft");
+		this.isWhitelistRight = set.getBoolean("isWhitelistRight");
 	}
 
 	public void onAdded(IWorld world, int x, int y)
@@ -382,7 +455,10 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				for (int i = 0; i < length; i++)
 				{
-					this.addToNetwork(newNetwork[i][0], newNetwork[i][1], newNetwork[i][2], newNetwork[i][3]);
+					if (newNetwork[i].length > 3)
+					{
+						this.addToNetwork(newNetwork[i][0], newNetwork[i][1], newNetwork[i][2], newNetwork[i][3], newNetwork[i][4]);
+					}
 				}
 			}
 		} else if (isDead)
@@ -506,7 +582,9 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
 				int thisPriority = this.getPriority(
 						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
-				this.addToNetwork(changedTile.x, changedTile.y, thisMode, thisPriority);
+				boolean thisWhitelistMode = this.getIsWhitelist(
+						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+				this.addToNetwork(changedTile.x, changedTile.y, thisMode, thisPriority, thisWhitelistMode);
 			}
 		}
 	}
@@ -538,17 +616,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						this.setMaster(this.getMaster());
 					} else if (getFromNetwork(changedX, changedY)[2] == 2)
 					{
-						for (Direction dir : Direction.ADJACENT)
-						{
-							TileEntityItemConduit there = world.getTileEntity(changedX + dir.x, changedY + dir.y,
-									TileEntityItemConduit.class);
-
-							if (there != null)
-							{
-								there.onChangeAround(world, changedX + dir.x, changedY + dir.y, TileLayer.MAIN,
-										changedX, changedY, changedLayer);
-							}
-						}
+						this.resetMasterNetwork();
+						this.setMaster(this.getMaster());
 					}
 					// if it has a different master
 					if (!((TileEntityItemConduit) changedTile).getMaster().equals(this.getMaster()))
@@ -565,7 +634,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 	public short[] getFromNetwork(int x, int y)
 	{
-		short[] result = new short[] { 0, 0, 0 };
+		short[] result = new short[] { 0, 0, 2, 0 };
 		for (int net = 0; net < networkLength; net++)
 		{
 			if (network[net][0] == x && network[net][1] == y)
@@ -576,7 +645,20 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		return result;
 	}
 
-	public void addToNetwork(int x, int y, int mode, int priority)
+	public void addToNetwork(int x, int y, int mode, int priority, boolean isWhitelist)
+	{
+		if (world.isClient() == false)
+		{
+			int isWhitelistInt = 1;
+			if (!isWhitelist)
+			{
+				isWhitelistInt = 0;
+			}
+			this.addToNetwork(x, y, mode, priority, isWhitelistInt);
+		}
+	}
+	
+	public void addToNetwork(int x, int y, int mode, int priority, int isWhitelist)
 	{
 		if (world.isClient() == false)
 		{
@@ -591,6 +673,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						{
 							network[curInv][2] = (short) mode;
 							network[curInv][3] = (short) priority;
+							network[curInv][4] = (short) isWhitelist;
+							
 							this.shouldSync = true;
 							alreadyHad = true;
 							break;
@@ -599,7 +683,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				}
 				if (!alreadyHad)
 				{
-					network[networkLength] = new short[] { (short) x, (short) y, (short) mode, (short) priority };
+					network[networkLength] = new short[] { (short) x, (short) y, (short) mode, (short) priority , (short) isWhitelist};
 					networkLength++;
 					this.shouldSync = true;
 				}
@@ -609,7 +693,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null && master != this && master.isMaster)
 				{
-					master.addToNetwork(x, y, mode, priority);
+					master.addToNetwork(x, y, mode, priority, isWhitelist);
 				}
 			}
 		}

@@ -20,14 +20,16 @@ public class PacketConduitUpdate implements IPacket
 	private int side;
 	private int mode;
 	private int priority;
+	private boolean isWhitelist;
 
-	public PacketConduitUpdate(int x, int y, int side, int mode, int priority)
+	public PacketConduitUpdate(int x, int y, int side, int mode, int priority, boolean isWhitelist)
 	{
 		this.x = x;
 		this.y = y;
 		this.side = side;
 		this.mode = mode;
 		this.priority = priority;
+		this.isWhitelist = isWhitelist;
 	}
 
 	public PacketConduitUpdate()
@@ -43,6 +45,7 @@ public class PacketConduitUpdate implements IPacket
 		buf.writeInt(side);
 		buf.writeInt(mode);
 		buf.writeInt(priority);
+		buf.writeBoolean(isWhitelist);
 	}
 
 	@Override
@@ -53,6 +56,7 @@ public class PacketConduitUpdate implements IPacket
 		side = buf.readInt();
 		mode = buf.readInt();
 		priority = buf.readInt();
+		isWhitelist = buf.readBoolean();
 	}
 
 	@Override
@@ -68,10 +72,11 @@ public class PacketConduitUpdate implements IPacket
 				if (tileAtPos instanceof TileEntityItemConduit)
 				{
 					((TileEntityItemConduit) tileAtPos).setPriority(priority, side);
+					((TileEntityItemConduit)tileAtPos).setIsWhitelist(side, isWhitelist);
 				}
 				if (RockBottomAPI.getNet().isServer())
 				{
-					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode, priority));
+					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode, priority, isWhitelist));
 				}
 			}
 		}

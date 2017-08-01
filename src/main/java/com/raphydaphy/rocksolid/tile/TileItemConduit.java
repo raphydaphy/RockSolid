@@ -5,7 +5,7 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
-import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
+import com.raphydaphy.rocksolid.gui.GuiItemConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
@@ -81,7 +81,7 @@ public class TileItemConduit extends TileBasic
 						return true;
 					} else
 					{
-						player.openGuiContainer(new GuiConduitConfig(player, tile), new ContainerEmpty(player));
+						player.openGuiContainer(new GuiItemConduitConfig(player, tile), new ContainerEmpty(player));
 						return true;
 					}
 				}
