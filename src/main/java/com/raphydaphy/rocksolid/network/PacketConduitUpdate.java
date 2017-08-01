@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.network;
 import java.io.IOException;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
+import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -18,13 +19,15 @@ public class PacketConduitUpdate implements IPacket
 	private int y;
 	private int side;
 	private int mode;
+	private int priority;
 
-	public PacketConduitUpdate(int x, int y, int side, int mode)
+	public PacketConduitUpdate(int x, int y, int side, int mode, int priority)
 	{
 		this.x = x;
 		this.y = y;
 		this.side = side;
 		this.mode = mode;
+		this.priority = priority;
 	}
 
 	public PacketConduitUpdate()
@@ -39,7 +42,7 @@ public class PacketConduitUpdate implements IPacket
 		buf.writeInt(y);
 		buf.writeInt(side);
 		buf.writeInt(mode);
-
+		buf.writeInt(priority);
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class PacketConduitUpdate implements IPacket
 		y = buf.readInt();
 		side = buf.readInt();
 		mode = buf.readInt();
+		priority = buf.readInt();
 	}
 
 	@Override
@@ -61,9 +65,13 @@ public class PacketConduitUpdate implements IPacket
 			if (tileAtPos instanceof IConduit)
 			{
 				((IConduit) tileAtPos).setSideMode(side, mode);
+				if (tileAtPos instanceof TileEntityItemConduit)
+				{
+					((TileEntityItemConduit) tileAtPos).setPriority(priority, side);
+				}
 				if (RockBottomAPI.getNet().isServer())
 				{
-					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode));
+					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode, priority));
 				}
 			}
 		}

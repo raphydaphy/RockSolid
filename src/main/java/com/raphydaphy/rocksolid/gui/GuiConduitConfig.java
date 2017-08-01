@@ -10,6 +10,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
+import de.ellpeck.rockbottom.api.gui.component.ComponentInputField;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
@@ -19,6 +20,7 @@ public class GuiConduitConfig extends Gui
 	// true = input false = output
 	private int itemMode;
 	private int editingSide;
+	private int priority;
 
 	public GuiConduitConfig(final AbstractEntityPlayer player, final TileEntity tile)
 	{
@@ -41,18 +43,41 @@ public class GuiConduitConfig extends Gui
 		{
 			buildSingleGui(game, button);
 			return true;
-		} else if (button == 4)
+		} else if (button == 4 || button == 6 || button == 7)
 		{
-			if (itemMode == 2)
+			if (button == 4)
 			{
-				itemMode = 0;
-			} else
-			{
-				itemMode++;
+				if (itemMode == 2)
+				{
+					itemMode = 0;
+				} else
+				{
+					itemMode++;
+				}
+	
+				((IConduit) tile).setSideMode(editingSide, itemMode);
 			}
-
-			((IConduit) tile).setSideMode(editingSide, itemMode);
-			RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode));
+			else if ((button == 6 || button ==7) && tile instanceof TileEntityItemConduit)
+			{
+				if (priority < 9999 && button == 6)
+				{
+					priority++;
+				}
+				if (priority > 1 && button == 7)
+				{
+					priority --;
+				}
+				((TileEntityItemConduit)tile).setPriority(priority, editingSide);
+				
+			}
+			if (tile instanceof TileEntityItemConduit)
+			{
+				RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, priority));
+			}
+			else
+			{
+				RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, 1));
+			}
 
 			buildSingleGui(game, editingSide);
 			return true;
@@ -60,6 +85,10 @@ public class GuiConduitConfig extends Gui
 		{
 			buildInitialGui(game);
 			return true;
+		}
+		else if (button == 8)
+		{
+			game.getGuiManager().closeGui();
 		}
 		return false;
 	}
@@ -70,21 +99,29 @@ public class GuiConduitConfig extends Gui
 		this.components.add(new ComponentButton(this, 0, this.guiLeft + 74, this.guiTop + 50, 50, 18, "Up"));
 		this.components.add(new ComponentButton(this, 1, this.guiLeft + 74, this.guiTop + 100, 50, 18, "Down"));
 		this.components.add(new ComponentButton(this, 2, this.guiLeft + 21, this.guiTop + 75, 50, 18, "Left"));
-		this.components.add(new ComponentButton(this, 3, this.guiLeft + 117, this.guiTop + 75, 50, 18, "Right"));
+		this.components.add(new ComponentButton(this, 3, this.guiLeft + 125, this.guiTop + 75, 50, 18, "Right"));
 	}
 
 	public void buildSingleGui(IGameInstance game, int direction)
 	{
 		editingSide = direction;
 		this.components.clear();
+		
+		//Gui gui, int x, int y, int sizeX, int sizeY, boolean renderBox, boolean selectable, boolean defaultActive, int maxLength, boolean displayMaxLength)
 
-		if (tile instanceof TileEntityItemConduit && ((TileEntityItemConduit) tile).isMaster())
+		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
+		
+		if (tile instanceof TileEntityItemConduit && ((IConduit) tile).getSideMode(direction) != 2)
 		{
-			this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Master"));
-		} else
-		{
-			this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
+			priority = ((TileEntityItemConduit)tile).getPriority(direction);
+			ComponentInputField priorityDisp = new ComponentInputField(this, this.guiLeft + 80, this.guiTop + 25, 30, 18, true, false, false, 4, false);
+			priorityDisp.setText(Integer.toString((priority)));
+			this.components.add(priorityDisp);
+			this.components.add(new ComponentButton(this, 7, this.guiLeft + 45, this.guiTop + 25, 30, 18, "-"));
+			this.components.add(new ComponentButton(this, 6, this.guiLeft + 115, this.guiTop + 25, 30, 18, "+"));
+			this.components.add(new ComponentButton(this, 8, this.guiLeft + 70, this.guiTop + 75, 50, 18, "Exit"));
 		}
+		
 
 		if (((IConduit) tile).getSideMode(direction) == 0)
 		{
@@ -92,6 +129,7 @@ public class GuiConduitConfig extends Gui
 					"Outputs contents into connected block."));
 		} else if (((IConduit) tile).getSideMode(direction) == 1)
 		{
+			
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input",
 					"Pulls contents into the conduit."));
 		} else if (((IConduit) tile).getSideMode(direction) == 2)

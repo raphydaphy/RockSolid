@@ -28,6 +28,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	private int modeLeft = 0;
 	private int modeRight = 0;
 
+	private int priorityUp = 1;
+	private int priorityDown = 1;
+	private int priorityLeft = 1;
+	private int priorityRight = 1;
+	
 	private boolean isMaster = true;
 	public boolean isDead;
 	private int masterX = y;
@@ -36,7 +41,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	private boolean shouldSync = false;
 
 	// format is {x, y, mode}
-	private short[][] network = new short[512][3];
+	private short[][] network = new short[512][4];
 	private short networkLength = 0;
 
 	public TileEntityItemConduit(final IWorld world, final int x, final int y)
@@ -66,7 +71,49 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			shouldSync = true;
 		}
 	}
+	
+	public int getPriority(int side)
+	{
+		switch(side)
+		{
+		case 0:
+			return priorityUp;
+		case 1:
+			return priorityDown;
+		case 2:
+			return priorityLeft;
+		case 3:
+			return priorityRight;
+		}
+		return 1;
+	}
 
+	public void setPriority(int priority, int side)
+	{
+		if (world.isClient() == false)
+		{
+			switch(side)
+			{
+			case 0:
+				this.priorityUp = priority;
+				break;
+			case 1:
+				this.priorityDown = priority;
+				break;
+			case 2:
+				this.priorityLeft = priority;
+				break;
+			case 3:
+				this.priorityRight = priority;
+				break;
+			}
+			
+			Pos2 pos = RockSolidLib.conduitSideToPos(new Pos2(this.x, this.y), side);
+			this.onChangeAround(world, x, y, TileLayer.MAIN, pos.getX(), pos.getY(), TileLayer.MAIN);
+			
+			this.shouldSync = true;
+		}
+	}
 	@Override
 	public void update(IGameInstance game)
 	{
@@ -77,12 +124,14 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		{
 			if (this.isMaster)
 			{
+				System.out.println("Network has " + networkLength + " entries with the second being at " + network[1][0] + ", " + network[1][1]);
 				for (int curNet = 0; curNet < networkLength; curNet++)
 				{
 					Pos2 tilePos = new Pos2(this.network[curNet][0], this.network[curNet][1]);
 					TileEntity tile = RockSolidLib.getTileFromPos(tilePos.getX(), tilePos.getY(), world);
 					if (tile != null && tile instanceof IHasInventory)
 					{
+						System.out.println("Priority of inventory at " + tilePos.getX() + ", " + tilePos.getY() + " is " +this.network[curNet][3]);
 						// if the inventory is set to input into the network (
 						// INPUT )
 						if (this.network[curNet][2] == 1)
@@ -99,8 +148,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 									if (tile != null && tile instanceof IHasInventory)
 									{
 										// if the inventory is set to output
-										// into from the network (OUTPUT )
-										if (this.network[curNetOut][2] == 0 && tileOut instanceof IHasInventory)
+										// from from the network (OUTPUT )
+										if (this.network[curNetOut][2] == 0 && this.network[curNetOut][3] > 1 && tileOut instanceof IHasInventory)
 										{
 											if (RockSolidLib.canInsert((IHasInventory) tileOut, wouldInput))
 											{
@@ -217,6 +266,10 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		set.addBoolean("shouldSync", this.shouldSync);
 		set.addBoolean("isDead", this.isDead);
 		set.addShort("networkLength", this.networkLength);
+		set.addInt("priorityUp", this.priorityUp);
+		set.addInt("priorityDown", this.priorityDown);
+		set.addInt("priorityLeft", this.priorityLeft);
+		set.addInt("priorityRight", this.priorityRight);
 	}
 
 	@Override
@@ -234,6 +287,10 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		this.shouldSync = set.getBoolean("shouldSync");
 		this.isDead = set.getBoolean("isDead");
 		this.networkLength = set.getShort("networkLength");
+		this.priorityUp = set.getInt("priorityUp");
+		this.priorityDown = set.getInt("priorityDown");
+		this.priorityLeft = set.getInt("priorityLeft");
+		this.priorityRight = set.getInt("priorityRight");
 	}
 
 	public void onAdded(IWorld world, int x, int y)
@@ -295,7 +352,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				for (int i = 0; i < length; i++)
 				{
-					this.addToNetwork(newNetwork[i][0], newNetwork[i][1], newNetwork[i][2]);
+					this.addToNetwork(newNetwork[i][0], newNetwork[i][1], newNetwork[i][2], newNetwork[i][3]);
 				}
 			}
 		} else if (isDead)
@@ -417,7 +474,9 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				int thisMode = this.getSideMode(
 						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
-				this.addToNetwork(changedTile.x, changedTile.y, thisMode);
+				int thisPriority = this.getPriority(
+						RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+				this.addToNetwork(changedTile.x, changedTile.y, thisMode, thisPriority);
 			}
 		}
 	}
@@ -441,6 +500,26 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				if (!((TileEntityItemConduit) changedTile).isDead)
 				{
+					int thisMode = this.getSideMode(
+							RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+					if (thisMode == 2)
+					{
+						this.resetMasterNetwork();
+						this.setMaster(this.getMaster());
+					}
+					else if (getFromNetwork(changedX, changedY)[2] == 2)
+					{
+						System.out.println("Tile changed from side mode 2 to " + thisMode + ", resetting network to compensate");
+						for (Direction dir: Direction.ADJACENT)
+						{
+							TileEntityItemConduit there = world.getTileEntity(changedX + dir.x, changedY + dir.y, TileEntityItemConduit.class);
+							
+							if (there != null)
+							{
+								there.onChangeAround(world, changedX + dir.x, changedY + dir.y, TileLayer.MAIN, changedX, changedY, changedLayer);
+							}
+						}
+					}
 					// if it has a different master
 					if (!((TileEntityItemConduit) changedTile).getMaster().equals(this.getMaster()))
 					{
@@ -453,13 +532,27 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			}
 		}
 	}
+	
+	public short[] getFromNetwork(int x, int y)
+	{
+		short[] result = new short[]{0,0,0};
+		for (int net = 0; net < networkLength; net++)
+		{
+			if (network[net][0] == x && network[net][1] == y)
+			{
+				return network[net];
+			}
+		}
+		return result;
+	}
 
-	public void addToNetwork(int x, int y, int mode)
+	public void addToNetwork(int x, int y, int mode, int priority)
 	{
 		if (world.isClient() == false)
 		{
 			if (this.isMaster)
 			{
+				System.out.println("Adding tile at " + x + ", " + y + " to network with priority " + priority);
 				boolean alreadyHad = false;
 				for (int curInv = 0; curInv < networkLength; curInv++)
 				{
@@ -468,6 +561,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						if (network[curInv][0] == (short) x && network[curInv][1] == (short) y)
 						{
 							network[curInv][2] = (short) mode;
+							network[curInv][3] = (short) priority;
 							this.shouldSync = true;
 							alreadyHad = true;
 							break;
@@ -476,7 +570,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				}
 				if (!alreadyHad)
 				{
-					network[networkLength] = new short[] { (short) x, (short) y, (short) mode };
+					network[networkLength] = new short[] { (short) x, (short) y, (short) mode, (short) priority };
 					networkLength++;
 					this.shouldSync = true;
 				}
@@ -486,7 +580,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				TileEntityItemConduit master = world.getTileEntity(masterX, masterY, TileEntityItemConduit.class);
 				if (master != null && master != this && master.isMaster)
 				{
-					master.addToNetwork(x, y, mode);
+					master.addToNetwork(x, y, mode, priority);
 				}
 			}
 		}
