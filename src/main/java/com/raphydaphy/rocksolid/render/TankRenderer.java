@@ -35,7 +35,7 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 		TileEntityTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityTank.class);
 
 		IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
-
+		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
 		float fullness = tileEntity.getFluidTankFullnesss();
 		int stage = Util.floor(fullness * 20);
 		if (stage > 0)
@@ -44,34 +44,47 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 			{
 				stage = 20;
 			}
+			
+			
+			if (innerCoord.getY() == 1)
+			{
+				if (stage < 10)
+				{
+					return;
+				}
+				else
+				{
+					stage -= 10;
+				}
+			}
+			else if (innerCoord.getY() == 0) 
+			{ 
+				if (stage >10) 
+				{ 
+					stage = 10; 
+				}
+			}
 			if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
 			{
 				tex = this.texture
-						.addSuffix(".fluidWater." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
+						.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
 			} else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
 			{
-				tex = this.texture.addSuffix(".fluidLava." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = this.texture.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
 			}
+			
+			float scaleY = (float)(scale / 12);
+			
+			float startY = (scale) - (scaleY * stage);
+		
+			if (innerCoord.getY() == 0)
+			{
+				startY -= (2 * scaleY);
+			}
+			manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale, renderY + startY + (scaleY * stage), 0, 0, 12, stage, light, null);
 
-			/*
-			 * float scaleY = (float)(scale / 12);
-			 * 
-			 * if (innerCoord.getY() == 0) { if (stage >10) { stage = 10; }
-			 * Texture curTex = manager.getTexture(tex).getSubTexture(x, y,
-			 * 12,stage); //curTex.drawWithLight(renderX, renderY, scale, scaleY
-			 * * stage, light);
-			 * 
-			 * manager.getTexture(tex).getSubTexture(x, y, 12,
-			 * 6).drawWithLight(renderX, renderY, scale, scale / 2, light); }
-			 * else if (innerCoord.getY() == 1 && (stage > 10)) { //stage -= 10;
-			 * //Texture curTex = manager.getTexture(tex).getSubTexture(x, y,
-			 * 12, stage); //curTex.drawWithLight(renderX, renderY + ((scaleY *
-			 * (13 - stage)) - scaleY), scale, scaleY * stage, light); }
-			 */
 
 		}
-
-		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
 	}
 
 }

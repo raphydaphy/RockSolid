@@ -35,7 +35,7 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 		TileEntityGasTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityGasTank.class);
 
 		IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
-
+		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
 		float fullness = tileEntity.getGasTankFullnesss();
 		int stage = Util.floor(fullness * 20);
 		if (stage > 0)
@@ -44,21 +44,51 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 			{
 				stage = 20;
 			}
+			
+			
+			if (innerCoord.getY() == 1)
+			{
+				if (stage < 10)
+				{
+					return;
+				}
+				else
+				{
+					stage -= 10;
+				}
+			}
+			else if (innerCoord.getY() == 0) 
+			{ 
+				if (stage >10) 
+				{ 
+					stage = 10; 
+				}
+			}
 			if (tileEntity.getGasType().equals(ModGasses.gasOxygen.toString()))
 			{
-				tex = this.texture.addSuffix(".gasOxygen." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = this.texture.addSuffix(".gasOxygen." + innerCoord.getX() + "." + innerCoord.getY());
 			} else if (tileEntity.getGasType().equals(ModGasses.gasHydrogen.toString()))
 			{
 				tex = this.texture
-						.addSuffix(".gasHydrogen." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
+						.addSuffix(".gasHydrogen." + innerCoord.getX() + "." + innerCoord.getY());
 			} else if (tileEntity.getGasType().equals(ModGasses.gasSteam.toString()))
 			{
-				tex = this.texture.addSuffix(".gasSteam." + stage + "." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = this.texture.addSuffix(".gasSteam." + innerCoord.getX() + "." + innerCoord.getY());
 			}
+			
+			float scaleY = (float)(scale / 12);
+			
+			float startY = (scale) - (scaleY * stage);
+		
+			if (innerCoord.getY() == 0)
+			{
+				startY -= (2 * scaleY);
+			}
+			manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale, renderY + startY + (scaleY * stage), 0, 0, 12, stage, light, null);
 
 		}
 
-		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+		
 	}
 
 }
