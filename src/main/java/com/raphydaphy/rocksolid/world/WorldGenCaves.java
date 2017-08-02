@@ -53,10 +53,10 @@ public class WorldGenCaves implements IWorldGenerator
 		int feature = rand.nextInt(25);
 		int fluidHeight = 0;
 
-		if (feature < 13)
+		if (feature < 13 && (chunk.getGridY() > 30  || rand.nextBoolean()))
 		{
 			feature = 0;
-		} else if (feature < 16)
+		} else if (feature < 16 || (chunk.getGridY() < -30 && rand.nextBoolean()))
 		{
 			feature = 1;
 		} else if (feature < 18)
