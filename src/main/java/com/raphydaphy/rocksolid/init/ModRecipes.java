@@ -156,7 +156,7 @@ public class ModRecipes
 		// Remove some vanilla recipes?
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.remove(4);
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.remove(4);
-		
+
 		// misc manual crafting recipies
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.alloySmelter),
 				new ResUseInfo(ModResources.PROCESSED_TIN, 10), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 10),
@@ -167,7 +167,6 @@ public class ModRecipes
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40)));
 
-		
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.chest),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 30), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER),
 				new ResUseInfo(ResourceRegistry.WOOD_LOG, 5)));
@@ -213,8 +212,14 @@ public class ModRecipes
 				new ResUseInfo(ModResources.COMPRESSED_STEEL, 1), new ResUseInfo(ModResources.PROCESSED_TIN, 6),
 				new ResUseInfo(ModResources.PROCESSED_BRONZE, 12), new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 70)));
+
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.combustionEngine),
+				new ResUseInfo(ModResources.COMPRESSED_STEEL, 3), new ResUseInfo(ModResources.TANK, 1),
+				new ResUseInfo(ModResources.PROCESSED_STEEL, 4), new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 50),
+				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 50)));
+
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.nuclearReactor),
-				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ModResources.COMPRESSED_TITANIUM),
+				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ModResources.COMPRESSED_TITANIUM, 2),
 				new ResUseInfo(ModResources.COMPRESSED_URANIUM, 4), new ResUseInfo(ModResources.PROCESSED_STEEL, 8),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 30),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 50)));
@@ -225,8 +230,7 @@ public class ModRecipes
 
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.tank),
 				new ResUseInfo(ModResources.PROCESSED_STEEL, 4), new ResUseInfo(ModResources.PROCESSED_BRONZE, 4),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 5),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10)));
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 5), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.gasTank),
 				new ResUseInfo(ModResources.PROCESSED_STEEL, 4), new ResUseInfo(ModResources.PROCESSED_TIN, 4),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 15),
@@ -238,8 +242,7 @@ public class ModRecipes
 
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.energyConduit, 8),
 				new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 8),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 5),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10)));
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 5), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.fluidConduit, 8),
 				new ResUseInfo(ModResources.PROCESSED_IRON, 8), new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10)));
@@ -256,24 +259,24 @@ public class ModRecipes
 				new ResUseInfo(ModResources.PROCESSED_STEEL, 5)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricPurifier),
 				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 60),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 40),
-				new ResUseInfo(ModResources.PROCESSED_BRONZE, 30), new ResUseInfo(ModResources.RAW_CLAY, 10)));
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 40), new ResUseInfo(ModResources.PROCESSED_BRONZE, 30),
+				new ResUseInfo(ModResources.RAW_CLAY, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electrolyzer),
 				new ResUseInfo(ModResources.COMPRESSED_TITANIUM, 1), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 100),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 50),
 				new ResUseInfo(ModResources.PROCESSED_MAGNESIUM, 30), new ResUseInfo(ModResources.TANK, 1)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricAlloySmelter),
 				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 50),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 30),
-				new ResUseInfo(ModResources.PROCESSED_BRONZE, 18), new ResUseInfo(ModResources.PROCESSED_STEEL, 5)));
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 30), new ResUseInfo(ModResources.PROCESSED_BRONZE, 18),
+				new ResUseInfo(ModResources.PROCESSED_STEEL, 5)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricBlastFurnace),
 				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 60),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 40),
-				new ResUseInfo(ModResources.PROCESSED_BRONZE, 30), new ResUseInfo(ModResources.PROCESSED_COAL, 10)));
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 40), new ResUseInfo(ModResources.PROCESSED_BRONZE, 30),
+				new ResUseInfo(ModResources.PROCESSED_COAL, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricSeparator),
 				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 65),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 50),
-				new ResUseInfo(ModResources.PROCESSED_BRONZE, 25), new ResUseInfo(ModResources.PROCESSED_IRON, 25)));
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 50), new ResUseInfo(ModResources.PROCESSED_BRONZE, 25),
+				new ResUseInfo(ModResources.PROCESSED_IRON, 25)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(ModTiles.electricSmelter),
 				new ResUseInfo(ModResources.COMPRESSED_STEEL, 2), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 35),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 30), new ResUseInfo(ModResources.PROCESSED_BRONZE, 15),

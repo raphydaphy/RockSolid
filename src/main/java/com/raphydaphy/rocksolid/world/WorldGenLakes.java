@@ -37,6 +37,8 @@ public class WorldGenLakes implements IWorldGenerator
 		int startY = -10;
 
 		int fluidStart = 1 - rand.nextInt(3);
+		
+		int type = rand.nextInt(9);
 
 		boolean[][] terrain = new boolean[chunkMapSizeX][chunkMapSizeY];
 
@@ -79,20 +81,28 @@ public class WorldGenLakes implements IWorldGenerator
 					{
 						if (chunk.getY() + y + startY < fluidStart)
 						{
-							world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-									ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
-
-							if (chunk.getY() + y + startY == fluidStart - 7)
+							if (type < 6)
 							{
-								if (rand.nextBoolean())
+								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
+										ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
+	
+								if (chunk.getY() + y + startY == fluidStart - 7)
+								{
+									if (rand.nextBoolean())
+									{
+										world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
+												ModTiles.clay.getDefState());
+									}
+								} else if (chunk.getY() + y + startY < fluidStart - 7)
 								{
 									world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
 											ModTiles.clay.getDefState());
 								}
-							} else if (chunk.getY() + y + startY < fluidStart - 7)
+							}
+							else
 							{
-								world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
-										ModTiles.clay.getDefState());
+								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
+										ModFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));
 							}
 						} else
 						{

@@ -35,6 +35,8 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 		final TileEntityFluidPump tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(),
 				TileEntityFluidPump.class);
 		IResourceName tex = this.textures.get(innerCoord);
+		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+		
 		if (tileEntity != null && tileEntity.getCurrentFluid() >= 1000)
 		{
 			int fullness = Util.floor(tileEntity.getFluidTankFullness() * 10);
@@ -48,13 +50,24 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 				} else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
 				{
 					fluid = "fluidLava";
+				}else if (tileEntity.getFluidType().equals(ModFluids.fluidOil.toString()))
+				{
+					fluid = "fluidOil";
 				}
 				tex = this.texture
-						.addSuffix("." + fluid + "." + fullness + "." + innerCoord.getX() + "." + innerCoord.getY());
+						.addSuffix("." + fluid + "." + innerCoord.getX() + "." + innerCoord.getY());
+				
+				float scaleY = (float)(scale / 12);
+				
+				float startY = (scale) - (scaleY * fullness);
+			
+				//startY -= (2 * scaleY);
+				manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale, renderY + startY + (scaleY * fullness), 0, 0, 12, fullness, light, null);
+
 			}
 
 		}
-		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+		
 	}
 
 }

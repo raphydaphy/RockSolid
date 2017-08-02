@@ -86,6 +86,9 @@ public class ItemBucket extends ItemBase
 					} else if (atState.getTile() == ModFluids.fluidLava)
 					{
 						instance.setMeta(2);
+					}else if (atState.getTile() == ModFluids.fluidOil)
+					{
+						instance.setMeta(3);
 					}
 					if (volume - Fluid.BUCKET_VOLUME == 0)
 					{

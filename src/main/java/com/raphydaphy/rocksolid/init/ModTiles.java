@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.tile.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
 import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tile.TileBattery;
@@ -8,6 +7,7 @@ import com.raphydaphy.rocksolid.tile.TileBlastFurnace;
 import com.raphydaphy.rocksolid.tile.TileBoiler;
 import com.raphydaphy.rocksolid.tile.TileCharger;
 import com.raphydaphy.rocksolid.tile.TileChest;
+import com.raphydaphy.rocksolid.tile.TileCombustionEngine;
 import com.raphydaphy.rocksolid.tile.TileCompressor;
 import com.raphydaphy.rocksolid.tile.TileCreativePowerSource;
 import com.raphydaphy.rocksolid.tile.TileCustomDrop;
@@ -22,6 +22,7 @@ import com.raphydaphy.rocksolid.tile.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.TileFluidPump;
 import com.raphydaphy.rocksolid.tile.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.TileGasTank;
+import com.raphydaphy.rocksolid.tile.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.TileLamp;
 import com.raphydaphy.rocksolid.tile.TileLiquidBoiler;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
@@ -64,7 +65,8 @@ public class ModTiles
 	public static Tile boiler;
 	public static Tile liquidBoiler;
 	public static Tile turbine;
-
+	
+	public static Tile combustionEngine;
 	public static Tile nuclearReactor;
 	public static Tile battery;
 
@@ -114,6 +116,7 @@ public class ModTiles
 		liquidBoiler = new TileLiquidBoiler();
 		turbine = new TileTurbine();
 
+		combustionEngine = new TileCombustionEngine();
 		nuclearReactor = new TileNuclearReactor();
 		battery = new TileBattery();
 

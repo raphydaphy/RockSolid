@@ -49,6 +49,9 @@ public class RockSolidLib
 		} else if (fluid.equals(ModFluids.fluidLava.toString()))
 		{
 			return "Lava";
+		} else if (fluid.equals(ModFluids.fluidOil.toString()))
+		{
+			return "Oil";
 		}
 		return "Fluid";
 	}
@@ -61,6 +64,8 @@ public class RockSolidLib
 			return ModFluids.fluidWater;
 		case 2:
 			return ModFluids.fluidLava;
+		case 3:
+			return ModFluids.fluidOil;
 		}
 		return ModFluids.fluidEmpty;
 	}
@@ -73,6 +78,9 @@ public class RockSolidLib
 		} else if (fluid.equals(ModFluids.fluidWater.toString()))
 		{
 			return Color.blue;
+		}else if (fluid.equals(ModFluids.fluidOil.toString()))
+		{
+			return Color.black;
 		}
 		return Color.lightGray;
 	}

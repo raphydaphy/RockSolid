@@ -4,8 +4,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.tile.TileTank;
-import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
+import com.raphydaphy.rocksolid.tile.TileCombustionEngine;
+import com.raphydaphy.rocksolid.tileentity.TileEntityCombustionEngine;
+import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -17,28 +18,27 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TankRenderer extends MultiTileRenderer<TileTank>
+public class CombustionEngineRenderer extends MultiTileRenderer<TileCombustionEngine>
 {
 
-	public TankRenderer(final IResourceName texture, final TileTank tile)
+	public CombustionEngineRenderer(final IResourceName texture, final TileCombustionEngine tile)
 	{
 		super(texture, tile);
-
 	}
 
 	@Override
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileTank tile,
+	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileCombustionEngine tile,
 			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
 	{
 		final Pos2 innerCoord = tile.getInnerCoord(state);
 		final Pos2 mainPos = tile.getMainPos(x, y, state);
-		TileEntityTank tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityTank.class);
-
+		TileEntityCombustionEngine tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(), TileEntityCombustionEngine.class);
+		IResourceName fluidTank = RockSolidLib.makeRes("tiles.tank");
 		IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
 		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
-		float fullness = tileEntity.getFluidTankFullnesss();
+		float fullness = tileEntity.getFluidTankFullness();
 		int stage = Util.floor(fullness * 20);
-		if (stage > 0)
+		if (stage > 0 && innerCoord.getX() == 0 && innerCoord.getY() < 2)
 		{
 			if (stage > 20)
 			{
@@ -66,14 +66,13 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 			}
 			if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
 			{
-				tex = this.texture
-						.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = fluidTank.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
 			} else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
 			{
-				tex = this.texture.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = fluidTank.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
 			}else if (tileEntity.getFluidType().equals(ModFluids.fluidOil.toString()))
 			{
-				tex = this.texture.addSuffix(".fluidOil." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = fluidTank.addSuffix(".fluidOil." + innerCoord.getX() + "." + innerCoord.getY());
 			}
 			
 			float scaleY = (float)(scale / 12);

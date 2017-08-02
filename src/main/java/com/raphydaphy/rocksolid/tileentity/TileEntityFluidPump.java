@@ -89,17 +89,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 			thisTile = world.getState(curX, curY);
 		}
 
-		String tileType = ModFluids.fluidEmpty.toString();
-		if (thisTile.getTile().equals(ModFluids.fluidWater))
-		{
-			tileType = ModFluids.fluidWater.toString();
-		} else if (thisTile.getTile().equals(ModFluids.fluidLava))
-		{
-			tileType = ModFluids.fluidLava.toString();
-		} else
-		{
-			return false;
-		}
+		String tileType = thisTile.getTile().toString();
 		if ((this.fluidType.equals(tileType) || this.fluidType.equals(ModFluids.fluidEmpty.toString()))
 				&& world.isPosLoaded(curX, curY) && this.getCurrentFluid() <= (this.getMaxFluid() - 1000))
 		{
