@@ -70,7 +70,6 @@ public class TileEnergyConduit extends TileBasic
 
 				return true;
 			}
-			System.out.println("not even the server!");
 			if (player.getInvContainer().getSlot(player.getSelectedSlot()).get() != null)
 			{
 

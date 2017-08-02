@@ -43,6 +43,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 	@Override
 	public void update(IGameInstance game)
 	{
+		super.update(game);
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
 			if (this.getCurrentEnergy() + productionPerTick <= this.getMaxEnergy())

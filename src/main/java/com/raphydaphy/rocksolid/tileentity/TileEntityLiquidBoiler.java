@@ -50,6 +50,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	@Override
 	public void update(IGameInstance game)
 	{
+		super.update(game);
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
 				&& this.fluidType[0].equals(ModFluids.fluidWater.toString())
