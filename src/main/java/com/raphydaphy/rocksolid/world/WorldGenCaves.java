@@ -2,9 +2,9 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
-import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -131,7 +131,7 @@ public class WorldGenCaves implements IWorldGenerator
 								continue;
 							}
 						}
-						TileState background = ModTiles.rockLight.getDefState();
+						TileState background = RockSolidContent.rockLight.getDefState();
 						if (!hasFeature ||( (feature < 2 || feature == 4)&& y > (chunkMapSizeY / fluidHeight)))
 						{
 							world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
@@ -144,23 +144,23 @@ public class WorldGenCaves implements IWorldGenerator
 							switch (feature)
 							{
 							case 0:
-								featureTile = ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel,
+								featureTile = BaseFluids.fluidWater.getDefState().prop(Fluid.fluidLevel,
 										Fluid.MAX_VOLUME);
 								break;
 							case 1:
-								featureTile = ModFluids.fluidLava.getDefState().prop(Fluid.fluidLevel,
+								featureTile = BaseFluids.fluidLava.getDefState().prop(Fluid.fluidLevel,
 										Fluid.MAX_VOLUME);
 								break;
 							case 2:
-								featureTile = ModTiles.limestone.getDefState();
+								featureTile = RockSolidContent.limestone.getDefState();
 								background = GameContent.TILE_ROCK.getDefState();
 								break;
 							case 3:
-								featureTile = ModTiles.clay.getDefState();
+								featureTile = RockSolidContent.clay.getDefState();
 								background = GameContent.TILE_ROCK.getDefState();
 								break;
 							case 4:
-								featureTile = ModFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								featureTile = BaseFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
 								break;
 							}
 

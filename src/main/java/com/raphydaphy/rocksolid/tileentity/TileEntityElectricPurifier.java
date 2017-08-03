@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
 import com.raphydaphy.rocksolid.api.util.IBasicIO;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
@@ -30,7 +30,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = ModFluids.fluidEmpty.toString();
+	protected String fluidType = BaseFluids.fluidEmpty.toString();
 
 	protected int powerStored = 0;
 	private boolean shouldSync = false;
@@ -95,7 +95,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 								this.fluidStored -= recipe.getFluidVolume();
 								if (this.fluidStored == 0)
 								{
-									this.setFluidType(ModFluids.fluidEmpty.toString());
+									this.setFluidType(BaseFluids.fluidEmpty.toString());
 								}
 								if (output == null)
 								{
@@ -127,7 +127,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(ModFluids.fluidEmpty.toString());
+				this.setFluidType(BaseFluids.fluidEmpty.toString());
 			}
 
 			shouldSync = true;
@@ -249,7 +249,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+					|| this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -263,7 +263,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(ModFluids.fluidEmpty.toString()) || this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(BaseFluids.fluidEmpty.toString()) || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

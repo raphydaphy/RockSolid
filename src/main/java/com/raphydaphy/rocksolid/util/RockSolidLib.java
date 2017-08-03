@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.util;
 import org.newdawn.slick.Color;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
-import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
@@ -28,13 +28,13 @@ public class RockSolidLib
 
 	public static String getGasLocName(String gas)
 	{
-		if (gas.equals(ModGasses.gasHydrogen.toString()))
+		if (gas.equals(RockSolidContent.gasHydrogen.toString()))
 		{
 			return "Hydrogen";
-		} else if (gas.equals(ModGasses.gasOxygen.toString()))
+		} else if (gas.equals(RockSolidContent.gasOxygen.toString()))
 		{
 			return "Oxygen";
-		} else if (gas.equals(ModGasses.gasSteam.toString()))
+		} else if (gas.equals(RockSolidContent.gasSteam.toString()))
 		{
 			return "Steam";
 		}
@@ -43,13 +43,13 @@ public class RockSolidLib
 
 	public static String getFluidLocName(String fluid)
 	{
-		if (fluid.equals(ModFluids.fluidWater.toString()))
+		if (fluid.equals(BaseFluids.fluidWater.toString()))
 		{
 			return "Water";
-		} else if (fluid.equals(ModFluids.fluidLava.toString()))
+		} else if (fluid.equals(BaseFluids.fluidLava.toString()))
 		{
 			return "Lava";
-		} else if (fluid.equals(ModFluids.fluidOil.toString()))
+		} else if (fluid.equals(BaseFluids.fluidOil.toString()))
 		{
 			return "Oil";
 		}
@@ -61,24 +61,24 @@ public class RockSolidLib
 		switch (meta)
 		{
 		case 1:
-			return ModFluids.fluidWater;
+			return BaseFluids.fluidWater;
 		case 2:
-			return ModFluids.fluidLava;
+			return BaseFluids.fluidLava;
 		case 3:
-			return ModFluids.fluidOil;
+			return BaseFluids.fluidOil;
 		}
-		return ModFluids.fluidEmpty;
+		return BaseFluids.fluidEmpty;
 	}
 
 	public static Color getFluidColor(String fluid)
 	{
-		if (fluid.equals(ModFluids.fluidLava.toString()))
+		if (fluid.equals(BaseFluids.fluidLava.toString()))
 		{
 			return Color.orange;
-		} else if (fluid.equals(ModFluids.fluidWater.toString()))
+		} else if (fluid.equals(BaseFluids.fluidWater.toString()))
 		{
 			return Color.blue;
-		}else if (fluid.equals(ModFluids.fluidOil.toString()))
+		}else if (fluid.equals(BaseFluids.fluidOil.toString()))
 		{
 			return Color.black;
 		}
@@ -87,13 +87,13 @@ public class RockSolidLib
 
 	public static Color getGasColor(String gas)
 	{
-		if (gas.equals(ModGasses.gasOxygen.toString()))
+		if (gas.equals(RockSolidContent.gasOxygen.toString()))
 		{
 			return new Color(224, 255, 255);
-		} else if (gas.equals(ModGasses.gasHydrogen.toString()))
+		} else if (gas.equals(RockSolidContent.gasHydrogen.toString()))
 		{
 			return new Color(200, 147, 216);
-		} else if (gas.equals(ModGasses.gasSteam.toString()))
+		} else if (gas.equals(RockSolidContent.gasSteam.toString()))
 		{
 			return new Color(165, 165, 165);
 		}

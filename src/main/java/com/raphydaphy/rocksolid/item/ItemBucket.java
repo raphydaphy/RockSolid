@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.item;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
-import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -55,16 +55,16 @@ public class ItemBucket extends ItemBase
 				IFluidProducer tank = (IFluidProducer) atPos;
 				if (tank.getCurrentFluid() >= 1000)
 				{
-					if (!(tank.getFluidType().equals(ModFluids.fluidEmpty.toString())))
+					if (!(tank.getFluidType().equals(BaseFluids.fluidEmpty.toString())))
 					{
-						if (tank.getFluidType().equals(ModFluids.fluidWater.toString()))
+						if (tank.getFluidType().equals(BaseFluids.fluidWater.toString()))
 						{
 							if (tank.removeFluid(1000))
 							{
 								instance.setMeta(1);
 								return true;
 							}
-						} else if (tank.getFluidType().equals(ModFluids.fluidLava.toString()))
+						} else if (tank.getFluidType().equals(BaseFluids.fluidLava.toString()))
 						{
 							if (tank.removeFluid(1000))
 							{
@@ -80,13 +80,13 @@ public class ItemBucket extends ItemBase
 				int volume = atState.get(Fluid.fluidLevel);
 				if (volume >= Fluid.BUCKET_VOLUME)
 				{
-					if (atState.getTile() == ModFluids.fluidWater)
+					if (atState.getTile() == BaseFluids.fluidWater)
 					{
 						instance.setMeta(1);
-					} else if (atState.getTile() == ModFluids.fluidLava)
+					} else if (atState.getTile() == BaseFluids.fluidLava)
 					{
 						instance.setMeta(2);
-					}else if (atState.getTile() == ModFluids.fluidOil)
+					}else if (atState.getTile() == BaseFluids.fluidOil)
 					{
 						instance.setMeta(3);
 					}

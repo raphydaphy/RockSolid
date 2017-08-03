@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.api.energy;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -51,7 +50,7 @@ public abstract class TileEntityPowered extends TileEntity implements IEnergyAcc
 	{
 		super.update(game);
 
-		if (RockBottomAPI.getNet().isClient() == false)
+		if (!world.isClient())
 		{
 			boolean smelted = this.tryTickAction();
 
@@ -65,7 +64,7 @@ public abstract class TileEntityPowered extends TileEntity implements IEnergyAcc
 
 		if (this.lastActive != active)
 		{
-			if (RockBottomAPI.getNet().isClient() == false)
+			if (!world.isClient())
 			{
 				this.lastActive = active;
 				shouldSync = true;
@@ -120,7 +119,7 @@ public abstract class TileEntityPowered extends TileEntity implements IEnergyAcc
 	{
 		if (this.getPower() <= (this.maxPower - amount))
 		{
-			if (RockBottomAPI.getNet().isClient() == false)
+			if (!world.isClient())
 			{
 				this.setPower(this.getPower() + amount);
 				shouldSync = true;

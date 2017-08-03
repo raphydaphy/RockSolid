@@ -1,6 +1,6 @@
-package com.raphydaphy.rocksolid.init;
+package com.raphydaphy.rocksolid.api.content;
 
-public class ModResources
+public class BaseResources
 {
 	public static final String PROCESSED_TIN = "processed_tin";
 	public static final String PARTLY_PROCESSED_TIN = "partly_processed_tin";

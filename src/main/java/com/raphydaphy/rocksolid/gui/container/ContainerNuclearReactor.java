@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.gui.container;
 
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.gui.slot.InputSlot;
-import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -16,7 +16,7 @@ public class ContainerNuclearReactor extends ItemContainer
 	{
 		super(player, new IInventory[] { player.getInv(), tile.inventory });
 		this.addSlot(new InputSlot(tile.inventory, 0, 90, 30,
-				instance -> (instance.getItem().equals(ModItems.pelletUranium))));
+				instance -> (instance.getItem().equals(RockSolidContent.pelletUranium))));
 		this.addPlayerInventory(player, 20, 60);
 	}
 

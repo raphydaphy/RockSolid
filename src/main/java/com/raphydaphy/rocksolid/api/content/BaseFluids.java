@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.init;
+package com.raphydaphy.rocksolid.api.content;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.fluid.FluidEmpty;
@@ -6,7 +6,7 @@ import com.raphydaphy.rocksolid.fluid.FluidLava;
 import com.raphydaphy.rocksolid.fluid.FluidOil;
 import com.raphydaphy.rocksolid.fluid.FluidWater;
 
-public class ModFluids
+public class BaseFluids
 {
 	public static Fluid fluidEmpty;
 	public static Fluid fluidWater;

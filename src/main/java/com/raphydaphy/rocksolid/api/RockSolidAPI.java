@@ -3,6 +3,8 @@ package com.raphydaphy.rocksolid.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
@@ -10,15 +12,17 @@ import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
-import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.init.ModGasses;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.mod.IMod;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 
 public class RockSolidAPI
 {
-	public static final String VERSION = "0.1.8";
+	public static final String VERSION = "1.9";
+	
+	public static final IMod RockSolid = RockBottomAPI.getModLoader().getMod("rocksolid");
 
 	public static final List<AlloySmelterRecipe> ALLOY_SMELTER_RECIPES = new ArrayList<>();
 	public static final List<BlastFurnaceRecipe> BLAST_FURNACE_RECIPES = new ArrayList<>();
@@ -48,7 +52,7 @@ public class RockSolidAPI
 		for (PurifierRecipe recipe : PURIFIER_RECIPES)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(ModFluids.fluidEmpty.toString()));
+					|| (recipe.getFluid().equals(BaseFluids.fluidEmpty.toString()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
 					&&recipe.getInput().containsItem(item))
 			{
@@ -64,10 +68,10 @@ public class RockSolidAPI
 		for (ElectrolyzerRecipe recipe : ELECTROLYZER_RECIPE)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(ModFluids.fluidEmpty.toString()));
+					|| (recipe.getFluid().equals(BaseFluids.fluidEmpty.toString()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
-					&& (output1.equals(recipe.getOutput1()) || output1.equals(ModGasses.gasVacuum.toString()))
-					&& (output2.equals(recipe.getOutput2()) || output2.equals(ModGasses.gasVacuum.toString())))
+					&& (output1.equals(recipe.getOutput1()) || output1.equals(RockSolidContent.gasVacuum.toString()))
+					&& (output2.equals(recipe.getOutput2()) || output2.equals(RockSolidContent.gasVacuum.toString())))
 			{
 				return recipe;
 			}

@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IGasTile;
@@ -7,7 +8,6 @@ import com.raphydaphy.rocksolid.api.gas.IMultiGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
 import com.raphydaphy.rocksolid.api.util.IConduit;
-import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -40,7 +40,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 
 		if (this.gasType == null)
 		{
-			this.gasType = ModGasses.gasVacuum.toString();
+			this.gasType = RockSolidContent.gasVacuum.toString();
 		}
 	}
 
@@ -77,7 +77,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 					{
 						if (this.getSideMode(adjacentTile) != 2
 								&& (((TileEntityGasConduit) adjacentTileEntity).getGasType().equals(this.gasType))
-								|| this.gasType.equals(ModGasses.gasVacuum.toString()))
+								|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 						{
 							if (((TileEntityGasConduit) adjacentTileEntity).getCurrentGas() > this.gasStored)
 							{
@@ -93,12 +93,12 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 					} else if (IGasTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
 					{
 						if (((IGasTile) adjacentTileEntity).getGasType().equals(this.gasType)
-								|| this.gasType.equals(ModGasses.gasVacuum.toString())
-								|| ((IGasTile) adjacentTileEntity).getGasType().equals(ModGasses.gasVacuum.toString()))
+								|| this.gasType.equals(RockSolidContent.gasVacuum.toString())
+								|| ((IGasTile) adjacentTileEntity).getGasType().equals(RockSolidContent.gasVacuum.toString()))
 						{
 							if (IGasProducer.class.isAssignableFrom(adjacentTileEntity.getClass())
 									&& (((IGasTile) adjacentTileEntity).getGasType().equals(this.gasType))
-									|| this.gasType.equals(ModGasses.gasVacuum.toString()))
+									|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 							{
 								// Conduit is set to input mode
 								if (this.getSideMode(adjacentTile) == 1)
@@ -127,7 +127,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 									if (this.gasStored >= transferRate)
 									{
 										if (((IGasTile) adjacentTileEntity).getGasType()
-												.equals(ModGasses.gasVacuum.toString()))
+												.equals(RockSolidContent.gasVacuum.toString()))
 										{
 											// set the fluid type in the
 											// adjacent tile to match this
@@ -154,14 +154,14 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 						if (thisGasTank != -1)
 						{
 							if (adjMultiGas.getGasTanksType()[thisGasTank].equals(this.gasType)
-									|| this.gasType.equals(ModGasses.gasVacuum.toString())
+									|| this.gasType.equals(RockSolidContent.gasVacuum.toString())
 									|| ((IMultiGasTile) adjacentTileEntity).getGasTanksType()[thisGasTank]
-											.equals(ModGasses.gasVacuum.toString()))
+											.equals(RockSolidContent.gasVacuum.toString()))
 							{
 								if (IMultiGasProducer.class.isAssignableFrom(adjacentTileEntity.getClass())
 										&& (((IMultiGasTile) adjacentTileEntity).getGasTanksType()[thisGasTank]
 												.equals(this.gasType))
-										|| this.gasType.equals(ModGasses.gasVacuum.toString()))
+										|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 								{
 									// Conduit is set to input mode
 									if (this.getSideMode(adjacentTile) == 1)
@@ -193,7 +193,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 										if (this.gasStored >= transferRate)
 										{
 											if (((IMultiGasTile) adjacentTileEntity).getGasTanksType()[thisGasTank]
-													.equals(ModGasses.gasVacuum.toString()))
+													.equals(RockSolidContent.gasVacuum.toString()))
 											{
 												// set the fluid type in the
 												// adjacent tile to match this
@@ -334,11 +334,11 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 	@Override
 	public boolean addGas(int amount, String type)
 	{
-		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(ModGasses.gasVacuum.toString()))
+		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{
-				if (this.gasType == null || this.gasType.equals(ModGasses.gasVacuum.toString()))
+				if (this.gasType == null || this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 				{
 					this.gasType = type;
 				}
@@ -360,7 +360,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 
 			if (this.gasStored == 0)
 			{
-				this.gasType = ModGasses.gasVacuum.toString();
+				this.gasType = RockSolidContent.gasVacuum.toString();
 			}
 			this.shouldSync = true;
 			return true;
@@ -377,7 +377,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 	@Override
 	public boolean setGasType(String type)
 	{
-		if (this.gasType.equals(ModGasses.gasVacuum.toString()) || this.gasStored == 0)
+		if (this.gasType.equals(RockSolidContent.gasVacuum.toString()) || this.gasStored == 0)
 		{
 			this.gasType = type;
 			this.shouldSync = true;

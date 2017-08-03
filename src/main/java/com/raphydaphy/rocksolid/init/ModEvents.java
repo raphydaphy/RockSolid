@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import java.util.Random;
 
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.gui.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.item.ItemElectricLantern;
 import com.raphydaphy.rocksolid.item.ItemLantern;
@@ -373,10 +374,10 @@ public class ModEvents
 						if (!player.getAdditionalData().getBoolean("is_creative"))
 						{
 							event.container.addSlot(new PlayerInvSlot(player, 0, "jetpackData",
-									instance -> instance.getItem().equals(ModItems.jetpack), 165, 25));
+									instance -> instance.getItem().equals(RockSolidContent.jetpack), 165, 25));
 							event.container.addSlot(new PlayerInvSlot(player, 1, "lanternData",
-									instance -> (instance.getItem().equals(ModItems.electricLantern)
-											|| instance.getItem().equals(ModItems.lantern)),
+									instance -> (instance.getItem().equals(RockSolidContent.electricLantern)
+											|| instance.getItem().equals(RockSolidContent.lantern)),
 									165, 45));
 							event.container.addSlot(new PlayerInvSlot(player, 2, "accessory3",
 									instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));

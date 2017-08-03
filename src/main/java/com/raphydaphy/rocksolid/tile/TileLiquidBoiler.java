@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiLiquidBoiler;
-import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.render.LiquidBoilerRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityLiquidBoiler;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -72,7 +72,7 @@ public class TileLiquidBoiler extends MultiTile
 		ItemInstance selected = player.getInv().get(player.getSelectedSlot());
 		if (selected != null)
 		{
-			if (selected.getItem().equals(ModItems.bucket) && selected.getMeta() != 0)
+			if (selected.getItem().equals(RockSolidContent.bucket) && selected.getMeta() != 0)
 			{
 				return false;
 			}

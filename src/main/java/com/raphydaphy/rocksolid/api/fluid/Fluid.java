@@ -7,7 +7,6 @@ import com.raphydaphy.rocksolid.api.render.FluidRenderer;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -80,7 +79,7 @@ public abstract class Fluid extends TileBasic
 	@Override
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
 	{
-		if (RockBottomAPI.getNet().isClient() == false)
+		if (!world.isClient())
 		{
 			world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
 		}
@@ -114,7 +113,7 @@ public abstract class Fluid extends TileBasic
 
 		if (thisState.getTile() instanceof Fluid)
 		{
-			if (RockBottomAPI.getNet().isClient() == false)
+			if (!world.isClient())
 			{
 				world.scheduleUpdate(x, y, layer, 8);
 			}

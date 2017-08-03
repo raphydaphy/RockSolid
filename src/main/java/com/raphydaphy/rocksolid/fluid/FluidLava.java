@@ -2,8 +2,8 @@ package com.raphydaphy.rocksolid.fluid;
 
 import java.util.ArrayList;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
-import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -31,7 +31,7 @@ public class FluidLava extends Fluid
 	public ArrayList<Fluid> getEnemyFluids()
 	{
 		ArrayList<Fluid> enemyFluids = new ArrayList<Fluid>();
-		enemyFluids.add(ModFluids.fluidWater);
+		enemyFluids.add(BaseFluids.fluidWater);
 		return enemyFluids;
 	}
 

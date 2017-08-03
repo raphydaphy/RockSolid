@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.init.ModFluids;
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.tile.TileCombustionEngine;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCombustionEngine;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
@@ -64,13 +64,13 @@ public class CombustionEngineRenderer extends MultiTileRenderer<TileCombustionEn
 					stage = 10; 
 				}
 			}
-			if (tileEntity.getFluidType().equals(ModFluids.fluidWater.toString()))
+			if (tileEntity.getFluidType().equals(BaseFluids.fluidWater.toString()))
 			{
 				tex = fluidTank.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getFluidType().equals(ModFluids.fluidLava.toString()))
+			} else if (tileEntity.getFluidType().equals(BaseFluids.fluidLava.toString()))
 			{
 				tex = fluidTank.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
-			}else if (tileEntity.getFluidType().equals(ModFluids.fluidOil.toString()))
+			}else if (tileEntity.getFluidType().equals(BaseFluids.fluidOil.toString()))
 			{
 				tex = fluidTank.addSuffix(".fluidOil." + innerCoord.getX() + "." + innerCoord.getY());
 			}

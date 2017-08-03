@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.IMultiFluidAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
-import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -21,12 +21,12 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 
 	protected int gasStored;
 	protected int maxGas = 5000;
-	protected String gasType = ModGasses.gasVacuum.toString();
+	protected String gasType = RockSolidContent.gasVacuum.toString();
 
 	// tank 0 is water tank 1 is lava
 	protected int[] fluidStored = new int[] { 0, 0 };
 	protected int maxFluid = 5000;
-	protected String[] fluidType = new String[] { ModFluids.fluidEmpty.toString(), ModFluids.fluidEmpty.toString() };
+	protected String[] fluidType = new String[] { BaseFluids.fluidEmpty.toString(), BaseFluids.fluidEmpty.toString() };
 
 	public TileEntityLiquidBoiler(final IWorld world, final int x, final int y)
 	{
@@ -53,14 +53,14 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		super.update(game);
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
-				&& this.fluidType[0].equals(ModFluids.fluidWater.toString())
-				&& this.fluidType[1].equals(ModFluids.fluidLava.toString()))
+				&& this.fluidType[0].equals(BaseFluids.fluidWater.toString())
+				&& this.fluidType[1].equals(BaseFluids.fluidLava.toString()))
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
 			{
-				if (this.gasType.equals(ModGasses.gasVacuum.toString()))
+				if (this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 				{
-					this.gasType = ModGasses.gasSteam.toString();
+					this.gasType = RockSolidContent.gasSteam.toString();
 				}
 
 				this.fluidStored[0] -= fluidConsumptionPerTick[0];
@@ -69,12 +69,12 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 
 				if (this.fluidStored[0] == 0)
 				{
-					this.fluidType[0] = ModFluids.fluidEmpty.toString();
+					this.fluidType[0] = BaseFluids.fluidEmpty.toString();
 				}
 
 				if (this.fluidStored[1] == 0)
 				{
-					this.fluidType[1] = ModFluids.fluidEmpty.toString();
+					this.fluidType[1] = BaseFluids.fluidEmpty.toString();
 				}
 				shouldSync = true;
 
@@ -110,8 +110,8 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		return (this.gasStored < (this.maxGas - productionPerTick - 1)
 				&& this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
-				&& this.fluidType[0].equals(ModFluids.fluidWater.toString())
-				&& this.fluidType[1].equals(ModFluids.fluidLava.toString()));
+				&& this.fluidType[0].equals(BaseFluids.fluidWater.toString())
+				&& this.fluidType[1].equals(BaseFluids.fluidLava.toString()));
 	}
 
 	public float getGeneratorFullness()
@@ -180,7 +180,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 
 				if (this.gasStored == 0)
 				{
-					this.gasType = ModGasses.gasVacuum.toString();
+					this.gasType = RockSolidContent.gasVacuum.toString();
 				}
 				this.shouldSync = true;
 			}
@@ -192,11 +192,11 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	@Override
 	public boolean addFluid(int amount, String type, int tank)
 	{
-		if (tank == 1 && !type.equals(ModFluids.fluidLava.toString()))
+		if (tank == 1 && !type.equals(BaseFluids.fluidLava.toString()))
 		{
 			return false;
 		}
-		if (tank == 0 && !type.equals(ModFluids.fluidWater.toString()))
+		if (tank == 0 && !type.equals(BaseFluids.fluidWater.toString()))
 		{
 			return false;
 		}
@@ -204,7 +204,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		if (this.fluidStored[tank] + amount <= this.maxFluid)
 		{
 			if (this.fluidType[tank] == null || type.equals(this.fluidType[tank])
-					|| this.fluidType[tank].equals(ModFluids.fluidEmpty.toString()))
+					|| this.fluidType[tank].equals(BaseFluids.fluidEmpty.toString()))
 			{
 				this.fluidType[tank] = type;
 				this.fluidStored[tank] += amount;
@@ -218,16 +218,16 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	@Override
 	public boolean setFluidType(String type, int tank)
 	{
-		if (tank == 1 && !type.equals(ModFluids.fluidLava.toString()))
+		if (tank == 1 && !type.equals(BaseFluids.fluidLava.toString()))
 		{
 			return false;
 		}
-		if (tank == 0 && !type.equals(ModFluids.fluidWater.toString()))
+		if (tank == 0 && !type.equals(BaseFluids.fluidWater.toString()))
 		{
 			return false;
 		}
 
-		if (this.fluidType[tank] == null || this.fluidType[tank].equals(ModFluids.fluidEmpty.toString())
+		if (this.fluidType[tank] == null || this.fluidType[tank].equals(BaseFluids.fluidEmpty.toString())
 				|| this.fluidStored[tank] == 0)
 		{
 			this.fluidType[tank] = type;

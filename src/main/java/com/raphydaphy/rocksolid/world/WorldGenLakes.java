@@ -2,9 +2,9 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
-import com.raphydaphy.rocksolid.init.ModFluids;
-import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -84,25 +84,25 @@ public class WorldGenLakes implements IWorldGenerator
 							if (type < 6)
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										ModFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
+										BaseFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
 	
 								if (chunk.getY() + y + startY == fluidStart - 7)
 								{
 									if (rand.nextBoolean())
 									{
 										world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
-												ModTiles.clay.getDefState());
+												RockSolidContent.clay.getDefState());
 									}
 								} else if (chunk.getY() + y + startY < fluidStart - 7)
 								{
 									world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
-											ModTiles.clay.getDefState());
+											RockSolidContent.clay.getDefState());
 								}
 							}
 							else
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										ModFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));
+										BaseFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));
 							}
 						} else
 						{

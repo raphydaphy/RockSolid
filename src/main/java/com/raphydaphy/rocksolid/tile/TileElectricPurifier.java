@@ -3,10 +3,10 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.gui.GuiElectricPurifier;
-import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
 import com.raphydaphy.rocksolid.util.RockSolidLib;
 
@@ -74,7 +74,7 @@ public class TileElectricPurifier extends MultiTile
 		ItemInstance selected = player.getInv().get(player.getSelectedSlot());
 		if (selected != null)
 		{
-			if (selected.getItem().equals(ModItems.bucket) && selected.getMeta() != 0)
+			if (selected.getItem().equals(RockSolidContent.bucket) && selected.getMeta() != 0)
 			{
 				return false;
 			}

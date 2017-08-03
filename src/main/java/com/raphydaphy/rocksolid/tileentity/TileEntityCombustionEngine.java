@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
-import com.raphydaphy.rocksolid.init.ModFluids;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -15,7 +15,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = ModFluids.fluidEmpty.toString();
+	protected String fluidType = BaseFluids.fluidEmpty.toString();
 	public static final int fluidConsumptionPerTick = 5;
 	public static final int productionPerTick = 80;
 
@@ -48,7 +48,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		{
 			if (this.getCurrentEnergy() + productionPerTick <= this.getMaxEnergy())
 			{
-				if (this.fluidStored > fluidConsumptionPerTick && this.fluidType.equals(ModFluids.fluidOil.toString()))
+				if (this.fluidStored > fluidConsumptionPerTick && this.fluidType.equals(BaseFluids.fluidOil.toString()))
 				{
 					this.fluidStored -= fluidConsumptionPerTick;
 					this.powerStored += productionPerTick;
@@ -58,7 +58,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 			
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(ModFluids.fluidEmpty.toString());
+				this.setFluidType(BaseFluids.fluidEmpty.toString());
 			}
 
 			shouldSync = true;
@@ -129,7 +129,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(ModFluids.fluidEmpty.toString()))
+					|| this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -143,7 +143,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(ModFluids.fluidEmpty.toString()) || this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(BaseFluids.fluidEmpty.toString()) || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
-import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -14,7 +14,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 
 	protected int gasStored;
 	protected int maxGas;
-	protected String gasType = ModGasses.gasVacuum.toString();
+	protected String gasType = RockSolidContent.gasVacuum.toString();
 
 	public TileEntityGasTank(final IWorld world, final int x, final int y)
 	{
@@ -84,7 +84,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 
 			if (this.gasStored == 0)
 			{
-				this.gasType = ModGasses.gasVacuum.toString();
+				this.gasType = RockSolidContent.gasVacuum.toString();
 			}
 			this.sync();
 			return true;
@@ -95,7 +95,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	@Override
 	public boolean addGas(int amount, String type)
 	{
-		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(ModGasses.gasVacuum.toString()))
+		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{
@@ -115,7 +115,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	@Override
 	public boolean setGasType(String type)
 	{
-		if (this.gasType == ModGasses.gasVacuum.toString() || this.gasStored == 0)
+		if (this.gasType == RockSolidContent.gasVacuum.toString() || this.gasStored == 0)
 		{
 			this.gasType = type;
 			this.sync();

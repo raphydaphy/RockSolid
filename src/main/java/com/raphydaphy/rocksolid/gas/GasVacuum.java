@@ -11,6 +11,7 @@ public class GasVacuum extends Gas
 	public GasVacuum()
 	{
 		super("gasVacuum");
+		this.register();
 	}
 
 	@Override

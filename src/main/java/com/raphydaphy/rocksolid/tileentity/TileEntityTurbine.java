@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
-import com.raphydaphy.rocksolid.init.ModGasses;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -23,7 +23,7 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 
 	protected int gasStored;
 	protected int maxGas = 5000;
-	protected String gasType = ModGasses.gasVacuum.toString();
+	protected String gasType = RockSolidContent.gasVacuum.toString();
 
 	protected int energyStored;
 	protected int maxEnergy = 25000;
@@ -52,7 +52,7 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 		super.update(game);
 		
 		if (this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy
-				&& this.gasType.equals(ModGasses.gasSteam.toString()))
+				&& this.gasType.equals(RockSolidContent.gasSteam.toString()))
 		{
 			
 			if (RockBottomAPI.getNet().isClient() == false)
@@ -62,7 +62,7 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 
 				if (this.gasStored == 0)
 				{
-					this.gasType = ModGasses.gasVacuum.toString();
+					this.gasType = RockSolidContent.gasVacuum.toString();
 				}
 				this.shouldSync = true;
 			}
@@ -98,7 +98,7 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	public boolean isActive()
 	{
 		return this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy
-				&& this.gasType.equals(ModGasses.gasSteam.toString());
+				&& this.gasType.equals(RockSolidContent.gasSteam.toString());
 	}
 
 	public float getGasTankFullness()
@@ -182,13 +182,13 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	@Override
 	public boolean addGas(int amount, String type)
 	{
-		if (type.equals(this.gasType) || this.gasType.equals(ModGasses.gasVacuum.toString()))
+		if (type.equals(this.gasType) || this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{
 				if (RockBottomAPI.getNet().isClient() == false)
 				{
-					if (this.gasType.equals(ModGasses.gasVacuum.toString()))
+					if (this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 					{
 						this.gasType = type;
 					}

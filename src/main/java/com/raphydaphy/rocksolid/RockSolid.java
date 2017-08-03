@@ -2,8 +2,8 @@ package com.raphydaphy.rocksolid;
 
 import org.newdawn.slick.util.Log;
 
+import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.init.ModEvents;
-import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
@@ -71,21 +71,21 @@ public class RockSolid implements IMod
 	@Override
 	public void init(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
 	{
-		Log.setVerbose(false);
 		Log.info("Starting RockSolid");
 
 		ModItems.init();
 		ModTiles.init();
-		ModGenerators.init();
-		ModPackets.init();
-		ModFluids.init();
+		BaseFluids.init();
 		ModGasses.init();
-		ModEvents.init(eventHandler);
+		
 	}
 
 	@Override
 	public void postInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
 	{
+		ModGenerators.init();
+		ModPackets.init();
+		ModEvents.init(eventHandler);
 		ModRecipes.init();
 
 	}
