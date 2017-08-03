@@ -109,13 +109,18 @@ public class RockSolidContent
 	public static final Item jetpack = getItem("jetpack");
 	public static final Item electricLantern = getItem("electricLantern");
 	public static final Item lantern = getItem("lantern");
-	
-	public static Gas gasVacuum = getGas("gasVaccum");
-	public static Gas gasOxygen = getGas("gasOxygen");
-	public static Gas gasHydrogen = getGas("gasHydrogen");
-	public static Gas gasSteam = getGas("gasSteam");
 
 	public static Item bucket = getItem("bucket");
+	
+	public static final Gas gasVacuum = getGas("gasVacuum");
+	public static final Gas gasOxygen = getGas("gasOxygen");
+	public static final Gas gasHydrogen = getGas("gasHydrogen");
+	public static final Gas gasSteam = getGas("gasSteam");
+	
+	public static final Fluid fluidEmpty = getFluid("fluidEmpty");
+	public static final Fluid fluidWater = getFluid("fluidWater");
+	public static final Fluid fluidLava = getFluid("fluidLava");
+	public static final Fluid fluidOil = getFluid("fluidOil");
 
 	private static Tile getTile(String name)
 	{

@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.util;
 import org.newdawn.slick.Color;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 
@@ -43,13 +42,13 @@ public class RockSolidLib
 
 	public static String getFluidLocName(String fluid)
 	{
-		if (fluid.equals(BaseFluids.fluidWater.toString()))
+		if (fluid.equals(RockSolidContent.fluidWater.toString()))
 		{
 			return "Water";
-		} else if (fluid.equals(BaseFluids.fluidLava.toString()))
+		} else if (fluid.equals(RockSolidContent.fluidLava.toString()))
 		{
 			return "Lava";
-		} else if (fluid.equals(BaseFluids.fluidOil.toString()))
+		} else if (fluid.equals(RockSolidContent.fluidOil.toString()))
 		{
 			return "Oil";
 		}
@@ -61,24 +60,24 @@ public class RockSolidLib
 		switch (meta)
 		{
 		case 1:
-			return BaseFluids.fluidWater;
+			return RockSolidContent.fluidWater;
 		case 2:
-			return BaseFluids.fluidLava;
+			return RockSolidContent.fluidLava;
 		case 3:
-			return BaseFluids.fluidOil;
+			return RockSolidContent.fluidOil;
 		}
-		return BaseFluids.fluidEmpty;
+		return RockSolidContent.fluidEmpty;
 	}
 
 	public static Color getFluidColor(String fluid)
 	{
-		if (fluid.equals(BaseFluids.fluidLava.toString()))
+		if (fluid.equals(RockSolidContent.fluidLava.toString()))
 		{
 			return Color.orange;
-		} else if (fluid.equals(BaseFluids.fluidWater.toString()))
+		} else if (fluid.equals(RockSolidContent.fluidWater.toString()))
 		{
 			return Color.blue;
-		}else if (fluid.equals(BaseFluids.fluidOil.toString()))
+		}else if (fluid.equals(RockSolidContent.fluidOil.toString()))
 		{
 			return Color.black;
 		}

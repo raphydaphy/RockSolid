@@ -14,6 +14,7 @@ public class FluidEmpty extends Fluid
 	public FluidEmpty()
 	{
 		super("fluidEmpty");
+		this.register();
 		// super.setThickness(0.012);
 	}
 

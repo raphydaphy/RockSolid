@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
@@ -23,7 +23,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 10000;
-	protected String fluidType = BaseFluids.fluidEmpty.toString();
+	protected String fluidType = RockSolidContent.fluidEmpty.toString();
 
 	public TileEntityFluidPump(final IWorld world, final int x, final int y)
 	{
@@ -60,9 +60,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		}
 		boolean ableToDig = false;
 
-		if (this.fluidStored == 0 && !(this.fluidType.equals(BaseFluids.fluidEmpty.toString())))
+		if (this.fluidStored == 0 && !(this.fluidType.equals(RockSolidContent.fluidEmpty.toString())))
 		{
-			this.fluidType = BaseFluids.fluidEmpty.toString();
+			this.fluidType = RockSolidContent.fluidEmpty.toString();
 		}
 
 		if (curX > this.x + 11)
@@ -90,7 +90,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		}
 
 		String tileType = thisTile.getTile().toString();
-		if ((this.fluidType.equals(tileType) || this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
+		if ((this.fluidType.equals(tileType) || this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
 				&& world.isPosLoaded(curX, curY) && this.getCurrentFluid() <= (this.getMaxFluid() - 1000))
 		{
 			if (this.getCurrentEnergy() >= super.getPowerPerOperation())
@@ -114,7 +114,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 							}
 
-							if (this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
+							if (this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
 							{
 								this.fluidType = tileType;
 
@@ -246,7 +246,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 			if (this.fluidStored == 0)
 			{
-				this.fluidType = BaseFluids.fluidEmpty.toString();
+				this.fluidType = RockSolidContent.fluidEmpty.toString();
 			}
 			this.shouldSync = true;
 			return true;

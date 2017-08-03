@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.api.recipe;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -19,7 +19,7 @@ public class PurifierRecipe
 		this.output = output;
 		if (fluid == null)
 		{
-			this.fluid = BaseFluids.fluidEmpty.toString();
+			this.fluid = RockSolidContent.fluidEmpty.toString();
 		} else
 		{
 			this.fluid = fluid;

@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.Arrays;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
@@ -34,7 +33,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = BaseFluids.fluidEmpty.toString();
+	protected String fluidType = RockSolidContent.fluidEmpty.toString();
 
 	public TileEntityBoiler(final IWorld world, final int x, final int y)
 	{
@@ -60,7 +59,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 	protected boolean tryTickAction()
 	{
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored >= fluidConsumptionPerTick
-				&& this.fluidType.equals(BaseFluids.fluidWater.toString()))
+				&& this.fluidType.equals(RockSolidContent.fluidWater.toString()))
 		{
 			if (this.coalTime > 0)
 			{
@@ -77,7 +76,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 
 					if (this.fluidStored == 0)
 					{
-						this.fluidType = BaseFluids.fluidEmpty.toString();
+						this.fluidType = RockSolidContent.fluidEmpty.toString();
 					}
 					shouldSync = true;
 				}
@@ -244,7 +243,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
+					|| this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -258,7 +257,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(BaseFluids.fluidEmpty.toString()) || this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString()) || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

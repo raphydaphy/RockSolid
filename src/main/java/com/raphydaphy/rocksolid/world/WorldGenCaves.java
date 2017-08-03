@@ -2,7 +2,6 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 
@@ -144,11 +143,11 @@ public class WorldGenCaves implements IWorldGenerator
 							switch (feature)
 							{
 							case 0:
-								featureTile = BaseFluids.fluidWater.getDefState().prop(Fluid.fluidLevel,
+								featureTile = RockSolidContent.fluidWater.getDefState().prop(Fluid.fluidLevel,
 										Fluid.MAX_VOLUME);
 								break;
 							case 1:
-								featureTile = BaseFluids.fluidLava.getDefState().prop(Fluid.fluidLevel,
+								featureTile = RockSolidContent.fluidLava.getDefState().prop(Fluid.fluidLevel,
 										Fluid.MAX_VOLUME);
 								break;
 							case 2:
@@ -160,7 +159,7 @@ public class WorldGenCaves implements IWorldGenerator
 								background = GameContent.TILE_ROCK.getDefState();
 								break;
 							case 4:
-								featureTile = BaseFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								featureTile = RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
 								break;
 							}
 

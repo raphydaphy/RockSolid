@@ -2,8 +2,8 @@ package com.raphydaphy.rocksolid;
 
 import org.newdawn.slick.util.Log;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.init.ModEvents;
+import com.raphydaphy.rocksolid.init.ModFluids;
 import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.init.ModGenerators;
 import com.raphydaphy.rocksolid.init.ModItems;
@@ -75,7 +75,7 @@ public class RockSolid implements IMod
 
 		ModItems.init();
 		ModTiles.init();
-		BaseFluids.init();
+		ModFluids.init();
 		ModGasses.init();
 		
 	}

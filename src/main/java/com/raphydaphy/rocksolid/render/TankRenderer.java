@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.tile.TileTank;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
 
@@ -64,14 +64,14 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 					stage = 10; 
 				}
 			}
-			if (tileEntity.getFluidType().equals(BaseFluids.fluidWater.toString()))
+			if (tileEntity.getFluidType().equals(RockSolidContent.fluidWater.toString()))
 			{
 				tex = this.texture
 						.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getFluidType().equals(BaseFluids.fluidLava.toString()))
+			} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidLava.toString()))
 			{
 				tex = this.texture.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
-			}else if (tileEntity.getFluidType().equals(BaseFluids.fluidOil.toString()))
+			}else if (tileEntity.getFluidType().equals(RockSolidContent.fluidOil.toString()))
 			{
 				tex = this.texture.addSuffix(".fluidOil." + innerCoord.getX() + "." + innerCoord.getY());
 			}

@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
@@ -21,7 +20,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = BaseFluids.fluidEmpty.toString();
+	protected String fluidType = RockSolidContent.fluidEmpty.toString();
 
 	protected int gasTank1Storage = 0;
 	protected int gasTank2Storage = 0;
@@ -94,7 +93,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 							this.fluidStored -= recipe.getFluidVolume();
 							if (this.fluidStored == 0)
 							{
-								this.setFluidType(BaseFluids.fluidEmpty.toString());
+								this.setFluidType(RockSolidContent.fluidEmpty.toString());
 							}
 
 							this.setGasType(recipeOut1, 0);
@@ -124,7 +123,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(BaseFluids.fluidEmpty.toString());
+				this.setFluidType(RockSolidContent.fluidEmpty.toString());
 			}
 
 			if (this.gasTank1Storage == 0)
@@ -272,7 +271,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
+					|| this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -286,7 +285,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(BaseFluids.fluidEmpty.toString()) || this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString()) || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.BaseResources;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
@@ -117,11 +116,11 @@ public class ModRecipes
 
 		// Purifier Recipes
 		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(RockSolidContent.clay),
-				new ResUseInfo(BaseResources.RAW_CLAY), BaseFluids.fluidWater.toString(), 100, 850));
+				new ResUseInfo(BaseResources.RAW_CLAY), RockSolidContent.fluidWater.toString(), 100, 850));
 
 		// Electrolyzer Recipes
 		RockSolidAPI.ELECTROLYZER_RECIPE.add(new ElectrolyzerRecipe(RockSolidContent.gasHydrogen.toString(),
-				RockSolidContent.gasOxygen.toString(), BaseFluids.fluidWater.toString(), 150, 100, 50, 800));
+				RockSolidContent.gasOxygen.toString(), RockSolidContent.fluidWater.toString(), 150, 100, 50, 800));
 
 		// Arc furnace recipes
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(RockSolidContent.gemCoke),

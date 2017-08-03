@@ -2,7 +2,6 @@ package com.raphydaphy.rocksolid.world;
 
 import java.util.Random;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 
@@ -84,7 +83,7 @@ public class WorldGenLakes implements IWorldGenerator
 							if (type < 6)
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										BaseFluids.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
+										RockSolidContent.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
 	
 								if (chunk.getY() + y + startY == fluidStart - 7)
 								{
@@ -102,7 +101,7 @@ public class WorldGenLakes implements IWorldGenerator
 							else
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										BaseFluids.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));
+										RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));
 							}
 						} else
 						{

@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiTank;
@@ -52,7 +51,7 @@ public class TileTank extends MultiTile
 		{
 			if (tank.getFluidType() != null)
 			{
-				if (tank.getFluidType().equals(BaseFluids.fluidLava.toString()))
+				if (tank.getFluidType().equals(RockSolidContent.fluidLava.toString()))
 				{
 					return 20;
 				}

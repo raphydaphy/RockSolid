@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.content.BaseFluids;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 
@@ -14,7 +14,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 
 	protected int fluidStored;
 	protected int maxFluid;
-	protected String fluidType = BaseFluids.fluidEmpty.toString();
+	protected String fluidType = RockSolidContent.fluidEmpty.toString();
 
 	public TileEntityTank(final IWorld world, final int x, final int y)
 	{
@@ -84,7 +84,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 
 			if (this.fluidStored == 0)
 			{
-				this.fluidType = BaseFluids.fluidEmpty.toString();
+				this.fluidType = RockSolidContent.fluidEmpty.toString();
 			}
 			this.sync();
 			return true;
@@ -96,7 +96,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	public boolean addFluid(int amount, String type)
 	{
 		if (this.fluidType == null || type.equals(this.fluidType)
-				|| this.fluidType.equals(BaseFluids.fluidEmpty.toString()))
+				|| this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
@@ -116,7 +116,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == BaseFluids.fluidEmpty.toString() || this.fluidStored == 0)
+		if (this.fluidType == RockSolidContent.fluidEmpty.toString() || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			this.sync();
