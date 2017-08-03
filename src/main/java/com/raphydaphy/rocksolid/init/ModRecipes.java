@@ -159,8 +159,7 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PARTLY_PROCESSED_URANIUM), 300));
 
 		// Remove some vanilla recipes?
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.remove(4);
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.remove(4);
+		//RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.remove(4);
 
 		// misc manual crafting recipies
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.alloySmelter),
@@ -171,10 +170,6 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_IRON, 15), new ResUseInfo(BaseResources.PROCESSED_BRONZE, 5),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40)));
-
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.chest),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 30), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER),
-				new ResUseInfo(ResourceRegistry.WOOD_LOG, 5)));
 
 		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.wrench),
 				new ResUseInfo(BaseResources.PROCESSED_IRON, 4), new ResUseInfo(BaseResources.PROCESSED_TIN, 2)));
@@ -193,9 +188,6 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.PROCESSED_STEEL, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 25)));
-		RockBottomAPI.MANUAL_CONSTRUCTION_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.lamp, 2),
-				new ResUseInfo(BaseResources.RAW_SHINING, 2), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 2),
-				new ResUseInfo(ResourceRegistry.RAW_STONE, 4)));
 
 		// Electric manual crafting
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(

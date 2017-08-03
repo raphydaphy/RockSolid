@@ -6,7 +6,6 @@ import com.raphydaphy.rocksolid.tile.TileBattery;
 import com.raphydaphy.rocksolid.tile.TileBlastFurnace;
 import com.raphydaphy.rocksolid.tile.TileBoiler;
 import com.raphydaphy.rocksolid.tile.TileCharger;
-import com.raphydaphy.rocksolid.tile.TileChest;
 import com.raphydaphy.rocksolid.tile.TileCombustionEngine;
 import com.raphydaphy.rocksolid.tile.TileCompressor;
 import com.raphydaphy.rocksolid.tile.TileCreativePowerSource;
@@ -23,7 +22,6 @@ import com.raphydaphy.rocksolid.tile.TileFluidPump;
 import com.raphydaphy.rocksolid.tile.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.TileGasTank;
 import com.raphydaphy.rocksolid.tile.TileItemConduit;
-import com.raphydaphy.rocksolid.tile.TileLamp;
 import com.raphydaphy.rocksolid.tile.TileLiquidBoiler;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
@@ -46,7 +44,6 @@ public class ModTiles
 	public static Tile energyConduit;
 	public static Tile fluidConduit;
 	public static Tile gasConduit;
-	public static Tile chest;
 
 	public static Tile quarry;
 	public static Tile creativePowerSource;
@@ -96,13 +93,11 @@ public class ModTiles
 		energyConduit = new TileEnergyConduit();
 		fluidConduit = new TileFluidConduit();
 		gasConduit = new TileGasConduit();
-		chest = new TileChest().register();
 
 		quarry = new TileQuarry();
 		creativePowerSource = new TileCreativePowerSource();
 		charger = new TileCharger();
 
-		lamp = new TileLamp(RockSolidLib.makeRes("lamp"));
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_STONE, 1), 5, 1);
 		limestone = new TileBase(RockSolidLib.makeRes("limestone"), 10, 1);
 		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 4, 0, ToolType.SHOVEL);
