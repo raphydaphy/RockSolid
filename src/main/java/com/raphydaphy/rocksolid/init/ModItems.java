@@ -43,22 +43,15 @@ public class ModItems
 	public static Item gritUranium;
 
 	public static Item pickaxeBronze;
-	public static Item pickaxeCopper;
 	public static Item pickaxeIron;
 	public static Item pickaxeSteel;
 	public static Item pickaxeTitanium;
 
-	public static Item axeWood;
-	public static Item axeRock;
-	public static Item axeCopper;
 	public static Item axeBronze;
 	public static Item axeIron;
 	public static Item axeSteel;
 	public static Item axeTitanium;
 
-	public static Item shovelWood;
-	public static Item shovelRock;
-	public static Item shovelCopper;
 	public static Item shovelIron;
 
 	public static Item wrench;
@@ -97,23 +90,16 @@ public class ModItems
 		gritMagnesium = new ItemBase(RockSolidLib.makeRes("gritMagnesium")).register();
 		gritUranium = new ItemBase(RockSolidLib.makeRes("gritUranium")).register();
 
-		pickaxeCopper = new ItemPickaxe(RockSolidLib.makeRes("pickaxeCopper"), 4.5f, 2).register();
 		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
 		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
 		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
 		pickaxeTitanium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTitanium"), 10, 5).register();
 
-		axeWood = new ItemAxe(RockSolidLib.makeRes("axeWood"), 2f, 1).register();
-		axeRock = new ItemAxe(RockSolidLib.makeRes("axeRock"), 3f, 1).register();
-		axeCopper = new ItemAxe(RockSolidLib.makeRes("axeCopper"), 4.5f, 1).register();
 		axeBronze = new ItemAxe(RockSolidLib.makeRes("axeBronze"), 6f, 1).register();
 		axeIron = new ItemAxe(RockSolidLib.makeRes("axeIron"), 7f, 1).register();
 		axeSteel = new ItemAxe(RockSolidLib.makeRes("axeSteel"), 8f, 1).register();
 		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 10f, 1).register();
 
-		shovelWood = new ItemShovel(RockSolidLib.makeRes("shovelWood"), 2f, 1).register();
-		shovelRock = new ItemShovel(RockSolidLib.makeRes("shovelRock"), 3f, 1).register();
-		shovelCopper = new ItemShovel(RockSolidLib.makeRes("shovelCopper"), 4.5f, 1).register();
 		shovelIron = new ItemShovel(RockSolidLib.makeRes("shovelIron"), 7f, 1).register();
 
 		wrench = new ItemWrench().register();

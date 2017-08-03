@@ -152,11 +152,11 @@ public class WorldGenCaves implements IWorldGenerator
 								break;
 							case 2:
 								featureTile = RockSolidContent.limestone.getDefState();
-								background = GameContent.TILE_ROCK.getDefState();
+								background = GameContent.TILE_STONE.getDefState();
 								break;
 							case 3:
 								featureTile = RockSolidContent.clay.getDefState();
-								background = GameContent.TILE_ROCK.getDefState();
+								background = GameContent.TILE_STONE.getDefState();
 								break;
 							case 4:
 								featureTile = RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);

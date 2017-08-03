@@ -313,8 +313,6 @@ public class ModRecipes
 		// Pickaxe manual crafting
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.pickaxeBronze),
 				new ResUseInfo(BaseResources.PROCESSED_BRONZE, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.pickaxeCopper),
-				new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.pickaxeIron),
 				new ResUseInfo(BaseResources.PROCESSED_IRON, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.pickaxeSteel),
@@ -323,12 +321,6 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 
 		// Axe manual crafting
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(
-				new BasicRecipe(new ItemInstance(RockSolidContent.axeWood), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 16)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.axeRock),
-				new ResUseInfo(ResourceRegistry.RAW_STONE, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.axeCopper),
-				new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.axeBronze),
 				new ResUseInfo(BaseResources.PROCESSED_BRONZE, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.axeIron),
@@ -339,13 +331,7 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 
 		// Shovel manual crafting
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.shovelWood),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 16)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.shovelRock),
-				new ResUseInfo(ResourceRegistry.RAW_STONE, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.shovelCopper),
-				new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.shovelIron),
-				new ResUseInfo(BaseResources.PROCESSED_BRONZE, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
+				new ResUseInfo(BaseResources.PROCESSED_IRON, 8), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 8)));
 	}
 }
