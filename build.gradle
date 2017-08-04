@@ -16,5 +16,4 @@ repositories {
 
 dependencies {
      compile group: 'de.ellpeck.rockbottom', name: 'RockBottomAPI', version: '+'
-     compile group: 'com.raphydaphy.rocksolid', name: 'RockSolidAPI', version: '+'
  }

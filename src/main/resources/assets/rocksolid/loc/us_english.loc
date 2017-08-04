@@ -27,22 +27,15 @@ rocksolid/item.gritMagnesium=Magnesium Grit
 rocksolid/item.gritUranium=Uranium Grit
 
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
-rocksolid/item.pickaxeCopper=Copper Pickaxe
 rocksolid/item.pickaxeIron=Iron Pickaxe
 rocksolid/item.pickaxeSteel=Steel Pickaxe
 rocksolid/item.pickaxeTitanium=Titanium Pickaxe
 
-rocksolid/item.axeWood=Wood Axe
-rocksolid/item.axeRock=Rock Axe
-rocksolid/item.axeCopper=Copper Axe
 rocksolid/item.axeBronze=Bronze Axe
 rocksolid/item.axeIron=Iron Axe
 rocksolid/item.axeSteel=Steel Axe
 rocksolid/item.axeTitanium=Titanium Axe
 
-rocksolid/item.shovelWood=Wood Shovel
-rocksolid/item.shovelRock=Rock Shovel
-rocksolid/item.shovelCopper=Copper Shovel
 rocksolid/item.shovelIron=Iron Shovel
 
 rocksolid/item.wrench=Wrench
@@ -74,13 +67,11 @@ rocksolid/item.itemConduit=Item Conduit
 rocksolid/item.energyConduit=Energy Conduit
 rocksolid/item.fluidConduit=Fluid Conduit
 rocksolid/item.gasConduit=Gas Conduit
-rocksolid/item.chest=Chest
 
 rocksolid/item.quarry=Quarry
 rocksolid/item.creativePowerSource=Creative Power Source
 rocksolid/item.charger=Charger
 
-rocksolid/item.lamp=Lamp
 rocksolid/item.rockLight=Light Rock
 rocksolid/item.limestone=Limestone
 rocksolid/item.clay=Clay
@@ -122,7 +113,6 @@ rocksolid/details.alloySmelter=Used to create alloys! Requires coal to run.
 rocksolid/details.blastFurnace=Used to turn coal/charcoal into Coal Coke. Can be upgraded to increase speed.
 rocksolid/details.battery=Stores Power. Power can be inserted and extracted through any side using Energy Conduits.
 rocksolid/details.itemConduit=Transfers Items. Might break your world, so be careful.
-rocksolid/details.chest=A clone of the vanilla chest that supports RockSolid conduits. Use this one!
 rocksolid/details.boiler=Generates steam using a solid fuel. Steam can be extracted using Gas Conduits connected to any side
 rocksolid/details.electricBlastFurnace=A faster Blast Furnace powered by electricity. Use Energy Conduits to supply power.
 rocksolid/details.energyConduit=Used to transfer electricity. Right-click with a wrench to configure.
