@@ -17,3 +17,31 @@ repositories {
 dependencies {
      compile group: 'de.ellpeck.rockbottom', name: 'RockBottomAPI', version: '+'
  }
+ 
+ task sourcesJar(type: Jar) {
+    from sourceSets.main.java
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from 'build/docs/javadoc'
+    classifier 'javadoc'
+}
+ 
+apply plugin: 'maven-publish'
+
+publishing {
+	
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+    repositories {
+        maven {
+            url "build/libs"
+        }
+    }
+}
