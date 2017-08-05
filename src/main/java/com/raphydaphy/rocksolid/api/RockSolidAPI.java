@@ -20,7 +20,7 @@ import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 public class RockSolidAPI
 {
 	public static final String VERSION = "2.0.2";
-	
+
 	public static final IMod RockSolid = RockBottomAPI.getModLoader().getMod("rocksolid");
 
 	public static final List<AlloySmelterRecipe> ALLOY_SMELTER_RECIPES = new ArrayList<>();
@@ -52,8 +52,7 @@ public class RockSolidAPI
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
 					|| (recipe.getFluid().equals(RockSolidContent.fluidEmpty.toString()));
-			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
-					&&recipe.getInput().containsItem(item))
+			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches && recipe.getInput().containsItem(item))
 			{
 				return recipe;
 			}

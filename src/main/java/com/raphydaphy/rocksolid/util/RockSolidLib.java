@@ -77,7 +77,7 @@ public class RockSolidLib
 		} else if (fluid.equals(RockSolidContent.fluidWater.toString()))
 		{
 			return Color.blue;
-		}else if (fluid.equals(RockSolidContent.fluidOil.toString()))
+		} else if (fluid.equals(RockSolidContent.fluidOil.toString()))
 		{
 			return Color.black;
 		}
@@ -183,7 +183,8 @@ public class RockSolidLib
 	public static IInventory insert(IInventoryHolder container, ItemInstance item)
 	{
 		IInventory inv = container.getInventory();
-		if (item == null || container.getInputSlots(item, Direction.NONE) == null ||container.getInputSlots(item, Direction.NONE).size() == 0)
+		if (item == null || container.getInputSlots(item, Direction.NONE) == null
+				|| container.getInputSlots(item, Direction.NONE).size() == 0)
 		{
 			return inv;
 		}
@@ -206,7 +207,8 @@ public class RockSolidLib
 		return inv;
 	}
 
-	public static ItemInstance extract(IInventoryHolder container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
+	public static ItemInstance extract(IInventoryHolder container, int maxAmount, ItemInstance filterItem,
+			boolean isWhitelist)
 	{
 		IInventory inv = container.getInventory();
 		if (container.getOutputSlots(Direction.NONE) == null || container.getOutputSlots(Direction.NONE).size() == 0)
@@ -221,8 +223,7 @@ public class RockSolidLib
 				if (filterItem == null)
 				{
 					matchesFilter = true;
-				}
-				else
+				} else
 				{
 					matchesFilter = inv.get(slot).getItem().equals(filterItem.getItem());
 					if (!isWhitelist)
@@ -252,7 +253,8 @@ public class RockSolidLib
 		return null;
 	}
 
-	public static ItemInstance getToExtract(IInventoryHolder container, int maxAmount, ItemInstance filterItem, boolean isWhitelist)
+	public static ItemInstance getToExtract(IInventoryHolder container, int maxAmount, ItemInstance filterItem,
+			boolean isWhitelist)
 	{
 		IInventory inv = container.getInventory();
 		if (container.getOutputSlots(Direction.NONE) == null || container.getOutputSlots(Direction.NONE).size() == 0)
@@ -267,8 +269,7 @@ public class RockSolidLib
 				if (filterItem == null)
 				{
 					matchesFilter = true;
-				}
-				else
+				} else
 				{
 					matchesFilter = inv.get(slot).getItem().equals(filterItem.getItem());
 					if (!isWhitelist)
@@ -297,7 +298,8 @@ public class RockSolidLib
 	public static boolean canInsert(IInventoryHolder container, ItemInstance item)
 	{
 		IInventory inv = container.getInventory();
-		if (item == null || container.getInputSlots(item, Direction.NONE) == null ||container.getInputSlots(item, Direction.NONE).size() == 0)
+		if (item == null || container.getInputSlots(item, Direction.NONE) == null
+				|| container.getInputSlots(item, Direction.NONE).size() == 0)
 		{
 			return false;
 		}

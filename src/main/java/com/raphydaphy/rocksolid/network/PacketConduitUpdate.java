@@ -72,11 +72,12 @@ public class PacketConduitUpdate implements IPacket
 				if (tileAtPos instanceof TileEntityItemConduit)
 				{
 					((TileEntityItemConduit) tileAtPos).setPriority(priority, side);
-					((TileEntityItemConduit)tileAtPos).setIsWhitelist(side, isWhitelist);
+					((TileEntityItemConduit) tileAtPos).setIsWhitelist(side, isWhitelist);
 				}
 				if (RockBottomAPI.getNet().isServer())
 				{
-					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(), new PacketConduitUpdate(x, y, side, mode, priority, isWhitelist));
+					RockBottomAPI.getNet().sendToAllPlayers(game.getWorld(),
+							new PacketConduitUpdate(x, y, side, mode, priority, isWhitelist));
 				}
 			}
 		}

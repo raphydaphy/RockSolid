@@ -19,7 +19,7 @@ public class RockSolidContent
 	public static final Tile energyConduit = getTile("energyConduit");
 	public static final Tile fluidConduit = getTile("fluidConduit");
 	public static final Tile gasConduit = getTile("gasConduit");
-	
+
 	public static final Tile quarry = getTile("quarry");
 	public static final Tile creativePowerSource = getTile("creativePowerSource");
 	public static final Tile charger = getTile("charger");
@@ -56,7 +56,7 @@ public class RockSolidContent
 
 	public static final Tile constructionBlockSteel = getTile("constructionBlockSteel");
 	public static final Tile constructionBlockTitanium = getTile("constructionBlockTitanium");
-	
+
 	public static final Item ingotTin = getItem("ingotTin");
 	public static final Item ingotBronze = getItem("ingotBronze");
 	public static final Item ingotIron = getItem("ingotIron");
@@ -102,12 +102,12 @@ public class RockSolidContent
 	public static final Item lantern = getItem("lantern");
 
 	public static Item bucket = getItem("bucket");
-	
+
 	public static final Gas gasVacuum = getGas("gasVacuum");
 	public static final Gas gasOxygen = getGas("gasOxygen");
 	public static final Gas gasHydrogen = getGas("gasHydrogen");
 	public static final Gas gasSteam = getGas("gasSteam");
-	
+
 	public static final Fluid fluidEmpty = getFluid("fluidEmpty");
 	public static final Fluid fluidWater = getFluid("fluidWater");
 	public static final Fluid fluidLava = getFluid("fluidLava");

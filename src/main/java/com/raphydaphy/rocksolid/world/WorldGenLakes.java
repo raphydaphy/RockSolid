@@ -36,7 +36,7 @@ public class WorldGenLakes implements IWorldGenerator
 		int startY = -10;
 
 		int fluidStart = 1 - rand.nextInt(3);
-		
+
 		int type = rand.nextInt(9);
 
 		boolean[][] terrain = new boolean[chunkMapSizeX][chunkMapSizeY];
@@ -84,7 +84,7 @@ public class WorldGenLakes implements IWorldGenerator
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
 										RockSolidContent.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
-	
+
 								if (chunk.getY() + y + startY == fluidStart - 7)
 								{
 									if (rand.nextBoolean())
@@ -97,8 +97,7 @@ public class WorldGenLakes implements IWorldGenerator
 									world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
 											RockSolidContent.clay.getDefState());
 								}
-							}
-							else
+							} else
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
 										RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));

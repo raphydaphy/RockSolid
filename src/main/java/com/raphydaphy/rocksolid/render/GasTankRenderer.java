@@ -44,24 +44,21 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 			{
 				stage = 20;
 			}
-			
-			
+
 			if (innerCoord.getY() == 1)
 			{
 				if (stage < 10)
 				{
 					return;
-				}
-				else
+				} else
 				{
 					stage -= 10;
 				}
-			}
-			else if (innerCoord.getY() == 0) 
-			{ 
-				if (stage >10) 
-				{ 
-					stage = 10; 
+			} else if (innerCoord.getY() == 0)
+			{
+				if (stage > 10)
+				{
+					stage = 10;
 				}
 			}
 			if (tileEntity.getGasType().equals(RockSolidContent.gasOxygen.toString()))
@@ -69,26 +66,25 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 				tex = this.texture.addSuffix(".gasOxygen." + innerCoord.getX() + "." + innerCoord.getY());
 			} else if (tileEntity.getGasType().equals(RockSolidContent.gasHydrogen.toString()))
 			{
-				tex = this.texture
-						.addSuffix(".gasHydrogen." + innerCoord.getX() + "." + innerCoord.getY());
+				tex = this.texture.addSuffix(".gasHydrogen." + innerCoord.getX() + "." + innerCoord.getY());
 			} else if (tileEntity.getGasType().equals(RockSolidContent.gasSteam.toString()))
 			{
 				tex = this.texture.addSuffix(".gasSteam." + innerCoord.getX() + "." + innerCoord.getY());
 			}
-			
-			float scaleY = (float)(scale / 12);
-			
+
+			float scaleY = (float) (scale / 12);
+
 			float startY = (scale) - (scaleY * stage);
-		
+
 			if (innerCoord.getY() == 0)
 			{
 				startY -= (2 * scaleY);
 			}
-			manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale, renderY + startY + (scaleY * stage), 0, 0, 12, stage, light, null);
+			manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale,
+					renderY + startY + (scaleY * stage), 0, 0, 12, stage, light, null);
 
 		}
 
-		
 	}
 
 }

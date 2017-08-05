@@ -94,7 +94,8 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 					{
 						if (((IGasTile) adjacentTileEntity).getGasType().equals(this.gasType)
 								|| this.gasType.equals(RockSolidContent.gasVacuum.toString())
-								|| ((IGasTile) adjacentTileEntity).getGasType().equals(RockSolidContent.gasVacuum.toString()))
+								|| ((IGasTile) adjacentTileEntity).getGasType()
+										.equals(RockSolidContent.gasVacuum.toString()))
 						{
 							if (IGasProducer.class.isAssignableFrom(adjacentTileEntity.getClass())
 									&& (((IGasTile) adjacentTileEntity).getGasType().equals(this.gasType))
@@ -334,7 +335,8 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 	@Override
 	public boolean addGas(int amount, String type)
 	{
-		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(RockSolidContent.gasVacuum.toString()))
+		if (this.gasType == null || type.equals(this.gasType)
+				|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{

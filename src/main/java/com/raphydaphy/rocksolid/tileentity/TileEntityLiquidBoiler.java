@@ -25,7 +25,8 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	// tank 0 is water tank 1 is lava
 	protected int[] fluidStored = new int[] { 0, 0 };
 	protected int maxFluid = 5000;
-	protected String[] fluidType = new String[] { RockSolidContent.fluidEmpty.toString(), RockSolidContent.fluidEmpty.toString() };
+	protected String[] fluidType = new String[] { RockSolidContent.fluidEmpty.toString(),
+			RockSolidContent.fluidEmpty.toString() };
 
 	public TileEntityLiquidBoiler(final IWorld world, final int x, final int y)
 	{

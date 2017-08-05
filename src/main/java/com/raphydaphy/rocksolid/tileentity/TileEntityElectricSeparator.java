@@ -187,7 +187,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements II
 	@Override
 	public List<Integer> getOutputSlots(Direction dir)
 	{
-		return Arrays.asList(1,2);
+		return Arrays.asList(1, 2);
 	}
 
 	@Override

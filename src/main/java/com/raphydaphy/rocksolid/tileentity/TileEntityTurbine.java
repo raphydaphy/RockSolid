@@ -18,8 +18,6 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 
 	public static final int productionPerTick = 30;
 	public static final int gasConsumptionPerTick = 1;
-	
-	
 
 	protected int gasStored;
 	protected int maxGas = 5000;
@@ -50,11 +48,11 @@ public class TileEntityTurbine extends TileEntity implements IGasAcceptor, IEner
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		
+
 		if (this.gasStored >= gasConsumptionPerTick && this.energyStored + productionPerTick <= this.maxEnergy
 				&& this.gasType.equals(RockSolidContent.gasSteam.toString()))
 		{
-			
+
 			if (RockBottomAPI.getNet().isClient() == false)
 			{
 				this.gasStored -= gasConsumptionPerTick;

@@ -48,14 +48,15 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		{
 			if (this.getCurrentEnergy() + productionPerTick <= this.getMaxEnergy())
 			{
-				if (this.fluidStored > fluidConsumptionPerTick && this.fluidType.equals(RockSolidContent.fluidOil.toString()))
+				if (this.fluidStored > fluidConsumptionPerTick
+						&& this.fluidType.equals(RockSolidContent.fluidOil.toString()))
 				{
 					this.fluidStored -= fluidConsumptionPerTick;
 					this.powerStored += productionPerTick;
 					this.shouldSync = true;
 				}
 			}
-			
+
 			if (this.fluidStored == 0)
 			{
 				this.setFluidType(RockSolidContent.fluidEmpty.toString());
@@ -95,7 +96,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		}
 		return (float) this.fluidStored / (float) this.maxFluid;
 	}
-	
+
 	public float getEnergyFullness()
 	{
 		if (this.getCurrentEnergy() == 0)
@@ -143,7 +144,8 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString()) || this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString())
+				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

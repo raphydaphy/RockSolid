@@ -59,14 +59,11 @@ public class TileCombustionEngine extends MultiTile
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
 		/*
-		if (this.isMainPos(x, y, world.getState(x, y)))
-		{
-			final TileEntityQuarry tile = world.getTileEntity(x, y, TileEntityQuarry.class);
-			if (tile != null && tile.isActive())
-			{
-				return 50;
-			}
-		}*/
+		 * if (this.isMainPos(x, y, world.getState(x, y))) { final
+		 * TileEntityQuarry tile = world.getTileEntity(x, y,
+		 * TileEntityQuarry.class); if (tile != null && tile.isActive()) {
+		 * return 50; } }
+		 */
 		return 0;
 	}
 
@@ -82,9 +79,10 @@ public class TileCombustionEngine extends MultiTile
 				return false;
 			}
 		}
-		
+
 		final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-		final TileEntityCombustionEngine tile = world.getTileEntity(main.getX(), main.getY(), TileEntityCombustionEngine.class);
+		final TileEntityCombustionEngine tile = world.getTileEntity(main.getX(), main.getY(),
+				TileEntityCombustionEngine.class);
 		if (tile != null)
 		{
 			player.openGuiContainer(new GuiCombustionEngine(player, tile), new ContainerEmpty(player));

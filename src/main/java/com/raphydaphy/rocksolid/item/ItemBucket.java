@@ -86,7 +86,7 @@ public class ItemBucket extends ItemBase
 					} else if (atState.getTile() == RockSolidContent.fluidLava)
 					{
 						instance.setMeta(2);
-					}else if (atState.getTile() == RockSolidContent.fluidOil)
+					} else if (atState.getTile() == RockSolidContent.fluidOil)
 					{
 						instance.setMeta(3);
 					}

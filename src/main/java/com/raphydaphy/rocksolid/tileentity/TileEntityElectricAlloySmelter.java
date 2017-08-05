@@ -171,7 +171,7 @@ public class TileEntityElectricAlloySmelter extends TileEntityPowered implements
 	@Override
 	public List<Integer> getInputSlots(ItemInstance input, Direction dir)
 	{
-		return Arrays.asList(0,1,2);
+		return Arrays.asList(0, 1, 2);
 	}
 
 	@Override

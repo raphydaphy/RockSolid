@@ -186,7 +186,7 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IInvento
 	@Override
 	public List<Integer> getInputSlots(ItemInstance item, Direction dir)
 	{
-		return Arrays.asList(0,1,2);
+		return Arrays.asList(0, 1, 2);
 	}
 
 	@Override

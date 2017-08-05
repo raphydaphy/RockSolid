@@ -27,7 +27,7 @@ public class BaseResources
 	public static final String PROCESSED_URANIUM = "processed_uranium";
 	public static final String PARTLY_PROCESSED_URANIUM = "partly_processed_uranium";
 	public static final String RAW_URANIUM = "raw_uranium";
-	
+
 	public static final String PROCESSED_TITANIUM = "processed_titanium";
 	public static final String PARTLY_PROCESSED_TITANIUM = "partly_processed_titanium";
 
@@ -37,6 +37,6 @@ public class BaseResources
 	public static final String RAW_SHINING = "raw_shining";
 
 	public static final String TANK = "tank";
-	
+
 	public static final String ORE_RUTILE = "ore_rutile";
 }

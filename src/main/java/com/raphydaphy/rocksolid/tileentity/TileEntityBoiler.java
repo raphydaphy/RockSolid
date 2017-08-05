@@ -257,7 +257,8 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString()) || this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString())
+				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

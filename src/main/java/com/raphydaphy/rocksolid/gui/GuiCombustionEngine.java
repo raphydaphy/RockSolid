@@ -31,7 +31,7 @@ public class GuiCombustionEngine extends GuiContainer
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 30, 80, 10,
 				RockSolidLib.getFluidColor(tile.getFluidType()), false, this.tile::getFluidTankFullness));
-		
+
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 45, 80, 10,
 				new Color(148, 0, 211), false, this.tile::getEnergyFullness));
 	}
@@ -47,8 +47,9 @@ public class GuiCombustionEngine extends GuiContainer
 
 		if (mouseOverPowerBarX && mouseOverPowerBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentEnergy() + "kWh of Energy", "Produces " + TileEntityCombustionEngine.productionPerTick + "kWh per tick" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] { "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy",
+							"Produces " + TileEntityCombustionEngine.productionPerTick + "kWh per tick" });
 		}
 
 		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)

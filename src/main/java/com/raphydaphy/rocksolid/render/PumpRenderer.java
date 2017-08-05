@@ -36,7 +36,7 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 				TileEntityFluidPump.class);
 		IResourceName tex = this.textures.get(innerCoord);
 		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
-		
+
 		if (tileEntity != null && tileEntity.getCurrentFluid() >= 1000)
 		{
 			int fullness = Util.floor(tileEntity.getFluidTankFullness() * 10);
@@ -50,24 +50,24 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 				} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidLava.toString()))
 				{
 					fluid = "fluidLava";
-				}else if (tileEntity.getFluidType().equals(RockSolidContent.fluidOil.toString()))
+				} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidOil.toString()))
 				{
 					fluid = "fluidOil";
 				}
-				tex = this.texture
-						.addSuffix("." + fluid + "." + innerCoord.getX() + "." + innerCoord.getY());
-				
-				float scaleY = (float)(scale / 12);
-				
+				tex = this.texture.addSuffix("." + fluid + "." + innerCoord.getX() + "." + innerCoord.getY());
+
+				float scaleY = (float) (scale / 12);
+
 				float startY = (scale) - (scaleY * fullness);
-			
-				//startY -= (2 * scaleY);
-				manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale, renderY + startY + (scaleY * fullness), 0, 0, 12, fullness, light, null);
+
+				// startY -= (2 * scaleY);
+				manager.getTexture(tex).drawWithLight(renderX, renderY + startY, renderX + scale,
+						renderY + startY + (scaleY * fullness), 0, 0, 12, fullness, light, null);
 
 			}
 
 		}
-		
+
 	}
 
 }

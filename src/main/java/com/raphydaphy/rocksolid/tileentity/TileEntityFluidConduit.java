@@ -156,8 +156,8 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 						int thisFluidTank = adjMultiFluid.getTankNumber(innerCoord);
 						if (thisFluidTank != -1)
 						{
-							if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
-									.equals(this.fluidType) || this.fluidType.equals(RockSolidContent.fluidEmpty.toString())
+							if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank].equals(
+									this.fluidType) || this.fluidType.equals(RockSolidContent.fluidEmpty.toString())
 									|| ((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
 											.equals(RockSolidContent.fluidEmpty.toString()))
 							{

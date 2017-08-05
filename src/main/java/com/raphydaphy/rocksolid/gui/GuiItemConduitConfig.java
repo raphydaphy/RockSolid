@@ -56,10 +56,9 @@ public class GuiItemConduitConfig extends GuiContainer
 				{
 					itemMode++;
 				}
-	
+
 				((IConduit) tile).setSideMode(editingSide, itemMode);
-			}
-			else if ((button == 6 || button == 7) && tile instanceof TileEntityItemConduit)
+			} else if ((button == 6 || button == 7) && tile instanceof TileEntityItemConduit)
 			{
 				if (priority < 9999 && button == 6)
 				{
@@ -67,23 +66,23 @@ public class GuiItemConduitConfig extends GuiContainer
 				}
 				if (priority > 1 && button == 7)
 				{
-					priority --;
+					priority--;
 				}
-				((TileEntityItemConduit)tile).setPriority(priority, editingSide);
-				
-			}
-			else if (button == 8 && tile instanceof TileEntityItemConduit)
+				((TileEntityItemConduit) tile).setPriority(priority, editingSide);
+
+			} else if (button == 8 && tile instanceof TileEntityItemConduit)
 			{
 				isWhitelist = !isWhitelist;
-				((TileEntityItemConduit)tile).setIsWhitelist(editingSide, isWhitelist);
+				((TileEntityItemConduit) tile).setIsWhitelist(editingSide, isWhitelist);
 			}
 			if (tile instanceof TileEntityItemConduit)
 			{
-				RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, priority, isWhitelist));
-			}
-			else
+				RockBottomAPI.getNet().sendToServer(
+						new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, priority, isWhitelist));
+			} else
 			{
-				RockBottomAPI.getNet().sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, 1, true));
+				RockBottomAPI.getNet()
+						.sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, 1, true));
 			}
 
 			buildSingleGui(game, editingSide);
@@ -104,55 +103,64 @@ public class GuiItemConduitConfig extends GuiContainer
 		this.components.add(new ComponentButton(this, 2, this.guiLeft + 21, this.guiTop + 75, 50, 18, "Left"));
 		this.components.add(new ComponentButton(this, 3, this.guiLeft + 125, this.guiTop + 75, 50, 18, "Right"));
 	}
-	
-	protected void addSlotGrid(IInventory inventory, int start, int end, int xStart, int yStart, int width){
-        int x = xStart;
-        int y = yStart;
-        for(int i = start; i < end; i++){
-            this.components.add(new ComponentSlot(this, new ContainerSlot(inventory, i, x, y), 1, x, y));
 
-            x += 20;
-            if((i+1)%width == 0){
-                y += 20;
-                x = xStart;
-            }
-        }
-    }
+	protected void addSlotGrid(IInventory inventory, int start, int end, int xStart, int yStart, int width)
+	{
+		int x = xStart;
+		int y = yStart;
+		for (int i = start; i < end; i++)
+		{
+			this.components.add(new ComponentSlot(this, new ContainerSlot(inventory, i, x, y), 1, x, y));
 
-    protected void addPlayerInventory(AbstractEntityPlayer player, int x, int y){
-        this.addSlotGrid(player.getInv(), 0, 8, x, y, 8);
-        this.addSlotGrid(player.getInv(), 8, player.getInv().getSlotAmount(), x, y+25, 8);
-    }
+			x += 20;
+			if ((i + 1) % width == 0)
+			{
+				y += 20;
+				x = xStart;
+			}
+		}
+	}
+
+	protected void addPlayerInventory(AbstractEntityPlayer player, int x, int y)
+	{
+		this.addSlotGrid(player.getInv(), 0, 8, x, y, 8);
+		this.addSlotGrid(player.getInv(), 8, player.getInv().getSlotAmount(), x, y + 25, 8);
+	}
 
 	public void buildSingleGui(IGameInstance game, int direction)
 	{
 		editingSide = direction;
 		isWhitelist = tile.getIsWhitelist(direction);
 		this.components.clear();
-		
-		//Gui gui, int x, int y, int sizeX, int sizeY, boolean renderBox, boolean selectable, boolean defaultActive, int maxLength, boolean displayMaxLength)
+
+		// Gui gui, int x, int y, int sizeX, int sizeY, boolean renderBox,
+		// boolean selectable, boolean defaultActive, int maxLength, boolean
+		// displayMaxLength)
 
 		this.components.add(new ComponentButton(this, 5, this.guiLeft + 26, this.guiTop + 25, 50, 18, "Back"));
-		
+
 		if (((IConduit) tile).getSideMode(direction) != 2)
 		{
-			priority = ((TileEntityItemConduit)tile).getPriority(direction);
-			this.components.add(new ComponentButton(this, 999, this.guiLeft + 85, this.guiTop, 30, 18, Integer.toString(priority)));
+			priority = ((TileEntityItemConduit) tile).getPriority(direction);
+			this.components.add(
+					new ComponentButton(this, 999, this.guiLeft + 85, this.guiTop, 30, 18, Integer.toString(priority)));
 			this.components.add(new ComponentButton(this, 7, this.guiLeft + 50, this.guiTop, 30, 18, "-"));
-			this.components.add(new ComponentButton(this, 6, this.guiLeft + 120, this.guiTop , 30, 18, "+"));
-			this.components.add(new ComponentSlot(this, new ContainerSlot(tile.inventory,editingSide, this.guiLeft + 90, this.guiTop + 26), 10, this.guiLeft + 90, this.guiTop + 26));
+			this.components.add(new ComponentButton(this, 6, this.guiLeft + 120, this.guiTop, 30, 18, "+"));
+			this.components.add(new ComponentSlot(this,
+					new ContainerSlot(tile.inventory, editingSide, this.guiLeft + 90, this.guiTop + 26), 10,
+					this.guiLeft + 90, this.guiTop + 26));
 			this.addPlayerInventory(player, this.guiLeft + 20, this.guiTop + 75);
-			
+
 			if (isWhitelist)
 			{
-				this.components.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Whitelist"));
-			}
-			else
+				this.components
+						.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Whitelist"));
+			} else
 			{
-				this.components.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Blacklist"));
+				this.components
+						.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Blacklist"));
 			}
 		}
-		
 
 		if (((IConduit) tile).getSideMode(direction) == 0)
 		{
@@ -160,7 +168,7 @@ public class GuiItemConduitConfig extends GuiContainer
 					"Outputs contents into connected tile."));
 		} else if (((IConduit) tile).getSideMode(direction) == 1)
 		{
-			
+
 			this.components.add(new ComponentButton(this, 4, this.guiLeft + 123, this.guiTop + 25, 50, 18, "Input",
 					"Pulls contents into the conduit."));
 		} else if (((IConduit) tile).getSideMode(direction) == 2)

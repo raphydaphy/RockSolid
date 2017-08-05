@@ -62,7 +62,7 @@ public class ModTiles
 	public static Tile boiler;
 	public static Tile liquidBoiler;
 	public static Tile turbine;
-	
+
 	public static Tile combustionEngine;
 	public static Tile nuclearReactor;
 	public static Tile battery;

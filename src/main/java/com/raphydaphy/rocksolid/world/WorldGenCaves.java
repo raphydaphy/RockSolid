@@ -52,7 +52,7 @@ public class WorldGenCaves implements IWorldGenerator
 		int feature = rand.nextInt(25);
 		int fluidHeight = 0;
 
-		if (feature < 13 && (chunk.getGridY() > 30  || rand.nextBoolean()))
+		if (feature < 13 && (chunk.getGridY() > 30 || rand.nextBoolean()))
 		{
 			feature = 0;
 		} else if (feature < 16 || (chunk.getGridY() < -30 && rand.nextBoolean()))
@@ -64,8 +64,7 @@ public class WorldGenCaves implements IWorldGenerator
 		} else if (feature < 21)
 		{
 			feature = 3;
-		}
-		else
+		} else
 		{
 			feature = 4;
 		}
@@ -80,7 +79,7 @@ public class WorldGenCaves implements IWorldGenerator
 				// used to calculate highest fluid in the chunk with
 				// chunkMapSizeY / this
 				fluidHeight = (rand.nextInt(3) + 2);
-				if (fluidHeight ==0)
+				if (fluidHeight == 0)
 				{
 					fluidHeight++;
 				}
@@ -131,7 +130,7 @@ public class WorldGenCaves implements IWorldGenerator
 							}
 						}
 						TileState background = RockSolidContent.rockLight.getDefState();
-						if (!hasFeature ||( (feature < 2 || feature == 4)&& y > (chunkMapSizeY / fluidHeight)))
+						if (!hasFeature || ((feature < 2 || feature == 4) && y > (chunkMapSizeY / fluidHeight)))
 						{
 							world.setState(chunk.getX() + x + startX, chunk.getY() + y + startY,
 									GameContent.TILE_AIR.getDefState());
@@ -159,7 +158,8 @@ public class WorldGenCaves implements IWorldGenerator
 								background = GameContent.TILE_STONE.getDefState();
 								break;
 							case 4:
-								featureTile = RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel, Fluid.MAX_VOLUME);
+								featureTile = RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel,
+										Fluid.MAX_VOLUME);
 								break;
 							}
 

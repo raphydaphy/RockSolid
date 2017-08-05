@@ -95,7 +95,8 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	@Override
 	public boolean addGas(int amount, String type)
 	{
-		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(RockSolidContent.gasVacuum.toString()))
+		if (this.gasType == null || type.equals(this.gasType)
+				|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{
