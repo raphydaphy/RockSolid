@@ -53,7 +53,7 @@ public class RockSolidAPI
 		for (PurifierRecipe recipe : PURIFIER_RECIPES)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(Fluid.EMPTY.toString()));
+					|| (recipe.getFluid().equals(Fluid.EMPTY.getName()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches && recipe.getInput().containsItem(item))
 			{
 				return recipe;
@@ -68,7 +68,7 @@ public class RockSolidAPI
 		for (ElectrolyzerRecipe recipe : ELECTROLYZER_RECIPE)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(Fluid.EMPTY.toString()));
+					|| (recipe.getFluid().equals(Fluid.EMPTY.getName()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
 					&& (output1.equals(recipe.getOutput1()) || output1.equals(RockSolidContent.gasVacuum.toString()))
 					&& (output2.equals(recipe.getOutput2()) || output2.equals(RockSolidContent.gasVacuum.toString())))

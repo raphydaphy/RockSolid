@@ -30,7 +30,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = Fluid.EMPTY.toString();
+	protected String fluidType = Fluid.EMPTY.getName();
 
 	protected int powerStored = 0;
 	private boolean shouldSync = false;
@@ -63,6 +63,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		if (input != null)
 		{
 			final PurifierRecipe recipe = RockSolidAPI.getPurifierRecipe(input, this.fluidType, this.fluidStored);
+			
 			if (recipe != null)
 			{
 				final ResUseInfo recipeIngredient = recipe.getInput();
@@ -95,7 +96,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 								this.fluidStored -= recipe.getFluidVolume();
 								if (this.fluidStored == 0)
 								{
-									this.setFluidType(Fluid.EMPTY.toString());
+									this.setFluidType(Fluid.EMPTY.getName());
 								}
 								if (output == null)
 								{
@@ -127,7 +128,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(Fluid.EMPTY.toString());
+				this.setFluidType(Fluid.EMPTY.getName());
 			}
 
 			shouldSync = true;
@@ -157,9 +158,9 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		set.addInt("max_process", this.maxProcessTime);
 		set.addInt("powerStored", this.powerStored);
 		set.addBoolean("shouldSync", this.shouldSync);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
-		set.addString("fluidType", this.fluidType);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
 	}
 
 	@Override
@@ -174,9 +175,9 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		this.maxProcessTime = set.getInt("max_process");
 		this.powerStored = set.getInt("powerStored");
 		this.shouldSync = set.getBoolean("shouldSync");
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
-		this.fluidType = set.getString("fluidType");
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
 	}
 
 	@Override
@@ -249,7 +250,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(Fluid.EMPTY.toString()))
+					|| this.fluidType.equals(Fluid.EMPTY.getName()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -263,7 +264,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.toString())
+		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName())
 				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;

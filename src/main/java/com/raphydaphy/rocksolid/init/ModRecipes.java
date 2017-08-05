@@ -120,12 +120,12 @@ public class ModRecipes
 				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(ResourceRegistry.RAW_COPPER, 1), 750));
 
 		// Purifier Recipes
-		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(RockSolidContent.clay),
-				new ResUseInfo(BaseResources.RAW_CLAY), Fluid.WATER.toString(), 100, 850));
+		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(RockSolidContent.itemClay),
+				new ResUseInfo(BaseResources.RAW_CLAY), Fluid.WATER.getName(), 100, 850));
 
 		// Electrolyzer Recipes
 		RockSolidAPI.ELECTROLYZER_RECIPE.add(new ElectrolyzerRecipe(RockSolidContent.gasHydrogen.toString(),
-				RockSolidContent.gasOxygen.toString(), Fluid.WATER.toString(), 150, 100, 50, 800));
+				RockSolidContent.gasOxygen.toString(), Fluid.WATER.getName(), 150, 100, 50, 800));
 
 		// Arc furnace recipes
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(RockSolidContent.gemCoke),

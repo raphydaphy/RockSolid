@@ -55,11 +55,12 @@ public class ItemBucket extends ItemBase
 				IFluidProducer tank = (IFluidProducer) atPos;
 				if (tank.getCurrentFluid() >= 1000)
 				{
-					if (!(tank.getFluidType().equals(Fluid.EMPTY.toString())))
+					if (!(tank.getFluidType().equals(Fluid.EMPTY.getName())))
 					{
+						String wasFluidType = tank.getFluidType();
 						if (tank.removeFluid(1000))
 						{
-							instance.setMeta(Fluid.getByName(tank.getFluidType()).getBucketMeta());
+							instance.setMeta(Fluid.getByName(wasFluidType).getBucketMeta());
 							return true;
 						}
 					}
@@ -89,7 +90,7 @@ public class ItemBucket extends ItemBase
 			if (atPos instanceof IFluidAcceptor)
 			{
 				IFluidAcceptor tank = (IFluidAcceptor) atPos;
-				String fluidString = fluid.toString();
+				String fluidString = fluid.getName();
 				if (tank.addFluid(1000, fluidString))
 				{
 					instance.setMeta(0);
@@ -99,6 +100,10 @@ public class ItemBucket extends ItemBase
 			} else if (atState.getTile() == GameContent.TILE_AIR || atState.get(FluidTile.fluidType).equals(fluid))
 			{
 				fluid.getTile().getTile().doPlace(world, x, y, layer, instance, null);
+				if (atState.getTile() == GameContent.TILE_AIR)
+				{
+					world.setState(x, y, world.getState(x, y).prop(FluidTile.fluidType, fluid));
+				}
 				instance.setMeta(0);
 				return true;
 			}

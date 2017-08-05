@@ -21,7 +21,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = Fluid.EMPTY.toString();
+	protected String fluidType = Fluid.EMPTY.getName();
 
 	protected int gasTank1Storage = 0;
 	protected int gasTank2Storage = 0;
@@ -94,7 +94,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 							this.fluidStored -= recipe.getFluidVolume();
 							if (this.fluidStored == 0)
 							{
-								this.setFluidType(Fluid.EMPTY.toString());
+								this.setFluidType(Fluid.EMPTY.getName());
 							}
 
 							this.setGasType(recipeOut1, 0);
@@ -124,7 +124,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(Fluid.EMPTY.toString());
+				this.setFluidType(Fluid.EMPTY.getName());
 			}
 
 			if (this.gasTank1Storage == 0)
@@ -160,9 +160,9 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 		set.addInt("max_process", this.maxProcessTime);
 		set.addInt("powerStored", this.powerStored);
 		set.addBoolean("shouldSync", this.shouldSync);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
-		set.addString("fluidType", this.fluidType);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
 		set.addString("gasTank1Type", this.gasTank1Type);
 		set.addString("gasTank2Type", this.gasTank2Type);
 		set.addInt("gasTank1Storage", this.gasTank1Storage);
@@ -177,9 +177,9 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 		this.maxProcessTime = set.getInt("max_process");
 		this.powerStored = set.getInt("powerStored");
 		this.shouldSync = set.getBoolean("shouldSync");
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
-		this.fluidType = set.getString("fluidType");
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
 		this.gasTank1Type = set.getString("gasTank1Type");
 		this.gasTank2Type = set.getString("gasTank2Type");
 		this.gasTank1Storage = set.getInt("gasTank1Storage");
@@ -272,7 +272,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(Fluid.EMPTY.toString()))
+					|| this.fluidType.equals(Fluid.EMPTY.getName()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -286,7 +286,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.toString())
+		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName())
 				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;

@@ -14,7 +14,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 
 	protected int fluidStored;
 	protected int maxFluid;
-	protected String fluidType = Fluid.EMPTY.toString();
+	protected String fluidType = Fluid.EMPTY.getName();
 
 	public TileEntityTank(final IWorld world, final int x, final int y)
 	{
@@ -43,18 +43,18 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	public void save(final DataSet set, final boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
-		set.addString("fluidType", this.fluidType);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
 	}
 
 	@Override
 	public void load(final DataSet set, final boolean forSync)
 	{
 		super.load(set, forSync);
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
-		this.fluidType = set.getString("fluidType");
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 
 			if (this.fluidStored == 0)
 			{
-				this.fluidType = Fluid.EMPTY.toString();
+				this.fluidType = Fluid.EMPTY.getName();
 			}
 			this.sync();
 			return true;
@@ -96,7 +96,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	public boolean addFluid(int amount, String type)
 	{
 		if (this.fluidType == null || type.equals(this.fluidType)
-				|| this.fluidType.equals(Fluid.EMPTY.toString()))
+				|| this.fluidType.equals(Fluid.EMPTY.getName()))
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
@@ -116,7 +116,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == Fluid.EMPTY.toString() || this.fluidStored == 0)
+		if (this.fluidType == Fluid.EMPTY.getName() || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			this.sync();

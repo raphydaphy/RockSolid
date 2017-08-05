@@ -40,7 +40,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 
 		if (this.fluidType == null)
 		{
-			this.fluidType = Fluid.EMPTY.toString();
+			this.fluidType = Fluid.EMPTY.getName();
 		}
 	}
 
@@ -77,7 +77,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 					{
 						if (this.getSideMode(adjacentTile) != 2
 								&& (((TileEntityFluidConduit) adjacentTileEntity).getFluidType().equals(this.fluidType))
-								|| this.fluidType.equals(Fluid.EMPTY.toString()))
+								|| this.fluidType.equals(Fluid.EMPTY.getName()))
 						{
 							if (((TileEntityFluidConduit) adjacentTileEntity).getCurrentFluid() > this
 									.getCurrentFluid())
@@ -94,13 +94,13 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 					} else if (IFluidTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
 					{
 						if (((IFluidTile) adjacentTileEntity).getFluidType().equals(this.fluidType)
-								|| this.fluidType.equals(Fluid.EMPTY.toString())
+								|| this.fluidType.equals(Fluid.EMPTY.getName())
 								|| ((IFluidTile) adjacentTileEntity).getFluidType()
-										.equals(Fluid.EMPTY.toString()))
+										.equals(Fluid.EMPTY.getName()))
 						{
 							if (IFluidProducer.class.isAssignableFrom(adjacentTileEntity.getClass())
 									&& (((IFluidTile) adjacentTileEntity).getFluidType().equals(this.fluidType))
-									|| this.fluidType.equals(Fluid.EMPTY.toString()))
+									|| this.fluidType.equals(Fluid.EMPTY.getName()))
 							{
 								// Conduit is set to input mode
 								if (this.getSideMode(adjacentTile) == 1)
@@ -129,7 +129,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 									if (this.fluidStored >= transferRate)
 									{
 										if (((IFluidTile) adjacentTileEntity).getFluidType()
-												.equals(Fluid.EMPTY.toString()))
+												.equals(Fluid.EMPTY.getName()))
 										{
 											// set the fluid type in the
 											// adjacent tile to match this
@@ -157,15 +157,15 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 						if (thisFluidTank != -1)
 						{
 							if (((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank].equals(
-									this.fluidType) || this.fluidType.equals(Fluid.EMPTY.toString())
+									this.fluidType) || this.fluidType.equals(Fluid.EMPTY.getName())
 									|| ((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
-											.equals(Fluid.EMPTY.toString()))
+											.equals(Fluid.EMPTY.getName()))
 							{
 								if (IMultiFluidProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
 								{
 									if ((((IMultiFluidTile) adjacentTileEntity).getFluidTanksType()[thisFluidTank]
 											.equals(this.fluidType))
-											|| this.fluidType.equals(Fluid.EMPTY.toString()))
+											|| this.fluidType.equals(Fluid.EMPTY.getName()))
 									{
 										// Conduit is set to input mode
 										if (this.getSideMode(adjacentTile) == 1)
@@ -199,7 +199,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 										{
 											if (((IMultiFluidTile) adjacentTileEntity)
 													.getFluidTanksType()[thisFluidTank]
-															.equals(Fluid.EMPTY.toString()))
+															.equals(Fluid.EMPTY.getName()))
 											{
 												// set the fluid type in the
 												// adjacent tile to match this
@@ -275,11 +275,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		set.addInt("modeDown", this.modeDown);
 		set.addInt("modeLeft", this.modeLeft);
 		set.addInt("modeRight", this.modeRight);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
 		set.addInt("transferRate", this.transferRate);
 		set.addBoolean("shouldSync", this.shouldSync);
-		set.addString("fluidType", this.fluidType);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
 	}
 
 	@Override
@@ -290,11 +290,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 		this.modeDown = set.getInt("modeDown");
 		this.modeLeft = set.getInt("modeLeft");
 		this.modeRight = set.getInt("modeRight");
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
 		this.transferRate = set.getInt("transferRate");
 		this.shouldSync = set.getBoolean("shouldSync");
-		this.fluidType = set.getString("fluidType");
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
 	}
 
 	@Override
@@ -341,11 +341,11 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	public boolean addFluid(int amount, String type)
 	{
 		if (this.fluidType == null || type.equals(this.fluidType)
-				|| this.fluidType.equals(Fluid.EMPTY.toString()))
+				|| this.fluidType.equals(Fluid.EMPTY.getName()))
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
-				if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.toString()))
+				if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName()))
 				{
 					this.fluidType = type;
 				}
@@ -367,7 +367,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 
 			if (this.fluidStored == 0)
 			{
-				this.fluidType = Fluid.EMPTY.toString();
+				this.fluidType = Fluid.EMPTY.getName();
 			}
 			this.shouldSync = true;
 			return true;
@@ -384,7 +384,7 @@ public class TileEntityFluidConduit extends TileEntity implements IConduit, IFlu
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType.equals(Fluid.EMPTY.toString()) || this.fluidStored == 0)
+		if (this.fluidType.equals(Fluid.EMPTY.getName()) || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			this.shouldSync = true;

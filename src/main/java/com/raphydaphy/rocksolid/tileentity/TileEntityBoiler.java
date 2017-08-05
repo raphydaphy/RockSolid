@@ -34,7 +34,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = Fluid.EMPTY.toString();
+	protected String fluidType = Fluid.EMPTY.getName();
 
 	public TileEntityBoiler(final IWorld world, final int x, final int y)
 	{
@@ -60,7 +60,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 	protected boolean tryTickAction()
 	{
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored >= fluidConsumptionPerTick
-				&& this.fluidType.equals(Fluid.WATER.toString()))
+				&& this.fluidType.equals(Fluid.WATER.getName()))
 		{
 			if (this.coalTime > 0)
 			{
@@ -77,7 +77,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 
 					if (this.fluidStored == 0)
 					{
-						this.fluidType = Fluid.EMPTY.toString();
+						this.fluidType = Fluid.EMPTY.getName();
 					}
 					shouldSync = true;
 				}
@@ -142,9 +142,9 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 		set.addString("gasType", this.gasType);
 		set.addInt("gasStored", this.gasStored);
 		set.addInt("maxGas", this.maxGas);
-		set.addString("fluidType", this.fluidType);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
 	}
 
 	@Override
@@ -159,9 +159,9 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 		this.gasType = set.getString("gasType");
 		this.gasStored = set.getInt("gasStored");
 		this.maxGas = set.getInt("maxGas");
-		this.fluidType = set.getString("fluidType");
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
 	}
 
 	@Override
@@ -244,7 +244,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(Fluid.EMPTY.toString()))
+					|| this.fluidType.equals(Fluid.EMPTY.getName()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -258,7 +258,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.toString())
+		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName())
 				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;

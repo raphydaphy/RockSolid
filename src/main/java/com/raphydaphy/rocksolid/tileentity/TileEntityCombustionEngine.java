@@ -15,7 +15,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = Fluid.EMPTY.toString();
+	protected String fluidType = Fluid.EMPTY.getName();
 	public static final int fluidConsumptionPerTick = 5;
 	public static final int productionPerTick = 80;
 
@@ -49,7 +49,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 			if (this.getCurrentEnergy() + productionPerTick <= this.getMaxEnergy())
 			{
 				if (this.fluidStored > fluidConsumptionPerTick
-						&& this.fluidType.equals(Fluid.OIL.toString()))
+						&& this.fluidType.equals(Fluid.OIL.getName()))
 				{
 					this.fluidStored -= fluidConsumptionPerTick;
 					this.powerStored += productionPerTick;
@@ -59,7 +59,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(Fluid.EMPTY.toString());
+				this.setFluidType(Fluid.EMPTY.getName());
 			}
 
 			shouldSync = true;
@@ -72,9 +72,9 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		super.save(set, forSync);
 		set.addInt("powerStored", this.powerStored);
 		set.addBoolean("shouldSync", this.shouldSync);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
-		set.addString("fluidType", this.fluidType);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
 	}
 
 	@Override
@@ -83,9 +83,9 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		super.load(set, forSync);
 		this.powerStored = set.getInt("powerStored");
 		this.shouldSync = set.getBoolean("shouldSync");
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
-		this.fluidType = set.getString("fluidType");
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
 	}
 
 	public float getFluidTankFullness()
@@ -130,7 +130,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(Fluid.EMPTY.toString()))
+					|| this.fluidType.equals(Fluid.EMPTY.getName()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -144,7 +144,7 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.toString())
+		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName())
 				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;

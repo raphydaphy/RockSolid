@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.item.ItemBucket;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -25,17 +26,9 @@ public class BucketRenderer<T extends ItemBucket> implements IItemRenderer<T>
 			float x, float y, float scale, Color filter)
 	{
 		IResourceName curTex = this.texture;
-		switch (instance.getMeta())
+		if (instance.getMeta() > 0)
 		{
-		case 1:
-			curTex = curTex.addSuffix(".water");
-			break;
-		case 2:
-			curTex = curTex.addSuffix(".lava");
-			break;
-		case 3:
-			curTex = curTex.addSuffix(".oil");
-			break;
+			curTex = curTex.addSuffix("." + RockSolidAPILib.bucketMetaToFluid(instance.getMeta()).toString());
 		}
 
 		manager.getTexture(curTex).draw(x, y, 1F * scale, 1F * scale, filter);

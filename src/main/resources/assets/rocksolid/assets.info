@@ -83,6 +83,7 @@ tex.tiles.gasTank.gasHydrogen.0.1=sub./gasses/hydrogen/tank.png,0,0,12,12
 ## Empty
 tex.tiles.tank.0.0=sub./fluids/empty/tank.png,0,12,12,12
 tex.tiles.tank.0.1=sub./fluids/empty/tank.png,0,0,12,12
+tex.tiles.fluid=
 tex.tiles.tank.item=/fluids/empty/tank_item.png
 tex.items.bucket=/fluids/empty/bucket.png
 tex.tiles.fluidPump.item=/fluids/empty/pump_item.png
@@ -93,33 +94,33 @@ tex.tiles.fluidPump.1.1=sub./fluids/empty/pump.png,12,0,12,12
 
 ## Oil
 tex.tiles.fluid.OIL=/fluids/oil/still.png
-tex.items.bucket.oil=/fluids/oil/bucket.png
+tex.items.bucket.OIL=/fluids/oil/bucket.png
 
-tex.tiles.fluidPump.fluidOil.0.1=sub./fluids/oil/pump.png,0,0,12,12
-tex.tiles.fluidPump.fluidOil.1.1=sub./fluids/oil/pump.png,12,0,12,12
+tex.tiles.fluidPump.OIL.0.1=sub./fluids/oil/pump.png,0,0,12,12
+tex.tiles.fluidPump.OIL.1.1=sub./fluids/oil/pump.png,12,0,12,12
 
-tex.tiles.tank.fluidOil.0.0=sub./fluids/oil/tank.png,0,12,12,12
-tex.tiles.tank.fluidOil.0.1=sub./fluids/oil/tank.png,0,0,12,12
+tex.tiles.tank.OIL.0.0=sub./fluids/oil/tank.png,0,12,12,12
+tex.tiles.tank.OIL.0.1=sub./fluids/oil/tank.png,0,0,12,12
 
 ## Water
 tex.tiles.fluid.WATER=/fluids/water/still.png
-tex.items.bucket.water=/fluids/water/bucket.png
+tex.items.bucket.WATER=/fluids/water/bucket.png
 
-tex.tiles.fluidPump.fluidWater.0.1=sub./fluids/water/pump.png,0,0,12,12
-tex.tiles.fluidPump.fluidWater.1.1=sub./fluids/water/pump.png,12,0,12,12
+tex.tiles.fluidPump.WATER.0.1=sub./fluids/water/pump.png,0,0,12,12
+tex.tiles.fluidPump.WATER.1.1=sub./fluids/water/pump.png,12,0,12,12
 
-tex.tiles.tank.fluidWater.0.0=sub./fluids/water/tank.png,0,12,12,12
-tex.tiles.tank.fluidWater.0.1=sub./fluids/water/tank.png,0,0,12,12
+tex.tiles.tank.WATER.0.0=sub./fluids/water/tank.png,0,12,12,12
+tex.tiles.tank.WATER.0.1=sub./fluids/water/tank.png,0,0,12,12
 
 ## Lava
 tex.tiles.fluid.LAVA=/fluids/lava/still.png
-tex.items.bucket.lava=/fluids/lava/bucket.png
+tex.items.bucket.LAVA=/fluids/lava/bucket.png
 
-tex.tiles.fluidPump.fluidLava.0.1=sub./fluids/lava/pump.png,0,0,12,12
-tex.tiles.fluidPump.fluidLava.1.1=sub./fluids/lava/pump.png,12,0,12,12
+tex.tiles.fluidPump.LAVA.0.1=sub./fluids/lava/pump.png,0,0,12,12
+tex.tiles.fluidPump.LAVA.1.1=sub./fluids/lava/pump.png,12,0,12,12
 
-tex.tiles.tank.fluidLava.0.0=sub./fluids/lava/tank.png,0,12,12,12
-tex.tiles.tank.fluidLava.0.1=sub./fluids/lava/tank.png,0,0,12,12
+tex.tiles.tank.LAVA.0.0=sub./fluids/lava/tank.png,0,12,12,12
+tex.tiles.tank.LAVA.0.1=sub./fluids/lava/tank.png,0,0,12,12
 
 # Tiles
 

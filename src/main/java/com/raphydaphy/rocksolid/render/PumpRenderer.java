@@ -43,17 +43,8 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 
 			if (innerCoord.getY() == 1)
 			{
-				String fluid = "fluidEmpty";
-				if (tileEntity.getFluidType().equals(Fluid.WATER.toString()))
-				{
-					fluid = "fluidWater";
-				} else if (tileEntity.getFluidType().equals(Fluid.LAVA.toString()))
-				{
-					fluid = "fluidLava";
-				} else if (tileEntity.getFluidType().equals(Fluid.OIL.toString()))
-				{
-					fluid = "fluidOil";
-				}
+				String fluid = Fluid.getByName(tileEntity.getFluidType()).toString();
+				
 				tex = this.texture.addSuffix("." + fluid + "." + innerCoord.getX() + "." + innerCoord.getY());
 
 				float scaleY = (float) (scale / 12);

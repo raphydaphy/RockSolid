@@ -61,16 +61,8 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 					stage = 10;
 				}
 			}
-			if (tileEntity.getFluidType().equals(Fluid.WATER.toString()))
-			{
-				tex = this.texture.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getFluidType().equals(Fluid.LAVA.toString()))
-			{
-				tex = this.texture.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getFluidType().equals(Fluid.OIL.toString()))
-			{
-				tex = this.texture.addSuffix(".fluidOil." + innerCoord.getX() + "." + innerCoord.getY());
-			}
+			Fluid fluidType = Fluid.getByName(tileEntity.getFluidType());
+			tex = this.texture.addSuffix("." + fluidType.toString() + "." + innerCoord.getX() + "." + innerCoord.getY());
 
 			float scaleY = (float) (scale / 12);
 

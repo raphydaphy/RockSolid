@@ -23,7 +23,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 10000;
-	protected String fluidType = Fluid.EMPTY.toString();
+	protected String fluidType = Fluid.EMPTY.getName();
 
 	public TileEntityFluidPump(final IWorld world, final int x, final int y)
 	{
@@ -60,9 +60,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		}
 		boolean ableToDig = false;
 
-		if (this.fluidStored == 0 && !(this.fluidType.equals(Fluid.EMPTY.toString())))
+		if (this.fluidStored == 0 && !(this.fluidType.equals(Fluid.EMPTY.getName())))
 		{
-			this.fluidType = Fluid.EMPTY.toString();
+			this.fluidType = Fluid.EMPTY.getName();
 		}
 
 		if (curX > this.x + 11)
@@ -89,8 +89,8 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 			thisTile = world.getState(curX, curY);
 		}
 
-		String tileType = thisTile.getTile().toString();
-		if ((this.fluidType.equals(tileType) || this.fluidType.equals(Fluid.EMPTY.toString()))
+		Fluid tileType = thisTile.get(FluidTile.fluidType);
+		if ((this.fluidType.equals(tileType.getName()) || this.fluidType.equals(Fluid.EMPTY.getName()))
 				&& world.isPosLoaded(curX, curY) && this.getCurrentFluid() <= (this.getMaxFluid() - 1000))
 		{
 			if (this.getCurrentEnergy() >= super.getPowerPerOperation())
@@ -114,9 +114,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 							}
 
-							if (this.fluidType.equals(Fluid.EMPTY.toString()))
+							if (this.fluidType.equals(Fluid.EMPTY.getName()))
 							{
-								this.fluidType = tileType;
+								this.fluidType = tileType.getName();
 
 							}
 							this.fluidStored += 1000;
@@ -135,7 +135,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 				return ableToDig;
 			}
-		} else if (!this.fluidType.equals(tileType))
+		} else if (!this.fluidType.equals(tileType.getName()))
 		{
 			curX++;
 			if (curX > this.x + 11)
@@ -161,9 +161,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		set.addInt("curY", this.curY);
 		set.addInt("mineTick", this.mineTick);
 		set.addBoolean("shouldSync", this.shouldSync);
-		set.addInt("fluidStored", this.fluidStored);
-		set.addInt("maxFluid", this.maxFluid);
-		set.addString("fluidType", this.fluidType);
+		set.addInt(Fluid.KEY, this.fluidStored);
+		set.addInt(Fluid.MAX_KEY, this.maxFluid);
+		set.addString(Fluid.TYPE_KEY, this.fluidType);
 	}
 
 	@Override
@@ -175,9 +175,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		this.curY = set.getInt("curY");
 		this.mineTick = set.getInt("mineTick");
 		this.shouldSync = set.getBoolean("shouldSync");
-		this.fluidStored = set.getInt("fluidStored");
-		this.maxFluid = set.getInt("maxFluid");
-		this.fluidType = set.getString("fluidType");
+		this.fluidStored = set.getInt(Fluid.KEY);
+		this.maxFluid = set.getInt(Fluid.MAX_KEY);
+		this.fluidType = set.getString(Fluid.TYPE_KEY);
 	}
 
 	@Override
@@ -246,7 +246,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 			if (this.fluidStored == 0)
 			{
-				this.fluidType = Fluid.EMPTY.toString();
+				this.fluidType = Fluid.EMPTY.getName();
 			}
 			this.shouldSync = true;
 			return true;
