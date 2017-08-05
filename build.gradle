@@ -4,6 +4,14 @@ def apiVersion = "2.1"
 
 apply from: "https://github.com/RockBottomGame/Gradle/raw/master/buildscript.gradle"
 
+
+task runServer(type: JavaExec) {
+    dependsOn(compileJava)
+    args = ["--unpackedModsDir", "./build/classes/main"]
+    main = project.mainClassName
+    mainClassName = project.mainClassName
+}
+
 processSources {
     replace("VERSION", version)
 }
