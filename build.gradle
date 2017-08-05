@@ -1,5 +1,6 @@
 group 'com.raphydaphy.rocksolid'
 version '2.0'
+def apiVersion = "2.0.2"
 
 apply from: "https://github.com/RockBottomGame/Gradle/raw/master/buildscript.gradle"
 
@@ -19,29 +20,44 @@ dependencies {
  }
  
  task sourcesJar(type: Jar) {
+ 	archiveName "RockSolidAPI-" + apiVersion + "-sources.jar"
     from sourceSets.main.java
     classifier = 'sources'
+    include 'com/raphydaphy/rocksolid/api/**'
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
+ 	archiveName "RockSolidAPI-" + apiVersion + "-javadoc.jar"
     from 'build/docs/javadoc'
     classifier 'javadoc'
+    include 'com/raphydaphy/rocksolid/api/**'
+}
+
+task apiJar(type: Jar) {
+ 	archiveName "RockSolidAPI-" + apiVersion + ".jar"
+    classifier ""
+    dependsOn "classes"
+    include 'com/raphydaphy/rocksolid/api/**'
+    from sourceSets.main.java.srcDirs
+    from sourceSets.main.output
 }
  
 apply plugin: 'maven-publish'
 
 publishing {
-	
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-            artifact sourcesJar
+        	version apiVersion
+        	 artifactId 'RockSolidAPI'
+        	 
+            artifact apiJar
             artifact javadocJar
+            artifact sourcesJar
         }
     }
     repositories {
         maven {
-            url "build/libs"
+            url "build/libs/"
         }
     }
 }

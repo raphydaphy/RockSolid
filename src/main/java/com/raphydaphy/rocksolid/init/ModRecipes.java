@@ -82,7 +82,7 @@ public class ModRecipes
 
 		// Alloy recipies, reverse
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotBronze, 4),
-				new ResUseInfo(BaseResources.PROCESSED_IRON, 1), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 3),
+				new ResUseInfo(BaseResources.PROCESSED_TIN, 1), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 3),
 				500));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotSteel, 1),
 				new ResUseInfo(BaseResources.PROCESSED_COAL, 1), new ResUseInfo(BaseResources.PROCESSED_IRON, 1), 500));
