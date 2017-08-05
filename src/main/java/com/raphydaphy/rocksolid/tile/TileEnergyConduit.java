@@ -5,12 +5,12 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
 import com.raphydaphy.rocksolid.tileentity.TileEntityEnergyConduit;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -33,7 +33,7 @@ public class TileEnergyConduit extends TileBasic
 
 	public TileEnergyConduit()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness((float) 20);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();

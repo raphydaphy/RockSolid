@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiBattery;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -30,7 +30,7 @@ public class TileBattery extends MultiTile
 
 	public TileBattery()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness((float) 20);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();

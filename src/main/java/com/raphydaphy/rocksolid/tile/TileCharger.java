@@ -3,11 +3,11 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiCharger;
 import com.raphydaphy.rocksolid.gui.container.ContainerCharger;
 import com.raphydaphy.rocksolid.render.ChargerRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +31,7 @@ public class TileCharger extends MultiTile
 
 	public TileCharger()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness((float) 20);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -40,7 +40,7 @@ public class TileCharger extends MultiTile
 	@Override
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity mainTile = RockSolidAPILib.getTileFromPos(x, y, world);
 		if (mainTile != null && ((TileEntityCharger) mainTile).isActive())
 		{
 			return 50;

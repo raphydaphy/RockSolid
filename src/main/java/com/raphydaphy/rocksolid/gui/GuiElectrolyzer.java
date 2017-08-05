@@ -3,8 +3,9 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectrolyzer;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -33,12 +34,12 @@ public class GuiElectrolyzer extends GuiContainer
 				GuiContainer.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 50, this.guiTop + 6, 10, 30,
-				RockSolidLib.getFluidColor(tile.getFluidType()), true, this.tile::getFluidTankFullness));
+				Fluid.getByName(this.tile.getFluidType()).getColor(), true, this.tile::getFluidTankFullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 125, this.guiTop + 6, 10, 30,
-				RockSolidLib.getGasColor(tile.getGasTanksType()[0]), true, this.tile::getGasTank1Fullness));
+				RockSolidAPILib.getGasColor(tile.getGasTanksType()[0]), true, this.tile::getGasTank1Fullness));
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 145, this.guiTop + 6, 10, 30,
-				RockSolidLib.getGasColor(tile.getGasTanksType()[1]), true, this.tile::getGasTank2Fullness));
+				RockSolidAPILib.getGasColor(tile.getGasTanksType()[1]), true, this.tile::getGasTank2Fullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 45, 80, 10,
 				new Color(148, 0, 211), false, this.tile::getEnergyFullness));
@@ -69,7 +70,7 @@ public class GuiElectrolyzer extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getCurrentFluid() + "mL of "
-									+ RockSolidLib.getFluidLocName(this.tile.getFluidType()),
+									+ Fluid.getByName(this.tile.getFluidType()).getName(),
 							"Uses 150mL per operation" });
 		}
 
@@ -83,7 +84,7 @@ public class GuiElectrolyzer extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getGasTanksStorage()[0] + "cc of "
-									+ RockSolidLib.getGasLocName(this.tile.getGasTanksType()[0]),
+									+ RockSolidAPILib.getGasLocName(this.tile.getGasTanksType()[0]),
 							"Produces up to 100mL per operation" });
 		}
 
@@ -97,7 +98,7 @@ public class GuiElectrolyzer extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getGasTanksStorage()[1] + "cc of "
-									+ RockSolidLib.getGasLocName(this.tile.getGasTanksType()[1]),
+									+ RockSolidAPILib.getGasLocName(this.tile.getGasTanksType()[1]),
 							"Produces up to 100mL per operation" });
 		}
 	}
@@ -105,7 +106,7 @@ public class GuiElectrolyzer extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiElectrolyzer");
+		return RockSolidAPILib.makeInternalRes("guiElectrolyzer");
 	}
 
 }

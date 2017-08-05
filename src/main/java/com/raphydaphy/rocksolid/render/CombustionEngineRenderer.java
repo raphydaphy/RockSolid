@@ -3,10 +3,10 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tile.TileCombustionEngine;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCombustionEngine;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -34,7 +34,7 @@ public class CombustionEngineRenderer extends MultiTileRenderer<TileCombustionEn
 		final Pos2 mainPos = tile.getMainPos(x, y, state);
 		TileEntityCombustionEngine tileEntity = world.getTileEntity(mainPos.getX(), mainPos.getY(),
 				TileEntityCombustionEngine.class);
-		IResourceName fluidTank = RockSolidLib.makeRes("tiles.tank");
+		IResourceName fluidTank = RockSolidAPILib.makeInternalRes("tiles.tank");
 		IResourceName tex = this.texture.addSuffix("." + innerCoord.getX() + "." + innerCoord.getY());
 		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
 		float fullness = tileEntity.getFluidTankFullness();
@@ -62,13 +62,13 @@ public class CombustionEngineRenderer extends MultiTileRenderer<TileCombustionEn
 					stage = 10;
 				}
 			}
-			if (tileEntity.getFluidType().equals(RockSolidContent.fluidWater.toString()))
+			if (tileEntity.getFluidType().equals(Fluid.WATER.toString()))
 			{
 				tex = fluidTank.addSuffix(".fluidWater." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidLava.toString()))
+			} else if (tileEntity.getFluidType().equals(Fluid.LAVA.toString()))
 			{
 				tex = fluidTank.addSuffix(".fluidLava." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidOil.toString()))
+			} else if (tileEntity.getFluidType().equals(Fluid.OIL.toString()))
 			{
 				tex = fluidTank.addSuffix(".fluidOil." + innerCoord.getX() + "." + innerCoord.getY());
 			}

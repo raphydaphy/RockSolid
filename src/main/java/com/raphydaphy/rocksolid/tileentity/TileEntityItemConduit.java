@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -116,7 +116,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				break;
 			}
 
-			Pos2 pos = RockSolidLib.conduitSideToPos(new Pos2(this.x, this.y), side);
+			Pos2 pos = RockSolidAPILib.conduitSideToPos(new Pos2(this.x, this.y), side);
 			this.onChangeAround(world, x, y, TileLayer.MAIN, pos.getX(), pos.getY(), TileLayer.MAIN);
 
 			this.shouldSync = true;
@@ -137,13 +137,13 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				for (int curNet = 0; curNet < networkLength; curNet++)
 				{
 					Pos2 centerPos = new Pos2(this.network[curNet][0], this.network[curNet][1]);
-					TileEntity centerTile = RockSolidLib.getTileFromPos(centerPos.getX(), centerPos.getY(), world);
+					TileEntity centerTile = RockSolidAPILib.getTileFromPos(centerPos.getX(), centerPos.getY(), world);
 					if (!(centerTile instanceof TileEntityItemConduit))
 					{
 						this.removeFromNetwork(curNet);
 						continue;
 					}
-					TileEntity tile = RockSolidLib.getTileFromConduitSide(centerPos, network[curNet][2], world);
+					TileEntity tile = RockSolidAPILib.getTileFromConduitSide(centerPos, network[curNet][2], world);
 					if (tile != null && tile instanceof IInventoryHolder)
 					{
 						// if the inventory is set to input into the network (
@@ -156,20 +156,20 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 							{
 								ItemInstance inputFilter = ((TileEntityItemConduit) centerTile).inventory
 										.get(network[curNet][2]);
-								ItemInstance wouldInput = RockSolidLib.getToExtract(invTile, 1, inputFilter,
+								ItemInstance wouldInput = RockSolidAPILib.getToExtract(invTile, 1, inputFilter,
 										this.network[curNetOut][5] == 1);
 								if (wouldInput != null)
 								{
 									Pos2 centerPosOut = new Pos2(this.network[curNetOut][0],
 											this.network[curNetOut][1]);
-									TileEntity centerTileOut = RockSolidLib.getTileFromPos(centerPosOut.getX(),
+									TileEntity centerTileOut = RockSolidAPILib.getTileFromPos(centerPosOut.getX(),
 											centerPosOut.getY(), world);
 									if (!(centerTileOut instanceof TileEntityItemConduit))
 									{
 										this.removeFromNetwork(curNetOut);
 										continue;
 									}
-									TileEntity tileOut = RockSolidLib.getTileFromConduitSide(centerPosOut,
+									TileEntity tileOut = RockSolidAPILib.getTileFromConduitSide(centerPosOut,
 											network[curNetOut][2], world);
 
 									if (tile != null && tile instanceof IInventoryHolder)
@@ -181,11 +181,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 												&& this.network[curNetOut][4] >= highestPriority
 												&& tileOut instanceof IInventoryHolder)
 										{
-											if (RockSolidLib.canInsert((IInventoryHolder) tileOut, wouldInput))
+											if (RockSolidAPILib.canInsert((IInventoryHolder) tileOut, wouldInput))
 											{
-												ItemInstance input = RockSolidLib.extract(invTile, 1, inputFilter,
+												ItemInstance input = RockSolidAPILib.extract(invTile, 1, inputFilter,
 														this.network[curNetOut][5] == 1);
-												RockSolidLib.insert((IInventoryHolder) tileOut, input);
+												RockSolidAPILib.insert((IInventoryHolder) tileOut, input);
 												// break;
 											}
 										}
@@ -227,9 +227,9 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				if (network[net].length > 4)
 				{
 					Pos2 centerPosOut = new Pos2(this.network[net][0], this.network[net][1]);
-					TileEntity tileOut = RockSolidLib.getTileFromConduitSide(centerPosOut, network[net][2], world);
+					TileEntity tileOut = RockSolidAPILib.getTileFromConduitSide(centerPosOut, network[net][2], world);
 					if (tileOut instanceof IInventoryHolder
-							&& RockSolidLib.canInsert((IInventoryHolder) tileOut, input))
+							&& RockSolidAPILib.canInsert((IInventoryHolder) tileOut, input))
 					{
 						// this is the highest priority yet
 						if (network[net][4] > highest)
@@ -259,7 +259,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			// if the container is within the network limit
 			if (container < networkLength)
 			{
-				TileEntity networkPos = RockSolidLib.getTileFromConduitSide(
+				TileEntity networkPos = RockSolidAPILib.getTileFromConduitSide(
 						new Pos2(network[container][0], network[container][1]), network[container][2], world);
 
 				// if the container actually exists
@@ -321,7 +321,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			modeRight = mode;
 			break;
 		}
-		Pos2 pos = RockSolidLib.conduitSideToPos(new Pos2(this.x, this.y), side);
+		Pos2 pos = RockSolidAPILib.conduitSideToPos(new Pos2(this.x, this.y), side);
 		this.onChangeAround(world, x, y, TileLayer.MAIN, pos.getX(), pos.getY(), TileLayer.MAIN);
 		shouldSync = true;
 	}
@@ -366,7 +366,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				break;
 			}
 
-			Pos2 pos = RockSolidLib.conduitSideToPos(new Pos2(this.x, this.y), side);
+			Pos2 pos = RockSolidAPILib.conduitSideToPos(new Pos2(this.x, this.y), side);
 			this.onChangeAround(world, x, y, TileLayer.MAIN, pos.getX(), pos.getY(), TileLayer.MAIN);
 			shouldSync = true;
 		}
@@ -569,7 +569,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 					for (Direction dir : Direction.ADJACENT)
 					{
-						TileEntity found = RockSolidLib.getTileFromPos(x + dir.x, y + dir.y, world);
+						TileEntity found = RockSolidAPILib.getTileFromPos(x + dir.x, y + dir.y, world);
 						if (found instanceof IInventoryHolder)
 						{
 							this.onInventoryChanged(world, x, y, x + dir.x, y + dir.y);
@@ -626,11 +626,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				return;
 			}
 
-			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
+			TileEntity changedTile = RockSolidAPILib.getTileFromPos(changedX, changedY, world);
 
 			if (changedTile instanceof IInventoryHolder)
 			{
-				int side = RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY));
+				int side = RockSolidAPILib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY));
 				int thisMode = this.getSideMode(side);
 				int thisPriority = this.getPriority(side);
 				boolean thisWhitelistMode = this.getIsWhitelist(side);
@@ -652,14 +652,14 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				return;
 			}
 
-			TileEntity changedTile = RockSolidLib.getTileFromPos(changedX, changedY, world);
+			TileEntity changedTile = RockSolidAPILib.getTileFromPos(changedX, changedY, world);
 
 			if (changedTile instanceof TileEntityItemConduit)
 			{
 				if (!((TileEntityItemConduit) changedTile).isDead)
 				{
 					int thisMode = this.getSideMode(
-							RockSolidLib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
+							RockSolidAPILib.posAndOffsetToConduitSide(new Pos2(x, y), new Pos2(changedX, changedY)));
 					if (thisMode == 2)
 					{
 						this.resetMasterNetwork();
@@ -789,7 +789,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		if (tile instanceof TileEntityItemConduit)
 		{
 			return ((TileEntityItemConduit) tile)
-					.getSideMode(RockSolidLib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2
+					.getSideMode(RockSolidAPILib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != 2
 					&& !((TileEntityItemConduit) tile).isDead;
 		}
 		return tile instanceof IInventoryHolder;

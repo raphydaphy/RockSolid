@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
@@ -20,7 +21,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
-	protected String fluidType = RockSolidContent.fluidEmpty.toString();
+	protected String fluidType = Fluid.EMPTY.toString();
 
 	protected int gasTank1Storage = 0;
 	protected int gasTank2Storage = 0;
@@ -93,7 +94,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 							this.fluidStored -= recipe.getFluidVolume();
 							if (this.fluidStored == 0)
 							{
-								this.setFluidType(RockSolidContent.fluidEmpty.toString());
+								this.setFluidType(Fluid.EMPTY.toString());
 							}
 
 							this.setGasType(recipeOut1, 0);
@@ -123,7 +124,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 			if (this.fluidStored == 0)
 			{
-				this.setFluidType(RockSolidContent.fluidEmpty.toString());
+				this.setFluidType(Fluid.EMPTY.toString());
 			}
 
 			if (this.gasTank1Storage == 0)
@@ -271,7 +272,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
 			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
+					|| this.fluidType.equals(Fluid.EMPTY.toString()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -285,7 +286,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(RockSolidContent.fluidEmpty.toString())
+		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.toString())
 				|| this.fluidStored == 0)
 		{
 			this.fluidType = type;

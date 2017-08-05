@@ -3,11 +3,11 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiNuclearReactor;
 import com.raphydaphy.rocksolid.gui.container.ContainerNuclearReactor;
 import com.raphydaphy.rocksolid.render.NuclearReactorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +31,7 @@ public class TileNuclearReactor extends MultiTile
 
 	public TileNuclearReactor()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness(15);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -91,7 +91,7 @@ public class TileNuclearReactor extends MultiTile
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player)
 	{
-		TileEntity tile = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity tile = RockSolidAPILib.getTileFromPos(x, y, world);
 
 		if (tile != null)
 		{

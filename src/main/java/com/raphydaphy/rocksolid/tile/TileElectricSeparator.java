@@ -5,9 +5,9 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricSeparator;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +31,7 @@ public class TileElectricSeparator extends MultiTile
 
 	public TileElectricSeparator()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness(15);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();

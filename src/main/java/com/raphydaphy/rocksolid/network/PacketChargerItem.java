@@ -2,8 +2,8 @@ package com.raphydaphy.rocksolid.network;
 
 import java.io.IOException;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -51,7 +51,7 @@ public class PacketChargerItem implements IPacket
 	@Override
 	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
-		TileEntity charger = RockSolidLib.getTileFromPos(x, y, game.getWorld());
+		TileEntity charger = RockSolidAPILib.getTileFromPos(x, y, game.getWorld());
 
 		if (charger instanceof TileEntityCharger)
 		{

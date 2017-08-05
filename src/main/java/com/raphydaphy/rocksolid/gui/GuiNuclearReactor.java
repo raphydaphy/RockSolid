@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -54,7 +54,7 @@ public class GuiNuclearReactor extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiNuclearReactor");
+		return RockSolidAPILib.makeInternalRes("guiNuclearReactor");
 	}
 
 }

@@ -2,8 +2,8 @@ package com.raphydaphy.rocksolid.gui;
 
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityGasTank;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -29,7 +29,7 @@ public class GuiGasTank extends GuiContainer
 	{
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
-				RockSolidLib.getGasColor(this.tile.getGasType()), false, this.tile::getGasTankFullnesss));
+				RockSolidAPILib.getGasColor(this.tile.getGasType()), false, this.tile::getGasTankFullnesss));
 	}
 
 	@Override
@@ -45,14 +45,14 @@ public class GuiGasTank extends GuiContainer
 		if (mouseOverGasBarX && mouseOverGasBarY)
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, "Storing "
-					+ this.tile.getCurrentGas() + "cc of " + RockSolidLib.getGasLocName(this.tile.getGasType()));
+					+ this.tile.getCurrentGas() + "cc of " + RockSolidAPILib.getGasLocName(this.tile.getGasType()));
 		}
 	}
 
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiGasTank");
+		return RockSolidAPILib.makeInternalRes("guiGasTank");
 	}
 
 }

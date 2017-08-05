@@ -53,9 +53,9 @@ rocksolid/item.gasSteam=Steam
 rocksolid/item.tank=Tank
 rocksolid/item.fluidPump=Fluid Pump
 rocksolid/item.bucket=Empty Bucket
-rocksolid/item.bucket.water=Water Bucket
-rocksolid/item.bucket.lava=Lava Bucket
-rocksolid/item.bucket.oil=Oil Bucket
+rocksolid/item.bucket.WATER=Water Bucket
+rocksolid/item.bucket.LAVA=Lava Bucket
+rocksolid/item.bucket.OIL=Oil Bucket
 rocksolid/item.fluidWater=Water
 rocksolid/item.fluidLava=Lava
 

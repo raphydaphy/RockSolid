@@ -40,48 +40,16 @@ public class RockSolidAPILib
 		return "Gas";
 	}
 
-	public static String getFluidLocName(String fluid)
-	{
-		if (fluid.equals(RockSolidContent.fluidWater.toString()))
-		{
-			return "Water";
-		} else if (fluid.equals(RockSolidContent.fluidLava.toString()))
-		{
-			return "Lava";
-		} else if (fluid.equals(RockSolidContent.fluidOil.toString()))
-		{
-			return "Oil";
-		}
-		return "Fluid";
-	}
-
 	public static Fluid bucketMetaToFluid(int meta)
 	{
-		switch (meta)
+		for (int curFluid = 0; curFluid < Fluid.values().length; curFluid++)
 		{
-		case 1:
-			return RockSolidContent.fluidWater;
-		case 2:
-			return RockSolidContent.fluidLava;
-		case 3:
-			return RockSolidContent.fluidOil;
+			if (Fluid.values()[curFluid].getBucketMeta() == meta)
+			{
+				return Fluid.values()[curFluid];
+			}
 		}
-		return RockSolidContent.fluidEmpty;
-	}
-
-	public static Color getFluidColor(String fluid)
-	{
-		if (fluid.equals(RockSolidContent.fluidLava.toString()))
-		{
-			return Color.orange;
-		} else if (fluid.equals(RockSolidContent.fluidWater.toString()))
-		{
-			return Color.blue;
-		} else if (fluid.equals(RockSolidContent.fluidOil.toString()))
-		{
-			return Color.black;
-		}
-		return Color.lightGray;
+		return Fluid.EMPTY;
 	}
 
 	public static Color getGasColor(String gas)

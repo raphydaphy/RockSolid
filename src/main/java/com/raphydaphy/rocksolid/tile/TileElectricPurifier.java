@@ -6,9 +6,9 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiElectricPurifier;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -32,7 +32,7 @@ public class TileElectricPurifier extends MultiTile
 
 	public TileElectricPurifier()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness(15);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -47,7 +47,7 @@ public class TileElectricPurifier extends MultiTile
 	@Override
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity mainTile = RockSolidAPILib.getTileFromPos(x, y, world);
 		if (mainTile != null && ((TileEntityElectricPurifier) mainTile).isActive())
 		{
 			return 30;

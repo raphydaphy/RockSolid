@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.network;
 import java.io.IOException;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -64,7 +64,7 @@ public class PacketConduitUpdate implements IPacket
 	{
 		if (game.getWorld().isPosLoaded(x, y))
 		{
-			TileEntity tileAtPos = RockSolidLib.getTileFromPos(x, y, game.getWorld());
+			TileEntity tileAtPos = RockSolidAPILib.getTileFromPos(x, y, game.getWorld());
 
 			if (tileAtPos instanceof IConduit)
 			{

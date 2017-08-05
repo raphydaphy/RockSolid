@@ -4,7 +4,7 @@ import com.raphydaphy.rocksolid.api.energy.IEnergyAcceptor;
 import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.api.util.IConduit;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -49,8 +49,8 @@ public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEn
 			// inventory
 			for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
 			{
-				Pos2 adjacentTilePos = RockSolidLib.conduitSideToPos(new Pos2(x, y), adjacentTile);
-				TileEntity adjacentTileEntity = RockSolidLib.getTileFromPos(adjacentTilePos.getX(),
+				Pos2 adjacentTilePos = RockSolidAPILib.conduitSideToPos(new Pos2(x, y), adjacentTile);
+				TileEntity adjacentTileEntity = RockSolidAPILib.getTileFromPos(adjacentTilePos.getX(),
 						adjacentTilePos.getY(), world);
 
 				if (adjacentTileEntity != null)

@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiBoiler;
 import com.raphydaphy.rocksolid.gui.container.ContainerBoiler;
 import com.raphydaphy.rocksolid.render.BoilerRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -32,7 +32,7 @@ public class TileBoiler extends MultiTile
 
 	public TileBoiler()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness((float) 20);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -41,7 +41,7 @@ public class TileBoiler extends MultiTile
 	@Override
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity mainTile = RockSolidAPILib.getTileFromPos(x, y, world);
 		if (mainTile != null && ((TileEntityBoiler) mainTile).isActive())
 		{
 			return 50;

@@ -1,7 +1,9 @@
 package com.raphydaphy.rocksolid.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
@@ -31,7 +33,7 @@ public class RockSolidAPI
 
 	public static final List<ElectrolyzerRecipe> ELECTROLYZER_RECIPE = new ArrayList<>();
 
-	public static final NameRegistry<Fluid> FLUID_REGISTRY = new NameRegistry<>("fluid_registry");
+	public static Map<String, Fluid> FLUID_REGISTRY = new HashMap<String, Fluid>();
 	public static final NameRegistry<Gas> GAS_REGISTRY = new NameRegistry<>("gas_registry");
 
 	public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
@@ -51,7 +53,7 @@ public class RockSolidAPI
 		for (PurifierRecipe recipe : PURIFIER_RECIPES)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(RockSolidContent.fluidEmpty.toString()));
+					|| (recipe.getFluid().equals(Fluid.EMPTY.toString()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches && recipe.getInput().containsItem(item))
 			{
 				return recipe;
@@ -66,7 +68,7 @@ public class RockSolidAPI
 		for (ElectrolyzerRecipe recipe : ELECTROLYZER_RECIPE)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(RockSolidContent.fluidEmpty.toString()));
+					|| (recipe.getFluid().equals(Fluid.EMPTY.toString()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
 					&& (output1.equals(recipe.getOutput1()) || output1.equals(RockSolidContent.gasVacuum.toString()))
 					&& (output2.equals(recipe.getOutput2()) || output2.equals(RockSolidContent.gasVacuum.toString())))

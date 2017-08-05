@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.tile.TileFluidPump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityFluidPump;
 
@@ -44,13 +44,13 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 			if (innerCoord.getY() == 1)
 			{
 				String fluid = "fluidEmpty";
-				if (tileEntity.getFluidType().equals(RockSolidContent.fluidWater.toString()))
+				if (tileEntity.getFluidType().equals(Fluid.WATER.toString()))
 				{
 					fluid = "fluidWater";
-				} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidLava.toString()))
+				} else if (tileEntity.getFluidType().equals(Fluid.LAVA.toString()))
 				{
 					fluid = "fluidLava";
-				} else if (tileEntity.getFluidType().equals(RockSolidContent.fluidOil.toString()))
+				} else if (tileEntity.getFluidType().equals(Fluid.OIL.toString()))
 				{
 					fluid = "fluidOil";
 				}

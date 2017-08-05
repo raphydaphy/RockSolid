@@ -6,8 +6,8 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
 import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricBlastFurnace;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +31,7 @@ public class TileElectricBlastFurnace extends MultiTile
 
 	public TileElectricBlastFurnace()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness(15);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -46,7 +46,7 @@ public class TileElectricBlastFurnace extends MultiTile
 	@Override
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity mainTile = RockSolidAPILib.getTileFromPos(x, y, world);
 		if (mainTile != null && ((TileEntityElectricBlastFurnace) mainTile).isActive())
 		{
 			return 30;

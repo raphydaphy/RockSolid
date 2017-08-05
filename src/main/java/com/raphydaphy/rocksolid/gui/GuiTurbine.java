@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTurbine;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -33,7 +33,7 @@ public class GuiTurbine extends GuiContainer
 				new Color(148, 0, 211), false, this.tile::getGeneratorFullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 25, 80, 10,
-				RockSolidLib.getGasColor(tile.getGasType()), false, this.tile::getGasTankFullness));
+				RockSolidAPILib.getGasColor(tile.getGasType()), false, this.tile::getGasTankFullness));
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class GuiTurbine extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getCurrentGas() + "cc of "
-									+ RockSolidLib.getGasLocName(this.tile.getGasType()),
+									+ RockSolidAPILib.getGasLocName(this.tile.getGasType()),
 							"Consumes " + TileEntityTurbine.gasConsumptionPerTick + "cc per tick" });
 		}
 	}
@@ -70,7 +70,7 @@ public class GuiTurbine extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiCoalGenerator");
+		return RockSolidAPILib.makeInternalRes("guiCoalGenerator");
 	}
 
 }

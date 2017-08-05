@@ -2,8 +2,8 @@ package com.raphydaphy.rocksolid.gui.container;
 
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.InputSlot;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
@@ -23,6 +23,6 @@ public class ContainerNuclearReactor extends ItemContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("containerNuclearReactor");
+		return RockSolidAPILib.makeInternalRes("containerNuclearReactor");
 	}
 }

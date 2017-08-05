@@ -2,8 +2,9 @@ package com.raphydaphy.rocksolid.gui;
 
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -29,7 +30,7 @@ public class GuiTank extends GuiContainer
 	{
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
-				RockSolidLib.getFluidColor(this.tile.getFluidType()), false, this.tile::getFluidTankFullnesss));
+				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullnesss));
 	}
 
 	@Override
@@ -45,14 +46,14 @@ public class GuiTank extends GuiContainer
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing "
-					+ this.tile.getCurrentFluid() + "mL of " + RockSolidLib.getFluidLocName(this.tile.getFluidType()));
+					+ this.tile.getCurrentFluid() + "mL of " + Fluid.getByName(this.tile.getFluidType()).getName());
 		}
 	}
 
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiTank");
+		return RockSolidAPILib.makeInternalRes("guiTank");
 	}
 
 }

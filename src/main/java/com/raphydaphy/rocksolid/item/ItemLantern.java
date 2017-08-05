@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.item;
 
 import java.util.List;
 
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -14,7 +14,7 @@ public class ItemLantern extends ItemBase
 
 	public ItemLantern()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.maxAmount = 1;
 		this.register();
 	}

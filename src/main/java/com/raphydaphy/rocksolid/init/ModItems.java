@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemBucket;
@@ -9,7 +10,6 @@ import com.raphydaphy.rocksolid.item.ItemLantern;
 import com.raphydaphy.rocksolid.item.ItemPickaxe;
 import com.raphydaphy.rocksolid.item.ItemShovel;
 import com.raphydaphy.rocksolid.item.ItemWrench;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.item.Item;
 
@@ -63,44 +63,44 @@ public class ModItems
 
 	public static void init()
 	{
-		ingotTin = new ItemBase(RockSolidLib.makeRes("ingotTin")).register();
-		ingotBronze = new ItemBase(RockSolidLib.makeRes("ingotBronze")).register();
-		ingotIron = new ItemBase(RockSolidLib.makeRes("ingotIron")).register();
-		ingotSteel = new ItemBase(RockSolidLib.makeRes("ingotSteel")).register();
-		ingotMagnesium = new ItemBase(RockSolidLib.makeRes("ingotMagnesium")).register();
-		ingotImpureTitanium = new ItemBase(RockSolidLib.makeRes("ingotImpureTitanium")).register();
-		ingotTitanium = new ItemBase(RockSolidLib.makeRes("ingotTitanium")).register();
-		ingotUranium = new ItemBase(RockSolidLib.makeRes("ingotUranium")).register();
+		ingotTin = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTin")).register();
+		ingotBronze = new ItemBase(RockSolidAPILib.makeInternalRes("ingotBronze")).register();
+		ingotIron = new ItemBase(RockSolidAPILib.makeInternalRes("ingotIron")).register();
+		ingotSteel = new ItemBase(RockSolidAPILib.makeInternalRes("ingotSteel")).register();
+		ingotMagnesium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotMagnesium")).register();
+		ingotImpureTitanium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotImpureTitanium")).register();
+		ingotTitanium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTitanium")).register();
+		ingotUranium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotUranium")).register();
 
-		gemCoke = new ItemBase(RockSolidLib.makeRes("gemCoke")).register();
+		gemCoke = new ItemBase(RockSolidAPILib.makeInternalRes("gemCoke")).register();
 
-		pelletUranium = new ItemBase(RockSolidLib.makeRes("pelletUranium")).register();
+		pelletUranium = new ItemBase(RockSolidAPILib.makeInternalRes("pelletUranium")).register();
 
-		clumpClay = new ItemBase(RockSolidLib.makeRes("clumpClay")).register();
-		clay = new ItemBase(RockSolidLib.makeRes("itemClay")).register();
-		porcelianClay = new ItemBase(RockSolidLib.makeRes("porcelianClay")).register();
+		clumpClay = new ItemBase(RockSolidAPILib.makeInternalRes("clumpClay")).register();
+		clay = new ItemBase(RockSolidAPILib.makeInternalRes("itemClay")).register();
+		porcelianClay = new ItemBase(RockSolidAPILib.makeInternalRes("porcelianClay")).register();
 
-		clusterTin = new ItemBase(RockSolidLib.makeRes("clusterTin")).register();
-		clusterIron = new ItemBase(RockSolidLib.makeRes("clusterIron")).register();
-		clusterMagnesium = new ItemBase(RockSolidLib.makeRes("clusterMagnesium")).register();
-		clusterUranium = new ItemBase(RockSolidLib.makeRes("clusterUranium")).register();
+		clusterTin = new ItemBase(RockSolidAPILib.makeInternalRes("clusterTin")).register();
+		clusterIron = new ItemBase(RockSolidAPILib.makeInternalRes("clusterIron")).register();
+		clusterMagnesium = new ItemBase(RockSolidAPILib.makeInternalRes("clusterMagnesium")).register();
+		clusterUranium = new ItemBase(RockSolidAPILib.makeInternalRes("clusterUranium")).register();
 
-		gritTin = new ItemBase(RockSolidLib.makeRes("gritTin")).register();
-		gritIron = new ItemBase(RockSolidLib.makeRes("gritIron")).register();
-		gritMagnesium = new ItemBase(RockSolidLib.makeRes("gritMagnesium")).register();
-		gritUranium = new ItemBase(RockSolidLib.makeRes("gritUranium")).register();
+		gritTin = new ItemBase(RockSolidAPILib.makeInternalRes("gritTin")).register();
+		gritIron = new ItemBase(RockSolidAPILib.makeInternalRes("gritIron")).register();
+		gritMagnesium = new ItemBase(RockSolidAPILib.makeInternalRes("gritMagnesium")).register();
+		gritUranium = new ItemBase(RockSolidAPILib.makeInternalRes("gritUranium")).register();
 
-		pickaxeBronze = new ItemPickaxe(RockSolidLib.makeRes("pickaxeBronze"), 6, 3).register();
-		pickaxeIron = new ItemPickaxe(RockSolidLib.makeRes("pickaxeIron"), 7, 3).register();
-		pickaxeSteel = new ItemPickaxe(RockSolidLib.makeRes("pickaxeSteel"), 8, 4).register();
-		pickaxeTitanium = new ItemPickaxe(RockSolidLib.makeRes("pickaxeTitanium"), 10, 5).register();
+		pickaxeBronze = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeBronze"), 6, 3).register();
+		pickaxeIron = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeIron"), 7, 3).register();
+		pickaxeSteel = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeSteel"), 8, 4).register();
+		pickaxeTitanium = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeTitanium"), 10, 5).register();
 
-		axeBronze = new ItemAxe(RockSolidLib.makeRes("axeBronze"), 6f, 1).register();
-		axeIron = new ItemAxe(RockSolidLib.makeRes("axeIron"), 7f, 1).register();
-		axeSteel = new ItemAxe(RockSolidLib.makeRes("axeSteel"), 8f, 1).register();
-		axeTitanium = new ItemAxe(RockSolidLib.makeRes("axeTitanium"), 10f, 1).register();
+		axeBronze = new ItemAxe(RockSolidAPILib.makeInternalRes("axeBronze"), 6f, 1).register();
+		axeIron = new ItemAxe(RockSolidAPILib.makeInternalRes("axeIron"), 7f, 1).register();
+		axeSteel = new ItemAxe(RockSolidAPILib.makeInternalRes("axeSteel"), 8f, 1).register();
+		axeTitanium = new ItemAxe(RockSolidAPILib.makeInternalRes("axeTitanium"), 10f, 1).register();
 
-		shovelIron = new ItemShovel(RockSolidLib.makeRes("shovelIron"), 7f, 1).register();
+		shovelIron = new ItemShovel(RockSolidAPILib.makeInternalRes("shovelIron"), 7f, 1).register();
 
 		wrench = new ItemWrench().register();
 		jetpack = new ItemJetpack();

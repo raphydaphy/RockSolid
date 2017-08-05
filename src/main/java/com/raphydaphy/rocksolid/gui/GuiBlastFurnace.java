@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.gui;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBlastFurnace;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -31,7 +31,7 @@ public class GuiBlastFurnace extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiBlastFurnace");
+		return RockSolidAPILib.makeInternalRes("guiBlastFurnace");
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IMultiFluidAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 
@@ -25,8 +26,8 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	// tank 0 is water tank 1 is lava
 	protected int[] fluidStored = new int[] { 0, 0 };
 	protected int maxFluid = 5000;
-	protected String[] fluidType = new String[] { RockSolidContent.fluidEmpty.toString(),
-			RockSolidContent.fluidEmpty.toString() };
+	protected String[] fluidType = new String[] { Fluid.EMPTY.toString(),
+			Fluid.EMPTY.toString() };
 
 	public TileEntityLiquidBoiler(final IWorld world, final int x, final int y)
 	{
@@ -53,8 +54,8 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		super.update(game);
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
-				&& this.fluidType[0].equals(RockSolidContent.fluidWater.toString())
-				&& this.fluidType[1].equals(RockSolidContent.fluidLava.toString()))
+				&& this.fluidType[0].equals(Fluid.WATER.toString())
+				&& this.fluidType[1].equals(Fluid.LAVA.toString()))
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
 			{
@@ -69,12 +70,12 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 
 				if (this.fluidStored[0] == 0)
 				{
-					this.fluidType[0] = RockSolidContent.fluidEmpty.toString();
+					this.fluidType[0] = Fluid.EMPTY.toString();
 				}
 
 				if (this.fluidStored[1] == 0)
 				{
-					this.fluidType[1] = RockSolidContent.fluidEmpty.toString();
+					this.fluidType[1] = Fluid.EMPTY.toString();
 				}
 				shouldSync = true;
 
@@ -110,8 +111,8 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		return (this.gasStored < (this.maxGas - productionPerTick - 1)
 				&& this.fluidStored[0] >= fluidConsumptionPerTick[0]
 				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
-				&& this.fluidType[0].equals(RockSolidContent.fluidWater.toString())
-				&& this.fluidType[1].equals(RockSolidContent.fluidLava.toString()));
+				&& this.fluidType[0].equals(Fluid.WATER.toString())
+				&& this.fluidType[1].equals(Fluid.LAVA.toString()));
 	}
 
 	public float getGeneratorFullness()
@@ -192,11 +193,11 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	@Override
 	public boolean addFluid(int amount, String type, int tank)
 	{
-		if (tank == 1 && !type.equals(RockSolidContent.fluidLava.toString()))
+		if (tank == 1 && !type.equals(Fluid.LAVA.toString()))
 		{
 			return false;
 		}
-		if (tank == 0 && !type.equals(RockSolidContent.fluidWater.toString()))
+		if (tank == 0 && !type.equals(Fluid.WATER.toString()))
 		{
 			return false;
 		}
@@ -204,7 +205,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		if (this.fluidStored[tank] + amount <= this.maxFluid)
 		{
 			if (this.fluidType[tank] == null || type.equals(this.fluidType[tank])
-					|| this.fluidType[tank].equals(RockSolidContent.fluidEmpty.toString()))
+					|| this.fluidType[tank].equals(Fluid.EMPTY.toString()))
 			{
 				this.fluidType[tank] = type;
 				this.fluidStored[tank] += amount;
@@ -218,16 +219,16 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	@Override
 	public boolean setFluidType(String type, int tank)
 	{
-		if (tank == 1 && !type.equals(RockSolidContent.fluidLava.toString()))
+		if (tank == 1 && !type.equals(Fluid.LAVA.toString()))
 		{
 			return false;
 		}
-		if (tank == 0 && !type.equals(RockSolidContent.fluidWater.toString()))
+		if (tank == 0 && !type.equals(Fluid.WATER.toString()))
 		{
 			return false;
 		}
 
-		if (this.fluidType[tank] == null || this.fluidType[tank].equals(RockSolidContent.fluidEmpty.toString())
+		if (this.fluidType[tank] == null || this.fluidType[tank].equals(Fluid.EMPTY.toString())
 				|| this.fluidStored[tank] == 0)
 		{
 			this.fluidType[tank] = type;

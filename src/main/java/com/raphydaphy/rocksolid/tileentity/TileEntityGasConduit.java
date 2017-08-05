@@ -8,7 +8,7 @@ import com.raphydaphy.rocksolid.api.gas.IMultiGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
 import com.raphydaphy.rocksolid.api.util.IConduit;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -67,8 +67,8 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 			// inventory
 			for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
 			{
-				Pos2 adjacentTilePos = RockSolidLib.conduitSideToPos(new Pos2(x, y), adjacentTile);
-				TileEntity adjacentTileEntity = RockSolidLib.getTileFromPos(adjacentTilePos.getX(),
+				Pos2 adjacentTilePos = RockSolidAPILib.conduitSideToPos(new Pos2(x, y), adjacentTile);
+				TileEntity adjacentTileEntity = RockSolidAPILib.getTileFromPos(adjacentTilePos.getX(),
 						adjacentTilePos.getY(), world);
 
 				if (adjacentTileEntity != null)

@@ -3,8 +3,9 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricPurifier;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -32,7 +33,7 @@ public class GuiElectricPurifier extends GuiContainer
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 80, this.guiTop + 15, 35, 8,
 				GuiElectricPurifier.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 30, 80, 10,
-				RockSolidLib.getFluidColor(tile.getFluidType()), false, this.tile::getFluidTankFullness));
+				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullness));
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 45, 80, 10,
 				new Color(148, 0, 211), false, this.tile::getEnergyFullness));
 	}
@@ -62,7 +63,7 @@ public class GuiElectricPurifier extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getCurrentFluid() + "mL of "
-									+ RockSolidLib.getFluidLocName(this.tile.getFluidType()),
+									+ Fluid.getByName(this.tile.getFluidType()).getName(),
 							"Uses 100mL per operation" });
 		}
 	}
@@ -70,7 +71,7 @@ public class GuiElectricPurifier extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiElectricPurifier");
+		return RockSolidAPILib.makeInternalRes("guiElectricPurifier");
 	}
 
 }

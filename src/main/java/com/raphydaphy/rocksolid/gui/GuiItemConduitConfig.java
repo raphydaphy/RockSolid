@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -181,7 +181,7 @@ public class GuiItemConduitConfig extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiConduitConfig");
+		return RockSolidAPILib.makeInternalRes("guiConduitConfig");
 	}
 
 }

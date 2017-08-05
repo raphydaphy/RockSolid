@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.Collections;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.util.RockSolidLib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -17,13 +17,13 @@ public class TileCustomDrop extends TileBase
 
 	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel)
 	{
-		super(RockSolidLib.makeRes(name), oreHardness, toolLevel);
+		super(RockSolidAPILib.makeInternalRes(name), oreHardness, toolLevel);
 		itemDrop = drop;
 	}
 
 	public TileCustomDrop(String name, ItemInstance drop, int oreHardness, int toolLevel, ToolType toolType)
 	{
-		super(RockSolidLib.makeRes(name), oreHardness, toolLevel, toolType);
+		super(RockSolidAPILib.makeInternalRes(name), oreHardness, toolLevel, toolType);
 		itemDrop = drop;
 	}
 

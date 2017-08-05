@@ -1,11 +1,11 @@
 package com.raphydaphy.rocksolid.item;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.FluidTile;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -22,7 +22,7 @@ public class ItemBucket extends ItemBase
 
 	public ItemBucket(String name)
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.maxAmount = 1;
 		this.register();
 	}
@@ -42,10 +42,10 @@ public class ItemBucket extends ItemBase
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player, ItemInstance instance)
 	{
-		TileEntity atPos = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity atPos = RockSolidAPILib.getTileFromPos(x, y, world);
 		TileState atState = world.getState(x, y);
 
-		Fluid fluid = RockSolidLib.bucketMetaToFluid(instance.getMeta());
+		Fluid fluid = RockSolidAPILib.bucketMetaToFluid(instance.getMeta());
 
 		// if the bucket is empty
 		if (instance.getMeta() == 0)
@@ -55,47 +55,28 @@ public class ItemBucket extends ItemBase
 				IFluidProducer tank = (IFluidProducer) atPos;
 				if (tank.getCurrentFluid() >= 1000)
 				{
-					if (!(tank.getFluidType().equals(RockSolidContent.fluidEmpty.toString())))
+					if (!(tank.getFluidType().equals(Fluid.EMPTY.toString())))
 					{
-						if (tank.getFluidType().equals(RockSolidContent.fluidWater.toString()))
+						if (tank.removeFluid(1000))
 						{
-							if (tank.removeFluid(1000))
-							{
-								instance.setMeta(1);
-								return true;
-							}
-						} else if (tank.getFluidType().equals(RockSolidContent.fluidLava.toString()))
-						{
-							if (tank.removeFluid(1000))
-							{
-								instance.setMeta(2);
-								return true;
-							}
+							instance.setMeta(Fluid.getByName(tank.getFluidType()).getBucketMeta());
+							return true;
 						}
 					}
 				}
 
-			} else if (atState.getTile() instanceof Fluid)
+			} else if (atState.getTile() instanceof FluidTile)
 			{
-				int volume = atState.get(Fluid.fluidLevel);
-				if (volume >= Fluid.BUCKET_VOLUME)
+				int volume = atState.get(FluidTile.fluidLevel);
+				if (volume >= FluidTile.BUCKET_VOLUME)
 				{
-					if (atState.getTile() == RockSolidContent.fluidWater)
-					{
-						instance.setMeta(1);
-					} else if (atState.getTile() == RockSolidContent.fluidLava)
-					{
-						instance.setMeta(2);
-					} else if (atState.getTile() == RockSolidContent.fluidOil)
-					{
-						instance.setMeta(3);
-					}
-					if (volume - Fluid.BUCKET_VOLUME == 0)
+					instance.setMeta(atState.get(FluidTile.fluidType).getBucketMeta());
+					if (volume - FluidTile.BUCKET_VOLUME == 0)
 					{
 						world.setState(x, y, GameContent.TILE_AIR.getDefState());
 					} else
 					{
-						world.setState(x, y, atState.prop(Fluid.fluidLevel, volume - Fluid.BUCKET_VOLUME));
+						world.setState(x, y, atState.prop(FluidTile.fluidLevel, volume - FluidTile.BUCKET_VOLUME));
 					}
 
 					return true;
@@ -115,10 +96,9 @@ public class ItemBucket extends ItemBase
 					return true;
 				}
 
-			} else if (atState.getTile() == GameContent.TILE_AIR || atState.getTile() == fluid)
+			} else if (atState.getTile() == GameContent.TILE_AIR || atState.get(FluidTile.fluidType).equals(fluid))
 			{
-				System.out.println(fluid.toString());
-				fluid.doPlace(world, x, y, layer, instance, null);
+				fluid.getTile().getTile().doPlace(world, x, y, layer, instance, null);
 				instance.setMeta(0);
 				return true;
 			}
@@ -130,20 +110,11 @@ public class ItemBucket extends ItemBase
 	public IResourceName getUnlocalizedName(ItemInstance instance)
 	{
 		String bucketType = "";
-		switch (instance.getMeta())
+		if (instance.getMeta() > 0)
 		{
-		case 1:
-			bucketType = bucketType + ".water";
-			break;
-		case 2:
-			bucketType = bucketType + ".lava";
-			break;
-		case 3:
-			bucketType = bucketType + ".oil";
-			break;
-
+			bucketType = "." + RockSolidAPILib.bucketMetaToFluid(instance.getMeta()).toString();
 		}
-		return RockSolidLib.makeRes("item.bucket" + bucketType);
+		return RockSolidAPILib.makeInternalRes("item.bucket" + bucketType);
 	}
 
 }

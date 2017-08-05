@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tile.TileCharger;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -72,8 +72,8 @@ public class ChargerRenderer extends MultiTileRenderer<TileCharger>
 				if (tileEntity.getInventory().get(0).getItem() != null)
 				{
 					Item theItemToRender = tileEntity.getInventory().get(0).getItem();
-					manager.getTexture(RockSolidLib
-							.makeRes(theItemToRender.getName().addPrefix("items.").getResourceName().toString()))
+					manager.getTexture(RockSolidAPILib
+							.makeInternalRes(theItemToRender.getName().addPrefix("items.").getResourceName().toString()))
 							.drawWithLight(renderX - (scale * 1.3f), renderY + (scale * 0.92f), scale * 0.5f,
 									scale * 0.5f, light);
 				}

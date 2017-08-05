@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.FluidTile;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -23,7 +23,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 10000;
-	protected String fluidType = RockSolidContent.fluidEmpty.toString();
+	protected String fluidType = Fluid.EMPTY.toString();
 
 	public TileEntityFluidPump(final IWorld world, final int x, final int y)
 	{
@@ -60,9 +60,9 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		}
 		boolean ableToDig = false;
 
-		if (this.fluidStored == 0 && !(this.fluidType.equals(RockSolidContent.fluidEmpty.toString())))
+		if (this.fluidStored == 0 && !(this.fluidType.equals(Fluid.EMPTY.toString())))
 		{
-			this.fluidType = RockSolidContent.fluidEmpty.toString();
+			this.fluidType = Fluid.EMPTY.toString();
 		}
 
 		if (curX > this.x + 11)
@@ -72,7 +72,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		}
 
 		TileState thisTile = world.getState(curX, curY);
-		while (!(thisTile.getTile() instanceof Fluid))
+		while (!(thisTile.getTile() instanceof FluidTile))
 		{
 			curX++;
 			if (curX > this.x + 11)
@@ -90,23 +90,23 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 		}
 
 		String tileType = thisTile.getTile().toString();
-		if ((this.fluidType.equals(tileType) || this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
+		if ((this.fluidType.equals(tileType) || this.fluidType.equals(Fluid.EMPTY.toString()))
 				&& world.isPosLoaded(curX, curY) && this.getCurrentFluid() <= (this.getMaxFluid() - 1000))
 		{
 			if (this.getCurrentEnergy() >= super.getPowerPerOperation())
 			{
-				if (world.getState(curX, curY).getTile() instanceof Fluid)
+				if (world.getState(curX, curY).getTile() instanceof FluidTile)
 				{
 					ableToDig = true;
 					if (mineTick == 10 && RockBottomAPI.getNet().isClient() == false)
 					{
 
-						if (thisTile.get(Fluid.fluidLevel) >= Fluid.BUCKET_VOLUME)
+						if (thisTile.get(FluidTile.fluidLevel) >= FluidTile.BUCKET_VOLUME)
 						{
-							if (thisTile.get(Fluid.fluidLevel) - Fluid.BUCKET_VOLUME >= 1)
+							if (thisTile.get(FluidTile.fluidLevel) - FluidTile.BUCKET_VOLUME >= 1)
 							{
-								world.setState(curX, curY, thisTile.prop(Fluid.fluidLevel,
-										thisTile.get(Fluid.fluidLevel) - Fluid.BUCKET_VOLUME));
+								world.setState(curX, curY, thisTile.prop(FluidTile.fluidLevel,
+										thisTile.get(FluidTile.fluidLevel) - FluidTile.BUCKET_VOLUME));
 							} else
 							{
 								world.setState(curX, curY, GameContent.TILE_AIR.getDefState());
@@ -114,7 +114,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 							}
 
-							if (this.fluidType.equals(RockSolidContent.fluidEmpty.toString()))
+							if (this.fluidType.equals(Fluid.EMPTY.toString()))
 							{
 								this.fluidType = tileType;
 
@@ -246,7 +246,7 @@ public class TileEntityFluidPump extends TileEntityPowered implements IFluidProd
 
 			if (this.fluidStored == 0)
 			{
-				this.fluidType = RockSolidContent.fluidEmpty.toString();
+				this.fluidType = Fluid.EMPTY.toString();
 			}
 			this.shouldSync = true;
 			return true;

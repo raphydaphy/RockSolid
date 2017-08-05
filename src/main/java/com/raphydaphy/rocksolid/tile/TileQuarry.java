@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiQuarry;
 import com.raphydaphy.rocksolid.gui.container.ContainerQuarry;
 import com.raphydaphy.rocksolid.tileentity.TileEntityQuarry;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +31,7 @@ public class TileQuarry extends MultiTile
 
 	public TileQuarry()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness(25);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();

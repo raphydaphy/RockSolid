@@ -5,9 +5,9 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
 import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.container.ContainerElectricAlloySmelter;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +31,7 @@ public class TileElectricAlloySmelter extends MultiTile
 
 	public TileElectricAlloySmelter()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness(15);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -46,7 +46,7 @@ public class TileElectricAlloySmelter extends MultiTile
 	@Override
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
-		TileEntity mainTile = RockSolidLib.getTileFromPos(x, y, world);
+		TileEntity mainTile = RockSolidAPILib.getTileFromPos(x, y, world);
 		if (mainTile != null && ((TileEntityElectricAlloySmelter) mainTile).isActive())
 		{
 			return 40;

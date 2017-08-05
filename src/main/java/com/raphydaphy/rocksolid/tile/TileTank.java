@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiTank;
 import com.raphydaphy.rocksolid.render.TankRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTank;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,7 +32,7 @@ public class TileTank extends MultiTile
 
 	public TileTank()
 	{
-		super(RockSolidLib.makeRes(name));
+		super(RockSolidAPILib.makeInternalRes(name));
 		this.setHardness((float) 20);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
@@ -46,12 +47,12 @@ public class TileTank extends MultiTile
 	@Override
 	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
 	{
-		TileEntityTank tank = (TileEntityTank) RockSolidLib.getTileFromPos(x, y, world);
+		TileEntityTank tank = (TileEntityTank) RockSolidAPILib.getTileFromPos(x, y, world);
 		if (tank != null)
 		{
 			if (tank.getFluidType() != null)
 			{
-				if (tank.getFluidType().equals(RockSolidContent.fluidLava.toString()))
+				if (tank.getFluidType().equals(Fluid.LAVA.toString()))
 				{
 					return 20;
 				}

@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.gui.container;
 
 import com.raphydaphy.rocksolid.api.gui.InputSlot;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -22,6 +22,6 @@ public class ContainerBoiler extends ItemContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("containerCoalGenerator");
+		return RockSolidAPILib.makeInternalRes("containerCoalGenerator");
 	}
 }

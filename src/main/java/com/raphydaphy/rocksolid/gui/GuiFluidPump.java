@@ -3,8 +3,9 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityFluidPump;
-import com.raphydaphy.rocksolid.util.RockSolidLib;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -32,7 +33,7 @@ public class GuiFluidPump extends GuiContainer
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 25, 80, 10,
 				new Color(148, 0, 211), false, this.tile::getEnergyFullness));
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 40, 80, 10,
-				RockSolidLib.getFluidColor(tile.getFluidType()), false, this.tile::getFluidTankFullness));
+				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullness));
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class GuiFluidPump extends GuiContainer
 	@Override
 	public IResourceName getName()
 	{
-		return RockSolidLib.makeRes("guiFluidPump");
+		return RockSolidAPILib.makeInternalRes("guiFluidPump");
 	}
 
 }

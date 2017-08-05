@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.FluidTile;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -142,12 +143,12 @@ public class WorldGenCaves implements IWorldGenerator
 							switch (feature)
 							{
 							case 0:
-								featureTile = RockSolidContent.fluidWater.getDefState().prop(Fluid.fluidLevel,
-										Fluid.MAX_VOLUME);
+								featureTile = RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel,
+										FluidTile.MAX_VOLUME).prop(FluidTile.fluidType, Fluid.WATER);
 								break;
 							case 1:
-								featureTile = RockSolidContent.fluidLava.getDefState().prop(Fluid.fluidLevel,
-										Fluid.MAX_VOLUME);
+								featureTile = RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel,
+										FluidTile.MAX_VOLUME).prop(FluidTile.fluidType, Fluid.LAVA);;
 								break;
 							case 2:
 								featureTile = RockSolidContent.limestone.getDefState();
@@ -158,8 +159,8 @@ public class WorldGenCaves implements IWorldGenerator
 								background = GameContent.TILE_STONE.getDefState();
 								break;
 							case 4:
-								featureTile = RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel,
-										Fluid.MAX_VOLUME);
+								featureTile = RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel,
+										FluidTile.MAX_VOLUME).prop(FluidTile.fluidType, Fluid.OIL);;
 								break;
 							}
 

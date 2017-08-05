@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.fluid.FluidTile;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -83,7 +84,7 @@ public class WorldGenLakes implements IWorldGenerator
 							if (type < 6)
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										RockSolidContent.fluidWater.getDefState().prop(Fluid.fluidLevel, 12));
+										RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel, 12).prop(FluidTile.fluidType, Fluid.WATER));
 
 								if (chunk.getY() + y + startY == fluidStart - 7)
 								{
@@ -100,7 +101,7 @@ public class WorldGenLakes implements IWorldGenerator
 							} else
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										RockSolidContent.fluidOil.getDefState().prop(Fluid.fluidLevel, 12));
+										RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel, 12).prop(FluidTile.fluidType, Fluid.OIL));
 							}
 						} else
 						{

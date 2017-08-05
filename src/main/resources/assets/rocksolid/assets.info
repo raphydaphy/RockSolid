@@ -32,24 +32,17 @@ tex.items.gritUranium=/items/grit/grit_uranium.png
 
 ## Pickaxe
 tex.items.pickaxeBronze=/items/pickaxe/pickaxe_bronze.png
-tex.items.pickaxeCopper=/items/pickaxe/pickaxe_copper.png
 tex.items.pickaxeIron=/items/pickaxe/pickaxe_iron.png
 tex.items.pickaxeSteel=/items/pickaxe/pickaxe_steel.png
 tex.items.pickaxeTitanium=/items/pickaxe/pickaxe_titanium.png
 
 ## Axe
-tex.items.axeWood=/items/axe/axe_wood.png
-tex.items.axeRock=/items/axe/axe_rock.png
-tex.items.axeCopper=/items/axe/axe_copper.png
 tex.items.axeBronze=/items/axe/axe_bronze.png
 tex.items.axeIron=/items/axe/axe_iron.png
 tex.items.axeSteel=/items/axe/axe_steel.png
 tex.items.axeTitanium=/items/axe/axe_titanium.png
 
 ## Shovel
-tex.items.shovelWood=/items/shovel/shovel_wood.png
-tex.items.shovelRock=/items/shovel/shovel_rock.png
-tex.items.shovelCopper=/items/shovel/shovel_copper.png
 tex.items.shovelIron=/items/shovel/shovel_iron.png
 
 ## Misc
@@ -99,7 +92,7 @@ tex.tiles.fluidPump.0.1=sub./fluids/empty/pump.png,0,0,12,12
 tex.tiles.fluidPump.1.1=sub./fluids/empty/pump.png,12,0,12,12
 
 ## Oil
-tex.tiles.fluidOil=/fluids/oil/still.png
+tex.tiles.fluid.OIL=/fluids/oil/still.png
 tex.items.bucket.oil=/fluids/oil/bucket.png
 
 tex.tiles.fluidPump.fluidOil.0.1=sub./fluids/oil/pump.png,0,0,12,12
@@ -109,7 +102,7 @@ tex.tiles.tank.fluidOil.0.0=sub./fluids/oil/tank.png,0,12,12,12
 tex.tiles.tank.fluidOil.0.1=sub./fluids/oil/tank.png,0,0,12,12
 
 ## Water
-tex.tiles.fluidWater=/fluids/water/still.png
+tex.tiles.fluid.WATER=/fluids/water/still.png
 tex.items.bucket.water=/fluids/water/bucket.png
 
 tex.tiles.fluidPump.fluidWater.0.1=sub./fluids/water/pump.png,0,0,12,12
@@ -119,7 +112,7 @@ tex.tiles.tank.fluidWater.0.0=sub./fluids/water/tank.png,0,12,12,12
 tex.tiles.tank.fluidWater.0.1=sub./fluids/water/tank.png,0,0,12,12
 
 ## Lava
-tex.tiles.fluidLava=/fluids/lava/still.png
+tex.tiles.fluid.LAVA=/fluids/lava/still.png
 tex.items.bucket.lava=/fluids/lava/bucket.png
 
 tex.tiles.fluidPump.fluidLava.0.1=sub./fluids/lava/pump.png,0,0,12,12
