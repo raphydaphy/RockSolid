@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.api.fluid;
 
 import com.raphydaphy.rocksolid.api.render.FluidRenderer;
-import com.raphydaphy.rocksolid.api.util.FluidTypeProp;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -11,6 +10,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
+import de.ellpeck.rockbottom.api.tile.state.EnumProp;
 import de.ellpeck.rockbottom.api.tile.state.IntProp;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
@@ -25,7 +25,7 @@ public class FluidTile extends TileBasic
 	public static final int MAX_VOLUME = 12;
 	public static final int BUCKET_VOLUME = 5;
 	public static final IntProp fluidLevel = new IntProp("volume", 1, MAX_VOLUME + 1);
-	public static final FluidTypeProp fluidType = new FluidTypeProp(Fluid.TYPE_KEY, Fluid.WATER);
+	public static final EnumProp<Fluid> fluidType = new EnumProp<Fluid>(Fluid.TYPE_KEY, Fluid.WATER, Fluid.class);
 
 	public FluidTile(String name)
 	{

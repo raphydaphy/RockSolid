@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.gui.slot;
 
 import java.util.function.Predicate;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ContainerSlot;
@@ -64,6 +65,7 @@ public class PlayerInvSlot extends ContainerSlot
 				{
 					data.addDataSet(slotName, new DataSet());
 					player.setAdditionalData(data);
+					System.out.println(RockBottomAPI.getGame().getWorld().isClient() + " <== are they the client after they removed the item from the slot?");
 				}
 			}
 		}

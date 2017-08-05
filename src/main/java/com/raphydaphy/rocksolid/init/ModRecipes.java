@@ -187,10 +187,10 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 8),
 				new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 5),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20)));
-		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.lantern),
-				new ResUseInfo(BaseResources.RAW_SHINING, 8), new ResUseInfo(BaseResources.PROCESSED_TIN, 10),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
+		//RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.lantern),
+		//		new ResUseInfo(BaseResources.RAW_SHINING, 8), new ResUseInfo(BaseResources.PROCESSED_TIN, 10),
+		//		new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
+		//		new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.electricLantern),
 				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.PROCESSED_STEEL, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40),
