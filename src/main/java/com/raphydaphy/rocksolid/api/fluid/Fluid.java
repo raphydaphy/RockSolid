@@ -9,7 +9,7 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 
 public enum Fluid {
 	WATER("Water", 0.015f, 1, Color.blue),
-	LAVA("Lava", 0.012f, 2, Color.orange),
+	LAVA("Lava", 0.012f, 2, Color.red),
 	OIL("Oil", 0.010f, 3, Color.black),
 	FUEL("Refined Fuel", 0.008f, 4, Color.yellow),
 	EMPTY("Fluid", 0f, 0, Color.lightGray);
