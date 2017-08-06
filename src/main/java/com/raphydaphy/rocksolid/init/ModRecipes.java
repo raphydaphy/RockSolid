@@ -60,6 +60,10 @@ public class ModRecipes
 		ResourceRegistry.addResources(BaseResources.PROCESSED_TITANIUM, new ResInfo(RockSolidContent.ingotTitanium));
 		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_TITANIUM,
 				new ResInfo(RockSolidContent.ingotImpureTitanium));
+		
+		ResourceRegistry.addResources(BaseResources.PROCESSED_TUNGSTEN, new ResInfo(RockSolidContent.ingotTungsten));
+		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_TUNGSTEN, new ResInfo(RockSolidContent.gritTungsten));
+		ResourceRegistry.addResources(BaseResources.RAW_TUNGSTEN, new ResInfo(RockSolidContent.clusterTungsten));
 
 		ResourceRegistry.addResources(BaseResources.COMPRESSED_STEEL,
 				new ResInfo(RockSolidContent.constructionBlockSteel));
@@ -109,6 +113,8 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.RAW_URANIUM, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(GameContent.ITEM_COPPER_GRIT, 3),
 				new ResUseInfo(ResourceRegistry.RAW_COPPER, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritTungsten, 3),
+				new ResUseInfo(BaseResources.RAW_TUNGSTEN, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
 
 		// Cluster tripling recipies, reverse
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritIron, 3),
@@ -122,6 +128,8 @@ public class ModRecipes
 				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(BaseResources.RAW_URANIUM, 1), 750));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(GameContent.ITEM_COPPER_GRIT, 3),
 				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(ResourceRegistry.RAW_COPPER, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritTungsten, 3),
+				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(BaseResources.RAW_TUNGSTEN, 1), 750));
 
 		// Purifier Recipes
 		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(RockSolidContent.itemClay),
@@ -156,6 +164,8 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.RAW_MAGNESIUM), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.8f));
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritUranium, 2),
 				new ResUseInfo(BaseResources.RAW_URANIUM), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.5f));
+		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritTungsten, 2),
+				new ResUseInfo(BaseResources.RAW_TUNGSTEN), 350, new ItemInstance(GameContent.ITEM_COAL), 0.5f));
 
 		// misc separator recipies
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(GameContent.ITEM_COPPER_INGOT, 3),
@@ -173,9 +183,8 @@ public class ModRecipes
 				new ResUseInfo("partly_processed_magnesum"), 300));
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(RockSolidContent.ingotUranium),
 				new ResUseInfo(BaseResources.PARTLY_PROCESSED_URANIUM), 300));
-
-		// Remove some vanilla recipes?
-		// RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.remove(4);
+		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(RockSolidContent.ingotTungsten),
+				new ResUseInfo(BaseResources.PARTLY_PROCESSED_TUNGSTEN), 300));
 
 		// misc manual crafting recipies
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.alloySmelter),

@@ -53,6 +53,7 @@ public class RockSolidContent
 	public static final Tile oreMagnesium = getTile("oreMagnesium");
 	public static final Tile oreRutile = getTile("oreRutile");
 	public static final Tile oreUranium = getTile("oreUranium");
+	public static final Tile oreWolframite = getTile("oreWolframite");
 
 	public static final Tile constructionBlockSteel = getTile("constructionBlockSteel");
 	public static final Tile constructionBlockTitanium = getTile("constructionBlockTitanium");
@@ -66,6 +67,7 @@ public class RockSolidContent
 	public static final Item ingotImpureTitanium = getItem("ingotImpureTitanium");
 	public static final Item ingotTitanium = getItem("ingotTitanium");
 	public static final Item ingotUranium = getItem("ingotUranium");
+	public static final Item ingotTungsten = getItem("ingotTungsten");
 
 	public static final Item gemCoke = getItem("gemCoke");
 
@@ -79,12 +81,14 @@ public class RockSolidContent
 	public static final Item clusterIron = getItem("clusterIron");
 	public static final Item clusterMagnesium = getItem("clusterMagnesium");
 	public static final Item clusterUranium = getItem("clusterUranium");
+	public static final Item clusterTungsten = getItem("clusterTungsten");
 
 	public static final Item gritTin = getItem("gritTin");
 	public static final Item gritIron = getItem("gritIron");
 	public static final Item gritNickel = getItem("gritNickel");
 	public static final Item gritMagnesium = getItem("gritMagnesium");
 	public static final Item gritUranium = getItem("gritUranium");
+	public static final Item gritTungsten = getItem("gritTungsten");
 
 	public static final Item pickaxeBronze = getItem("pickaxeBronze");
 	public static final Item pickaxeIron = getItem("pickaxeIron");

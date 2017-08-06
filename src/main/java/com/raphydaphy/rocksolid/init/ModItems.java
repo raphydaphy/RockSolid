@@ -24,6 +24,7 @@ public class ModItems
 	public static Item ingotTitanium;
 	public static Item ingotUranium;
 	public static Item ingotNickel;
+	public static Item ingotTungsten;
 
 	public static Item gemCoke;
 
@@ -37,12 +38,14 @@ public class ModItems
 	public static Item clusterIron;
 	public static Item clusterMagnesium;
 	public static Item clusterUranium;
+	public static Item clusterTungsten;
 
 	public static Item gritTin;
 	public static Item gritIron;
 	public static Item gritMagnesium;
 	public static Item gritUranium;
 	public static Item gritNickel;
+	public static Item gritTungsten;
 
 	public static Item pickaxeBronze;
 	public static Item pickaxeIron;
@@ -74,6 +77,7 @@ public class ModItems
 		ingotTitanium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTitanium")).register();
 		ingotUranium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotUranium")).register();
 		ingotNickel = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickel")).register();
+		ingotTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTungsten")).register();
 
 		gemCoke = new ItemBase(RockSolidAPILib.makeInternalRes("gemCoke")).register();
 
@@ -87,12 +91,14 @@ public class ModItems
 		clusterIron = new ItemBase(RockSolidAPILib.makeInternalRes("clusterIron")).register();
 		clusterMagnesium = new ItemBase(RockSolidAPILib.makeInternalRes("clusterMagnesium")).register();
 		clusterUranium = new ItemBase(RockSolidAPILib.makeInternalRes("clusterUranium")).register();
+		clusterTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("clusterTungsten")).register();
 
 		gritTin = new ItemBase(RockSolidAPILib.makeInternalRes("gritTin")).register();
 		gritIron = new ItemBase(RockSolidAPILib.makeInternalRes("gritIron")).register();
 		gritMagnesium = new ItemBase(RockSolidAPILib.makeInternalRes("gritMagnesium")).register();
 		gritUranium = new ItemBase(RockSolidAPILib.makeInternalRes("gritUranium")).register();
 		gritNickel = new ItemBase(RockSolidAPILib.makeInternalRes("gritNickel")).register();
+		gritTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("gritTungsten")).register();
 
 		pickaxeBronze = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeBronze"), 10, 6).register();
 		pickaxeIron = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeIron"), 13, 7).register();

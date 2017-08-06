@@ -13,6 +13,7 @@ tex.items.ingotImpureTitanium=/items/ingot/ingot_impure_titanium.png
 tex.items.ingotTitanium=/items/ingot/ingot_titanium.png
 tex.items.ingotUranium=/items/ingot/ingot_uranium.png
 tex.items.ingotNickel=/items/ingot/ingot_nickel.png
+tex.items.ingotTungsten=/items/ingot/ingot_tungsten.png
 
 ## Clay
 tex.items.clumpClay=/items/clay/clump_clay.png
@@ -24,6 +25,7 @@ tex.items.clusterTin=/items/cluster/cluster_tin.png
 tex.items.clusterIron=/items/cluster/cluster_iron.png
 tex.items.clusterMagnesium=/items/cluster/cluster_magnesium.png
 tex.items.clusterUranium=/items/cluster/cluster_uranium.png
+tex.items.clusterTungsten=/items/cluster/cluster_tungsten.png
 
 ## Grit
 tex.items.gritTin=/items/grit/grit_tin.png
@@ -31,6 +33,7 @@ tex.items.gritIron=/items/grit/grit_iron.png
 tex.items.gritMagnesium=/items/grit/grit_magnesium.png
 tex.items.gritUranium=/items/grit/grit_uranium.png
 tex.items.gritNickel=/items/grit/grit_nickel.png
+tex.items.gritTungsten=/items/grit/grit_tungsten.png
 
 ## Pickaxe
 tex.items.pickaxeBronze=/items/pickaxe/pickaxe_bronze.png

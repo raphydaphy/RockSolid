@@ -8,6 +8,7 @@ rocksolid/item.ingotImpureTitanium=Impure Titanium Ingot
 rocksolid/item.ingotTitanium=Titanium Ingot
 rocksolid/item.ingotUranium=Uranium Ingot
 rocksolid/item.ingotNickel=Nickel Ingot
+rocksolid/item.ingotTungsten=Tungsten Ingot
 
 rocksolid/item.gemCoke=Coal Coke
 
@@ -21,12 +22,14 @@ rocksolid/item.clusterTin=Tin Cluster
 rocksolid/item.clusterIron=Iron Cluster
 rocksolid/item.clusterMagnesium=Magnesium Cluster
 rocksolid/item.clusterUranium=Uranium Cluster
+rocksolid/item.clusterTungsten=Tungsten Cluster
 
 rocksolid/item.gritTin=Tin Grit
 rocksolid/item.gritIron=Iron Grit
 rocksolid/item.gritMagnesium=Magnesium Grit
 rocksolid/item.gritUranium=Uranium Grit
 rocksolid/item.gritNickel=Nickel Grit
+rocksolid/item.gritTungsten=Tungsten Grit
 
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
 rocksolid/item.pickaxeIron=Iron Pickaxe
