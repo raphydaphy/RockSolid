@@ -60,6 +60,7 @@ tex.items.jetpack=/items/misc/jetpack.png
 tex.items.electricLantern=/items/misc/lanternElectric.png
 tex.items.lantern=/items/misc/lantern.png
 
+
 # Gasses
 
 ## Vacuum
@@ -274,6 +275,7 @@ tex.tiles.creativePowerSource=/tiles/misc/creative_power_source.png
 tex.tiles.rockLight=/tiles/misc/rock_light.png
 tex.tiles.limestone=/tiles/misc/limestone.png
 tex.tiles.clay=/tiles/misc/clay.png
+tex.tiles.rocketEngine=/tiles/misc/rocket_engine.png
 
 ## Energy Conduit
 tex.tiles.energyConduit=/tiles/energy_conduit/energy_conduit.png
@@ -368,6 +370,14 @@ tex.tiles.nuclearReactor.2.0=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,3
 tex.tiles.nuclearReactor.2.1=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,24,12,12
 tex.tiles.nuclearReactor.2.2=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,12,12,12
 tex.tiles.nuclearReactor.2.3=sub./tiles/nuclear_reactor/nuclear_reactor.png,24,0,12,12
+
+## Rocket
+tex.tiles.rocket.item=/tiles/rocket/rocket_item.png
+tex.rocket=/tiles//rocket/rocket.png
+tex.tiles.rocket.0.0=sub./tiles/rocket/rocket.png,0,36,12,12
+tex.tiles.rocket.0.1=sub./tiles/rocket/rocket.png,0,24,12,12
+tex.tiles.rocket.0.2=sub./tiles/rocket/rocket.png,0,12,12,12
+tex.tiles.rocket.0.3=sub./tiles/rocket/rocket.png,0,0,12,12
 
 ## Battery
 tex.tiles.battery.0.0=sub./tiles/battery/battery.png,0,24,12,12

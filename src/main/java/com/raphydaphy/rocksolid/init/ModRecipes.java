@@ -234,6 +234,13 @@ public class ModRecipes
 		// ResUseInfo(BaseResources.PROCESSED_TIN, 10),
 		// new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
 		// new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocketEngine),
+				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 2),
+				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 12), new ResUseInfo(BaseResources.PROCESSED_STEEL, 18),
+				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 280),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 150)));
+
+		// Rocket Crafting
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.electricLantern),
 				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.PROCESSED_STEEL, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40),

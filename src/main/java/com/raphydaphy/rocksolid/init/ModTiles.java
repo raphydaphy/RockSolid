@@ -26,8 +26,10 @@ import com.raphydaphy.rocksolid.tile.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.TileLiquidBoiler;
 import com.raphydaphy.rocksolid.tile.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tile.TileOre;
+import com.raphydaphy.rocksolid.tile.TilePlaceAnywhere;
 import com.raphydaphy.rocksolid.tile.TileQuarry;
 import com.raphydaphy.rocksolid.tile.TileRefinery;
+import com.raphydaphy.rocksolid.tile.TileRocket;
 import com.raphydaphy.rocksolid.tile.TileTank;
 import com.raphydaphy.rocksolid.tile.TileTurbine;
 
@@ -49,8 +51,10 @@ public class ModTiles
 	public static Tile quarry;
 	public static Tile creativePowerSource;
 	public static Tile charger;
-
-	public static Tile lamp;
+	
+	public static Tile rocketEngine;
+	public static Tile rocket;
+	
 	public static Tile rockLight;
 	public static Tile limestone;
 	public static Tile clay;
@@ -101,6 +105,9 @@ public class ModTiles
 		creativePowerSource = new TileCreativePowerSource();
 		charger = new TileCharger();
 
+		rocketEngine = new TilePlaceAnywhere("rocketEngine", 15, 4);
+		rocket = new TileRocket();
+		
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_STONE, 1), 5, 1);
 		limestone = new TileBase(RockSolidAPILib.makeInternalRes("limestone"), 10, 1);
 		clay = new TileCustomDrop("clay", new ItemInstance(ModItems.clumpClay, 1), 4, 0, ToolType.SHOVEL);
