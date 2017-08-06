@@ -5,6 +5,8 @@ import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -31,46 +33,19 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 
 		TileEntity conduit = RockSolidAPILib.getTileFromPos(x, y, world);
 		manager.getTexture(this.texture).drawWithLight(renderX, renderY, scale, scale, light);
-		// right
-		if (RockSolidAPILib.getTileFromPos(x + 1, y, world) != null)
-		{
-			if (((IConduit) conduit).canConnectTo(new Pos2(x + 1, y), RockSolidAPILib.getTileFromPos(x + 1, y, world))
-					&& ((IConduit) conduit).getSideMode(3) != 2)
-			{
-				manager.getTexture(this.texture.addSuffix(".right")).drawWithLight(renderX, renderY, scale, scale,
-						light);
-			}
-		}
 
-		// left
-		if (RockSolidAPILib.getTileFromPos(x - 1, y, world) != null)
+		for (ConduitSide side : ConduitSide.values())
 		{
-			if (((IConduit) conduit).canConnectTo(new Pos2(x - 1, y), RockSolidAPILib.getTileFromPos(x - 1, y, world))
-					&& ((IConduit) conduit).getSideMode(2) != 2)
+			if (RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world) != null)
 			{
-				manager.getTexture(this.texture.addSuffix(".left")).drawWithLight(renderX, renderY, scale, scale,
-						light);
-			}
-		}
-
-		// up
-		if (RockSolidAPILib.getTileFromPos(x, y + 1, world) != null)
-		{
-			if (((IConduit) conduit).canConnectTo(new Pos2(x, y + 1), RockSolidAPILib.getTileFromPos(x, y + 1, world))
-					&& ((IConduit) conduit).getSideMode(0) != 2)
-			{
-				manager.getTexture(this.texture.addSuffix(".up")).drawWithLight(renderX, renderY, scale, scale, light);
-			}
-		}
-
-		// down
-		if (RockSolidAPILib.getTileFromPos(x, y - 1, world) != null)
-		{
-			if (((IConduit) conduit).canConnectTo(new Pos2(x, y - 1), RockSolidAPILib.getTileFromPos(x, y - 1, world))
-					&& ((IConduit) conduit).getSideMode(1) != 2)
-			{
-				manager.getTexture(this.texture.addSuffix(".down")).drawWithLight(renderX, renderY, scale, scale,
-						light);
+				if (((IConduit) conduit).canConnectTo(
+						new Pos2(x + side.getOffset().getX(), y + side.getOffset().getY()),
+						RockSolidAPILib.getTileFromPos(x + side.getOffset().getX(), y + side.getOffset().getY(), world))
+						&& ((IConduit) conduit).getSideMode(side) != ConduitMode.DISABLED)
+				{
+					manager.getTexture(this.texture.addSuffix("." + side.toString())).drawWithLight(renderX, renderY, scale, scale,
+							light);
+				}
 			}
 		}
 

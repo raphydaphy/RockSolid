@@ -242,41 +242,34 @@ tex.tiles.rockLight=/tiles/misc/rock_light.png
 tex.tiles.limestone=/tiles/misc/limestone.png
 tex.tiles.clay=/tiles/misc/clay.png
 
-## Lamp
-tex.tiles.lamp=/tiles/lamp/lamp.png
-tex.tiles.lamp.up=/tiles/lamp/lamp_up.png
-tex.tiles.lamp.down=/tiles/lamp/lamp_down.png
-tex.tiles.lamp.left=/tiles/lamp/lamp_left.png
-tex.tiles.lamp.right=/tiles/lamp/lamp_right.png
-
 ## Energy Conduit
 tex.tiles.energyConduit=/tiles/energy_conduit/energy_conduit.png
-tex.tiles.energyConduit.up=/tiles/energy_conduit/energy_conduit_up.png
-tex.tiles.energyConduit.down=/tiles/energy_conduit/energy_conduit_down.png
-tex.tiles.energyConduit.left=/tiles/energy_conduit/energy_conduit_left.png
-tex.tiles.energyConduit.right=/tiles/energy_conduit/energy_conduit_right.png
+tex.tiles.energyConduit.UP=/tiles/energy_conduit/energy_conduit_up.png
+tex.tiles.energyConduit.DOWN=/tiles/energy_conduit/energy_conduit_down.png
+tex.tiles.energyConduit.LEFT=/tiles/energy_conduit/energy_conduit_left.png
+tex.tiles.energyConduit.RIGHT=/tiles/energy_conduit/energy_conduit_right.png
 
 ## Fluid Conduit
 tex.tiles.fluidConduit=/tiles/fluid_conduit/fluid_conduit.png
-tex.tiles.fluidConduit.up=/tiles/fluid_conduit/fluid_conduit_up.png
-tex.tiles.fluidConduit.down=/tiles/fluid_conduit/fluid_conduit_down.png
-tex.tiles.fluidConduit.left=/tiles/fluid_conduit/fluid_conduit_left.png
-tex.tiles.fluidConduit.right=/tiles/fluid_conduit/fluid_conduit_right.png
+tex.tiles.fluidConduit.UP=/tiles/fluid_conduit/fluid_conduit_up.png
+tex.tiles.fluidConduit.DOWN=/tiles/fluid_conduit/fluid_conduit_down.png
+tex.tiles.fluidConduit.LEFT=/tiles/fluid_conduit/fluid_conduit_left.png
+tex.tiles.fluidConduit.RIGHT=/tiles/fluid_conduit/fluid_conduit_right.png
 
 
 ## Gas Conduit
 tex.tiles.gasConduit=/tiles/gas_conduit/gas_conduit.png
-tex.tiles.gasConduit.up=/tiles/gas_conduit/gas_conduit_up.png
-tex.tiles.gasConduit.down=/tiles/gas_conduit/gas_conduit_down.png
-tex.tiles.gasConduit.left=/tiles/gas_conduit/gas_conduit_left.png
-tex.tiles.gasConduit.right=/tiles/gas_conduit/gas_conduit_right.png
+tex.tiles.gasConduit.UP=/tiles/gas_conduit/gas_conduit_up.png
+tex.tiles.gasConduit.DOWN=/tiles/gas_conduit/gas_conduit_down.png
+tex.tiles.gasConduit.LEFT=/tiles/gas_conduit/gas_conduit_left.png
+tex.tiles.gasConduit.RIGHT=/tiles/gas_conduit/gas_conduit_right.png
 
 ## Item Conduit
 tex.tiles.itemConduit=/tiles/item_conduit/item_conduit.png
-tex.tiles.itemConduit.up=/tiles/item_conduit/item_conduit_up.png
-tex.tiles.itemConduit.down=/tiles/item_conduit/item_conduit_down.png
-tex.tiles.itemConduit.left=/tiles/item_conduit/item_conduit_left.png
-tex.tiles.itemConduit.right=/tiles/item_conduit/item_conduit_right.png
+tex.tiles.itemConduit.UP=/tiles/item_conduit/item_conduit_up.png
+tex.tiles.itemConduit.DOWN=/tiles/item_conduit/item_conduit_down.png
+tex.tiles.itemConduit.LEFT=/tiles/item_conduit/item_conduit_left.png
+tex.tiles.itemConduit.RIGHT=/tiles/item_conduit/item_conduit_right.png
 
 ## Boiler
 tex.tiles.boiler.item=/tiles/boiler/boiler_item.png

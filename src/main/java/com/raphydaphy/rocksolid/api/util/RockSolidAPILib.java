@@ -67,7 +67,7 @@ public class RockSolidAPILib
 		return new Color(199, 136, 53);
 	}
 
-	public static TileEntity getTileFromConduitSide(Pos2 center, int side, IWorld world)
+	public static TileEntity getTileFromConduitSide(Pos2 center, ConduitSide side, IWorld world)
 	{
 		Pos2 tilePos = conduitSideToPos(center, side);
 
@@ -91,61 +91,31 @@ public class RockSolidAPILib
 		return null;
 	}
 
-	public static Pos2 conduitSideToPos(Pos2 center, int side)
+	public static Pos2 conduitSideToPos(Pos2 center, ConduitSide side)
 	{
-		switch (side)
-		{
-		case 0:
-			// up
-			return center.add(0, 1);
-		case 1:
-			// down
-			return center.add(0, -1);
-		case 2:
-			// left
-			return center.add(-1, 0);
-		case 3:
-			// right
-			return center.add(1, 0);
-		}
-		return null;
+		Pos2 offset = side.getOffset();
+		return center.add(offset.getX(), offset.getY());
 	}
 
-	public static int posAndOffsetToConduitSide(Pos2 center, Pos2 side)
+	public static ConduitSide posAndOffsetToConduitSide(Pos2 center, Pos2 side)
 	{
 		Pos2 difference = center.add(-side.getX(), -side.getY());
 		difference.set(-difference.getX(), -difference.getY());
 		if (difference.getY() == -1)
 		{
-			return 1;
+			return ConduitSide.DOWN;
 		} else if (difference.getY() == 1)
 		{
-			return 0;
+			return ConduitSide.UP;
 		} else if (difference.getX() == 1)
 		{
-			return 3;
+			return ConduitSide.RIGHT;
 		} else if (difference.getX() == -1)
 		{
-			return 2;
+			return ConduitSide.LEFT;
 		}
 
-		return 0;
-	}
-
-	public static int invertSide(int side)
-	{
-		switch (side)
-		{
-		case 1:
-			return 0;
-		case 0:
-			return 1;
-		case 2:
-			return 3;
-		case 3:
-			return 2;
-		}
-		return 0;
+		return ConduitSide.NONE;
 	}
 
 	public static IInventory insert(IInventoryHolder container, ItemInstance item)
@@ -286,6 +256,77 @@ public class RockSolidAPILib
 			}
 		}
 		return false;
+	}
+
+	public enum ConduitSide
+	{
+		UP(0, new Pos2(0, 1)), DOWN(1, new Pos2(0, -1)), LEFT(2, new Pos2(-1, 0)), RIGHT(3, new Pos2(1, 0)), NONE(4,
+				new Pos2(0, 0));
+
+		private int id;
+		private Pos2 offset;
+
+		ConduitSide(int id, Pos2 offset)
+		{
+			this.id = id;
+			this.offset = offset;
+
+			RockSolidAPI.CONDUIT_SIDES.put(id, this);
+		}
+
+		public int getID()
+		{
+			return id;
+		}
+
+		public Pos2 getOffset()
+		{
+			return offset;
+		}
+
+		public static ConduitSide getByID(int ID)
+		{
+			return RockSolidAPI.CONDUIT_SIDES.get(ID);
+		}
+	}
+
+	public enum ConduitMode
+	{
+		OUTPUT(0, "Output", "Outputs into the connected block"), INPUT(1, "Input",
+				"Pulls contents into the inventory"), DISABLED(2, "Disabled", "The conduit won't connect on this side");
+
+		private int id;
+		private String desc;
+		private String name;
+
+		ConduitMode(int id, String name, String desc)
+		{
+			this.id = id;
+			this.name = name;
+			this.desc = desc;
+
+			RockSolidAPI.CONDUIT_MODES.put(id, this);
+		}
+
+		public int getID()
+		{
+			return this.id;
+		}
+
+		public String getName()
+		{
+			return this.name;
+		}
+
+		public String getDesc()
+		{
+			return this.desc;
+		}
+
+		public static ConduitMode getByID(int ID)
+		{
+			return RockSolidAPI.CONDUIT_MODES.get(ID);
+		}
 	}
 
 }

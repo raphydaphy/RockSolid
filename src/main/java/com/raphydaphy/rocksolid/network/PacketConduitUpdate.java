@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -17,12 +19,12 @@ public class PacketConduitUpdate implements IPacket
 {
 	private int x;
 	private int y;
-	private int side;
-	private int mode;
+	private ConduitSide side;
+	private ConduitMode mode;
 	private int priority;
 	private boolean isWhitelist;
 
-	public PacketConduitUpdate(int x, int y, int side, int mode, int priority, boolean isWhitelist)
+	public PacketConduitUpdate(int x, int y, ConduitSide side, ConduitMode mode, int priority, boolean isWhitelist)
 	{
 		this.x = x;
 		this.y = y;
@@ -42,8 +44,8 @@ public class PacketConduitUpdate implements IPacket
 	{
 		buf.writeInt(x);
 		buf.writeInt(y);
-		buf.writeInt(side);
-		buf.writeInt(mode);
+		buf.writeInt(side.getID());
+		buf.writeInt(mode.getID());
 		buf.writeInt(priority);
 		buf.writeBoolean(isWhitelist);
 	}
@@ -53,8 +55,8 @@ public class PacketConduitUpdate implements IPacket
 	{
 		x = buf.readInt();
 		y = buf.readInt();
-		side = buf.readInt();
-		mode = buf.readInt();
+		side = ConduitSide.getByID(buf.readInt());
+		mode = ConduitMode.getByID(buf.readInt());
 		priority = buf.readInt();
 		isWhitelist = buf.readBoolean();
 	}

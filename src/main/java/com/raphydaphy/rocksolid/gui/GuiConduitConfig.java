@@ -2,6 +2,8 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
 
@@ -16,9 +18,8 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 public class GuiConduitConfig extends Gui
 {
 	private final TileEntity tile;
-	// true = input false = output
-	private int itemMode;
-	private int editingSide;
+	private ConduitMode itemMode;
+	private ConduitSide editingSide;
 	private int priority;
 
 	public GuiConduitConfig(final AbstractEntityPlayer player, final TileEntity tile)
@@ -40,18 +41,18 @@ public class GuiConduitConfig extends Gui
 		// they are on the initial up/down/left/right screen
 		if (button == 0 || button == 1 || button == 2 || button == 3)
 		{
-			buildSingleGui(game, button);
+			buildSingleGui(game, ConduitSide.getByID(button));
 			return true;
 		} else if (button == 4 || button == 6 || button == 7)
 		{
 			if (button == 4)
 			{
-				if (itemMode == 2)
+				if (itemMode == ConduitMode.DISABLED)
 				{
-					itemMode = 0;
+					itemMode = ConduitMode.OUTPUT;
 				} else
 				{
-					itemMode++;
+					itemMode = ConduitMode.getByID(itemMode.getID() + 1);
 				}
 
 				((IConduit) tile).setSideMode(editingSide, itemMode);
@@ -100,18 +101,15 @@ public class GuiConduitConfig extends Gui
 		this.components.add(new ComponentButton(this, 3, this.guiLeft + 125, this.guiTop + 75, 50, 18, "Right"));
 	}
 
-	public void buildSingleGui(IGameInstance game, int direction)
+	public void buildSingleGui(IGameInstance game, ConduitSide direction)
 	{
 		editingSide = direction;
+		itemMode = ((IConduit)tile).getSideMode(direction);
 		this.components.clear();
-
-		// Gui gui, int x, int y, int sizeX, int sizeY, boolean renderBox,
-		// boolean selectable, boolean defaultActive, int maxLength, boolean
-		// displayMaxLength)
 
 		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
 
-		if (tile instanceof TileEntityItemConduit && ((IConduit) tile).getSideMode(direction) != 2)
+		if (tile instanceof TileEntityItemConduit && ((IConduit) tile).getSideMode(direction) != ConduitMode.DISABLED)
 		{
 			priority = ((TileEntityItemConduit) tile).getPriority(direction);
 			this.components.add(new ComponentButton(this, 999, this.guiLeft + 80, this.guiTop + 25, 30, 18,
@@ -121,20 +119,8 @@ public class GuiConduitConfig extends Gui
 			this.components.add(new ComponentButton(this, 8, this.guiLeft + 70, this.guiTop + 75, 50, 18, "Exit"));
 		}
 
-		if (((IConduit) tile).getSideMode(direction) == 0)
-		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Output",
-					"Outputs contents into connected block."));
-		} else if (((IConduit) tile).getSideMode(direction) == 1)
-		{
-
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Input",
-					"Pulls contents into the conduit."));
-		} else if (((IConduit) tile).getSideMode(direction) == 2)
-		{
-			this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, "Disabled",
-					"The conduit won't connect on this side."));
-		}
+		this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, itemMode.getName(),
+				itemMode.getDesc()));
 	}
 
 	@Override

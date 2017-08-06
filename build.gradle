@@ -6,10 +6,9 @@ apply from: "https://github.com/RockBottomGame/Gradle/raw/master/buildscript.gra
 
 
 task runServer(type: JavaExec) {
-    dependsOn(compileJava)
-    args = ["--unpackedModsDir", "./build/classes/main"]
+    classpath = sourceSets.main.runtimeClasspath
+    args = ["--unpackedModsDir", "./build/classes/main", "--server"]
     main = project.mainClassName
-    mainClassName = project.mainClassName
 }
 
 processSources {

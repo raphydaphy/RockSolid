@@ -9,6 +9,8 @@ import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -65,9 +67,9 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 		{
 			// first we extract stuff from nearby inventories into the pipes
 			// inventory
-			for (int adjacentTile = 0; adjacentTile < 4; adjacentTile++)
+			for (ConduitSide side : ConduitSide.values())
 			{
-				Pos2 adjacentTilePos = RockSolidAPILib.conduitSideToPos(new Pos2(x, y), adjacentTile);
+				Pos2 adjacentTilePos = RockSolidAPILib.conduitSideToPos(new Pos2(x, y), side);
 				TileEntity adjacentTileEntity = RockSolidAPILib.getTileFromPos(adjacentTilePos.getX(),
 						adjacentTilePos.getY(), world);
 
@@ -75,7 +77,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 				{
 					if (adjacentTileEntity instanceof TileEntityGasConduit)
 					{
-						if (this.getSideMode(adjacentTile) != 2
+						if (this.getSideMode(side) != ConduitMode.DISABLED
 								&& (((TileEntityGasConduit) adjacentTileEntity).getGasType().equals(this.gasType))
 								|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 						{
@@ -102,7 +104,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 									|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 							{
 								// Conduit is set to input mode
-								if (this.getSideMode(adjacentTile) == 1)
+								if (this.getSideMode(side) == ConduitMode.INPUT)
 								{
 
 									if (this.gasStored < (this.maxGas - transferRate)
@@ -122,7 +124,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 							if (IGasAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
 							{
 								// Conduit is set to output mode
-								if (this.getSideMode(adjacentTile) == 0)
+								if (this.getSideMode(side) == ConduitMode.OUTPUT)
 								{
 
 									if (this.gasStored >= transferRate)
@@ -165,7 +167,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 										|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
 								{
 									// Conduit is set to input mode
-									if (this.getSideMode(adjacentTile) == 1)
+									if (this.getSideMode(side) == ConduitMode.INPUT)
 									{
 
 										if (this.gasStored < (this.maxGas - transferRate)
@@ -188,7 +190,7 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 								if (IMultiGasAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
 								{
 									// Conduit is set to output mode
-									if (this.getSideMode(adjacentTile) == 0)
+									if (this.getSideMode(side) == ConduitMode.OUTPUT)
 									{
 
 										if (this.gasStored >= transferRate)
@@ -221,45 +223,45 @@ public class TileEntityGasConduit extends TileEntity implements IConduit, IGasPr
 	}
 
 	@Override
-	public void setSideMode(int side, int mode)
+	public void setSideMode(ConduitSide side, ConduitMode mode)
 	{
 		shouldSync = true;
-		switch (side)
+		switch (side.getID())
 		{
 		case 0:
 			// up
-			modeUp = mode;
+			modeUp = mode.getID();
 			break;
 		case 1:
 			// down
-			modeDown = mode;
+			modeDown = mode.getID();
 			break;
 		case 2:
 			// left
-			modeLeft = mode;
+			modeLeft = mode.getID();
 			break;
 		case 3:
 			// right
-			modeRight = mode;
+			modeRight = mode.getID();
 			break;
 		}
 	}
 
 	@Override
-	public int getSideMode(int side)
+	public ConduitMode getSideMode(ConduitSide side)
 	{
-		switch (side)
+		switch (side.getID())
 		{
 		case 0:
-			return modeUp;
+			return ConduitMode.getByID(modeUp);
 		case 1:
-			return modeDown;
+			return ConduitMode.getByID(modeDown);
 		case 2:
-			return modeLeft;
+			return ConduitMode.getByID(modeLeft);
 		case 3:
-			return modeRight;
+			return ConduitMode.getByID(modeRight);
 		}
-		return 0;
+		return ConduitMode.DISABLED;
 	}
 
 	@Override

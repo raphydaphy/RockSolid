@@ -13,6 +13,8 @@ import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
+import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -33,6 +35,9 @@ public class RockSolidAPI
 
 	public static final List<ElectrolyzerRecipe> ELECTROLYZER_RECIPE = new ArrayList<>();
 
+	public static Map<Integer, ConduitSide> CONDUIT_SIDES = new HashMap<Integer, ConduitSide>();
+	public static Map<Integer, ConduitMode> CONDUIT_MODES = new HashMap<Integer, ConduitMode>();
+	
 	public static Map<String, Fluid> FLUID_REGISTRY = new HashMap<String, Fluid>();
 	public static final NameRegistry<Gas> GAS_REGISTRY = new NameRegistry<>("gas_registry");
 
