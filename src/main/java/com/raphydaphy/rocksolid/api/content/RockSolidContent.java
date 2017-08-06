@@ -68,7 +68,9 @@ public class RockSolidContent
 	public static final Item ingotTitanium = getItem("ingotTitanium");
 	public static final Item ingotUranium = getItem("ingotUranium");
 	public static final Item ingotTungsten = getItem("ingotTungsten");
-
+	public static final Item ingotNickelTungsten = getItem("ingotNickelTungsten");
+	public static final Item ingotNickelTungstenCarbide = getItem("ingotNickelTungstenCarbide");
+	
 	public static final Item gemCoke = getItem("gemCoke");
 
 	public static final Item pelletUranium = getItem("pelletUranium");

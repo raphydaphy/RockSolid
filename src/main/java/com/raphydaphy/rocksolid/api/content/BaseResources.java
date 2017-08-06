@@ -34,6 +34,9 @@ public class BaseResources
 	public static final String PROCESSED_TITANIUM = "processed_titanium";
 	public static final String PARTLY_PROCESSED_TITANIUM = "partly_processed_titanium";
 
+	public static final String TUNGSTEN_CARBIDE = "tungsten_carbide";
+	public static final String TUNGSTEN_ALLOY = "tungsten_alloy";
+	
 	public static final String PROCESSED_TUNGSTEN = "processed_tungsten";
 	public static final String PARTLY_PROCESSED_TUNGSTEN = "partly_processed_tungsten";
 	public static final String RAW_TUNGSTEN = "raw_tungsten";

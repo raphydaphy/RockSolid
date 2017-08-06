@@ -25,6 +25,8 @@ public class ModItems
 	public static Item ingotUranium;
 	public static Item ingotNickel;
 	public static Item ingotTungsten;
+	public static Item ingotNickelTungsten;
+	public static Item ingotNickelTungstenCarbide;
 
 	public static Item gemCoke;
 
@@ -78,7 +80,9 @@ public class ModItems
 		ingotUranium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotUranium")).register();
 		ingotNickel = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickel")).register();
 		ingotTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTungsten")).register();
-
+		ingotNickelTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickelTungsten")).register();
+		ingotNickelTungstenCarbide = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickelTungstenCarbide")).register();
+		
 		gemCoke = new ItemBase(RockSolidAPILib.makeInternalRes("gemCoke")).register();
 
 		pelletUranium = new ItemBase(RockSolidAPILib.makeInternalRes("pelletUranium")).register();

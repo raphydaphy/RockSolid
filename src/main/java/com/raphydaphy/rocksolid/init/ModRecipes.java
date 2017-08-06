@@ -38,7 +38,7 @@ public class ModRecipes
 
 		ResourceRegistry.addResources(BaseResources.PROCESSED_NICKEL, new ResInfo(RockSolidContent.ingotNickel));
 		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_NICKEL, new ResInfo(RockSolidContent.gritNickel));
-		
+
 		ResourceRegistry.addResources(BaseResources.PROCESSED_STEEL, new ResInfo(RockSolidContent.ingotSteel));
 		ResourceRegistry.addResources(BaseResources.PROCESSED_COAL, new ResInfo(RockSolidContent.gemCoke));
 
@@ -60,9 +60,14 @@ public class ModRecipes
 		ResourceRegistry.addResources(BaseResources.PROCESSED_TITANIUM, new ResInfo(RockSolidContent.ingotTitanium));
 		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_TITANIUM,
 				new ResInfo(RockSolidContent.ingotImpureTitanium));
-		
+
+		ResourceRegistry.addResources(BaseResources.TUNGSTEN_CARBIDE,
+				new ResInfo(RockSolidContent.ingotNickelTungstenCarbide));
+		ResourceRegistry.addResources(BaseResources.TUNGSTEN_ALLOY, new ResInfo(RockSolidContent.ingotNickelTungsten));
+
 		ResourceRegistry.addResources(BaseResources.PROCESSED_TUNGSTEN, new ResInfo(RockSolidContent.ingotTungsten));
-		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_TUNGSTEN, new ResInfo(RockSolidContent.gritTungsten));
+		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_TUNGSTEN,
+				new ResInfo(RockSolidContent.gritTungsten));
 		ResourceRegistry.addResources(BaseResources.RAW_TUNGSTEN, new ResInfo(RockSolidContent.clusterTungsten));
 
 		ResourceRegistry.addResources(BaseResources.COMPRESSED_STEEL,
@@ -89,6 +94,14 @@ public class ModRecipes
 				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotTitanium, 1),
 						new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 1),
 						new ResUseInfo(BaseResources.PARTLY_PROCESSED_TITANIUM, 1), 1000));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES
+				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotNickelTungsten, 2),
+						new ResUseInfo(BaseResources.PROCESSED_NICKEL, 1),
+						new ResUseInfo(BaseResources.PROCESSED_TUNGSTEN, 1), 1250));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES
+				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotNickelTungstenCarbide, 2),
+						new ResUseInfo(BaseResources.PROCESSED_COAL, 1),
+						new ResUseInfo(BaseResources.TUNGSTEN_ALLOY, 1), 1250));
 
 		// Alloy recipies, reverse
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotBronze, 4),
@@ -100,6 +113,14 @@ public class ModRecipes
 				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotTitanium, 1),
 						new ResUseInfo(BaseResources.PARTLY_PROCESSED_TITANIUM, 1),
 						new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 1), 1000));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES
+				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotNickelTungsten, 2),
+						new ResUseInfo(BaseResources.PROCESSED_TUNGSTEN, 1),
+						new ResUseInfo(BaseResources.PROCESSED_NICKEL, 1), 1250));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES
+				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.ingotNickelTungstenCarbide, 2),
+						new ResUseInfo(BaseResources.TUNGSTEN_ALLOY, 1),
+						new ResUseInfo(BaseResources.PROCESSED_COAL, 1), 1250));
 
 		// Cluster tripling recipies
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritIron, 3),
@@ -113,8 +134,9 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.RAW_URANIUM, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(GameContent.ITEM_COPPER_GRIT, 3),
 				new ResUseInfo(ResourceRegistry.RAW_COPPER, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
-		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritTungsten, 3),
-				new ResUseInfo(BaseResources.RAW_TUNGSTEN, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES
+				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritTungsten, 3),
+						new ResUseInfo(BaseResources.RAW_TUNGSTEN, 1), new ResUseInfo(ResourceRegistry.SLAG, 1), 750));
 
 		// Cluster tripling recipies, reverse
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritIron, 3),
@@ -128,8 +150,9 @@ public class ModRecipes
 				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(BaseResources.RAW_URANIUM, 1), 750));
 		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(GameContent.ITEM_COPPER_GRIT, 3),
 				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(ResourceRegistry.RAW_COPPER, 1), 750));
-		RockSolidAPI.ALLOY_SMELTER_RECIPES.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritTungsten, 3),
-				new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(BaseResources.RAW_TUNGSTEN, 1), 750));
+		RockSolidAPI.ALLOY_SMELTER_RECIPES
+				.add(new AlloySmelterRecipe(new ItemInstance(RockSolidContent.gritTungsten, 3),
+						new ResUseInfo(ResourceRegistry.SLAG, 1), new ResUseInfo(BaseResources.RAW_TUNGSTEN, 1), 750));
 
 		// Purifier Recipes
 		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(RockSolidContent.itemClay),
@@ -137,7 +160,7 @@ public class ModRecipes
 
 		// Refinery Recipes
 		RockSolidAPI.REFINERY_RECIPES.add(new RefineryRecipe(Fluid.OIL, Fluid.FUEL, 50, 25, 300));
-		
+
 		// Electrolyzer Recipes
 		RockSolidAPI.ELECTROLYZER_RECIPE.add(new ElectrolyzerRecipe(RockSolidContent.gasHydrogen.toString(),
 				RockSolidContent.gasOxygen.toString(), Fluid.WATER.getName(), 150, 100, 50, 800));
@@ -205,10 +228,12 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 8),
 				new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 5),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20)));
-		//RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.lantern),
-		//		new ResUseInfo(BaseResources.RAW_SHINING, 8), new ResUseInfo(BaseResources.PROCESSED_TIN, 10),
-		//		new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
-		//		new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
+		// RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new
+		// ItemInstance(RockSolidContent.lantern),
+		// new ResUseInfo(BaseResources.RAW_SHINING, 8), new
+		// ResUseInfo(BaseResources.PROCESSED_TIN, 10),
+		// new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
+		// new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.electricLantern),
 				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.PROCESSED_STEEL, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40),

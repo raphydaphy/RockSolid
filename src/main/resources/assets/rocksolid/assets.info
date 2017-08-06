@@ -14,6 +14,8 @@ tex.items.ingotTitanium=/items/ingot/ingot_titanium.png
 tex.items.ingotUranium=/items/ingot/ingot_uranium.png
 tex.items.ingotNickel=/items/ingot/ingot_nickel.png
 tex.items.ingotTungsten=/items/ingot/ingot_tungsten.png
+tex.items.ingotNickelTungsten=/items/ingot/ingot_nickel_tungsten.png
+tex.items.ingotNickelTungstenCarbide=/items/ingot/ingot_nickel_tungsten_carbide.png
 
 ## Clay
 tex.items.clumpClay=/items/clay/clump_clay.png
