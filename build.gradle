@@ -1,6 +1,6 @@
 group 'com.raphydaphy.rocksolid'
-version '2.1'
-def apiVersion = "2.1"
+version '2.2'
+def apiVersion = "2.1.1"
 
 apply from: "https://github.com/RockBottomGame/Gradle/raw/master/buildscript.gradle"
 
