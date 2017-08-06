@@ -36,6 +36,9 @@ public class ModRecipes
 		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_IRON, new ResInfo(RockSolidContent.gritIron));
 		ResourceRegistry.addResources(BaseResources.RAW_IRON, new ResInfo(RockSolidContent.clusterIron));
 
+		ResourceRegistry.addResources(BaseResources.PROCESSED_NICKEL, new ResInfo(RockSolidContent.ingotNickel));
+		ResourceRegistry.addResources(BaseResources.PARTLY_PROCESSED_NICKEL, new ResInfo(RockSolidContent.gritNickel));
+		
 		ResourceRegistry.addResources(BaseResources.PROCESSED_STEEL, new ResInfo(RockSolidContent.ingotSteel));
 		ResourceRegistry.addResources(BaseResources.PROCESSED_COAL, new ResInfo(RockSolidContent.gemCoke));
 
@@ -148,7 +151,7 @@ public class ModRecipes
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritTin, 2),
 				new ResUseInfo(BaseResources.RAW_TIN), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.25f));
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritIron, 2),
-				new ResUseInfo(BaseResources.RAW_IRON), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.4f));
+				new ResUseInfo(BaseResources.RAW_IRON), 350, new ItemInstance(RockSolidContent.gritNickel), 0.2f));
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritMagnesium, 2),
 				new ResUseInfo(BaseResources.RAW_MAGNESIUM), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.8f));
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritUranium, 2),
@@ -164,6 +167,8 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PARTLY_PROCESSED_TIN), 300));
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(RockSolidContent.ingotIron),
 				new ResUseInfo(BaseResources.PARTLY_PROCESSED_IRON), 300));
+		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(RockSolidContent.ingotNickel),
+				new ResUseInfo(BaseResources.PARTLY_PROCESSED_NICKEL), 300));
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(RockSolidContent.ingotMagnesium),
 				new ResUseInfo("partly_processed_magnesum"), 300));
 		RockBottomAPI.SMELTER_RECIPES.add(new SmelterRecipe(new ItemInstance(RockSolidContent.ingotUranium),

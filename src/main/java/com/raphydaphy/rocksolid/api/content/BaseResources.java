@@ -11,7 +11,10 @@ public class BaseResources
 	public static final String PROCESSED_IRON = "processed_iron";
 	public static final String PARTLY_PROCESSED_IRON = "partly_processed_iron";
 	public static final String RAW_IRON = "raw_iron";
-
+	
+	public static final String PROCESSED_NICKEL = "processed_nickel";
+	public static final String PARTLY_PROCESSED_NICKEL = "partly_processed_nickel";
+	
 	public static final String PROCESSED_STEEL = "processed_steel";
 	public static final String PROCESSED_COAL = "processed_coal";
 

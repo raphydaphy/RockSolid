@@ -12,6 +12,7 @@ tex.items.ingotMagnesium=/items/ingot/ingot_magnesium.png
 tex.items.ingotImpureTitanium=/items/ingot/ingot_impure_titanium.png
 tex.items.ingotTitanium=/items/ingot/ingot_titanium.png
 tex.items.ingotUranium=/items/ingot/ingot_uranium.png
+tex.items.ingotNickel=/items/ingot/ingot_nickel.png
 
 ## Clay
 tex.items.clumpClay=/items/clay/clump_clay.png
@@ -29,6 +30,7 @@ tex.items.gritTin=/items/grit/grit_tin.png
 tex.items.gritIron=/items/grit/grit_iron.png
 tex.items.gritMagnesium=/items/grit/grit_magnesium.png
 tex.items.gritUranium=/items/grit/grit_uranium.png
+tex.items.gritNickel=/items/grit/grit_nickel.png
 
 ## Pickaxe
 tex.items.pickaxeBronze=/items/pickaxe/pickaxe_bronze.png
@@ -235,6 +237,21 @@ tex.tiles.compressor.active.1.1=sub./tiles/compressor/compressor_active.png,12,0
 tex.tiles.compressor.active.2.1=sub./tiles/compressor/compressor_active.png,24,0,12,12
 tex.tiles.compressor.item=/tiles/compressor/compressor_item.png
 
+## Refinery
+tex.tiles.refinery.0.0=sub./tiles/refinery/refinery.png,0,12,12,12
+tex.tiles.refinery.1.0=sub./tiles/refinery/refinery.png,12,12,12,12
+tex.tiles.refinery.2.0=sub./tiles/refinery/refinery.png,24,12,12,12
+tex.tiles.refinery.0.1=sub./tiles/refinery/refinery.png,0,0,12,12
+tex.tiles.refinery.1.1=sub./tiles/refinery/refinery.png,12,0,12,12
+tex.tiles.refinery.2.1=sub./tiles/refinery/refinery.png,24,0,12,12
+tex.tiles.refinery.active.0.0=sub./tiles/refinery/refinery_active.png,0,12,12,12
+tex.tiles.refinery.active.1.0=sub./tiles/refinery/refinery_active.png,12,12,12,12
+tex.tiles.refinery.active.2.0=sub./tiles/refinery/refinery_active.png,24,12,12,12
+tex.tiles.refinery.active.0.1=sub./tiles/refinery/refinery_active.png,0,0,12,12
+tex.tiles.refinery.active.1.1=sub./tiles/refinery/refinery_active.png,12,0,12,12
+tex.tiles.refinery.active.2.1=sub./tiles/refinery/refinery_active.png,24,0,12,12
+tex.tiles.refinery.item=/tiles/refinery/refinery_item.png
+
 ## Turbine
 tex.tiles.turbine.0.0=sub./tiles/turbine/turbine.png,0,12,12,12
 tex.tiles.turbine.1.0=sub./tiles/turbine/turbine.png,12,12,12,12
@@ -398,3 +415,4 @@ tex.tiles.oreIron=/tiles/ore/ore_iron.png
 tex.tiles.oreMagnesium=/tiles/ore/ore_magnesium.png
 tex.tiles.oreRutile=/tiles/ore/ore_rutile.png
 tex.tiles.oreUranium=/tiles/ore/ore_uranium.png
+tex.tiles.oreWolframite=/tiles/ore/ore_wolframite.png

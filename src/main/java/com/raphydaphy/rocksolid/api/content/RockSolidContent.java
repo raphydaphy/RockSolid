@@ -60,6 +60,7 @@ public class RockSolidContent
 	public static final Item ingotTin = getItem("ingotTin");
 	public static final Item ingotBronze = getItem("ingotBronze");
 	public static final Item ingotIron = getItem("ingotIron");
+	public static final Item ingotNickel = getItem("ingotNickel");
 	public static final Item ingotSteel = getItem("ingotSteel");
 	public static final Item ingotMagnesium = getItem("ingotMagnesium");
 	public static final Item ingotImpureTitanium = getItem("ingotImpureTitanium");
@@ -81,6 +82,7 @@ public class RockSolidContent
 
 	public static final Item gritTin = getItem("gritTin");
 	public static final Item gritIron = getItem("gritIron");
+	public static final Item gritNickel = getItem("gritNickel");
 	public static final Item gritMagnesium = getItem("gritMagnesium");
 	public static final Item gritUranium = getItem("gritUranium");
 

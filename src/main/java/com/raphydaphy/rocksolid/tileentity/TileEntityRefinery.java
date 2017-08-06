@@ -136,7 +136,7 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 				final Fluid thisOut = Fluid.getByName(this.outputFluidType);
 				if (thisOut == Fluid.EMPTY || recipeOut.equals(thisOut))
 				{
-					if (this.outputFluidStored + recipe.getOutputVolume() <= maxFluid)
+					if (this.outputFluidStored + recipe.getOutputVolume() <= maxFluid && this.powerStored >= this.getPowerPerOperation())
 					{
 						return true;
 					}

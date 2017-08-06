@@ -23,6 +23,7 @@ public class ModItems
 	public static Item ingotImpureTitanium;
 	public static Item ingotTitanium;
 	public static Item ingotUranium;
+	public static Item ingotNickel;
 
 	public static Item gemCoke;
 
@@ -41,6 +42,7 @@ public class ModItems
 	public static Item gritIron;
 	public static Item gritMagnesium;
 	public static Item gritUranium;
+	public static Item gritNickel;
 
 	public static Item pickaxeBronze;
 	public static Item pickaxeIron;
@@ -71,6 +73,7 @@ public class ModItems
 		ingotImpureTitanium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotImpureTitanium")).register();
 		ingotTitanium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTitanium")).register();
 		ingotUranium = new ItemBase(RockSolidAPILib.makeInternalRes("ingotUranium")).register();
+		ingotNickel = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickel")).register();
 
 		gemCoke = new ItemBase(RockSolidAPILib.makeInternalRes("gemCoke")).register();
 
@@ -89,18 +92,19 @@ public class ModItems
 		gritIron = new ItemBase(RockSolidAPILib.makeInternalRes("gritIron")).register();
 		gritMagnesium = new ItemBase(RockSolidAPILib.makeInternalRes("gritMagnesium")).register();
 		gritUranium = new ItemBase(RockSolidAPILib.makeInternalRes("gritUranium")).register();
+		gritNickel = new ItemBase(RockSolidAPILib.makeInternalRes("gritNickel")).register();
 
-		pickaxeBronze = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeBronze"), 6, 3).register();
-		pickaxeIron = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeIron"), 7, 3).register();
-		pickaxeSteel = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeSteel"), 8, 4).register();
-		pickaxeTitanium = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeTitanium"), 10, 5).register();
+		pickaxeBronze = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeBronze"), 10, 6).register();
+		pickaxeIron = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeIron"), 13, 7).register();
+		pickaxeSteel = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeSteel"), 15, 8).register();
+		pickaxeTitanium = new ItemPickaxe(RockSolidAPILib.makeInternalRes("pickaxeTitanium"), 18, 10).register();
 
-		axeBronze = new ItemAxe(RockSolidAPILib.makeInternalRes("axeBronze"), 6f, 1).register();
-		axeIron = new ItemAxe(RockSolidAPILib.makeInternalRes("axeIron"), 7f, 1).register();
-		axeSteel = new ItemAxe(RockSolidAPILib.makeInternalRes("axeSteel"), 8f, 1).register();
-		axeTitanium = new ItemAxe(RockSolidAPILib.makeInternalRes("axeTitanium"), 10f, 1).register();
+		axeBronze = new ItemAxe(RockSolidAPILib.makeInternalRes("axeBronze"), 10f, 6).register();
+		axeIron = new ItemAxe(RockSolidAPILib.makeInternalRes("axeIron"), 13f, 7).register();
+		axeSteel = new ItemAxe(RockSolidAPILib.makeInternalRes("axeSteel"), 15f, 8).register();
+		axeTitanium = new ItemAxe(RockSolidAPILib.makeInternalRes("axeTitanium"), 18f, 10).register();
 
-		shovelIron = new ItemShovel(RockSolidAPILib.makeInternalRes("shovelIron"), 7f, 1).register();
+		shovelIron = new ItemShovel(RockSolidAPILib.makeInternalRes("shovelIron"), 6.5f, 7).register();
 
 		wrench = new ItemWrench().register();
 		jetpack = new ItemJetpack();

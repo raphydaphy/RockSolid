@@ -7,6 +7,7 @@ rocksolid/item.ingotMagnesium=Magnesium Ingot
 rocksolid/item.ingotImpureTitanium=Impure Titanium Ingot
 rocksolid/item.ingotTitanium=Titanium Ingot
 rocksolid/item.ingotUranium=Uranium Ingot
+rocksolid/item.ingotNickel=Nickel Ingot
 
 rocksolid/item.gemCoke=Coal Coke
 
@@ -25,6 +26,7 @@ rocksolid/item.gritTin=Tin Grit
 rocksolid/item.gritIron=Iron Grit
 rocksolid/item.gritMagnesium=Magnesium Grit
 rocksolid/item.gritUranium=Uranium Grit
+rocksolid/item.gritNickel=Nickel Grit
 
 rocksolid/item.pickaxeBronze=Bronze Pickaxe
 rocksolid/item.pickaxeIron=Iron Pickaxe
@@ -87,6 +89,7 @@ rocksolid/item.battery=Battery
 
 rocksolid/item.electrolyzer=Electrolyzer
 
+rocksolid/item.refinery=Refinery
 rocksolid/item.electricPurifier=Electric Purifier
 rocksolid/item.electricBlastFurnace=Electric Blast Furnace
 rocksolid/item.electricAlloySmelter=Electric Alloy Smelter
@@ -99,6 +102,7 @@ rocksolid/item.oreIron=Iron Ore
 rocksolid/item.oreMagnesium=Magnesium Ore
 rocksolid/item.oreRutile=Rutile Ore
 rocksolid/item.oreUranium=Uranium Ore
+rocksolid/item.oreWolframite=Wolframite Ore
 
 rocksolid/item.constructionBlockSteel=Steel Construction Block
 rocksolid/item.constructionBlockTitanium=Titanium Construction Block
@@ -135,6 +139,7 @@ rocksolid/details.turbine=Uses steam to power a motor, thus generating power. St
 rocksolid/details.liquidFueledBoiler=Uses a liquid fuel to heat water into steam. Steam can be extreacted using Gas Conduits.
 rocksolid/details.gasTank=Stores 20 cubic meters of gas. Gas can be inserted and extracted using Gas Conduits.
 rocksolid/details.combustionEngine=Uses Oil to produce Electricity. Oil can be inserted through the use of Fluid Conduits or buckets.
+rocksolid/details.refinery=Uses power to purify and refine fluids. Can be used to produced Refined Fuel.
 
 # Because Ellpeck is lazy. Dunno if I still need this.
 rockbottom/item.stone=Stone

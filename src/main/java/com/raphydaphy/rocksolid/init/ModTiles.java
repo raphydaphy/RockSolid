@@ -81,6 +81,7 @@ public class ModTiles
 	public static Tile oreMagnesium;
 	public static Tile oreRutile;
 	public static Tile oreUranium;
+	public static Tile oreWolframite;
 
 	public static Tile constructionBlockSteel;
 	public static Tile constructionBlockTitanium;
@@ -125,13 +126,14 @@ public class ModTiles
 		electricSmelter = new TileElectricSmelter();
 		compressor = new TileCompressor();
 
-		oreTin = new TileOre(RockSolidAPILib.makeInternalRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 2);
-		oreIron = new TileOre(RockSolidAPILib.makeInternalRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 3);
+		oreTin = new TileOre(RockSolidAPILib.makeInternalRes("oreTin"), new ItemInstance(ModItems.clusterTin, 1), 10, 4);
+		oreIron = new TileOre(RockSolidAPILib.makeInternalRes("oreIron"), new ItemInstance(ModItems.clusterIron, 1), 15, 6);
 		oreMagnesium = new TileOre(RockSolidAPILib.makeInternalRes("oreMagnesium"), new ItemInstance(ModItems.clusterMagnesium, 1),
-				20, 4);
-		oreRutile = new TileBase(RockSolidAPILib.makeInternalRes("oreRutile"), 30, 4);
+				20, 7);
+		oreRutile = new TileBase(RockSolidAPILib.makeInternalRes("oreRutile"), 30, 8);
 		oreUranium = new TileOre(RockSolidAPILib.makeInternalRes("oreUranium"), new ItemInstance(ModItems.clusterUranium, 1), 25,
-				5);
+				10);
+		oreWolframite = new TileBase(RockSolidAPILib.makeInternalRes("oreWolframite"), 35, 10);
 
 		constructionBlockSteel = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockSteel"), 10, 3);
 		constructionBlockTitanium = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockTitanium"), 25, 4);
