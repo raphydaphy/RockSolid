@@ -20,6 +20,9 @@ public class RocketRenderer implements IEntityRenderer<EntityRocket> {
 
     @Override
     public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, EntityRocket entity, float x, float y, Color light) {
-        manager.getTexture(texture).drawWithLight(x, y - 4, 1, 48 / 12f, new Color[]{light, light, light, light});
+    	if (entity.shouldRender())
+    	{
+    		manager.getTexture(texture).drawWithLight(x, y - 4, 1, 48 / 12f, new Color[]{light, light, light, light});
+    	}
     }
 }

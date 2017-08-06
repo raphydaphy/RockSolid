@@ -73,6 +73,7 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 			Tile thisTile = world.getState(x, y).getTile();
 			this.entity = new EntityRocket(world, thisTile.getName(), x, y);
             world.addEntity(this.entity);
+            entity.takeoff();
             thisTile.doBreak(world, x, y, TileLayer.MAIN, null, false, false);
             this.shouldSync = true;
 		}
