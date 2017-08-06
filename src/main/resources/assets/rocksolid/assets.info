@@ -112,6 +112,17 @@ tex.tiles.fluidPump.WATER.1.1=sub./fluids/water/pump.png,12,0,12,12
 tex.tiles.tank.WATER.0.0=sub./fluids/water/tank.png,0,12,12,12
 tex.tiles.tank.WATER.0.1=sub./fluids/water/tank.png,0,0,12,12
 
+## Refined Fuel
+## Water
+tex.tiles.fluid.FUEL=/fluids/fuel/still.png
+tex.items.bucket.FUEL=/fluids/fuel/bucket.png
+
+tex.tiles.fluidPump.FUEL.0.1=sub./fluids/fuel/pump.png,0,0,12,12
+tex.tiles.fluidPump.FUEL.1.1=sub./fluids/fuel/pump.png,12,0,12,12
+
+tex.tiles.tank.FUEL.0.0=sub./fluids/fuel/tank.png,0,12,12,12
+tex.tiles.tank.FUEL.0.1=sub./fluids/fuel/tank.png,0,0,12,12
+
 ## Lava
 tex.tiles.fluid.LAVA=/fluids/lava/still.png
 tex.items.bucket.LAVA=/fluids/lava/bucket.png

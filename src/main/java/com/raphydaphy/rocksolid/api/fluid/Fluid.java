@@ -11,6 +11,7 @@ public enum Fluid {
 	WATER("Water", 0.015f, 1, Color.blue),
 	LAVA("Lava", 0.012f, 2, Color.orange),
 	OIL("Oil", 0.010f, 3, Color.black),
+	FUEL("Refined Fuel", 0.008f, 4, Color.yellow),
 	EMPTY("Fluid", 0f, 0, Color.lightGray);
 	
 	private String name;

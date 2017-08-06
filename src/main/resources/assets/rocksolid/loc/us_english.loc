@@ -56,6 +56,7 @@ rocksolid/item.bucket=Empty Bucket
 rocksolid/item.bucket.WATER=Water Bucket
 rocksolid/item.bucket.LAVA=Lava Bucket
 rocksolid/item.bucket.OIL=Oil Bucket
+rocksolid/item.bucket.FUEL=Refined Fuel Bucket
 rocksolid/item.fluidWater=Water
 rocksolid/item.fluidLava=Lava
 
