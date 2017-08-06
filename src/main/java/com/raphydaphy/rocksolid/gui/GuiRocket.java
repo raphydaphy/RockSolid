@@ -11,6 +11,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
+import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
@@ -31,6 +32,23 @@ public class GuiRocket extends GuiContainer
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullnesss));
+		if (this.tile.displayLaunchBtn())
+		{
+			this.components.add(new ComponentButton(this, 0, this.guiLeft + 75, this.guiTop + 30, 50, 18, "Launch"));
+		}
+	}
+	
+	@Override
+	public boolean onButtonActivated(IGameInstance game, int button)
+	{
+		if (button == 0)
+		{
+			if (tile.displayLaunchBtn())
+			{
+				tile.launch();
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -47,6 +65,11 @@ public class GuiRocket extends GuiContainer
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing "
 					+ this.tile.getCurrentFluid() + "mL of " + Fluid.getByName(this.tile.getFluidType()).getName());
+		}
+		
+		if (this.tile.getCurrentFluid() == 1)
+		{
+			game.getGuiManager().closeGui();
 		}
 	}
 

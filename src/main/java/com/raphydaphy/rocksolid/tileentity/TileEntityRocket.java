@@ -16,7 +16,7 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 {
 
-	protected int fluidStored;
+	protected int fluidStored = 0;
 	protected int maxFluid = 10000;
 	protected String fluidType = Fluid.EMPTY.getName();
 	
@@ -56,6 +56,28 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 		shouldSync = false;
 	}
 	
+	public boolean displayLaunchBtn()
+	{
+		if (this.isMoving == false)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public void launch()
+	{
+		if (displayLaunchBtn() && this.fluidStored > 0 && this.fluidType.equals(Fluid.FUEL.getName()))
+		{
+			this.isMoving = true;
+			Tile thisTile = world.getState(x, y).getTile();
+			this.entity = new EntityRocket(world, thisTile.getName(), x, y);
+            world.addEntity(this.entity);
+            thisTile.doBreak(world, x, y, TileLayer.MAIN, null, false, false);
+            this.shouldSync = true;
+		}
+	}
+	
 	@Override
 	public void update(IGameInstance game)
 	{
@@ -65,12 +87,7 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 		{
 			if (this.isMoving)
 			{
-				if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
-				{
-					this.fluidStored -= 1;
-					this.shouldSync = true;
-				}
-				if (this.fluidStored < 1)
+				if (this.fluidStored <= 0)
 				{
 					int newX = (int) Math.floor(entity.x);
 		            int newY = (int) Math.round(entity.y);
@@ -79,16 +96,11 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 		            world.removeTileEntity(newX, newY);
 		            world.addTileEntity(new TileEntityRocket(newX, newY, this));
 		            this.shouldSync = true;
+				} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
+				{
+					this.fluidStored -= 1;
+					this.shouldSync = true;
 				}
-			}
-			else if (this.fluidStored >= 200 && this.fluidType.equals(Fluid.FUEL.getName()))
-			{
-				this.isMoving = true;
-				Tile thisTile = world.getState(x, y).getTile();
-				this.entity = new EntityRocket(world, thisTile.getName(), x, y);
-	            world.addEntity(this.entity);
-	            thisTile.doBreak(world, x, y, TileLayer.MAIN, null, false, false);
-	            this.shouldSync = true;
 			}
 		}
 	}
