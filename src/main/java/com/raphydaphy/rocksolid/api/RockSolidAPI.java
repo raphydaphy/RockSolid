@@ -13,6 +13,7 @@ import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
+import com.raphydaphy.rocksolid.api.recipe.RefineryRecipe;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 
@@ -32,7 +33,8 @@ public class RockSolidAPI
 	public static final List<CompressorRecipe> COMPRESSOR_RECIPES = new ArrayList<>();
 
 	public static final List<PurifierRecipe> PURIFIER_RECIPES = new ArrayList<>();
-
+	public static final List<RefineryRecipe> REFINERY_RECIPES = new ArrayList<>();
+	
 	public static final List<ElectrolyzerRecipe> ELECTROLYZER_RECIPE = new ArrayList<>();
 
 	public static Map<Integer, ConduitSide> CONDUIT_SIDES = new HashMap<Integer, ConduitSide>();
@@ -60,6 +62,18 @@ public class RockSolidAPI
 			boolean fluidMatches = fluid.equals(recipe.getFluid())
 					|| (recipe.getFluid().equals(Fluid.EMPTY.getName()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches && recipe.getInput().containsItem(item))
+			{
+				return recipe;
+			}
+		}
+		return null;
+	}
+	
+	public static RefineryRecipe getRefineryRecipe(Fluid input, int inputVolume)
+	{
+		for (RefineryRecipe recipe : REFINERY_RECIPES)
+		{
+			if (inputVolume >= recipe.getInputVolume() && input == recipe.getInput())
 			{
 				return recipe;
 			}

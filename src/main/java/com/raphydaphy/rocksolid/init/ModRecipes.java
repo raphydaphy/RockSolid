@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
+import com.raphydaphy.rocksolid.api.recipe.RefineryRecipe;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -123,6 +124,9 @@ public class ModRecipes
 		RockSolidAPI.PURIFIER_RECIPES.add(new PurifierRecipe(new ItemInstance(RockSolidContent.itemClay),
 				new ResUseInfo(BaseResources.RAW_CLAY), Fluid.WATER.getName(), 100, 850));
 
+		// Refinery Recipes
+		RockSolidAPI.REFINERY_RECIPES.add(new RefineryRecipe(Fluid.OIL, Fluid.FUEL, 50, 25, 300));
+		
 		// Electrolyzer Recipes
 		RockSolidAPI.ELECTROLYZER_RECIPE.add(new ElectrolyzerRecipe(RockSolidContent.gasHydrogen.toString(),
 				RockSolidContent.gasOxygen.toString(), Fluid.WATER.getName(), 150, 100, 50, 800));

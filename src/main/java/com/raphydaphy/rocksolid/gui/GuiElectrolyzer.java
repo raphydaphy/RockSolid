@@ -85,7 +85,7 @@ public class GuiElectrolyzer extends GuiContainer
 					new String[] {
 							"Storing " + this.tile.getGasTanksStorage()[0] + "cc of "
 									+ RockSolidAPILib.getGasLocName(this.tile.getGasTanksType()[0]),
-							"Produces up to 100mL per operation" });
+							"Produces up to 100cc per operation" });
 		}
 
 		boolean mouseOverGasBar2X = (game.getMouseInGuiX() >= this.guiLeft + 145)
@@ -99,7 +99,7 @@ public class GuiElectrolyzer extends GuiContainer
 					new String[] {
 							"Storing " + this.tile.getGasTanksStorage()[1] + "cc of "
 									+ RockSolidAPILib.getGasLocName(this.tile.getGasTanksType()[1]),
-							"Produces up to 100mL per operation" });
+							"Produces up to 100cc per operation" });
 		}
 	}
 

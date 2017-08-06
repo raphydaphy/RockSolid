@@ -40,6 +40,7 @@ public class RockSolidContent
 	public static final Tile nuclearReactor = getTile("nuclearReactor");
 	public static final Tile battery = getTile("battery");
 
+	public static final Tile refinery = getTile("refinery");
 	public static final Tile electricPurifier = getTile("electricPurifier");
 	public static final Tile electricBlastFurnace = getTile("electricBlastFurnace");
 	public static final Tile electricAlloySmelter = getTile("electricAlloySmelter");
