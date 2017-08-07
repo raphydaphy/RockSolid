@@ -27,7 +27,6 @@ public class EntityRocket extends Entity
 	private int fuel;
 	private boolean shouldRender = true;
 	private int counter = 0;
-	// 0 = not taken off, 1 = flying up, 2 = collecting resources, 3 = landing
 	private RocketStage flightPart;
 
 	public enum RocketStage
@@ -105,11 +104,7 @@ public class EntityRocket extends Entity
 	@Override
 	public void update(IGameInstance game)
 	{
-		FakePlayer player = FakePlayer.getInstance(world);
-		player.x = this.x;
-		player.y = this.y;
-		player.fallAmount = this.fallAmount;
-		player.motionY = this.motionY;
+		world.getChunkFromGridCoords(this.chunkX, this.chunkY);
 		super.update(game);
 		if (fuel > 0)
 		{
