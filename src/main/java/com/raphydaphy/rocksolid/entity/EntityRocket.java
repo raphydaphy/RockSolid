@@ -4,9 +4,11 @@ import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiEntityRocket;
+import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.render.RocketRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -15,6 +17,7 @@ import de.ellpeck.rockbottom.api.entity.EntityItem;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.entity.IEntityRenderer;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
@@ -28,7 +31,11 @@ public class EntityRocket extends Entity
 	private boolean shouldRender = true;
 	private int counter = 0;
 	private RocketStage flightPart;
-
+	private ContainerInventory inv;
+	
+	
+	private static Tile[] ores = new Tile[] {RockSolidContent.oreIron, RockSolidContent.oreMagnesium, RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium, RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE, GameContent.TILE_COAL_ORE};
+	                                     
 	public enum RocketStage
 	{
 		LANDED(0), FLYING(1), COLLECTING(2), LANDING(3);
@@ -56,9 +63,11 @@ public class EntityRocket extends Entity
 			return RocketStage.LANDED;
 		}
 	}
-	public EntityRocket(IWorld world, IResourceName name, int x, int y, int fuel)
+	
+	public EntityRocket(IWorld world, IResourceName name, int x, int y, int fuel, ContainerInventory oldInv)
 	{
-		super(world);
+		this(world);
+		this.inv = oldInv;
 		this.fuel = fuel;
 		this.setPos(x, y);
 		if (flightPart == null)
@@ -87,6 +96,7 @@ public class EntityRocket extends Entity
 	public void save(DataSet set)
 	{
 		super.save(set);
+		this.inv.save(set);
 		set.addBoolean("shouldRender", this.shouldRender);
 		set.addInt("counter", this.counter);
 		set.addInt("flightPart", this.flightPart.getID());
@@ -96,6 +106,7 @@ public class EntityRocket extends Entity
 	public void load(DataSet set)
 	{
 		super.load(set);
+		this.inv.load(set);
 		shouldRender = set.getBoolean("shouldRender");
 		counter = set.getInt("counter");
 		flightPart = RocketStage.getFromID(set.getInt("flightPart"));
@@ -111,7 +122,7 @@ public class EntityRocket extends Entity
 			if (this.flightPart == RocketStage.FLYING)
 			{
 				System.out.println("FLYING");
-				if (this.y < 200)
+				if (this.y < 100)
 				{
 					this.motionY = 0.2;
 					this.fallAmount = 0;
@@ -139,11 +150,14 @@ public class EntityRocket extends Entity
 					this.flightPart = RocketStage.COLLECTING;
 					this.shouldRender = false;
 					this.counter = 300;
-					System.out.println("Rocket entered space.");
+					
+					for (int slot = 0; slot < this.inv.getSlotAmount(); slot++)
+					{
+						this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)], Util.RANDOM.nextInt(100)));
+					}
 				}
 			} else if (this.flightPart == RocketStage.COLLECTING)
 			{
-				System.out.println("COLLECTING");
 				this.motionY = 0;
 				if (this.counter > 0)
 				{
@@ -152,6 +166,8 @@ public class EntityRocket extends Entity
 						System.out.println("Rocket collecting resources" + counter);
 					}
 					this.counter--;
+					
+					
 				} else
 				{
 					this.flightPart = RocketStage.LANDING;
@@ -202,6 +218,11 @@ public class EntityRocket extends Entity
 	public int getFuel()
 	{
 		return this.fuel;
+	}
+	
+	public ContainerInventory getInv()
+	{
+		return this.inv;
 	}
 
 	public float getTankFullness()

@@ -30,11 +30,11 @@ public class GuiRocket extends GuiContainer
 	public void initGui(final IGameInstance game)
 	{
 		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
+		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop, 80, 10,
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullnesss));
 		if (this.tile.displayLaunchBtn())
 		{
-			this.components.add(new ComponentButton(this, 0, this.guiLeft + 75, this.guiTop + 30, 50, 18, "Launch"));
+			this.components.add(new ComponentButton(this, 0, this.guiLeft + 75, this.guiTop + 15, 50, 18, "Launch"));
 		}
 	}
 	
@@ -58,8 +58,8 @@ public class GuiRocket extends GuiContainer
 
 		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
 				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop + 10)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 10 + 10));
+		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop)
+				&& (game.getMouseInGuiY() <= (this.guiTop + 10));
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{

@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiRocket;
+import com.raphydaphy.rocksolid.gui.container.ContainerRocket;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -96,7 +96,7 @@ public class TileRocket extends MultiTile
 			if (tile instanceof TileEntityRocket)
 			{
 				player.openGuiContainer(new GuiRocket(player, (TileEntityRocket) tile),
-						new ContainerEmpty(player));
+						new ContainerRocket(player,(TileEntityRocket)tile));
 				return true;
 			}
 		}
