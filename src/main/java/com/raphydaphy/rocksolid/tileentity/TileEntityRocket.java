@@ -1,11 +1,9 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
 
-import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -16,9 +14,9 @@ import de.ellpeck.rockbottom.api.world.TileLayer;
 public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 {
 
-	protected int fluidStored = 0;
+	protected int fluidStored;
 	protected int maxFluid = 10000;
-	protected String fluidType = Fluid.EMPTY.getName();
+	protected String fluidType;
 	
 	protected boolean shouldSync;
 	protected boolean isMoving;
@@ -27,6 +25,10 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 	public TileEntityRocket(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
+		if (fluidType == null)
+		{
+			fluidType = Fluid.EMPTY.getName();
+		}
 	}
 	
 	private TileEntityRocket(int x, int y, TileEntityRocket old) 
@@ -71,38 +73,10 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 		{
 			this.isMoving = true;
 			Tile thisTile = world.getState(x, y).getTile();
-			this.entity = new EntityRocket(world, thisTile.getName(), x, y);
+			this.entity = new EntityRocket(world, thisTile.getName(), x, y, this.fluidStored);
             world.addEntity(this.entity);
-            entity.takeoff();
             thisTile.doBreak(world, x, y, TileLayer.MAIN, null, false, false);
             this.shouldSync = true;
-		}
-	}
-	
-	@Override
-	public void update(IGameInstance game)
-	{
-		super.update(game);
-		
-		if (!world.isClient())
-		{
-			if (this.isMoving)
-			{
-				if (this.fluidStored <= 0)
-				{
-					int newX = (int) Math.floor(entity.x);
-		            int newY = (int) Math.round(entity.y);
-		            RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-		            entity.kill();
-		            world.removeTileEntity(newX, newY);
-		            world.addTileEntity(new TileEntityRocket(newX, newY, this));
-		            this.shouldSync = true;
-				} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
-				{
-					this.fluidStored -= 1;
-					this.shouldSync = true;
-				}
-			}
 		}
 	}
 	

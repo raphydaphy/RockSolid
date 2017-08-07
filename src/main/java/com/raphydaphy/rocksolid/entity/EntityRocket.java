@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.entity;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
-import com.raphydaphy.rocksolid.gui.GuiRocket;
+import com.raphydaphy.rocksolid.gui.GuiEntityRocket;
 import com.raphydaphy.rocksolid.render.RocketRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 
@@ -19,24 +19,53 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.TileLayer;
 
 public class EntityRocket extends Entity
 {
 	private static BoundBox bb = new BoundBox(0, 0, 1, 4);
-	private TileEntityRocket rocketTile;
+	private int fuel;
 	private boolean shouldRender = true;
 	private int counter = 0;
 	// 0 = not taken off, 1 = flying up, 2 = collecting resources, 3 = landing
-	private int flightPart = 0;
+	private RocketStage flightPart;
 
-	public EntityRocket(IWorld world, IResourceName name, int x, int y)
+	public enum RocketStage
+	{
+		LANDED(0), FLYING(1), COLLECTING(2), LANDING(3);
+		
+		private int id;
+		RocketStage(int id)
+		{
+			this.id = id;
+		}
+		
+		public int getID()
+		{
+			return this.id;
+		}
+		
+		public static RocketStage getFromID(int id)
+		{
+			for (RocketStage stage : RocketStage.values())
+			{
+				if (stage.getID() == id)
+				{
+					return stage;
+				}
+			}
+			return RocketStage.LANDED;
+		}
+	}
+	public EntityRocket(IWorld world, IResourceName name, int x, int y, int fuel)
 	{
 		super(world);
-		if (rocketTile == null)
-		{
-			rocketTile = (TileEntityRocket) RockSolidAPILib.getTileFromPos(x, y, world);
-		}
+		this.fuel = fuel;
 		this.setPos(x, y);
+		if (flightPart == null)
+		{
+			this.flightPart = RocketStage.FLYING;
+		}
 	}
 
 	public EntityRocket(IWorld world)
@@ -59,41 +88,31 @@ public class EntityRocket extends Entity
 	public void save(DataSet set)
 	{
 		super.save(set);
-		DataSet te = new DataSet();
-		rocketTile.save(set, false);
-		set.addDataSet("te", te);
 		set.addBoolean("shouldRender", this.shouldRender);
 		set.addInt("counter", this.counter);
-		set.addInt("flightPart", this.flightPart);
+		set.addInt("flightPart", this.flightPart.getID());
 	}
 
 	@Override
 	public void load(DataSet set)
 	{
 		super.load(set);
-		rocketTile = new TileEntityRocket(world, (int) x, (int) y, this);
-		rocketTile.load(set.getDataSet("te"), false);
 		shouldRender = set.getBoolean("shouldRender");
 		counter = set.getInt("counter");
-		flightPart = set.getInt("flightPart");
-	}
-
-	public void takeoff()
-	{
-		this.flightPart = 1;
+		flightPart = RocketStage.getFromID(set.getInt("flightPart"));
 	}
 
 	@Override
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		if (rocketTile.getCurrentFluid() > 0)
+		if (fuel > 0)
 		{
-			if (this.flightPart == 1)
+			if (this.flightPart == RocketStage.FLYING)
 			{
 				if (this.y < 200)
 				{
-					this.motionY = 0.1;
+					this.motionY = 0.2;
 					this.fallAmount = 0;
 					for (int i = 0; i < 10; i++)
 					{
@@ -102,16 +121,26 @@ public class EntityRocket extends Entity
 								this.y + 0.3, 0, -0.4, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 					}
 
-					rocketTile.update(game);
+					if (this.fuel <= 0)
+					{
+						int newX = (int) Math.floor(this.x);
+						int newY = (int) Math.round(this.y);
+						RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
+						world.removeTileEntity(newX, newY);
+						world.addTileEntity(new TileEntityRocket(world, newX, newY));
+						this.kill();
+					} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
+					{
+						this.fuel -= 1;
+					}
 				} else
 				{
-					this.flightPart = 2;
+					this.flightPart = RocketStage.COLLECTING;
 					this.shouldRender = false;
-					this.counter = 1000;
+					this.counter = 100;
 					System.out.println("Rocket entered space.");
 				}
-			}
-			else if (this.flightPart == 2)
+			} else if (this.flightPart == RocketStage.COLLECTING)
 			{
 				if (this.counter > 0)
 				{
@@ -119,26 +148,35 @@ public class EntityRocket extends Entity
 					{
 						System.out.println("Rocket collecting resources" + counter);
 					}
-					this.counter --;
-				}
-				else
+					this.counter--;
+				} else
 				{
-					this.flightPart = 3;
+					this.flightPart = RocketStage.LANDING;
 					this.shouldRender = true;
 				}
-			}
-			else if (this.flightPart == 3)
+			} else if (this.flightPart == RocketStage.LANDING)
 			{
-				this.motionY = -0.25;
+				this.motionY = -0.35;
 				this.fallAmount = 0;
 				for (int i = 0; i < 10; i++)
 				{
-					RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
-							RockBottomAPI.getGame().getWorld(), this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6),
-							this.y + 0.3, 0, -0.4, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+					RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(),
+							this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, -0.4,
+							RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 				}
 
-				rocketTile.update(game);
+				if (this.fuel <= 0)
+				{
+					int newX = (int) Math.floor(this.x);
+					int newY = (int) Math.round(this.y);
+					RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
+					world.removeTileEntity(newX, newY);
+					world.addTileEntity(new TileEntityRocket(world, newX, newY));
+					this.kill();
+				} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
+				{
+					this.fuel -= 1;
+				}
 			}
 		} else
 		{
@@ -153,22 +191,25 @@ public class EntityRocket extends Entity
 
 	}
 
+	public int getFuel()
+	{
+		return this.fuel;
+	}
+
+	public float getTankFullness()
+	{
+		if (fuel == 0)
+		{
+			return 0;
+		}
+		return (float) this.fuel / (float) 10000;
+	}
+
 	@Override
 	public boolean onInteractWith(AbstractEntityPlayer player, double mouseX, double mouseY)
 	{
-		if (rocketTile != null)
-		{
-			if (rocketTile.getFluidType() == null)
-			{
-				rocketTile = new TileEntityRocket(world, (int) x, (int) y, this);
-			}
-			player.openGuiContainer(new GuiRocket(player, rocketTile), new ContainerEmpty(player));
-			return true;
-		} else
-		{
-			System.out.println("o boi the rocket has crashed plz send help");
-			return false;
-		}
+		player.openGuiContainer(new GuiEntityRocket(player, this), new ContainerEmpty(player));
+		return true;
 	}
 
 	@Override
