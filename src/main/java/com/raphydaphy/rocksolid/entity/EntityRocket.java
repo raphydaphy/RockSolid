@@ -105,11 +105,17 @@ public class EntityRocket extends Entity
 	@Override
 	public void update(IGameInstance game)
 	{
+		FakePlayer player = FakePlayer.getInstance(world);
+		player.x = this.x;
+		player.y = this.y;
+		player.fallAmount = this.fallAmount;
+		player.motionY = this.motionY;
 		super.update(game);
 		if (fuel > 0)
 		{
 			if (this.flightPart == RocketStage.FLYING)
 			{
+				System.out.println("FLYING");
 				if (this.y < 200)
 				{
 					this.motionY = 0.2;
@@ -137,11 +143,13 @@ public class EntityRocket extends Entity
 				{
 					this.flightPart = RocketStage.COLLECTING;
 					this.shouldRender = false;
-					this.counter = 100;
+					this.counter = 300;
 					System.out.println("Rocket entered space.");
 				}
 			} else if (this.flightPart == RocketStage.COLLECTING)
 			{
+				System.out.println("COLLECTING");
+				this.motionY = 0;
 				if (this.counter > 0)
 				{
 					if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
@@ -156,23 +164,28 @@ public class EntityRocket extends Entity
 				}
 			} else if (this.flightPart == RocketStage.LANDING)
 			{
-				this.motionY = -0.35;
+				System.out.println("LANDING");
+				this.shouldRender = true;
+				this.motionY = -0.01;
 				this.fallAmount = 0;
 				for (int i = 0; i < 10; i++)
 				{
 					RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(),
-							this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, -0.4,
+							this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, 0.4,
 							RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 				}
 
-				if (this.fuel <= 0)
+				int newX = (int) Math.floor(this.x);
+				int newY = (int) Math.round(this.y);
+				if (this.fuel == 0)
 				{
-					int newX = (int) Math.floor(this.x);
-					int newY = (int) Math.round(this.y);
-					RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-					world.removeTileEntity(newX, newY);
-					world.addTileEntity(new TileEntityRocket(world, newX, newY));
-					this.kill();
+					if (RockSolidContent.rocket.canPlace(world, newX, newY, TileLayer.MAIN))
+					{
+						RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
+						world.removeTileEntity(newX, newY);
+						world.addTileEntity(new TileEntityRocket(world, newX, newY, this));
+						this.kill();
+					}
 				} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
 				{
 					this.fuel -= 1;

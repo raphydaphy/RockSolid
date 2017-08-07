@@ -5,9 +5,9 @@ import java.util.List;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
-import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiRefinery;
+import com.raphydaphy.rocksolid.render.RefineryRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRefinery;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -38,9 +38,9 @@ public class TileRefinery extends MultiTile
 	}
 
 	@Override
-	protected ITileRenderer<MultiTile> createRenderer(final IResourceName name)
+	protected ITileRenderer<TileRefinery> createRenderer(final IResourceName name)
 	{
-		return new PoweredMultiTileRenderer(name, this);
+		return new RefineryRenderer(name, this);
 	}
 
 	@Override

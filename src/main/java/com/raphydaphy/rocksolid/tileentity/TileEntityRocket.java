@@ -41,6 +41,11 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor
 	public TileEntityRocket(final IWorld world, int x, int y, EntityRocket entity)
 	{
 		super(world, x, y);
+		this.fluidStored = entity.getFuel();
+		if (fluidStored > 0)
+		{
+			this.fluidType = Fluid.FUEL.getName();
+		}
 		this.entity = entity;
 		this.shouldSync = true;
 	}
