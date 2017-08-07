@@ -172,13 +172,16 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
-				if (this.fluidType == null || !this.fluidType.equals(type))
+				if (!world.isClient())
 				{
-					this.fluidType = type;
-					RockBottomAPI.getGame().getWorld().causeLightUpdate(x, y);
+					if (this.fluidType == null || !this.fluidType.equals(type))
+					{
+						this.fluidType = type;
+						RockBottomAPI.getGame().getWorld().causeLightUpdate(x, y);
+					}
+					this.fluidStored += amount;
+					this.shouldSync = true;
 				}
-				this.fluidStored += amount;
-				this.shouldSync = true;
 				return true;
 			}
 		}
@@ -190,8 +193,11 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 	{
 		if (this.fluidType == Fluid.EMPTY.getName() || this.fluidStored == 0)
 		{
-			this.fluidType = type;
-			this.shouldSync = true;
+			if (!world.isClient())
+			{
+				this.fluidType = type;
+				this.shouldSync = true;
+			}
 			return true;
 		}
 		return false;
@@ -206,13 +212,13 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 	@Override
 	public List<Integer> getInputSlots(ItemInstance instance, Direction dir)
 	{
-		return Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19);
+		return Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 	}
 
 	@Override
 	public List<Integer> getOutputSlots(Direction dir)
 	{
-		return Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19);
+		return Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 	}
 
 }

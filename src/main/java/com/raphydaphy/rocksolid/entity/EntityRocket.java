@@ -33,25 +33,28 @@ public class EntityRocket extends Entity
 	private int counter = 0;
 	private RocketStage flightPart;
 	private Inventory inv;
-	
-	
-	private static Tile[] ores = new Tile[] {RockSolidContent.oreIron, RockSolidContent.oreMagnesium, RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium, RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE, GameContent.TILE_COAL_ORE};
-	                                     
+
+	private static Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
+			RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium,
+			RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE,
+			GameContent.TILE_COAL_ORE };
+
 	public enum RocketStage
 	{
 		LANDED(0), FLYING(1), COLLECTING(2), LANDING(3);
-		
+
 		private int id;
+
 		RocketStage(int id)
 		{
 			this.id = id;
 		}
-		
+
 		public int getID()
 		{
 			return this.id;
 		}
-		
+
 		public static RocketStage getFromID(int id)
 		{
 			for (RocketStage stage : RocketStage.values())
@@ -64,7 +67,7 @@ public class EntityRocket extends Entity
 			return RocketStage.LANDED;
 		}
 	}
-	
+
 	public EntityRocket(IWorld world, IResourceName name, int x, int y, int fuel, ContainerInventory oldInv)
 	{
 		this(world);
@@ -102,6 +105,7 @@ public class EntityRocket extends Entity
 		set.addBoolean("shouldRender", this.shouldRender);
 		set.addInt("counter", this.counter);
 		set.addInt("flightPart", this.flightPart.getID());
+		set.addInt("fuel", this.fuel);
 	}
 
 	@Override
@@ -112,106 +116,123 @@ public class EntityRocket extends Entity
 		shouldRender = set.getBoolean("shouldRender");
 		counter = set.getInt("counter");
 		flightPart = RocketStage.getFromID(set.getInt("flightPart"));
+		fuel = set.getInt("fuel");
 	}
 
 	@Override
 	public void update(IGameInstance game)
 	{
-		world.getChunkFromGridCoords(this.chunkX, this.chunkY);
+
 		super.update(game);
 		if (fuel > 0)
 		{
-			if (this.flightPart == RocketStage.FLYING)
+			if (!world.isClient())
 			{
-				System.out.println("FLYING");
-				if (this.y < 100)
+				if (this.flightPart == RocketStage.FLYING)
 				{
-					this.motionY = 0.2;
+					if (this.y < 100)
+					{
+						this.motionY = 0.2;
+						this.fallAmount = 0;
+						world.setDirty((int) x, (int) y);
+
+						for (int i = 0; i < 10; i++)
+						{
+							RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
+									RockBottomAPI.getGame().getWorld(),
+									this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, -0.4,
+									RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+						}
+
+						if (this.fuel <= 0)
+						{
+							int newX = (int) Math.floor(this.x);
+							int newY = (int) Math.round(this.y);
+							RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
+							world.removeTileEntity(newX, newY);
+							world.addTileEntity(new TileEntityRocket(world, newX, newY));
+							this.kill();
+						} else
+						{
+							this.fuel -= 1;
+							world.setDirty((int) x, (int) y);
+						}
+					} else
+					{
+						this.flightPart = RocketStage.COLLECTING;
+						this.shouldRender = false;
+						this.counter = 800;
+
+						for (int slot = 0; slot < this.inv.getSlotAmount(); slot++)
+						{
+							if (this.inv.get(slot) == null)
+							{
+								this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
+										Util.RANDOM.nextInt(50) + 1));
+							}
+						}
+
+						world.setDirty((int) x, (int) y);
+					}
+				} else if (this.flightPart == RocketStage.COLLECTING)
+				{
+					this.motionY = 0;
+					if (this.counter > 0)
+					{
+						if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
+						{
+							System.out.println("Rocket collecting resources" + counter);
+						}
+						this.counter--;
+						world.setDirty((int) x, (int) y);
+
+					} else
+					{
+						this.flightPart = RocketStage.LANDING;
+						this.shouldRender = true;
+					}
+				} else if (this.flightPart == RocketStage.LANDING)
+				{
+					this.shouldRender = true;
+					this.motionY = -0.01;
 					this.fallAmount = 0;
+
+					world.setDirty((int) x, (int) y);
+
 					for (int i = 0; i < 10; i++)
 					{
 						RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 								RockBottomAPI.getGame().getWorld(), this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6),
-								this.y + 0.3, 0, -0.4, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+								this.y + 0.3, 0, 0.4, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 					}
 
-					if (this.fuel <= 0)
+					int newX = (int) Math.floor(this.x);
+					int newY = (int) Math.round(this.y);
+					if (this.onGround)
 					{
-						int newX = (int) Math.floor(this.x);
-						int newY = (int) Math.round(this.y);
-						RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-						world.removeTileEntity(newX, newY);
-						world.addTileEntity(new TileEntityRocket(world, newX, newY));
-						this.kill();
-					} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
+						if (RockSolidContent.rocket.canPlace(world, newX, newY, TileLayer.MAIN))
+						{
+							RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
+							world.removeTileEntity(newX, newY);
+							world.addTileEntity(new TileEntityRocket(world, newX, newY, this));
+							this.kill();
+						}
+					} else if (world.getWorldInfo().totalTimeInWorld % 3 == 0)
 					{
 						this.fuel -= 1;
-					}
-				} else
-				{
-					this.flightPart = RocketStage.COLLECTING;
-					this.shouldRender = false;
-					this.counter = 300;
-					
-					for (int slot = 0; slot < this.inv.getSlotAmount(); slot++)
-					{
-						this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)], Util.RANDOM.nextInt(100)));
-					}
-				}
-			} else if (this.flightPart == RocketStage.COLLECTING)
-			{
-				this.motionY = 0;
-				if (this.counter > 0)
-				{
-					if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
-					{
-						System.out.println("Rocket collecting resources" + counter);
-					}
-					this.counter--;
-					
-					
-				} else
-				{
-					this.flightPart = RocketStage.LANDING;
-					this.shouldRender = true;
-				}
-			} else if (this.flightPart == RocketStage.LANDING)
-			{
-				System.out.println("LANDING");
-				this.shouldRender = true;
-				this.motionY = -0.01;
-				this.fallAmount = 0;
-				for (int i = 0; i < 10; i++)
-				{
-					RockBottomAPI.getGame().getParticleManager().addSmokeParticle(RockBottomAPI.getGame().getWorld(),
-							this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, 0.4,
-							RockBottomAPI.getGame().getWorldScale() * 0.0005f);
-				}
 
-				int newX = (int) Math.floor(this.x);
-				int newY = (int) Math.round(this.y);
-				if (this.fuel == 0)
-				{
-					if (RockSolidContent.rocket.canPlace(world, newX, newY, TileLayer.MAIN))
-					{
-						RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-						world.removeTileEntity(newX, newY);
-						world.addTileEntity(new TileEntityRocket(world, newX, newY, this));
-						this.kill();
+						world.setDirty((int) x, (int) y);
 					}
-				} else if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
-				{
-					this.fuel -= 1;
 				}
-			}
-		} else
-		{
-			this.shouldRender = true;
-			if (this.onGround)
+			} else
 			{
-				EntityItem.spawn(this.world, new ItemInstance(RockSolidContent.rocket), this.x, this.y + 1,
-						Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
-				this.kill();
+				this.shouldRender = true;
+				if (this.onGround)
+				{
+					EntityItem.spawn(this.world, new ItemInstance(RockSolidContent.rocket), this.x, this.y + 1,
+							Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
+					this.kill();
+				}
 			}
 		}
 
@@ -221,7 +242,7 @@ public class EntityRocket extends Entity
 	{
 		return this.fuel;
 	}
-	
+
 	public Inventory getInv()
 	{
 		return this.inv;
