@@ -24,6 +24,7 @@ public class RockSolidContent
 	public static final Tile charger = getTile("charger");
 
 	public static final Tile rocketEngine = getTile("rocketEngine");
+	public static final Tile rocketFairing = getTile("rocketFairing");
 	public static final Tile rocket = getTile("rocket");
 	
 	public static final Tile rockLight = getTile("rockLight");

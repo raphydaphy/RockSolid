@@ -53,6 +53,7 @@ public class ModTiles
 	public static Tile charger;
 	
 	public static Tile rocketEngine;
+	public static Tile rocketFairing;
 	public static Tile rocket;
 	
 	public static Tile rockLight;
@@ -106,6 +107,7 @@ public class ModTiles
 		charger = new TileCharger();
 
 		rocketEngine = new TilePlaceAnywhere("rocketEngine", 15, 4);
+		rocketFairing = new TilePlaceAnywhere("rocketFairing", 20, 4);
 		rocket = new TileRocket();
 		
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_STONE, 1), 5, 1);

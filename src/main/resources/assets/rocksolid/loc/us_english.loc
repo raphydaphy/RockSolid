@@ -81,6 +81,7 @@ rocksolid/item.creativePowerSource=Creative Power Source
 rocksolid/item.charger=Charger
 
 rocksolid/item.rocketEngine=Rocket Engine
+rocksolid/item.rocketFairing=Rocket Fairing
 rocksolid/item.rocket=Rocket
 
 rocksolid/item.rockLight=Light Rock

@@ -16,6 +16,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.BasicRecipe;
 import de.ellpeck.rockbottom.api.construction.SeparatorRecipe;
 import de.ellpeck.rockbottom.api.construction.SmelterRecipe;
+import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResourceRegistry;
@@ -238,6 +239,17 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 2),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 12), new ResUseInfo(BaseResources.PROCESSED_STEEL, 18),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 280),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 150)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocketFairing),
+				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 1),
+				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 20), new ResUseInfo(BaseResources.PROCESSED_STEEL, 9),
+				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 130),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 280)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocket),
+				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8), new ResUseInfo(BaseResources.TANK, 2),
+				new ItemUseInfo(new ItemInstance(RockSolidContent.rocketEngine)),
+				new ItemUseInfo(new ItemInstance(RockSolidContent.rocketFairing)),
+				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 150),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 150)));
 
 		// Rocket Crafting

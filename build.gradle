@@ -1,6 +1,6 @@
 group 'com.raphydaphy.rocksolid'
 version '2.2'
-def apiVersion = "2.1.1"
+def apiVersion = "2.2"
 
 apply from: "https://github.com/RockBottomGame/Gradle/raw/master/buildscript.gradle"
 
@@ -17,7 +17,7 @@ processSources {
 
 repositories {
     mavenCentral()
-    maven {
+    maven {	
         url 'http://maven.raphydaphy.com'
     }
 }
