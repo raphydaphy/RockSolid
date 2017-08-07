@@ -15,6 +15,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.EntityItem;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.entity.IEntityRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -31,7 +32,7 @@ public class EntityRocket extends Entity
 	private boolean shouldRender = true;
 	private int counter = 0;
 	private RocketStage flightPart;
-	private ContainerInventory inv;
+	private Inventory inv;
 	
 	
 	private static Tile[] ores = new Tile[] {RockSolidContent.oreIron, RockSolidContent.oreMagnesium, RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium, RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE, GameContent.TILE_COAL_ORE};
@@ -79,6 +80,7 @@ public class EntityRocket extends Entity
 	public EntityRocket(IWorld world)
 	{
 		super(world);
+		this.inv = new Inventory(16);
 	}
 
 	@Override
@@ -220,7 +222,7 @@ public class EntityRocket extends Entity
 		return this.fuel;
 	}
 	
-	public ContainerInventory getInv()
+	public Inventory getInv()
 	{
 		return this.inv;
 	}

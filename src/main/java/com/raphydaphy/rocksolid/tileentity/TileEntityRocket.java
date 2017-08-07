@@ -55,7 +55,11 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 	public TileEntityRocket(final IWorld world, int x, int y, EntityRocket entity)
 	{
 		super(world, x, y);
-		this.inventory = entity.getInv();
+		this.inventory = new ContainerInventory(this, entity.getInv().getSlotAmount());
+		for (int slot = 0; slot < entity.getInv().getSlotAmount(); slot++)
+		{
+			this.inventory.set(slot, entity.getInv().get(slot));
+		}
 		this.fluidStored = entity.getFuel();
 		if (fluidStored > 0)
 		{
