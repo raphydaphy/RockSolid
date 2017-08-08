@@ -35,7 +35,7 @@ public class GuiRocket extends GuiContainer
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullnesss));
 		if (this.tile.displayLaunchBtn())
 		{
-			this.components.add(new ComponentButton(this, 0, this.guiLeft + 75, this.guiTop + 15, 50, 18, "Launch"));
+			this.components.add(new ComponentButton(this, 0, this.guiLeft + 108, this.guiTop + 18, 60, 18, "Launch"));
 		}
 	}
 	

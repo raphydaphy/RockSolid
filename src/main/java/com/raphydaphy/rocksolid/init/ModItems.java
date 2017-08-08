@@ -31,6 +31,9 @@ public class ModItems
 	public static Item gemCoke;
 
 	public static Item pelletUranium;
+	
+	public static Item drillCore;
+	public static Item sateliteCore;
 
 	public static Item clumpClay;
 	public static Item clay;
@@ -87,6 +90,9 @@ public class ModItems
 
 		pelletUranium = new ItemBase(RockSolidAPILib.makeInternalRes("pelletUranium")).register();
 
+		drillCore = new ItemBase(RockSolidAPILib.makeInternalRes("drillCore")).register();
+		sateliteCore = new ItemBase(RockSolidAPILib.makeInternalRes("sateliteCore")).register();
+		
 		clumpClay = new ItemBase(RockSolidAPILib.makeInternalRes("clumpClay")).register();
 		clay = new ItemBase(RockSolidAPILib.makeInternalRes("itemClay")).register();
 		porcelianClay = new ItemBase(RockSolidAPILib.makeInternalRes("porcelianClay")).register();

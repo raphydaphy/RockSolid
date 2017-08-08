@@ -85,7 +85,7 @@ public class EntityRocket extends Entity
 	public EntityRocket(IWorld world)
 	{
 		super(world);
-		this.inv = new Inventory(16);
+		this.inv = new Inventory(18);
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class EntityRocket extends Entity
 
 					this.fallAmount = 0;
 					world.setDirty((int) x, (int) y);
-					if (world.isClient())
+					if (!RockBottomAPI.getGame().isDedicatedServer())
 					{
 						for (int i = 0; i < 10; i++)
 						{
@@ -152,7 +152,7 @@ public class EntityRocket extends Entity
 					if (this.fuel <= 0)
 					{
 
-						if (!world.isClient())
+						if (!RockBottomAPI.getGame().isDedicatedServer())
 						{
 							int newX = (int) Math.floor(this.x);
 							int newY = (int) Math.round(this.y);
@@ -171,19 +171,34 @@ public class EntityRocket extends Entity
 					this.flightPart = RocketStage.COLLECTING;
 					this.shouldRender = false;
 					this.counter = 800;
+
+					String name = "A Rocket";
+					if (this.inv.get(16) != null)
+					{
+						if (this.inv.get(16).getItem().equals(RockSolidContent.drillCore))
+						{
+							name = "An Asteroid Miner";
+							for (int slot = 0; slot < this.inv.getSlotAmount() - 2; slot++)
+							{
+								if (this.inv.get(slot) == null)
+								{
+									this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
+											Util.RANDOM.nextInt(50) + 1));
+								}
+							}
+						} else if (this.inv.get(16).getItem().equals(RockSolidContent.sateliteCore))
+						{
+							name = "A Satelite";
+						}
+					} else
+					{
+						name = "An Unidentified Rocket";
+					}
+
 					if (!world.isClient())
 					{
 						RockBottomAPI.getGame().getChatLog().broadcastMessage(new ChatComponentText(
-								FormattingCode.YELLOW.toString() + "A Rocket has Entered Space!"));
-					}
-
-					for (int slot = 0; slot < this.inv.getSlotAmount(); slot++)
-					{
-						if (this.inv.get(slot) == null)
-						{
-							this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
-									Util.RANDOM.nextInt(50) + 1));
-						}
+								FormattingCode.YELLOW.toString() + name + " has left the Atmosphere!"));
 					}
 
 					world.setDirty((int) x, (int) y);
@@ -202,7 +217,7 @@ public class EntityRocket extends Entity
 				} else
 				{
 					this.flightPart = RocketStage.LANDING;
-					if (!world.isClient())
+					if (!RockBottomAPI.getNet().isClient())
 					{
 						RockBottomAPI.getGame().getChatLog().broadcastMessage(new ChatComponentText(
 								FormattingCode.GREEN.toString() + "A Rocket is coming back to Earth."));
@@ -219,7 +234,7 @@ public class EntityRocket extends Entity
 				this.fallAmount = 0;
 
 				world.setDirty((int) x, (int) y);
-				if (world.isClient())
+				if (!RockBottomAPI.getGame().isDedicatedServer())
 				{
 
 					for (int i = 0; i < 10; i++)

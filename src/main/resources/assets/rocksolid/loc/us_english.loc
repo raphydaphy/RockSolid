@@ -49,6 +49,8 @@ rocksolid/item.wrench=Wrench
 rocksolid/item.jetpack=Jetpack
 rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
+rocksolid/item.drillCore=Drill Core
+rocksolid/item.sateliteCore=Satelite Core
 
 # Gasses
 rocksolid/item.gasTank=Gas Tank
