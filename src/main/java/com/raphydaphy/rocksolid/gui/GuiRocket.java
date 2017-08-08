@@ -4,6 +4,7 @@ import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.network.PacketRocketLaunch;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -46,6 +47,7 @@ public class GuiRocket extends GuiContainer
 			if (tile.displayLaunchBtn())
 			{
 				tile.launch();
+				RockBottomAPI.getNet().sendToServer(new PacketRocketLaunch(tile.x, tile.y));
 			}
 		}
 		return false;

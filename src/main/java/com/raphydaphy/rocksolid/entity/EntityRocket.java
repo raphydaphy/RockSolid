@@ -11,12 +11,14 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.font.FormattingCode;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.EntityItem;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.net.chat.component.ChatComponentText;
 import de.ellpeck.rockbottom.api.render.entity.IEntityRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.util.BoundBox;
@@ -126,25 +128,31 @@ public class EntityRocket extends Entity
 		super.update(game);
 		if (fuel > 0)
 		{
-			if (!world.isClient())
+			if (this.flightPart == RocketStage.FLYING)
 			{
-				if (this.flightPart == RocketStage.FLYING)
+				System.out.println("FLYING");
+				if (this.y < 100)
 				{
-					if (this.y < 100)
-					{
-						this.motionY = 0.2;
-						this.fallAmount = 0;
-						world.setDirty((int) x, (int) y);
+					this.motionY = 0.2;
 
+					this.fallAmount = 0;
+					world.setDirty((int) x, (int) y);
+					if (world.isClient())
+					{
 						for (int i = 0; i < 10; i++)
 						{
 							RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 									RockBottomAPI.getGame().getWorld(),
 									this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, -0.4,
 									RockBottomAPI.getGame().getWorldScale() * 0.0005f);
-						}
 
-						if (this.fuel <= 0)
+						}
+					}
+
+					if (this.fuel <= 0)
+					{
+
+						if (!world.isClient())
 						{
 							int newX = (int) Math.floor(this.x);
 							int newY = (int) Math.round(this.y);
@@ -152,90 +160,111 @@ public class EntityRocket extends Entity
 							world.removeTileEntity(newX, newY);
 							world.addTileEntity(new TileEntityRocket(world, newX, newY));
 							this.kill();
-						} else
-						{
-							this.fuel -= 1;
-							world.setDirty((int) x, (int) y);
 						}
 					} else
 					{
-						this.flightPart = RocketStage.COLLECTING;
-						this.shouldRender = false;
-						this.counter = 800;
-
-						for (int slot = 0; slot < this.inv.getSlotAmount(); slot++)
-						{
-							if (this.inv.get(slot) == null)
-							{
-								this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
-										Util.RANDOM.nextInt(50) + 1));
-							}
-						}
-
+						this.fuel -= 1;
 						world.setDirty((int) x, (int) y);
 					}
-				} else if (this.flightPart == RocketStage.COLLECTING)
+				} else
 				{
-					this.motionY = 0;
-					if (this.counter > 0)
+					this.flightPart = RocketStage.COLLECTING;
+					this.shouldRender = false;
+					this.counter = 800;
+					if (!world.isClient())
 					{
-						if (world.getWorldInfo().totalTimeInWorld % 10 == 0)
-						{
-							System.out.println("Rocket collecting resources" + counter);
-						}
-						this.counter--;
-						world.setDirty((int) x, (int) y);
-
-					} else
-					{
-						this.flightPart = RocketStage.LANDING;
-						this.shouldRender = true;
+						RockBottomAPI.getGame().getChatLog().broadcastMessage(new ChatComponentText(
+								FormattingCode.YELLOW.toString() + "A Rocket has Entered Space!"));
 					}
-				} else if (this.flightPart == RocketStage.LANDING)
-				{
-					this.shouldRender = true;
-					this.motionY = -0.01;
-					this.fallAmount = 0;
+
+					for (int slot = 0; slot < this.inv.getSlotAmount(); slot++)
+					{
+						if (this.inv.get(slot) == null)
+						{
+							this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
+									Util.RANDOM.nextInt(50) + 1));
+						}
+					}
 
 					world.setDirty((int) x, (int) y);
+				}
+			} else if (this.flightPart == RocketStage.COLLECTING)
+			{
+				System.out.println("COLLECTING");
+				this.motionY = 0;
+
+				if (this.counter > 0)
+				{
+					this.counter--;
+
+					world.setDirty((int) x, (int) y);
+
+				} else
+				{
+					this.flightPart = RocketStage.LANDING;
+					if (!world.isClient())
+					{
+						RockBottomAPI.getGame().getChatLog().broadcastMessage(new ChatComponentText(
+								FormattingCode.GREEN.toString() + "A Rocket is coming back to Earth."));
+					}
+					this.shouldRender = true;
+					world.setDirty((int) x, (int) y);
+				}
+			} else if (this.flightPart == RocketStage.LANDING)
+			{
+				System.out.println("LANDING");
+				this.motionY = -0.01;
+				this.shouldRender = true;
+
+				this.fallAmount = 0;
+
+				world.setDirty((int) x, (int) y);
+				if (world.isClient())
+				{
 
 					for (int i = 0; i < 10; i++)
 					{
 						RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 								RockBottomAPI.getGame().getWorld(), this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6),
-								this.y + 0.3, 0, 0.4, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
-					}
-
-					int newX = (int) Math.floor(this.x);
-					int newY = (int) Math.round(this.y);
-					if (this.onGround)
-					{
-						if (RockSolidContent.rocket.canPlace(world, newX, newY, TileLayer.MAIN))
-						{
-							RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-							world.removeTileEntity(newX, newY);
-							world.addTileEntity(new TileEntityRocket(world, newX, newY, this));
-							this.kill();
-						}
-					} else if (world.getWorldInfo().totalTimeInWorld % 3 == 0)
-					{
-						this.fuel -= 1;
-
-						world.setDirty((int) x, (int) y);
+								this.y + 0.1, 0, 0.2, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
 					}
 				}
-			} else
-			{
-				this.shouldRender = true;
+
+				int newX = (int) Math.floor(this.x);
+				int newY = (int) Math.round(this.y);
 				if (this.onGround)
 				{
+					if (RockSolidContent.rocket.canPlace(world, newX, newY, TileLayer.MAIN))
+					{
+						RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
+						world.removeTileEntity(newX, newY);
+						world.addTileEntity(new TileEntityRocket(world, newX, newY, this));
+						this.kill();
+					}
+				} else if (world.getWorldInfo().totalTimeInWorld % 3 == 0)
+				{
+					this.fuel -= 1;
+
+					world.setDirty((int) x, (int) y);
+				}
+			}
+		} else
+		{
+			this.shouldRender = true;
+			if (!world.isClient())
+			{
+
+				if (this.onGround)
+				{
+					System.out.println("DIED OF NO FUEL :(");
 					EntityItem.spawn(this.world, new ItemInstance(RockSolidContent.rocket), this.x, this.y + 1,
 							Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
 					this.kill();
 				}
+
+				world.setDirty((int) x, (int) y);
 			}
 		}
-
 	}
 
 	public int getFuel()

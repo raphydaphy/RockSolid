@@ -15,13 +15,6 @@ processSources {
     replace("VERSION", version)
 }
 
-repositories {
-    mavenCentral()
-    maven {	
-        url 'http://maven.raphydaphy.com'
-    }
-}
-
 dependencies {
      compile group: 'de.ellpeck.rockbottom', name: 'RockBottomAPI', version: '+'
  }

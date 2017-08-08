@@ -135,7 +135,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		{
 			if (this.isMaster)
 			{
-				System.out.println("Network has " + networkLength + " inventories");
+				//System.out.println("Network has " + networkLength + " inventories");
 				for (int curNet = 0; curNet < networkLength; curNet++)
 				{
 					Pos2 centerPos = new Pos2(this.network[curNet][0], this.network[curNet][1]);

@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.network.PacketChargerItem;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.network.PacketItemUpdate;
 import com.raphydaphy.rocksolid.network.PacketMovement;
+import com.raphydaphy.rocksolid.network.PacketRocketLaunch;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 
@@ -16,6 +17,7 @@ public class ModPackets
 	public static int itemUpdatePacket = 0;
 	public static int blockDestroyedPacket = 0;
 	public static int conduitUpdatePacket = 0;
+	public static int rocketLaunchPacket = 0;
 
 	// To client
 	public static int chargerItemPacket = 0;
@@ -34,6 +36,9 @@ public class ModPackets
 		conduitUpdatePacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
 		RockBottomAPI.PACKET_REGISTRY.register(conduitUpdatePacket, PacketConduitUpdate.class);
 
+		rocketLaunchPacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
+		RockBottomAPI.PACKET_REGISTRY.register(rocketLaunchPacket, PacketRocketLaunch.class);
+		
 		chargerItemPacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
 		RockBottomAPI.PACKET_REGISTRY.register(chargerItemPacket, PacketChargerItem.class);
 	}
