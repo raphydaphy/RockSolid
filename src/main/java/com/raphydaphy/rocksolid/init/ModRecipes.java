@@ -229,12 +229,8 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 8),
 				new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 5),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20)));
-		// RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new
-		// ItemInstance(RockSolidContent.lantern),
-		// new ResUseInfo(BaseResources.RAW_SHINING, 8), new
-		// ResUseInfo(BaseResources.PROCESSED_TIN, 10),
-		// new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
-		// new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
+
+		// Rocket Crafting
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocketEngine),
 				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 2),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 12), new ResUseInfo(BaseResources.PROCESSED_STEEL, 18),
@@ -245,18 +241,33 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 20), new ResUseInfo(BaseResources.PROCESSED_STEEL, 9),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 130),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 280)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(
+				new ItemInstance(RockSolidContent.asteroidDataChip), new ResUseInfo(BaseResources.PROCESSED_NICKEL, 8),
+				new ResUseInfo(BaseResources.PROCESSED_STEEL, 4), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.drillCore),
+				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 1), new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8),
+				new ResUseInfo(BaseResources.PROCESSED_STEEL, 4), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 80)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.sateliteCore),
+				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8),
+				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 4), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 80)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocket),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8), new ResUseInfo(BaseResources.TANK, 2),
 				new ItemUseInfo(new ItemInstance(RockSolidContent.rocketEngine)),
 				new ItemUseInfo(new ItemInstance(RockSolidContent.rocketFairing)),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 150),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 150)));
 
-		// Rocket Crafting
+		// Lantern crafting
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.electricLantern),
 				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.PROCESSED_STEEL, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 40),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 25)));
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.lantern),
+				new ResUseInfo(BaseResources.RAW_SHINING, 8), new ResUseInfo(BaseResources.PROCESSED_TIN, 10),
+				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 10)));
 
 		// Electric manual crafting
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(

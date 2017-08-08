@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.item.ItemAsteroidDataChip;
 import com.raphydaphy.rocksolid.item.ItemAxe;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemBucket;
@@ -34,6 +35,7 @@ public class ModItems
 	
 	public static Item drillCore;
 	public static Item sateliteCore;
+	public static Item asteroidDataChip;
 
 	public static Item clumpClay;
 	public static Item clay;
@@ -92,6 +94,7 @@ public class ModItems
 
 		drillCore = new ItemBase(RockSolidAPILib.makeInternalRes("drillCore")).register();
 		sateliteCore = new ItemBase(RockSolidAPILib.makeInternalRes("sateliteCore")).register();
+		asteroidDataChip = new ItemAsteroidDataChip();
 		
 		clumpClay = new ItemBase(RockSolidAPILib.makeInternalRes("clumpClay")).register();
 		clay = new ItemBase(RockSolidAPILib.makeInternalRes("itemClay")).register();

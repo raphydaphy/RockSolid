@@ -61,6 +61,7 @@ tex.items.electricLantern=/items/misc/lanternElectric.png
 tex.items.lantern=/items/misc/lantern.png
 tex.items.drillCore=/items/misc/drill_core.png
 tex.items.sateliteCore=/items/misc/satelite_core.png
+tex.items.asteroidDataChip=/items/misc/asteroid_data_chip.png
 
 
 # Gasses

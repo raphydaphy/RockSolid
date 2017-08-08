@@ -81,6 +81,7 @@ public class RockSolidContent
 	
 	public static final Item drillCore = getItem("drillCore");
 	public static final Item sateliteCore = getItem("sateliteCore");
+	public static final Item asteroidDataChip = getItem("asteroidDataChip");
 
 	public static final Item clumpClay = getItem("clumpClay");
 	public static final Item itemClay = getItem("itemClay");

@@ -51,6 +51,7 @@ rocksolid/item.electricLantern=Electric Lantern
 rocksolid/item.lantern=Lantern
 rocksolid/item.drillCore=Drill Core
 rocksolid/item.sateliteCore=Satelite Core
+rocksolid/item.asteroidDataChip=Asteroid Data Chip
 
 # Gasses
 rocksolid/item.gasTank=Gas Tank

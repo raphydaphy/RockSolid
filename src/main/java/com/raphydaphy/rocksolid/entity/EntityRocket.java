@@ -36,7 +36,7 @@ public class EntityRocket extends Entity
 	private RocketStage flightPart;
 	private Inventory inv;
 
-	private static Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
+	private static final Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
 			RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium,
 			RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE,
 			GameContent.TILE_COAL_ORE };
@@ -178,17 +178,48 @@ public class EntityRocket extends Entity
 						if (this.inv.get(16).getItem().equals(RockSolidContent.drillCore))
 						{
 							name = "An Asteroid Miner";
-							for (int slot = 0; slot < this.inv.getSlotAmount() - 2; slot++)
+							if (this.inv.get(17) != null)
 							{
-								if (this.inv.get(slot) == null)
+								if (this.inv.get(17).getItem().equals(RockSolidContent.asteroidDataChip))
 								{
-									this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
-											Util.RANDOM.nextInt(50) + 1));
+									DataSet data = this.inv.get(17).getAdditionalData();
+									if (data != null && !data.isEmpty() && data.getInt("asteroidID") != 0)
+									{
+										this.inv.set(17, null);
+										for (int slot = 0; slot < this.inv.getSlotAmount() - 2; slot++)
+										{
+											if (this.inv.get(slot) == null)
+											{
+												this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
+														Util.RANDOM.nextInt(50) + 1));
+											}
+										}
+									}
 								}
 							}
+							
 						} else if (this.inv.get(16).getItem().equals(RockSolidContent.sateliteCore))
 						{
 							name = "A Satelite";
+							if (this.inv.get(17) != null)
+							{
+								if (this.inv.get(17).getItem().equals(RockSolidContent.asteroidDataChip))
+								{
+									DataSet data = this.inv.get(17).getAdditionalData();
+
+									if (data == null)
+									{
+										data = new DataSet();
+									}
+									// chip hasnt been identified yet
+									if (data.isEmpty() || data.getInt("asteroidID") == 0)
+									{
+										data.addInt("asteroidID", Util.RANDOM.nextInt(1000000) + 1);
+									}
+									
+									this.inv.get(17).setAdditionalData(data);
+								}
+							}
 						}
 					} else
 					{
