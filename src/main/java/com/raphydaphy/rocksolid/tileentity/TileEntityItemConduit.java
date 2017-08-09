@@ -9,9 +9,11 @@ import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
@@ -62,6 +64,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			shouldSync = true;
 		}
 	}
+	
+	public Inventory getInventory()
+	{
+		return this.inventory;
+	}
 
 	@Override
 	public void update(IGameInstance game)
@@ -93,7 +100,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 									inputInv.getInventory().get(inputInvSide.getID()),
 									inputConduit.getIsWhitelist(inputInvSide));
 							
-							int highestOutput = this.getHighestOutputPriority(wouldInput);
+							int highestOutput = this.getHighestOutputPriority(inputInv);
 
 							for (short outputNet = 0; outputNet < networkLength; outputNet++)
 							{
@@ -118,12 +125,15 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	
 											if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
 											{
-												if (RockSolidAPILib.canInsert(outputInv, wouldInput))
+												if (outputConduit.canAccept(wouldInput, outputInvSide))
 												{
-													ItemInstance extractedItem = RockSolidAPILib.extract(inputInv, 1,
-															inputInv.getInventory().get(inputInvSide.getID()),
-															inputConduit.getIsWhitelist(inputInvSide));
-													RockSolidAPILib.insert(outputInv, extractedItem);
+													if (RockSolidAPILib.canInsert(outputInv, wouldInput))
+													{
+														ItemInstance extractedItem = RockSolidAPILib.extract(inputInv, 1,
+																inputInv.getInventory().get(inputInvSide.getID()),
+																inputConduit.getIsWhitelist(inputInvSide));
+														RockSolidAPILib.insert(outputInv, extractedItem);
+													}
 												}
 											}
 										}
@@ -137,7 +147,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		}
 	}
 
-	public int getHighestOutputPriority(ItemInstance input)
+	public int getHighestOutputPriority(IInventoryHolder inputInv)
 	{
 		if (this.isMaster())
 		{
@@ -163,10 +173,18 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 						{
 							IInventoryHolder outputInv = (IInventoryHolder) outputInvUnchecked;
 							
-							if (RockSolidAPILib.canInsert(outputInv, input))
+							
+							for (int slot : inputInv.getOutputSlots(Direction.NONE))
 							{
-								highest = outputConduit.getPriority(outputInvSide);
+								if (outputConduit.canAccept(inputInv.getInventory().get(slot), outputInvSide))
+								{
+									if (RockSolidAPILib.canInsert(outputInv, inputInv.getInventory().get(slot)))
+									{
+										highest = outputConduit.getPriority(outputInvSide);
+									}
+								}
 							}
+							
 						}
 					}
 				}
@@ -180,10 +198,41 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 			if (masterConduit != null)
 			{
-				return masterConduit.getHighestOutputPriority(input);
+				return masterConduit.getHighestOutputPriority(inputInv);
 			}
 		}
 		return 1;
+	}
+	
+	public boolean canAccept(ItemInstance item, ConduitSide side)
+	{
+		ItemInstance filter = this.getInventory().get(side.getID());
+		boolean isWhitelist = this.getIsWhitelist(side);
+		
+		
+		if (item != null)
+		{
+			if (filter == null)
+			{
+				return true;
+			} else
+			{
+				if (isWhitelist)
+				{
+					if (filter.getItem().equals(item.getItem()))
+					{
+						return true;
+					}
+				} else
+				{
+					if (!filter.getItem().equals(item.getItem()))
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
