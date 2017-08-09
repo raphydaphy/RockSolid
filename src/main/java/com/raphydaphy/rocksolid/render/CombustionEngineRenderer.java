@@ -62,13 +62,14 @@ public class CombustionEngineRenderer extends MultiTileRenderer<TileCombustionEn
 					stage = 10;
 				}
 			}
-			tex = fluidTank.addSuffix("." + Fluid.getByName(tileEntity.getFluidType()).toString() + "." + innerCoord.getX() + "." + innerCoord.getY());
+			tex = fluidTank.addSuffix("." + Fluid.getByName(tileEntity.getFluidType()).toString() + "."
+					+ innerCoord.getX() + "." + innerCoord.getY());
 
 			float scaleY = (float) (scale / 12);
 
 			float startY = (scale) - (scaleY * stage);
 
-			if (innerCoord.getY() == 0)	
+			if (innerCoord.getY() == 0)
 			{
 				startY -= (2 * scaleY);
 			}

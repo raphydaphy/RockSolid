@@ -73,7 +73,7 @@ public class PacketConduitUpdate implements IPacket
 				((IConduit) tileAtPos).setSideMode(side, mode);
 				if (tileAtPos instanceof TileEntityItemConduit)
 				{
-					((TileEntityItemConduit) tileAtPos).setPriority(priority, side);
+					((TileEntityItemConduit) tileAtPos).setPriority(side, priority);
 					((TileEntityItemConduit) tileAtPos).setIsWhitelist(side, isWhitelist);
 				}
 				if (RockBottomAPI.getNet().isServer())

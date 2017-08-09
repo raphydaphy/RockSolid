@@ -66,7 +66,7 @@ public class GuiConduitConfig extends Gui
 				{
 					priority--;
 				}
-				((TileEntityItemConduit) tile).setPriority(priority, editingSide);
+				((TileEntityItemConduit) tile).setPriority(editingSide, priority);
 
 			}
 			if (tile instanceof TileEntityItemConduit)
@@ -104,7 +104,7 @@ public class GuiConduitConfig extends Gui
 	public void buildSingleGui(IGameInstance game, ConduitSide direction)
 	{
 		editingSide = direction;
-		itemMode = ((IConduit)tile).getSideMode(direction);
+		itemMode = ((IConduit) tile).getSideMode(direction);
 		this.components.clear();
 
 		this.components.add(new ComponentButton(this, 5, this.guiLeft + 21, this.guiTop + 50, 50, 18, "Back"));
@@ -119,8 +119,8 @@ public class GuiConduitConfig extends Gui
 			this.components.add(new ComponentButton(this, 8, this.guiLeft + 70, this.guiTop + 75, 50, 18, "Exit"));
 		}
 
-		this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18, itemMode.getName(),
-				itemMode.getDesc()));
+		this.components.add(new ComponentButton(this, 4, this.guiLeft + 117, this.guiTop + 50, 50, 18,
+				itemMode.getName(), itemMode.getDesc()));
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class GuiRocket extends GuiContainer
 			this.components.add(new ComponentButton(this, 0, this.guiLeft + 108, this.guiTop + 18, 60, 18, "Launch"));
 		}
 	}
-	
+
 	@Override
 	public boolean onButtonActivated(IGameInstance game, int button)
 	{
@@ -68,7 +68,7 @@ public class GuiRocket extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing "
 					+ this.tile.getCurrentFluid() + "mL of " + Fluid.getByName(this.tile.getFluidType()).getName());
 		}
-		
+
 		if (this.tile.getCurrentFluid() == 1)
 		{
 			game.getGuiManager().closeGui();

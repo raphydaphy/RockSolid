@@ -65,7 +65,8 @@ public class PlayerInvSlot extends ContainerSlot
 				{
 					data.addDataSet(slotName, new DataSet());
 					player.setAdditionalData(data);
-					System.out.println(RockBottomAPI.getGame().getWorld().isClient() + " <== are they the client after they removed the item from the slot?");
+					System.out.println(RockBottomAPI.getGame().getWorld().isClient()
+							+ " <== are they the client after they removed the item from the slot?");
 				}
 			}
 		}

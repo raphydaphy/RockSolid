@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
+import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -32,8 +33,15 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 	{
 
 		TileEntity conduit = RockSolidAPILib.getTileFromPos(x, y, world);
-		manager.getTexture(this.texture).drawWithLight(renderX, renderY, scale, scale, light);
-
+		if (conduit instanceof TileEntityItemConduit && ((TileEntityItemConduit)conduit).isMaster())
+		{
+			manager.getTexture(this.texture.addSuffix(".MASTER")).drawWithLight(renderX, renderY, scale, scale, light);
+		}
+		else
+		{
+			manager.getTexture(this.texture).drawWithLight(renderX, renderY, scale, scale, light);
+		}
+		
 		for (ConduitSide side : ConduitSide.values())
 		{
 			if (RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world) != null)
@@ -43,8 +51,8 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 						RockSolidAPILib.getTileFromPos(x + side.getOffset().getX(), y + side.getOffset().getY(), world))
 						&& ((IConduit) conduit).getSideMode(side) != ConduitMode.DISABLED)
 				{
-					manager.getTexture(this.texture.addSuffix("." + side.toString())).drawWithLight(renderX, renderY, scale, scale,
-							light);
+					manager.getTexture(this.texture.addSuffix("." + side.toString())).drawWithLight(renderX, renderY,
+							scale, scale, light);
 				}
 			}
 		}

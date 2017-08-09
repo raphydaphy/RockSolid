@@ -80,8 +80,7 @@ public class TileRefinery extends MultiTile
 		}
 
 		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-		TileEntityRefinery tile = world.getTileEntity(main.getX(), main.getY(),
-				TileEntityRefinery.class);
+		TileEntityRefinery tile = world.getTileEntity(main.getX(), main.getY(), TileEntityRefinery.class);
 
 		if (tile != null)
 		{

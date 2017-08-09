@@ -74,8 +74,7 @@ public class TileRockCrusher extends MultiTile
 			AbstractEntityPlayer player)
 	{
 		final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-		final TileEntityRockCrusher tile = world.getTileEntity(main.getX(), main.getY(),
-				TileEntityRockCrusher.class);
+		final TileEntityRockCrusher tile = world.getTileEntity(main.getX(), main.getY(), TileEntityRockCrusher.class);
 		if (tile != null)
 		{
 			player.openGuiContainer(new GuiBasicPowered(player, tile), new ContainerBasicIO(player, tile));

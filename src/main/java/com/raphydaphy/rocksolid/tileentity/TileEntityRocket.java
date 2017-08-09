@@ -25,11 +25,11 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 	protected int fluidStored;
 	protected int maxFluid = 10000;
 	protected String fluidType;
-	
+
 	protected boolean shouldSync;
 	protected boolean isMoving;
 	private EntityRocket entity = null;
-	
+
 	public final ContainerInventory inventory;
 
 	public TileEntityRocket(final IWorld world, final int x, final int y)
@@ -39,19 +39,18 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 		if (fluidType == null)
 		{
 			fluidType = Fluid.EMPTY.getName();
-			
-			
+
 		}
 	}
-	
-	private TileEntityRocket(int x, int y, TileEntityRocket old) 
+
+	private TileEntityRocket(int x, int y, TileEntityRocket old)
 	{
-        super(old.world, x, y);
-        this.inventory = new ContainerInventory(this, 20);
-        this.entity = old.entity;
-        this.shouldSync = true;
+		super(old.world, x, y);
+		this.inventory = new ContainerInventory(this, 20);
+		this.entity = old.entity;
+		this.shouldSync = true;
 	}
-	
+
 	public TileEntityRocket(final IWorld world, int x, int y, EntityRocket entity)
 	{
 		super(world, x, y);
@@ -81,7 +80,7 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 		super.onSync();
 		shouldSync = false;
 	}
-	
+
 	public boolean displayLaunchBtn()
 	{
 		if (this.isMoving == false)
@@ -90,7 +89,7 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 		}
 		return false;
 	}
-	
+
 	public void launch()
 	{
 		if (displayLaunchBtn() && this.fluidStored > 0 && this.fluidType.equals(Fluid.FUEL.getName()))
@@ -98,13 +97,11 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 			this.isMoving = true;
 			Tile thisTile = world.getState(x, y).getTile();
 			this.entity = new EntityRocket(world, thisTile.getName(), x, y, this.fluidStored, this.inventory);
-            world.addEntity(this.entity);
-            thisTile.doBreak(world, x, y, TileLayer.MAIN, null, false, false);
-            this.shouldSync = true;
+			world.addEntity(this.entity);
+			thisTile.doBreak(world, x, y, TileLayer.MAIN, null, false, false);
+			this.shouldSync = true;
 		}
 	}
-	
-	
 
 	public float getFluidTankFullnesss()
 	{
@@ -129,7 +126,6 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 		set.addBoolean("shouldSync", this.shouldSync);
 		set.addBoolean("isMoving", this.isMoving);
 	}
-	
 
 	@Override
 	public void load(final DataSet set, final boolean forSync)
@@ -167,8 +163,7 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 	@Override
 	public boolean addFluid(int amount, String type)
 	{
-		if (this.fluidType == null || type.equals(this.fluidType)
-				|| this.fluidType.equals(Fluid.EMPTY.getName()))
+		if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(Fluid.EMPTY.getName()))
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{
@@ -212,13 +207,13 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 	@Override
 	public List<Integer> getInputSlots(ItemInstance instance, Direction dir)
 	{
-		return Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+		return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 	}
 
 	@Override
 	public List<Integer> getOutputSlots(Direction dir)
 	{
-		return Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+		return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 	}
 
 }

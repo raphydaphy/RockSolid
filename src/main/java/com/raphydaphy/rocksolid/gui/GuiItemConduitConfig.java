@@ -69,7 +69,7 @@ public class GuiItemConduitConfig extends GuiContainer
 				{
 					priority--;
 				}
-				((TileEntityItemConduit) tile).setPriority(priority, editingSide);
+				((TileEntityItemConduit) tile).setPriority(editingSide, priority);
 
 			} else if (button == 8 && tile instanceof TileEntityItemConduit)
 			{
@@ -164,9 +164,9 @@ public class GuiItemConduitConfig extends GuiContainer
 			}
 		}
 
-		this.components.add(new ComponentButton(this, 4, this.guiLeft + 123, this.guiTop + 25, 50, 18, itemMode.getName(),
-				itemMode.getDesc()));
-		
+		this.components.add(new ComponentButton(this, 4, this.guiLeft + 123, this.guiTop + 25, 50, 18,
+				itemMode.getName(), itemMode.getDesc()));
+
 	}
 
 	@Override

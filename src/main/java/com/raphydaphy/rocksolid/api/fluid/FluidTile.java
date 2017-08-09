@@ -30,7 +30,7 @@ public class FluidTile extends TileBasic
 	public FluidTile(String name)
 	{
 		this(RockSolidAPILib.makeInternalRes(name));
-		
+
 	}
 
 	public FluidTile(IResourceName name)
@@ -156,7 +156,8 @@ public class FluidTile extends TileBasic
 				// if the tile to the right is
 				if (curRight.getTile() == thisState.getTile() || curRight.getTile() == GameContent.TILE_AIR)
 				{
-					if (curRight.getTile() == thisState.getTile() && curRight.get(fluidType) == thisState.get(fluidType))
+					if (curRight.getTile() == thisState.getTile()
+							&& curRight.get(fluidType) == thisState.get(fluidType))
 					{
 						if (curRight.get(fluidLevel) < MAX_VOLUME)
 						{
@@ -241,7 +242,8 @@ public class FluidTile extends TileBasic
 			else
 			{
 				// if the fluid to the left is the same as this
-				if (rightState.getTile() == thisState.getTile() && rightState.get(fluidType) == thisState.get(fluidType))
+				if (rightState.getTile() == thisState.getTile()
+						&& rightState.get(fluidType) == thisState.get(fluidType))
 				{
 					// if the tile to the left is not full of fluid
 					if (rightState.get(fluidLevel) < MAX_VOLUME)

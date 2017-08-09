@@ -16,14 +16,14 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 public class TileEntityRefinery extends TileEntityPowered implements IMultiFluidAcceptor, IMultiFluidProducer
 {
 	protected int maxFluid = 5000;
-	
+
 	protected int processTime;
 	protected int maxProcessTime;
 	private int lastSmelt;
-	
+
 	protected int inputFluidStored = 0;
 	protected String inputFluidType = Fluid.EMPTY.getName();
-	
+
 	protected int outputFluidStored = 0;
 	protected String outputFluidType = Fluid.EMPTY.getName();
 
@@ -55,8 +55,9 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 		boolean hasRecipeAndSpace = false;
 		if (this.inputFluidStored > 0)
 		{
-			final RefineryRecipe recipe = RockSolidAPI.getRefineryRecipe(Fluid.getByName(this.inputFluidType), this.inputFluidStored);
-			
+			final RefineryRecipe recipe = RockSolidAPI.getRefineryRecipe(Fluid.getByName(this.inputFluidType),
+					this.inputFluidStored);
+
 			if (recipe != null)
 			{
 				final Fluid recipeOut = recipe.getOutput();
@@ -95,7 +96,7 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 								this.outputFluidStored += recipe.getOutputVolume();
 								shouldSync = true;
 							}
-	
+
 						} else if (this.processTime > 0)
 						{
 							if (RockBottomAPI.getNet().isClient() == false)
@@ -113,7 +114,7 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 		{
 			this.processTime = 0;
 			this.maxProcessTime = 0;
-			
+
 			if (this.inputFluidStored == 0)
 			{
 				this.setFluidType(Fluid.EMPTY.getName(), 0);
@@ -128,15 +129,17 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 	{
 		if (this.inputFluidStored > 0)
 		{
-			final RefineryRecipe recipe = RockSolidAPI.getRefineryRecipe(Fluid.getByName(this.inputFluidType), this.inputFluidStored);
-			
+			final RefineryRecipe recipe = RockSolidAPI.getRefineryRecipe(Fluid.getByName(this.inputFluidType),
+					this.inputFluidStored);
+
 			if (recipe != null)
 			{
 				final Fluid recipeOut = recipe.getOutput();
 				final Fluid thisOut = Fluid.getByName(this.outputFluidType);
 				if (thisOut == Fluid.EMPTY || recipeOut.equals(thisOut))
 				{
-					if (this.outputFluidStored + recipe.getOutputVolume() <= maxFluid && this.powerStored >= this.getPowerPerOperation())
+					if (this.outputFluidStored + recipe.getOutputVolume() <= maxFluid
+							&& this.powerStored >= this.getPowerPerOperation())
 					{
 						return true;
 					}
@@ -197,7 +200,7 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 		}
 		return (float) this.inputFluidStored / (float) this.maxFluid;
 	}
-	
+
 	public float getOutputFluidTankFullness()
 	{
 		if (outputFluidStored == 0)
@@ -222,13 +225,13 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 	@Override
 	public int[] getFluidTanksStorage()
 	{
-		return new int[] {this.inputFluidStored, this.outputFluidStored};
+		return new int[] { this.inputFluidStored, this.outputFluidStored };
 	}
 
 	@Override
 	public String[] getFluidTanksType()
 	{
-		return new String[] {this.inputFluidType, this.outputFluidType};
+		return new String[] { this.inputFluidType, this.outputFluidType };
 	}
 
 	@Override
@@ -239,8 +242,7 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 			if (posX == 0)
 			{
 				return ConduitMode.INPUT.getID();
-			}
-			else if (posX == 2)
+			} else if (posX == 2)
 			{
 				return ConduitMode.OUTPUT.getID();
 			}
@@ -257,8 +259,7 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 			if (tankLocation.getX() == 0)
 			{
 				return 0;
-			}
-			else if (tankLocation.getX() == 2)
+			} else if (tankLocation.getX() == 2)
 			{
 				return 1;
 			}
@@ -293,7 +294,8 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 	{
 		if (tank == 0)
 		{
-			if (inputFluidStored + amount <= maxFluid && inputFluidType.equals(type) || inputFluidType.equals(Fluid.EMPTY.getName()))
+			if (inputFluidStored + amount <= maxFluid && inputFluidType.equals(type)
+					|| inputFluidType.equals(Fluid.EMPTY.getName()))
 			{
 				if (!RockBottomAPI.getNet().isClient())
 				{
@@ -320,12 +322,11 @@ public class TileEntityRefinery extends TileEntityPowered implements IMultiFluid
 				if (tank == 0)
 				{
 					this.inputFluidType = type;
-				}
-				else if (tank == 1)
+				} else if (tank == 1)
 				{
 					this.outputFluidType = type;
 				}
-				
+
 				this.shouldSync = true;
 			}
 			return true;

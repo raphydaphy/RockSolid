@@ -22,12 +22,12 @@ public class RockSolidContent
 	public static final Tile quarry = getTile("quarry");
 	public static final Tile creativePowerSource = getTile("creativePowerSource");
 	public static final Tile charger = getTile("charger");
-	
+
 	public static final Tile rocketEngine = getTile("rocketEngine");
 	public static final Tile rocketFairing = getTile("rocketFairing");
 	public static final Tile rocket = getTile("rocket");
 	public static final Tile analyzer = getTile("analyzer");
-	
+
 	public static final Tile rockLight = getTile("rockLight");
 	public static final Tile limestone = getTile("limestone");
 	public static final Tile clay = getTile("clay");
@@ -79,11 +79,11 @@ public class RockSolidContent
 	public static final Item ingotTungsten = getItem("ingotTungsten");
 	public static final Item ingotNickelTungsten = getItem("ingotNickelTungsten");
 	public static final Item ingotNickelTungstenCarbide = getItem("ingotNickelTungstenCarbide");
-	
+
 	public static final Item gemCoke = getItem("gemCoke");
 
 	public static final Item pelletUranium = getItem("pelletUranium");
-	
+
 	public static final Item drillCore = getItem("drillCore");
 	public static final Item sateliteCore = getItem("sateliteCore");
 	public static final Item asteroidDataChip = getItem("asteroidDataChip");

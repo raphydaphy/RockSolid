@@ -72,8 +72,8 @@ public class ChargerRenderer extends MultiTileRenderer<TileCharger>
 				if (tileEntity.getInventory().get(0).getItem() != null)
 				{
 					Item theItemToRender = tileEntity.getInventory().get(0).getItem();
-					manager.getTexture(RockSolidAPILib
-							.makeInternalRes(theItemToRender.getName().addPrefix("items.").getResourceName().toString()))
+					manager.getTexture(RockSolidAPILib.makeInternalRes(
+							theItemToRender.getName().addPrefix("items.").getResourceName().toString()))
 							.drawWithLight(renderX - (scale * 1.3f), renderY + (scale * 0.92f), scale * 0.5f,
 									scale * 0.5f, light);
 				}

@@ -27,7 +27,7 @@ public class TileAnalyzer extends TilePlaceAnywhere
 	{
 		super(name, 20, 2);
 	}
-	
+
 	@Override
 	public boolean canProvideTileEntity()
 	{

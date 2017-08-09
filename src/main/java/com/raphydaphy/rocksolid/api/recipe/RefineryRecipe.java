@@ -34,7 +34,7 @@ public class RefineryRecipe
 	{
 		return this.inputVolume;
 	}
-	
+
 	public int getOutputVolume()
 	{
 		return this.outputVolume;

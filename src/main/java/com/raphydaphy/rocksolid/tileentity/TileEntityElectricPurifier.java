@@ -63,7 +63,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 		if (input != null)
 		{
 			final PurifierRecipe recipe = RockSolidAPI.getPurifierRecipe(input, this.fluidType, this.fluidStored);
-			
+
 			if (recipe != null)
 			{
 				final ResUseInfo recipeIngredient = recipe.getInput();
@@ -249,8 +249,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 	{
 		if (this.fluidStored + amount <= this.maxFluid)
 		{
-			if (this.fluidType == null || type.equals(this.fluidType)
-					|| this.fluidType.equals(Fluid.EMPTY.getName()))
+			if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(Fluid.EMPTY.getName()))
 			{
 				this.fluidType = type;
 				this.fluidStored += amount;
@@ -264,8 +263,7 @@ public class TileEntityElectricPurifier extends TileEntityPowered implements IBa
 	@Override
 	public boolean setFluidType(String type)
 	{
-		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName())
-				|| this.fluidStored == 0)
+		if (this.fluidType == null || this.fluidType.equals(Fluid.EMPTY.getName()) || this.fluidStored == 0)
 		{
 			this.fluidType = type;
 			return true;

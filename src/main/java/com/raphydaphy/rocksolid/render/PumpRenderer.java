@@ -44,7 +44,7 @@ public class PumpRenderer extends MultiTileRenderer<TileFluidPump>
 			if (innerCoord.getY() == 1)
 			{
 				String fluid = Fluid.getByName(tileEntity.getFluidType()).toString();
-				
+
 				tex = this.texture.addSuffix("." + fluid + "." + innerCoord.getX() + "." + innerCoord.getY());
 
 				float scaleY = (float) (scale / 12);

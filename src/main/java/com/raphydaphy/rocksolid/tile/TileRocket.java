@@ -98,13 +98,13 @@ public class TileRocket extends MultiTile
 			if (tile instanceof TileEntityRocket)
 			{
 				player.openGuiContainer(new GuiRocket(player, (TileEntityRocket) tile),
-						new ContainerRocket(player,(TileEntityRocket)tile));
+						new ContainerRocket(player, (TileEntityRocket) tile));
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
 			final boolean forceDrop)
@@ -113,11 +113,14 @@ public class TileRocket extends MultiTile
 		if (!RockBottomAPI.getNet().isClient())
 		{
 			final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-			final TileEntityRocket tile = world.getTileEntity(main.getX(), main.getY(),
-					TileEntityRocket.class);
-			if (tile != null)
+			final TileEntityRocket tile = world.getTileEntity(main.getX(), main.getY(), TileEntityRocket.class);
+
+			if (forceDrop)
 			{
-				tile.dropInventory(tile.inventory);
+				if (tile != null)
+				{
+					tile.dropInventory(tile.inventory);
+				}
 			}
 		}
 	}

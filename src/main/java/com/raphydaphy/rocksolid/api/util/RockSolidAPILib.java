@@ -91,6 +91,24 @@ public class RockSolidAPILib
 		return null;
 	}
 
+	public static <T extends TileEntity> TileEntity getTileFromPos(int x, int y, IWorld world, final Class<T> tileClass)
+	{
+		Tile realTileDown = world.getState(x, y).getTile();
+
+		if (!realTileDown.isAir())
+		{
+			if (realTileDown instanceof MultiTile)
+			{
+				Pos2 main = ((MultiTile) realTileDown).getMainPos(x, y, world.getState(x, y));
+				return world.getTileEntity(main.getX(), main.getY(), tileClass);
+			} else
+			{
+				return world.getTileEntity(x, y, tileClass);
+			}
+		}
+		return null;
+	}
+
 	public static Pos2 conduitSideToPos(Pos2 center, ConduitSide side)
 	{
 		Pos2 offset = side.getOffset();
@@ -115,7 +133,7 @@ public class RockSolidAPILib
 			return ConduitSide.LEFT;
 		}
 
-		return ConduitSide.NONE;
+		return ConduitSide.UP;
 	}
 
 	public static IInventory insert(IInventoryHolder container, ItemInstance item)
@@ -260,8 +278,7 @@ public class RockSolidAPILib
 
 	public enum ConduitSide
 	{
-		UP(0, new Pos2(0, 1)), DOWN(1, new Pos2(0, -1)), LEFT(2, new Pos2(-1, 0)), RIGHT(3, new Pos2(1, 0)), NONE(4,
-				new Pos2(0, 0));
+		UP(0, new Pos2(0, 1)), DOWN(1, new Pos2(0, -1)), LEFT(2, new Pos2(-1, 0)), RIGHT(3, new Pos2(1, 0));
 
 		private int id;
 		private Pos2 offset;

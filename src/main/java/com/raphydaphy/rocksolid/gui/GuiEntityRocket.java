@@ -45,8 +45,8 @@ public class GuiEntityRocket extends GuiContainer
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing "
-					+ this.rocket.getFuel() + "mL of " + Fluid.FUEL.getName());
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100,
+					"Storing " + this.rocket.getFuel() + "mL of " + Fluid.FUEL.getName());
 		}
 
 		if (this.rocket.getFuel() == 1)

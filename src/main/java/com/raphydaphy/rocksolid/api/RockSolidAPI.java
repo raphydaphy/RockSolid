@@ -35,14 +35,14 @@ public class RockSolidAPI
 
 	public static final List<PurifierRecipe> PURIFIER_RECIPES = new ArrayList<>();
 	public static final List<RefineryRecipe> REFINERY_RECIPES = new ArrayList<>();
-	
+
 	public static final List<ElectrolyzerRecipe> ELECTROLYZER_RECIPE = new ArrayList<>();
-	
+
 	public static final List<RockCrusherRecipe> ROCK_CRUSHER_RECIPES = new ArrayList<>();
 
 	public static Map<Integer, ConduitSide> CONDUIT_SIDES = new HashMap<Integer, ConduitSide>();
 	public static Map<Integer, ConduitMode> CONDUIT_MODES = new HashMap<Integer, ConduitMode>();
-	
+
 	public static Map<String, Fluid> FLUID_REGISTRY = new HashMap<String, Fluid>();
 	public static final NameRegistry<Gas> GAS_REGISTRY = new NameRegistry<>("gas_registry");
 
@@ -62,8 +62,7 @@ public class RockSolidAPI
 	{
 		for (PurifierRecipe recipe : PURIFIER_RECIPES)
 		{
-			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(Fluid.EMPTY.getName()));
+			boolean fluidMatches = fluid.equals(recipe.getFluid()) || (recipe.getFluid().equals(Fluid.EMPTY.getName()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches && recipe.getInput().containsItem(item))
 			{
 				return recipe;
@@ -71,7 +70,7 @@ public class RockSolidAPI
 		}
 		return null;
 	}
-	
+
 	public static RefineryRecipe getRefineryRecipe(Fluid input, int inputVolume)
 	{
 		for (RefineryRecipe recipe : REFINERY_RECIPES)
@@ -89,8 +88,7 @@ public class RockSolidAPI
 	{
 		for (ElectrolyzerRecipe recipe : ELECTROLYZER_RECIPE)
 		{
-			boolean fluidMatches = fluid.equals(recipe.getFluid())
-					|| (recipe.getFluid().equals(Fluid.EMPTY.getName()));
+			boolean fluidMatches = fluid.equals(recipe.getFluid()) || (recipe.getFluid().equals(Fluid.EMPTY.getName()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
 					&& (output1.equals(recipe.getOutput1()) || output1.equals(RockSolidContent.gasVacuum.toString()))
 					&& (output2.equals(recipe.getOutput2()) || output2.equals(RockSolidContent.gasVacuum.toString())))
@@ -136,7 +134,7 @@ public class RockSolidAPI
 		}
 		return null;
 	}
-	
+
 	public static RockCrusherRecipe getRockCrusherRecipe(ItemInstance input)
 	{
 		for (RockCrusherRecipe recipe : ROCK_CRUSHER_RECIPES)

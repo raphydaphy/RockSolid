@@ -95,8 +95,7 @@ public class TileEntityTank extends TileEntity implements IFluidAcceptor, IFluid
 	@Override
 	public boolean addFluid(int amount, String type)
 	{
-		if (this.fluidType == null || type.equals(this.fluidType)
-				|| this.fluidType.equals(Fluid.EMPTY.getName()))
+		if (this.fluidType == null || type.equals(this.fluidType) || this.fluidType.equals(Fluid.EMPTY.getName()))
 		{
 			if (this.fluidStored + amount <= this.maxFluid)
 			{

@@ -62,7 +62,8 @@ public class TankRenderer extends MultiTileRenderer<TileTank>
 				}
 			}
 			Fluid fluidType = Fluid.getByName(tileEntity.getFluidType());
-			tex = this.texture.addSuffix("." + fluidType.toString() + "." + innerCoord.getX() + "." + innerCoord.getY());
+			tex = this.texture
+					.addSuffix("." + fluidType.toString() + "." + innerCoord.getX() + "." + innerCoord.getY());
 
 			float scaleY = (float) (scale / 12);
 

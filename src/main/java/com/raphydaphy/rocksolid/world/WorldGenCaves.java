@@ -143,12 +143,15 @@ public class WorldGenCaves implements IWorldGenerator
 							switch (feature)
 							{
 							case 0:
-								featureTile = RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel,
-										FluidTile.MAX_VOLUME).prop(FluidTile.fluidType, Fluid.WATER);
+								featureTile = RockSolidContent.FLUID.getDefState()
+										.prop(FluidTile.fluidLevel, FluidTile.MAX_VOLUME)
+										.prop(FluidTile.fluidType, Fluid.WATER);
 								break;
 							case 1:
-								featureTile = RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel,
-										FluidTile.MAX_VOLUME).prop(FluidTile.fluidType, Fluid.LAVA);;
+								featureTile = RockSolidContent.FLUID.getDefState()
+										.prop(FluidTile.fluidLevel, FluidTile.MAX_VOLUME)
+										.prop(FluidTile.fluidType, Fluid.LAVA);
+								;
 								break;
 							case 2:
 								featureTile = RockSolidContent.limestone.getDefState();
@@ -159,8 +162,10 @@ public class WorldGenCaves implements IWorldGenerator
 								background = GameContent.TILE_STONE.getDefState();
 								break;
 							case 4:
-								featureTile = RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel,
-										FluidTile.MAX_VOLUME).prop(FluidTile.fluidType, Fluid.OIL);;
+								featureTile = RockSolidContent.FLUID.getDefState()
+										.prop(FluidTile.fluidLevel, FluidTile.MAX_VOLUME)
+										.prop(FluidTile.fluidType, Fluid.OIL);
+								;
 								break;
 							}
 

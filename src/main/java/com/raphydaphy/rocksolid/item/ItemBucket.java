@@ -97,7 +97,8 @@ public class ItemBucket extends ItemBase
 					return true;
 				}
 
-			} else if (atState.getTile() == GameContent.TILE_AIR || (atState.getTile() instanceof FluidTile && atState.get(FluidTile.fluidType).equals(fluid)))
+			} else if (atState.getTile() == GameContent.TILE_AIR
+					|| (atState.getTile() instanceof FluidTile && atState.get(FluidTile.fluidType).equals(fluid)))
 			{
 				fluid.getTile().getTile().doPlace(world, x, y, layer, instance, null);
 				if (atState.getTile() == GameContent.TILE_AIR)

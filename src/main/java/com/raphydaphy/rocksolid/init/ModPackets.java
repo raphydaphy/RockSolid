@@ -38,7 +38,7 @@ public class ModPackets
 
 		rocketLaunchPacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
 		RockBottomAPI.PACKET_REGISTRY.register(rocketLaunchPacket, PacketRocketLaunch.class);
-		
+
 		chargerItemPacket = RockBottomAPI.PACKET_REGISTRY.getNextFreeId();
 		RockBottomAPI.PACKET_REGISTRY.register(chargerItemPacket, PacketChargerItem.class);
 	}

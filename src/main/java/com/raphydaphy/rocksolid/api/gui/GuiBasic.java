@@ -20,8 +20,7 @@ public class GuiBasic extends GuiContainer
 		this(player, tile, new Pos2(80, 15));
 	}
 
-	public GuiBasic(final AbstractEntityPlayer player, final TileEntityProgressBar tile,
-			final Pos2 progressBarOffset)
+	public GuiBasic(final AbstractEntityPlayer player, final TileEntityProgressBar tile, final Pos2 progressBarOffset)
 	{
 		super(player, 198, 150);
 		this.progressBarOffset = progressBarOffset;

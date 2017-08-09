@@ -330,6 +330,7 @@ tex.tiles.itemConduit.UP=/tiles/item_conduit/item_conduit_up.png
 tex.tiles.itemConduit.DOWN=/tiles/item_conduit/item_conduit_down.png
 tex.tiles.itemConduit.LEFT=/tiles/item_conduit/item_conduit_left.png
 tex.tiles.itemConduit.RIGHT=/tiles/item_conduit/item_conduit_right.png
+tex.tiles.itemConduit.MASTER=/tiles/item_conduit/item_conduit_master.png
 
 ## Boiler
 tex.tiles.boiler.item=/tiles/boiler/boiler_item.png

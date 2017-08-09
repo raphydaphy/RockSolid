@@ -32,7 +32,7 @@ public class ModItems
 	public static Item gemCoke;
 
 	public static Item pelletUranium;
-	
+
 	public static Item drillCore;
 	public static Item sateliteCore;
 	public static Item asteroidDataChip;
@@ -86,8 +86,9 @@ public class ModItems
 		ingotNickel = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickel")).register();
 		ingotTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("ingotTungsten")).register();
 		ingotNickelTungsten = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickelTungsten")).register();
-		ingotNickelTungstenCarbide = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickelTungstenCarbide")).register();
-		
+		ingotNickelTungstenCarbide = new ItemBase(RockSolidAPILib.makeInternalRes("ingotNickelTungstenCarbide"))
+				.register();
+
 		gemCoke = new ItemBase(RockSolidAPILib.makeInternalRes("gemCoke")).register();
 
 		pelletUranium = new ItemBase(RockSolidAPILib.makeInternalRes("pelletUranium")).register();
@@ -95,7 +96,7 @@ public class ModItems
 		drillCore = new ItemBase(RockSolidAPILib.makeInternalRes("drillCore")).register();
 		sateliteCore = new ItemBase(RockSolidAPILib.makeInternalRes("sateliteCore")).register();
 		asteroidDataChip = new ItemAsteroidDataChip();
-		
+
 		clumpClay = new ItemBase(RockSolidAPILib.makeInternalRes("clumpClay")).register();
 		clay = new ItemBase(RockSolidAPILib.makeInternalRes("itemClay")).register();
 		porcelianClay = new ItemBase(RockSolidAPILib.makeInternalRes("porcelianClay")).register();

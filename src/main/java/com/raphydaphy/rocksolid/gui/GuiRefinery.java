@@ -34,7 +34,8 @@ public class GuiRefinery extends GuiContainer
 				GuiContainer.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 6, 10, 30,
-				Fluid.getByName(this.tile.getFluidTanksType()[0]).getColor(), true, this.tile::getInputFluidTankFullness));
+				Fluid.getByName(this.tile.getFluidTanksType()[0]).getColor(), true,
+				this.tile::getInputFluidTankFullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 130, this.guiTop + 6, 10, 30,
 				Fluid.getByName(tile.getFluidTanksType()[1]).getColor(), true, this.tile::getOutputFluidTankFullness));

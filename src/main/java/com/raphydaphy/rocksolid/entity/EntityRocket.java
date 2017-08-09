@@ -38,7 +38,8 @@ public class EntityRocket extends Entity
 	private Inventory inv;
 
 	public static final Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
-			RockSolidContent.oreNickel, RockSolidContent.oreCobalt, RockSolidContent.oreAluminum, GameContent.TILE_GLOW_ORE};
+			RockSolidContent.oreNickel, RockSolidContent.oreCobalt, RockSolidContent.oreAluminum,
+			GameContent.TILE_GLOW_ORE };
 
 	public enum RocketStage
 	{
@@ -190,7 +191,7 @@ public class EntityRocket extends Entity
 											ItemAsteroidDataChip.getChipInfo(chip, true);
 											data = chip.getAdditionalData();
 										}
-										
+
 										int size = data.getInt("asteroidSize");
 										Tile mainRes = RockBottomAPI.TILE_REGISTRY
 												.get(RockBottomAPI.createRes(data.getString("asteroidResource")));
@@ -202,12 +203,17 @@ public class EntityRocket extends Entity
 											{
 												if (Util.RANDOM.nextInt(3) == 1)
 												{
-													this.inv.set(slot, new ItemInstance(mainRes, (Util.RANDOM.nextInt(size * (Util.RANDOM.nextInt(4) + 1)) + 1) * 2));
+													this.inv.set(slot,
+															new ItemInstance(mainRes,
+																	(Util.RANDOM.nextInt(
+																			size * (Util.RANDOM.nextInt(4) + 1)) + 1)
+																			* 2));
 												} else
 												{
-													this.inv.set(slot,
-															new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
-																	Util.RANDOM.nextInt(size * (Util.RANDOM.nextInt(4) + 1)) + 1));
+													this.inv.set(slot, new ItemInstance(
+															ores[Util.RANDOM.nextInt(ores.length)],
+															Util.RANDOM.nextInt(size * (Util.RANDOM.nextInt(4) + 1))
+																	+ 1));
 												}
 											}
 										}

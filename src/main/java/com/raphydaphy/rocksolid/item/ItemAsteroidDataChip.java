@@ -30,13 +30,13 @@ public class ItemAsteroidDataChip extends ItemBase
 		super.describeItem(manager, instance, desc, isAdvanced);
 
 		String info[] = getChipInfo(instance, false);
-		
+
 		desc.addAll(manager.getFont().splitTextToLength(1000, 1f, true, info));
 	}
-	
+
 	public static String[] getChipInfo(ItemInstance card, boolean doForce)
 	{
-		String[] info = new String[] {"ID: No Chip Inserted","Size: ","Primary Resource: "};
+		String[] info = new String[] { "ID: No Chip Inserted", "Size: ", "Primary Resource: " };
 		if (card != null)
 		{
 			if (card.getItem().equals(RockSolidContent.asteroidDataChip))
@@ -47,7 +47,7 @@ public class ItemAsteroidDataChip extends ItemBase
 					if (data.getInt("asteroidID") != 0)
 					{
 						info[0] = "ID: " + data.getInt("asteroidID");
-						
+
 						if (doForce)
 						{
 							if (data.getInt("asteroidSize") == 0)
@@ -55,41 +55,44 @@ public class ItemAsteroidDataChip extends ItemBase
 								data.addInt("asteroidSize", Util.RANDOM.nextInt(9) + 1);
 							}
 						}
-						
+
 						if (data.getInt("asteroidSize") != 0)
 						{
 							info[1] = "Size: " + data.getInt("asteroidSize");
-						}else
+						} else
 						{
 							info[2] = "Size: Not Analyzed Yet!";
 						}
-						
+
 						if (doForce)
 						{
 							if (data.getString("asteroidResource") == null)
 							{
-								Tile primaryRes = EntityRocket.ores[Util.RANDOM.nextInt(EntityRocket.ores.length - 1) + 1];
-								data.addString("asteroidResource", primaryRes.getName().getDomain() + "/" + primaryRes.getName().getResourceName());
+								Tile primaryRes = EntityRocket.ores[Util.RANDOM.nextInt(EntityRocket.ores.length - 1)
+										+ 1];
+								data.addString("asteroidResource", primaryRes.getName().getDomain() + "/"
+										+ primaryRes.getName().getResourceName());
 							}
 						}
-						
+
 						if (data.getString("asteroidResource") != null)
 						{
-							IResourceName primary = RockBottomAPI.createRes(data.getString("asteroidResource")).addPrefix("item.");
-							info[2] = "Primary Resource: " +  RockBottomAPI.getGame().getAssetManager().localize(primary);;
+							IResourceName primary = RockBottomAPI.createRes(data.getString("asteroidResource"))
+									.addPrefix("item.");
+							info[2] = "Primary Resource: "
+									+ RockBottomAPI.getGame().getAssetManager().localize(primary);
+							;
 						} else
 						{
 							info[2] = "Primary Resource: Not Analyzed Yet!";
 						}
-					}
-					else
+					} else
 					{
 						info[0] = "ID: Not Discovered Yet!";
 					}
-					
+
 					card.setAdditionalData(data);
-				}
-				else
+				} else
 				{
 					info[0] = "ID: Not Discovered Yet!";
 				}

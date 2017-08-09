@@ -21,10 +21,10 @@ public class TileEntityAnalyzer extends TileEntityProgressBar implements IBasicI
 
 	public static final int INPUT = 0;
 	public static final int OUTPUT = 1;
-	
+
 	public final ContainerInventory inventory;
 	private boolean shouldSync = false;
-	
+
 	protected int smeltTime;
 	protected int maxSmeltTime;
 	private int lastSmelt;
@@ -48,13 +48,13 @@ public class TileEntityAnalyzer extends TileEntityProgressBar implements IBasicI
 		shouldSync = false;
 		this.lastSmelt = this.smeltTime;
 	}
-	
+
 	@Override
 	public boolean tryTickAction()
 	{
 		ItemInstance card = this.inventory.get(INPUT);
 		ItemInstance output = this.inventory.get(OUTPUT);
-		
+
 		if (output == null && card != null)
 		{
 			if (card != null)
@@ -84,17 +84,17 @@ public class TileEntityAnalyzer extends TileEntityProgressBar implements IBasicI
 								ItemAsteroidDataChip.getChipInfo(finalCard, true);
 								this.inventory.remove(INPUT, 1);
 								this.inventory.set(OUTPUT, finalCard);
+								this.smeltTime = 0;
 								shouldSync = true;
 							}
-						} 
-							
+						}
+
 					}
 				}
 			}
 		}
 		return false;
 	}
-
 
 	@Override
 	public void save(final DataSet set, final boolean forSync)

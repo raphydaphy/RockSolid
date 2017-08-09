@@ -11,10 +11,10 @@ public class BaseResources
 	public static final String PROCESSED_IRON = "processed_iron";
 	public static final String PARTLY_PROCESSED_IRON = "partly_processed_iron";
 	public static final String RAW_IRON = "raw_iron";
-	
+
 	public static final String PROCESSED_NICKEL = "processed_nickel";
 	public static final String PARTLY_PROCESSED_NICKEL = "partly_processed_nickel";
-	
+
 	public static final String PROCESSED_STEEL = "processed_steel";
 	public static final String PROCESSED_COAL = "processed_coal";
 
@@ -36,11 +36,11 @@ public class BaseResources
 
 	public static final String TUNGSTEN_CARBIDE = "tungsten_carbide";
 	public static final String TUNGSTEN_ALLOY = "tungsten_alloy";
-	
+
 	public static final String PROCESSED_TUNGSTEN = "processed_tungsten";
 	public static final String PARTLY_PROCESSED_TUNGSTEN = "partly_processed_tungsten";
 	public static final String RAW_TUNGSTEN = "raw_tungsten";
-	
+
 	public static final String COMPRESSED_STEEL = "compressed_steel";
 	public static final String COMPRESSED_TITANIUM = "compressed_titanium";
 

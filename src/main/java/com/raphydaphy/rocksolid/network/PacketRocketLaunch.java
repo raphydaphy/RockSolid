@@ -47,7 +47,7 @@ public class PacketRocketLaunch implements IPacket
 		TileEntity rocket = RockSolidAPILib.getTileFromPos(x, y, game.getWorld());
 		if (rocket instanceof TileEntityRocket)
 		{
-			((TileEntityRocket)rocket).launch();
+			((TileEntityRocket) rocket).launch();
 		}
 	}
 

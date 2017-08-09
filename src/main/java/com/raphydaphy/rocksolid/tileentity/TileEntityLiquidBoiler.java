@@ -26,8 +26,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	// tank 0 is water tank 1 is lava
 	protected int[] fluidStored = new int[] { 0, 0 };
 	protected int maxFluid = 5000;
-	protected String[] fluidType = new String[] { Fluid.EMPTY.toString(),
-			Fluid.EMPTY.toString() };
+	protected String[] fluidType = new String[] { Fluid.EMPTY.toString(), Fluid.EMPTY.toString() };
 
 	public TileEntityLiquidBoiler(final IWorld world, final int x, final int y)
 	{
@@ -53,8 +52,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	{
 		super.update(game);
 		if (this.gasStored < (this.maxGas - productionPerTick - 1) && this.fluidStored[0] >= fluidConsumptionPerTick[0]
-				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
-				&& this.fluidType[0].equals(Fluid.WATER.toString())
+				&& this.fluidStored[1] >= fluidConsumptionPerTick[1] && this.fluidType[0].equals(Fluid.WATER.toString())
 				&& this.fluidType[1].equals(Fluid.LAVA.toString()))
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
@@ -110,8 +108,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	{
 		return (this.gasStored < (this.maxGas - productionPerTick - 1)
 				&& this.fluidStored[0] >= fluidConsumptionPerTick[0]
-				&& this.fluidStored[1] >= fluidConsumptionPerTick[1]
-				&& this.fluidType[0].equals(Fluid.WATER.toString())
+				&& this.fluidStored[1] >= fluidConsumptionPerTick[1] && this.fluidType[0].equals(Fluid.WATER.toString())
 				&& this.fluidType[1].equals(Fluid.LAVA.toString()));
 	}
 

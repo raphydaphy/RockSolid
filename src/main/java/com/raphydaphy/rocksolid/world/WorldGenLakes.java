@@ -84,7 +84,8 @@ public class WorldGenLakes implements IWorldGenerator
 							if (type < 6)
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel, 12).prop(FluidTile.fluidType, Fluid.WATER));
+										RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel, 12)
+												.prop(FluidTile.fluidType, Fluid.WATER));
 
 								if (chunk.getY() + y + startY == fluidStart - 7)
 								{
@@ -101,7 +102,8 @@ public class WorldGenLakes implements IWorldGenerator
 							} else
 							{
 								world.setState(TileLayer.MAIN, chunk.getX() + x + startX, chunk.getY() + y + startY,
-										RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel, 12).prop(FluidTile.fluidType, Fluid.OIL));
+										RockSolidContent.FLUID.getDefState().prop(FluidTile.fluidLevel, 12)
+												.prop(FluidTile.fluidType, Fluid.OIL));
 							}
 						} else
 						{

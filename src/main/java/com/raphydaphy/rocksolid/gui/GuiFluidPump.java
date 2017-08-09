@@ -59,8 +59,11 @@ public class GuiFluidPump extends GuiContainer
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, new String[] {
-					"Storing " + this.tile.getCurrentFluid() + "mL of " + Fluid.getByName(this.tile.getFluidType()).getName(), "Produces 1000mL per operation" });
+			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+					new String[] {
+							"Storing " + this.tile.getCurrentFluid() + "mL of "
+									+ Fluid.getByName(this.tile.getFluidType()).getName(),
+							"Produces 1000mL per operation" });
 		}
 	}
 
