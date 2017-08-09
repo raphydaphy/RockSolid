@@ -3,8 +3,8 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.api.gui.GuiEmpty;
-import com.raphydaphy.rocksolid.gui.container.ContainerAnalyzer;
+import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
+import com.raphydaphy.rocksolid.api.gui.GuiBasic;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAnalyzer;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -47,7 +47,7 @@ public class TileAnalyzer extends TilePlaceAnywhere
 		final TileEntityAnalyzer tile = world.getTileEntity(x, y, TileEntityAnalyzer.class);
 		if (tile != null)
 		{
-			player.openGuiContainer(new GuiEmpty(player), new ContainerAnalyzer(player, tile));
+			player.openGuiContainer(new GuiBasic(player, tile), new ContainerBasicIO(player, tile));
 			return true;
 		}
 		return false;

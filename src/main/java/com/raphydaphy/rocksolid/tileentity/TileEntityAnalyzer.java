@@ -5,34 +5,40 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.util.IBasicIO;
+import com.raphydaphy.rocksolid.api.util.TileEntityProgressBar;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 import com.raphydaphy.rocksolid.item.ItemAsteroidDataChip;
 
-import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityAnalyzer extends TileEntity implements IInventoryHolder
+public class TileEntityAnalyzer extends TileEntityProgressBar implements IBasicIO
 {
 
 	public static final int INPUT = 0;
+	public static final int OUTPUT = 1;
+	
 	public final ContainerInventory inventory;
 	private boolean shouldSync = false;
+	
+	protected int smeltTime;
+	protected int maxSmeltTime;
+	private int lastSmelt;
 
 	public TileEntityAnalyzer(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
-		this.inventory = new ContainerInventory(this, 1);
+		this.inventory = new ContainerInventory(this, 2);
 	}
 
 	@Override
 	protected boolean needsSync()
 	{
-		return super.needsSync() || shouldSync;
+		return super.needsSync() || this.lastSmelt != this.smeltTime || shouldSync;
 	}
 
 	@Override
@@ -40,30 +46,53 @@ public class TileEntityAnalyzer extends TileEntity implements IInventoryHolder
 	{
 		super.onSync();
 		shouldSync = false;
-	}
-
-	public boolean isActive()
-	{
-		return false;
+		this.lastSmelt = this.smeltTime;
 	}
 	
 	@Override
-	public void update(IGameInstance game)
+	public boolean tryTickAction()
 	{
 		ItemInstance card = this.inventory.get(INPUT);
-		if (card != null)
+		ItemInstance output = this.inventory.get(OUTPUT);
+		
+		if (output == null && card != null)
 		{
-			if (card.getAdditionalData() != null)
+			if (card != null)
 			{
-				if (card.getAdditionalData().getInt("asteroidID") != 0)
+				if (card.getAdditionalData() != null)
 				{
-					if (card.getAdditionalData().getString("asteroidResource") == null)
+					if (card.getAdditionalData().getInt("asteroidID") != 0)
 					{
-						ItemAsteroidDataChip.getChipInfo(card, true);
+						if (card.getAdditionalData().getString("asteroidResource") == null)
+						{
+							if (RockBottomAPI.getNet().isClient() == false)
+							{
+								if (this.maxSmeltTime <= 0)
+								{
+									this.maxSmeltTime = 100;
+								}
+								++this.smeltTime;
+								this.shouldSync = true;
+							}
+							if (this.smeltTime < this.maxSmeltTime)
+							{
+								return true;
+							}
+							if (RockBottomAPI.getNet().isClient() == false)
+							{
+								ItemInstance finalCard = this.inventory.get(INPUT).copy();
+								ItemAsteroidDataChip.getChipInfo(finalCard, true);
+								this.inventory.remove(INPUT, 1);
+								this.inventory.set(OUTPUT, finalCard);
+								shouldSync = true;
+							}
+						} 
+							
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 
@@ -75,6 +104,8 @@ public class TileEntityAnalyzer extends TileEntity implements IInventoryHolder
 		{
 			this.inventory.save(set);
 		}
+		set.addInt("smelt", this.smeltTime);
+		set.addInt("max_smelt", this.maxSmeltTime);
 		set.addBoolean("shouldSync", this.shouldSync);
 	}
 
@@ -86,6 +117,8 @@ public class TileEntityAnalyzer extends TileEntity implements IInventoryHolder
 		{
 			this.inventory.load(set);
 		}
+		this.smeltTime = set.getInt("smelt");
+		this.maxSmeltTime = set.getInt("max_smelt");
 		this.shouldSync = set.getBoolean("shouldSync");
 	}
 
@@ -98,7 +131,7 @@ public class TileEntityAnalyzer extends TileEntity implements IInventoryHolder
 	@Override
 	public List<Integer> getInputSlots(ItemInstance input, Direction dir)
 	{
-		if (input.getItem().equals(RockSolidContent.asteroidDataChip))
+		if (this.isValidInput(input))
 		{
 			return Arrays.asList(INPUT);
 		}
@@ -108,7 +141,30 @@ public class TileEntityAnalyzer extends TileEntity implements IInventoryHolder
 	@Override
 	public List<Integer> getOutputSlots(Direction dir)
 	{
-		return new ArrayList<Integer>();
+		return Arrays.asList(1);
+	}
+
+	@Override
+	public boolean isValidInput(ItemInstance item)
+	{
+		return item.getItem().equals(RockSolidContent.asteroidDataChip);
+	}
+
+	@Override
+	protected void onActiveChange(boolean active)
+	{
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return false;
+	}
+
+	@Override
+	public float getSmeltPercentage()
+	{
+		return (float) this.smeltTime / (float) this.maxSmeltTime;
 	}
 
 }
