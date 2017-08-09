@@ -15,7 +15,7 @@ public class ContainerAnalyzer extends ItemContainer
 	public ContainerAnalyzer(final AbstractEntityPlayer player, final TileEntityAnalyzer tile)
 	{
 		super(player, new IInventory[] { player.getInv(), tile.inventory });
-		this.addSlot(new InputSlot(tile.inventory, 0, 90, 10, instance -> instance.getItem().equals(RockSolidContent.asteroidDataChip)));
+		this.addSlot(new InputSlot(tile.inventory, 0, 90, 25, instance -> instance.getItem().equals(RockSolidContent.asteroidDataChip)));
 		this.addPlayerInventory(player, 20, 60);
 	}
 

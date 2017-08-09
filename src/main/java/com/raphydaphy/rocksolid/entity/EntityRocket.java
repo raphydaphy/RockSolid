@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.GuiEntityRocket;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
+import com.raphydaphy.rocksolid.item.ItemAsteroidDataChip;
 import com.raphydaphy.rocksolid.render.RocketRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 
@@ -185,19 +186,37 @@ public class EntityRocket extends Entity
 									DataSet data = this.inv.get(17).getAdditionalData();
 									if (data != null && !data.isEmpty() && data.getInt("asteroidID") != 0)
 									{
+										if (data.getInt("asteroidSize") == 0)
+										{
+											ItemInstance chip = new ItemInstance(RockSolidContent.asteroidDataChip);
+											ItemAsteroidDataChip.getChipInfo(chip, true);
+											data = chip.getAdditionalData();
+										}
+										
+										int size = data.getInt("asteroidSize");
+										Tile mainRes = RockBottomAPI.TILE_REGISTRY
+												.get(RockBottomAPI.createRes(data.getString("asteroidResource")));
+
 										this.inv.set(17, null);
 										for (int slot = 0; slot < this.inv.getSlotAmount() - 2; slot++)
 										{
 											if (this.inv.get(slot) == null)
 											{
-												this.inv.set(slot, new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
-														Util.RANDOM.nextInt(50) + 1));
+												if (Util.RANDOM.nextInt(3) == 1)
+												{
+													this.inv.set(slot, new ItemInstance(mainRes, (Util.RANDOM.nextInt(size * (Util.RANDOM.nextInt(4) + 1)) + 1) * 2));
+												} else
+												{
+													this.inv.set(slot,
+															new ItemInstance(ores[Util.RANDOM.nextInt(ores.length)],
+																	Util.RANDOM.nextInt(size * (Util.RANDOM.nextInt(4) + 1)) + 1));
+												}
 											}
 										}
 									}
 								}
 							}
-							
+
 						} else if (this.inv.get(16).getItem().equals(RockSolidContent.sateliteCore))
 						{
 							name = "A Satelite";
@@ -216,7 +235,7 @@ public class EntityRocket extends Entity
 									{
 										data.addInt("asteroidID", Util.RANDOM.nextInt(1000000) + 1);
 									}
-									
+
 									this.inv.get(17).setAdditionalData(data);
 								}
 							}
