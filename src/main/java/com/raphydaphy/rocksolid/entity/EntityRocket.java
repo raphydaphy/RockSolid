@@ -36,7 +36,7 @@ public class EntityRocket extends Entity
 	private RocketStage flightPart;
 	private Inventory inv;
 
-	private static final Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
+	public static final Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
 			RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium,
 			RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE,
 			GameContent.TILE_COAL_ORE };

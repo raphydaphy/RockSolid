@@ -86,6 +86,7 @@ rocksolid/item.charger=Charger
 rocksolid/item.rocketEngine=Rocket Engine
 rocksolid/item.rocketFairing=Rocket Fairing
 rocksolid/item.rocket=Rocket
+rocksolid/item.analyzer=Analyzer
 
 rocksolid/item.rockLight=Light Rock
 rocksolid/item.limestone=Limestone
@@ -153,6 +154,7 @@ rocksolid/details.gasTank=Stores 20 cubic meters of gas. Gas can be inserted and
 rocksolid/details.combustionEngine=Uses Oil to produce Electricity. Oil can be inserted through the use of Fluid Conduits or buckets.
 rocksolid/details.refinery=Uses power to purify and refine fluids. Can be used to produced Refined Fuel.
 rocksolid/details.rocket=What do you think this does? Load it up with Refined Fuel to find out! Can be equipped with drills and sensors.
+rocksolid/details.analyzer=Analyzes Asteroid Data Chips using power.
 
 # Because Ellpeck is lazy. Dunno if I still need this.
 rockbottom/item.stone=Stone

@@ -289,6 +289,7 @@ tex.tiles.limestone=/tiles/misc/limestone.png
 tex.tiles.clay=/tiles/misc/clay.png
 tex.tiles.rocketEngine=/tiles/misc/rocket_engine.png
 tex.tiles.rocketFairing=/tiles/misc/rocket_fairing.png
+tex.tiles.analyzer=/tiles/misc/analyzer.png
 
 ## Energy Conduit
 tex.tiles.energyConduit=/tiles/energy_conduit/energy_conduit.png

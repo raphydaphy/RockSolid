@@ -234,25 +234,21 @@ public class ModRecipes
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocketEngine),
 				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 2),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 12), new ResUseInfo(BaseResources.PROCESSED_STEEL, 18),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 280),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 150)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocketFairing),
 				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 1),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 20), new ResUseInfo(BaseResources.PROCESSED_STEEL, 9),
-				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 130),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 280)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(
 				new ItemInstance(RockSolidContent.asteroidDataChip), new ResUseInfo(BaseResources.PROCESSED_NICKEL, 8),
-				new ResUseInfo(BaseResources.PROCESSED_STEEL, 4), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 10),
+				new ResUseInfo(BaseResources.PROCESSED_STEEL, 4),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.drillCore),
-				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 1), new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8),
-				new ResUseInfo(BaseResources.PROCESSED_STEEL, 4), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 80)));
+				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 1),
+				new ResUseInfo(BaseResources.PROCESSED_TUNGSTEN, 8), new ResUseInfo(BaseResources.PROCESSED_STEEL, 4)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.sateliteCore),
-				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8),
-				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 4), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 20),
-				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 80)));
+				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 8),
+				new ResUseInfo(BaseResources.PROCESSED_TITANIUM, 4)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocket),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 8), new ResUseInfo(BaseResources.TANK, 2),
 				new ItemUseInfo(new ItemInstance(RockSolidContent.rocketEngine)),

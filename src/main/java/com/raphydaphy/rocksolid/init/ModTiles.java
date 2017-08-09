@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
+import com.raphydaphy.rocksolid.tile.TileAnalyzer;
 import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tile.TileBattery;
 import com.raphydaphy.rocksolid.tile.TileBlastFurnace;
@@ -55,6 +56,7 @@ public class ModTiles
 	public static Tile rocketEngine;
 	public static Tile rocketFairing;
 	public static Tile rocket;
+	public static Tile analyzer;
 	
 	public static Tile rockLight;
 	public static Tile limestone;
@@ -109,6 +111,7 @@ public class ModTiles
 		rocketEngine = new TilePlaceAnywhere("rocketEngine", 15, 4);
 		rocketFairing = new TilePlaceAnywhere("rocketFairing", 20, 4);
 		rocket = new TileRocket();
+		analyzer = new TileAnalyzer();
 		
 		rockLight = new TileCustomDrop("rockLight", new ItemInstance(GameContent.TILE_STONE, 1), 5, 1);
 		limestone = new TileBase(RockSolidAPILib.makeInternalRes("limestone"), 10, 1);

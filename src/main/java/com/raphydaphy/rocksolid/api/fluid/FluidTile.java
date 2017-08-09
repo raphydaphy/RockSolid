@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.api.fluid;
 
 import com.raphydaphy.rocksolid.api.render.FluidRenderer;
+import com.raphydaphy.rocksolid.api.util.EnumProp;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -10,7 +11,6 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
-import de.ellpeck.rockbottom.api.tile.state.EnumProp;
 import de.ellpeck.rockbottom.api.tile.state.IntProp;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
