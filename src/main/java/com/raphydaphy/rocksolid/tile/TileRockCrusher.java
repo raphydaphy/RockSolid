@@ -3,10 +3,11 @@ package com.raphydaphy.rocksolid.tile;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.api.gui.ContainerBasicIO;
+import com.raphydaphy.rocksolid.api.gui.GuiBasicPowered;
+import com.raphydaphy.rocksolid.api.render.PoweredMultiTileRenderer;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
-import com.raphydaphy.rocksolid.gui.GuiRocket;
-import com.raphydaphy.rocksolid.gui.container.ContainerRocket;
-import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
+import com.raphydaphy.rocksolid.tileentity.TileEntityRockCrusher;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -15,7 +16,6 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
-import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.BoundBox;
@@ -24,41 +24,81 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileRocket extends MultiTile
+public class TileRockCrusher extends MultiTile
 {
-	private static final String name = "rocket";
+	private static final String name = "rockCrusher";
 	private final IResourceName desc = RockBottomAPI.createRes(RockSolid.INSTANCE, "details." + name);
 
-	public TileRocket()
+	public TileRockCrusher()
 	{
 		super(RockSolidAPILib.makeInternalRes(name));
-		this.setHardness(15);
+		this.setHardness(25);
 		this.addEffectiveTool(ToolType.PICKAXE, 1);
 		this.register();
 	}
 
 	@Override
-	protected ITileRenderer<TileRocket> createRenderer(final IResourceName name)
+	protected ITileRenderer<MultiTile> createRenderer(final IResourceName name)
 	{
-		return new MultiTileRenderer<TileRocket>(name, this);
-	}
-
-	@Override
-	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
-	{
-		return 30;
-	}
-
-	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y)
-	{
-		return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityRocket(world, x, y) : null;
+		return new PoweredMultiTileRenderer(name, this);
 	}
 
 	@Override
 	public boolean canProvideTileEntity()
 	{
 		return true;
+	}
+
+	@Override
+	public TileEntity provideTileEntity(final IWorld world, final int x, final int y)
+	{
+		return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityRockCrusher(world, x, y) : null;
+	}
+
+	@Override
+	public int getLight(final IWorld world, final int x, final int y, final TileLayer layer)
+	{
+		if (this.isMainPos(x, y, world.getState(x, y)))
+		{
+			final TileEntityRockCrusher tile = world.getTileEntity(x, y, TileEntityRockCrusher.class);
+			if (tile != null && tile.isActive())
+			{
+				return 20;
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+			AbstractEntityPlayer player)
+	{
+		final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
+		final TileEntityRockCrusher tile = world.getTileEntity(main.getX(), main.getY(),
+				TileEntityRockCrusher.class);
+		if (tile != null)
+		{
+			player.openGuiContainer(new GuiBasicPowered(player, tile), new ContainerBasicIO(player, tile));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
+			final boolean forceDrop)
+	{
+		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
+		if (!RockBottomAPI.getNet().isClient())
+		{
+			final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
+			final TileEntityRockCrusher tile = world.getTileEntity(main.getX(), main.getY(),
+					TileEntityRockCrusher.class);
+			if (tile != null)
+			{
+				tile.dropInventory(tile.inventory);
+			}
+		}
 	}
 
 	@Override
@@ -88,56 +128,33 @@ public class TileRocket extends MultiTile
 	}
 
 	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
-			AbstractEntityPlayer player)
+	public BoundBox getBoundBox(final IWorld world, final int x, final int y)
 	{
-		TileEntity tile = RockSolidAPILib.getTileFromPos(x, y, world);
-
-		if (tile != null)
-		{
-			if (tile instanceof TileEntityRocket)
-			{
-				player.openGuiContainer(new GuiRocket(player, (TileEntityRocket) tile),
-						new ContainerRocket(player,(TileEntityRocket)tile));
-				return true;
-			}
-		}
-		return false;
+		return null;
 	}
-	
+
 	@Override
-	public void onDestroyed(final IWorld world, final int x, final int y, final Entity destroyer, final TileLayer layer,
-			final boolean forceDrop)
+	public boolean isFullTile()
 	{
-		super.onDestroyed(world, x, y, destroyer, layer, forceDrop);
-		if (!RockBottomAPI.getNet().isClient())
-		{
-			final Pos2 main = this.getMainPos(x, y, world.getState(x, y));
-			final TileEntityRocket tile = world.getTileEntity(main.getX(), main.getY(),
-					TileEntityRocket.class);
-			if (tile != null)
-			{
-				tile.dropInventory(tile.inventory);
-			}
-		}
+		return false;
 	}
 
 	@Override
 	protected boolean[][] makeStructure()
 	{
-		return new boolean[][] { { true }, { true }, { true }, { true } };
+		return new boolean[][] { { true, true }, { true, true } };
 	}
 
 	@Override
 	public int getWidth()
 	{
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public int getHeight()
 	{
-		return 4;
+		return 2;
 	}
 
 	@Override
@@ -153,17 +170,6 @@ public class TileRocket extends MultiTile
 	}
 
 	@Override
-	public BoundBox getBoundBox(final IWorld world, final int x, final int y)
-	{
-		return null;
-	}
-
-	@Override
-	public boolean isFullTile()
-	{
-		return false;
-	}
-
 	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
 	{
 		super.describeItem(manager, instance, desc, isAdvanced);

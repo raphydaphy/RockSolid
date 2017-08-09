@@ -45,8 +45,19 @@ public class BaseResources
 	public static final String COMPRESSED_TITANIUM = "compressed_titanium";
 
 	public static final String RAW_SHINING = "raw_shining";
+	public static final String ORE_SHINING = "ore_shining";
+	public static final String ORE_COAL = "ore_coal";
+	public static final String ORE_COPPER = "ore_copper";
 
 	public static final String TANK = "tank";
 
+	public static final String ORE_TIN = "ore_tin";
+	public static final String ORE_IRON = "ore_iron";
+	public static final String ORE_MAGNESIUM = "ore_magnesium";
 	public static final String ORE_RUTILE = "ore_rutile";
+	public static final String ORE_URANIUM = "ore_uranium";
+	public static final String ORE_WOLFRAMITE = "ore_wolframite";
+	public static final String ORE_COBALT = "ore_cobalt";
+	public static final String ORE_NICKEL = "ore_nickel";
+	public static final String ORE_ALUMINUM = "ore_aluminum";
 }

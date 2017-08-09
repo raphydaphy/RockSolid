@@ -12,11 +12,7 @@ public class EnumProp<T extends Enum<T>> extends TileProp<T>{
     private final List<T> allowedValues;
 
     public EnumProp(String name, T def, Class<? extends T> enumClass){
-        this(name, def, enumClass.getEnumConstants());
-    }
-
-    public EnumProp(String name, T def, T... allowedValues){
-        this(name, def, Arrays.asList(allowedValues));
+        this(name, def, Arrays.asList(enumClass.getEnumConstants()));
     }
 
     public EnumProp(String name, T def, List<T> allowedValues){

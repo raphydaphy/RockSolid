@@ -14,6 +14,7 @@ import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
 import com.raphydaphy.rocksolid.api.recipe.RefineryRecipe;
+import com.raphydaphy.rocksolid.api.recipe.RockCrusherRecipe;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 
@@ -36,6 +37,8 @@ public class RockSolidAPI
 	public static final List<RefineryRecipe> REFINERY_RECIPES = new ArrayList<>();
 	
 	public static final List<ElectrolyzerRecipe> ELECTROLYZER_RECIPE = new ArrayList<>();
+	
+	public static final List<RockCrusherRecipe> ROCK_CRUSHER_RECIPES = new ArrayList<>();
 
 	public static Map<Integer, ConduitSide> CONDUIT_SIDES = new HashMap<Integer, ConduitSide>();
 	public static Map<Integer, ConduitMode> CONDUIT_MODES = new HashMap<Integer, ConduitMode>();
@@ -125,6 +128,18 @@ public class RockSolidAPI
 	public static BlastFurnaceRecipe getArcFurnaceRecipe(ItemInstance input)
 	{
 		for (BlastFurnaceRecipe recipe : BLAST_FURNACE_RECIPES)
+		{
+			if (recipe.getInput().containsItem(input))
+			{
+				return recipe;
+			}
+		}
+		return null;
+	}
+	
+	public static RockCrusherRecipe getRockCrusherRecipe(ItemInstance input)
+	{
+		for (RockCrusherRecipe recipe : ROCK_CRUSHER_RECIPES)
 		{
 			if (recipe.getInput().containsItem(input))
 			{

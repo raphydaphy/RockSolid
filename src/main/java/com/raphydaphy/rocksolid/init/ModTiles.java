@@ -30,6 +30,7 @@ import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.TilePlaceAnywhere;
 import com.raphydaphy.rocksolid.tile.TileQuarry;
 import com.raphydaphy.rocksolid.tile.TileRefinery;
+import com.raphydaphy.rocksolid.tile.TileRockCrusher;
 import com.raphydaphy.rocksolid.tile.TileRocket;
 import com.raphydaphy.rocksolid.tile.TileTank;
 import com.raphydaphy.rocksolid.tile.TileTurbine;
@@ -75,6 +76,7 @@ public class ModTiles
 	public static Tile nuclearReactor;
 	public static Tile battery;
 
+	public static Tile rockCrusher;
 	public static Tile refinery;
 	public static Tile electricPurifier;
 	public static Tile electricBlastFurnace;
@@ -133,6 +135,7 @@ public class ModTiles
 		nuclearReactor = new TileNuclearReactor();
 		battery = new TileBattery();
 
+		rockCrusher = new TileRockCrusher();
 		refinery = new TileRefinery();
 		electricPurifier = new TileElectricPurifier();
 		electricBlastFurnace = new TileElectricBlastFurnace();

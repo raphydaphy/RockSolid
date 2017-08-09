@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 import com.raphydaphy.rocksolid.api.recipe.PurifierRecipe;
 import com.raphydaphy.rocksolid.api.recipe.RefineryRecipe;
+import com.raphydaphy.rocksolid.api.recipe.RockCrusherRecipe;
 
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -77,10 +78,21 @@ public class ModRecipes
 				new ResInfo(RockSolidContent.constructionBlockTitanium));
 
 		ResourceRegistry.addResources(BaseResources.RAW_SHINING, new ResInfo(GameContent.ITEM_GLOW_CLUSTER));
-
+		ResourceRegistry.addResources(BaseResources.ORE_SHINING, new ResInfo(GameContent.TILE_GLOW_ORE));
+		ResourceRegistry.addResources(BaseResources.ORE_COAL, new ResInfo(GameContent.TILE_COAL_ORE));
+		ResourceRegistry.addResources(BaseResources.ORE_COPPER, new ResInfo(GameContent.TILE_COPPER_ORE));
+		
 		ResourceRegistry.addResources(BaseResources.TANK, new ResInfo(RockSolidContent.tank));
 
+		ResourceRegistry.addResources(BaseResources.ORE_TIN, new ResInfo(RockSolidContent.oreTin));
+		ResourceRegistry.addResources(BaseResources.ORE_IRON, new ResInfo(RockSolidContent.oreIron));
+		ResourceRegistry.addResources(BaseResources.ORE_MAGNESIUM, new ResInfo(RockSolidContent.oreMagnesium));
 		ResourceRegistry.addResources(BaseResources.ORE_RUTILE, new ResInfo(RockSolidContent.oreRutile));
+		ResourceRegistry.addResources(BaseResources.ORE_URANIUM, new ResInfo(RockSolidContent.oreUranium));
+		ResourceRegistry.addResources(BaseResources.ORE_WOLFRAMITE, new ResInfo(RockSolidContent.oreWolframite));
+		ResourceRegistry.addResources(BaseResources.ORE_COBALT, new ResInfo(RockSolidContent.oreCobalt));
+		ResourceRegistry.addResources(BaseResources.ORE_NICKEL, new ResInfo(RockSolidContent.oreNickel));
+		ResourceRegistry.addResources(BaseResources.ORE_ALUMINUM, new ResInfo(RockSolidContent.oreAluminum));
 
 		// Fuel registration
 		RockBottomAPI.FUEL_REGISTRY.put(new ResUseInfo(BaseResources.PROCESSED_COAL), 3600);
@@ -179,6 +191,16 @@ public class ModRecipes
 		RockSolidAPI.COMPRESSOR_RECIPES.add(new CompressorRecipe(new ItemInstance(GameContent.TILE_HARDENED_STONE),
 				new ResUseInfo(ResourceRegistry.RAW_STONE, 3), 30));
 
+		// Rock Crusher Recipes
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(GameContent.ITEM_COPPER_CLUSTER, 2), new ResUseInfo(BaseResources.ORE_COPPER), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(GameContent.ITEM_COAL, 2), new ResUseInfo(BaseResources.ORE_COAL), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(GameContent.ITEM_GLOW_CLUSTER, 2), new ResUseInfo(BaseResources.ORE_SHINING), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(RockSolidContent.clusterTin, 2), new ResUseInfo(BaseResources.ORE_TIN), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(RockSolidContent.clusterIron, 2), new ResUseInfo(BaseResources.ORE_IRON), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(RockSolidContent.clusterMagnesium, 2), new ResUseInfo(BaseResources.ORE_MAGNESIUM), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(RockSolidContent.clusterUranium, 2), new ResUseInfo(BaseResources.ORE_URANIUM), 150));
+		RockSolidAPI.ROCK_CRUSHER_RECIPES.add(new RockCrusherRecipe(new ItemInstance(RockSolidContent.clusterTungsten, 2), new ResUseInfo(BaseResources.ORE_WOLFRAMITE), 150));
+		
 		// Cluster to grit (separator)
 		RockBottomAPI.SEPARATOR_RECIPES.add(new SeparatorRecipe(new ItemInstance(RockSolidContent.gritTin, 2),
 				new ResUseInfo(BaseResources.RAW_TIN), 350, new ItemInstance(GameContent.ITEM_SLAG), 0.25f));
