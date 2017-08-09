@@ -53,11 +53,54 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			shouldSync = true;
 		}
 	}
+	
+	public short[][] getNetwork()
+	{
+		if (this.isMaster())
+		{
+			return this.network;
+		} else
+		{
+			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					this.getConduitClass());
+
+			if (masterConduit != null)
+			{
+				return masterConduit.getNetwork();
+			}
+		}
+		
+		return new short[512][3];
+	}
+	
+	public short getNetworkLength()
+	{
+		if (this.isMaster())
+		{
+			return this.networkLength;
+		} else
+		{
+			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					this.getConduitClass());
+
+			if (masterConduit != null)
+			{
+				return masterConduit.getNetworkLength();
+			}
+		}
+		
+		return 0;
+	}
+	
+	public void shouldSync()
+	{
+		this.shouldSync = true;
+	}
 
 	public abstract void tryInput(Pos2 center, ConduitSide side);
 
-	public abstract <T extends TileEntityConduit> Class<T> getConduitClass();
-	public abstract <M extends Object> Class<M> getContainerClass();
+	public abstract <T extends TileEntityConduit> Class <T>getConduitClass();
+	public abstract Class getContainerClass();
 
 	@Override
 	public void update(IGameInstance game)
