@@ -1,31 +1,21 @@
-package com.raphydaphy.rocksolid.tileentity;
+package com.raphydaphy.rocksolid.api.util;
 
-import com.raphydaphy.rocksolid.api.util.IConduit;
-import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
-import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.inventory.Inventory;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
-import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class TileEntityItemConduit extends TileEntity implements IConduit
+public abstract class TileEntityConduit extends TileEntity implements IConduit
 {
-	public final ContainerInventory inventory;
-
 	private ConduitMode[] modes = new ConduitMode[] { ConduitMode.OUTPUT, ConduitMode.OUTPUT, ConduitMode.OUTPUT,
 			ConduitMode.OUTPUT };
 	private int[] priorities = new int[] { 1, 1, 1, 1 };
-	private boolean[] whitelistModes = new boolean[] { true, true, true, true };
 	private Pos2 master = new Pos2(x, y);
 	private boolean isDead = false;
 	private boolean shouldSync = false;
@@ -37,10 +27,9 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	private short[][] network = new short[512][3];
 	private short networkLength = 0;
 
-	public TileEntityItemConduit(final IWorld world, final int x, final int y)
+	public TileEntityConduit(final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
-		this.inventory = new ContainerInventory(this, 4);
 	}
 
 	@Override
@@ -64,11 +53,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			shouldSync = true;
 		}
 	}
-	
-	public Inventory getInventory()
-	{
-		return this.inventory;
-	}
+
+	public abstract void tryInput(Pos2 center, ConduitSide side);
+
+	public abstract <T extends TileEntityConduit> Class<T> getConduitClass();
+	public abstract <M extends Object> Class<M> getContainerClass();
 
 	@Override
 	public void update(IGameInstance game)
@@ -80,169 +69,18 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				Pos2 inputConduitPos = new Pos2(network[inputNet][0] + this.getMaster().getX(),
 						network[inputNet][1] + this.getMaster().getY());
-				TileEntityItemConduit inputConduit = world.getTileEntity(inputConduitPos.getX(),
-						inputConduitPos.getY(), TileEntityItemConduit.class);
 
-				ConduitSide inputInvSide = ConduitSide.getByID(network[inputNet][2]);
-				Pos2 inputInvPos = RockSolidAPILib.conduitSideToPos(inputConduitPos, inputInvSide);
-				TileEntity inputInvUnchecked = RockSolidAPILib.getTileFromPos(inputInvPos.getX(), inputInvPos.getY(),
-						world);
+				ConduitSide inputTileSide = ConduitSide.getByID(network[inputNet][2]);
 
-				if (inputInvUnchecked != null && inputConduit != null)
-				{
-					if (inputInvUnchecked instanceof IInventoryHolder)
-					{
-						IInventoryHolder inputInv = (IInventoryHolder) inputInvUnchecked;
-
-						if (inputConduit.getSideMode(inputInvSide) == ConduitMode.INPUT)
-						{
-							ItemInstance wouldInput = RockSolidAPILib.getToExtract(inputInv, 1,
-									inputConduit.getInventory().get(inputInvSide.getID()),
-									inputConduit.getIsWhitelist(inputInvSide));
-							
-							int highestOutput = this.getHighestOutputPriority(inputInv);
-
-							for (short outputNet = 0; outputNet < networkLength; outputNet++)
-							{
-								Pos2 outputConduitPos = new Pos2(network[outputNet][0] + this.getMaster().getX(),
-										network[outputNet][1] + this.getMaster().getY());
-								TileEntityItemConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
-										outputConduitPos.getY(), TileEntityItemConduit.class);
-
-								ConduitSide outputInvSide = ConduitSide.getByID(network[outputNet][2]);
-								
-								if (outputConduit.getPriority(outputInvSide) >= highestOutput)
-								{
-									Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
-									TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
-											outputInvPos.getY(), world);
-	
-									if (outputInvUnchecked != null && outputConduit != null)
-									{
-										if (outputInvUnchecked instanceof IInventoryHolder)
-										{
-											IInventoryHolder outputInv = (IInventoryHolder) outputInvUnchecked;
-	
-											if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
-											{
-												if (outputConduit.canAccept(wouldInput, outputInvSide))
-												{
-													if (RockSolidAPILib.canInsert(outputInv, wouldInput))
-													{
-														ItemInstance extractedItem = RockSolidAPILib.extract(inputInv, 1,
-																inputInv.getInventory().get(inputInvSide.getID()),
-																inputConduit.getIsWhitelist(inputInvSide));
-														RockSolidAPILib.insert(outputInv, extractedItem);
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				this.tryInput(inputConduitPos, inputTileSide);
 			}
 		}
-	}
-
-	public int getHighestOutputPriority(IInventoryHolder inputInv)
-	{
-		if (this.isMaster())
-		{
-			int highest = 0;
-			for (short outputNet = 0; outputNet < networkLength; outputNet++)
-			{
-				Pos2 outputConduitPos = new Pos2(network[outputNet][0] + this.getMaster().getX(),
-						network[outputNet][1] + this.getMaster().getY());
-				TileEntityItemConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
-						outputConduitPos.getY(), TileEntityItemConduit.class);
-
-				ConduitSide outputInvSide = ConduitSide.getByID(network[outputNet][2]);
-				
-				if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT && outputConduit.getPriority(outputInvSide) > highest)
-				{
-					Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
-					TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
-							outputInvPos.getY(), world);
-	
-					if (outputInvUnchecked != null && outputConduit != null)
-					{
-						if (outputInvUnchecked instanceof IInventoryHolder)
-						{
-							IInventoryHolder outputInv = (IInventoryHolder) outputInvUnchecked;
-							
-							
-							for (int slot : inputInv.getOutputSlots(Direction.NONE))
-							{
-								if (outputConduit.canAccept(inputInv.getInventory().get(slot), outputInvSide))
-								{
-									if (RockSolidAPILib.canInsert(outputInv, inputInv.getInventory().get(slot)))
-									{
-										highest = outputConduit.getPriority(outputInvSide);
-									}
-								}
-							}
-							
-						}
-					}
-				}
-			}
-			
-			return highest;
-		} else
-		{
-			TileEntityItemConduit masterConduit = world.getTileEntity(this.getMaster().getX(),
-					this.getMaster().getY(), TileEntityItemConduit.class);
-
-			if (masterConduit != null)
-			{
-				return masterConduit.getHighestOutputPriority(inputInv);
-			}
-		}
-		return 1;
-	}
-	
-	public boolean canAccept(ItemInstance item, ConduitSide side)
-	{
-		ItemInstance filter = this.getInventory().get(side.getID());
-		boolean isWhitelist = this.getIsWhitelist(side);
-		
-		
-		if (item != null)
-		{
-			if (filter == null)
-			{
-				return true;
-			} else
-			{
-				if (isWhitelist)
-				{
-					if (filter.getItem().equals(item.getItem()))
-					{
-						return true;
-					}
-				} else
-				{
-					if (!filter.getItem().equals(item.getItem()))
-					{
-						return true;
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	@Override
 	public void save(final DataSet set, final boolean forSync)
 	{
 		super.save(set, forSync);
-		if (!forSync)
-		{
-			this.inventory.save(set);
-		}
 		set.addInt("modeUp", this.modes[ConduitSide.UP.getID()].getID());
 		set.addInt("modeDown", this.modes[ConduitSide.DOWN.getID()].getID());
 		set.addInt("modeLeft", this.modes[ConduitSide.LEFT.getID()].getID());
@@ -252,10 +90,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		set.addInt("priorityDown", this.priorities[ConduitSide.DOWN.getID()]);
 		set.addInt("priorityLeft", this.priorities[ConduitSide.LEFT.getID()]);
 		set.addInt("priorityRight", this.priorities[ConduitSide.RIGHT.getID()]);
-		set.addBoolean("isWhitelistUp", this.whitelistModes[ConduitSide.UP.getID()]);
-		set.addBoolean("isWhitelistDown", this.whitelistModes[ConduitSide.DOWN.getID()]);
-		set.addBoolean("isWhitelistLeft", this.whitelistModes[ConduitSide.LEFT.getID()]);
-		set.addBoolean("isWhitelistRight", this.whitelistModes[ConduitSide.RIGHT.getID()]);
 		set.addInt("masterX", this.master.getX());
 		set.addInt("masterY", this.master.getY());
 		set.addBoolean("isDead", this.isDead);
@@ -267,10 +101,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	public void load(final DataSet set, final boolean forSync)
 	{
 		super.load(set, forSync);
-		if (!forSync)
-		{
-			this.inventory.load(set);
-		}
 		this.modes[ConduitSide.UP.getID()] = ConduitMode.getByID(set.getInt("modeUp"));
 		this.modes[ConduitSide.DOWN.getID()] = ConduitMode.getByID(set.getInt("modeDown"));
 		this.modes[ConduitSide.LEFT.getID()] = ConduitMode.getByID(set.getInt("modeLeft"));
@@ -280,10 +110,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		this.priorities[ConduitSide.DOWN.getID()] = set.getInt("priorityDown");
 		this.priorities[ConduitSide.LEFT.getID()] = set.getInt("priorityLeft");
 		this.priorities[ConduitSide.RIGHT.getID()] = set.getInt("priorityRight");
-		this.whitelistModes[ConduitSide.UP.getID()] = set.getBoolean("isWhitelistUp");
-		this.whitelistModes[ConduitSide.DOWN.getID()] = set.getBoolean("isWhitelistDown");
-		this.whitelistModes[ConduitSide.LEFT.getID()] = set.getBoolean("isWhitelistLeft");
-		this.whitelistModes[ConduitSide.RIGHT.getID()] = set.getBoolean("isWhitelistRight");
 		this.master = new Pos2(set.getInt("masterX"), set.getInt("masterY"));
 		this.isDead = set.getBoolean("isDead");
 		this.network = set.getShortShortArray("network", 512);
@@ -300,9 +126,9 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				for (ConduitSide side : ConduitSide.values())
 				{
 					TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world);
-					if (adjSide instanceof TileEntityItemConduit)
+					if (adjSide.getClass().equals(this.getConduitClass()))
 					{
-						TileEntityItemConduit adjConduit = (TileEntityItemConduit) adjSide;
+						TileEntityConduit adjConduit = (TileEntityConduit) adjSide;
 						// different master to this
 						if (!adjConduit.getMaster().equals(this.master))
 						{
@@ -337,7 +163,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 				short[] networkEntry = this.getFromNetwork(new Pos2(relativeConduitX, relativeConduitY), side);
 
-				if (adjSide instanceof IInventoryHolder)
+				if (adjSide.getClass().equals(this.getContainerClass()))
 				{
 					// it isn't already contained in the network
 					if (networkEntry[0] == 0)
@@ -361,8 +187,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			}
 		} else
 		{
-			TileEntityItemConduit masterConduit = world.getTileEntity(this.getMaster().getX(),
-					this.getMaster().getY(), TileEntityItemConduit.class);
+			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					this.getConduitClass());
 
 			if (masterConduit != null)
 			{
@@ -384,8 +210,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			}
 		} else
 		{
-			TileEntityItemConduit masterConduit = world.getTileEntity(this.getMaster().getX(),
-					this.getMaster().getY(), TileEntityItemConduit.class);
+			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					this.getConduitClass());
 
 			if (masterConduit != null)
 			{
@@ -400,8 +226,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		{
 			if (!world.isClient())
 			{
-				TileEntityItemConduit conduit = world.getTileEntity(relativeConduitX + this.getMaster().getX(),
-						relativeConduitY + this.getMaster().getY(), TileEntityItemConduit.class);
+				TileEntityConduit conduit = world.getTileEntity(relativeConduitX + this.getMaster().getX(),
+						relativeConduitY + this.getMaster().getY(), this.getConduitClass());
 
 				if (conduit != null)
 				{
@@ -413,8 +239,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			}
 		} else
 		{
-			TileEntityItemConduit masterConduit = world.getTileEntity(this.getMaster().getX(),
-					this.getMaster().getY(), TileEntityItemConduit.class);
+			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					this.getConduitClass());
 
 			if (masterConduit != null)
 			{
@@ -436,7 +262,7 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 
 			if (changedTile != null)
 			{
-				if (changedTile instanceof IInventoryHolder)
+				if (changedTile.getClass().equals(this.getContainerClass()))
 				{
 					this.addInventory(world, (short) conduitRelativePos.getX(), (short) conduitRelativePos.getY(),
 							changedSide);
@@ -465,9 +291,9 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			{
 				TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world);
 
-				if (adjSide instanceof TileEntityItemConduit)
+				if (adjSide.getClass().equals(this.getConduitClass()))
 				{
-					((TileEntityItemConduit) adjSide).setMaster(new Pos2(adjSide.x, adjSide.y));
+					((TileEntityConduit) adjSide).setMaster(new Pos2(adjSide.x, adjSide.y));
 				}
 			}
 		}
@@ -476,12 +302,12 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 	@Override
 	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		if (tile instanceof TileEntityItemConduit)
+		if (tile.getClass().equals(this.getConduitClass()))
 		{
-			return ((TileEntityItemConduit) tile).getSideMode(
+			return ((TileEntityConduit) tile).getSideMode(
 					RockSolidAPILib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != ConduitMode.DISABLED;
 		}
-		return tile instanceof IInventoryHolder;
+		return tile.getClass().equals(this.getContainerClass());
 	}
 
 	// Dosen't actually return the value from the network.
@@ -507,8 +333,8 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 			return new short[] { 0, 0 };
 		} else
 		{
-			TileEntityItemConduit master = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					TileEntityItemConduit.class);
+			TileEntityConduit master = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					this.getConduitClass());
 			if (master != null)
 			{
 				return master.getFromNetwork(relativeConduitPos, side);
@@ -539,11 +365,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		return this.modes[side.getID()];
 	}
 
-	public boolean getIsWhitelist(ConduitSide side)
-	{
-		return this.whitelistModes[side.getID()];
-	}
-
 	public int getPriority(ConduitSide side)
 	{
 		return this.priorities[side.getID()];
@@ -570,11 +391,11 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 				TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(this.x, this.y), side, world);
 
 				// if its an item conduit with a different master
-				if (adjSide instanceof TileEntityItemConduit
-						&& !((TileEntityItemConduit) adjSide).getMaster().equals(this.getMaster())
-						&& !((TileEntityItemConduit) adjSide).isDead)
+				if (adjSide.getClass().equals(this.getConduitClass())
+						&& !((TileEntityConduit) adjSide).getMaster().equals(this.getMaster())
+						&& !((TileEntityConduit) adjSide).isDead)
 				{
-					((TileEntityItemConduit) adjSide).setMaster(this.getMaster());
+					((TileEntityConduit) adjSide).setMaster(this.getMaster());
 				}
 			}
 			this.shouldSync = true;
@@ -587,15 +408,6 @@ public class TileEntityItemConduit extends TileEntity implements IConduit
 		if (!world.isClient())
 		{
 			this.modes[side.getID()] = mode;
-			this.shouldSync = true;
-		}
-	}
-
-	public void setIsWhitelist(ConduitSide side, boolean isWhitelist)
-	{
-		if (!world.isClient())
-		{
-			this.whitelistModes[side.getID()] = isWhitelist;
 			this.shouldSync = true;
 		}
 	}
