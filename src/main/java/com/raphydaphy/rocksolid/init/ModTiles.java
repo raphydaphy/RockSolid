@@ -89,6 +89,9 @@ public class ModTiles
 	public static Tile oreRutile;
 	public static Tile oreUranium;
 	public static Tile oreWolframite;
+	public static Tile oreCobalt;
+	public static Tile oreNickel;
+	public static Tile oreAluminum;
 
 	public static Tile constructionBlockSteel;
 	public static Tile constructionBlockTitanium;
@@ -147,6 +150,11 @@ public class ModTiles
 				10);
 		oreWolframite = new TileOre(RockSolidAPILib.makeInternalRes("oreWolframite"), new ItemInstance(ModItems.clusterTungsten, 1), 35, 10);
 
+		oreCobalt = new TileBase(RockSolidAPILib.makeInternalRes("oreCobalt"), 50, 10);
+		oreNickel = new TileBase(RockSolidAPILib.makeInternalRes("oreNickel"), 45, 10);
+		oreAluminum = new TileBase(RockSolidAPILib.makeInternalRes("oreAluminum"), 40, 10);
+		
+		
 		constructionBlockSteel = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockSteel"), 10, 3);
 		constructionBlockTitanium = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockTitanium"), 25, 4);
 	}

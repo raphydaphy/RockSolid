@@ -116,6 +116,9 @@ rocksolid/item.oreMagnesium=Magnesium Ore
 rocksolid/item.oreRutile=Rutile Ore
 rocksolid/item.oreUranium=Uranium Ore
 rocksolid/item.oreWolframite=Wolframite Ore
+rocksolid/item.oreCobalt=Cobalt Ore
+rocksolid/item.oreNickel=Nickel Ore
+rocksolid/item.oreAluminum=Aluminum Ore
 
 rocksolid/item.constructionBlockSteel=Steel Construction Block
 rocksolid/item.constructionBlockTitanium=Titanium Construction Block

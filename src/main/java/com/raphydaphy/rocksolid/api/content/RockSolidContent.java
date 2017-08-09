@@ -59,6 +59,9 @@ public class RockSolidContent
 	public static final Tile oreRutile = getTile("oreRutile");
 	public static final Tile oreUranium = getTile("oreUranium");
 	public static final Tile oreWolframite = getTile("oreWolframite");
+	public static final Tile oreCobalt = getTile("oreCobalt");
+	public static final Tile oreNickel = getTile("oreNickel");
+	public static final Tile oreAluminum = getTile("oreAluminum");
 
 	public static final Tile constructionBlockSteel = getTile("constructionBlockSteel");
 	public static final Tile constructionBlockTitanium = getTile("constructionBlockTitanium");

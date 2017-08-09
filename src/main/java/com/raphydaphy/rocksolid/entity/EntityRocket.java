@@ -38,9 +38,7 @@ public class EntityRocket extends Entity
 	private Inventory inv;
 
 	public static final Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
-			RockSolidContent.oreRutile, RockSolidContent.oreTin, RockSolidContent.oreUranium,
-			RockSolidContent.oreWolframite, GameContent.TILE_COPPER_ORE, GameContent.TILE_GLOW_ORE,
-			GameContent.TILE_COAL_ORE };
+			RockSolidContent.oreNickel, RockSolidContent.oreCobalt, RockSolidContent.oreAluminum };
 
 	public enum RocketStage
 	{

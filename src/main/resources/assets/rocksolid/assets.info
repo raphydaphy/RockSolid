@@ -445,3 +445,6 @@ tex.tiles.oreMagnesium=/tiles/ore/ore_magnesium.png
 tex.tiles.oreRutile=/tiles/ore/ore_rutile.png
 tex.tiles.oreUranium=/tiles/ore/ore_uranium.png
 tex.tiles.oreWolframite=/tiles/ore/ore_wolframite.png
+tex.tiles.oreCobalt=/tiles/ore/ore_cobalt.png
+tex.tiles.oreNickel=/tiles/ore/ore_nickel.png
+tex.tiles.oreAluminum=/tiles/ore/ore_aluminum.png
