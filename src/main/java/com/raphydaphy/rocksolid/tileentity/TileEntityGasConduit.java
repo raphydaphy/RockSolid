@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.api.gas.IGasTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
+import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -43,45 +44,71 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 					
 					String extractType = inputInv.getGasType();
 
-					for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
+					if (extractType != ModGasses.gasVacuum.toString())
 					{
-						Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
-								super.getNetwork()[outputNet][1] + this.getMaster().getY());
-						TileEntityGasConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
-								outputConduitPos.getY(), TileEntityGasConduit.class);
-
-						ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
-
-						Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
-						TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
-								outputInvPos.getY(), world);
-
-						if (outputInvUnchecked != null && outputConduit != null)
+						for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
 						{
-							if (outputInvUnchecked instanceof IGasAcceptor)
+							System.out.println("found potential gas output");
+							Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
+									super.getNetwork()[outputNet][1] + this.getMaster().getY());
+							TileEntityGasConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
+									outputConduitPos.getY(), TileEntityGasConduit.class);
+	
+							ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
+	
+							Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
+							TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
+									outputInvPos.getY(), world);
+	
+							if (outputInvUnchecked != null && outputConduit != null)
 							{
-								IGasAcceptor outputInv = (IGasAcceptor) outputInvUnchecked;
-
-								if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
+								if (outputInvUnchecked instanceof IGasAcceptor)
 								{
-									int maxOutput = outputInv.getCurrentGas() + maxTransfer <= outputInv
-											.getMaxGas() ? maxTransfer
-													: outputInv.getCurrentGas() - outputInv.getCurrentGas();
-									String outputType = outputInv.getGasType();
-									
-									if (extractType.equals(outputType))
+									IGasAcceptor outputInv = (IGasAcceptor) outputInvUnchecked;
+	
+									if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
 									{
-										// send the maximum extraction amount as it is smaller
-										if (wouldExtract >= maxOutput)
+										int maxOutput = outputInv.getCurrentGas() + maxTransfer <= outputInv
+												.getMaxGas() ? maxTransfer
+														: outputInv.getCurrentGas() - outputInv.getCurrentGas();
+										String outputType = outputInv.getGasType();
+										
+										System.out.println("We did it i think!");
+										if (extractType.equals(outputType) || outputType.equals(ModGasses.gasVacuum.toString()))
 										{
-											inputInv.removeGas(wouldExtract);
-											outputInv.addGas(wouldExtract, extractType);
-										}
-										// send the max inpupt amount as it is smaller
-										else
-										{
-											inputInv.removeGas(maxOutput);
-											outputInv.addGas(maxOutput, extractType);
+											// send the maximum extraction amount as it is smaller
+											if (wouldExtract >= maxOutput)
+											{
+												if (outputInv.getCurrentGas() + wouldExtract <= outputInv.getMaxGas())
+												{
+													if (inputInv.removeGas(wouldExtract))
+													{
+														outputInv.addGas(wouldExtract, extractType);
+														
+														if (outputInv.getGasType().equals(ModGasses.gasVacuum.toString()))
+														{
+															outputInv.setGasType(inputInv.getGasType());
+														}
+													}
+												}
+											}
+											// send the max inpupt amount as it is smaller
+											else
+											{
+												if (outputInv.getCurrentGas() + maxOutput <= outputInv.getMaxGas())
+												{
+													if (inputInv.removeGas(maxOutput))
+													{
+														outputInv.addGas(maxOutput, extractType);
+														
+														if (outputInv.getGasType().equals(ModGasses.gasVacuum.toString()))
+														{
+															outputInv.setGasType(inputInv.getGasType());
+														}
+													}
+												}
+												
+											}
 										}
 									}
 								}
