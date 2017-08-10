@@ -162,14 +162,17 @@ public class GuiConduitConfig extends GuiContainer
 			}
 			this.addPlayerInventory(player, this.guiLeft + 20, this.guiTop + 75);
 
-			if (isWhitelist)
+			if (tile instanceof TileEntityItemConduit)
 			{
-				this.components
-						.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Whitelist"));
-			} else
-			{
-				this.components
-						.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Blacklist"));
+				if (isWhitelist)
+				{
+					this.components
+							.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Whitelist"));
+				} else
+				{
+					this.components
+							.add(new ComponentButton(this, 8, this.guiLeft + 73, this.guiTop + 50, 54, 18, "Blacklist"));
+				}
 			}
 		}
 
