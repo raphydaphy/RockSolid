@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 import com.raphydaphy.rocksolid.api.fluid.IFluidTile;
@@ -64,26 +65,16 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 
 								if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
 								{
-									int maxOutput = outputInv.getCurrentFluid() + maxTransfer <= outputInv.getMaxFluid()
-											? maxTransfer
-											: outputInv.getCurrentFluid() - outputInv.getCurrentFluid();
 									String outputType = outputInv.getFluidType();
 
-									if (extractType.equals(outputType))
+									if (extractType.equals(outputType) || outputType.equals(Fluid.EMPTY.getName()))
 									{
-										// send the maximum extraction amount as
-										// it is smaller
-										if (wouldExtract >= maxOutput)
+										if (outputInv.getCurrentFluid() + wouldExtract <= outputInv.getMaxFluid())
 										{
-											inputInv.removeFluid(wouldExtract);
-											outputInv.addFluid(wouldExtract, extractType);
-										}
-										// send the max inpupt amount as it is
-										// smaller
-										else
-										{
-											inputInv.removeFluid(maxOutput);
-											outputInv.addFluid(maxOutput, extractType);
+											if (inputInv.removeFluid(wouldExtract))
+											{
+												outputInv.addFluid(wouldExtract, extractType);
+											}
 										}
 									}
 								}
