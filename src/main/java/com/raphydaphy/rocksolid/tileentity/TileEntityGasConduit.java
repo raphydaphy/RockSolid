@@ -18,7 +18,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 
 	public TileEntityGasConduit(final IWorld world, final int x, final int y)
 	{
-		super(TileEntityGasConduit.class,world, x, y);
+		super(TileEntityGasConduit.class, 5, world, x, y);
 	}
 
 	@Override

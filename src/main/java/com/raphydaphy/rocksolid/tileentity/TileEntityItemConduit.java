@@ -23,7 +23,7 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 
 	public TileEntityItemConduit(final IWorld world, final int x, final int y)
 	{
-		super(TileEntityItemConduit.class, world, x, y);
+		super(TileEntityItemConduit.class, 10, world, x, y);
 		this.inventory = new ContainerInventory(this, 4);
 	}
 

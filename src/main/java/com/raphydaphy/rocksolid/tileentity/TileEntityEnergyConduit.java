@@ -18,7 +18,7 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 
 	public TileEntityEnergyConduit(final IWorld world, final int x, final int y)
 	{
-		super(TileEntityEnergyConduit.class, world, x, y);
+		super(TileEntityEnergyConduit.class, 1, world, x, y);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 											}
 										}
 									}
-									// send the max inpupt amount as it is
+									// send the max input amount as it is
 									// smaller
 									else
 									{

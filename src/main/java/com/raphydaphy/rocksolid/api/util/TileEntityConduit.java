@@ -28,11 +28,13 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 	private short networkLength = 0;
 	
 	private final Class<E> tileClass;
+	private final int updateTime;
 
-	public TileEntityConduit(Class<E> tileClass, final IWorld world, final int x, final int y)
+	public TileEntityConduit(Class<E> tileClass, int updateTime, final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
 		this.tileClass = tileClass;
+		this.updateTime = updateTime;
 	}
 
 	@Override
@@ -106,7 +108,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		if (world.getWorldInfo().totalTimeInWorld % 10 == 0 && this.isMaster())
+		if (world.getWorldInfo().totalTimeInWorld % updateTime == 0 && this.isMaster())
 		{
 			for (short inputNet = 0; inputNet < networkLength; inputNet++)
 			{
