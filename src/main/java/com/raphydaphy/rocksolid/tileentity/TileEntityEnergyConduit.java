@@ -29,7 +29,6 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 
 		Pos2 inputInvPos = RockSolidAPILib.conduitSideToPos(center, side);
 		TileEntity inputInvUnchecked = RockSolidAPILib.getTileFromPos(inputInvPos.getX(), inputInvPos.getY(), world);
-		System.out.println("is this even doing anything?");
 		if (inputInvUnchecked != null && inputConduit != null)
 		{
 			if (inputInvUnchecked instanceof IEnergyProducer)
@@ -38,10 +37,11 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 
 				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
 				{
-					System.out.println("apparently so");
+					
 					int wouldExtract = inputInv.getCurrentEnergy() >= maxTransfer ? maxTransfer
 							: inputInv.getCurrentEnergy();
 
+					System.out.println("Found a power input at " + inputInvPos.getX() + ", " + inputInvPos.getY() + " able to supply " + wouldExtract +" energy this tick.");
 					for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
 					{
 						Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
@@ -57,13 +57,14 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 
 						if (outputInvUnchecked != null && outputConduit != null)
 						{
-							System.out.println("There might be somewhere to send powah");
+							System.out.println("There might be somewhere to send powah! Found at " + outputInvUnchecked.x + ", " + outputInvUnchecked.y);
 							if (outputInvUnchecked instanceof IEnergyAcceptor)
 							{
 								IEnergyAcceptor outputInv = (IEnergyAcceptor) outputInvUnchecked;
-
+								System.out.println("Found an acceptor!");
 								if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
 								{
+									System.out.println("ITS THE CORRECT MODE");
 									int maxOutput = outputInv.getCurrentEnergy() + maxTransfer <= outputInv
 											.getMaxEnergy() ? maxTransfer
 													: outputInv.getMaxEnergy() - outputInv.getCurrentEnergy();
@@ -72,15 +73,25 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 									// is smaller
 									if (wouldExtract >= maxOutput)
 									{
-										inputInv.removeEnergy(wouldExtract);
-										outputInv.addEnergy(wouldExtract);
+										if (outputInv.getCurrentEnergy() + wouldExtract <= outputInv.getMaxEnergy())
+										{
+											if (inputInv.removeEnergy(wouldExtract))
+											{
+												outputInv.addEnergy(wouldExtract);
+											}
+										}
 									}
 									// send the max inpupt amount as it is
 									// smaller
 									else
 									{
-										inputInv.removeEnergy(maxOutput);
-										outputInv.addEnergy(maxOutput);
+										if (outputInv.getCurrentEnergy() + maxOutput <= outputInv.getMaxEnergy())
+										{
+											if (inputInv.removeEnergy(maxOutput))
+											{
+												outputInv.addEnergy(maxOutput);
+											}
+										}
 									}
 
 								}

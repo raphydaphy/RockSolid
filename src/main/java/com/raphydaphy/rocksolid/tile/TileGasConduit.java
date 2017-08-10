@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.api.gui.ContainerEmpty;
 import com.raphydaphy.rocksolid.api.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 import com.raphydaphy.rocksolid.gui.GuiConduitConfig;
 import com.raphydaphy.rocksolid.init.ModKeybinds;
 import com.raphydaphy.rocksolid.item.ItemWrench;
@@ -115,6 +116,39 @@ public class TileGasConduit extends TileBasic
 	public boolean isFullTile()
 	{
 		return false;
+	}
+	
+	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileEntityConduit<?> tile = world.getTileEntity(x, y, TileEntityConduit.class);
+		if (tile != null)
+		{
+			tile.onAdded(world, x, y);
+		}
+	}
+
+	@Override
+	public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
+			TileLayer changedLayer)
+	{
+		super.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
+
+		TileEntityConduit<?> tile = world.getTileEntity(x, y, TileEntityConduit.class);
+
+		if (tile != null)
+		{
+			tile.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
+		}
+	}
+
+	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileEntityConduit<?> tile = world.getTileEntity(x, y, TileEntityConduit.class);
+
+		if (tile != null)
+		{
+			tile.onRemoved(world, x, y, layer);
+		}
 	}
 
 	public void describeItem(IAssetManager manager, ItemInstance instance, List<String> desc, boolean isAdvanced)
