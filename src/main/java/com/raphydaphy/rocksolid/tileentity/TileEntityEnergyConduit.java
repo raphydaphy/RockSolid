@@ -3,243 +3,99 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.api.energy.IEnergyAcceptor;
 import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
 import com.raphydaphy.rocksolid.api.energy.IEnergyTile;
-import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
+import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 
-import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityEnergyConduit extends TileEntity implements IConduit, IEnergyProducer, IEnergyAcceptor
+public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyConduit>
 {
-
-	private int modeUp = 0;
-	private int modeDown = 0;
-	private int modeLeft = 0;
-	private int modeRight = 0;
-
-	private int energyStored = 0;
-	private int maxEnergy = 1000;
-
-	private int transferRate = 300;
-
-	private boolean shouldSync = false;
+	private static final int maxTransfer = 300;
 
 	public TileEntityEnergyConduit(final IWorld world, final int x, final int y)
 	{
-		super(world, x, y);
+		super(TileEntityEnergyConduit.class, world, x, y);
 	}
 
 	@Override
-	protected boolean needsSync()
+	public void tryInput(Pos2 center, ConduitSide side)
 	{
-		return super.needsSync() || shouldSync;
-	}
+		TileEntityEnergyConduit inputConduit = world.getTileEntity(center.getX(), center.getY(),
+				TileEntityEnergyConduit.class);
 
-	@Override
-	public void update(IGameInstance game)
-	{
-		super.update(game);
-		if (RockBottomAPI.getNet().isClient() == false)
+		Pos2 inputInvPos = RockSolidAPILib.conduitSideToPos(center, side);
+		TileEntity inputInvUnchecked = RockSolidAPILib.getTileFromPos(inputInvPos.getX(), inputInvPos.getY(), world);
+		System.out.println("is this even doing anything?");
+		if (inputInvUnchecked != null && inputConduit != null)
 		{
-			// first we extract stuff from nearby inventories into the pipes
-			// inventory
-			for (ConduitSide side : ConduitSide.values())
+			if (inputInvUnchecked instanceof IEnergyProducer)
 			{
-				Pos2 adjacentTilePos = RockSolidAPILib.conduitSideToPos(new Pos2(x, y), side);
-				TileEntity adjacentTileEntity = RockSolidAPILib.getTileFromPos(adjacentTilePos.getX(),
-						adjacentTilePos.getY(), world);
+				IEnergyProducer inputInv = (IEnergyProducer) inputInvUnchecked;
 
-				if (adjacentTileEntity != null)
+				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
 				{
-					// return
-					// IEnergyBlock.class.isAssignableFrom(adjacentBlock);
-					if (adjacentTileEntity instanceof TileEntityEnergyConduit)
-					{
-						if (this.getSideMode(side) != ConduitMode.DISABLED)
-						{
-							if (((TileEntityEnergyConduit) adjacentTileEntity).getCurrentEnergy() > this
-									.getCurrentEnergy())
-							{
-								if (((TileEntityEnergyConduit) adjacentTileEntity).getCurrentEnergy() >= transferRate)
-								{
-									if (this.addEnergy(transferRate))
-									{
-										((TileEntityEnergyConduit) adjacentTileEntity).removeEnergy(transferRate);
-										shouldSync = true;
-									}
-								}
-							}
-						}
-					} else if (IEnergyTile.class.isAssignableFrom(adjacentTileEntity.getClass()))
-					{
-						if (IEnergyProducer.class.isAssignableFrom(adjacentTileEntity.getClass()))
-						{
-							// Conduit is set to input mode
-							if (this.getSideMode(side) == ConduitMode.INPUT)
-							{
-								if (this.energyStored < (this.maxEnergy - transferRate))
-								{
-									if (((IEnergyProducer) adjacentTileEntity).removeEnergy(transferRate))
-									{
-										this.energyStored += transferRate;
-										shouldSync = true;
-									}
-								}
-							}
-						}
+					System.out.println("apparently so");
+					int wouldExtract = inputInv.getCurrentEnergy() >= maxTransfer ? maxTransfer
+							: inputInv.getCurrentEnergy();
 
-						if (IEnergyAcceptor.class.isAssignableFrom(adjacentTileEntity.getClass()))
+					for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
+					{
+						Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
+								super.getNetwork()[outputNet][1] + this.getMaster().getY());
+						TileEntityEnergyConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
+								outputConduitPos.getY(), TileEntityEnergyConduit.class);
+
+						ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
+
+						Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
+						TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
+								outputInvPos.getY(), world);
+
+						if (outputInvUnchecked != null && outputConduit != null)
 						{
-							// Conduit is set to output mode
-							if (this.getSideMode(side) == ConduitMode.OUTPUT)
+							System.out.println("There might be somewhere to send powah");
+							if (outputInvUnchecked instanceof IEnergyAcceptor)
 							{
-								if (this.energyStored >= transferRate)
+								IEnergyAcceptor outputInv = (IEnergyAcceptor) outputInvUnchecked;
+
+								if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
 								{
-									if (((IEnergyAcceptor) adjacentTileEntity).addEnergy(transferRate))
+									int maxOutput = outputInv.getCurrentEnergy() + maxTransfer <= outputInv
+											.getMaxEnergy() ? maxTransfer
+													: outputInv.getMaxEnergy() - outputInv.getCurrentEnergy();
+									System.out.println("Sending " + maxOutput + " or " + wouldExtract + " power!");
+									// send the maximum extraction amount as it
+									// is smaller
+									if (wouldExtract >= maxOutput)
 									{
-										this.removeEnergy(transferRate);
-										shouldSync = true;
+										inputInv.removeEnergy(wouldExtract);
+										outputInv.addEnergy(wouldExtract);
 									}
+									// send the max inpupt amount as it is
+									// smaller
+									else
+									{
+										inputInv.removeEnergy(maxOutput);
+										outputInv.addEnergy(maxOutput);
+									}
+
 								}
 							}
 						}
 					}
-
 				}
 			}
 		}
 	}
 
-	public void setSideMode(ConduitSide side, ConduitMode mode)
-	{
-		shouldSync = true;
-		switch (side.getID())
-		{
-		case 0:
-			// up
-			modeUp = mode.getID();
-			break;
-		case 1:
-			// down
-			modeDown = mode.getID();
-			break;
-		case 2:
-			// left
-			modeLeft = mode.getID();
-			break;
-		case 3:
-			// right
-			modeRight = mode.getID();
-			break;
-		}
-	}
-
-	public ConduitMode getSideMode(ConduitSide side)
-	{
-		switch (side.getID())
-		{
-		case 0:
-			return ConduitMode.getByID(modeUp);
-		case 1:
-			return ConduitMode.getByID(modeDown);
-		case 2:
-			return ConduitMode.getByID(modeLeft);
-		case 3:
-			return ConduitMode.getByID(modeRight);
-		}
-		return ConduitMode.DISABLED;
-	}
-
 	@Override
-	public void save(final DataSet set, final boolean forSync)
-	{
-		super.save(set, forSync);
-		set.addInt("modeUp", this.modeUp);
-		set.addInt("modeDown", this.modeDown);
-		set.addInt("modeLeft", this.modeLeft);
-		set.addInt("modeRight", this.modeRight);
-		set.addInt("energyStored", this.energyStored);
-		set.addInt("maxEnergy", this.maxEnergy);
-		set.addInt("transferRate", this.transferRate);
-		set.addBoolean("shouldSync", this.shouldSync);
-	}
-
-	@Override
-	public void load(final DataSet set, final boolean forSync)
-	{
-		super.load(set, forSync);
-		this.modeUp = set.getInt("modeUp");
-		this.modeDown = set.getInt("modeDown");
-		this.modeLeft = set.getInt("modeLeft");
-		this.modeRight = set.getInt("modeRight");
-		this.energyStored = set.getInt("energyStored");
-		this.maxEnergy = set.getInt("maxEnergy");
-		this.transferRate = set.getInt("transferRate");
-		this.shouldSync = set.getBoolean("shouldSync");
-	}
-
-	@Override
-	public boolean canConnectTo(Pos2 pos, TileEntity tile)
+	public boolean canConnectAbstract( TileEntity tile)
 	{
 		return tile instanceof IEnergyTile;
-	}
-
-	@Override
-	public int getCurrentEnergy()
-	{
-		return energyStored;
-	}
-
-	@Override
-	public int getMaxEnergy()
-	{
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean removeEnergy(int amount)
-	{
-		if (this.energyStored >= amount)
-		{
-			if (RockBottomAPI.getNet().isClient() == false)
-			{
-				this.energyStored -= amount;
-				shouldSync = true;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean addEnergy(int amount)
-	{
-		if (this.energyStored <= (this.maxEnergy - amount))
-		{
-			if (RockBottomAPI.getNet().isClient() == false)
-			{
-				this.energyStored += amount;
-				shouldSync = true;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public void setSync()
-	{
-		if (RockBottomAPI.getNet().isClient() == false)
-		{
-			shouldSync = true;
-		}
-
 	}
 
 }

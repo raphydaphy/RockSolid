@@ -20,13 +20,13 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiConduitConfig extends GuiContainer
 {
-	private final TileEntityConduit tile;
+	private final TileEntityConduit<?> tile;
 	private ConduitMode itemMode;
 	private boolean isWhitelist;
 	private ConduitSide editingSide;
 	private int priority;
 
-	public GuiConduitConfig(final AbstractEntityPlayer player, final TileEntityConduit tile)
+	public GuiConduitConfig(final AbstractEntityPlayer player, final TileEntityConduit<?> tile)
 	{
 		super(player, 198, 150);
 		this.tile = tile;
@@ -70,7 +70,7 @@ public class GuiConduitConfig extends GuiContainer
 				{
 					priority--;
 				}
-				((TileEntityConduit) tile).setPriority(editingSide, priority);
+				((TileEntityConduit<?>) tile).setPriority(editingSide, priority);
 
 			} else if (button == 8 && tile instanceof TileEntityItemConduit)
 			{
@@ -84,7 +84,7 @@ public class GuiConduitConfig extends GuiContainer
 			} else
 			{
 				RockBottomAPI.getNet()
-						.sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, 1, true));
+						.sendToServer(new PacketConduitUpdate(tile.x, tile.y, editingSide, itemMode, priority, true));
 			}
 
 			buildSingleGui(game, editingSide);

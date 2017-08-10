@@ -11,7 +11,7 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public abstract class TileEntityConduit extends TileEntity implements IConduit
+public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends TileEntity implements IConduit
 {
 	private ConduitMode[] modes = new ConduitMode[] { ConduitMode.OUTPUT, ConduitMode.OUTPUT, ConduitMode.OUTPUT,
 			ConduitMode.OUTPUT };
@@ -26,10 +26,13 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 
 	private short[][] network = new short[512][3];
 	private short networkLength = 0;
+	
+	private final Class<E> tileClass;
 
-	public TileEntityConduit(final IWorld world, final int x, final int y)
+	public TileEntityConduit(Class<E> tileClass, final IWorld world, final int x, final int y)
 	{
 		super(world, x, y);
+		this.tileClass = tileClass;
 	}
 
 	@Override
@@ -61,8 +64,8 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			return this.network;
 		} else
 		{
-			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					this.getConduitClass());
+			TileEntityConduit<?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					tileClass);
 
 			if (masterConduit != null)
 			{
@@ -80,8 +83,8 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			return this.networkLength;
 		} else
 		{
-			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					this.getConduitClass());
+			TileEntityConduit <?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					tileClass);
 
 			if (masterConduit != null)
 			{
@@ -98,9 +101,6 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 	}
 
 	public abstract void tryInput(Pos2 center, ConduitSide side);
-
-	public abstract <T extends TileEntityConduit> Class <T>getConduitClass();
-	public abstract Class getContainerClass();
 
 	@Override
 	public void update(IGameInstance game)
@@ -169,19 +169,23 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 				for (ConduitSide side : ConduitSide.values())
 				{
 					TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world);
-					if (adjSide.getClass().equals(this.getConduitClass()))
+					
+					if (adjSide != null)
 					{
-						TileEntityConduit adjConduit = (TileEntityConduit) adjSide;
-						// different master to this
-						if (!adjConduit.getMaster().equals(this.master))
+						if (adjSide.getClass().equals(tileClass))
 						{
-							// we haven't set the master of this yet
-							if (this.isMaster())
+							TileEntityConduit <?> adjConduit = (TileEntityConduit<?>) adjSide;
+							// different master to this
+							if (!adjConduit.getMaster().equals(this.master))
 							{
-								this.setMaster(adjConduit.getMaster());
-							} else
-							{
-								adjConduit.setMaster(this.master);
+								// we haven't set the master of this yet
+								if (this.isMaster())
+								{
+									this.setMaster(adjConduit.getMaster());
+								} else
+								{
+									adjConduit.setMaster(this.master);
+								}
 							}
 						}
 					}
@@ -206,32 +210,35 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 
 				short[] networkEntry = this.getFromNetwork(new Pos2(relativeConduitX, relativeConduitY), side);
 
-				if (adjSide.getClass().equals(this.getContainerClass()))
+				if (adjSide != null)
 				{
-					// it isn't already contained in the network
-					if (networkEntry[0] == 0)
+					if (this.canConnectAbstract(adjSide))
 					{
-						this.network[networkLength] = new short[] { relativeConduitX, relativeConduitY,
-								(short) side.getID() };
-						networkLength++;
-						this.shouldSync = true;
+						// it isn't already contained in the network
+						if (networkEntry[0] == 0)
+						{
+							this.network[networkLength] = new short[] { relativeConduitX, relativeConduitY,
+									(short) side.getID() };
+							networkLength++;
+							this.shouldSync = true;
+						}
+						// we already have this inventory in the network
+						else
+						{
+							// do nothing?
+						}
 					}
-					// we already have this inventory in the network
-					else
+					// if it used to contain a inventory
+					else if (networkEntry[0] == 1)
 					{
-						// do nothing?
+						this.removeFromNetwork(networkEntry[1]);
 					}
-				}
-				// if it used to contain a inventory
-				else if (networkEntry[0] == 1)
-				{
-					this.removeFromNetwork(networkEntry[1]);
 				}
 			}
 		} else
 		{
-			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					this.getConduitClass());
+			TileEntityConduit <E> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					tileClass);
 
 			if (masterConduit != null)
 			{
@@ -253,8 +260,8 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			}
 		} else
 		{
-			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					this.getConduitClass());
+			TileEntityConduit <?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					tileClass);
 
 			if (masterConduit != null)
 			{
@@ -269,8 +276,8 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 		{
 			if (!world.isClient())
 			{
-				TileEntityConduit conduit = world.getTileEntity(relativeConduitX + this.getMaster().getX(),
-						relativeConduitY + this.getMaster().getY(), this.getConduitClass());
+				TileEntityConduit <?> conduit = world.getTileEntity(relativeConduitX + this.getMaster().getX(),
+						relativeConduitY + this.getMaster().getY(), tileClass);
 
 				if (conduit != null)
 				{
@@ -282,12 +289,15 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			}
 		} else
 		{
-			TileEntityConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					this.getConduitClass());
+			TileEntityConduit <?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					tileClass);
 
-			if (masterConduit != null)
+			if (masterConduit != null && masterConduit.getClass().equals(this.tileClass) && masterConduit.getMaster().equals(this.getMaster()))
 			{
 				masterConduit.addAdjacentInventories(world, relativeConduitX, relativeConduitY);
+			} else if (masterConduit != null && masterConduit.getClass().equals(this.tileClass))
+			{
+				System.out.println("MASTER CONDUIT AT " + this.getMaster().getX() + ", " + this.getMaster().getY() +"IS LOOPING! THIS SHOULD NOT HAPPEN!");
 			}
 		}
 	}
@@ -305,7 +315,7 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 
 			if (changedTile != null)
 			{
-				if (changedTile.getClass().equals(this.getContainerClass()))
+				if (this.canConnectAbstract(changedTile))
 				{
 					this.addInventory(world, (short) conduitRelativePos.getX(), (short) conduitRelativePos.getY(),
 							changedSide);
@@ -334,23 +344,35 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			{
 				TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world);
 
-				if (adjSide.getClass().equals(this.getConduitClass()))
+				if (adjSide != null)
 				{
-					((TileEntityConduit) adjSide).setMaster(new Pos2(adjSide.x, adjSide.y));
+					if (adjSide.getClass().equals(tileClass))
+					{
+						((TileEntityConduit <?>) adjSide).setMaster(new Pos2(adjSide.x, adjSide.y));
+					}
 				}
 			}
 		}
 	}
+	
+	public abstract boolean canConnectAbstract(TileEntity tile);
 
 	@Override
 	public boolean canConnectTo(Pos2 pos, TileEntity tile)
 	{
-		if (tile.getClass().equals(this.getConduitClass()))
+		if (tile != null)
 		{
-			return ((TileEntityConduit) tile).getSideMode(
-					RockSolidAPILib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != ConduitMode.DISABLED;
+			if (tile.getClass().equals(tileClass))
+			{
+				return ((TileEntityConduit<?>) tile).getSideMode(
+						RockSolidAPILib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != ConduitMode.DISABLED;
+			}
+			return canConnectAbstract(tile);
+		} else
+		{
+			System.out.println("Null tile found rip");
 		}
-		return tile.getClass().equals(this.getContainerClass());
+		return false;
 	}
 
 	// Dosen't actually return the value from the network.
@@ -376,8 +398,8 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			return new short[] { 0, 0 };
 		} else
 		{
-			TileEntityConduit master = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
-					this.getConduitClass());
+			TileEntityConduit<?> master = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					tileClass);
 			if (master != null)
 			{
 				return master.getFromNetwork(relativeConduitPos, side);
@@ -433,12 +455,15 @@ public abstract class TileEntityConduit extends TileEntity implements IConduit
 			{
 				TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(this.x, this.y), side, world);
 
-				// if its an item conduit with a different master
-				if (adjSide.getClass().equals(this.getConduitClass())
-						&& !((TileEntityConduit) adjSide).getMaster().equals(this.getMaster())
-						&& !((TileEntityConduit) adjSide).isDead)
+				if (adjSide != null)
 				{
-					((TileEntityConduit) adjSide).setMaster(this.getMaster());
+					// if its an item conduit with a different master
+					if (adjSide.getClass().equals(tileClass)
+							&& !((TileEntityConduit<?>) adjSide).getMaster().equals(this.getMaster())
+							&& !((TileEntityConduit<?>) adjSide).isDead)
+					{
+						((TileEntityConduit<?>) adjSide).setMaster(this.getMaster());
+					}
 				}
 			}
 			this.shouldSync = true;

@@ -15,7 +15,7 @@ import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-public class TileEntityItemConduit extends TileEntityConduit
+public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemConduit>
 {
 	public final ContainerInventory inventory;
 
@@ -23,7 +23,7 @@ public class TileEntityItemConduit extends TileEntityConduit
 
 	public TileEntityItemConduit(final IWorld world, final int x, final int y)
 	{
-		super(world, x, y);
+		super(TileEntityItemConduit.class, world, x, y);
 		this.inventory = new ContainerInventory(this, 4);
 	}
 
@@ -228,16 +228,10 @@ public class TileEntityItemConduit extends TileEntityConduit
 			super.shouldSync();
 		}
 	}
-
+	
 	@Override
-	public <T extends TileEntityConduit> Class<T> getConduitClass()
+	public boolean canConnectAbstract(TileEntity tile)
 	{
-		return (Class<T>) TileEntityItemConduit.class;
-	}
-
-	@Override
-	public Class<?> getContainerClass()
-	{
-		return IInventoryHolder.class;
+		return tile instanceof IInventoryHolder;
 	}
 }

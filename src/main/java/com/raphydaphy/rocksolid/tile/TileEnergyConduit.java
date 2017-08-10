@@ -61,7 +61,7 @@ public class TileEnergyConduit extends TileBasic
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player)
 	{
-		TileEntityConduit tile = world.getTileEntity(x, y, TileEntityConduit.class);
+		TileEntityEnergyConduit tile = world.getTileEntity(x, y, TileEntityEnergyConduit.class);
 
 		if (tile != null)
 		{
