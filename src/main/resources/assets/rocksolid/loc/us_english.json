@@ -1,12 +1,4 @@
 {
-  "rockbottom": {
-    "item": {
-      "coal_ore": "Coal Ore",
-      "grass": "Grass",
-      "stamper": "Stamper",
-      "stone": "Stone"
-    }
-  },
   "rocksolid": {
     "details": {
       "alloySmelter": "Used to create alloys! Requires coal to run.",
@@ -56,7 +48,7 @@
         "LAVA": "Lava Bucket",
         "OIL": "Oil Bucket",
         "WATER": "Water Bucket",
-        "*": "Empty Bucket"
+        "EMPTY": "Empty Bucket"
       },
       "charger": "Charger",
       "clay": "Clay",

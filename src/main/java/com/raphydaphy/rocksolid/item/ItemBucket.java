@@ -115,12 +115,7 @@ public class ItemBucket extends ItemBase
 	@Override
 	public IResourceName getUnlocalizedName(ItemInstance instance)
 	{
-		String bucketType = "";
-		if (instance.getMeta() > 0)
-		{
-			bucketType = "." + RockSolidAPILib.bucketMetaToFluid(instance.getMeta()).toString();
-		}
-		return RockSolidAPILib.makeInternalRes("item.bucket" + bucketType);
+		return RockSolidAPILib.makeInternalRes("item.bucket" +  "." + RockSolidAPILib.bucketMetaToFluid(instance.getMeta()).toString());
 	}
 
 }
