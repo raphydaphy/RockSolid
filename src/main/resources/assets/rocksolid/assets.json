@@ -1,12 +1,709 @@
 {
-    "loc": {
-        "us_english": "/loc/us_english.json"
+  "loc": {
+    "us_english": "/loc/us_english.json"
+  },
+  "tex": {
+    "items": {
+      "asteroidDataChip": "/items/misc/asteroid_data_chip.png",
+      "axeBronze": "/items/axe/axe_bronze.png",
+      "axeIron": "/items/axe/axe_iron.png",
+      "axeSteel": "/items/axe/axe_steel.png",
+      "axeTitanium": "/items/axe/axe_titanium.png",
+      "bucket": {
+        "FUEL": "/fluids/fuel/bucket.png",
+        "LAVA": "/fluids/lava/bucket.png",
+        "OIL": "/fluids/oil/bucket.png",
+        "WATER": "/fluids/water/bucket.png",
+        "*": "/fluids/empty/bucket.png"
+      },
+      "clumpClay": "/items/clay/clump_clay.png",
+      "clusterIron": "/items/cluster/cluster_iron.png",
+      "clusterMagnesium": "/items/cluster/cluster_magnesium.png",
+      "clusterTin": "/items/cluster/cluster_tin.png",
+      "clusterTungsten": "/items/cluster/cluster_tungsten.png",
+      "clusterUranium": "/items/cluster/cluster_uranium.png",
+      "drillCore": "/items/misc/drill_core.png",
+      "electricLantern": "/items/misc/lanternElectric.png",
+      "gemCoke": "/items/misc/gem_coke.png",
+      "gritIron": "/items/grit/grit_iron.png",
+      "gritMagnesium": "/items/grit/grit_magnesium.png",
+      "gritNickel": "/items/grit/grit_nickel.png",
+      "gritTin": "/items/grit/grit_tin.png",
+      "gritTungsten": "/items/grit/grit_tungsten.png",
+      "gritUranium": "/items/grit/grit_uranium.png",
+      "ingotBronze": "/items/ingot/ingot_bronze.png",
+      "ingotImpureTitanium": "/items/ingot/ingot_impure_titanium.png",
+      "ingotIron": "/items/ingot/ingot_iron.png",
+      "ingotMagnesium": "/items/ingot/ingot_magnesium.png",
+      "ingotNickel": "/items/ingot/ingot_nickel.png",
+      "ingotNickelTungsten": "/items/ingot/ingot_nickel_tungsten.png",
+      "ingotNickelTungstenCarbide": "/items/ingot/ingot_nickel_tungsten_carbide.png",
+      "ingotSteel": "/items/ingot/ingot_steel.png",
+      "ingotTin": "/items/ingot/ingot_tin.png",
+      "ingotTitanium": "/items/ingot/ingot_titanium.png",
+      "ingotTungsten": "/items/ingot/ingot_tungsten.png",
+      "ingotUranium": "/items/ingot/ingot_uranium.png",
+      "itemClay": "/items/clay/clay.png",
+      "jetpack": "/items/misc/jetpack.png",
+      "lantern": "/items/misc/lantern.png",
+      "pelletUranium": "/items/misc/pellet_uranium.png",
+      "pickaxeBronze": "/items/pickaxe/pickaxe_bronze.png",
+      "pickaxeIron": "/items/pickaxe/pickaxe_iron.png",
+      "pickaxeSteel": "/items/pickaxe/pickaxe_steel.png",
+      "pickaxeTitanium": "/items/pickaxe/pickaxe_titanium.png",
+      "porcelianClay": "/items/clay/porcelian_clay.png",
+      "sateliteCore": "/items/misc/satelite_core.png",
+      "shovelIron": "/items/shovel/shovel_iron.png",
+      "wrench": "/items/misc/wrench.png"
     },
-    "tex": {
-        "items": {
-            "ingotTin": "/items/ingot/ingot_tin.png",
-            "ingotBronze": "/items/ingot/ingot_bronze.png",
-            "ingotIron": "/items/ingot/ingot_iron.png"
-        }
+    "rocket": "/tiles//rocket/rocket.png",
+    "tiles": {
+      "alloySmelter": {
+        "0": {
+          "0": "/tiles/alloy_smelter/alloy_smelter.png",
+          "1": "/tiles/alloy_smelter/alloy_smelter_top.png"
+        },
+        "active": "/tiles/alloy_smelter/alloy_smelter_active.png",
+        "item": "/tiles/alloy_smelter/alloy_smelter_item.png"
+      },
+      "analyzer": "/tiles/misc/analyzer.png",
+      "battery": {
+        "0": {
+          "0": "sub./tiles/battery/battery.png,0,24,12,12",
+          "1": "sub./tiles/battery/battery.png,0,12,12,12",
+          "2": "sub./tiles/battery/battery.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/battery/battery.png,12,24,12,12",
+          "1": "sub./tiles/battery/battery.png,12,12,12,12",
+          "2": "sub./tiles/battery/battery.png,12,0,12,12"
+        },
+        "2": {
+          "0": "sub./tiles/battery/battery.png,24,24,12,12",
+          "1": "sub./tiles/battery/battery.png,24,12,12,12",
+          "2": "sub./tiles/battery/battery.png,24,0,12,12"
+        },
+        "item": "/tiles/battery/battery_item.png"
+      },
+      "blastFurnace": {
+        "0": {
+          "0": "/tiles/arc_furnace/arc_furnace.0.0.png",
+          "1": "/tiles/arc_furnace/arc_furnace.0.1.png"
+        },
+        "1": {
+          "0": "/tiles/arc_furnace/arc_furnace.1.0.png",
+          "1": "/tiles/arc_furnace/arc_furnace.1.1.png"
+        },
+        "active": {
+          "0": {
+            "0": "/tiles/arc_furnace/arc_furnace_active.0.0.png",
+            "1": "/tiles/arc_furnace/arc_furnace_active.0.1.png"
+          },
+          "1": {
+            "0": "/tiles/arc_furnace/arc_furnace_active.1.0.png",
+            "1": "/tiles/arc_furnace/arc_furnace_active.1.1.png"
+          }
+        },
+        "item": "/tiles/arc_furnace/arc_furnace_item.png"
+      },
+      "boiler": {
+        "0": {
+          "0": "/tiles/boiler/boiler.0.0.png",
+          "1": "/tiles/boiler/boiler.0.1.png"
+        },
+        "1": {
+          "0": "/tiles/boiler/boiler.1.0.png",
+          "1": "/tiles/boiler/boiler.1.1.png",
+          "2": {
+            "0": "/tiles/boiler/boiler.1.2.0.png"
+          }
+        },
+        "2": {
+          "0": "/tiles/boiler/boiler.0.2.0.png",
+          "1": "/tiles/boiler/boiler.0.2.1.png",
+          "2": {
+            "0": "/tiles/boiler/boiler.2.2.0.png"
+          }
+        },
+        "3": {
+          "2": {
+            "0": "/tiles/boiler/boiler.3.2.0.png"
+          }
+        },
+        "4": {
+          "2": {
+            "0": "/tiles/boiler/boiler.4.2.0.png",
+            "1": "/tiles/boiler/boiler.4.2.1.png"
+          }
+        },
+        "5": {
+          "2": {
+            "1": "/tiles/boiler/boiler.5.2.1.png"
+          }
+        },
+        "6": {
+          "2": {
+            "1": "/tiles/boiler/boiler.6.2.1.png"
+          }
+        },
+        "active": {
+          "0": {
+            "0": "/tiles/boiler/boiler_active.0.0.png",
+            "1": "/tiles/boiler/boiler_active.0.1.png"
+          }
+        },
+        "item": "/tiles/boiler/boiler_item.png"
+      },
+      "charger": {
+        "0": {
+          "0": "/tiles/charger/charger.0.0.png",
+          "1": "/tiles/charger/charger.0.1.png"
+        },
+        "1": {
+          "0": "/tiles/charger/charger.1.0.png",
+          "1": "/tiles/charger/charger.1.1.png",
+          "2.0": "/tiles/charger/coal_generator.1.2.0.png"
+        },
+        "2": {
+          "0": "/tiles/charger/coal_generator.0.2.0.png",
+          "1": "/tiles/charger/coal_generator.0.2.1.png",
+          "2.0": "/tiles/charger/coal_generator.2.2.0.png"
+        },
+        "3": {
+          "2.0": "/tiles/charger/coal_generator.3.2.0.png"
+        },
+        "4": {
+          "2.0": "/tiles/charger/coal_generator.4.2.0.png",
+          "2.1": "/tiles/charger/coal_generator.4.2.1.png"
+        },
+        "5": {
+          "2.1": "/tiles/charger/coal_generator.5.2.1.png"
+        },
+        "6": {
+          "2.1": "/tiles/charger/coal_generator.6.2.1.png"
+        },
+        "item": "/tiles/charger/charger_item.png"
+      },
+      "chest": "/tiles/misc/chest.png",
+      "clay": "/tiles/misc/clay.png",
+      "combustionEngine": {
+      	 "*": {
+			"subtexture": {
+			    "file": "/tiles/combustion_engine/combustion_engine.png",
+			    "0.0": [0, 24, 12, 12],
+			    "0.1": [0, 12, 12, 12],
+			    "0.2": [0, 0, 12, 12],
+			    "1.0": [12,24,12,12],
+			    "1.1": [12,12,12,12],
+			    "1.2": [12,0,12,12],
+			    "2.0": [24,24,12,12],
+			    "2.1": [24,12,12,12],
+			    "2.2": [24,0,12,12]
+		    }
+		},
+        "item": "/tiles/combustion_engine/combustion_engine_item.png"
+      },
+      "compressor": {
+        "0": {
+          "0": "sub./tiles/compressor/compressor.png,0,12,12,12",
+          "1": "sub./tiles/compressor/compressor.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/compressor/compressor.png,12,12,12,12",
+          "1": "sub./tiles/compressor/compressor.png,12,0,12,12"
+        },
+        "2": {
+          "0": "sub./tiles/compressor/compressor.png,24,12,12,12",
+          "1": "sub./tiles/compressor/compressor.png,24,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/compressor/compressor_active.png,0,12,12,12",
+            "1": "sub./tiles/compressor/compressor_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/compressor/compressor_active.png,12,12,12,12",
+            "1": "sub./tiles/compressor/compressor_active.png,12,0,12,12"
+          },
+          "2": {
+            "0": "sub./tiles/compressor/compressor_active.png,24,12,12,12",
+            "1": "sub./tiles/compressor/compressor_active.png,24,0,12,12"
+          }
+        },
+        "item": "/tiles/compressor/compressor_item.png"
+      },
+      "constructionBlockSteel": "/tiles/misc/construction_block_steel.png",
+      "constructionBlockTitanium": "/tiles/misc/construction_block_titanium.png",
+      "creativePowerSource": "/tiles/misc/creative_power_source.png",
+      "electricAlloySmelter": {
+        "0": {
+          "0": "/tiles/electric_alloy_smelter/electric_alloy_smelter.0.0.png",
+          "1": "/tiles/electric_alloy_smelter/electric_alloy_smelter.0.1.png"
+        },
+        "1": {
+          "0": "/tiles/electric_alloy_smelter/electric_alloy_smelter.1.0.png",
+          "1": "/tiles/electric_alloy_smelter/electric_alloy_smelter.1.1.png"
+        },
+        "active": {
+          "0": {
+            "0": "/tiles/electric_alloy_smelter/electric_alloy_smelter_active.0.0.png",
+            "1": "/tiles/electric_alloy_smelter/electric_alloy_smelter_active.0.1.png"
+          },
+          "1": {
+            "0": "/tiles/electric_alloy_smelter/electric_alloy_smelter_active.1.0.png",
+            "1": "/tiles/electric_alloy_smelter/electric_alloy_smelter_active.1.1.png"
+          }
+        },
+        "item": "/tiles/electric_alloy_smelter/electric_alloy_smelter_item.png"
+      },
+      "electricBlastFurnace": {
+        "0": {
+          "0": "/tiles/electric_arc_furnace/electric_arc_furnace.0.0.png",
+          "1": "/tiles/electric_arc_furnace/electric_arc_furnace.0.1.png"
+        },
+        "1": {
+          "0": "/tiles/electric_arc_furnace/electric_arc_furnace.1.0.png",
+          "1": "/tiles/electric_arc_furnace/electric_arc_furnace.1.1.png"
+        },
+        "active": {
+          "0": {
+            "0": "/tiles/electric_arc_furnace/electric_arc_furnace_active.0.0.png",
+            "1": "/tiles/electric_arc_furnace/electric_arc_furnace_active.0.1.png"
+          },
+          "1": {
+            "0": "/tiles/electric_arc_furnace/electric_arc_furnace_active.1.0.png",
+            "1": "/tiles/electric_arc_furnace/electric_arc_furnace_active.1.1.png"
+          }
+        },
+        "item": "/tiles/electric_arc_furnace/electric_arc_furnace_item.png"
+      },
+      "electricPurifier": {
+        "0": {
+          "0": "sub./tiles/purifier/electric_purifier.png,0,12,12,12",
+          "1": "sub./tiles/purifier/electric_purifier.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/purifier/electric_purifier.png,12,12,12,12",
+          "1": "sub./tiles/purifier/electric_purifier.png,12,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/purifier/electric_purifier_active.png,0,12,12,12",
+            "1": "sub./tiles/purifier/electric_purifier_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/purifier/electric_purifier_active.png,12,12,12,12",
+            "1": "sub./tiles/purifier/electric_purifier_active.png,12,0,12,12"
+          }
+        },
+        "item": "/tiles/purifier/electric_purifier_item.png"
+      },
+      "electricSeparator": {
+        "0": {
+          "0": "sub./tiles/electric_separator/electric_separator.png,0,24,12,12",
+          "1": "sub./tiles/electric_separator/electric_separator.png,0,12,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/electric_separator/electric_separator.png,12,24,12,12",
+          "1": "sub./tiles/electric_separator/electric_separator.png,12,12,12,12",
+          "2": "sub./tiles/electric_separator/electric_separator.png,12,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/electric_separator/electric_separator_active.png,0,24,12,12",
+            "1": "sub./tiles/electric_separator/electric_separator_active.png,0,12,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/electric_separator/electric_separator_active.png,12,24,12,12",
+            "1": "sub./tiles/electric_separator/electric_separator_active.png,12,12,12,12",
+            "2": "sub./tiles/electric_separator/electric_separator_active.png,12,0,12,12"
+          }
+        },
+        "item": "/tiles/electric_separator/electric_separator_item.png"
+      },
+      "electricSmelter": {
+        "0": {
+          "0": "/tiles/electric_smelter/electric_smelter.0.0.png",
+          "1": "/tiles/electric_smelter/electric_smelter.0.1.png"
+        },
+        "1": {
+          "0": "/tiles/electric_smelter/electric_smelter.1.0.png",
+          "1": "/tiles/electric_smelter/electric_smelter.1.1.png"
+        },
+        "active": {
+          "0": {
+            "0": "/tiles/electric_smelter/electric_smelter_active.0.0.png",
+            "1": "/tiles/electric_smelter/electric_smelter_active.0.1.png"
+          },
+          "1": {
+            "0": "/tiles/electric_smelter/electric_smelter_active.1.0.png",
+            "1": "/tiles/electric_smelter/electric_smelter_active.1.1.png"
+          }
+        },
+        "item": "/tiles/electric_smelter/electric_smelter_item.png"
+      },
+      "electrolyzer": {
+        "0": {
+          "0": "sub./tiles/electrolyzer/electrolyzer.png,0,12,12,12",
+          "1": "sub./tiles/electrolyzer/electrolyzer.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/electrolyzer/electrolyzer.png,12,12,12,12",
+          "1": "sub./tiles/electrolyzer/electrolyzer.png,12,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/electrolyzer/electrolyzer_active.png,0,12,12,12",
+            "1": "sub./tiles/electrolyzer/electrolyzer_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/electrolyzer/electrolyzer_active.png,12,12,12,12",
+            "1": "sub./tiles/electrolyzer/electrolyzer_active.png,12,0,12,12"
+          }
+        },
+        "item": "/tiles/electrolyzer/electrolyzer_item.png"
+      },
+      "energyConduit": {
+        "DOWN": "/tiles/energy_conduit/energy_conduit_down.png",
+        "LEFT": "/tiles/energy_conduit/energy_conduit_left.png",
+        "RIGHT": "/tiles/energy_conduit/energy_conduit_right.png",
+        "UP": "/tiles/energy_conduit/energy_conduit_up.png",
+        "*": "/tiles/energy_conduit/energy_conduit.png"
+      },
+      "fluid": {
+        "FUEL": "/fluids/fuel/still.png",
+        "LAVA": "/fluids/lava/still.png",
+        "OIL": "/fluids/oil/still.png",
+        "WATER": "/fluids/water/still.png",
+        "*": "/fluids/water/still.png"
+      },
+      "fluidConduit": {
+        "DOWN": "/tiles/fluid_conduit/fluid_conduit_down.png",
+        "LEFT": "/tiles/fluid_conduit/fluid_conduit_left.png",
+        "RIGHT": "/tiles/fluid_conduit/fluid_conduit_right.png",
+        "UP": "/tiles/fluid_conduit/fluid_conduit_up.png",
+        "*": "/tiles/fluid_conduit/fluid_conduit.png"
+      },
+      "fluidPump": {
+        "0": {
+          "0": "sub./fluids/empty/pump.png,0,12,12,12",
+          "1": "sub./fluids/empty/pump.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./fluids/empty/pump.png,12,12,12,12",
+          "1": "sub./fluids/empty/pump.png,12,0,12,12"
+        },
+        "FUEL": {
+          "0": {
+            "1": "sub./fluids/fuel/pump.png,0,0,12,12"
+          },
+          "1": {
+            "1": "sub./fluids/fuel/pump.png,12,0,12,12"
+          }
+        },
+        "LAVA": {
+          "0": {
+            "1": "sub./fluids/lava/pump.png,0,0,12,12"
+          },
+          "1": {
+            "1": "sub./fluids/lava/pump.png,12,0,12,12"
+          }
+        },
+        "OIL": {
+          "0": {
+            "1": "sub./fluids/oil/pump.png,0,0,12,12"
+          },
+          "1": {
+            "1": "sub./fluids/oil/pump.png,12,0,12,12"
+          }
+        },
+        "WATER": {
+          "0": {
+            "1": "sub./fluids/water/pump.png,0,0,12,12"
+          },
+          "1": {
+            "1": "sub./fluids/water/pump.png,12,0,12,12"
+          }
+        },
+        "item": "/fluids/empty/pump_item.png"
+      },
+      "gasConduit": {
+        "DOWN": "/tiles/gas_conduit/gas_conduit_down.png",
+        "LEFT": "/tiles/gas_conduit/gas_conduit_left.png",
+        "RIGHT": "/tiles/gas_conduit/gas_conduit_right.png",
+        "UP": "/tiles/gas_conduit/gas_conduit_up.png",
+        "*": "/tiles/gas_conduit/gas_conduit.png"
+      },
+      "gasHydrogen": "/gasses/hydrogen/still.png",
+      "gasOxygen": "/gasses/oxygen/still.png",
+      "gasSteam": "/gasses/steam/still.png",
+      "gasTank": {
+        "0": {
+          "0": "sub./gasses/vacuum/tank.png,0,12,12,12",
+          "1": "sub./gasses/vacuum/tank.png,0,0,12,12"
+        },
+        "gasHydrogen": {
+          "0": {
+            "0": "sub./gasses/hydrogen/tank.png,0,12,12,12",
+            "1": "sub./gasses/hydrogen/tank.png,0,0,12,12"
+          }
+        },
+        "gasOxygen": {
+          "0": {
+            "0": "sub./gasses/oxygen/tank.png,0,12,12,12",
+            "1": "sub./gasses/oxygen/tank.png,0,0,12,12"
+          }
+        },
+        "gasSteam": {
+          "0": {
+            "0": "sub./gasses/steam/tank.png,0,12,12,12",
+            "1": "sub./gasses/steam/tank.png,0,0,12,12"
+          }
+        },
+        "item": "/gasses/vacuum/tank_item.png"
+      },
+      "itemConduit": {
+        "DOWN": "/tiles/item_conduit/item_conduit_down.png",
+        "LEFT": "/tiles/item_conduit/item_conduit_left.png",
+        "MASTER": "/tiles/item_conduit/item_conduit_master.png",
+        "RIGHT": "/tiles/item_conduit/item_conduit_right.png",
+        "UP": "/tiles/item_conduit/item_conduit_up.png",
+        "*": "/tiles/item_conduit/item_conduit.png"
+      },
+      "limestone": "/tiles/misc/limestone.png",
+      "liquidBoiler": {
+        "0": {
+          "0": "sub./tiles/liquid_boiler/liquid_boiler.png,0,24,12,12",
+          "1": "sub./tiles/liquid_boiler/liquid_boiler.png,0,12,12,12",
+          "2": "sub./tiles/liquid_boiler/liquid_boiler.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/liquid_boiler/liquid_boiler.png,12,24,12,12",
+          "1": "sub./tiles/liquid_boiler/liquid_boiler.png,12,12,12,12",
+          "2": "sub./tiles/liquid_boiler/liquid_boiler.png,12,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/liquid_boiler/liquid_boiler_active.png,0,24,12,12",
+            "1": "sub./tiles/liquid_boiler/liquid_boiler_active.png,0,12,12,12",
+            "2": "sub./tiles/liquid_boiler/liquid_boiler_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/liquid_boiler/liquid_boiler_active.png,12,24,12,12",
+            "1": "sub./tiles/liquid_boiler/liquid_boiler_active.png,12,12,12,12",
+            "2": "sub./tiles/liquid_boiler/liquid_boiler_active.png,12,0,12,12"
+          }
+        },
+        "item": "/tiles/liquid_boiler/liquid_boiler_item.png"
+      },
+      "nuclearReactor": {
+        "0": {
+          "0": "sub./tiles/nuclear_reactor/nuclear_reactor.png,0,36,12,12",
+          "1": "sub./tiles/nuclear_reactor/nuclear_reactor.png,0,24,12,12",
+          "2": "sub./tiles/nuclear_reactor/nuclear_reactor.png,0,12,12,12",
+          "3": "sub./tiles/nuclear_reactor/nuclear_reactor.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/nuclear_reactor/nuclear_reactor.png,12,36,12,12",
+          "1": "sub./tiles/nuclear_reactor/nuclear_reactor.png,12,24,12,12",
+          "2": "sub./tiles/nuclear_reactor/nuclear_reactor.png,12,12,12,12",
+          "3": "sub./tiles/nuclear_reactor/nuclear_reactor.png,12,0,12,12"
+        },
+        "2": {
+          "0": "sub./tiles/nuclear_reactor/nuclear_reactor.png,24,36,12,12",
+          "1": "sub./tiles/nuclear_reactor/nuclear_reactor.png,24,24,12,12",
+          "2": "sub./tiles/nuclear_reactor/nuclear_reactor.png,24,12,12,12",
+          "3": "sub./tiles/nuclear_reactor/nuclear_reactor.png,24,0,12,12"
+        },
+        "item": "/tiles/nuclear_reactor/nuclear_reactor_item.png"
+      },
+      "oreAluminum": "/tiles/ore/ore_aluminum.png",
+      "oreCobalt": "/tiles/ore/ore_cobalt.png",
+      "oreIron": "/tiles/ore/ore_iron.png",
+      "oreMagnesium": "/tiles/ore/ore_magnesium.png",
+      "oreNickel": "/tiles/ore/ore_nickel.png",
+      "oreRutile": "/tiles/ore/ore_rutile.png",
+      "oreTin": "/tiles/ore/ore_tin.png",
+      "oreUranium": "/tiles/ore/ore_uranium.png",
+      "oreWolframite": "/tiles/ore/ore_wolframite.png",
+      "quarry": {
+        "0": {
+          "0": "sub./tiles/quarry/quarry.png,0,24,12,12",
+          "1": "sub./tiles/quarry/quarry.png,0,12,12,12",
+          "2": "sub./tiles/quarry/quarry.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/quarry/quarry.png,12,24,12,12",
+          "1": "sub./tiles/quarry/quarry.png,12,12,12,12",
+          "2": "sub./tiles/quarry/quarry.png,12,0,12,12"
+        },
+        "2": {
+          "0": "sub./tiles/quarry/quarry.png,24,24,12,12",
+          "1": "sub./tiles/quarry/quarry.png,24,12,12,12",
+          "2": "sub./tiles/quarry/quarry.png,24,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/quarry/quarry_active.png,0,24,12,12",
+            "1": "sub./tiles/quarry/quarry_active.png,0,12,12,12",
+            "2": "sub./tiles/quarry/quarry_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/quarry/quarry_active.png,12,24,12,12",
+            "1": "sub./tiles/quarry/quarry_active.png,12,12,12,12",
+            "2": "sub./tiles/quarry/quarry_active.png,12,0,12,12"
+          },
+          "2": {
+            "0": "sub./tiles/quarry/quarry_active.png,24,24,12,12",
+            "1": "sub./tiles/quarry/quarry_active.png,24,12,12,12",
+            "2": "sub./tiles/quarry/quarry_active.png,24,0,12,12"
+          }
+        },
+        "item": "/tiles/quarry/quarry_item.png"
+      },
+      "refinery": {
+        "0": {
+          "0": "sub./tiles/refinery/refinery.png,0,12,12,12",
+          "1": "sub./tiles/refinery/refinery.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/refinery/refinery.png,12,12,12,12",
+          "1": "sub./tiles/refinery/refinery.png,12,0,12,12"
+        },
+        "2": {
+          "0": "sub./tiles/refinery/refinery.png,24,12,12,12",
+          "1": "sub./tiles/refinery/refinery.png,24,0,12,12"
+        },
+        "LEFT_INPUT": {
+          "0": {
+            "0": "sub./tiles/refinery/refinery_left_input.png,0,12,12,12"
+          }
+        },
+        "LEFT_SIDE": {
+          "0": {
+            "1": "sub./tiles/refinery/refinery_left_side.png,0,0,12,12"
+          }
+        },
+        "LEFT_UP": {
+          "0": {
+            "1": "sub./tiles/refinery/refinery_left_up.png,0,0,12,12"
+          }
+        },
+        "RIGHT_OUTPUT": {
+          "2": {
+            "0": "sub./tiles/refinery/refinery_right_output.png,24,12,12,12"
+          }
+        },
+        "RIGHT_SIDE": {
+          "2": {
+            "1": "sub./tiles/refinery/refinery_right_side.png,24,0,12,12"
+          }
+        },
+        "RIGHT_UP": {
+          "2": {
+            "1": "sub./tiles/refinery/refinery_right_up.png,24,0,12,12"
+          }
+        },
+        "UP": {
+          "1": {
+            "1": "sub./tiles/refinery/refinery_up.png,12,0,12,12"
+          }
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/refinery/refinery_active.png,0,12,12,12",
+            "1": "sub./tiles/refinery/refinery_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/refinery/refinery_active.png,12,12,12,12",
+            "1": "sub./tiles/refinery/refinery_active.png,12,0,12,12"
+          },
+          "2": {
+            "0": "sub./tiles/refinery/refinery_active.png,24,12,12,12",
+            "1": "sub./tiles/refinery/refinery_active.png,24,0,12,12"
+          }
+        },
+        "item": "/tiles/refinery/refinery_item.png"
+      },
+      "rockCrusher": {
+        "0": {
+          "0": "sub./tiles/rock_crusher/rock_crusher.png,0,12,12,12",
+          "1": "sub./tiles/rock_crusher/rock_crusher.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/rock_crusher/rock_crusher.png,12,12,12,12",
+          "1": "sub./tiles/rock_crusher/rock_crusher.png,12,0,12,12"
+        },
+        "active": {
+          "0": {
+            "0": "sub./tiles/rock_crusher/rock_crusher_active.png,0,12,12,12",
+            "1": "sub./tiles/rock_crusher/rock_crusher_active.png,0,0,12,12"
+          },
+          "1": {
+            "0": "sub./tiles/rock_crusher/rock_crusher_active.png,12,12,12,12",
+            "1": "sub./tiles/rock_crusher/rock_crusher_active.png,12,0,12,12"
+          }
+        },
+        "item": "/tiles/rock_crusher/rock_crusher_item.png"
+      },
+      "rockLight": "/tiles/misc/rock_light.png",
+      "rocket": {
+        "0": {
+          "0": "sub./tiles/rocket/rocket.png,0,36,12,12",
+          "1": "sub./tiles/rocket/rocket.png,0,24,12,12",
+          "2": "sub./tiles/rocket/rocket.png,0,12,12,12",
+          "3": "sub./tiles/rocket/rocket.png,0,0,12,12"
+        },
+        "item": "/tiles/rocket/rocket_item.png"
+      },
+      "rocketEngine": "/tiles/misc/rocket_engine.png",
+      "rocketFairing": "/tiles/misc/rocket_fairing.png",
+      "tank": {
+        "0": {
+          "0": "sub./fluids/empty/tank.png,0,12,12,12",
+          "1": "sub./fluids/empty/tank.png,0,0,12,12"
+        },
+        "FUEL": {
+          "0": {
+            "0": "sub./fluids/fuel/tank.png,0,12,12,12",
+            "1": "sub./fluids/fuel/tank.png,0,0,12,12"
+          }
+        },
+        "LAVA": {
+          "0": {
+            "0": "sub./fluids/lava/tank.png,0,12,12,12",
+            "1": "sub./fluids/lava/tank.png,0,0,12,12"
+          }
+        },
+        "OIL": {
+          "0": {
+            "0": "sub./fluids/oil/tank.png,0,12,12,12",
+            "1": "sub./fluids/oil/tank.png,0,0,12,12"
+          }
+        },
+        "WATER": {
+          "0": {
+            "0": "sub./fluids/water/tank.png,0,12,12,12",
+            "1": "sub./fluids/water/tank.png,0,0,12,12"
+          }
+        },
+        "item": "/fluids/empty/tank_item.png"
+      },
+      "turbine": {
+        "0": {
+          "0": "sub./tiles/turbine/turbine.png,0,12,12,12",
+          "1": "sub./tiles/turbine/turbine.png,0,0,12,12"
+        },
+        "1": {
+          "0": "sub./tiles/turbine/turbine.png,12,12,12,12",
+          "1": "sub./tiles/turbine/turbine.png,12,0,12,12"
+        },
+        "2": {
+          "0": "sub./tiles/turbine/turbine.png,24,12,12,12",
+          "1": "sub./tiles/turbine/turbine.png,24,0,12,12"
+        },
+        "item": "/tiles/turbine/turbine_item.png"
+      }
     }
+  }
 }
