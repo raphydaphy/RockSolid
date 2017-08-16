@@ -11,6 +11,12 @@ task runServer(type: JavaExec) {
     main = project.mainClassName
 }
 
+task runDebug(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    args = ["--unpackedModsDir", "./build/classes/main", "--logLevel", "DEBUG"]
+    main = project.mainClassName
+}
+
 processSources {
     replace("VERSION", version)
 }
