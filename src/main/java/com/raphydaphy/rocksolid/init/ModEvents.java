@@ -174,10 +174,12 @@ public class ModEvents
 
 							jetpackData.addInt("itemPowerStored", jetpackEnergy - 3);
 							player.motionY += 0.05;
-							player.fallAmount = 0;
+							
+							player.fallStartY = player.y;
+							player.isFalling = false;
 
 							RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY,
-									player.fallAmount, player.x, player.y));
+									player.y, false, player.x, player.y));
 						}
 					}
 
@@ -195,10 +197,11 @@ public class ModEvents
 								jetpackData.addInt("itemPowerStored", jetpackEnergy - 4);
 							}
 						}
-						player.fallAmount = 0;
+						player.fallStartY = player.y;
+						player.isFalling = false;
 
 						RockBottomAPI.getNet().sendToServer(new PacketMovement(player.getUniqueId(), player.motionY,
-								player.fallAmount, player.x, player.y));
+								player.y, false, player.x, player.y));
 					}
 
 					if (engineActive)

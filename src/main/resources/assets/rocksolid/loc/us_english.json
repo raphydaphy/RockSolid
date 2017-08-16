@@ -1,0 +1,14 @@
+{
+    "rocksolid": {
+        "loc.us_english": "US English",
+        "item": {
+        	"ingotTin": "Tin Ingot",
+        	"ingotBronze": "Bronze Ingot",
+        	"ingotIron": "Iron Ingot",
+        	"ingotSteel": "Steel Ingot",
+        	"ingotMagnesium": "Magnesium Ingot",
+        	"ingotImpureTitanium": "Impure Titanium Ingot",
+        	"ingotTitanium": "Titanium Ingot"
+        }
+    }
+}

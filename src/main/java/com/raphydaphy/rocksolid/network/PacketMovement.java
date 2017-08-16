@@ -15,15 +15,17 @@ public class PacketMovement implements IPacket
 {
 	private UUID uuid;
 	private double motionY;
-	private int fallAmount;
+	private double fallStartY;
+	private boolean isFalling;
 	private double playerX;
 	private double playerY;
 
-	public PacketMovement(UUID uuid, double motionY, int fallAmount, double playerX, double playerY)
+	public PacketMovement(UUID uuid, double motionY, double fallStartY, boolean isFalling, double playerX, double playerY)
 	{
 		this.uuid = uuid;
 		this.motionY = motionY;
-		this.fallAmount = fallAmount;
+		this.fallStartY = fallStartY;
+		this.isFalling = isFalling;
 		this.playerX = playerX;
 		this.playerY = playerY;
 	}
@@ -38,7 +40,8 @@ public class PacketMovement implements IPacket
 	{
 		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
 		buf.writeDouble(this.motionY);
-		buf.writeInt(this.fallAmount);
+		buf.writeDouble(this.fallStartY);
+		buf.writeBoolean(this.isFalling);
 		buf.writeDouble(this.playerX);
 		buf.writeDouble(this.playerY);
 	}
@@ -48,7 +51,8 @@ public class PacketMovement implements IPacket
 	{
 		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
 		this.motionY = buf.readDouble();
-		this.fallAmount = buf.readInt();
+		this.fallStartY = buf.readDouble();
+		this.isFalling = buf.readBoolean();
 		this.playerX = buf.readDouble();
 		this.playerY = buf.readDouble();
 	}
@@ -61,7 +65,8 @@ public class PacketMovement implements IPacket
 		if (entity instanceof AbstractEntityPlayer)
 		{
 			entity.motionY = motionY;
-			entity.fallAmount = fallAmount;
+			entity.fallStartY = fallStartY;
+			entity.isFalling = isFalling;
 			entity.x = this.playerX;
 			entity.y = this.playerY;
 		}

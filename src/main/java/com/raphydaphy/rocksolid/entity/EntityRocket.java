@@ -134,8 +134,7 @@ public class EntityRocket extends Entity
 				if (this.y < 100)
 				{
 					this.motionY = 0.2;
-
-					this.fallAmount = 0;
+					this.fallStartY = this.y;
 					world.setDirty((int) x, (int) y);
 					if (!RockBottomAPI.getGame().isDedicatedServer())
 					{
@@ -285,7 +284,7 @@ public class EntityRocket extends Entity
 				this.motionY = -0.01;
 				this.shouldRender = true;
 
-				this.fallAmount = 0;
+				this.fallStartY = this.y;
 
 				world.setDirty((int) x, (int) y);
 				if (!RockBottomAPI.getGame().isDedicatedServer())

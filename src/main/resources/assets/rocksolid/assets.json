@@ -1,0 +1,12 @@
+{
+    "loc": {
+        "us_english": "/loc/us_english.json"
+    },
+    "tex": {
+        "items": {
+            "ingotTin": "/items/ingot/ingot_tin.png",
+            "ingotBronze": "/items/ingot/ingot_bronze.png",
+            "ingotIron": "/items/ingot/ingot_iron.png"
+        }
+    }
+}
