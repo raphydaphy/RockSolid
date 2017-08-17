@@ -4,6 +4,8 @@ import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IGasTile;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasAcceptor;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
@@ -22,6 +24,99 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 	public TileEntityGasConduit(final IWorld world, final int x, final int y)
 	{
 		super(TileEntityGasConduit.class, 5, world, x, y);
+	}
+	
+	private void tryOutput(String type, int amount, TileEntity inputInv, Pos2 center, ConduitSide side, int inputTank)
+	{
+		TileEntityGasConduit outputConduit = world.getTileEntity(center.getX(),
+				center.getY(), TileEntityGasConduit.class);
+
+		
+
+		Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(center, side);
+		TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
+				outputInvPos.getY(), world);
+
+		if (outputInvUnchecked != null && outputConduit != null)
+		{
+			if (outputInvUnchecked instanceof IGasAcceptor)
+			{
+				IGasAcceptor outputInv = (IGasAcceptor) outputInvUnchecked;
+
+				if (outputConduit.getSideMode(side) == ConduitMode.OUTPUT)
+				{
+					String outputType = outputInv.getGasType();
+					
+					if (type.equals(outputType) || outputType.equals(Gas.VACCUM.getName()))
+					{
+						if (outputInv.getCurrentGas() + amount <= outputInv.getMaxGas())
+						{
+							boolean didRemove = false;
+							if (inputInv instanceof IGasProducer)
+							{
+								didRemove = ((IGasProducer) inputInv).removeGas(amount);
+							} else if (inputInv instanceof IMultiGasProducer)
+							{
+								didRemove = ((IMultiGasProducer) inputInv).removeGas(amount, inputTank);
+							}
+							if (didRemove)
+							{
+								outputInv.addGas(amount, type);
+								
+								if (outputInv.getGasType().equals(Gas.VACCUM.getName()))
+								{
+									outputInv.setGasType(type);
+								}
+							}
+						}
+					}
+				}
+			} else if (outputInvUnchecked instanceof IMultiGasAcceptor)
+			{
+				IMultiGasAcceptor outputInv = (IMultiGasAcceptor) outputInvUnchecked;
+
+				if (outputConduit.getSideMode(side) == ConduitMode.OUTPUT)
+				{
+					MultiTile theMultiTile = (MultiTile) world
+							.getState(outputInvPos.getX(), outputInvPos.getY()).getTile();
+					Pos2 innerCoord = theMultiTile
+							.getInnerCoord(world.getState(outputInvPos.getX(), outputInvPos.getY()));
+					int tank = outputInv.getTankNumber(innerCoord);
+					
+					if (tank != -1)
+					{
+						String outputType = outputInv.getGasTanksType()[tank];
+						
+						if (type.equals(outputType) || outputType.equals(Gas.VACCUM.getName()))
+						{
+							if (outputInv.getGasTanksStorage()[tank] + amount <= outputInv.getMaxGas())
+							{
+								
+								
+								
+								boolean didRemove = false;
+								if (inputInv instanceof IGasProducer)
+								{
+									didRemove = ((IGasProducer) inputInv).removeGas(amount);
+								} else if (inputInv instanceof IMultiGasProducer)
+								{
+									didRemove = ((IMultiGasProducer) inputInv).removeGas(amount, inputTank);
+								}
+								if (didRemove)
+								{
+									outputInv.addGas(amount, type, tank);
+									
+									if (outputInv.getGasTanksType()[tank].equals(Gas.VACCUM.getName()))
+									{
+										outputInv.setGasType(type, tank);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -52,66 +147,40 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 						{
 							Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
 									super.getNetwork()[outputNet][1] + this.getMaster().getY());
-							TileEntityGasConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
-									outputConduitPos.getY(), TileEntityGasConduit.class);
-	
 							ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
+							
+							this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide, -1);
+						}
+					}
+				}
+			} else if (inputInvUnchecked instanceof IMultiGasProducer)
+			{
+				IMultiGasProducer inputInv = (IMultiGasProducer) inputInvUnchecked;
+
+				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
+				{
+					MultiTile theMultiTile = (MultiTile) world
+							.getState(inputInvPos.getX(), inputInvPos.getY()).getTile();
+					Pos2 innerCoord = theMultiTile
+							.getInnerCoord(world.getState(inputInvPos.getX(), inputInvPos.getY()));
+					int tank = inputInv.getTankNumber(innerCoord);
+					
+					if (tank != -1)
+					{
+						int wouldExtract = inputInv.getGasTanksStorage()[tank] >= maxTransfer ? maxTransfer
+								: inputInv.getGasTanksStorage()[tank];
+						
+						String extractType = inputInv.getGasTanksType()[tank];
 	
-							Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
-							TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
-									outputInvPos.getY(), world);
-	
-							if (outputInvUnchecked != null && outputConduit != null)
+						if (!extractType.equals(Gas.VACCUM.getName()))
+						{
+							for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
 							{
-								if (outputInvUnchecked instanceof IGasAcceptor)
-								{
-									IGasAcceptor outputInv = (IGasAcceptor) outputInvUnchecked;
-	
-									if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
-									{
-										int maxOutput = outputInv.getCurrentGas() + maxTransfer <= outputInv
-												.getMaxGas() ? maxTransfer
-														: outputInv.getCurrentGas() - outputInv.getCurrentGas();
-										String outputType = outputInv.getGasType();
-										
-										if (extractType.equals(outputType) || outputType.equals(Gas.VACCUM.getName()))
-										{
-											// send the maximum extraction amount as it is smaller
-											if (wouldExtract >= maxOutput)
-											{
-												if (outputInv.getCurrentGas() + wouldExtract <= outputInv.getMaxGas())
-												{
-													if (inputInv.removeGas(wouldExtract))
-													{
-														outputInv.addGas(wouldExtract, extractType);
-														
-														if (outputInv.getGasType().equals(Gas.VACCUM.getName()))
-														{
-															outputInv.setGasType(inputInv.getGasType());
-														}
-													}
-												}
-											}
-											// send the max inpupt amount as it is smaller
-											else
-											{
-												if (outputInv.getCurrentGas() + maxOutput <= outputInv.getMaxGas())
-												{
-													if (inputInv.removeGas(maxOutput))
-													{
-														outputInv.addGas(maxOutput, extractType);
-														
-														if (outputInv.getGasType().equals(Gas.VACCUM.getName()))
-														{
-															outputInv.setGasType(inputInv.getGasType());
-														}
-													}
-												}
-												
-											}
-										}
-									}
-								}
+								Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
+										super.getNetwork()[outputNet][1] + this.getMaster().getY());
+								ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
+								
+								this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide, tank);
 							}
 						}
 					}

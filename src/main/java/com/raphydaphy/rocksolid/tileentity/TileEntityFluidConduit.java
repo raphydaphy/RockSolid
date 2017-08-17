@@ -26,7 +26,7 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 		super(TileEntityFluidConduit.class, 5, world, x, y);
 	}
 	
-	private void tryOutput(String type, int amount, TileEntity inputInv, Pos2 center, ConduitSide side)
+	private void tryOutput(String type, int amount, TileEntity inputInv, Pos2 center, ConduitSide side, int inputTank)
 	{
 		TileEntityFluidConduit outputConduit = world.getTileEntity(center.getX(),
 				center.getY(), TileEntityFluidConduit.class);
@@ -48,12 +48,19 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 					{
 						if (outputInv.getCurrentFluid() + amount <= outputInv.getMaxFluid())
 						{
+							boolean didRemove = false;
+							
 							if (inputInv instanceof IFluidProducer)
 							{
-								if (((IFluidProducer)inputInv).removeFluid(amount))
-								{
-									outputInv.addFluid(amount, type);
-								}
+								didRemove = ((IFluidProducer)inputInv).removeFluid(amount);
+							} else if (inputInv instanceof IMultiFluidProducer)
+							{
+								didRemove = ((IMultiFluidProducer) inputInv).removeFluid(amount, inputTank);
+							}
+							
+							if (didRemove)
+							{
+								outputInv.addFluid(amount, type);
 							}
 						}
 					}
@@ -78,12 +85,19 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 						{
 							if (outputInv.getFluidTanksStorage()[tank] + amount <= outputInv.getMaxFluid())
 							{
+								boolean didRemove = false;
+								
 								if (inputInv instanceof IFluidProducer)
 								{
-									if (((IFluidProducer)inputInv).removeFluid(amount))
-									{
-										outputInv.addFluid(amount, type, tank);
-									}
+									didRemove = ((IFluidProducer)inputInv).removeFluid(amount);
+								} else if (inputInv instanceof IMultiFluidProducer)
+								{
+									didRemove = ((IMultiFluidProducer) inputInv).removeFluid(amount, inputTank);
+								}
+								
+								if (didRemove)
+								{
+									outputInv.addFluid(amount, type, tank);
 								}
 							}
 						}
@@ -122,7 +136,7 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 						
 						ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
 
-						this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide);
+						this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide, -1);
 					}
 				}
 			} else if (inputInvUnchecked instanceof IMultiFluidProducer)
@@ -151,7 +165,7 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 							
 							ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
 	
-							this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide);
+							this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide, tank);
 						}
 					}
 				}

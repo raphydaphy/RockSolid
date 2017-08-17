@@ -52,7 +52,7 @@ public class TileTank extends MultiTile
 		{
 			if (tank.getFluidType() != null)
 			{
-				if (tank.getFluidType().equals(Fluid.LAVA.toString()))
+				if (tank.getFluidType().equals(Fluid.LAVA.getName()))
 				{
 					return 20;
 				}

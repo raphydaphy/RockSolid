@@ -19,7 +19,7 @@ public class PurifierRecipe
 		this.output = output;
 		if (fluid == null)
 		{
-			this.fluid = Fluid.EMPTY.toString();
+			this.fluid = Fluid.EMPTY.getName();
 		} else
 		{
 			this.fluid = fluid;
