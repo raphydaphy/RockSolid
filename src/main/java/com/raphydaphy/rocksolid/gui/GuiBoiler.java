@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.gui;
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 
@@ -30,7 +31,7 @@ public class GuiBoiler extends GuiContainer
 	{
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 15, 80, 10,
-				RockSolidAPILib.getGasColor(tile.getGasType()), false, this.tile::getGeneratorFullness));
+				Gas.getByName(tile.getGasType()).getColor(), false, this.tile::getGeneratorFullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 0, 80, 10,
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullness));
@@ -53,7 +54,7 @@ public class GuiBoiler extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getCurrentGas() + "cc of "
-									+ RockSolidAPILib.getGasLocName(this.tile.getGasType()),
+									+ this.tile.getGasType(),
 							"Produces " + TileEntityBoiler.productionPerTick + "cc per tick" });
 		}
 

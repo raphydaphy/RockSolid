@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectrolyzer;
 
@@ -37,9 +38,9 @@ public class GuiElectrolyzer extends GuiContainer
 				Fluid.getByName(this.tile.getFluidType()).getColor(), true, this.tile::getFluidTankFullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 125, this.guiTop + 6, 10, 30,
-				RockSolidAPILib.getGasColor(tile.getGasTanksType()[0]), true, this.tile::getGasTank1Fullness));
+				Gas.getByName(tile.getGasTanksType()[0]).getColor(), true, this.tile::getGasTank1Fullness));
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 145, this.guiTop + 6, 10, 30,
-				RockSolidAPILib.getGasColor(tile.getGasTanksType()[1]), true, this.tile::getGasTank2Fullness));
+				Gas.getByName(tile.getGasTanksType()[1]).getColor(), true, this.tile::getGasTank2Fullness));
 
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 45, 80, 10,
 				new Color(148, 0, 211), false, this.tile::getEnergyFullness));
@@ -84,7 +85,7 @@ public class GuiElectrolyzer extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getGasTanksStorage()[0] + "cc of "
-									+ RockSolidAPILib.getGasLocName(this.tile.getGasTanksType()[0]),
+									+ this.tile.getGasTanksType()[0],
 							"Produces up to 100cc per operation" });
 		}
 
@@ -98,7 +99,7 @@ public class GuiElectrolyzer extends GuiContainer
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
 					new String[] {
 							"Storing " + this.tile.getGasTanksStorage()[1] + "cc of "
-									+ RockSolidAPILib.getGasLocName(this.tile.getGasTanksType()[1]),
+									+ this.tile.getGasTanksType()[1],
 							"Produces up to 100cc per operation" });
 		}
 	}

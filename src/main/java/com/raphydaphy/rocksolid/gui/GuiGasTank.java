@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.gui;
 
 import org.newdawn.slick.Graphics;
 
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityGasTank;
 
@@ -29,7 +30,7 @@ public class GuiGasTank extends GuiContainer
 	{
 		super.initGui(game);
 		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
-				RockSolidAPILib.getGasColor(this.tile.getGasType()), false, this.tile::getGasTankFullnesss));
+				Gas.getByName(this.tile.getGasType()).getColor(), false, this.tile::getGasTankFullnesss));
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class GuiGasTank extends GuiContainer
 		if (mouseOverGasBarX && mouseOverGasBarY)
 		{
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, "Storing "
-					+ this.tile.getCurrentGas() + "cc of " + RockSolidAPILib.getGasLocName(this.tile.getGasType()));
+					+ this.tile.getCurrentGas() + "cc of " + this.tile.getGasType());
 		}
 	}
 

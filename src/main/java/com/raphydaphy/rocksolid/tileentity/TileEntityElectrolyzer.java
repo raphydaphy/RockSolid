@@ -1,10 +1,10 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IMultiGasProducer;
 import com.raphydaphy.rocksolid.api.recipe.ElectrolyzerRecipe;
 
@@ -26,8 +26,8 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 	protected int gasTank1Storage = 0;
 	protected int gasTank2Storage = 0;
 	protected int maxGasStorage = 5000;
-	protected String gasTank1Type = RockSolidContent.gasVacuum.toString();
-	protected String gasTank2Type = RockSolidContent.gasVacuum.toString();
+	protected String gasTank1Type = Gas.VACCUM.getName();
+	protected String gasTank2Type = Gas.VACCUM.getName();
 
 	protected int powerStored = 0;
 	private boolean shouldSync = false;
@@ -58,16 +58,16 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 		if (this.fluidStored > 0)
 		{
-			final ElectrolyzerRecipe recipe = RockSolidAPI.getElectrolyzerRecipe(this.gasTank1Type, this.gasTank2Type,
+			final ElectrolyzerRecipe recipe = RockSolidAPI.getElectrolyzerRecipe(Gas.getByName(this.gasTank1Type), Gas.getByName(this.gasTank2Type),
 					this.fluidType, this.fluidStored);
 			if (recipe != null)
 			{
-				final String recipeOut1 = recipe.getOutput1();
-				final String recipeOut2 = recipe.getOutput2();
-				boolean output1Matches = (recipeOut1.equals(this.gasTank1Type)
-						|| this.gasTank1Type.equals(RockSolidContent.gasVacuum.toString()));
-				boolean output2Matches = (recipeOut2.equals(this.gasTank2Type)
-						|| this.gasTank2Type.equals(RockSolidContent.gasVacuum.toString()));
+				final Gas recipeOut1 = recipe.getOutput1();
+				final Gas recipeOut2 = recipe.getOutput2();
+				boolean output1Matches = (recipeOut1.getName().equals(this.gasTank1Type)
+						|| this.gasTank1Type.equals(Gas.VACCUM.getName()));
+				boolean output2Matches = (recipeOut2.getName().equals(this.gasTank2Type)
+						|| this.gasTank2Type.equals(Gas.VACCUM.getName()));
 				if (output1Matches && output2Matches
 						&& this.gasTank1Storage + recipe.getOutput1Volume() <= this.maxGasStorage
 						&& this.gasTank2Storage + recipe.getOutput2Volume() <= this.maxGasStorage)
@@ -97,8 +97,8 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 								this.setFluidType(Fluid.EMPTY.getName());
 							}
 
-							this.setGasType(recipeOut1, 0);
-							this.setGasType(recipeOut2, 1);
+							this.setGasType(recipeOut1.getName(), 0);
+							this.setGasType(recipeOut2.getName(), 1);
 
 							this.gasTank1Storage += recipe.getOutput1Volume();
 							this.gasTank2Storage += recipe.getOutput2Volume();
@@ -129,12 +129,12 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 			if (this.gasTank1Storage == 0)
 			{
-				this.gasTank1Type = RockSolidContent.gasVacuum.toString();
+				this.gasTank1Type = Gas.VACCUM.getName();
 			}
 
 			if (this.gasTank2Storage == 0)
 			{
-				this.gasTank2Type = RockSolidContent.gasVacuum.toString();
+				this.gasTank2Type = Gas.VACCUM.getName();
 			}
 
 			shouldSync = true;
@@ -306,7 +306,7 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 		{
 			gasType = this.gasTank2Type;
 		}
-		if (gasType == null || gasType.equals(RockSolidContent.gasVacuum.toString()) || gasStorage == 0)
+		if (gasType == null || gasType.equals(Gas.VACCUM.getName()) || gasStorage == 0)
 		{
 			this.shouldSync = true;
 			switch (tank)

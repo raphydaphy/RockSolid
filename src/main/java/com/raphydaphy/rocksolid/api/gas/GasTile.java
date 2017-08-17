@@ -1,6 +1,6 @@
-package com.raphydaphy.rocksolid.api.fluid;
+package com.raphydaphy.rocksolid.api.gas;
 
-import com.raphydaphy.rocksolid.api.render.FluidRenderer;
+import com.raphydaphy.rocksolid.api.render.GasRenderer;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -19,30 +19,30 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public class FluidTile extends TileBasic
+public class GasTile extends TileBasic
 {
-	// the maximum meta value for a fluid block. meta starts at 1.
+	// the maximum meta value for a gas block. meta starts at 1.
 	public static final int MAX_VOLUME = 12;
-	public static final int BUCKET_VOLUME = 5;
-	public static final IntProp fluidLevel = new IntProp("volume", 1, MAX_VOLUME + 1);
-	public static final EnumProp<Fluid> fluidType = new EnumProp<Fluid>(Fluid.TYPE_KEY, Fluid.WATER, Fluid.class);
+	public static final int CANISTER_VOLUME = 5;
+	public static final IntProp gasLevel = new IntProp("volume", 1, MAX_VOLUME + 1);
+	public static final EnumProp<Gas> gasType = new EnumProp<Gas>(Gas.TYPE_KEY, Gas.HYDROGEN, Gas.class);
 
-	public FluidTile(String name)
+	public GasTile(String name)
 	{
 		this(RockSolidAPILib.makeInternalRes(name));
 
 	}
 
-	public FluidTile(IResourceName name)
+	public GasTile(IResourceName name)
 	{
 		super(name);
-		this.addProps(fluidLevel, fluidType);
+		this.addProps(gasLevel, gasType);
 		this.register();
 	}
 
 	protected ITileRenderer<?> createRenderer(IResourceName name)
 	{
-		return new FluidRenderer<FluidTile>(name);
+		return new GasRenderer<GasTile>(name);
 	}
 
 	@Override
@@ -53,15 +53,15 @@ public class FluidTile extends TileBasic
 		TileState existingBlock = world.getState(x, y);
 		if (existingBlock.getTile() == GameContent.TILE_AIR)
 		{
-			return this.getDefState().prop(fluidLevel, BUCKET_VOLUME);
+			return this.getDefState().prop(gasLevel, CANISTER_VOLUME);
 		} else
 		{
-			if (existingBlock.get(fluidLevel) + BUCKET_VOLUME <= MAX_VOLUME)
+			if (existingBlock.get(gasLevel) + CANISTER_VOLUME <= MAX_VOLUME)
 			{
-				return existingBlock.prop(fluidLevel, existingBlock.get(fluidLevel) + BUCKET_VOLUME);
+				return existingBlock.prop(gasLevel, existingBlock.get(gasLevel) + CANISTER_VOLUME);
 			} else
 			{
-				return existingBlock.prop(fluidLevel, MAX_VOLUME);
+				return existingBlock.prop(gasLevel, MAX_VOLUME);
 			}
 		}
 	}
@@ -76,7 +76,7 @@ public class FluidTile extends TileBasic
 	}
 
 	// what should happen if there is about to be a collision with an enemy
-	// fluid
+	// gas
 	public void onEnemyCollision(Tile enemyTile, Pos2 enemyPos, Pos2 thisPos, IWorld world)
 	{
 		world.setState(thisPos.getX(), thisPos.getY(), GameContent.TILE_STONE.getDefState());
@@ -92,11 +92,11 @@ public class FluidTile extends TileBasic
 	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState thisState = world.getState(x, y);
-		TileState downState = world.getState(x, y - 1);
+		TileState upState = world.getState(x, y + 1);
 		TileState leftState = world.getState(x - 1, y);
 		TileState rightState = world.getState(x + 1, y);
 
-		if (thisState.getTile() instanceof FluidTile)
+		if (thisState.getTile() instanceof GasTile)
 		{
 			if (!world.isClient())
 			{
@@ -104,38 +104,38 @@ public class FluidTile extends TileBasic
 			}
 		}
 
-		// if the tile below is the same fluid as this
-		if (downState.getTile() == thisState.getTile() && downState.get(fluidType) == thisState.get(fluidType))
+		// if the tile below is the same gas as this
+		if (upState.getTile() == thisState.getTile() && upState.get(gasType) == thisState.get(gasType))
 		{
-			// if the tile below is not full of fluid
-			if (downState.get(fluidLevel) < MAX_VOLUME)
+			// if the tile below is not full of gas
+			if (upState.get(gasLevel) < MAX_VOLUME)
 			{
-				// if we can safely move all the fluid into the lower block
-				if (downState.get(fluidLevel) + thisState.get(fluidLevel) <= MAX_VOLUME)
+				// if we can safely move all the gas into the lower block
+				if (upState.get(gasLevel) + thisState.get(gasLevel) <= MAX_VOLUME)
 				{
-					// move the fluid into the lower block
-					world.setState(x, y - 1,
-							downState.prop(fluidLevel, downState.get(fluidLevel) + thisState.get(fluidLevel)));
+					// move the gas into the lower block
+					world.setState(x, y + 1,
+							upState.prop(gasLevel, upState.get(gasLevel) + thisState.get(gasLevel)));
 					world.setState(x, y, GameContent.TILE_AIR.getDefState());
 					return;
 				}
-				// if we need to keep some fluid in the top block
+				// if we need to keep some gas in the top block
 				else
 				{
-					// move the most fluid we can to the bottom block and keep
+					// move the most gas we can to the bottom block and keep
 					// the remains in the top
-					world.setState(x, y - 1, downState.prop(fluidLevel, MAX_VOLUME));
+					world.setState(x, y + 1, upState.prop(gasLevel, MAX_VOLUME));
 					world.setState(x, y,
-							thisState.prop(fluidLevel, (downState.get(fluidLevel) + thisState.get(fluidLevel) - 12)));
+							thisState.prop(gasLevel, (upState.get(gasLevel) + thisState.get(gasLevel) - 12)));
 					return;
 				}
 			}
 		}
 		// if the tile below is air
-		else if (downState.getTile() == GameContent.TILE_AIR)
+		else if (upState.getTile() == GameContent.TILE_AIR)
 		{
-			// move the fluid down a block
-			world.setState(x, y - 1, thisState);
+			// move the gas down a block
+			world.setState(x, y + 1, thisState);
 			world.setState(x, y, GameContent.TILE_AIR.getDefState());
 			return;
 		}
@@ -157,9 +157,9 @@ public class FluidTile extends TileBasic
 				if (curRight.getTile() == thisState.getTile() || curRight.getTile() == GameContent.TILE_AIR)
 				{
 					if (curRight.getTile() == thisState.getTile()
-							&& curRight.get(fluidType) == thisState.get(fluidType))
+							&& curRight.get(gasType) == thisState.get(gasType))
 					{
-						if (curRight.get(fluidLevel) < MAX_VOLUME)
+						if (curRight.get(gasLevel) < MAX_VOLUME)
 						{
 							furthestRight = curX;
 						} else
@@ -180,9 +180,9 @@ public class FluidTile extends TileBasic
 			{
 				if (curLeft.getTile() == thisState.getTile() || curLeft.getTile() == GameContent.TILE_AIR)
 				{
-					if (curLeft.getTile() == thisState.getTile() && curLeft.get(fluidType) == thisState.get(fluidType))
+					if (curLeft.getTile() == thisState.getTile() && curLeft.get(gasType) == thisState.get(gasType))
 					{
-						if (curLeft.get(fluidLevel) < MAX_VOLUME)
+						if (curLeft.get(gasLevel) < MAX_VOLUME)
 						{
 							furthestLeft = curX;
 						} else
@@ -210,22 +210,22 @@ public class FluidTile extends TileBasic
 			return;
 		}
 
-		if (thisState.get(fluidLevel) > 1)
+		if (thisState.get(gasLevel) > 1)
 		{
-			// if we should flow fluid to the left
+			// if we should flow gas to the left
 			if (furthestLeft >= furthestRight)
 			{
-				// if the tile to the left is not full of fluid
-				if (leftState.getTile() == thisState.getTile() && leftState.get(fluidType) == thisState.get(fluidType))
+				// if the tile to the left is not full of gas
+				if (leftState.getTile() == thisState.getTile() && leftState.get(gasType) == thisState.get(gasType))
 				{
-					// if the fluid to the left is the same as this
-					if (leftState.get(fluidLevel) < MAX_VOLUME)
+					// if the gas to the left is the same as this
+					if (leftState.get(gasLevel) < MAX_VOLUME)
 					{
-						// if there is less fluid in the left tile than this
-						if (leftState.get(fluidLevel) < thisState.get(fluidLevel))
+						// if there is less gas in the left tile than this
+						if (leftState.get(gasLevel) < thisState.get(gasLevel))
 						{
-							world.setState(x - 1, y, leftState.prop(fluidLevel, leftState.get(fluidLevel) + 1));
-							world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+							world.setState(x - 1, y, leftState.prop(gasLevel, leftState.get(gasLevel) + 1));
+							world.setState(x, y, thisState.prop(gasLevel, thisState.get(gasLevel) - 1));
 							return;
 						}
 					}
@@ -233,26 +233,26 @@ public class FluidTile extends TileBasic
 				// if there is air to the left
 				else if (leftState.getTile() == GameContent.TILE_AIR)
 				{
-					world.setState(x - 1, y, thisState.prop(fluidLevel, 1));
-					world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+					world.setState(x - 1, y, thisState.prop(gasLevel, 1));
+					world.setState(x, y, thisState.prop(gasLevel, thisState.get(gasLevel) - 1));
 					return;
 				}
 			}
-			// if we should flow fluid to the right
+			// if we should flow gas to the right
 			else
 			{
-				// if the fluid to the left is the same as this
+				// if the gas to the left is the same as this
 				if (rightState.getTile() == thisState.getTile()
-						&& rightState.get(fluidType) == thisState.get(fluidType))
+						&& rightState.get(gasType) == thisState.get(gasType))
 				{
-					// if the tile to the left is not full of fluid
-					if (rightState.get(fluidLevel) < MAX_VOLUME)
+					// if the tile to the left is not full of gas
+					if (rightState.get(gasLevel) < MAX_VOLUME)
 					{
-						// if there is less fluid in the left tile than this
-						if (rightState.get(fluidLevel) < rightState.get(fluidLevel))
+						// if there is less gas in the left tile than this
+						if (rightState.get(gasLevel) < rightState.get(gasLevel))
 						{
-							world.setState(x + 1, y, rightState.prop(fluidLevel, rightState.get(fluidLevel) + 1));
-							world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+							world.setState(x + 1, y, rightState.prop(gasLevel, rightState.get(gasLevel) + 1));
+							world.setState(x, y, thisState.prop(gasLevel, thisState.get(gasLevel) - 1));
 							return;
 						}
 					}
@@ -260,8 +260,8 @@ public class FluidTile extends TileBasic
 				// if there is air to the left
 				else if (rightState.getTile() == GameContent.TILE_AIR)
 				{
-					world.setState(x + 1, y, thisState.prop(fluidLevel, 1));
-					world.setState(x, y, thisState.prop(fluidLevel, thisState.get(fluidLevel) - 1));
+					world.setState(x + 1, y, thisState.prop(gasLevel, 1));
+					world.setState(x, y, thisState.prop(gasLevel, thisState.get(gasLevel) - 1));
 					return;
 				}
 			}
@@ -298,5 +298,4 @@ public class FluidTile extends TileBasic
 	{
 		return layer != TileLayer.BACKGROUND || !this.canProvideTileEntity();
 	}
-
 }

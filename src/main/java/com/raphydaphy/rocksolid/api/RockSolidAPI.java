@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
@@ -21,7 +20,6 @@ import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.mod.IMod;
-import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 
 public class RockSolidAPI
 {
@@ -44,7 +42,7 @@ public class RockSolidAPI
 	public static Map<Integer, ConduitMode> CONDUIT_MODES = new HashMap<Integer, ConduitMode>();
 
 	public static Map<String, Fluid> FLUID_REGISTRY = new HashMap<String, Fluid>();
-	public static final NameRegistry<Gas> GAS_REGISTRY = new NameRegistry<>("gas_registry");
+	public static Map <String, Gas> GAS_REGISTRY = new HashMap<String, Gas>();
 
 	public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
 	{
@@ -83,15 +81,15 @@ public class RockSolidAPI
 		return null;
 	}
 
-	public static ElectrolyzerRecipe getElectrolyzerRecipe(String output1, String output2, String fluid,
+	public static ElectrolyzerRecipe getElectrolyzerRecipe(Gas output1, Gas output2, String fluid,
 			int fluidVolume)
 	{
 		for (ElectrolyzerRecipe recipe : ELECTROLYZER_RECIPE)
 		{
 			boolean fluidMatches = fluid.equals(recipe.getFluid()) || (recipe.getFluid().equals(Fluid.EMPTY.getName()));
 			if (fluidVolume >= recipe.getFluidVolume() && fluidMatches
-					&& (output1.equals(recipe.getOutput1()) || output1.equals(RockSolidContent.gasVacuum.toString()))
-					&& (output2.equals(recipe.getOutput2()) || output2.equals(RockSolidContent.gasVacuum.toString())))
+					&& (output1.equals(recipe.getOutput1()) || output1.equals(Gas.VACCUM))
+					&& (output2.equals(recipe.getOutput2()) || output2.equals(Gas.VACCUM)))
 			{
 				return recipe;
 			}

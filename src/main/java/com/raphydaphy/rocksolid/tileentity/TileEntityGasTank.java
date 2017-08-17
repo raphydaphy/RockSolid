@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 
@@ -14,7 +14,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 
 	protected int gasStored;
 	protected int maxGas;
-	protected String gasType = RockSolidContent.gasVacuum.toString();
+	protected String gasType = Gas.VACCUM.getName();
 
 	public TileEntityGasTank(final IWorld world, final int x, final int y)
 	{
@@ -43,18 +43,18 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	public void save(final DataSet set, final boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt("gasStored", this.gasStored);
-		set.addInt("maxGas", this.maxGas);
-		set.addString("gasType", this.gasType);
+		set.addInt(Gas.KEY, this.gasStored);
+		set.addInt(Gas.MAX_KEY, this.maxGas);
+		set.addString(Gas.TYPE_KEY, this.gasType);
 	}
 
 	@Override
 	public void load(final DataSet set, final boolean forSync)
 	{
 		super.load(set, forSync);
-		this.gasStored = set.getInt("gasStored");
-		this.maxGas = set.getInt("maxGas");
-		this.gasType = set.getString("gasType");
+		this.gasStored = set.getInt(Gas.KEY);
+		this.maxGas = set.getInt(Gas.MAX_KEY);
+		this.gasType = set.getString(Gas.TYPE_KEY);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 
 			if (this.gasStored == 0)
 			{
-				this.gasType = RockSolidContent.gasVacuum.toString();
+				this.gasType = Gas.VACCUM.getName();
 			}
 			this.sync();
 			return true;
@@ -96,7 +96,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	public boolean addGas(int amount, String type)
 	{
 		if (this.gasType == null || type.equals(this.gasType)
-				|| this.gasType.equals(RockSolidContent.gasVacuum.toString()))
+				|| this.gasType.equals(Gas.VACCUM.getName()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{
@@ -116,7 +116,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	@Override
 	public boolean setGasType(String type)
 	{
-		if (this.gasType == RockSolidContent.gasVacuum.toString() || this.gasStored == 0)
+		if (this.gasType.equals(Gas.VACCUM.getName()) || this.gasStored == 0)
 		{
 			this.gasType = type;
 			this.sync();

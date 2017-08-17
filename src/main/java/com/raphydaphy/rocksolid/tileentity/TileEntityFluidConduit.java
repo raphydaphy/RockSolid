@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 import com.raphydaphy.rocksolid.api.fluid.IFluidTile;
+import com.raphydaphy.rocksolid.api.fluid.IMultiFluidTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
@@ -89,7 +90,7 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 	@Override
 	public boolean canConnectAbstract(TileEntity tile)
 	{
-		return tile instanceof IFluidTile;
+		return tile instanceof IFluidTile || tile instanceof IMultiFluidTile;
 	}
 
 }

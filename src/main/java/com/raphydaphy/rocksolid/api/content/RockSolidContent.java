@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.api.content;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.api.gas.Gas;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.item.Item;
@@ -124,11 +123,7 @@ public class RockSolidContent
 
 	public static Item bucket = getItem("bucket");
 
-	public static final Gas gasVacuum = getGas("gasVacuum");
-	public static final Gas gasOxygen = getGas("gasOxygen");
-	public static final Gas gasHydrogen = getGas("gasHydrogen");
-	public static final Gas gasSteam = getGas("gasSteam");
-
+	public static final Tile GAS = getTile("gas");
 	public static final Tile FLUID = getTile("fluid");
 
 	private static Tile getTile(String name)
@@ -139,11 +134,6 @@ public class RockSolidContent
 	private static Item getItem(String name)
 	{
 		return get(name, RockBottomAPI.ITEM_REGISTRY);
-	}
-
-	private static Gas getGas(String name)
-	{
-		return get(name, RockSolidAPI.GAS_REGISTRY);
 	}
 
 	public static <T> T get(String name, NameRegistry<T> registry)

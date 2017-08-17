@@ -1,5 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.api.fluid.FluidTile;
+import com.raphydaphy.rocksolid.api.gas.GasTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tile.TileAlloySmelter;
 import com.raphydaphy.rocksolid.tile.TileAnalyzer;
@@ -97,6 +99,9 @@ public class ModTiles
 
 	public static Tile constructionBlockSteel;
 	public static Tile constructionBlockTitanium;
+	
+	public static Tile FLUID;
+	public static Tile GAS;
 
 	public static void init()
 	{
@@ -162,5 +167,9 @@ public class ModTiles
 
 		constructionBlockSteel = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockSteel"), 10, 3);
 		constructionBlockTitanium = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockTitanium"), 25, 4);
+		
+		GAS = new GasTile("gas");
+		FLUID = new FluidTile("fluid");
+		
 	}
 }

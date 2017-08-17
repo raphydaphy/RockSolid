@@ -1,16 +1,18 @@
 package com.raphydaphy.rocksolid.api.recipe;
 
+import com.raphydaphy.rocksolid.api.gas.Gas;
+
 public class ElectrolyzerRecipe
 {
-	private final String output1;
-	private final String output2;
+	private final Gas output1;
+	private final Gas output2;
 	private final String fluid;
 	private final int fluidVolume;
 	private final int output1Volume;
 	private final int output2Volume;
 	private final int time;
 
-	public ElectrolyzerRecipe(String output1, String output2, String fluid, int fluidVolume, int output1Volume,
+	public ElectrolyzerRecipe(Gas output1, Gas output2, String fluid, int fluidVolume, int output1Volume,
 			int output2Volume, int time)
 	{
 		this.output1 = output1;
@@ -25,12 +27,12 @@ public class ElectrolyzerRecipe
 		this.time = time;
 	}
 
-	public String getOutput1()
+	public Gas getOutput1()
 	{
 		return this.output1;
 	}
 
-	public String getOutput2()
+	public Gas getOutput2()
 	{
 		return this.output2;
 	}

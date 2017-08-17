@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IMultiFluidAcceptor;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -21,7 +21,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 
 	protected int gasStored;
 	protected int maxGas = 5000;
-	protected String gasType = RockSolidContent.gasVacuum.toString();
+	protected String gasType = Gas.VACCUM.getName();
 
 	// tank 0 is water tank 1 is lava
 	protected int[] fluidStored = new int[] { 0, 0 };
@@ -57,9 +57,9 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 		{
 			if (RockBottomAPI.getNet().isClient() == false)
 			{
-				if (this.gasType.equals(RockSolidContent.gasVacuum.toString()))
+				if (this.gasType.equals(Gas.VACCUM.getName()))
 				{
-					this.gasType = RockSolidContent.gasSteam.toString();
+					this.gasType = Gas.STEAM.getName();
 				}
 
 				this.fluidStored[0] -= fluidConsumptionPerTick[0];
@@ -178,7 +178,7 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 
 				if (this.gasStored == 0)
 				{
-					this.gasType = RockSolidContent.gasVacuum.toString();
+					this.gasType = Gas.VACCUM.getName();
 				}
 				this.shouldSync = true;
 			}

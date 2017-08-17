@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.api.fluid.FluidTile;
-import com.raphydaphy.rocksolid.api.gas.Gas;
+import com.raphydaphy.rocksolid.api.gas.GasTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
@@ -72,7 +72,7 @@ public class TileEntityQuarry extends TileEntityPowered implements IInventoryHol
 
 		while (world.getState(curX, curY).getTile() == GameContent.TILE_AIR
 				|| world.getState(curX, curY).getTile() instanceof FluidTile
-				|| world.getState(curX, curY).getTile() instanceof Gas)
+				|| world.getState(curX, curY).getTile() instanceof GasTile)
 		{
 			curX++;
 			if (curX > this.x + 11)

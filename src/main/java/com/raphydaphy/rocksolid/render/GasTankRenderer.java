@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.tile.TileGasTank;
 import com.raphydaphy.rocksolid.tileentity.TileEntityGasTank;
 
@@ -61,16 +61,8 @@ public class GasTankRenderer extends MultiTileRenderer<TileGasTank>
 					stage = 10;
 				}
 			}
-			if (tileEntity.getGasType().equals(RockSolidContent.gasOxygen.toString()))
-			{
-				tex = this.texture.addSuffix(".gasOxygen." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getGasType().equals(RockSolidContent.gasHydrogen.toString()))
-			{
-				tex = this.texture.addSuffix(".gasHydrogen." + innerCoord.getX() + "." + innerCoord.getY());
-			} else if (tileEntity.getGasType().equals(RockSolidContent.gasSteam.toString()))
-			{
-				tex = this.texture.addSuffix(".gasSteam." + innerCoord.getX() + "." + innerCoord.getY());
-			}
+			
+			tex = this.texture.addSuffix("." + Gas.getByName(tileEntity.getGasType()) + "." + innerCoord.getX() + "." + innerCoord.getY());
 
 			float scaleY = (float) (scale / 12);
 

@@ -1,12 +1,12 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IGasTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
-import com.raphydaphy.rocksolid.init.ModGasses;
 import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -44,11 +44,10 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 					
 					String extractType = inputInv.getGasType();
 
-					if (extractType != ModGasses.gasVacuum.toString())
+					if (!extractType.equals(Gas.VACCUM.getName()))
 					{
 						for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
 						{
-							System.out.println("found potential gas output");
 							Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
 									super.getNetwork()[outputNet][1] + this.getMaster().getY());
 							TileEntityGasConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
@@ -73,8 +72,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 														: outputInv.getCurrentGas() - outputInv.getCurrentGas();
 										String outputType = outputInv.getGasType();
 										
-										System.out.println("We did it i think!");
-										if (extractType.equals(outputType) || outputType.equals(ModGasses.gasVacuum.toString()))
+										if (extractType.equals(outputType) || outputType.equals(Gas.VACCUM.getName()))
 										{
 											// send the maximum extraction amount as it is smaller
 											if (wouldExtract >= maxOutput)
@@ -85,7 +83,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 													{
 														outputInv.addGas(wouldExtract, extractType);
 														
-														if (outputInv.getGasType().equals(ModGasses.gasVacuum.toString()))
+														if (outputInv.getGasType().equals(Gas.VACCUM.getName()))
 														{
 															outputInv.setGasType(inputInv.getGasType());
 														}
@@ -101,7 +99,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 													{
 														outputInv.addGas(maxOutput, extractType);
 														
-														if (outputInv.getGasType().equals(ModGasses.gasVacuum.toString()))
+														if (outputInv.getGasType().equals(Gas.VACCUM.getName()))
 														{
 															outputInv.setGasType(inputInv.getGasType());
 														}

@@ -1,9 +1,6 @@
 package com.raphydaphy.rocksolid.api.util;
 
-import org.newdawn.slick.Color;
-
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -25,21 +22,6 @@ public class RockSolidAPILib
 		return RockBottomAPI.createRes(RockSolidAPI.RockSolid, name);
 	}
 
-	public static String getGasLocName(String gas)
-	{
-		if (gas.equals(RockSolidContent.gasHydrogen.toString()))
-		{
-			return "Hydrogen";
-		} else if (gas.equals(RockSolidContent.gasOxygen.toString()))
-		{
-			return "Oxygen";
-		} else if (gas.equals(RockSolidContent.gasSteam.toString()))
-		{
-			return "Steam";
-		}
-		return "Gas";
-	}
-
 	public static Fluid bucketMetaToFluid(int meta)
 	{
 		for (int curFluid = 0; curFluid < Fluid.values().length; curFluid++)
@@ -50,21 +32,6 @@ public class RockSolidAPILib
 			}
 		}
 		return Fluid.EMPTY;
-	}
-
-	public static Color getGasColor(String gas)
-	{
-		if (gas.equals(RockSolidContent.gasOxygen.toString()))
-		{
-			return new Color(224, 255, 255);
-		} else if (gas.equals(RockSolidContent.gasHydrogen.toString()))
-		{
-			return new Color(200, 147, 216);
-		} else if (gas.equals(RockSolidContent.gasSteam.toString()))
-		{
-			return new Color(165, 165, 165);
-		}
-		return new Color(199, 136, 53);
 	}
 
 	public static TileEntity getTileFromConduitSide(Pos2 center, ConduitSide side, IWorld world)

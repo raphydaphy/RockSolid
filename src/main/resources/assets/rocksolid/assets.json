@@ -434,9 +434,12 @@
         "UP": "/tiles/gas_conduit/gas_conduit_up.png",
         "*": "/tiles/gas_conduit/gas_conduit.png"
       },
-      "gasHydrogen": "/gasses/hydrogen/still.png",
-      "gasOxygen": "/gasses/oxygen/still.png",
-      "gasSteam": "/gasses/steam/still.png",
+      "gas": {
+        "HYDROGEN": "/gasses/hydrogen/still.png",
+        "OXYGEN": "/gasses/oxygen/still.png",
+        "STEAM": "/gasses/steam/still.png",
+        "*": "/gasses/oxygen/still.png"
+      },
       "gasTank": {
       	 "*": {
 			"subtexture": {
@@ -445,21 +448,21 @@
 			    "0.1": [0, 0, 12, 12]
 			}
 		},
-		"gasSteam": {
+		"STEAM": {
 			"subtexture": {
 			    "file": "/gasses/steam/tank.png",
 			    "0.0": [0, 12, 12, 12],
 			    "0.1": [0, 0, 12, 12]
 			}
 		},
-		"gasOxygen": {
+		"OXYGEN": {
 			"subtexture": {
 			    "file": "/gasses/oxygen/tank.png",
 			    "0.0": [0, 12, 12, 12],
 			    "0.1": [0, 0, 12, 12]
 			}
 		},
-		"gasHydrogen": {
+		"HYDROGEN": {
 			"subtexture": {
 			    "file": "/gasses/hydrogen/tank.png",
 			    "0.0": [0, 12, 12, 12],

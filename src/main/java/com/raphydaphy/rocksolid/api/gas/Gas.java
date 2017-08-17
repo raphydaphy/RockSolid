@@ -1,147 +1,72 @@
 package com.raphydaphy.rocksolid.api.gas;
 
+import org.newdawn.slick.Color;
+
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
-import com.raphydaphy.rocksolid.api.render.GasRenderer;
-import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
+import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 
-import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
-import de.ellpeck.rockbottom.api.tile.Tile;
-import de.ellpeck.rockbottom.api.tile.TileBasic;
-import de.ellpeck.rockbottom.api.tile.state.IntProp;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
-import de.ellpeck.rockbottom.api.util.BoundBox;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
-import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
 
-public abstract class Gas extends TileBasic
+public enum Gas
 {
-	public static final int MAX_VOLUME = 12;
-	public static final int CANISTER_VOLUME = 5;
-	public static final IntProp gasLevel = new IntProp("volume", 1, MAX_VOLUME + 1);
-	public float weight = 1;
+	HYDROGEN("Hydrogen", 0.01f, 1, new Color(200, 147, 216)), OXYGEN("Oxygen", 0.015f, 2,
+			new Color(224, 255, 255)), STEAM("Steam", 0.03f, 3,
+					new Color(165, 165, 165)), VACCUM("Gas", 0.0f, 0, new Color(199, 136, 53));
 
-	public Gas(String name)
+	private String name;
+	private float weight;
+	private int canisterMeta;
+	private Color color;
+
+	public static final String KEY = "gasStored";
+	public static final String MAX_KEY = "maxGas";
+	public static final String TYPE_KEY = "gasType";
+
+	Gas(String name, float weight, int canisterMeta, Color color)
 	{
-		this(RockSolidAPILib.makeInternalRes(name));
-		this.addProps(gasLevel);
+		this.name = name;
+		this.weight = weight;
+		this.canisterMeta = canisterMeta;
+		this.color = color;
+		RockSolidAPI.GAS_REGISTRY.put(name, this);
 	}
 
-	public Gas(IResourceName name)
+	public TileState getTile()
 	{
-		super(name);
+		return RockSolidContent.GAS.getDefState().prop(GasTile.gasType, this);
 	}
 
-	@Override
-	public Gas register()
+	public Color getColor()
 	{
-		RockSolidAPI.GAS_REGISTRY.register(this.getName(), this);
-		return (Gas) super.register();
+		return this.color;
 	}
 
-	protected ITileRenderer<?> createRenderer(IResourceName name)
+	public int getCanisterMeta()
 	{
-		return new GasRenderer<Gas>(name);
+		return this.canisterMeta;
 	}
 
-	@Override
-	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	public String getName()
 	{
-		world.scheduleUpdate(x, y, TileLayer.MAIN, 8);
+		return this.name;
 	}
 
-	@Override
-	public TileState getPlacementState(IWorld world, int x, int y, TileLayer layer, ItemInstance instance,
-			AbstractEntityPlayer placer)
+	public float getWeight()
 	{
-		System.out.println("set the placement state");
-		TileState existingBlock = world.getState(x, y);
-		if (existingBlock.getTile() == GameContent.TILE_AIR)
+		return this.weight;
+	}
+
+	public static Gas getByName(String nameIn)
+	{
+		if (RockSolidAPI.GAS_REGISTRY.containsKey(nameIn))
 		{
-			return this.getDefState().prop(gasLevel, CANISTER_VOLUME);
-		} else
+			return RockSolidAPI.GAS_REGISTRY.get(nameIn);
+		}
+		else
 		{
-			if (existingBlock.get(gasLevel) + CANISTER_VOLUME <= MAX_VOLUME)
-			{
-				return existingBlock.prop(gasLevel, existingBlock.get(gasLevel) + CANISTER_VOLUME);
-			} else
-			{
-				return existingBlock.prop(gasLevel, MAX_VOLUME);
-			}
+			System.out.println("Tried to access unknown Gas " + nameIn);
+			return Gas.VACCUM;
 		}
 	}
 
-	@Override
-	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
-	{
-		TileState thisState = world.getState(x, y);
-		TileState upState = world.getState(x, y + 1);
-		// TileState leftTile = world.getState(x - 1, y);
-		// TileState rightTile = world.getState(x + 1, y);
-
-		if (thisState.getTile() instanceof Gas)
-		{
-			world.scheduleUpdate(x, y, layer, 8);
-		}
-
-		// if the tile below is the same fluid as this
-		if (upState.getTile() == thisState.getTile() && upState.get(gasLevel) < MAX_VOLUME)
-		{
-			// if we can safely move all the fluid into the lower block
-			if (upState.get(gasLevel) + thisState.get(gasLevel) <= MAX_VOLUME)
-			{
-				// move the fluid into the lower block
-				world.setState(x, y + 1, upState.prop(gasLevel, upState.get(gasLevel) + thisState.get(gasLevel)));
-				world.scheduleUpdate(x, y + 1, layer, 8);
-				world.setState(x, y, GameContent.TILE_AIR.getDefState());
-				return;
-			}
-			// if we need to keep some fluid in the top block
-			else
-			{
-
-			}
-		}
-		// if the tile below is air
-		else if (upState.getTile() == GameContent.TILE_AIR)
-		{
-			// move the fluid down a block
-			world.setState(x, y + 1, thisState);
-			world.setState(x, y, GameContent.TILE_AIR.getDefState());
-			return;
-		}
-	}
-
-	@Override
-	public boolean isFullTile()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean canBreak(IWorld world, int x, int y, TileLayer layer)
-	{
-		return false;
-	}
-
-	@Override
-	public BoundBox getBoundBox(IWorld world, int x, int y)
-	{
-		return null;
-	}
-
-	@Override
-	public boolean canReplace(IWorld world, int x, int y, TileLayer layer, Tile replacementTile)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canPlaceInLayer(TileLayer layer)
-	{
-		return layer != TileLayer.BACKGROUND || !this.canProvideTileEntity();
-	}
 }

@@ -3,9 +3,9 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.Arrays;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
@@ -30,7 +30,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 
 	protected int gasStored;
 	protected int maxGas = 5000;
-	protected String gasType = RockSolidContent.gasVacuum.toString();
+	protected String gasType = Gas.VACCUM.getName();
 
 	protected int fluidStored = 0;
 	protected int maxFluid = 5000;
@@ -67,9 +67,9 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 				if (RockBottomAPI.getNet().isClient() == false)
 				{
 
-					if (this.gasType.equals(RockSolidContent.gasVacuum.toString()))
+					if (this.gasType.equals(Gas.VACCUM.getName()))
 					{
-						this.gasType = RockSolidContent.gasSteam.toString();
+						this.gasType = Gas.STEAM.getName();
 					}
 
 					this.fluidStored -= fluidConsumptionPerTick;
@@ -211,7 +211,7 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 
 				if (this.gasStored == 0)
 				{
-					this.gasType = RockSolidContent.gasVacuum.toString();
+					this.gasType = Gas.VACCUM.getName();
 				}
 				this.shouldSync = true;
 			}

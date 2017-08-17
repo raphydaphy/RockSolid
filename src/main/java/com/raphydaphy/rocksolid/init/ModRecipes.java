@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.content.BaseResources;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
+import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.api.recipe.BlastFurnaceRecipe;
 import com.raphydaphy.rocksolid.api.recipe.CompressorRecipe;
@@ -175,8 +176,8 @@ public class ModRecipes
 		RockSolidAPI.REFINERY_RECIPES.add(new RefineryRecipe(Fluid.OIL, Fluid.FUEL, 50, 25, 300));
 
 		// Electrolyzer Recipes
-		RockSolidAPI.ELECTROLYZER_RECIPE.add(new ElectrolyzerRecipe(RockSolidContent.gasHydrogen.toString(),
-				RockSolidContent.gasOxygen.toString(), Fluid.WATER.getName(), 150, 100, 50, 800));
+		RockSolidAPI.ELECTROLYZER_RECIPE.add(new ElectrolyzerRecipe(Gas.HYDROGEN,
+				Gas.OXYGEN, Fluid.WATER.getName(), 150, 100, 50, 800));
 
 		// Arc furnace recipes
 		RockSolidAPI.BLAST_FURNACE_RECIPES.add(new BlastFurnaceRecipe(new ItemInstance(RockSolidContent.gemCoke),
