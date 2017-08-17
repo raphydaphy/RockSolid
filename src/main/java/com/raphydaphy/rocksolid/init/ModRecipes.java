@@ -244,6 +244,10 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PARTLY_PROCESSED_TUNGSTEN), 300));
 
 		// misc manual crafting recipies
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.analyzer),
+				new ResUseInfo(BaseResources.PROCESSED_NICKEL, 15), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 10),
+				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 30),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 25)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.alloySmelter),
 				new ResUseInfo(BaseResources.PROCESSED_TIN, 10), new ResUseInfo(ResourceRegistry.PROCESSED_COPPER, 10),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 30),
@@ -263,7 +267,7 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_MAGNESIUM, 5),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20)));
 
-		// Rocket Crafting
+		// Rocket Crafting		
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.rocketEngine),
 				new ResUseInfo(BaseResources.COMPRESSED_TITANIUM, 2),
 				new ResUseInfo(BaseResources.TUNGSTEN_CARBIDE, 12), new ResUseInfo(BaseResources.PROCESSED_STEEL, 18),
@@ -364,6 +368,12 @@ public class ModRecipes
 				new ResUseInfo(BaseResources.PROCESSED_TIN, 4), new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 5),
 				new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 5)));
 
+		// electric machine crafting
+		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(
+				new ItemInstance(RockSolidContent.rockCrusher),
+				new ResUseInfo(BaseResources.PROCESSED_STEEL, 1), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 60),
+				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 40),
+				new ResUseInfo(BaseResources.PROCESSED_NICKEL, 30), new ResUseInfo(BaseResources.PROCESSED_IRON, 10)));
 		RockBottomAPI.CONSTRUCTION_TABLE_RECIPES.add(new BasicRecipe(new ItemInstance(RockSolidContent.fluidPump),
 				new ResUseInfo(BaseResources.COMPRESSED_STEEL, 1), new ResUseInfo(ResourceRegistry.WOOD_BOARDS, 55),
 				new ResUseInfo(ResourceRegistry.PROCESSED_STONE, 20), new ResUseInfo(BaseResources.TANK, 1),
