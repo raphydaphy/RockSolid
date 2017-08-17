@@ -340,7 +340,7 @@
       "electrolyzer": {
       	 "*": {
 			"subtexture": {
-			    "file": "/tiles/electrolyzer/electrolyzer_purifier.png",
+			    "file": "/tiles/electrolyzer/electrolyzer.png",
 			    "0.0": [0, 12, 12, 12],
 			    "0.1": [0, 0, 12, 12],
 			    "1.0": [12, 12, 12, 12],
@@ -380,46 +380,51 @@
         "*": "/tiles/fluid_conduit/fluid_conduit.png"
       },
       "fluidPump": {
-        "0": {
-          "0": "sub./fluids/empty/pump.png,0,12,12,12",
-          "1": "sub./fluids/empty/pump.png,0,0,12,12"
-        },
-        "1": {
-          "0": "sub./fluids/empty/pump.png,12,12,12,12",
-          "1": "sub./fluids/empty/pump.png,12,0,12,12"
-        },
-        "FUEL": {
-          "0": {
-            "1": "sub./fluids/fuel/pump.png,0,0,12,12"
-          },
-          "1": {
-            "1": "sub./fluids/fuel/pump.png,12,0,12,12"
-          }
-        },
-        "LAVA": {
-          "0": {
-            "1": "sub./fluids/lava/pump.png,0,0,12,12"
-          },
-          "1": {
-            "1": "sub./fluids/lava/pump.png,12,0,12,12"
-          }
-        },
-        "OIL": {
-          "0": {
-            "1": "sub./fluids/oil/pump.png,0,0,12,12"
-          },
-          "1": {
-            "1": "sub./fluids/oil/pump.png,12,0,12,12"
-          }
-        },
-        "WATER": {
-          "0": {
-            "1": "sub./fluids/water/pump.png,0,0,12,12"
-          },
-          "1": {
-            "1": "sub./fluids/water/pump.png,12,0,12,12"
-          }
-        },
+      	 "*": {
+			"subtexture": {
+			    "file": "/fluids/empty/pump.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12],
+			    "1.0": [12, 12, 12, 12],
+			    "1.1": [12, 0, 12, 12]
+			}
+		},
+		"FUEL": {
+			"subtexture": {
+			    "file": "/fluids/fuel/pump.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12],
+			    "1.0": [12, 12, 12, 12],
+			    "1.1": [12, 0, 12, 12]
+			}
+		},
+		"LAVA": {
+			"subtexture": {
+			    "file": "/fluids/lava/pump.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12],
+			    "1.0": [12, 12, 12, 12],
+			    "1.1": [12, 0, 12, 12]
+			}
+		},
+		"OIL": {
+			"subtexture": {
+			    "file": "/fluids/oil/pump.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12],
+			    "1.0": [12, 12, 12, 12],
+			    "1.1": [12, 0, 12, 12]
+			}
+		},
+		"WATER": {
+			"subtexture": {
+			    "file": "/fluids/water/pump.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12],
+			    "1.0": [12, 12, 12, 12],
+			    "1.1": [12, 0, 12, 12]
+			}
+		},
         "item": "/fluids/empty/pump_item.png"
       },
       "gasConduit": {
@@ -433,28 +438,34 @@
       "gasOxygen": "/gasses/oxygen/still.png",
       "gasSteam": "/gasses/steam/still.png",
       "gasTank": {
-        "0": {
-          "0": "sub./gasses/vacuum/tank.png,0,12,12,12",
-          "1": "sub./gasses/vacuum/tank.png,0,0,12,12"
-        },
-        "gasHydrogen": {
-          "0": {
-            "0": "sub./gasses/hydrogen/tank.png,0,12,12,12",
-            "1": "sub./gasses/hydrogen/tank.png,0,0,12,12"
-          }
-        },
-        "gasOxygen": {
-          "0": {
-            "0": "sub./gasses/oxygen/tank.png,0,12,12,12",
-            "1": "sub./gasses/oxygen/tank.png,0,0,12,12"
-          }
-        },
-        "gasSteam": {
-          "0": {
-            "0": "sub./gasses/steam/tank.png,0,12,12,12",
-            "1": "sub./gasses/steam/tank.png,0,0,12,12"
-          }
-        },
+      	 "*": {
+			"subtexture": {
+			    "file": "/gasses/vacuum/tank.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12]
+			}
+		},
+		"gasSteam": {
+			"subtexture": {
+			    "file": "/gasses/steam/tank.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12]
+			}
+		},
+		"gasOxygen": {
+			"subtexture": {
+			    "file": "/gasses/oxygen/tank.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12]
+			}
+		},
+		"gasHydrogen": {
+			"subtexture": {
+			    "file": "/gasses/hydrogen/tank.png",
+			    "0.0": [0, 12, 12, 12],
+			    "0.1": [0, 0, 12, 12]
+			}
+		},
         "item": "/gasses/vacuum/tank_item.png"
       },
       "itemConduit": {
@@ -634,12 +645,15 @@
       },
       "rockLight": "/tiles/misc/rock_light.png",
       "rocket": {
-        "0": {
-          "0": "sub./tiles/rocket/rocket.png,0,36,12,12",
-          "1": "sub./tiles/rocket/rocket.png,0,24,12,12",
-          "2": "sub./tiles/rocket/rocket.png,0,12,12,12",
-          "3": "sub./tiles/rocket/rocket.png,0,0,12,12"
-        },
+      	 "*": {
+			"subtexture": {
+			    "file": "/tiles/rocket/rocket.png",
+			    "0.0": [0, 36, 12, 12],
+			    "0.1": [0, 24, 12, 12],
+			    "0.2": [0, 12, 12, 12],
+			    "0.3": [0, 0, 12, 12]
+			}
+		},
         "item": "/tiles/rocket/rocket_item.png"
       },
       "rocketEngine": "/tiles/misc/rocket_engine.png",
