@@ -18,8 +18,8 @@ import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
-import de.ellpeck.rockbottom.api.event.impl.ContainerOpenEvent;
 import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
+import de.ellpeck.rockbottom.api.event.impl.PlayerJoinWorldEvent;
 import de.ellpeck.rockbottom.api.event.impl.WorldRenderEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -365,40 +365,29 @@ public class ModEvents
 			return EventResult.DEFAULT;
 		});
 
-		e.registerListener(ContainerOpenEvent.class, (result, event) -> {
-
-			if (event.container != null && event.container.getName().toString().equals("rockbottom/inventory"))
+		e.registerListener(PlayerJoinWorldEvent.class, (result, event) -> { 
+			if (event.player != null && event.player.getInvContainer() != null)
 			{
-				AbstractEntityPlayer player = event.player;
-				if (player != null)
+				if (event.player.getAdditionalData() == null || event.player.getAdditionalData().isEmpty())
 				{
-					if (player.getAdditionalData() != null)
-					{
-						if (!player.getAdditionalData().getBoolean("is_creative"))
-						{
-							event.container.addSlot(new PlayerInvSlot(player, 0, "jetpackData",
-									instance -> instance.getItem().equals(RockSolidContent.jetpack), 165, 25));
-							event.container.addSlot(new PlayerInvSlot(player, 1, "lanternData",
-									instance -> (instance.getItem().equals(RockSolidContent.electricLantern)
-											|| instance.getItem().equals(RockSolidContent.lantern)),
-									165, 45));
-							event.container.addSlot(new PlayerInvSlot(player, 2, "accessory3",
-									instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
-							return EventResult.MODIFIED;
-						}
-					} else
-					{
-						DataSet data = new DataSet();
-						data.addDataSet("jetpackData", new DataSet());
-						data.addDataSet("lanternData", new DataSet());
-						data.addDataSet("accessory3Data", new DataSet());
-						player.setAdditionalData(data);
-					}
+					DataSet data = new DataSet();
+					data.addDataSet("jetpackData", new DataSet());
+					data.addDataSet("lanternData", new DataSet());
+					data.addDataSet("accessory3Data", new DataSet());
+					event.player.setAdditionalData(data);
 				}
+				
+				event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, "jetpackData",
+						instance -> instance.getItem().equals(RockSolidContent.jetpack), 165, 25));
+				event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 1, "lanternData",
+						instance -> (instance.getItem().equals(RockSolidContent.electricLantern)
+								|| instance.getItem().equals(RockSolidContent.lantern)),
+						165, 45));
+				event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 2, "accessory3",
+						instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
+				return EventResult.MODIFIED;
 			}
-
 			return EventResult.DEFAULT;
 		});
-
 	}
 }
