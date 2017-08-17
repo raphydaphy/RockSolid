@@ -230,7 +230,7 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 	}
 	
 	@Override
-	public boolean canConnectAbstract(TileEntity tile)
+	public boolean canConnectAbstract(Pos2 pos, TileEntity tile)
 	{
 		return tile instanceof IInventoryHolder;
 	}

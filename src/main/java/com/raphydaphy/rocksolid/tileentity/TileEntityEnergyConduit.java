@@ -132,7 +132,7 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 	}
 
 	@Override
-	public boolean canConnectAbstract(TileEntity tile)
+	public boolean canConnectAbstract(Pos2 pos, TileEntity tile)
 	{
 		return tile instanceof IEnergyTile;
 	}

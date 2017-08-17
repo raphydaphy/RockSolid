@@ -4,11 +4,13 @@ import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasAcceptor;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
 import com.raphydaphy.rocksolid.api.gas.IGasTile;
+import com.raphydaphy.rocksolid.api.gas.IMultiGasTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -119,8 +121,20 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 	}
 
 	@Override
-	public boolean canConnectAbstract(TileEntity tile)
+	public boolean canConnectAbstract(Pos2 pos, TileEntity tile)
 	{
-		return tile instanceof IGasTile;
+		if (tile instanceof IGasTile)
+		{
+			return true;
+		} else if (tile instanceof IMultiGasTile)
+		{
+			Pos2 innerCoord = ((MultiTile) world.getState(pos.getX(), pos.getY()).getTile())
+					.getInnerCoord(world.getState(pos.getX(), pos.getY()));
+			if (((IMultiGasTile) tile).getSideMode(innerCoord.getX(), innerCoord.getY()) != 2)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

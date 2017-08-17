@@ -4,12 +4,15 @@ import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.fluid.IFluidProducer;
 import com.raphydaphy.rocksolid.api.fluid.IFluidTile;
+import com.raphydaphy.rocksolid.api.fluid.IMultiFluidAcceptor;
+import com.raphydaphy.rocksolid.api.fluid.IMultiFluidProducer;
 import com.raphydaphy.rocksolid.api.fluid.IMultiFluidTile;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -21,6 +24,73 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 	public TileEntityFluidConduit(final IWorld world, final int x, final int y)
 	{
 		super(TileEntityFluidConduit.class, 5, world, x, y);
+	}
+	
+	private void tryOutput(String type, int amount, TileEntity inputInv, Pos2 center, ConduitSide side)
+	{
+		TileEntityFluidConduit outputConduit = world.getTileEntity(center.getX(),
+				center.getY(), TileEntityFluidConduit.class);
+		Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(center, side);
+		TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
+				outputInvPos.getY(), world);
+
+		if (outputInvUnchecked != null && outputConduit != null)
+		{
+			if (outputInvUnchecked instanceof IFluidAcceptor)
+			{
+				IFluidAcceptor outputInv = (IFluidAcceptor) outputInvUnchecked;
+
+				if (outputConduit.getSideMode(side) == ConduitMode.OUTPUT)
+				{
+					String outputType = outputInv.getFluidType();
+
+					if (type.equals(outputType) || outputType.equals(Fluid.EMPTY.getName()))
+					{
+						if (outputInv.getCurrentFluid() + amount <= outputInv.getMaxFluid())
+						{
+							if (inputInv instanceof IFluidProducer)
+							{
+								if (((IFluidProducer)inputInv).removeFluid(amount))
+								{
+									outputInv.addFluid(amount, type);
+								}
+							}
+						}
+					}
+				}
+			} else if (outputInvUnchecked instanceof IMultiFluidAcceptor)
+			{
+				IMultiFluidAcceptor outputInv = (IMultiFluidAcceptor) outputInvUnchecked;
+
+				if (outputConduit.getSideMode(side) == ConduitMode.OUTPUT)
+				{
+					MultiTile theMultiTile = (MultiTile) world
+							.getState(outputInvPos.getX(), outputInvPos.getY()).getTile();
+					Pos2 innerCoord = theMultiTile
+							.getInnerCoord(world.getState(outputInvPos.getX(), outputInvPos.getY()));
+					int tank = outputInv.getTankNumber(innerCoord);
+					
+					if (tank != -1)
+					{
+						String outputType = outputInv.getFluidTanksType()[tank];
+	
+						if (type.equals(outputType) || outputType.equals(Fluid.EMPTY.getName()))
+						{
+							if (outputInv.getFluidTanksStorage()[tank] + amount <= outputInv.getMaxFluid())
+							{
+								if (inputInv instanceof IFluidProducer)
+								{
+									if (((IFluidProducer)inputInv).removeFluid(amount))
+									{
+										outputInv.addFluid(amount, type, tank);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -49,37 +119,39 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 					{
 						Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
 								super.getNetwork()[outputNet][1] + this.getMaster().getY());
-						TileEntityFluidConduit outputConduit = world.getTileEntity(outputConduitPos.getX(),
-								outputConduitPos.getY(), TileEntityFluidConduit.class);
-
+						
 						ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
 
-						Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
-						TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
-								outputInvPos.getY(), world);
+						this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide);
+					}
+				}
+			} else if (inputInvUnchecked instanceof IMultiFluidProducer)
+			{
+				IMultiFluidProducer inputInv = (IMultiFluidProducer) inputInvUnchecked;
 
-						if (outputInvUnchecked != null && outputConduit != null)
+				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
+				{
+					MultiTile theMultiTile = (MultiTile) world
+							.getState(inputInvPos.getX(), inputInvPos.getY()).getTile();
+					Pos2 innerCoord = theMultiTile
+							.getInnerCoord(world.getState(inputInvPos.getX(), inputInvPos.getY()));
+					int tank = inputInv.getTankNumber(innerCoord);
+					
+					if (tank != -1)
+					{
+						int wouldExtract = inputInv.getFluidTanksStorage()[tank] >= maxTransfer ? maxTransfer
+								: inputInv.getFluidTanksStorage()[tank];
+	
+						String extractType = inputInv.getFluidTanksType()[tank];
+	
+						for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
 						{
-							if (outputInvUnchecked instanceof IFluidAcceptor)
-							{
-								IFluidAcceptor outputInv = (IFluidAcceptor) outputInvUnchecked;
-
-								if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
-								{
-									String outputType = outputInv.getFluidType();
-
-									if (extractType.equals(outputType) || outputType.equals(Fluid.EMPTY.getName()))
-									{
-										if (outputInv.getCurrentFluid() + wouldExtract <= outputInv.getMaxFluid())
-										{
-											if (inputInv.removeFluid(wouldExtract))
-											{
-												outputInv.addFluid(wouldExtract, extractType);
-											}
-										}
-									}
-								}
-							}
+							Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
+									super.getNetwork()[outputNet][1] + this.getMaster().getY());
+							
+							ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
+	
+							this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide);
 						}
 					}
 				}
@@ -88,9 +160,21 @@ public class TileEntityFluidConduit extends TileEntityConduit<TileEntityFluidCon
 	}
 	
 	@Override
-	public boolean canConnectAbstract(TileEntity tile)
+	public boolean canConnectAbstract(Pos2 pos, TileEntity tile)
 	{
-		return tile instanceof IFluidTile || tile instanceof IMultiFluidTile;
+		if (tile instanceof IFluidTile)
+		{
+			return true;
+		} else if (tile instanceof IMultiFluidTile)
+		{
+			Pos2 innerCoord = ((MultiTile) world.getState(pos.getX(), pos.getY()).getTile())
+					.getInnerCoord(world.getState(pos.getX(), pos.getY()));
+			if (((IMultiFluidTile) tile).getSideMode(innerCoord.getX(), innerCoord.getY()) != 2)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

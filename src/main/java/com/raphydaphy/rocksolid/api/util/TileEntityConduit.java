@@ -214,7 +214,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 
 				if (adjSide != null)
 				{
-					if (this.canConnectAbstract(adjSide))
+					if (this.canConnectAbstract(new Pos2(adjSide.x, adjSide.y), adjSide))
 					{
 						// it isn't already contained in the network
 						if (networkEntry[0] == 0)
@@ -317,7 +317,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 
 			if (changedTile != null)
 			{
-				if (this.canConnectAbstract(changedTile))
+				if (this.canConnectAbstract(new Pos2(changedX, changedY), changedTile))
 				{
 					this.addInventory(world, (short) conduitRelativePos.getX(), (short) conduitRelativePos.getY(),
 							changedSide);
@@ -357,7 +357,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 		}
 	}
 	
-	public abstract boolean canConnectAbstract(TileEntity tile);
+	public abstract boolean canConnectAbstract(Pos2 pos, TileEntity tile);
 
 	@Override
 	public boolean canConnectTo(Pos2 pos, TileEntity tile)
@@ -369,7 +369,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 				return ((TileEntityConduit<?>) tile).getSideMode(
 						RockSolidAPILib.posAndOffsetToConduitSide(pos, new Pos2(x, y))) != ConduitMode.DISABLED;
 			}
-			return canConnectAbstract(tile);
+			return canConnectAbstract(pos, tile);
 		} else
 		{
 			System.out.println("Null tile found rip");
