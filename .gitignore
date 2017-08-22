@@ -13,3 +13,4 @@
 /.project
 /gamedata/*
 !/gamedata/info.txt
+/bin/

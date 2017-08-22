@@ -1,5 +1,7 @@
 package com.raphydaphy.rocksolid.gui;
 
+import java.util.function.Supplier;
+
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
@@ -35,12 +37,11 @@ public class GuiRocket extends GuiContainer
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullnesss));
 		if (this.tile.displayLaunchBtn())
 		{
-			this.components.add(new ComponentButton(this, 0, this.guiLeft + 108, this.guiTop + 18, 60, 18, "Launch"));
+			this.components.add(new ComponentButton(this, this.guiLeft + 108, this.guiTop + 18, 60, 18, this.onButtonActivated(game, 0), "Launch", "Make sure you have plenty of fuel before launching!"));
 		}
 	}
 
-	@Override
-	public boolean onButtonActivated(IGameInstance game, int button)
+	public Supplier<Boolean> onButtonActivated(IGameInstance game, int button)
 	{
 		if (button == 0)
 		{
@@ -48,9 +49,10 @@ public class GuiRocket extends GuiContainer
 			{
 				tile.launch();
 				RockBottomAPI.getNet().sendToServer(new PacketRocketLaunch(tile.x, tile.y));
+				return () -> true;
 			}
 		}
-		return false;
+		return () -> false;
 	}
 
 	@Override
