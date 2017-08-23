@@ -22,7 +22,7 @@ processSources {
 }
 
 dependencies {
-     compile group: 'de.ellpeck.rockbottom', name: 'RockBottomAPI', version: '+'
+     compile group: 'de.ellpeck.rockbottom', name: 'RockBottomAPI', version: '0.0.27-183'
  }
  
  task sourcesJar(type: Jar) {

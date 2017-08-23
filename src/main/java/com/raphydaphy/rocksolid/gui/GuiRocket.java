@@ -1,7 +1,5 @@
 package com.raphydaphy.rocksolid.gui;
 
-import java.util.function.Supplier;
-
 import org.newdawn.slick.Graphics;
 
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
@@ -18,13 +16,11 @@ import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
-public class GuiRocket extends GuiContainer
-{
+public class GuiRocket extends GuiContainer {
 
 	private final TileEntityRocket tile;
 
-	public GuiRocket(final AbstractEntityPlayer player, final TileEntityRocket tile)
-	{
+	public GuiRocket(final AbstractEntityPlayer player, final TileEntityRocket tile) {
 		super(player, 198, 150);
 		this.tile = tile;
 	}
@@ -37,27 +33,23 @@ public class GuiRocket extends GuiContainer
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullnesss));
 		if (this.tile.displayLaunchBtn())
 		{
-			this.components.add(new ComponentButton(this, this.guiLeft + 108, this.guiTop + 18, 60, 18, this.onButtonActivated(game, 0), "Launch", "Make sure you have plenty of fuel before launching!"));
+			this.components.add(new ComponentButton(this, this.guiLeft + 108, this.guiTop + 18, 60, 18, () -> { return this.onButtonActivated(game, 0); }, "Launch", "Make sure you have plenty of fuel before launching!"));
 		}
 	}
 
-	public Supplier<Boolean> onButtonActivated(IGameInstance game, int button)
-	{
-		if (button == 0)
-		{
-			if (tile.displayLaunchBtn())
-			{
+	public boolean onButtonActivated(IGameInstance game, int button) {
+		if (button == 0) {
+			if (tile.displayLaunchBtn()) {
 				tile.launch();
 				RockBottomAPI.getNet().sendToServer(new PacketRocketLaunch(tile.x, tile.y));
-				return () -> true;
+				return true;
 			}
 		}
-		return () -> false;
+		return false;
 	}
 
 	@Override
-	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
-	{
+	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g) {
 		super.renderOverlay(game, manager, g);
 
 		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
@@ -65,21 +57,19 @@ public class GuiRocket extends GuiContainer
 		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop)
 				&& (game.getMouseInGuiY() <= (this.guiTop + 10));
 
-		if (mouseOverFluidBarX && mouseOverFluidBarY)
-		{
+		if (mouseOverFluidBarX && mouseOverFluidBarY) {
 			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 100, "Storing "
 					+ this.tile.getCurrentFluid() + "mL of " + Fluid.getByName(this.tile.getFluidType()).getName());
 		}
 
-		if (this.tile.getCurrentFluid() == 1)
-		{
+		if (this.tile.getCurrentFluid() == 1) {
 			game.getGuiManager().closeGui();
+			System.out.println("test");
 		}
 	}
 
 	@Override
-	public IResourceName getName()
-	{
+	public IResourceName getName() {
 		return RockSolidAPILib.makeInternalRes("guiRocket");
 	}
 
