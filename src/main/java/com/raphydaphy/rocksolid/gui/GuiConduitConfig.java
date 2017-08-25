@@ -1,7 +1,5 @@
 package com.raphydaphy.rocksolid.gui;
 
-import java.util.function.Supplier;
-
 import com.raphydaphy.rocksolid.api.util.IConduit;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
@@ -38,11 +36,11 @@ public class GuiConduitConfig extends GuiContainer {
 		buildInitialGui(game);
 	}
 
-	public Supplier<Boolean> onButtonActivated(IGameInstance game, int button) {
+	public Boolean onButtonActivated(IGameInstance game, int button) {
 		// they are on the initial up/down/left/right screen
 		if (button == 0 || button == 1 || button == 2 || button == 3) {
 			buildSingleGui(game, ConduitSide.getByID(button));
-			return () -> true;
+			return true;
 		} else if (button == 4 || button == 6 || button == 7 || button == 8) {
 			if (button == 4) {
 				if (itemMode == ConduitMode.DISABLED) {
@@ -74,20 +72,20 @@ public class GuiConduitConfig extends GuiContainer {
 			}
 
 			buildSingleGui(game, editingSide);
-			return () -> true;
+			return true;
 		} else if (button == 5) {
 			buildInitialGui(game);
-			return () -> true;
+			return true;
 		}
-		return () -> false;
+		return false;
 	}
 
 	public void buildInitialGui(IGameInstance game) {
 		this.components.clear();
-		this.components.add(new ComponentButton(this, this.guiLeft + 74, this.guiTop + 50, 50, 18, this.onButtonActivated(game,0), "Up"));
-		this.components.add(new ComponentButton(this, this.guiLeft + 74, this.guiTop + 100, 50, 18, this.onButtonActivated(game, 1),"Down"));
-		this.components.add(new ComponentButton(this, this.guiLeft + 21, this.guiTop + 75, 50, 18,this.onButtonActivated(game, 2), "Left"));
-		this.components.add(new ComponentButton(this, this.guiLeft + 125, this.guiTop + 75, 50, 18, this.onButtonActivated(game, 3),"Right"));
+		this.components.add(new ComponentButton(this, this.guiLeft + 74, this.guiTop + 50, 50, 18, () -> this.onButtonActivated(game,0), "Up"));
+		this.components.add(new ComponentButton(this, this.guiLeft + 74, this.guiTop + 100, 50, 18, () -> this.onButtonActivated(game, 1),"Down"));
+		this.components.add(new ComponentButton(this, this.guiLeft + 21, this.guiTop + 75, 50, 18, () -> this.onButtonActivated(game, 2), "Left"));
+		this.components.add(new ComponentButton(this, this.guiLeft + 125, this.guiTop + 75, 50, 18, () -> this.onButtonActivated(game, 3),"Right"));
 	}
 
 	protected void addSlotGrid(IInventory inventory, int start, int end, int xStart, int yStart, int width) {
@@ -122,14 +120,14 @@ public class GuiConduitConfig extends GuiContainer {
 		// boolean selectable, boolean defaultActive, int maxLength, boolean
 		// displayMaxLength)
 
-		this.components.add(new ComponentButton(this, this.guiLeft + 26, this.guiTop + 25, 50, 18,this.onButtonActivated(game, 5), "Back"));
+		this.components.add(new ComponentButton(this, this.guiLeft + 26, this.guiTop + 25, 50, 18, () -> this.onButtonActivated(game, 5), "Back"));
 
 		if (((IConduit) tile).getSideMode(direction) != ConduitMode.DISABLED) {
 			priority = tile.getPriority(direction);
 			this.components.add(
-					new ComponentButton(this, this.guiLeft + 85, this.guiTop, 30, 18, this.onButtonActivated(game, 999), Integer.toString(priority)));
-			this.components.add(new ComponentButton(this, this.guiLeft + 50, this.guiTop, 30, 18,this.onButtonActivated(game, 7), "-"));
-			this.components.add(new ComponentButton(this, this.guiLeft + 120, this.guiTop, 30, 18, this.onButtonActivated(game, 6), "+"));
+					new ComponentButton(this, this.guiLeft + 85, this.guiTop, 30, 18, () -> this.onButtonActivated(game, 999), Integer.toString(priority)));
+			this.components.add(new ComponentButton(this, this.guiLeft + 50, this.guiTop, 30, 18, () -> this.onButtonActivated(game, 7), "-"));
+			this.components.add(new ComponentButton(this, this.guiLeft + 120, this.guiTop, 30, 18, () -> this.onButtonActivated(game, 6), "+"));
 
 			if (tile instanceof TileEntityItemConduit) {
 				this.components.add(new ComponentSlot(this, new ContainerSlot(((TileEntityItemConduit) tile).inventory,
@@ -142,17 +140,17 @@ public class GuiConduitConfig extends GuiContainer {
 				
 				if (isWhitelist) {
 					this.components.add(new ComponentButton(this, this.guiLeft + 73, this.guiTop + 50, 54, 18,
-							this.onButtonActivated(game, 8), "Whitelist",
+							() -> this.onButtonActivated(game, 8), "Whitelist",
 							"Only accepts the item in the filter slot. Accepts anything if the slot is empty."));
 				} else {
 					this.components.add(
-							new ComponentButton(this, this.guiLeft + 73, this.guiTop + 50, 54, 18,this.onButtonActivated(game, 8), "Blacklist","Only accepts the item in the filter."));
+							new ComponentButton(this, this.guiLeft + 73, this.guiTop + 50, 54, 18,() -> this.onButtonActivated(game, 8), "Blacklist","Only accepts the item in the filter."));
 				}
 			}
 		}
 
 		this.components.add(new ComponentButton(this,  this.guiLeft + 123, this.guiTop + 25, 50, 18,
-				this.onButtonActivated(game, 4), itemMode.getName(), itemMode.getDesc()));
+				() -> this.onButtonActivated(game, 4), itemMode.getName(), itemMode.getDesc()));
 	}
 
 	@Override

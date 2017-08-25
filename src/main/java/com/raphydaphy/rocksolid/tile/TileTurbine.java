@@ -96,7 +96,6 @@ public class TileTurbine extends MultiTile
 				{
 					int theX = startX + addX;
 					int theY = startY + addY;
-
 					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer, this))
 					{
 						return false;
