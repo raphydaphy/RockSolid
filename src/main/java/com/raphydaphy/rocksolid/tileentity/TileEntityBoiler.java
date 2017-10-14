@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.fluid.IFluidAcceptor;
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.IGasProducer;
+import com.raphydaphy.rocksolid.api.util.TileEntityFueled;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -14,9 +15,9 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityBoiler extends TileEntityFueled implements IInventoryHolder, IGasProducer, IFluidAcceptor
 {
@@ -36,9 +37,9 @@ public class TileEntityBoiler extends TileEntityFueled implements IInventoryHold
 	protected int maxFluid = 5000;
 	protected String fluidType = Fluid.EMPTY.getName();
 
-	public TileEntityBoiler(final IWorld world, final int x, final int y)
+	public TileEntityBoiler(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 4);
 
 	}

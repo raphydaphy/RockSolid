@@ -4,6 +4,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public abstract class TileEntityPowered extends TileEntity implements IEnergyAcceptor
 {
@@ -15,7 +16,7 @@ public abstract class TileEntityPowered extends TileEntity implements IEnergyAcc
 	public TileEntityPowered(final IWorld world, final int x, final int y, final int maxPower,
 			final int powerPerOperation)
 	{
-		super(world, x, y);
+		super(world, x, y, TileLayer.MAIN);
 		this.maxPower = maxPower;
 		this.powerPerOperation = powerPerOperation;
 	}

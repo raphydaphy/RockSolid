@@ -1,14 +1,12 @@
 package com.raphydaphy.rocksolid.gui;
 
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.fluid.Fluid;
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -17,6 +15,8 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiBoiler extends GuiContainer
 {
+	public static final int PROGRESS_COLOR = 0x1a801a;
+	public static final int FIRE_COLOR = 0x801a1a;
 
 	private final TileEntityBoiler tile;
 
@@ -27,45 +27,39 @@ public class GuiBoiler extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 15, 80, 10,
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 15, 80, 10,
 				Gas.getByName(tile.getGasType()).getColor(), false, this.tile::getGeneratorFullness));
 
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 0, 80, 10,
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 0, 80, 10,
 				Fluid.getByName(this.tile.getFluidType()).getColor(), false, this.tile::getFluidTankFullness));
 
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 74, this.guiTop + 30, 8, 18,
-				GuiBoiler.FIRE_COLOR, true, this.tile::getFuelPercentage));
+		this.components.add(new ComponentProgressBar(this, this.x + 74, this.y + 30, 8, 18, FIRE_COLOR, true,
+				this.tile::getFuelPercentage));
 	}
 
 	@Override
-	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
+	public void renderOverlay(IGameInstance game, IAssetManager manager, IGraphics g)
 	{
 		super.renderOverlay(game, manager, g);
-		boolean mouseOverBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverBarY = (game.getMouseInGuiY() >= this.guiTop + 15)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 15 + 10));
+		boolean mouseOverBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverBarY = (g.getMouseInGuiY() >= this.y + 15) && (g.getMouseInGuiY() <= (this.y + 15 + 10));
 
 		if (mouseOverBarX && mouseOverBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
-					new String[] {
-							"Storing " + this.tile.getCurrentGas() + "cc of "
-									+ this.tile.getGasType(),
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
+					new String[] { "Storing " + this.tile.getCurrentGas() + "cc of " + this.tile.getGasType(),
 							"Produces " + TileEntityBoiler.productionPerTick + "cc per tick" });
 		}
 
-		boolean mouseOverFluidBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverFluidBarY = (game.getMouseInGuiY() >= this.guiTop + 0)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 0 + 10));
+		boolean mouseOverFluidBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverFluidBarY = (g.getMouseInGuiY() >= this.y + 0) && (g.getMouseInGuiY() <= (this.y + 0 + 10));
 
 		if (mouseOverFluidBarX && mouseOverFluidBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
 					new String[] {
 							"Storing " + this.tile.getCurrentFluid() + "mL of "
 									+ Fluid.getByName(this.tile.getFluidType()).getName(),

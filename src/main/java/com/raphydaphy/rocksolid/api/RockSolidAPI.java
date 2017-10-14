@@ -18,14 +18,17 @@ import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitMode;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib.ConduitSide;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.mod.IMod;
 
 public class RockSolidAPI
 {
-	public static final String VERSION = "2.2";
+	public static final String VERSION = "3.0";
 
 	public static final IMod RockSolid = RockBottomAPI.getModLoader().getMod("rocksolid");
+
+	public static final Map<IUseInfo, Integer> FUEL_REGISTRY = new HashMap<>();
 
 	public static final List<AlloySmelterRecipe> ALLOY_SMELTER_RECIPES = new ArrayList<>();
 	public static final List<BlastFurnaceRecipe> BLAST_FURNACE_RECIPES = new ArrayList<>();
@@ -42,7 +45,7 @@ public class RockSolidAPI
 	public static Map<Integer, ConduitMode> CONDUIT_MODES = new HashMap<Integer, ConduitMode>();
 
 	public static Map<String, Fluid> FLUID_REGISTRY = new HashMap<String, Fluid>();
-	public static Map <String, Gas> GAS_REGISTRY = new HashMap<String, Gas>();
+	public static Map<String, Gas> GAS_REGISTRY = new HashMap<String, Gas>();
 
 	public static AlloySmelterRecipe getAlloySmelterRecipe(ItemInstance input1, ItemInstance input2)
 	{
@@ -81,8 +84,7 @@ public class RockSolidAPI
 		return null;
 	}
 
-	public static ElectrolyzerRecipe getElectrolyzerRecipe(Gas output1, Gas output2, String fluid,
-			int fluidVolume)
+	public static ElectrolyzerRecipe getElectrolyzerRecipe(Gas output1, Gas output2, String fluid, int fluidVolume)
 	{
 		for (ElectrolyzerRecipe recipe : ELECTROLYZER_RECIPE)
 		{
@@ -155,5 +157,17 @@ public class RockSolidAPI
 			}
 		}
 		return null;
+	}
+
+	public static int getFuelValue(ItemInstance instance)
+	{
+		for (Map.Entry<IUseInfo, Integer> entry : FUEL_REGISTRY.entrySet())
+		{
+			if (entry.getKey().containsItem(instance))
+			{
+				return entry.getValue();
+			}
+		}
+		return 0;
 	}
 }

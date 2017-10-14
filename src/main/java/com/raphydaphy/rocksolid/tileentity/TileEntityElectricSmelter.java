@@ -8,8 +8,6 @@ import com.raphydaphy.rocksolid.api.util.IBasicIO;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.construction.SmelterRecipe;
-import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Direction;
@@ -53,6 +51,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered implements IBas
 		final ItemInstance input = this.inventory.get(0);
 		if (input != null)
 		{
+			/*
 			final SmelterRecipe recipe = RockBottomAPI.getSmelterRecipe(input);
 			if (recipe != null)
 			{
@@ -104,6 +103,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered implements IBas
 					}
 				}
 			}
+			*/
 		}
 		if (RockBottomAPI.getNet().isClient() == false)
 		{
@@ -189,6 +189,7 @@ public class TileEntityElectricSmelter extends TileEntityPowered implements IBas
 	@Override
 	public boolean isValidInput(ItemInstance item)
 	{
-		return RockBottomAPI.getSmelterRecipe(item) != null;
+		//return RockBottomAPI.getSmelterRecipe(item) != null;
+		return false;
 	}
 }

@@ -9,10 +9,9 @@ import com.raphydaphy.rocksolid.item.ItemLantern;
 import com.raphydaphy.rocksolid.network.PacketItemUpdate;
 import com.raphydaphy.rocksolid.network.PacketMovement;
 
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.assets.font.Font;
 import de.ellpeck.rockbottom.api.assets.font.FormattingCode;
+import de.ellpeck.rockbottom.api.assets.font.IFont;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -29,7 +28,8 @@ public class ModEvents
 {
 	public static void init(IEventHandler e)
 	{
-		e.registerListener(EntityTickEvent.class, (result, event) -> {
+		e.registerListener(EntityTickEvent.class, (result, event) ->
+		{
 
 			if (event.entity instanceof AbstractEntityPlayer)
 			{
@@ -169,12 +169,13 @@ public class ModEvents
 							{
 								RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 										RockBottomAPI.getGame().getWorld(), player.x - 0.5 + random.nextFloat(),
-										player.y - 0.3, 0, -0, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+										player.y - 0.3, 0, -0,
+										RockBottomAPI.getGame().getGraphics().getWorldScale() * 0.0005f);
 							}
 
 							jetpackData.addInt("itemPowerStored", jetpackEnergy - 3);
 							player.motionY += 0.05;
-							
+
 							player.fallStartY = player.y;
 							player.isFalling = false;
 
@@ -193,7 +194,8 @@ public class ModEvents
 								Random random = new Random();
 								RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 										RockBottomAPI.getGame().getWorld(), player.x - 0.5 + random.nextFloat(),
-										player.y - 0.3, 0, 0, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+										player.y - 0.3, 0, 0,
+										RockBottomAPI.getGame().getGraphics().getWorldScale() * 0.0005f);
 								jetpackData.addInt("itemPowerStored", jetpackEnergy - 4);
 							}
 						}
@@ -296,7 +298,8 @@ public class ModEvents
 			return EventResult.DEFAULT;
 		});
 
-		e.registerListener(WorldRenderEvent.class, (result, event) -> {
+		e.registerListener(WorldRenderEvent.class, (result, event) ->
+		{
 			if (event.world != null && RockBottomAPI.getNet().isThePlayer(event.player))
 			{
 				DataSet data = event.player.getAdditionalData();
@@ -339,7 +342,7 @@ public class ModEvents
 						{
 							jetpackEnergyString = FormattingCode.RED.toString() + jetpackEnergy + " Percent";
 						}
-						Font font = event.assetManager.getFont();
+						IFont font = event.assetManager.getFont();
 
 						font.drawString(0.2F, 0.2F,
 								FormattingCode.WHITE.toString() + "Jetpack fuel: " + jetpackEnergyString, 0.0175F);
@@ -365,7 +368,8 @@ public class ModEvents
 			return EventResult.DEFAULT;
 		});
 
-		e.registerListener(PlayerJoinWorldEvent.class, (result, event) -> { 
+		e.registerListener(PlayerJoinWorldEvent.class, (result, event) ->
+		{
 			if (event.player != null && event.player.getInvContainer() != null)
 			{
 				if (event.player.getAdditionalData() == null || event.player.getAdditionalData().isEmpty())
@@ -376,15 +380,16 @@ public class ModEvents
 					data.addDataSet("accessory3Data", new DataSet());
 					event.player.setAdditionalData(data);
 				}
-				
+
 				event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, "jetpackData",
 						instance -> instance.getItem().equals(RockSolidContent.jetpack), 165, 25));
-				event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 1, "lanternData",
-						instance -> (instance.getItem().equals(RockSolidContent.electricLantern)
-								|| instance.getItem().equals(RockSolidContent.lantern)),
-						165, 45));
+				event.player.getInvContainer()
+						.addSlot(new PlayerInvSlot(event.player, 1, "lanternData",
+								instance -> (instance.getItem().equals(RockSolidContent.electricLantern)
+										|| instance.getItem().equals(RockSolidContent.lantern)),
+								165, 45));
 				event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 2, "accessory3",
-						instance -> instance.getItem().equals(GameContent.ITEM_GLOW_CLUSTER), 165, 65));
+						instance -> instance.getItem().equals(RockSolidContent.gemCoke), 165, 65));
 				return EventResult.MODIFIED;
 			}
 			return EventResult.DEFAULT;

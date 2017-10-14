@@ -9,7 +9,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends TileEntity implements IConduit
 {
@@ -26,13 +26,14 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 
 	private short[][] network = new short[512][3];
 	private short networkLength = 0;
-	
+
 	private final Class<E> tileClass;
 	private final int updateTime;
 
-	public TileEntityConduit(Class<E> tileClass, int updateTime, final IWorld world, final int x, final int y)
+	public TileEntityConduit(Class<E> tileClass, int updateTime, final IWorld world, final int x, final int y,
+			TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.tileClass = tileClass;
 		this.updateTime = updateTime;
 	}
@@ -58,7 +59,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 			shouldSync = true;
 		}
 	}
-	
+
 	public short[][] getNetwork()
 	{
 		if (this.isMaster())
@@ -74,10 +75,10 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 				return masterConduit.getNetwork();
 			}
 		}
-		
+
 		return new short[512][3];
 	}
-	
+
 	public short getNetworkLength()
 	{
 		if (this.isMaster())
@@ -85,7 +86,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 			return this.networkLength;
 		} else
 		{
-			TileEntityConduit <?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+			TileEntityConduit<?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
 					tileClass);
 
 			if (masterConduit != null)
@@ -93,10 +94,10 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 				return masterConduit.getNetworkLength();
 			}
 		}
-		
+
 		return 0;
 	}
-	
+
 	public void shouldSync()
 	{
 		this.shouldSync = true;
@@ -138,7 +139,9 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 		set.addInt("masterX", this.master.getX());
 		set.addInt("masterY", this.master.getY());
 		set.addBoolean("isDead", this.isDead);
-		set.addShortShortArray("network", this.network);
+		set.addShortArray("networkCX", this.network[0]);
+		set.addShortArray("networkCY", this.network[1]);
+		set.addShortArray("networkID", this.network[2]);
 		set.addShort("networkLength", this.networkLength);
 	}
 
@@ -157,7 +160,9 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 		this.priorities[ConduitSide.RIGHT.getID()] = set.getInt("priorityRight");
 		this.master = new Pos2(set.getInt("masterX"), set.getInt("masterY"));
 		this.isDead = set.getBoolean("isDead");
-		this.network = set.getShortShortArray("network", 512);
+		this.network[0] = set.getShortArray("networkCX", 512);
+		this.network[1] = set.getShortArray("networkCY", 512);
+		this.network[2] = set.getShortArray("networkID", 512);
 		this.networkLength = set.getShort("networkLength");
 	}
 
@@ -171,12 +176,12 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 				for (ConduitSide side : ConduitSide.values())
 				{
 					TileEntity adjSide = RockSolidAPILib.getTileFromConduitSide(new Pos2(x, y), side, world);
-					
+
 					if (adjSide != null)
 					{
 						if (adjSide.getClass().equals(tileClass))
 						{
-							TileEntityConduit <?> adjConduit = (TileEntityConduit<?>) adjSide;
+							TileEntityConduit<?> adjConduit = (TileEntityConduit<?>) adjSide;
 							// different master to this
 							if (!adjConduit.getMaster().equals(this.master))
 							{
@@ -239,7 +244,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 			}
 		} else
 		{
-			TileEntityConduit <E> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+			TileEntityConduit<E> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
 					tileClass);
 
 			if (masterConduit != null)
@@ -262,7 +267,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 			}
 		} else
 		{
-			TileEntityConduit <?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+			TileEntityConduit<?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
 					tileClass);
 
 			if (masterConduit != null)
@@ -278,7 +283,7 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 		{
 			if (!world.isClient())
 			{
-				TileEntityConduit <?> conduit = world.getTileEntity(relativeConduitX + this.getMaster().getX(),
+				TileEntityConduit<?> conduit = world.getTileEntity(relativeConduitX + this.getMaster().getX(),
 						relativeConduitY + this.getMaster().getY(), tileClass);
 
 				if (conduit != null)
@@ -291,15 +296,17 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 			}
 		} else
 		{
-			TileEntityConduit <?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+			TileEntityConduit<?> masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
 					tileClass);
 
-			if (masterConduit != null && masterConduit.getClass().equals(this.tileClass) && masterConduit.getMaster().equals(this.getMaster()))
+			if (masterConduit != null && masterConduit.getClass().equals(this.tileClass)
+					&& masterConduit.getMaster().equals(this.getMaster()))
 			{
 				masterConduit.addAdjacentInventories(world, relativeConduitX, relativeConduitY);
 			} else if (masterConduit != null && masterConduit.getClass().equals(this.tileClass))
 			{
-				System.out.println("MASTER CONDUIT AT " + this.getMaster().getX() + ", " + this.getMaster().getY() +"IS LOOPING! THIS SHOULD NOT HAPPEN!");
+				System.out.println("MASTER CONDUIT AT " + this.getMaster().getX() + ", " + this.getMaster().getY()
+						+ "IS LOOPING! THIS SHOULD NOT HAPPEN!");
 			}
 		}
 	}
@@ -350,13 +357,13 @@ public abstract class TileEntityConduit<E extends TileEntityConduit<E>> extends 
 				{
 					if (adjSide.getClass().equals(tileClass))
 					{
-						((TileEntityConduit <?>) adjSide).setMaster(new Pos2(adjSide.x, adjSide.y));
+						((TileEntityConduit<?>) adjSide).setMaster(new Pos2(adjSide.x, adjSide.y));
 					}
 				}
 			}
 		}
 	}
-	
+
 	public abstract boolean canConnectAbstract(Pos2 pos, TileEntity tile);
 
 	@Override

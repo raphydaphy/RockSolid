@@ -1,11 +1,9 @@
 package com.raphydaphy.rocksolid.render;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.entity.EntityRocket;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.render.entity.IEntityRenderer;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
@@ -21,13 +19,12 @@ public class RocketRenderer implements IEntityRenderer<EntityRocket>
 	}
 
 	@Override
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, EntityRocket entity,
-			float x, float y, Color light)
+	public void render(IGameInstance game, IAssetManager manager, IGraphics g, IWorld world, EntityRocket entity,
+			float x, float y, int light)
 	{
 		if (entity.shouldRender())
 		{
-			manager.getTexture(texture).drawWithLight(x, y - 4, 1, 48 / 12f,
-					new Color[] { light, light, light, light });
+			manager.getTexture(texture).draw(x, y - 4, 1, 48 / 12f, new int[] { light, light, light, light });
 		}
 	}
 }

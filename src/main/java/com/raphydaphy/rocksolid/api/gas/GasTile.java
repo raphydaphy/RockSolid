@@ -4,7 +4,6 @@ import com.raphydaphy.rocksolid.api.render.GasRenderer;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
@@ -17,7 +16,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class GasTile extends TileBasic
 {
@@ -83,12 +82,6 @@ public class GasTile extends TileBasic
 	}
 
 	@Override
-	public void onCollideWithEntity(IWorld world, int x, int y, TileLayer layer, Entity entity)
-	{
-		// make them swim!
-	}
-
-	@Override
 	public void onScheduledUpdate(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState thisState = world.getState(x, y);
@@ -114,8 +107,7 @@ public class GasTile extends TileBasic
 				if (upState.get(gasLevel) + thisState.get(gasLevel) <= MAX_VOLUME)
 				{
 					// move the gas into the lower block
-					world.setState(x, y + 1,
-							upState.prop(gasLevel, upState.get(gasLevel) + thisState.get(gasLevel)));
+					world.setState(x, y + 1, upState.prop(gasLevel, upState.get(gasLevel) + thisState.get(gasLevel)));
 					world.setState(x, y, GameContent.TILE_AIR.getDefState());
 					return;
 				}
@@ -156,8 +148,7 @@ public class GasTile extends TileBasic
 				// if the tile to the right is
 				if (curRight.getTile() == thisState.getTile() || curRight.getTile() == GameContent.TILE_AIR)
 				{
-					if (curRight.getTile() == thisState.getTile()
-							&& curRight.get(gasType) == thisState.get(gasType))
+					if (curRight.getTile() == thisState.getTile() && curRight.get(gasType) == thisState.get(gasType))
 					{
 						if (curRight.get(gasLevel) < MAX_VOLUME)
 						{
@@ -242,8 +233,7 @@ public class GasTile extends TileBasic
 			else
 			{
 				// if the gas to the left is the same as this
-				if (rightState.getTile() == thisState.getTile()
-						&& rightState.get(gasType) == thisState.get(gasType))
+				if (rightState.getTile() == thisState.getTile() && rightState.get(gasType) == thisState.get(gasType))
 				{
 					// if the tile to the left is not full of gas
 					if (rightState.get(gasLevel) < MAX_VOLUME)
@@ -288,7 +278,7 @@ public class GasTile extends TileBasic
 	}
 
 	@Override
-	public boolean canReplace(IWorld world, int x, int y, TileLayer layer, Tile replacementTile)
+	public boolean canReplace(IWorld world, int x, int y, TileLayer layer)
 	{
 		return true;
 	}

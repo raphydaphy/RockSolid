@@ -15,7 +15,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class ItemBucket extends ItemBase
 {
@@ -115,7 +115,8 @@ public class ItemBucket extends ItemBase
 	@Override
 	public IResourceName getUnlocalizedName(ItemInstance instance)
 	{
-		return RockSolidAPILib.makeInternalRes("item.bucket" +  "." + RockSolidAPILib.bucketMetaToFluid(instance.getMeta()).toString());
+		return RockSolidAPILib.makeInternalRes(
+				"item.bucket" + "." + RockSolidAPILib.bucketMetaToFluid(instance.getMeta()).toString());
 	}
 
 }

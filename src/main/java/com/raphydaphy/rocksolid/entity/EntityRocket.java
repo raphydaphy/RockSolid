@@ -9,7 +9,6 @@ import com.raphydaphy.rocksolid.item.ItemAsteroidDataChip;
 import com.raphydaphy.rocksolid.render.RocketRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRocket;
 
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.font.FormattingCode;
@@ -26,7 +25,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class EntityRocket extends Entity
 {
@@ -38,8 +37,7 @@ public class EntityRocket extends Entity
 	private Inventory inv;
 
 	public static final Tile[] ores = new Tile[] { RockSolidContent.oreIron, RockSolidContent.oreMagnesium,
-			RockSolidContent.oreNickel, RockSolidContent.oreCobalt, RockSolidContent.oreAluminum,
-			GameContent.TILE_GLOW_ORE };
+			RockSolidContent.oreNickel, RockSolidContent.oreCobalt, RockSolidContent.oreAluminum };
 
 	public enum RocketStage
 	{
@@ -143,7 +141,7 @@ public class EntityRocket extends Entity
 							RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 									RockBottomAPI.getGame().getWorld(),
 									this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6), this.y + 0.3, 0, -0.4,
-									RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+									RockBottomAPI.getGame().getGraphics().getWorldScale() * 0.0005f);
 
 						}
 					}
@@ -156,8 +154,8 @@ public class EntityRocket extends Entity
 							int newX = (int) Math.floor(this.x);
 							int newY = (int) Math.round(this.y);
 							RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-							world.removeTileEntity(newX, newY);
-							world.addTileEntity(new TileEntityRocket(world, newX, newY));
+							world.removeTileEntity(TileLayer.MAIN, newX, newY);
+							world.addTileEntity(new TileEntityRocket(world, newX, newY, TileLayer.MAIN));
 							this.kill();
 						}
 					} else
@@ -294,7 +292,7 @@ public class EntityRocket extends Entity
 					{
 						RockBottomAPI.getGame().getParticleManager().addSmokeParticle(
 								RockBottomAPI.getGame().getWorld(), this.x + 0.2 + ((Util.RANDOM.nextFloat() / 10) * 6),
-								this.y + 0.1, 0, 0.2, RockBottomAPI.getGame().getWorldScale() * 0.0005f);
+								this.y + 0.1, 0, 0.2, RockBottomAPI.getGame().getGraphics().getWorldScale() * 0.0005f);
 					}
 				}
 
@@ -305,8 +303,8 @@ public class EntityRocket extends Entity
 					if (RockSolidContent.rocket.canPlace(world, newX, newY, TileLayer.MAIN))
 					{
 						RockSolidContent.rocket.doPlace(world, newX, newY, TileLayer.MAIN, null, null);
-						world.removeTileEntity(newX, newY);
-						world.addTileEntity(new TileEntityRocket(world, newX, newY, this));
+						world.removeTileEntity(TileLayer.MAIN, newX, newY);
+						world.addTileEntity(new TileEntityRocket(world, newX, newY, TileLayer.MAIN));
 						this.kill();
 					}
 				} else if (world.getWorldInfo().totalTimeInWorld % 3 == 0)

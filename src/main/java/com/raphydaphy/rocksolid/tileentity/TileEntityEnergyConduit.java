@@ -11,14 +11,15 @@ import com.raphydaphy.rocksolid.api.util.TileEntityConduit;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyConduit>
 {
 	private static final int maxTransfer = 300;
 
-	public TileEntityEnergyConduit(final IWorld world, final int x, final int y)
+	public TileEntityEnergyConduit(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(TileEntityEnergyConduit.class, 1, world, x, y);
+		super(TileEntityEnergyConduit.class, 1, world, x, y, layer);
 	}
 
 	public int getHighestOutputPriority(int sendingAmount)
@@ -102,13 +103,13 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 						Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
 						TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
 								outputInvPos.getY(), world);
-						
+
 						if (outputInvUnchecked != null && outputConduit != null)
 						{
 							if (outputInvUnchecked instanceof IEnergyAcceptor)
 							{
 								IEnergyAcceptor outputInv = (IEnergyAcceptor) outputInvUnchecked;
-								
+
 								if (outputConduit.getPriority(outputInvSide) >= highestPriority)
 								{
 									if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT)
@@ -120,7 +121,7 @@ public class TileEntityEnergyConduit extends TileEntityConduit<TileEntityEnergyC
 												outputInv.addEnergy(wouldExtract);
 											}
 										}
-	
+
 									}
 								}
 							}

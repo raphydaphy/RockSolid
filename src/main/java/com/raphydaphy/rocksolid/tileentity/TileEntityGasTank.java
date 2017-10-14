@@ -8,6 +8,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasProducer
 {
@@ -16,9 +17,9 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	protected int maxGas;
 	protected String gasType = Gas.VACCUM.getName();
 
-	public TileEntityGasTank(final IWorld world, final int x, final int y)
+	public TileEntityGasTank(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		maxGas = 10000;
 
 		sync();
@@ -95,8 +96,7 @@ public class TileEntityGasTank extends TileEntity implements IGasAcceptor, IGasP
 	@Override
 	public boolean addGas(int amount, String type)
 	{
-		if (this.gasType == null || type.equals(this.gasType)
-				|| this.gasType.equals(Gas.VACCUM.getName()))
+		if (this.gasType == null || type.equals(this.gasType) || this.gasType.equals(Gas.VACCUM.getName()))
 		{
 			if (this.gasStored + amount <= this.maxGas)
 			{

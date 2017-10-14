@@ -1,13 +1,10 @@
 package com.raphydaphy.rocksolid.gui;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityQuarry;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -16,7 +13,9 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiQuarry extends GuiContainer
 {
-
+	public static final int ELECTRICITY_COLOR = 0x9400d3;
+	public static final int PROGRESS_COLOR = 0x1a801a;
+	public static final int FIRE_COLOR = 0x801a1a;
 	private final TileEntityQuarry tile;
 
 	public GuiQuarry(final AbstractEntityPlayer player, final TileEntityQuarry tile)
@@ -26,25 +25,23 @@ public class GuiQuarry extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 38, 80, 10,
-				new Color(148, 0, 211), false, this.tile::getEnergyFullness));
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 38, 80, 10, ELECTRICITY_COLOR, false,
+				this.tile::getEnergyFullness));
 	}
 
 	@Override
-	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
+	public void renderOverlay(IGameInstance game, IAssetManager manager, IGraphics g)
 	{
 		super.renderOverlay(game, manager, g);
-		boolean mouseOverPowerBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverPowerBarY = (game.getMouseInGuiY() >= this.guiTop + 38)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 38 + 10));
+		boolean mouseOverPowerBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverPowerBarY = (g.getMouseInGuiY() >= this.y + 38) && (g.getMouseInGuiY() <= (this.y + 38 + 10));
 
 		if (mouseOverPowerBarX && mouseOverPowerBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
 					new String[] { "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy",
 							"Uses " + tile.getPowerPerOperation() + "kWh per tick" });
 		}

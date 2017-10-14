@@ -1,11 +1,11 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
 import com.raphydaphy.rocksolid.network.PacketChargerItem;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.network.PacketItemUpdate;
 import com.raphydaphy.rocksolid.network.PacketMovement;
 import com.raphydaphy.rocksolid.network.PacketRocketLaunch;
+import com.raphydaphy.rocksolid.network.PacketTileDestroyed;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 

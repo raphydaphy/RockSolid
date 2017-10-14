@@ -14,6 +14,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemConduit>
 {
@@ -21,9 +22,9 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 
 	private boolean[] whitelistModes = new boolean[] { true, true, true, true };
 
-	public TileEntityItemConduit(final IWorld world, final int x, final int y)
+	public TileEntityItemConduit(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(TileEntityItemConduit.class, 10, world, x, y);
+		super(TileEntityItemConduit.class, 10, world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 4);
 	}
 
@@ -35,13 +36,12 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 	@Override
 	public void tryInput(Pos2 center, ConduitSide side)
 	{
-		TileEntityItemConduit inputConduit = world.getTileEntity(center.getX(),
-				center.getY(), TileEntityItemConduit.class);
-		
+		TileEntityItemConduit inputConduit = world.getTileEntity(center.getX(), center.getY(),
+				TileEntityItemConduit.class);
+
 		Pos2 inputInvPos = RockSolidAPILib.conduitSideToPos(center, side);
-		TileEntity inputInvUnchecked = RockSolidAPILib.getTileFromPos(inputInvPos.getX(), inputInvPos.getY(),
-				world);
-		
+		TileEntity inputInvUnchecked = RockSolidAPILib.getTileFromPos(inputInvPos.getX(), inputInvPos.getY(), world);
+
 		if (inputInvUnchecked != null && inputConduit != null)
 		{
 			if (inputInvUnchecked instanceof IInventoryHolder)
@@ -51,8 +51,7 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
 				{
 					ItemInstance wouldInput = RockSolidAPILib.getToExtract(inputInv, 1,
-							inputConduit.getInventory().get(side.getID()),
-							inputConduit.getIsWhitelist(side));
+							inputConduit.getInventory().get(side.getID()), inputConduit.getIsWhitelist(side));
 
 					int highestOutput = this.getHighestOutputPriority(inputInv);
 
@@ -112,20 +111,20 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 						outputConduitPos.getY(), TileEntityItemConduit.class);
 
 				ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
-				
-				if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT && outputConduit.getPriority(outputInvSide) > highest)
+
+				if (outputConduit.getSideMode(outputInvSide) == ConduitMode.OUTPUT
+						&& outputConduit.getPriority(outputInvSide) > highest)
 				{
 					Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(outputConduitPos, outputInvSide);
 					TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
 							outputInvPos.getY(), world);
-	
+
 					if (outputInvUnchecked != null && outputConduit != null)
 					{
 						if (outputInvUnchecked instanceof IInventoryHolder)
 						{
 							IInventoryHolder outputInv = (IInventoryHolder) outputInvUnchecked;
-							
-							
+
 							for (int slot : inputInv.getOutputSlots(Direction.NONE))
 							{
 								if (outputConduit.canAccept(inputInv.getInventory().get(slot), outputInvSide))
@@ -136,17 +135,17 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 									}
 								}
 							}
-							
+
 						}
 					}
 				}
 			}
-			
+
 			return highest;
 		} else
 		{
-			TileEntityItemConduit masterConduit = world.getTileEntity(this.getMaster().getX(),
-					this.getMaster().getY(), TileEntityItemConduit.class);
+			TileEntityItemConduit masterConduit = world.getTileEntity(this.getMaster().getX(), this.getMaster().getY(),
+					TileEntityItemConduit.class);
 
 			if (masterConduit != null)
 			{
@@ -160,8 +159,7 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 	{
 		ItemInstance filter = this.getInventory().get(side.getID());
 		boolean isWhitelist = this.getIsWhitelist(side);
-		
-		
+
 		if (item != null)
 		{
 			if (filter == null)
@@ -228,7 +226,7 @@ public class TileEntityItemConduit extends TileEntityConduit<TileEntityItemCondu
 			super.shouldSync();
 		}
 	}
-	
+
 	@Override
 	public boolean canConnectAbstract(Pos2 pos, TileEntity tile)
 	{

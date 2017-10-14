@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.api.util.TileEntityProgressBar;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -28,11 +29,11 @@ public class GuiBasic extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + this.progressBarOffset.getX(),
-				this.guiTop + this.progressBarOffset.getY(), 40, 8, GuiBasic.PROGRESS_COLOR, false,
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + this.progressBarOffset.getX(),
+				this.y + this.progressBarOffset.getY(), 40, 8, Gui.GRADIENT_COLOR, false,
 				this.tile::getSmeltPercentage));
 	}
 

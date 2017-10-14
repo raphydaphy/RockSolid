@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.recipe.AlloySmelterRecipe;
+import com.raphydaphy.rocksolid.api.util.TileEntityFueled;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -13,9 +14,9 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntityFueled;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityAlloySmelter extends TileEntityFueled implements IInventoryHolder
 {
@@ -29,9 +30,9 @@ public class TileEntityAlloySmelter extends TileEntityFueled implements IInvento
 	protected int maxProcessTime;
 	private int lastSmelt;
 
-	public TileEntityAlloySmelter(final IWorld world, final int x, final int y)
+	public TileEntityAlloySmelter(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 4);
 	}
 

@@ -1,9 +1,7 @@
 package com.raphydaphy.rocksolid.render;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -18,9 +16,8 @@ public class ToolRenderer<T extends Item> extends DefaultItemRenderer<T>
 	}
 
 	@Override
-	public void renderOnMouseCursor(final IGameInstance game, final IAssetManager manager, final Graphics g,
-			final T item, final ItemInstance instance, final float x, final float y, final float scale,
-			final Color filter)
+	public void render(IGameInstance game, IAssetManager manager, IGraphics g, T item, ItemInstance instance, float x,
+			float y, float scale, int filter)
 	{
 		this.render(game, manager, g, item, instance, x, y, scale, filter);
 	}

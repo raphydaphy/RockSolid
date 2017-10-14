@@ -16,26 +16,24 @@ import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit>
 {
 	private static final int maxTransfer = 150;
 
-	public TileEntityGasConduit(final IWorld world, final int x, final int y)
+	public TileEntityGasConduit(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(TileEntityGasConduit.class, 5, world, x, y);
+		super(TileEntityGasConduit.class, 5, world, x, y, layer);
 	}
-	
+
 	private void tryOutput(String type, int amount, TileEntity inputInv, Pos2 center, ConduitSide side, int inputTank)
 	{
-		TileEntityGasConduit outputConduit = world.getTileEntity(center.getX(),
-				center.getY(), TileEntityGasConduit.class);
-
-		
+		TileEntityGasConduit outputConduit = world.getTileEntity(center.getX(), center.getY(),
+				TileEntityGasConduit.class);
 
 		Pos2 outputInvPos = RockSolidAPILib.conduitSideToPos(center, side);
-		TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(),
-				outputInvPos.getY(), world);
+		TileEntity outputInvUnchecked = RockSolidAPILib.getTileFromPos(outputInvPos.getX(), outputInvPos.getY(), world);
 
 		if (outputInvUnchecked != null && outputConduit != null)
 		{
@@ -46,7 +44,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 				if (outputConduit.getSideMode(side) == ConduitMode.OUTPUT)
 				{
 					String outputType = outputInv.getGasType();
-					
+
 					if (type.equals(outputType) || outputType.equals(Gas.VACCUM.getName()))
 					{
 						if (outputInv.getCurrentGas() + amount <= outputInv.getMaxGas())
@@ -62,7 +60,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 							if (didRemove)
 							{
 								outputInv.addGas(amount, type);
-								
+
 								if (outputInv.getGasType().equals(Gas.VACCUM.getName()))
 								{
 									outputInv.setGasType(type);
@@ -77,23 +75,21 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 
 				if (outputConduit.getSideMode(side) == ConduitMode.OUTPUT)
 				{
-					MultiTile theMultiTile = (MultiTile) world
-							.getState(outputInvPos.getX(), outputInvPos.getY()).getTile();
+					MultiTile theMultiTile = (MultiTile) world.getState(outputInvPos.getX(), outputInvPos.getY())
+							.getTile();
 					Pos2 innerCoord = theMultiTile
 							.getInnerCoord(world.getState(outputInvPos.getX(), outputInvPos.getY()));
 					int tank = outputInv.getTankNumber(innerCoord);
-					
+
 					if (tank != -1)
 					{
 						String outputType = outputInv.getGasTanksType()[tank];
-						
+
 						if (type.equals(outputType) || outputType.equals(Gas.VACCUM.getName()))
 						{
 							if (outputInv.getGasTanksStorage()[tank] + amount <= outputInv.getMaxGas())
 							{
-								
-								
-								
+
 								boolean didRemove = false;
 								if (inputInv instanceof IGasProducer)
 								{
@@ -105,7 +101,7 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 								if (didRemove)
 								{
 									outputInv.addGas(amount, type, tank);
-									
+
 									if (outputInv.getGasTanksType()[tank].equals(Gas.VACCUM.getName()))
 									{
 										outputInv.setGasType(type, tank);
@@ -136,9 +132,8 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 
 				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
 				{
-					int wouldExtract = inputInv.getCurrentGas() >= maxTransfer ? maxTransfer
-							: inputInv.getCurrentGas();
-					
+					int wouldExtract = inputInv.getCurrentGas() >= maxTransfer ? maxTransfer : inputInv.getCurrentGas();
+
 					String extractType = inputInv.getGasType();
 
 					if (!extractType.equals(Gas.VACCUM.getName()))
@@ -148,8 +143,9 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 							Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
 									super.getNetwork()[outputNet][1] + this.getMaster().getY());
 							ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
-							
-							this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide, -1);
+
+							this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos,
+									outputInvSide, -1);
 						}
 					}
 				}
@@ -159,28 +155,30 @@ public class TileEntityGasConduit extends TileEntityConduit<TileEntityGasConduit
 
 				if (inputConduit.getSideMode(side) == ConduitMode.INPUT)
 				{
-					MultiTile theMultiTile = (MultiTile) world
-							.getState(inputInvPos.getX(), inputInvPos.getY()).getTile();
+					MultiTile theMultiTile = (MultiTile) world.getState(inputInvPos.getX(), inputInvPos.getY())
+							.getTile();
 					Pos2 innerCoord = theMultiTile
 							.getInnerCoord(world.getState(inputInvPos.getX(), inputInvPos.getY()));
 					int tank = inputInv.getTankNumber(innerCoord);
-					
+
 					if (tank != -1)
 					{
 						int wouldExtract = inputInv.getGasTanksStorage()[tank] >= maxTransfer ? maxTransfer
 								: inputInv.getGasTanksStorage()[tank];
-						
+
 						String extractType = inputInv.getGasTanksType()[tank];
-	
+
 						if (!extractType.equals(Gas.VACCUM.getName()))
 						{
 							for (short outputNet = 0; outputNet < super.getNetworkLength(); outputNet++)
 							{
-								Pos2 outputConduitPos = new Pos2(super.getNetwork()[outputNet][0] + this.getMaster().getX(),
+								Pos2 outputConduitPos = new Pos2(
+										super.getNetwork()[outputNet][0] + this.getMaster().getX(),
 										super.getNetwork()[outputNet][1] + this.getMaster().getY());
 								ConduitSide outputInvSide = ConduitSide.getByID(super.getNetwork()[outputNet][2]);
-								
-								this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos, outputInvSide, tank);
+
+								this.tryOutput(extractType, wouldExtract, inputInvUnchecked, outputConduitPos,
+										outputInvSide, tank);
 							}
 						}
 					}

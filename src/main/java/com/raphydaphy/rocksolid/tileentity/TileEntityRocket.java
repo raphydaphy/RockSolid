@@ -17,7 +17,7 @@ import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInventoryHolder
 {
@@ -32,9 +32,9 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 
 	public final ContainerInventory inventory;
 
-	public TileEntityRocket(final IWorld world, final int x, final int y)
+	public TileEntityRocket(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 18);
 		if (fluidType == null)
 		{
@@ -43,17 +43,17 @@ public class TileEntityRocket extends TileEntity implements IFluidAcceptor, IInv
 		}
 	}
 
-	private TileEntityRocket(int x, int y, TileEntityRocket old)
+	private TileEntityRocket(int x, int y, TileEntityRocket old, TileLayer layer)
 	{
-		super(old.world, x, y);
+		super(old.world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 20);
 		this.entity = old.entity;
 		this.shouldSync = true;
 	}
 
-	public TileEntityRocket(final IWorld world, int x, int y, EntityRocket entity)
+	public TileEntityRocket(final IWorld world, int x, int y, EntityRocket entity, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.inventory = new ContainerInventory(this, entity.getInv().getSlotAmount());
 		for (int slot = 0; slot < entity.getInv().getSlotAmount(); slot++)
 		{

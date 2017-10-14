@@ -3,9 +3,6 @@ package com.raphydaphy.rocksolid.render;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tile.TileRefinery;
 import com.raphydaphy.rocksolid.tileentity.TileEntityEnergyConduit;
@@ -13,6 +10,7 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityFluidConduit;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRefinery;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -21,7 +19,7 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 {
@@ -69,8 +67,8 @@ public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 	}
 
 	@Override
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileRefinery tile,
-			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	public void render(IGameInstance game, IAssetManager manager, IGraphics g, IWorld world, TileRefinery tile,
+			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
 		final Pos2 innerCoord = tile.getInnerCoord(state);
 		final Pos2 mainPos = tile.getMainPos(x, y, state);
@@ -86,7 +84,7 @@ public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 			{
 				tex = this.textures.get(innerCoord);
 			}
-			manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+			manager.getTexture(tex).draw(renderX, renderY, scale, scale, light);
 
 			for (RefinerySide side : RefinerySide.values())
 			{
@@ -99,7 +97,7 @@ public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 					{
 						manager.getTexture(this.texture
 								.addSuffix("." + side.toString() + "." + innerCoord.getX() + "." + innerCoord.getY()))
-								.drawWithLight(renderX, renderY, scale, scale, light);
+								.draw(renderX, renderY, scale, scale, light);
 					}
 				}
 			}

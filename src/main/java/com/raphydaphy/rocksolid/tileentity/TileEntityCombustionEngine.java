@@ -9,6 +9,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityCombustionEngine extends TileEntity implements IFluidAcceptor, IEnergyProducer
 {
@@ -22,9 +23,9 @@ public class TileEntityCombustionEngine extends TileEntity implements IFluidAcce
 	protected int powerStored = 0;
 	private boolean shouldSync = false;
 
-	public TileEntityCombustionEngine(final IWorld world, final int x, final int y)
+	public TileEntityCombustionEngine(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 	}
 
 	@Override

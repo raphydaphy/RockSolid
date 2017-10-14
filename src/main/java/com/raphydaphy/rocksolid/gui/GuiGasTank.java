@@ -1,13 +1,11 @@
 package com.raphydaphy.rocksolid.gui;
 
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityGasTank;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -26,27 +24,25 @@ public class GuiGasTank extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 10, 80, 10,
 				Gas.getByName(this.tile.getGasType()).getColor(), false, this.tile::getGasTankFullnesss));
 	}
 
 	@Override
-	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
+	public void renderOverlay(IGameInstance game, IAssetManager manager, IGraphics g)
 	{
 		super.renderOverlay(game, manager, g);
 
-		boolean mouseOverGasBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverGasBarY = (game.getMouseInGuiY() >= this.guiTop + 10)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 10 + 10));
+		boolean mouseOverGasBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverGasBarY = (g.getMouseInGuiY() >= this.y + 10) && (g.getMouseInGuiY() <= (this.y + 10 + 10));
 
 		if (mouseOverGasBarX && mouseOverGasBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500, "Storing "
-					+ this.tile.getCurrentGas() + "cc of " + this.tile.getGasType());
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
+					"Storing " + this.tile.getCurrentGas() + "cc of " + this.tile.getGasType());
 		}
 	}
 

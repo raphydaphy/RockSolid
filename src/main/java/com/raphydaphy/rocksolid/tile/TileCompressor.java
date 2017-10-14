@@ -22,7 +22,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileCompressor extends MultiTile
 {
@@ -55,9 +55,11 @@ public class TileCompressor extends MultiTile
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y)
+	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
-		return this.isMainPos(x, y, world.getState(x, y)) ? new TileEntityCompressor(world, x, y) : null;
+		return this.isMainPos(x, y, world.getState(x, y)) && layer == TileLayer.MAIN
+				? new TileEntityCompressor(world, x, y)
+				: null;
 	}
 
 	@Override
@@ -157,7 +159,7 @@ public class TileCompressor extends MultiTile
 					int theX = startX + addX;
 					int theY = startY + addY;
 
-					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer, this))
+					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, TileLayer.MAIN))
 					{
 						return false;
 					}

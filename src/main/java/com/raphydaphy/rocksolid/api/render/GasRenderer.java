@@ -1,19 +1,17 @@
 package com.raphydaphy.rocksolid.api.render;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.gas.GasTile;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.assets.tex.Texture;
+import de.ellpeck.rockbottom.api.assets.ITexture;
 import de.ellpeck.rockbottom.api.render.tile.DefaultTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class GasRenderer<T extends GasTile> extends DefaultTileRenderer<GasTile>
 {
@@ -23,17 +21,16 @@ public class GasRenderer<T extends GasTile> extends DefaultTileRenderer<GasTile>
 	}
 
 	@Override
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, GasTile tile, TileState state,
-			int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	public void render(IGameInstance game, IAssetManager manager, IGraphics g, IWorld world, GasTile tile,
+			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
 		int blockMeta = world.getState(x, y).get(GasTile.gasLevel);
 		Gas gasType = state.get(GasTile.gasType);
 
 		if (blockMeta > 0)
 		{
-			Texture curTex = manager.getTexture(super.texture.addSuffix("." + gasType)).getSubTexture(0, 0, 12,
-					blockMeta);
-			curTex.drawWithLight(renderX, renderY, scale, (scale / 12) * (blockMeta), light);
+			ITexture curTex = manager.getTexture(super.texture.addSuffix("." + gasType));
+			curTex.draw(renderX, renderY, scale, (scale / 12) * blockMeta, 0, 0, 12, blockMeta, light);
 		}
 	}
 }

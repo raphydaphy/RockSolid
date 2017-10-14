@@ -1,7 +1,5 @@
 package com.raphydaphy.rocksolid.api.gas;
 
-import org.newdawn.slick.Color;
-
 import com.raphydaphy.rocksolid.api.RockSolidAPI;
 import com.raphydaphy.rocksolid.api.content.RockSolidContent;
 
@@ -9,20 +7,19 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 
 public enum Gas
 {
-	HYDROGEN("Hydrogen", 0.01f, 1, new Color(200, 147, 216)), OXYGEN("Oxygen", 0.015f, 2,
-			new Color(224, 255, 255)), STEAM("Steam", 0.03f, 3,
-					new Color(165, 165, 165)), VACCUM("Gas", 0.0f, 0, new Color(199, 136, 53));
+	HYDROGEN("Hydrogen", 0.01f, 1, 0xc893d8), OXYGEN("Oxygen", 0.015f, 2, 0xe0ffff), STEAM("Steam", 0.03f, 3,
+			0xa5a5a5), VACCUM("Gas", 0.0f, 0, 0xc78835);
 
 	private String name;
 	private float weight;
 	private int canisterMeta;
-	private Color color;
+	private int color;
 
 	public static final String KEY = "gasStored";
 	public static final String MAX_KEY = "maxGas";
 	public static final String TYPE_KEY = "gasType";
 
-	Gas(String name, float weight, int canisterMeta, Color color)
+	Gas(String name, float weight, int canisterMeta, int color)
 	{
 		this.name = name;
 		this.weight = weight;
@@ -36,7 +33,7 @@ public enum Gas
 		return RockSolidContent.GAS.getDefState().prop(GasTile.gasType, this);
 	}
 
-	public Color getColor()
+	public int getColor()
 	{
 		return this.color;
 	}
@@ -61,8 +58,7 @@ public enum Gas
 		if (RockSolidAPI.GAS_REGISTRY.containsKey(nameIn))
 		{
 			return RockSolidAPI.GAS_REGISTRY.get(nameIn);
-		}
-		else
+		} else
 		{
 			System.out.println("Tried to access unknown Gas " + nameIn);
 			return Gas.VACCUM;

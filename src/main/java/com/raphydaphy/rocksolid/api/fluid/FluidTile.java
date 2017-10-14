@@ -4,7 +4,6 @@ import com.raphydaphy.rocksolid.api.render.FluidRenderer;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
@@ -17,7 +16,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class FluidTile extends TileBasic
 {
@@ -80,12 +79,6 @@ public class FluidTile extends TileBasic
 	public void onEnemyCollision(Tile enemyTile, Pos2 enemyPos, Pos2 thisPos, IWorld world)
 	{
 		world.setState(thisPos.getX(), thisPos.getY(), GameContent.TILE_STONE.getDefState());
-	}
-
-	@Override
-	public void onCollideWithEntity(IWorld world, int x, int y, TileLayer layer, Entity entity)
-	{
-		// make them swim!
 	}
 
 	@Override
@@ -288,7 +281,7 @@ public class FluidTile extends TileBasic
 	}
 
 	@Override
-	public boolean canReplace(IWorld world, int x, int y, TileLayer layer, Tile replacementTile)
+	public boolean canReplace(IWorld world, int x, int y, TileLayer layer)
 	{
 		return true;
 	}

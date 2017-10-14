@@ -3,13 +3,11 @@ package com.raphydaphy.rocksolid.render;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.tile.TileBoiler;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -17,7 +15,7 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 {
@@ -47,8 +45,8 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 	}
 
 	@Override
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileBoiler tile,
-			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	public void render(IGameInstance game, IAssetManager manager, IGraphics g, IWorld world, TileBoiler tile,
+			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
 		final Pos2 innerCoord = tile.getInnerCoord(state);
 		final Pos2 mainPos = tile.getMainPos(x, y, state);
@@ -92,7 +90,7 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 			tex = this.textures.get(innerCoord);
 		}
 
-		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+		manager.getTexture(tex).draw(renderX, renderY, scale, scale, light);
 	}
 
 	private IResourceName stageToTex(int stage, Pos2 innerCoord)

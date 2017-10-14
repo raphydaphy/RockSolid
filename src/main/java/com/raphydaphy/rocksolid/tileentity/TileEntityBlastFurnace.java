@@ -15,6 +15,7 @@ import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityBlastFurnace extends TileEntity implements IInventoryHolder
 {
@@ -29,9 +30,9 @@ public class TileEntityBlastFurnace extends TileEntity implements IInventoryHold
 	private boolean running = false;
 	private boolean lastRunning;
 
-	public TileEntityBlastFurnace(final IWorld world, final int x, final int y)
+	public TileEntityBlastFurnace(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 2);
 	}
 

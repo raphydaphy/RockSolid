@@ -5,15 +5,16 @@ import com.raphydaphy.rocksolid.api.energy.IEnergyProducer;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityCreativePowerSource extends TileEntity implements IEnergyProducer
 {
 
 	protected int maxPower;
 
-	public TileEntityCreativePowerSource(final IWorld world, final int x, final int y)
+	public TileEntityCreativePowerSource(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 
 		maxPower = 2000000;
 	}

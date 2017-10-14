@@ -99,7 +99,7 @@ public class ModTiles
 
 	public static Tile constructionBlockSteel;
 	public static Tile constructionBlockTitanium;
-	
+
 	public static Tile FLUID;
 	public static Tile GAS;
 
@@ -167,9 +167,9 @@ public class ModTiles
 
 		constructionBlockSteel = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockSteel"), 10, 3);
 		constructionBlockTitanium = new TileBase(RockSolidAPILib.makeInternalRes("constructionBlockTitanium"), 25, 4);
-		
+
 		GAS = new GasTile("gas");
 		FLUID = new FluidTile("fluid");
-		
+
 	}
 }

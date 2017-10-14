@@ -1,14 +1,11 @@
 package com.raphydaphy.rocksolid.gui;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.gas.Gas;
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityTurbine;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -17,6 +14,9 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiTurbine extends GuiContainer
 {
+	public static final int ELECTRICITY_COLOR = 0x9400d3;
+	public static final int PROGRESS_COLOR = 0x1a801a;
+	public static final int FIRE_COLOR = 0x801a1a;
 
 	private final TileEntityTurbine tile;
 
@@ -27,43 +27,37 @@ public class GuiTurbine extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 40, 80, 10,
-				new Color(148, 0, 211), false, this.tile::getGeneratorFullness));
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 40, 80, 10, ELECTRICITY_COLOR, false,
+				this.tile::getGeneratorFullness));
 
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 25, 80, 10,
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 25, 80, 10,
 				Gas.getByName(tile.getGasType()).getColor(), false, this.tile::getGasTankFullness));
 	}
 
 	@Override
-	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
+	public void renderOverlay(IGameInstance game, IAssetManager manager, IGraphics g)
 	{
 		super.renderOverlay(game, manager, g);
-		boolean mouseOverBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverBarY = (game.getMouseInGuiY() >= this.guiTop + 40)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 40 + 10));
+		boolean mouseOverBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverBarY = (g.getMouseInGuiY() >= this.y + 40) && (g.getMouseInGuiY() <= (this.y + 40 + 10));
 
 		if (mouseOverBarX && mouseOverBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
 					new String[] { "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy",
 							"Produces " + TileEntityTurbine.productionPerTick + "kWh per tick" });
 		}
 
-		boolean mouseOverGasBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverGasBarY = (game.getMouseInGuiY() >= this.guiTop + 25)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 25 + 10));
+		boolean mouseOverGasBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverGasBarY = (g.getMouseInGuiY() >= this.y + 25) && (g.getMouseInGuiY() <= (this.y + 25 + 10));
 
 		if (mouseOverGasBarX && mouseOverGasBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
-					new String[] {
-							"Storing " + this.tile.getCurrentGas() + "cc of "
-									+ this.tile.getGasType(),
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
+					new String[] { "Storing " + this.tile.getCurrentGas() + "cc of " + this.tile.getGasType(),
 							"Consumes " + TileEntityTurbine.gasConsumptionPerTick + "cc per tick" });
 		}
 	}

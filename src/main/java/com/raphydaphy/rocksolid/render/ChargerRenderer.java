@@ -1,13 +1,11 @@
 package com.raphydaphy.rocksolid.render;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tile.TileCharger;
 import com.raphydaphy.rocksolid.tileentity.TileEntityCharger;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
@@ -16,7 +14,7 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class ChargerRenderer extends MultiTileRenderer<TileCharger>
 {
@@ -27,8 +25,8 @@ public class ChargerRenderer extends MultiTileRenderer<TileCharger>
 	}
 
 	@Override
-	public void render(IGameInstance game, IAssetManager manager, Graphics g, IWorld world, TileCharger tile,
-			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, Color[] light)
+	public void render(IGameInstance game, IAssetManager manager, IGraphics g, IWorld world, TileCharger tile,
+			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
 		final Pos2 innerCoord = tile.getInnerCoord(state);
 		final Pos2 mainPos = tile.getMainPos(x, y, state);
@@ -74,13 +72,13 @@ public class ChargerRenderer extends MultiTileRenderer<TileCharger>
 					Item theItemToRender = tileEntity.getInventory().get(0).getItem();
 					manager.getTexture(RockSolidAPILib.makeInternalRes(
 							theItemToRender.getName().addPrefix("items.").getResourceName().toString()))
-							.drawWithLight(renderX - (scale * 1.3f), renderY + (scale * 0.92f), scale * 0.5f,
-									scale * 0.5f, light);
+							.draw(renderX - (scale * 1.3f), renderY + (scale * 0.92f), scale * 0.5f, scale * 0.5f,
+									light);
 				}
 			}
 		}
 
-		manager.getTexture(tex).drawWithLight(renderX, renderY, scale, scale, light);
+		manager.getTexture(tex).draw(renderX, renderY, scale, scale, light);
 	}
 
 	private IResourceName stageToTex(int stage, Pos2 innerCoord)

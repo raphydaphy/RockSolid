@@ -25,7 +25,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileGasConduit extends TileBasic
 {
@@ -41,9 +41,9 @@ public class TileGasConduit extends TileBasic
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y)
+	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityGasConduit(world, x, y);
+		return layer == TileLayer.MAIN ? new TileEntityGasConduit(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class TileGasConduit extends TileBasic
 	{
 		return false;
 	}
-	
+
 	public void onAdded(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileEntityConduit<?> tile = world.getTileEntity(x, y, TileEntityConduit.class);

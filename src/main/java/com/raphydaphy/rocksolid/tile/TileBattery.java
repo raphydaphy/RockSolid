@@ -21,7 +21,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileBattery extends MultiTile
 {
@@ -37,9 +37,9 @@ public class TileBattery extends MultiTile
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y)
+	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityBattery(world, x, y);
+		return layer == TileLayer.MAIN ? new TileEntityBattery(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class TileBattery extends MultiTile
 					int theX = startX + addX;
 					int theY = startY + addY;
 
-					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer, this))
+					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer))
 					{
 						return false;
 					}

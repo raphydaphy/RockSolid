@@ -11,6 +11,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, IMultiFluidAcceptor
 {
@@ -28,9 +29,9 @@ public class TileEntityLiquidBoiler extends TileEntity implements IGasProducer, 
 	protected int maxFluid = 5000;
 	protected String[] fluidType = new String[] { Fluid.EMPTY.getName(), Fluid.EMPTY.getName() };
 
-	public TileEntityLiquidBoiler(final IWorld world, final int x, final int y)
+	public TileEntityLiquidBoiler(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 
 	}
 

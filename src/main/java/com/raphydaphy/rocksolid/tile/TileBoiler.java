@@ -23,7 +23,7 @@ import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileBoiler extends MultiTile
 {
@@ -50,9 +50,9 @@ public class TileBoiler extends MultiTile
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y)
+	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityBoiler(world, x, y);
+		return layer == TileLayer.MAIN ? new TileEntityBoiler(world, x, y, layer) : null;
 	}
 
 	protected ITileRenderer<TileBoiler> createRenderer(final IResourceName name)
@@ -124,7 +124,7 @@ public class TileBoiler extends MultiTile
 					int theX = startX + addX;
 					int theY = startY + addY;
 
-					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer, this))
+					if (!world.getState(layer, theX, theY).getTile().canReplace(world, theX, theY, layer))
 					{
 						return false;
 					}

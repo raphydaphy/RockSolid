@@ -15,6 +15,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityAnalyzer extends TileEntityProgressBar implements IBasicIO
 {
@@ -29,9 +30,9 @@ public class TileEntityAnalyzer extends TileEntityProgressBar implements IBasicI
 	protected int maxSmeltTime;
 	private int lastSmelt;
 
-	public TileEntityAnalyzer(final IWorld world, final int x, final int y)
+	public TileEntityAnalyzer(final IWorld world, final int x, final int y, TileLayer layer)
 	{
-		super(world, x, y);
+		super(world, x, y, layer);
 		this.inventory = new ContainerInventory(this, 2);
 	}
 

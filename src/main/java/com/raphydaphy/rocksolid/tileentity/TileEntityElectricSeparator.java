@@ -7,13 +7,10 @@ import com.raphydaphy.rocksolid.api.energy.TileEntityPowered;
 import com.raphydaphy.rocksolid.gui.inventory.ContainerInventory;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.construction.SeparatorRecipe;
-import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IInventoryHolder;
 import de.ellpeck.rockbottom.api.util.Direction;
-import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
 public class TileEntityElectricSeparator extends TileEntityPowered implements IInventoryHolder
@@ -55,7 +52,9 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements II
 		final ItemInstance input = this.inventory.get(0);
 		if (input != null)
 		{
+			/*
 			final SeparatorRecipe recipe = RockBottomAPI.getSeparatorRecipe(input);
+			
 			if (recipe != null)
 			{
 				final IUseInfo recipeIn = recipe.getInput();
@@ -109,7 +108,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements II
 									}
 									this.shouldSync = true;
 								}
-
+			
 							} else if (this.smeltTime > 0)
 							{
 								if (RockBottomAPI.getNet().isClient() == false)
@@ -122,7 +121,7 @@ public class TileEntityElectricSeparator extends TileEntityPowered implements II
 						}
 					}
 				}
-			}
+			}*/
 		}
 		if (RockBottomAPI.getNet().isClient() == false)
 		{

@@ -11,7 +11,9 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class GuiAlloySmelter extends GuiContainer
 {
-
+	public static final int ELECTRICITY_COLOR = 0x9400d3;
+	public static final int PROGRESS_COLOR = 0x1a801a;
+	public static final int FIRE_COLOR = 0x801a1a;
 	private final TileEntityAlloySmelter tile;
 
 	public GuiAlloySmelter(final AbstractEntityPlayer player, final TileEntityAlloySmelter tile)
@@ -21,13 +23,13 @@ public class GuiAlloySmelter extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 80, this.guiTop + 15, 40, 8,
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + 80, this.y + 15, 40, 8,
 				GuiAlloySmelter.PROGRESS_COLOR, false, this.tile::getSmeltPercentage));
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 74, this.guiTop + 30, 8, 18,
-				GuiAlloySmelter.FIRE_COLOR, true, this.tile::getFuelPercentage));
+		this.components.add(new ComponentProgressBar(this, this.x + 74, this.y + 30, 8, 18, GuiAlloySmelter.FIRE_COLOR,
+				true, this.tile::getFuelPercentage));
 	}
 
 	@Override

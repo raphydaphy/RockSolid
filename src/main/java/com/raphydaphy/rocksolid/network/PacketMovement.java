@@ -20,7 +20,8 @@ public class PacketMovement implements IPacket
 	private double playerX;
 	private double playerY;
 
-	public PacketMovement(UUID uuid, double motionY, double fallStartY, boolean isFalling, double playerX, double playerY)
+	public PacketMovement(UUID uuid, double motionY, double fallStartY, boolean isFalling, double playerX,
+			double playerY)
 	{
 		this.uuid = uuid;
 		this.motionY = motionY;

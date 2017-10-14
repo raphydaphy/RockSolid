@@ -1,13 +1,10 @@
 package com.raphydaphy.rocksolid.gui;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-
 import com.raphydaphy.rocksolid.api.util.RockSolidAPILib;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.IGraphics;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -26,25 +23,23 @@ public class GuiBattery extends GuiContainer
 	}
 
 	@Override
-	public void initGui(final IGameInstance game)
+	public void init(final IGameInstance game)
 	{
-		super.initGui(game);
-		this.components.add(new ComponentProgressBar(this, this.guiLeft + 60, this.guiTop + 10, 80, 10,
-				new Color(148, 0, 211), false, this.tile::getBatteryFullness));
+		super.init(game);
+		this.components.add(new ComponentProgressBar(this, this.x + 60, this.y + 10, 80, 10, 0x9400d3, false,
+				this.tile::getBatteryFullness));
 	}
 
 	@Override
-	public void renderOverlay(IGameInstance game, IAssetManager manager, Graphics g)
+	public void renderOverlay(IGameInstance game, IAssetManager manager, IGraphics g)
 	{
 		super.renderOverlay(game, manager, g);
-		boolean mouseOverBarX = (game.getMouseInGuiX() >= this.guiLeft + 60)
-				&& (game.getMouseInGuiX() <= (this.guiLeft + 60 + 80));
-		boolean mouseOverBarY = (game.getMouseInGuiY() >= this.guiTop + 10)
-				&& (game.getMouseInGuiY() <= (this.guiTop + 10 + 10));
+		boolean mouseOverBarX = (g.getMouseInGuiX() >= this.x + 60) && (g.getMouseInGuiX() <= (this.x + 60 + 80));
+		boolean mouseOverBarY = (g.getMouseInGuiY() >= this.y + 10) && (g.getMouseInGuiY() <= (this.y + 10 + 10));
 
 		if (mouseOverBarX && mouseOverBarY)
 		{
-			RockBottomAPI.getApiHandler().drawHoverInfoAtMouse(game, manager, g, false, 500,
+			g.drawHoverInfoAtMouse(game, manager, false, 500,
 					new String[] { "Storing " + this.tile.getCurrentEnergy() + "kWh of Energy",
 							"Sends/Receives up to 300kWh per tick" });
 		}

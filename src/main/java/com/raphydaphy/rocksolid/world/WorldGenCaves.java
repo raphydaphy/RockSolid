@@ -10,15 +10,16 @@ import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class WorldGenCaves implements IWorldGenerator
 {
 
 	@Override
-	public boolean shouldGenerate(IWorld world, IChunk chunk, Random rand)
+	public boolean shouldGenerate(IWorld world, IChunk chunk)
 	{
+		Random rand = new Random(world.getSeed());
 		if (chunk.getGridY() < 2)
 		{
 			if (chunk.getGridY() < -50)
@@ -44,8 +45,9 @@ public class WorldGenCaves implements IWorldGenerator
 	}
 
 	@Override
-	public void generate(IWorld world, IChunk chunk, Random rand)
+	public void generate(IWorld world, IChunk chunk)
 	{
+		Random rand = new Random(world.getSeed());
 		int chunkMapSizeX = rand.nextInt(16) + 16;
 		int chunkMapSizeY = rand.nextInt(16) + 16;
 

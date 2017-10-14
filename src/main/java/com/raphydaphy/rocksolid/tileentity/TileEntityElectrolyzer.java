@@ -58,8 +58,8 @@ public class TileEntityElectrolyzer extends TileEntityPowered implements IFluidA
 
 		if (this.fluidStored > 0)
 		{
-			final ElectrolyzerRecipe recipe = RockSolidAPI.getElectrolyzerRecipe(Gas.getByName(this.gasTank1Type), Gas.getByName(this.gasTank2Type),
-					this.fluidType, this.fluidStored);
+			final ElectrolyzerRecipe recipe = RockSolidAPI.getElectrolyzerRecipe(Gas.getByName(this.gasTank1Type),
+					Gas.getByName(this.gasTank2Type), this.fluidType, this.fluidStored);
 			if (recipe != null)
 			{
 				final Gas recipeOut1 = recipe.getOutput1();

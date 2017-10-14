@@ -16,7 +16,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
-import de.ellpeck.rockbottom.api.world.TileLayer;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileAnalyzer extends TilePlaceAnywhere
 {
@@ -35,9 +35,9 @@ public class TileAnalyzer extends TilePlaceAnywhere
 	}
 
 	@Override
-	public TileEntity provideTileEntity(final IWorld world, final int x, final int y)
+	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityAnalyzer(world, x, y);
+		return layer == TileLayer.MAIN ? new TileEntityAnalyzer(world, x, y, layer) : null;
 	}
 
 	@Override
