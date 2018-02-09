@@ -51,10 +51,10 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
 		Pos2 innerCoord = tile.getInnerCoord(state);
-		TileEntityBoiler te = world.getTileEntity(x, y, TileEntityBoiler.class);
+		TileEntityBoiler te = tile.getTE(world, x, y);
 		if (te != null)
 		{
-			manager.getTexture(getTextureFor(innerCoord, te.getSteam(), false)).getPositionalVariation(x, y)
+			manager.getTexture(getTextureFor(innerCoord, te.getSteam(), te.isActive())).getPositionalVariation(x, y)
 					.draw(renderX, renderY, scale, scale, light);
 		}
 	}

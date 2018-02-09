@@ -1,14 +1,21 @@
 package com.raphydaphy.rocksolid.tile;
 
+import java.util.Random;
+
+import com.raphydaphy.rocksolid.container.ContainerBoiler;
+import com.raphydaphy.rocksolid.gui.GuiBoiler;
 import com.raphydaphy.rocksolid.render.BoilerRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -66,13 +73,16 @@ public class TileBoiler extends MultiTileBase
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player)
 	{
-		return false;
+		TileEntityBoiler te = getTE(world, x, y);
+		player.openGuiContainer(new GuiBoiler(player, te), new ContainerBoiler(player, te));
+		return true;
 	}
 
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityBoiler(world, x, y, layer);
+		TileState state = world.getState(x, y);
+		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityBoiler(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -84,7 +94,28 @@ public class TileBoiler extends MultiTileBase
 	@Override
 	public void updateRandomlyForRendering(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player)
 	{
-		// TODO: particles
+		TileState state = world.getState(x, y);
+		Pos2 innerCoord = this.getInnerCoord(state);
+
+		if (innerCoord.getY() == 4)
+		{
+			TileEntityBoiler te = this.getTE(world, x, y);
+			Random rand = new Random();
+
+			if (rand.nextInt(2) == 1 && te.isActive())
+			{
+				double particleX = x + (innerCoord.getX() == 0 ? .55 : .24) + (rand.nextFloat() / 40);
+				double particleY = y + (innerCoord.getX() == 0 ? .9 : .65);
+				RockBottomAPI.getGame().getParticleManager().addSmokeParticle(world, particleX, particleY, 0, 0.02,
+						0.2f + (rand.nextFloat() / 20));
+			}
+		}
+	}
+
+	public TileEntityBoiler getTE(IWorld world, int x, int y)
+	{
+		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
+		return world.getTileEntity(main.getX(), main.getY(), TileEntityBoiler.class);
 	}
 
 }
