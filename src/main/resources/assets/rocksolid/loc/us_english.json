@@ -1,8 +1,7 @@
 {
     "rocksolid": {
-        "item": {
-        	"test": "Test Item"
-        },
-        "item.test": "Test Item"
+        "item.": {
+        	"boiler": "Solid-Fueled Boiler"
+        }
     }
 }
