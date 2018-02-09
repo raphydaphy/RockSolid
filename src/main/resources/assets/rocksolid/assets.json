@@ -1,0 +1,10 @@
+{
+    "loc." : {
+        "us_english": "/loc/us_english.json"
+    },
+    "tex." : {
+    	"tiles.": {
+    		"test": "/tiles/creative_power_source.png"
+    	}
+    }
+}

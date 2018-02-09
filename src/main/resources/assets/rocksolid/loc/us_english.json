@@ -1,0 +1,8 @@
+{
+    "rocksolid": {
+        "item": {
+        	"test": "Test Item"
+        },
+        "item.test": "Test Item"
+    }
+}
