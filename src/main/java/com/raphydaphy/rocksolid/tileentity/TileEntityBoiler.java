@@ -1,16 +1,15 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-import com.raphydaphy.rocksolid.util.TempTileInventory;
+import com.raphydaphy.rocksolid.util.FilteredTileInventory;
+import com.raphydaphy.rocksolid.util.SlotInfo;
+import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
+import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.inventory.Inventory;
-import de.ellpeck.rockbottom.api.tile.entity.BasicFilteredInventory;
-import de.ellpeck.rockbottom.api.tile.entity.FilteredInventory;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -26,7 +25,11 @@ public class TileEntityBoiler extends TileEntity
 	private boolean active = false;
 	private boolean lastActive = false;
 
-	public final Inventory inventory = new TempTileInventory(this, 1);
+	public final FilteredTileInventory inventory = new FilteredTileInventory(this,
+			SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance ->
+			{
+				return instance.getItem().equals(GameContent.TILE_COAL.getItem());
+			})));
 
 	public TileEntityBoiler(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -50,9 +53,9 @@ public class TileEntityBoiler extends TileEntity
 	}
 
 	@Override
-	public FilteredInventory getInventory()
+	public FilteredTileInventory getInventory()
 	{
-		return new BasicFilteredInventory(1, Arrays.asList(0), new ArrayList<>());
+		return this.inventory;
 	}
 
 	@Override

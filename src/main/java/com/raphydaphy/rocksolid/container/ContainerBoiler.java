@@ -4,7 +4,6 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 import com.raphydaphy.rocksolid.util.FilteredSlot;
 
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
@@ -17,7 +16,7 @@ public class ContainerBoiler extends ItemContainer
 	{
 		super(player, new IInventory[] { player.getInv(), tile.getInventory() });
 		this.addPlayerInventory(player, 20, 55);
-		this.addSlot(new FilteredSlot(tile.inventory, 0, 50, 25, instance -> { return instance.getItem().equals(GameContent.TILE_COAL.getItem()); }));
+		this.addSlot(new FilteredSlot(tile.getInventory(), 0, 10, 10, tile.getInventory().getSlots().get(0).getPredicate()));
 	}
 
 	@Override
