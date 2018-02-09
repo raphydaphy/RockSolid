@@ -6,6 +6,8 @@ import java.util.Random;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.inventory.Inventory;
+import de.ellpeck.rockbottom.api.inventory.TileInventory;
 import de.ellpeck.rockbottom.api.tile.entity.BasicFilteredInventory;
 import de.ellpeck.rockbottom.api.tile.entity.FilteredInventory;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -22,6 +24,8 @@ public class TileEntityBoiler extends TileEntity
 	
 	private boolean active = false;
 	private boolean lastActive = false;
+	
+	private final Inventory inventory = new TileInventory(this, 1);
 
 	public TileEntityBoiler(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -55,6 +59,7 @@ public class TileEntityBoiler extends TileEntity
 		super.save(set, forSync);
 		set.addInt(KEY_STEAM, this.steam);
 		set.addBoolean(KEY_ACTIVE, this.active);
+		inventory.save(set);
 	}
 
 	@Override
@@ -63,6 +68,7 @@ public class TileEntityBoiler extends TileEntity
 		super.load(set, forSync);
 		this.steam = set.getInt(KEY_STEAM);
 		this.active = set.getBoolean(KEY_ACTIVE);
+		inventory.load(set);
 	}
 
 	@Override
