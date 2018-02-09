@@ -8,22 +8,17 @@ import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntityBoiler extends TileEntity
+public class TileEntityBoiler extends TileEntityFueledBase
 {
 	private static final String KEY_STEAM = "steam";
-	public static final String KEY_ACTIVE = "active";
 
 	private int steam = 0;
 	private int lastSteam = 0;
-
-	private boolean active = false;
-	private boolean lastActive = false;
 
 	public final FilteredTileInventory inventory = new FilteredTileInventory(this,
 			SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance ->
@@ -37,22 +32,6 @@ public class TileEntityBoiler extends TileEntity
 	}
 
 	@Override
-	public void update(IGameInstance game)
-	{
-		super.update(game);
-		if (!this.world.isClient())
-		{
-			int rand = new Random().nextInt(500);
-
-			if (rand == 1)
-			{
-				this.steam++;
-				this.active = !this.isActive();
-			}
-		}
-	}
-
-	@Override
 	public FilteredTileInventory getInventory()
 	{
 		return this.inventory;
@@ -63,7 +42,7 @@ public class TileEntityBoiler extends TileEntity
 	{
 		super.save(set, forSync);
 		set.addInt(KEY_STEAM, this.steam);
-		set.addBoolean(KEY_ACTIVE, this.active);
+
 		inventory.save(set);
 	}
 
@@ -72,14 +51,13 @@ public class TileEntityBoiler extends TileEntity
 	{
 		super.load(set, forSync);
 		this.steam = set.getInt(KEY_STEAM);
-		this.active = set.getBoolean(KEY_ACTIVE);
 		inventory.load(set);
 	}
 
 	@Override
 	protected boolean needsSync()
 	{
-		return this.lastSteam != this.steam || this.lastActive != this.active || super.needsSync();
+		return this.lastSteam != this.steam || super.needsSync();
 	}
 
 	@Override
@@ -87,7 +65,6 @@ public class TileEntityBoiler extends TileEntity
 	{
 		super.onSync();
 		this.lastSteam = this.steam;
-		this.lastActive = this.active;
 	}
 
 	public int getSteam()
@@ -95,8 +72,45 @@ public class TileEntityBoiler extends TileEntity
 		return this.steam;
 	}
 
-	public boolean isActive()
+	@Override
+	protected boolean tryTickAction()
 	{
-		return this.active;
+		if (this.coalTime > 0)
+		{
+			if (!this.world.isClient())
+			{
+				int rand = new Random().nextInt(500);
+
+				if (rand == 1)
+				{
+					this.steam++;
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	protected float getFuelModifier()
+	{
+		return 1;
+	}
+
+	@Override
+	protected ItemInstance getFuel()
+	{
+		return this.getInventory().get(0);
+	}
+
+	@Override
+	protected void removeFuel()
+	{
+		this.inventory.get(0).removeAmount(1);
+	}
+
+	@Override
+	protected void onActiveChange(boolean active)
+	{
+		world.causeLightUpdate(this.x, this.y);
 	}
 }

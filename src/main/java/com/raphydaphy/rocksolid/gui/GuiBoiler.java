@@ -18,7 +18,7 @@ public class GuiBoiler extends GuiContainer
 
 	public GuiBoiler(AbstractEntityPlayer player, TileEntityBoiler te)
 	{
-		super(player, 198, 150);
+		super(player, 198, 140);
 		this.te = te;
 	}
 
@@ -26,14 +26,39 @@ public class GuiBoiler extends GuiContainer
 	public void init(IGameInstance game)
 	{
 		super.init(game);
-		
-		this.components.add(new ComponentProgressBar(this, this.x, this.y + 15, 80, 10, Color.gray.getRGB(), false, new Supplier<Float>() {
 
-			@Override
-			public Float get()
-			{
-				return Math.min((float)GuiBoiler.this.te.getSteam() / 7f, 1);
-			}}));
+		this.components.add(
+				new ComponentProgressBar(this, 40 + 8, 45, 80, 10, Color.gray.getRGB(), false, new Supplier<Float>()
+				{
+
+					@Override
+					public Float get()
+					{
+						return Math.min((float) GuiBoiler.this.te.getSteam() / 7f, 1);
+					}
+				}));
+
+		this.components.add(
+				new ComponentProgressBar(this, 40 + 8, 10, 80, 10, Color.blue.getRGB(), false, new Supplier<Float>()
+				{
+
+					@Override
+					public Float get()
+					{
+						return Math.min((float) GuiBoiler.this.te.getSteam() / 7f, 1);
+					}
+				}));
+
+		this.components.add(new ComponentProgressBar(this, 95, 25, 8, 17,
+				Color.ORANGE.getRGB(), true, new Supplier<Float>()
+				{
+
+					@Override
+					public Float get()
+					{
+						return GuiBoiler.this.te.getFuelPercentage();
+					}
+				}));
 	}
 
 	@Override
