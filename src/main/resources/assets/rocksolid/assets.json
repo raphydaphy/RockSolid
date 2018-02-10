@@ -16,6 +16,30 @@
     			"full": "/fluids/water/full.png",
     			"top": "/fluids/water/top.png"
     		},
+    		"pump.":
+    		{
+    			"water.": {
+		            "subtexture": 
+		            {
+			            "0.0": [0,12,12,12],
+			            "1.0": [12,12,12,12],
+			            "0.1": [0,0,12,12],
+			            "1.1": [12,0,12,12],
+	            		"file": "/fluids/water/pump.png"
+		            }
+		        },
+    			"*.": {
+		            "subtexture": 
+		            {
+			            "0.0": [0,12,12,12],
+			            "1.0": [12,12,12,12],
+			            "0.1": [0,0,12,12],
+			            "1.1": [12,0,12,12],
+	            		"file": "/fluids/empty/pump.png"
+		            }
+		        },
+		        "item": "/fluids/empty/pump_item.png"
+    		},
     		"boiler.": 
     		{
     			"active.": {

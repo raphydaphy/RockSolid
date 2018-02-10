@@ -27,6 +27,12 @@ public class FluidRenderer extends DefaultTileRenderer<FluidWater>
 		IResourceName texTop = this.texture.addSuffix(".top");
 		int level = state.get(fluid.level);
 
+		boolean specialLayer = !(world.getState(TileLayer.LIQUIDS, x, y + 1).getTile() instanceof FluidWater);
+		if (!specialLayer)
+		{
+			level++;
+		}
+
 		float pixel = ((float) scale / 12f);
 
 		float y1 = renderY + pixel * (12 - level);
@@ -37,20 +43,19 @@ public class FluidRenderer extends DefaultTileRenderer<FluidWater>
 
 		if (level > 0)
 		{
+
 			manager.getTexture(texFull).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, srcY, 12,
 					srcY2, light);
 		}
-		if (!(world.getState(TileLayer.LIQUIDS, x, y + 1).getTile() instanceof FluidWater))
+		if (specialLayer)
 		{
 			level += 1;
-			
+
 			y1 = renderY + pixel * (12 - level);
 			y2 = y1 + pixel;
 
-			srcY = 0;
-			srcY2 = 1;
-
-			manager.getTexture(texTop).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, 0, 12, 1, light);
+			manager.getTexture(texTop).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, 0, 12, 1,
+					light);
 		}
 	}
 

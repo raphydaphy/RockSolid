@@ -1,5 +1,7 @@
 package com.raphydaphy.rocksolid.tile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.raphydaphy.rocksolid.container.ContainerBoiler;
@@ -9,7 +11,10 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.Item;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -89,6 +94,28 @@ public class TileBoiler extends MultiTileBase
 	public boolean canProvideTileEntity()
 	{
 		return true;
+	}
+
+	@Override
+	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
+	{
+		List<ItemInstance> drops = new ArrayList<>();
+
+		Item item = this.getItem();
+
+		if (item != null)
+		{
+			drops.add(new ItemInstance(item));
+		}
+
+		TileEntityBoiler te = this.getTE(world, x, y);
+
+		if (te != null)
+		{
+			drops.add(te.getInventory().get(0));
+		}
+
+		return drops;
 	}
 
 	@Override
