@@ -105,7 +105,7 @@ public class TileEntityBoiler extends TileEntityFueledBase
 	@Override
 	protected void removeFuel()
 	{
-		this.inventory.get(0).removeAmount(1);
+		this.getInventory().remove(0, 1);
 	}
 
 	@Override

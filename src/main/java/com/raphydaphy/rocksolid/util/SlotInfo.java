@@ -107,7 +107,7 @@ public class SlotInfo
 	{
 		List<SlotInfo> list = new ArrayList<>();
 
-		int id = -1;
+		int id = 0;
 		for (SimpleSlotInfo info : infos)
 		{
 			list.add(new SlotInfo(id++, info.getType(), info.getPredicate()));

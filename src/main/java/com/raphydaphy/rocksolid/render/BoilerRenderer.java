@@ -56,6 +56,68 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 		{
 			manager.getTexture(getTextureFor(innerCoord, te.getSteam(), te.isActive())).getPositionalVariation(x, y)
 					.draw(renderX, renderY, scale, scale, light);
+
+			IResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
+			if (te.getSteam() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4)
+			{
+				int STEAM = (int)Math.min(26, 26);
+				
+				boolean render = false;
+
+				float pixel = ((float) scale / 12f);
+
+				float x1 = renderX;
+				float x2 = renderX + scale;
+
+				float y1 = renderY;
+				float y2 = renderY + scale;
+
+				float srcX = 0f;
+				float srcX2 = 12f;
+
+				float srcY = 0f;
+				float srcY2 = 12f;
+
+				if (innerCoord.getX() == 0)
+				{
+					x1 = renderX + pixel * 11f;
+					srcX = 11f;
+				} else if (innerCoord.getX() == 1)
+				{
+					x2 = renderX + pixel * 5;
+					srcX2 = 5f;
+				}
+
+				int localSteam = STEAM;
+				float yMax = 12;
+				if (innerCoord.getY() == 1)
+				{
+					localSteam = (int) Math.min(7, STEAM);
+					yMax = 7;
+					render = true;
+				} else if (innerCoord.getY() == 2 && STEAM > 7)
+				{
+					localSteam = (int) Math.min(19, STEAM);
+					localSteam -= 7;
+					render = true;
+				} else if (innerCoord.getY() == 3 && STEAM > 19)
+				{
+					localSteam = STEAM - 19;
+					render = true;
+				}
+
+				if (render)
+				{
+					y1 = renderY + pixel * (yMax - localSteam);
+					y2 = y1 + pixel * localSteam;
+
+					srcY = yMax - localSteam;
+					srcY2 = srcY + localSteam;
+
+					manager.getTexture(steam).getPositionalVariation(x, y).draw(x1, y1, x2, y2, srcX, srcY, srcX2,
+							srcY2, light);
+				}
+			}
 		}
 	}
 
@@ -67,9 +129,6 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 		if (active && coord.getY() == 0)
 		{
 			tex = this.texture.addSuffix(".active." + coord.getX() + "." + coord.getY());
-		} else if (stage > 0 && coord.getY() != 0 && coord.getY() != 4)
-		{
-			tex = this.texture.addSuffix("." + stage + "." + coord.getX() + "." + coord.getY());
 		}
 
 		return tex;
