@@ -10,14 +10,14 @@ public class ModTiles
 {
 	public static Tile BOILER;
 	public static Tile PUMP;
-	
+
 	public static Tile WATER;
 
 	public static void init()
 	{
 		BOILER = new TileBoiler();
 		PUMP = new TilePump();
-		
+
 		WATER = new FluidWater();
 	}
 }

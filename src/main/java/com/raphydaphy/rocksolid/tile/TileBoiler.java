@@ -30,7 +30,7 @@ public class TileBoiler extends MultiTileBase
 
 	public TileBoiler()
 	{
-		super("boiler", 5f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("boiler", 7f, new ToolInfo(ToolType.PICKAXE, 1));
 	}
 
 	@Override
@@ -143,6 +143,17 @@ public class TileBoiler extends MultiTileBase
 	{
 		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
 		return world.getTileEntity(main.getX(), main.getY(), TileEntityBoiler.class);
+	}
+
+	@Override
+	public int getLight(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileEntityBoiler te = getTE(world, x, y);
+		if (this.getInnerCoord(world.getState(x, y)).getY() == 0 && te != null && te.isActive())
+		{
+			return 30;
+		}
+		return 0;
 	}
 
 }

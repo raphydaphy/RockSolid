@@ -1,9 +1,12 @@
 package com.raphydaphy.rocksolid.tile;
 
+import com.raphydaphy.rocksolid.container.ContainerBase;
+import com.raphydaphy.rocksolid.gui.GuiPump;
 import com.raphydaphy.rocksolid.render.PumpRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -51,13 +54,13 @@ public class TilePump extends MultiTileBase
 	{
 		return false;
 	}
-	
+
 	@Override
 	protected ITileRenderer<TilePump> createRenderer(IResourceName name)
 	{
 		return new PumpRenderer(name, this);
 	}
-	
+
 	@Override
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -70,11 +73,20 @@ public class TilePump extends MultiTileBase
 	{
 		return true;
 	}
-	
+
 	public TileEntityPump getTE(IWorld world, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
 		return world.getTileEntity(main.getX(), main.getY(), TileEntityPump.class);
+	}
+
+	@Override
+	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+			AbstractEntityPlayer player)
+	{
+		TileEntityPump te = getTE(world, x, y);
+		player.openGuiContainer(new GuiPump(player, te), new ContainerBase(player, te, 32, 50));
+		return true;
 	}
 
 }

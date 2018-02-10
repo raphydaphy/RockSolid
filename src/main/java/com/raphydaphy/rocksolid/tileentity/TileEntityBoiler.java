@@ -93,7 +93,7 @@ public class TileEntityBoiler extends TileEntityFueledBase
 	@Override
 	protected float getFuelModifier()
 	{
-		return 1;
+		return 0.5f;
 	}
 
 	@Override
