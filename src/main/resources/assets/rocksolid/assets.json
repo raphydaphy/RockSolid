@@ -17,6 +17,14 @@
     			"full": "/fluids/water/full.png",
     			"top": "/fluids/water/top.png"
     		},
+    		"fluid_conduit.":
+    		{
+    			"center": "/tiles/fluid_conduit/fluid_conduit.png",
+    			"up": "/tiles/fluid_conduit/fluid_conduit_up.png",
+    			"down": "/tiles/fluid_conduit/fluid_conduit_down.png",
+    			"left": "/tiles/fluid_conduit/fluid_conduit_left.png",
+    			"right": "/tiles/fluid_conduit/fluid_conduit_right.png"
+    		},
     		"pump.":
     		{
     			"water.": {

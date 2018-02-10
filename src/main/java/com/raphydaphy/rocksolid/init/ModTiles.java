@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.tile.TileBoiler;
+import com.raphydaphy.rocksolid.tile.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.TilePump;
 
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -11,6 +12,8 @@ public class ModTiles
 	public static Tile BOILER;
 	public static Tile PUMP;
 
+	public static Tile FLUID_CONDUIT;
+
 	public static Tile WATER;
 
 	public static void init()
@@ -18,6 +21,8 @@ public class ModTiles
 		BOILER = new TileBoiler();
 		PUMP = new TilePump();
 
+		FLUID_CONDUIT = new TileFluidConduit();
+		
 		WATER = new FluidWater();
 	}
 }

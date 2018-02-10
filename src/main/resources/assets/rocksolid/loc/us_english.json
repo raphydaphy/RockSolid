@@ -5,7 +5,8 @@
         	"fluid_water": "Water",
         	"bucket": "Empty Bucket",
         	"pump": "Fluid Pump",
-        	"wrench": "Wrench"
+        	"wrench": "Wrench",
+        	"fluid_conduit": "Fluid Conduit"
         },
         "key.": {
         	"conduit_layer": "Edit Conduits"
