@@ -7,14 +7,12 @@ import java.util.Random;
 import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
-import com.raphydaphy.rocksolid.tile.TileBoiler;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
-import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -70,15 +68,6 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 					this.liquidType = (FluidWater) ModTiles.WATER;
 					this.liquidVolume += 1;
 
-					TileState stateLeft = world.getState(x - 1, y);
-					if (stateLeft.getTile().equals(ModTiles.BOILER))
-					{
-						TileEntityBoiler boiler = ((TileBoiler) stateLeft.getTile()).getTE(world, x - 1, y);
-						if (boiler != null && this.remove(new Pos2(x, y), this.liquidType, 10, false))
-						{
-							boiler.add(new Pos2(x - 1, y), ((FluidWater) ModTiles.WATER), 10, false);
-						}
-					}
 				}
 			}
 		}

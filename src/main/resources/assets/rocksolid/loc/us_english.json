@@ -4,7 +4,11 @@
         	"boiler": "Solid-Fueled Boiler",
         	"fluid_water": "Water",
         	"bucket": "Empty Bucket",
-        	"pump": "Fluid Pump"
+        	"pump": "Fluid Pump",
+        	"wrench": "Wrench"
+        },
+        "key.": {
+        	"conduit_layer": "Edit Conduits"
         }
     }
 }

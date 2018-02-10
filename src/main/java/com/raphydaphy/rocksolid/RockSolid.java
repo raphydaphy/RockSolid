@@ -10,7 +10,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 import java.util.logging.Logger;
 
-import com.raphydaphy.rocksolid.init.ModGenerators;
+import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.init.ModTiles;
@@ -71,6 +71,8 @@ public class RockSolid implements IMod
 	public void prePreInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
 	{
 		this.modLogger = apiHandler.createLogger(this.getDisplayName());
+		
+		ModMisc.initKeybinds();
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class RockSolid implements IMod
 		ModTiles.init();
 		
 		ModRecipes.init();
-		ModGenerators.init();
+		ModMisc.init();
 	}
 
 	@Override
