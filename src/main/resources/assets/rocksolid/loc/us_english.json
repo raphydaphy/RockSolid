@@ -1,7 +1,9 @@
 {
     "rocksolid": {
         "item.": {
-        	"boiler": "Solid-Fueled Boiler"
+        	"boiler": "Solid-Fueled Boiler",
+        	"fluid_water": "Water",
+        	"bucket": "Bucket"
         }
     }
 }

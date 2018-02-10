@@ -10,6 +10,7 @@ import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 import java.util.logging.Logger;
 
+import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModTiles;
 
 public class RockSolid implements IMod
@@ -79,6 +80,7 @@ public class RockSolid implements IMod
 	@Override
 	public void init(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
 	{
+		ModItems.init();
 		ModTiles.init();
 	}
 

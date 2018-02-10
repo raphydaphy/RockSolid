@@ -16,7 +16,8 @@ public class ContainerBoiler extends ItemContainer
 	{
 		super(player, new IInventory[] { player.getInv(), tile.getInventory() });
 		this.addPlayerInventory(player, 20, 65);
-		this.addSlot(new FilteredSlot(tile.getInventory(), 0, 75, 25, tile.getInventory().getSlots().get(0).getPredicate()));
+		this.addSlot(
+				new FilteredSlot(tile.getInventory(), 0, 75, 25, tile.getInventory().getSlots().get(0).getPredicate()));
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class FilteredTileInventory extends TileInventory
 {
 	private final List<SlotInfo> slots;
 
-	public FilteredTileInventory(TileEntity tile,  List<SlotInfo> slots)
+	public FilteredTileInventory(TileEntity tile, List<SlotInfo> slots)
 	{
 		super(tile, slots.size(), SlotInfo.toInputList(slots), SlotInfo.toOutputList(slots));
 		this.slots = slots;
@@ -22,7 +22,7 @@ public class FilteredTileInventory extends TileInventory
 	{
 		return SlotInfo.toInputList(slots, instance, dir);
 	}
-	
+
 	public List<SlotInfo> getSlots()
 	{
 		return this.slots;

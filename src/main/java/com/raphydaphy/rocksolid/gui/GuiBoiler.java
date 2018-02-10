@@ -49,8 +49,8 @@ public class GuiBoiler extends GuiContainer
 					}
 				}));
 
-		this.components.add(new ComponentProgressBar(this, 95, 25, 8, 17,
-				Color.ORANGE.getRGB(), true, new Supplier<Float>()
+		this.components
+				.add(new ComponentProgressBar(this, 95, 25, 8, 17, Color.ORANGE.getRGB(), true, new Supplier<Float>()
 				{
 
 					@Override

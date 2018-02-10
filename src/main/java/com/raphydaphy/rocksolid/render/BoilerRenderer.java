@@ -60,8 +60,8 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 			IResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
 			if (te.getSteam() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4)
 			{
-				int STEAM = (int)Math.min(26, 26);
-				
+				int STEAM = (int) Math.min(te.getSteam(), 26);
+
 				boolean render = false;
 
 				float pixel = ((float) scale / 12f);

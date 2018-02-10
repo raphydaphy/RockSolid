@@ -36,12 +36,15 @@ public class SlotInfo
 	{
 		return this.type;
 	}
-	
+
 	public Predicate<ItemInstance> getPredicate()
 	{
 		if (allowedInput == null)
 		{
-			return instance -> { return true; };
+			return instance ->
+			{
+				return true;
+			};
 		}
 		return this.allowedInput;
 	}
@@ -113,13 +116,13 @@ public class SlotInfo
 			list.add(new SlotInfo(id++, info.getType(), info.getPredicate()));
 			System.out.println("Added new slot with ID: " + list.get(list.size() - 1).getID());
 		}
-		
+
 		return list;
 	}
 
 	public static class SimpleSlotInfo
 	{
-		
+
 		private final SlotType type;
 		private final Predicate<ItemInstance> accepts;
 

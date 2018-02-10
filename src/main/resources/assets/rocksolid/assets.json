@@ -5,8 +5,17 @@
     },
     "tex." : 
     {
+    	"items.":
+    	{
+    		"bucket": "/fluids/empty/bucket.png"
+    	},
     	"tiles.": 
     	{
+    		"fluid_water.": 
+    		{
+    			"full": "/fluids/water/full.png",
+    			"top": "/fluids/water/top.png"
+    		},
     		"boiler.": 
     		{
     			"active.": {

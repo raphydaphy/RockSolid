@@ -77,7 +77,7 @@ public abstract class TileEntityFueledBase extends TileEntity
 			this.onActiveChange(active);
 		}
 	}
-	
+
 	public static int getFuelValue(ItemInstance item)
 	{
 		if (item.getItem().equals(GameContent.TILE_COAL.getItem()))
@@ -86,7 +86,7 @@ public abstract class TileEntityFueledBase extends TileEntity
 		}
 		return 0;
 	}
-	
+
 	@Override
 	protected boolean needsSync()
 	{
