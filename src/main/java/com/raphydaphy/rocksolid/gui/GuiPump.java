@@ -45,7 +45,7 @@ public class GuiPump extends GuiContainer
 					@Override
 					public Float get()
 					{
-						return Math.min((float) GuiPump.this.te.getLiquidVolume() / 1000f, 1);
+						return Math.min((float) GuiPump.this.te.getLiquidFullness(), 1);
 					}
 				}));
 	}

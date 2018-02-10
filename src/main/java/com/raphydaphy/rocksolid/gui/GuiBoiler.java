@@ -34,7 +34,7 @@ public class GuiBoiler extends GuiContainer
 					@Override
 					public Float get()
 					{
-						return Math.min((float) GuiBoiler.this.te.getSteam() / 26f, 1);
+						return Math.min((float) GuiBoiler.this.te.getSteam() / 1000f, 1);
 					}
 				}));
 
@@ -45,7 +45,7 @@ public class GuiBoiler extends GuiContainer
 					@Override
 					public Float get()
 					{
-						return Math.min((float) GuiBoiler.this.te.getSteam() / 26f, 1);
+						return Math.min((float) GuiBoiler.this.te.getWaterFullness(), 1);
 					}
 				}));
 
