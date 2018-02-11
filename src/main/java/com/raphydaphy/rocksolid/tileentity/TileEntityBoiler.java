@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
+import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
@@ -15,6 +16,7 @@ import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -163,8 +165,19 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	}
 
 	@Override
-	public List<TileLiquid> getLiquidAt(Pos2 pos)
+	public List<TileLiquid> getLiquidsAt(IWorld world, Pos2 pos)
 	{
-		return Arrays.asList((TileLiquid) ModTiles.WATER);
+		TileState state = world.getState(pos.getX(), pos.getY());
+		
+		if (state.getTile() instanceof TileBoiler)
+		{
+			Pos2 inner = ((TileBoiler)state.getTile()).getInnerCoord(state);
+			
+			if (inner.getY() != 4 && inner.getY() != 0)
+			{
+				return Arrays.asList((TileLiquid) ModTiles.WATER);
+			}
+		}
+		return null;
 	}
 }

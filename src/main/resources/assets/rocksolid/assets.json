@@ -19,6 +19,7 @@
     		},
     		"fluid_conduit.":
     		{
+    			"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/fluid_conduit/fluid_conduit.png",
     			"up": "/tiles/fluid_conduit/fluid_conduit_up.png",
     			"down": "/tiles/fluid_conduit/fluid_conduit_down.png",

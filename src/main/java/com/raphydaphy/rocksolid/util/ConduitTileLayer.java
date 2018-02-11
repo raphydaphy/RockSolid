@@ -99,7 +99,7 @@ public class ConduitTileLayer extends TileLayer
 		for (Direction dir : Direction.ADJACENT)
 		{
 			if (((TileConduit) state.getTile()).canConnect(world, new Pos2(x + dir.x, y + dir.y),
-					world.getState(this, x + dir.x, y + dir.y)))
+					world.getState(this, x + dir.x, y + dir.y), world.getState(x + dir.x, y + dir.y)))
 			{
 				if (subBoxes.containsKey(dir))
 				{

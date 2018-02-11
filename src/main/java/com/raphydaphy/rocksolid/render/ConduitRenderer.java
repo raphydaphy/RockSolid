@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
+import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
@@ -31,13 +31,22 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 	{
 		if (tile instanceof TileConduit)
 		{
-			manager.getTexture(this.texture.addSuffix(".center")).getPositionalVariation(x, y).draw(renderX, renderY,
+			IResourceName center = this.texture.addSuffix(".center");
+			
+			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
+			
+			if (te != null && te.isMaster())
+			{
+				center = this.texture.addSuffix(".master");
+			}
+			manager.getTexture(center).getPositionalVariation(x, y).draw(renderX, renderY,
 					scale, scale, light);
 
 			for (Direction dir : Direction.ADJACENT)
 			{
-				TileState adjState = world.getState(ModMisc.CONDUIT_LAYER, x + dir.x, y + dir.y);
-				if (((TileConduit) tile).canConnect(world, new Pos2(x + dir.x, y + dir.y), adjState))
+				TileState adjConduit = world.getState(layer, x + dir.x, y + dir.y);
+				TileState adjMain = world.getState(x + dir.x, y + dir.y);
+				if (((TileConduit) tile).canConnect(world, new Pos2(x + dir.x, y + dir.y), adjConduit, adjMain))
 				{
 					manager.getTexture(this.texture.addSuffix("." + dir.toString().toLowerCase()))
 							.getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);

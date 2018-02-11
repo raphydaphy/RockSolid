@@ -7,12 +7,14 @@ import java.util.Random;
 import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
+import com.raphydaphy.rocksolid.tile.multi.TilePump;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -156,10 +158,21 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 			return liquid.equals(this.liquidType) ? 1000 : 0;
 		return 0;
 	}
-
+	
 	@Override
-	public List<TileLiquid> getLiquidAt(Pos2 pos)
+	public List<TileLiquid> getLiquidsAt(IWorld world, Pos2 pos)
 	{
-		return Arrays.asList(this.liquidType);
+		TileState state = world.getState(pos.getX(), pos.getY());
+		
+		if (state.getTile() instanceof TilePump)
+		{
+			Pos2 inner = ((TilePump)state.getTile()).getInnerCoord(state);
+			
+			if (inner.getY() != 0)
+			{
+				return Arrays.asList(this.liquidType);
+			}
+		}
+		return null;
 	}
 }
