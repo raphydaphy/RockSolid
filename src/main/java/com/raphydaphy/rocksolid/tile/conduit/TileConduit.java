@@ -55,14 +55,16 @@ public abstract class TileConduit extends TileBase
 	}
 
 	@Override
-	public void onAdded(IWorld world, int x, int y, TileLayer layer)
+	public void doPlace(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
 	{
-		super.onAdded(world, x, y, layer);
-
-		TileEntity te = world.getTileEntity(layer, x, y);
-		if (te != null && te instanceof TileEntityConduit)
+		if (!world.isClient())
 		{
-			((TileEntityConduit) te).onAdded(world, x, y, layer);
+			super.doPlace(world, x, y, layer, instance, placer);
+			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
+			if (te != null)
+			{
+				te.doPlace(world, x, y, layer, instance, placer);
+			}
 		}
 	}
 
