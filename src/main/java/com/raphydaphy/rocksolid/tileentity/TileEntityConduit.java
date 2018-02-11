@@ -25,14 +25,6 @@ public abstract class TileEntityConduit extends TileEntity
 	public static String MASTER_X_KEY = "master_x";
 	public static String MASTER_Y_KEY = "master_y";
 
-	public static String NETWORK_LENGTH_KEY = "network_length";
-	public static String NETWORK_KEY = "network";
-	public static String NETWORK_POSITION_KEY = "network_position_";
-	public static String POSITION_SIDES_KEY = "position_sides_";
-	public static String SIDES_LENGTH_KEY = "sides_length";
-	public static String ENTRY_POSITION_X_KEY = "position_x";
-	public static String ENTRY_POSITION_Y_KEY = "position_y";
-
 	private Pos2 master;
 	private Pos2 lastMaster;
 
@@ -52,6 +44,29 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			if (game.getWorld().getTotalTime() % 200 == 0)
 			{
+				Pos2 first = new Pos2(x, y);
+				for (Pos2 conduit : this.network.keySet())
+				{
+					if (conduit.getX() < first.getX() || (conduit.getX() <= first.getX() && conduit.getY() < first.getY()))
+					{
+						first = new Pos2(conduit.getX(), conduit.getY());
+					}
+				}
+
+				if (!first.equals(new Pos2(x, y)))
+				{
+					TileEntityConduit newMaster = world.getTileEntity(ModMisc.CONDUIT_LAYER, first.getX(), first.getY(),
+							TileEntityConduit.class);
+					if (newMaster != null)
+					{
+						newMaster.setMasterRecursivly(world, first);
+					}
+					else
+					{
+						System.out.println("1x null boi @ " + first);
+					}
+				}
+
 				RockSolid.getLogger().info("===========================================");
 
 				RockSolid.getLogger()
@@ -69,8 +84,7 @@ public abstract class TileEntityConduit extends TileEntity
 				}
 
 				RockSolid.getLogger().info("===========================================");
-			}
-			else if (!this.getMasterTE(game.getWorld()).isMaster())
+			} else if (!this.getMasterTE(game.getWorld()).isMaster())
 			{
 				System.out.println("SOMETHING IS SERIOUSLY BROKEN");
 			}
@@ -401,46 +415,6 @@ public abstract class TileEntityConduit extends TileEntity
 			set.addInt(MASTER_X_KEY, this.master.getX());
 			set.addInt(MASTER_Y_KEY, this.master.getY());
 		}
-
-		if (isMaster() && !forSync && false)
-		{
-			// The size of the network
-			set.addInt(NETWORK_LENGTH_KEY, network.size());
-
-			// Store the entire network on this set
-			DataSet networkSet = new DataSet();
-
-			// Current entry number
-			int entryNum = 0;
- 
-			for (Map.Entry<Pos2, List<ConduitSide>> entry : this.network.entrySet())
-			{
-				// Save the pos2 and sides in a DataSet
-				DataSet entrySet = new DataSet();
-
-				// Save the Pos2 X and Y of the conduit
-				entrySet.addInt(ENTRY_POSITION_X_KEY, entry.getKey().getX());
-				entrySet.addInt(ENTRY_POSITION_Y_KEY, entry.getKey().getY());
-
-				// How many sides have a connection?
-				entrySet.addInt(SIDES_LENGTH_KEY, entry.getValue().size());
-
-				// Loop through each side connected to the conduit
-				for (int side = 0; side < entry.getValue().size(); side++)
-				{
-					// Add the side to the entry for the conduit
-					entrySet.addInt(POSITION_SIDES_KEY + side, entry.getValue().get(side).getID());
-				}
-
-				// Add the conduit entry set to the main dataset
-				networkSet.addDataSet(NETWORK_POSITION_KEY + entryNum, entrySet);
-
-				// Increase entry number
-				entryNum++;
-			}
-
-			set.addDataSet(NETWORK_KEY, networkSet);
-		}
 	}
 
 	@Override
@@ -450,29 +424,6 @@ public abstract class TileEntityConduit extends TileEntity
 		if (set.hasKey(MASTER_X_KEY) && set.hasKey(MASTER_Y_KEY))
 		{
 			this.master = new Pos2(set.getInt(MASTER_X_KEY), set.getInt(MASTER_Y_KEY));
-		}
-		if (!forSync)
-		{/*
-			this.network = new HashMap<>();
-			
-			for (int entry = 0; entry < set.getInt(NETWORK_LENGTH_KEY); entry++)
-			{
-				DataSet entrySet = set.getDataSet(NETWORK_POSITION_KEY + entry);
-				
-				List<ConduitSide> sides = new ArrayList<>();
-				
-				for (int side = 0; side < entrySet.getInt(SIDES_LENGTH_KEY); side++)
-				{
-					sides.add(ConduitSide.getByID(entrySet.getInt(POSITION_SIDES_KEY + side)));
-				}
-				
-				Pos2 pos = new Pos2(entrySet.getInt(ENTRY_POSITION_X_KEY), entrySet.getInt(ENTRY_POSITION_Y_KEY));
-				
-				network.put(pos, sides);
-			}
-			
-			System.out.println("loaded:");
-			this.update(RockBottomAPI.getGame());*/
 		}
 	}
 
