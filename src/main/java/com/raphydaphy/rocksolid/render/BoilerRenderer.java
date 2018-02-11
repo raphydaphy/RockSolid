@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.render;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.raphydaphy.rocksolid.tile.TileBoiler;
+import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -51,7 +51,7 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
 		Pos2 innerCoord = tile.getInnerCoord(state);
-		TileEntityBoiler te = tile.getTE(world, x, y);
+		TileEntityBoiler te = tile.getTE(world, state, x, y);
 		if (te != null)
 		{
 			manager.getTexture(getTextureFor(innerCoord, te.getSteam(), te.isActive())).getPositionalVariation(x, y)

@@ -6,10 +6,10 @@
         	"bucket": "Empty Bucket",
         	"pump": "Fluid Pump",
         	"wrench": "Wrench",
-        	"fluid_conduit": "Fluid Conduit"
-        },
-        "key.": {
-        	"conduit_layer": "Edit Conduits"
+        	"fluid_conduit": "Fluid Conduit",
+        	"gas_conduit": "Gas Conduit",
+        	"item_conduit": "Item Conduit",
+        	"energy_conduit": "Energy Conduit"
         }
     }
 }

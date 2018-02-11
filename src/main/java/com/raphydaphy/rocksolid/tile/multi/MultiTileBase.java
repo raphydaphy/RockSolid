@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile;
+package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.util.ToolInfo;

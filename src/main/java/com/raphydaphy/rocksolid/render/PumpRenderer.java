@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.raphydaphy.rocksolid.init.ModTiles;
-import com.raphydaphy.rocksolid.tile.TilePump;
+import com.raphydaphy.rocksolid.tile.multi.TilePump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -44,7 +44,7 @@ public class PumpRenderer extends MultiTileRenderer<TilePump>
 	{
 		Pos2 innerCoord = tile.getInnerCoord(state);
 
-		TileEntityPump te = tile.getTE(world, x, y);
+		TileEntityPump te = tile.getTE(world, state, x, y);
 		if (te != null)
 		{
 			manager.getTexture(this.textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale,

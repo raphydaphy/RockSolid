@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile;
+package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.container.ContainerBase;
 import com.raphydaphy.rocksolid.gui.GuiPump;
@@ -74,9 +74,9 @@ public class TilePump extends MultiTileBase
 		return true;
 	}
 
-	public TileEntityPump getTE(IWorld world, int x, int y)
+	public TileEntityPump getTE(IWorld world, TileState state, int x, int y)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
+		Pos2 main = this.getMainPos(x, y, state);
 		return world.getTileEntity(main.getX(), main.getY(), TileEntityPump.class);
 	}
 
@@ -84,7 +84,7 @@ public class TilePump extends MultiTileBase
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player)
 	{
-		TileEntityPump te = getTE(world, x, y);
+		TileEntityPump te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiPump(player, te), new ContainerBase(player, te, 32, 50));
 		return true;
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.MovableWorldObject;
@@ -24,8 +25,7 @@ public class ConduitTileLayer extends TileLayer
 
 	public ConduitTileLayer()
 	{
-		// TODO: set this back to 5 when new RB is released
-		super(RockSolid.createRes("conduit_layer"), 5, -20);
+		super(RockSolid.createRes("conduit_layer"), 5, 5);
 		this.register();
 	}
 
@@ -38,13 +38,7 @@ public class ConduitTileLayer extends TileLayer
 	@Override
 	public boolean canTileBeInLayer(IWorld world, int x, int y, Tile tile)
 	{
-		return tile != null && (tile instanceof IConduit || tile.isAir());
-	}
-
-	@Override
-	public boolean forceForegroundRender()
-	{
-		return false;
+		return tile != null && (tile instanceof TileConduit || tile.isAir());
 	}
 
 	@Override
@@ -64,22 +58,25 @@ public class ConduitTileLayer extends TileLayer
 	@Override
 	public boolean canEditLayer(IGameInstance game, AbstractEntityPlayer player)
 	{
-		Pos2 mousedTile = new Pos2((int) game.getRenderer().getMousedTileX(),
-				(int) game.getRenderer().getMousedTileY());
-		boolean mouseInTile = false;
-		if (game.getWorld().getState(this, mousedTile.getX(), mousedTile.getY()).getTile() instanceof IConduit)
+		double tileX = game.getRenderer().getMousedTileX();
+		double tileY = game.getRenderer().getMousedTileY();
+
+		int tileXInt = (int) Math.floor(tileX);
+		int tileYInt = (int) Math.floor(tileY);
+
+		TileState state = game.getWorld().getState(this, tileXInt, tileYInt);
+
+		if (state != null && state.getTile() instanceof TileConduit)
 		{
-			for (BoundBox box : getConduitBounds(game.getWorld(), mousedTile.getX(), mousedTile.getY()))
+			for (BoundBox box : getConduitBounds(game.getWorld(), tileXInt, tileYInt))
 			{
-				if (box.contains(game.getRenderer().getMousedTileX(), game.getRenderer().getMousedTileY()))
+				if (box.contains(tileX, tileY))
 				{
-					mouseInTile = true;
-					break;
+					return true;
 				}
 			}
 		}
-		
-		return mouseInTile || true;
+		return false;
 	}
 
 	public List<BoundBox> getConduitBounds(IWorld world, int x, int y)
@@ -101,11 +98,12 @@ public class ConduitTileLayer extends TileLayer
 
 		for (Direction dir : Direction.ADJACENT)
 		{
-			if (((IConduit<?>) state.getTile()).canConnect(world, new Pos2(x + dir.x, y + dir.y), world.getState(this, x + dir.x, y + dir.y)))
+			if (((TileConduit) state.getTile()).canConnect(world, new Pos2(x + dir.x, y + dir.y),
+					world.getState(this, x + dir.x, y + dir.y)))
 			{
 				if (subBoxes.containsKey(dir))
 				{
-					boxes.add(subBoxes.get(dir).add(x, y));
+					boxes.add(subBoxes.get(dir).copy().add(x, y));
 				}
 			}
 		}

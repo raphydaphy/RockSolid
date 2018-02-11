@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.render;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
-import com.raphydaphy.rocksolid.util.IConduit;
+import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
@@ -29,7 +29,7 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 	public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, Tile tile, TileState state,
 			int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
-		if (tile instanceof IConduit)
+		if (tile instanceof TileConduit)
 		{
 			manager.getTexture(this.texture.addSuffix(".center")).getPositionalVariation(x, y).draw(renderX, renderY,
 					scale, scale, light);
@@ -37,7 +37,7 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 			for (Direction dir : Direction.ADJACENT)
 			{
 				TileState adjState = world.getState(ModMisc.CONDUIT_LAYER, x + dir.x, y + dir.y);
-				if (((IConduit<?>) tile).canConnect(world, new Pos2(x + dir.x, y + dir.y), adjState))
+				if (((TileConduit) tile).canConnect(world, new Pos2(x + dir.x, y + dir.y), adjState))
 				{
 					manager.getTexture(this.texture.addSuffix("." + dir.toString().toLowerCase()))
 							.getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);

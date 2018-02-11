@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile;
+package com.raphydaphy.rocksolid.tile.multi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +78,7 @@ public class TileBoiler extends MultiTileBase
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player)
 	{
-		TileEntityBoiler te = getTE(world, x, y);
+		TileEntityBoiler te = getTE(world, world.getState(x, y),x, y);
 		player.openGuiContainer(new GuiBoiler(player, te), new ContainerBoiler(player, te));
 		return true;
 	}
@@ -108,7 +108,7 @@ public class TileBoiler extends MultiTileBase
 			drops.add(new ItemInstance(item));
 		}
 
-		TileEntityBoiler te = this.getTE(world, x, y);
+		TileEntityBoiler te = this.getTE(world,world.getState(x, y), x, y);
 
 		if (te != null)
 		{
@@ -126,7 +126,7 @@ public class TileBoiler extends MultiTileBase
 
 		if (innerCoord.getY() == 4)
 		{
-			TileEntityBoiler te = this.getTE(world, x, y);
+			TileEntityBoiler te = this.getTE(world,world.getState(x, y), x, y);
 			Random rand = new Random();
 
 			if (rand.nextInt(2) == 1 && te.isActive())
@@ -139,17 +139,18 @@ public class TileBoiler extends MultiTileBase
 		}
 	}
 
-	public TileEntityBoiler getTE(IWorld world, int x, int y)
+	public TileEntityBoiler getTE(IWorld world, TileState state, int x, int y)
 	{
-		Pos2 main = this.getMainPos(x, y, world.getState(x, y));
+		Pos2 main = this.getMainPos(x, y, state);
 		return world.getTileEntity(main.getX(), main.getY(), TileEntityBoiler.class);
 	}
 
 	@Override
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
-		TileEntityBoiler te = getTE(world, x, y);
-		if (this.getInnerCoord(world.getState(x, y)).getY() == 0 && te != null && te.isActive())
+		TileState state = world.getState(x, y);
+		TileEntityBoiler te = getTE(world, state, x, y);
+		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
 		{
 			return 30;
 		}

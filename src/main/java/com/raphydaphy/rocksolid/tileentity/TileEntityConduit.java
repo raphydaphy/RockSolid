@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile;
+package com.raphydaphy.rocksolid.tileentity;
 
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
