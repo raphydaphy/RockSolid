@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemBucket;
+import com.raphydaphy.rocksolid.item.ItemWrench;
 
 import de.ellpeck.rockbottom.api.item.Item;
 
@@ -13,6 +13,6 @@ public class ModItems
 	public static void init()
 	{
 		BUCKET = new ItemBucket();
-		WRENCH = new ItemBase("wrench");
+		WRENCH = new ItemWrench();
 	}
 }
