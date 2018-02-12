@@ -3,7 +3,11 @@
         "item.": {
         	"boiler": "Solid-Fueled Boiler",
         	"fluid_water": "Water",
-        	"bucket": "Empty Bucket",
+        	"bucket.": 
+        	{
+        		"empty" : "Empty Bucket",
+        		"water" : "Bucket of Water"
+        	},
         	"pump": "Fluid Pump",
         	"wrench": "Wrench",
         	"fluid_conduit": "Fluid Conduit",
