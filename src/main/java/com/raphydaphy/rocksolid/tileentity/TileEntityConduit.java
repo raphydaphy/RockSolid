@@ -52,15 +52,42 @@ public abstract class TileEntityConduit extends TileEntity
 
 		if (!world.isClient() && isMaster())
 		{
-			if (world.getTotalTime() % 200 == 0)
+			if (world.getTotalTime() % 50 == 0)
 			{
-				printNetwork();
-			} else if (!this.getMasterTE(world).isMaster())
-			{
-				System.out.println("SOMETHING IS SERIOUSLY BROKEN");
+				for (Map.Entry<Pos2, List<ConduitSide>> entry1 : network.entrySet())
+				{
+					int x1 = entry1.getKey().getX();
+					int y1 = entry1.getKey().getY();
+					for (ConduitSide side1 : entry1.getValue())
+					{
+						int sideX1 = x1 + side1.getOffset().getX();
+						int sideY1 = y1 + side1.getOffset().getY();
+						TileState state1 = world.getState(sideX1, sideY1);
+
+						for (Map.Entry<Pos2, List<ConduitSide>> entry2 : network.entrySet())
+						{
+							int x2 = entry2.getKey().getX();
+							int y2 = entry2.getKey().getY();
+							for (ConduitSide side2 : entry2.getValue())
+							{
+								int sideX2 = x2 + side2.getOffset().getX();
+								int sideY2 = y2 + side2.getOffset().getY();
+
+								if (!(sideX1 == sideX2 && sideY1 == sideY2))
+								{
+									TileState state2 = world.getState(sideX2, sideY2);
+
+									transfer(world, sideX1, sideY1, state1, sideX2, sideY2, state2);
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
+
+	public abstract void transfer(IWorld world, int x1, int y1, TileState state1, int x2, int y2, TileState state2);
 
 	public void printNetwork()
 	{
@@ -441,8 +468,6 @@ public abstract class TileEntityConduit extends TileEntity
 				}
 
 				// Add the conduit entry set to the main dataset
-				
-				System.out.println("SAVING ENTRY SET WITH NAME:  " + NETWORK_POSITION_KEY + entryNum);
 				networkSet.addDataSet(NETWORK_POSITION_KEY + entryNum, entrySet);
 
 				// Increase entry number
@@ -465,14 +490,11 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			this.network.clear();
 
-			System.out.println("LOADING IN NETWORK WITH " + set.getInt(NETWORK_LENGTH_KEY) + " LENGTH");
-			
 			DataSet networkSet = set.getDataSet(NETWORK_KEY);
 			for (int entry = 0; entry < set.getInt(NETWORK_LENGTH_KEY); entry++)
 			{
 				DataSet entrySet = networkSet.getDataSet(NETWORK_POSITION_KEY + entry);
 
-				System.out.println("LOADING IN ENTRY SET : " + entrySet.toString() + " WITH NAME: " + NETWORK_POSITION_KEY + entry);
 				List<ConduitSide> sides = new ArrayList<>();
 
 				for (int side = 0; side < entrySet.getInt(SIDES_LENGTH_KEY); side++)
@@ -481,20 +503,7 @@ public abstract class TileEntityConduit extends TileEntity
 				}
 
 				Pos2 pos = new Pos2(entrySet.getInt(ENTRY_POSITION_X_KEY), entrySet.getInt(ENTRY_POSITION_Y_KEY));
-
-				System.out.println("Adding entry to master network @ " + pos + " with sides " + sides.toString());
 				network.put(pos, sides);
-			}
-
-			
-			if (isMaster())
-			{
-				System.out.println("loaded! : " + set.toString());
-				printNetwork();
-			}
-			else
-			{
-				System.out.println("Loaded non master conduit");
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.init.ModTiles;
 
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -25,12 +26,14 @@ public class WorldGenLakes implements IWorldGenerator
 	{
 		if (chunk.getGridX() == 0 || chunk.getGridY() < -1 || chunk.getGridY() > 3)
 			return false;
-		
-		if (rand.nextInt(6) != 2)
-			return false;
+
+		//if (rand.nextInt(3) != 1)
+		//	return false;
 
 		boolean desert = false;
 		boolean air = false;
+
+		boolean alreadyLake = false;
 
 		fluidStart = 0;
 		desertPositions.clear();
@@ -46,9 +49,13 @@ public class WorldGenLakes implements IWorldGenerator
 					desertPositions.add(new Pos2(x, y));
 					desert = true;
 				}
-				if (chunk.getStateInner(x, y).getTile().equals(GameContent.TILE_AIR))
+				Tile tile = chunk.getStateInner(x, y).getTile();
+				if (tile.equals(GameContent.TILE_AIR))
 				{
 					air = true;
+				} else if (tile.equals(ModTiles.WATER))
+				{
+					alreadyLake = true;
 				}
 
 				if (desert & air)
@@ -58,7 +65,7 @@ public class WorldGenLakes implements IWorldGenerator
 			}
 		}
 		fluidStart /= 32;
-		return desert && air;
+		return !alreadyLake && desert && air;
 	}
 
 	@Override
@@ -108,19 +115,27 @@ public class WorldGenLakes implements IWorldGenerator
 					if (depth < 6)
 					{
 						liquidBelow = true;
-						world.setState(TileLayer.MAIN, chunk.getX() + start.getX() + x, chunk.getY() + y,
-								GameContent.TILE_AIR.getDefState());
-						if (!terrain[x][y] && y < fluidStart)
-						{
 
+						if (!terrain[x][y] && y < fluidStart
+								&& !(world.getState(chunk.getX() + start.getX() + x, chunk.getY() + y)).getTile()
+										.isAir())
+						{
 							world.setState(TileLayer.LIQUIDS, chunk.getX() + start.getX() + x, chunk.getY() + y,
 									ModTiles.WATER.getDefState().prop(((FluidWater) ModTiles.WATER).level, 11));
 
 						}
+
 					}
+
+					world.setState(TileLayer.BACKGROUND, chunk.getX() + start.getX() + x, chunk.getY() + y,
+							GameContent.TILE_AIR.getDefState());
+
+					world.setState(TileLayer.MAIN, chunk.getX() + start.getX() + x, chunk.getY() + y,
+							GameContent.TILE_AIR.getDefState());
 
 				}
 			}
+
 		}
 	}
 

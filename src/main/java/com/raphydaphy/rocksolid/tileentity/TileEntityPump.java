@@ -68,7 +68,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 				if (new Random().nextInt(100) == 1)
 				{
 					this.liquidType = (FluidWater) ModTiles.WATER;
-					this.liquidVolume += 1;
+					this.liquidVolume += 50;
 
 				}
 			}
@@ -135,8 +135,11 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	@Override
 	public boolean remove(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
+		System.out.println("Trying to extract  " + ml + " x " + liquid + " from a pump that contains "
+				+ this.liquidVolume + " x " + this.liquidType);
 		if (this.liquidType != null && liquid != null && liquid.equals(this.liquidType) && this.liquidVolume >= ml)
 		{
+			System.out.println("Can do!");
 			if (!simulate)
 			{
 				this.liquidVolume -= ml;
@@ -158,16 +161,16 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 			return liquid.equals(this.liquidType) ? 1000 : 0;
 		return 0;
 	}
-	
+
 	@Override
 	public List<TileLiquid> getLiquidsAt(IWorld world, Pos2 pos)
 	{
 		TileState state = world.getState(pos.getX(), pos.getY());
-		
+
 		if (state.getTile() instanceof TilePump)
 		{
-			Pos2 inner = ((TilePump)state.getTile()).getInnerCoord(state);
-			
+			Pos2 inner = ((TilePump) state.getTile()).getInnerCoord(state);
+
 			if (inner.getY() != 0)
 			{
 				return Arrays.asList(this.liquidType);
