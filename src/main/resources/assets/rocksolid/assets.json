@@ -44,6 +44,7 @@
     		},
     		"item_conduit.":
     		{
+    			"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/item_conduit/item_conduit.png",
     			"up": "/tiles/item_conduit/item_conduit_up.png",
     			"down": "/tiles/item_conduit/item_conduit_down.png",

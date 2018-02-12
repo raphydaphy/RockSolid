@@ -38,7 +38,7 @@ public class ConduitTileLayer extends TileLayer
 	@Override
 	public boolean canTileBeInLayer(IWorld world, int x, int y, Tile tile)
 	{
-		return tile != null && (tile instanceof TileConduit || tile.isAir());
+		return tile != null && (tile.isAir() || tile instanceof TileConduit);
 	}
 
 	@Override

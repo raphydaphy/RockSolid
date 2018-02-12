@@ -18,6 +18,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -77,17 +78,21 @@ public abstract class TileEntityConduit extends TileEntity
 								{
 									TileState state2 = world.getState(sideX2, sideY2);
 
-									transfer(world, sideX1, sideY1, state1, sideX2, sideY2, state2);
+									transfer(world, sideX1, sideY1, side1, state1, sideX2, sideY2, side2, state2);
 								}
 							}
 						}
 					}
 				}
 			}
+			if (world.getTotalTime() % 250 == 0)
+			{
+				printNetwork();
+			}
 		}
 	}
 
-	public abstract void transfer(IWorld world, int x1, int y1, TileState state1, int x2, int y2, TileState state2);
+	public abstract void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2, ConduitSide side2, TileState state2);
 
 	public void printNetwork()
 	{
@@ -588,15 +593,17 @@ public abstract class TileEntityConduit extends TileEntity
 
 	public enum ConduitSide
 	{
-		UP(0, new Pos2(0, 1)), DOWN(1, new Pos2(0, -1)), LEFT(2, new Pos2(-1, 0)), RIGHT(3, new Pos2(1, 0));
+		UP(0, new Pos2(0, 1), Direction.UP), DOWN(1, new Pos2(0, -1), Direction.DOWN), LEFT(2, new Pos2(-1, 0), Direction.LEFT), RIGHT(3, new Pos2(1, 0), Direction.RIGHT);
 
-		private int id;
-		private Pos2 offset;
+		private final int id;
+		private final Pos2 offset;
+		private final Direction direction;
 
-		ConduitSide(int id, Pos2 offset)
+		ConduitSide(int id, Pos2 offset, Direction dir)
 		{
 			this.id = id;
 			this.offset = offset;
+			this.direction = dir;
 		}
 
 		public int getID()
@@ -607,6 +614,11 @@ public abstract class TileEntityConduit extends TileEntity
 		public Pos2 getOffset()
 		{
 			return offset;
+		}
+		
+		public Direction getDirection()
+		{
+			return direction;
 		}
 
 		@Nullable

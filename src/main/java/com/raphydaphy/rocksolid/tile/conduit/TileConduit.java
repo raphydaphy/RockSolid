@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
+import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ItemTile;
@@ -46,6 +47,16 @@ public abstract class TileConduit extends TileBase
 	public boolean isFullTile()
 	{
 		return false;
+	}
+
+	@Override
+	public void onDestroyed(IWorld world, int x, int y, Entity destroyer, TileLayer layer, boolean shouldDrop)
+	{
+		if (destroyer == null)
+		{
+			shouldDrop = true;
+		}
+		super.onDestroyed(world, x, y, destroyer, layer, shouldDrop);
 	}
 
 	@Override
@@ -102,6 +113,10 @@ public abstract class TileConduit extends TileBase
 			public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 					AbstractEntityPlayer player, ItemInstance instance)
 			{
+				if (world.getState(x, y).getTile().canProvideTileEntity())
+				{
+					return false;
+				}
 				layer = ModMisc.CONDUIT_LAYER;
 
 				Tile currentTile;
@@ -136,6 +151,17 @@ public abstract class TileConduit extends TileBase
 	@Override
 	public boolean canProvideTileEntity()
 	{
+		return true;
+	}
+
+	@Override
+	public boolean canStay(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
+			TileLayer changedLayer)
+	{
+		if (changedLayer.equals(TileLayer.MAIN))
+		{
+			return !world.getState(x, y).getTile().canProvideTileEntity();
+		}
 		return true;
 	}
 

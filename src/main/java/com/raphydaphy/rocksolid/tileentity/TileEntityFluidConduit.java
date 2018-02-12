@@ -18,7 +18,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 	}
 
 	@Override
-	public void transfer(IWorld world, int x1, int y1, TileState state1, int x2, int y2, TileState state2)
+	public void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2, ConduitSide side2, TileState state2)
 	{
 		TileEntity tile1 = null;
 		if (state1.getTile() instanceof MultiTile)
