@@ -2,13 +2,13 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
@@ -63,13 +63,41 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		super.update(game);
 		if (!this.world.isClient())
 		{
-			if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile().equals(ModTiles.WATER))
+			if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile().equals(ModTiles.WATER)
+					&& this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile().equals(ModTiles.WATER))
 			{
-				if (new Random().nextInt(100) == 1)
+				if (world.getTotalTime() % 80 == 0)
 				{
 					this.liquidType = (FluidWater) ModTiles.WATER;
-					this.liquidVolume += 50;
+					this.liquidVolume += 25;
 
+					int topY = y;
+					TileState top = null;
+					for (int i = y; i < y + 30; i++)
+					{
+						TileState state = world.getState(TileLayer.LIQUIDS, x, i);
+						if (state.getTile().equals(ModTiles.WATER))
+						{
+							topY = i;
+							top = state;
+						} else
+						{
+							break;
+						}
+					}
+					if (top == null)
+					{
+						top = world.getState(TileLayer.LIQUIDS, x, topY);
+					}
+					int level = (top.get(((FluidWater) ModTiles.WATER).level));
+					if (level == 0)
+					{
+						world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
+					} else
+					{
+						world.setState(TileLayer.LIQUIDS, x, topY,
+								top.prop(((FluidWater) ModTiles.WATER).level, level - 1));
+					}
 				}
 			}
 		}
@@ -135,11 +163,8 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	@Override
 	public boolean remove(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		System.out.println("Trying to extract  " + ml + " x " + liquid + " from a pump that contains "
-				+ this.liquidVolume + " x " + this.liquidType);
 		if (this.liquidType != null && liquid != null && liquid.equals(this.liquidType) && this.liquidVolume >= ml)
 		{
-			System.out.println("Can do!");
 			if (!simulate)
 			{
 				this.liquidVolume -= ml;

@@ -141,10 +141,8 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public boolean add(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		System.out.println("Trying to add " + ml + " x " + liquid );
 		if (liquid.equals((TileLiquid) ModTiles.WATER) && ml + this.water <= this.getCapacity(pos, liquid))
 		{
-			System.out.println("Can do!");
 			if (!simulate)
 			{
 				this.water += ml;

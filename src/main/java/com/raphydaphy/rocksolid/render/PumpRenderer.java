@@ -1,8 +1,5 @@
 package com.raphydaphy.rocksolid.render;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
@@ -20,22 +17,9 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 public class PumpRenderer extends MultiTileRenderer<TilePump>
 {
 
-	protected final Map<Pos2, IResourceName> waterTextures = new HashMap<>();
-
 	public PumpRenderer(IResourceName texture, TilePump tile)
 	{
 		super(texture, tile);
-
-		for (int x = 0; x < tile.getWidth(); x++)
-		{
-			for (int y = 0; y < tile.getHeight(); y++)
-			{
-				if (tile.isStructurePart(x, y))
-				{
-					this.waterTextures.put(new Pos2(x, y), this.texture.addSuffix(".water." + x + "." + y));
-				}
-			}
-		}
 	}
 
 	@Override
@@ -50,12 +34,57 @@ public class PumpRenderer extends MultiTileRenderer<TilePump>
 			manager.getTexture(this.textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale,
 					scale, light);
 
-			if (te.getLiquidType() != null)
+			if (innerCoord.getY() == 1 && te.getLiquidType() != null)
 			{
 				if (te.getLiquidType().equals(ModTiles.WATER))
 				{
-					manager.getTexture(this.waterTextures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX,
-							renderY, scale, scale, light);
+					float pixel = ((float) scale / 12f);
+					//X 8 BEFORE TEXTURE, 13 TEXTURE WIDTH, 2 AFTER TEXTURE
+					//Y 8 ABOVE TEXTURE, 2 TEXTURE, 14 AFTER TEXTURE
+					float x1 = renderX;
+					float x2 = renderX + scale;
+
+					float y1 = renderY + 8 * pixel;
+					float y2 = y1 + 2 * pixel;
+
+					float srcX = 0f;
+					float srcX2 = 12f;
+
+					float srcY = 0f;
+					float srcY2 = 2f;
+
+					int fullness = (int) Math.min((te.getLiquidFullness() * 13), 13);
+					boolean doRender = false;
+					if (innerCoord.getX() == 1)
+					{
+						if (fullness > 4)
+						{
+							doRender = true;
+							fullness -= 4;
+						}
+						x2 = x1 + fullness * pixel;
+						srcX = 4;
+						srcX2 = srcX + fullness;
+					} else
+					{
+						if (fullness > 4)
+						{
+							fullness = 4;
+							doRender = true;
+						} else if (fullness > 0)
+						{
+							doRender = true;
+						}
+						x1 = renderX + 8 * pixel;
+						x2 = x1 + fullness * pixel;
+						srcX2 = fullness;
+					}
+					
+					if (doRender)
+					{
+						manager.getTexture(this.texture.addSuffix(".water")).getPositionalVariation(x, y).draw(x1, y1,
+								x2, y2, srcX, srcY, srcX2, srcY2, light);
+					}
 				}
 			}
 		}

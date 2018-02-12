@@ -52,16 +52,7 @@
     		},
     		"pump.":
     		{
-    			"water.": {
-		            "subtexture": 
-		            {
-			            "0.0": [0,12,12,12],
-			            "1.0": [12,12,12,12],
-			            "0.1": [0,0,12,12],
-			            "1.1": [12,0,12,12],
-	            		"file": "/fluids/water/pump.png"
-		            }
-		        },
+    			"water": "/fluids/water/pump.png",
     			"*.": {
 		            "subtexture": 
 		            {
