@@ -32,9 +32,9 @@ public class TileEntityFluidConduit extends TileEntityConduit
 		if (tile1 != null && tile1 instanceof IFluidTile)
 		{
 			TileEntity tile2 = null;
-			if (state1.getTile() instanceof MultiTile)
+			if (state2.getTile() instanceof MultiTile)
 			{
-				Pos2 main = ((MultiTile) state1.getTile()).getMainPos(x2, y2, state1);
+				Pos2 main = ((MultiTile) state2.getTile()).getMainPos(x2, y2, state2);
 				tile2 = world.getTileEntity(main.getX(), main.getY());
 
 			} else

@@ -5,17 +5,16 @@ import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
-public class ContainerBase extends ItemContainer
+public class ContainerEmpty extends ItemContainer
 {
-	public ContainerBase(AbstractEntityPlayer player, TileEntity tile)
+	public ContainerEmpty(AbstractEntityPlayer player)
 	{
-		this(player, tile, 32, 65);
+		this(player, 32, 65);
 	}
 
-	public ContainerBase(AbstractEntityPlayer player, TileEntity tile, int invX, int invY)
+	public ContainerEmpty(AbstractEntityPlayer player, int invX, int invY)
 	{
 		super(player, new IInventory[] { player.getInv() });
 		this.addPlayerInventory(player, invX, invY);

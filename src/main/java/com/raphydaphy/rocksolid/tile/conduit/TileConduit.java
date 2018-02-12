@@ -1,5 +1,8 @@
 package com.raphydaphy.rocksolid.tile.conduit;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Nullable;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
@@ -8,6 +11,7 @@ import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
+import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -18,6 +22,8 @@ import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.BoundBox;
+import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -193,5 +199,64 @@ public abstract class TileConduit extends TileBase
 	}
 
 	public abstract boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state);
+
+	public static final Map<Direction, BoundBox> subBoxes = new HashMap<>();
+
+	static
+	{
+		double pixel = 1d / 12d;
+		subBoxes.put(Direction.UP, new BoundBox(4 * pixel, 8 * pixel, 8 * pixel, 1));
+		subBoxes.put(Direction.DOWN, new BoundBox(4 * pixel, 0, 8 * pixel, 4 * pixel));
+		subBoxes.put(Direction.LEFT, new BoundBox(0, 4 * pixel, 4 * pixel, 8 * pixel));
+		subBoxes.put(Direction.RIGHT, new BoundBox(8 * pixel, 4 * pixel, 1, 8 * pixel));
+		subBoxes.put(Direction.NONE, new BoundBox(4 * pixel, 4 * pixel, 8 * pixel, 8 * pixel));
+	}
+
+	@Nullable
+	public static Direction getMousedConduitPart(IGameInstance game)
+	{
+		double tileX = game.getRenderer().getMousedTileX();
+		double tileY = game.getRenderer().getMousedTileY();
+
+		int tileXInt = (int) Math.floor(tileX);
+		int tileYInt = (int) Math.floor(tileY);
+
+		TileState state = game.getWorld().getState(ModMisc.CONDUIT_LAYER, tileXInt, tileYInt);
+
+		if (state != null && state.getTile() instanceof TileConduit)
+		{
+			for (Map.Entry<Direction, BoundBox> entry : getConduitBounds(game.getWorld(), tileXInt, tileYInt).entrySet())
+			{
+				System.out.println("found the kid at " + entry.getKey());
+				if (entry.getValue().add(tileXInt, tileYInt).contains(tileX, tileY))
+				{
+					return entry.getKey();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static Map<Direction, BoundBox> getConduitBounds(IWorld world, int x, int y)
+	{
+		Map<Direction, BoundBox> boxes = new HashMap<>();
+
+		boxes.put(Direction.NONE, subBoxes.get(Direction.NONE).copy());
+
+		TileState state = world.getState(ModMisc.CONDUIT_LAYER, x, y);
+
+		for (Direction dir : Direction.ADJACENT)
+		{
+			if (((TileConduit) state.getTile()).canConnect(world, new Pos2(x + dir.x, y + dir.y),
+					world.getState(ModMisc.CONDUIT_LAYER, x + dir.x, y + dir.y), world.getState(x + dir.x, y + dir.y)))
+			{
+				if (subBoxes.containsKey(dir))
+				{
+					boxes.put(dir, subBoxes.get(dir).copy());
+				}
+			}
+		}
+		return boxes;
+	}
 
 }

@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tile.multi;
 
-import com.raphydaphy.rocksolid.container.ContainerBase;
+import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiPump;
 import com.raphydaphy.rocksolid.render.PumpRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
@@ -85,7 +85,7 @@ public class TilePump extends MultiTileBase
 			AbstractEntityPlayer player)
 	{
 		TileEntityPump te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiPump(player, te), new ContainerBase(player, te, 32, 50));
+		player.openGuiContainer(new GuiPump(player, te), new ContainerEmpty(player, 32, 50));
 		return true;
 	}
 
