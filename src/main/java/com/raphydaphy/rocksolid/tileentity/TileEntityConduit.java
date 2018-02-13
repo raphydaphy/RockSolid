@@ -67,8 +67,7 @@ public abstract class TileEntityConduit extends TileEntity
 		// Only the serverside-master stores the network
 		if (!world.isClient() && isMaster())
 		{
-			System.out.println("Started new path with distance " + curDist + " and map " + info.toExplore
-					+ " at position " + x + ", " + y);
+			System.out.println("new loop with " + curDist);
 			// Main conduit position
 			Pos2 main = new Pos2(x, y);
 
@@ -84,8 +83,6 @@ public abstract class TileEntityConduit extends TileEntity
 					// We have now explored the point
 					info.toExplore.remove(sidePos);
 
-					System.out.println("Found another conduit while traversing at " + x + ", " + y + " with dist "
-							+ (curDist + 1));
 					// Traverse from this point forwards
 					info = traversePath(info, curDist + 1, sidePos.getX(), sidePos.getY());
 				}
@@ -94,7 +91,7 @@ public abstract class TileEntityConduit extends TileEntity
 				{
 					if (!sidePos.equals(info.startInv))
 					{
-						System.out.println("Adding new inventory at pos " + sidePos + " with distance " + curDist);
+					//	System.out.println("Adding new inventory at pos " + sidePos + " with distance " + curDist);
 						// Add this position to the distance map
 						info.distances.put(sidePos, curDist);
 						if (info.closest == null || info.distances.get(info.closest) > curDist)
@@ -116,7 +113,7 @@ public abstract class TileEntityConduit extends TileEntity
 		public final List<Pos2> toExplore;;
 		public final Map<Pos2, Integer> distances;
 		public final Pos2 startInv;
-
+		
 		public TraverseInfo(Pos2 startConduit, Pos2 startInv)
 		{
 			toExplore = new ArrayList<>();
@@ -142,7 +139,6 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			if (world.getTotalTime() % 50 == 0)
 			{
-				printNetwork();
 				System.out.println("==================== STARTED ====================");
 				for (Map.Entry<Pos2, List<ConduitSide>> entry1 : network.entrySet())
 				{
@@ -163,24 +159,25 @@ public abstract class TileEntityConduit extends TileEntity
 
 						if (info.closest != null)
 						{
-							System.out
-									.println("Finished all traversing, got distance map: " + info.distances.toString());
 							TileState state2 = world.getState(info.closest.getX(), info.closest.getY());
 
-							transfer(world, sideX1, sideY1, side1, state1, info.closest.getX(), info.closest.getY(),
-									info.closestSide, state2);
+							
+							if (transfer(world, info.closest.getX(), info.closest.getY(),
+									info.closestSide, state2,  sideX1, sideY1, side1, state1, false))
+							{
+								System.out.println("Transferring from " + info.startInv + " to " + info.closest + " with dist " + info.distances.get(info.closest));
+							}
 						}
 
 					}
 
 				}
-				System.out.println("==================== DONE ====================");
 			}
 		}
 	}
 
-	public abstract void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
-			ConduitSide side2, TileState state2);
+	public abstract boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
+			ConduitSide side2, TileState state2, boolean simulate);
 
 	public void printNetwork()
 	{
@@ -246,7 +243,7 @@ public abstract class TileEntityConduit extends TileEntity
 					newNetwork.put(conduit, connections);
 				} else
 				{
-					System.out.println("THIS SHOULD NOT HAPPEN");
+					System.out.println("THIS SHOULD NOT HAPPEN (unless you just removed a conduit)");
 				}
 			}
 			this.network = newNetwork;

@@ -13,13 +13,13 @@ public class ModMisc
 
 	public static void initKeybinds()
 	{
-		
+
 	}
 
 	public static void init()
 	{
 		RockBottomAPI.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_lakes"), WorldGenLakes.class);
-
+		
 		CONDUIT_LAYER = new ConduitTileLayer();
 	}
 }

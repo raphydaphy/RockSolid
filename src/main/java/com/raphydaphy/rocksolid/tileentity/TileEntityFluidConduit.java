@@ -18,7 +18,8 @@ public class TileEntityFluidConduit extends TileEntityConduit
 	}
 
 	@Override
-	public void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2, ConduitSide side2, TileState state2)
+	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
+			ConduitSide side2, TileState state2, boolean simulate)
 	{
 		TileEntity tile1 = null;
 		if (state1.getTile() instanceof MultiTile)
@@ -54,6 +55,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 					if (liquid != null && f1.remove(pos1, liquid, 10, true))
 					{
 						toTransfer = liquid;
+						break;
 					}
 				}
 
@@ -62,11 +64,17 @@ public class TileEntityFluidConduit extends TileEntityConduit
 					Pos2 pos2 = new Pos2(x2, y2);
 					if (f2.add(pos2, toTransfer, 10, true))
 					{
-						f2.add(pos2, toTransfer, 10, false);
+						if (!simulate)
+						{
+							f2.add(pos2, toTransfer, 10, false);
+							f1.remove(pos1, toTransfer, 10, false);
+						}
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 }

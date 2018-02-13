@@ -16,8 +16,8 @@ public class TileEntityItemConduit extends TileEntityConduit
 	}
 
 	@Override
-	public void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
-			ConduitSide side2, TileState state2)
+	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
+			ConduitSide side2, TileState state2, boolean simulate)
 	{
 		TileEntity tile1 = null;
 		if (state1.getTile() instanceof MultiTile)
@@ -70,7 +70,8 @@ public class TileEntityItemConduit extends TileEntityConduit
 						{
 							insertSlot = inSlot;
 							break;
-						} else if (i != null && i.getItem().equals(toExtract.getItem()) && i.getAmount() + 1 <= i.getMaxAmount())
+						} else if (i != null && i.getItem().equals(toExtract.getItem())
+								&& i.getAmount() + 1 <= i.getMaxAmount())
 						{
 							add = true;
 							insertSlot = inSlot;
@@ -79,20 +80,24 @@ public class TileEntityItemConduit extends TileEntityConduit
 					}
 					if (insertSlot != -1)
 					{
-						tile2.getInventory().remove(extractSlot, 1);
+						if (!simulate)
+						{
+							tile2.getInventory().remove(extractSlot, 1);
 
-						if (add)
-						{
-							tile1.getInventory().add(insertSlot, 1);
-						} else
-						{
-							tile1.getInventory().set(insertSlot, toExtract);
+							if (add)
+							{
+								tile1.getInventory().add(insertSlot, 1);
+							} else
+							{
+								tile1.getInventory().set(insertSlot, toExtract);
+							}
 						}
-
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 }
