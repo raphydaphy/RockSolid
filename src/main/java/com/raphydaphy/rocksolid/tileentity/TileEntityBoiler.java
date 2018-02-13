@@ -117,7 +117,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	protected float getFuelModifier()
 	{
-		return 0.5f;
+		return 1f;
 	}
 
 	@Override

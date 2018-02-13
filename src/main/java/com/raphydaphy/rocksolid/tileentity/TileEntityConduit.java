@@ -46,6 +46,93 @@ public abstract class TileEntityConduit extends TileEntity
 		super(world, x, y, layer);
 	}
 
+	// At this position, return all the possible sides
+	public List<ConduitSide> getConduits(int x, int y)
+	{
+		List<ConduitSide> sides = new ArrayList<>();
+
+		for (ConduitSide innerSide : ConduitSide.values())
+		{
+			if (network.containsKey(new Pos2(x + innerSide.getOffset().getX(), y + innerSide.getOffset().getY())))
+			{
+				sides.add(innerSide);
+			}
+		}
+
+		return sides;
+	}
+
+	public TraverseInfo traversePath(TraverseInfo info, int curDist, int x, int y)
+	{
+		// Only the serverside-master stores the network
+		if (!world.isClient() && isMaster())
+		{
+			System.out.println("Started new path with distance " + curDist + " and map " + info.toExplore
+					+ " at position " + x + ", " + y);
+			// Main conduit position
+			Pos2 main = new Pos2(x, y);
+
+			// The new conduit position
+			for (ConduitSide side : ConduitSide.values())
+			{
+				// Position 1 block away from start pos
+				Pos2 sidePos = new Pos2(x + side.getOffset().getX(), y + side.getOffset().getY());
+
+				// If we have not explored this point and there is a conduit at it
+				if (info.toExplore.contains(sidePos))
+				{
+					// We have now explored the point
+					info.toExplore.remove(sidePos);
+
+					System.out.println("Found another conduit while traversing at " + x + ", " + y + " with dist "
+							+ (curDist + 1));
+					// Traverse from this point forwards
+					info = traversePath(info, curDist + 1, sidePos.getX(), sidePos.getY());
+				}
+				// This side has a connection on it
+				else if (network.containsKey(main) && network.get(main).contains(side))
+				{
+					if (!sidePos.equals(info.startInv))
+					{
+						System.out.println("Adding new inventory at pos " + sidePos + " with distance " + curDist);
+						// Add this position to the distance map
+						info.distances.put(sidePos, curDist);
+						if (info.closest == null || info.distances.get(info.closest) > curDist)
+						{
+							info.closest = sidePos;
+							info.closestSide = side;
+						}
+					}
+				}
+			}
+		}
+		return info;
+	}
+
+	private class TraverseInfo
+	{
+		public Pos2 closest;
+		public ConduitSide closestSide;
+		public final List<Pos2> toExplore;;
+		public final Map<Pos2, Integer> distances;
+		public final Pos2 startInv;
+
+		public TraverseInfo(Pos2 startConduit, Pos2 startInv)
+		{
+			toExplore = new ArrayList<>();
+			toExplore.addAll(network.keySet());
+
+			toExplore.remove(startConduit);
+			this.startInv = startInv;
+			System.out.println("Traverse map: " + toExplore);
+
+			distances = new HashMap<>();
+
+			closest = null;
+			closestSide = null;
+		}
+	}
+
 	@Override
 	public void update(IGameInstance game)
 	{
@@ -55,44 +142,45 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			if (world.getTotalTime() % 50 == 0)
 			{
+				printNetwork();
+				System.out.println("==================== STARTED ====================");
 				for (Map.Entry<Pos2, List<ConduitSide>> entry1 : network.entrySet())
 				{
+
 					int x1 = entry1.getKey().getX();
 					int y1 = entry1.getKey().getY();
+
 					for (ConduitSide side1 : entry1.getValue())
 					{
 						int sideX1 = x1 + side1.getOffset().getX();
 						int sideY1 = y1 + side1.getOffset().getY();
 						TileState state1 = world.getState(sideX1, sideY1);
 
-						for (Map.Entry<Pos2, List<ConduitSide>> entry2 : network.entrySet())
+						// find nearest inventory
+						TraverseInfo info = new TraverseInfo(new Pos2(x1, y1), new Pos2(sideX1, sideY1));
+
+						info = this.traversePath(info, 1, x1, y1);
+
+						if (info.closest != null)
 						{
-							int x2 = entry2.getKey().getX();
-							int y2 = entry2.getKey().getY();
-							for (ConduitSide side2 : entry2.getValue())
-							{
-								int sideX2 = x2 + side2.getOffset().getX();
-								int sideY2 = y2 + side2.getOffset().getY();
+							System.out
+									.println("Finished all traversing, got distance map: " + info.distances.toString());
+							TileState state2 = world.getState(info.closest.getX(), info.closest.getY());
 
-								if (!(sideX1 == sideX2 && sideY1 == sideY2))
-								{
-									TileState state2 = world.getState(sideX2, sideY2);
-
-									transfer(world, sideX1, sideY1, side1, state1, sideX2, sideY2, side2, state2);
-								}
-							}
+							transfer(world, sideX1, sideY1, side1, state1, info.closest.getX(), info.closest.getY(),
+									info.closestSide, state2);
 						}
+
 					}
+
 				}
-			}
-			if (world.getTotalTime() % 250 == 0)
-			{
-				printNetwork();
+				System.out.println("==================== DONE ====================");
 			}
 		}
 	}
 
-	public abstract void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2, ConduitSide side2, TileState state2);
+	public abstract void transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
+			ConduitSide side2, TileState state2);
 
 	public void printNetwork()
 	{
@@ -593,7 +681,8 @@ public abstract class TileEntityConduit extends TileEntity
 
 	public enum ConduitSide
 	{
-		UP(0, new Pos2(0, 1), Direction.UP), DOWN(1, new Pos2(0, -1), Direction.DOWN), LEFT(2, new Pos2(-1, 0), Direction.LEFT), RIGHT(3, new Pos2(1, 0), Direction.RIGHT);
+		UP(0, new Pos2(0, 1), Direction.UP), DOWN(1, new Pos2(0, -1), Direction.DOWN), LEFT(2, new Pos2(-1, 0),
+				Direction.LEFT), RIGHT(3, new Pos2(1, 0), Direction.RIGHT);
 
 		private final int id;
 		private final Pos2 offset;
@@ -615,7 +704,7 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			return offset;
 		}
-		
+
 		public Direction getDirection()
 		{
 			return direction;
