@@ -16,6 +16,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -80,7 +81,8 @@ public abstract class TileEntityConduit extends TileEntity
 				Pos2 sidePos = new Pos2(x + side.offset.getX(), y + side.offset.getY());
 				ConduitModeAndSide pair = new ConduitModeAndSide(side, ConduitMode.ALL_INV);
 				// If we have not explored this point and there is a conduit at it
-				if (info.toExplore.contains(sidePos) && this.network.get(main).get(this.network.get(main).indexOf(pair)).mode.shouldRender())
+				if (info.toExplore.contains(sidePos)
+						&& this.network.get(main).get(this.network.get(main).indexOf(pair)).mode.shouldRender())
 				{
 					// We have now explored the point
 					info.toExplore.remove(sidePos);
@@ -98,8 +100,14 @@ public abstract class TileEntityConduit extends TileEntity
 						info.distances.put(sidePos, curDist);
 						if (info.closest == null || info.distances.get(info.closest) > curDist)
 						{
-							info.closest = sidePos;
-							info.closestSide = side;
+							TileEntity thisInv = getTileEntityAt(sidePos.getX(), sidePos.getY());
+							if (this.transfer(world, sidePos.getX(), sidePos.getY(), side, thisInv,
+									info.startInv.getX(), info.startInv.getY(), info.startSide, info.startTE, true))
+							{
+								info.closest = sidePos;
+								info.closestSide = side;
+								info.closestTE = thisInv;
+							}
 						}
 					}
 				}
@@ -115,6 +123,9 @@ public abstract class TileEntityConduit extends TileEntity
 		public final List<Pos2> toExplore;;
 		public final Map<Pos2, Integer> distances;
 		public final Pos2 startInv;
+		public final ConduitSide startSide;
+		public final TileEntity startTE;
+		public TileEntity closestTE;
 
 		public TraverseInfo(Pos2 startConduit, Pos2 startInv)
 		{
@@ -125,6 +136,11 @@ public abstract class TileEntityConduit extends TileEntity
 			this.startInv = startInv;
 
 			distances = new HashMap<>();
+
+			startTE = getTileEntityAt(startInv.getX(), startInv.getY());
+
+			startSide = ConduitSide.getByOffset(startInv.getX() - startConduit.getX(),
+					startInv.getY() - startConduit.getY());
 
 			closest = null;
 			closestSide = null;
@@ -140,8 +156,6 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			if (world.getTotalTime() % 50 == 0)
 			{
-				printNetwork();
-				System.out.println("==================== STARTED ====================");
 				for (Map.Entry<Pos2, List<ConduitModeAndSide>> entry1 : network.entrySet())
 				{
 
@@ -152,22 +166,21 @@ public abstract class TileEntityConduit extends TileEntity
 					{
 						int sideX1 = x1 + pair1.side.offset.getX();
 						int sideY1 = y1 + pair1.side.offset.getY();
-						TileState state1 = world.getState(sideX1, sideY1);
 
-						// find nearest inventory
-						TraverseInfo info = new TraverseInfo(new Pos2(x1, y1), new Pos2(sideX1, sideY1));
-
-						info = this.traversePath(info, 1, x1, y1);
-
-						if (info.closest != null)
+						if (this.getMode(new Pos2(x1, y1), pair1.side).canExtract())
 						{
-							TileState state2 = world.getState(info.closest.getX(), info.closest.getY());
+							// find nearest inventory
+							TraverseInfo info = new TraverseInfo(new Pos2(x1, y1), new Pos2(sideX1, sideY1));
 
-							transfer(world, info.closest.getX(), info.closest.getY(), info.closestSide, state2, sideX1,
-									sideY1, pair1.side, state1, false);
+							info = this.traversePath(info, 1, x1, y1);
 
+							if (info.closest != null)
+							{
+								transfer(world, info.closest.getX(), info.closest.getY(), info.closestSide,
+										info.closestTE, sideX1, sideY1, pair1.side, info.startTE, false);
+
+							}
 						}
-
 					}
 
 				}
@@ -175,8 +188,21 @@ public abstract class TileEntityConduit extends TileEntity
 		}
 	}
 
-	public abstract boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileState state1, int x2, int y2,
-			ConduitSide side2, TileState state2, boolean simulate);
+	public TileEntity getTileEntityAt(int x, int y)
+	{
+		TileState state = world.getState(x, y);
+		if (state.getTile() instanceof MultiTile)
+		{
+			Pos2 main = ((MultiTile) state.getTile()).getMainPos(x, y, state);
+			return world.getTileEntity(main.getX(), main.getY());
+		} else
+		{
+			return world.getTileEntity(x, y);
+		}
+	}
+
+	public abstract boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileEntity tile1, int x2, int y2,
+			ConduitSide side2, TileEntity state2, boolean simulate);
 
 	public void printNetwork()
 	{

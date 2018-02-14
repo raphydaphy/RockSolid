@@ -40,17 +40,19 @@ public class GuiConduit extends GuiContainer
 	public void init(IGameInstance game)
 	{
 		super.init(game);
-		
-		IPacket updatePacket = new PacketConduitUpdate(te.x, te.y, mode, side);
-		if (game.getWorld().isClient())
+
+		if (side != null)
 		{
-			RockBottomAPI.getNet().sendToServer(updatePacket);
+			IPacket updatePacket = new PacketConduitUpdate(te.x, te.y, mode, side);
+			if (game.getWorld().isClient())
+			{
+				RockBottomAPI.getNet().sendToServer(updatePacket);
+			} else
+			{
+				updatePacket.handle(game, null);
+			}
 		}
-		else
-		{
-			updatePacket.handle(game, null);
-		}
-		
+
 		this.components.add(new ComponentCustomText(this, 65, 20, 50, 1, 0.3f, TextDirection.CENTER, "Direction"));
 		this.components.add(new ComponentCustomText(this, 133, 20, 50, 1, 0.3f, TextDirection.CENTER,
 				side == null ? "NONE" : side.toString()));
