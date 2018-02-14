@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -32,6 +34,7 @@ public abstract class TileEntityConduit extends TileEntity
 	public static String NETWORK_KEY = "network";
 	public static String NETWORK_POSITION_KEY = "network_position_";
 	public static String POSITION_SIDES_KEY = "position_sides_";
+	public static String POSITION_MODES_KEY = "position_modes_";
 	public static String SIDES_LENGTH_KEY = "sides_length";
 	public static String ENTRY_POSITION_X_KEY = "position_x";
 	public static String ENTRY_POSITION_Y_KEY = "position_y";
@@ -39,7 +42,7 @@ public abstract class TileEntityConduit extends TileEntity
 	private Pos2 master;
 	private Pos2 lastMaster;
 
-	private Map<Pos2, List<ConduitSide>> network = new HashMap<>();
+	private Map<Pos2, List<ConduitModeAndSide>> network = new HashMap<>();
 
 	public TileEntityConduit(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -53,7 +56,7 @@ public abstract class TileEntityConduit extends TileEntity
 
 		for (ConduitSide innerSide : ConduitSide.values())
 		{
-			if (network.containsKey(new Pos2(x + innerSide.getOffset().getX(), y + innerSide.getOffset().getY())))
+			if (network.containsKey(new Pos2(x + innerSide.offset.getX(), y + innerSide.offset.getY())))
 			{
 				sides.add(innerSide);
 			}
@@ -67,7 +70,6 @@ public abstract class TileEntityConduit extends TileEntity
 		// Only the serverside-master stores the network
 		if (!world.isClient() && isMaster())
 		{
-			System.out.println("new loop with " + curDist);
 			// Main conduit position
 			Pos2 main = new Pos2(x, y);
 
@@ -75,10 +77,10 @@ public abstract class TileEntityConduit extends TileEntity
 			for (ConduitSide side : ConduitSide.values())
 			{
 				// Position 1 block away from start pos
-				Pos2 sidePos = new Pos2(x + side.getOffset().getX(), y + side.getOffset().getY());
-
+				Pos2 sidePos = new Pos2(x + side.offset.getX(), y + side.offset.getY());
+				ConduitModeAndSide pair = new ConduitModeAndSide(side, ConduitMode.ALL_INV);
 				// If we have not explored this point and there is a conduit at it
-				if (info.toExplore.contains(sidePos))
+				if (info.toExplore.contains(sidePos) && this.network.get(main).get(this.network.get(main).indexOf(pair)).mode.shouldRender())
 				{
 					// We have now explored the point
 					info.toExplore.remove(sidePos);
@@ -87,11 +89,11 @@ public abstract class TileEntityConduit extends TileEntity
 					info = traversePath(info, curDist + 1, sidePos.getX(), sidePos.getY());
 				}
 				// This side has a connection on it
-				else if (network.containsKey(main) && network.get(main).contains(side))
+				else if (network.containsKey(main) && network.get(main).contains(pair)
+						&& network.get(main).get(network.get(main).indexOf(pair)).mode.canInsert())
 				{
 					if (!sidePos.equals(info.startInv))
 					{
-					//	System.out.println("Adding new inventory at pos " + sidePos + " with distance " + curDist);
 						// Add this position to the distance map
 						info.distances.put(sidePos, curDist);
 						if (info.closest == null || info.distances.get(info.closest) > curDist)
@@ -113,7 +115,7 @@ public abstract class TileEntityConduit extends TileEntity
 		public final List<Pos2> toExplore;;
 		public final Map<Pos2, Integer> distances;
 		public final Pos2 startInv;
-		
+
 		public TraverseInfo(Pos2 startConduit, Pos2 startInv)
 		{
 			toExplore = new ArrayList<>();
@@ -121,7 +123,6 @@ public abstract class TileEntityConduit extends TileEntity
 
 			toExplore.remove(startConduit);
 			this.startInv = startInv;
-			System.out.println("Traverse map: " + toExplore);
 
 			distances = new HashMap<>();
 
@@ -139,17 +140,18 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			if (world.getTotalTime() % 50 == 0)
 			{
+				printNetwork();
 				System.out.println("==================== STARTED ====================");
-				for (Map.Entry<Pos2, List<ConduitSide>> entry1 : network.entrySet())
+				for (Map.Entry<Pos2, List<ConduitModeAndSide>> entry1 : network.entrySet())
 				{
 
 					int x1 = entry1.getKey().getX();
 					int y1 = entry1.getKey().getY();
 
-					for (ConduitSide side1 : entry1.getValue())
+					for (ConduitModeAndSide pair1 : entry1.getValue())
 					{
-						int sideX1 = x1 + side1.getOffset().getX();
-						int sideY1 = y1 + side1.getOffset().getY();
+						int sideX1 = x1 + pair1.side.offset.getX();
+						int sideY1 = y1 + pair1.side.offset.getY();
 						TileState state1 = world.getState(sideX1, sideY1);
 
 						// find nearest inventory
@@ -161,12 +163,9 @@ public abstract class TileEntityConduit extends TileEntity
 						{
 							TileState state2 = world.getState(info.closest.getX(), info.closest.getY());
 
-							
-							if (transfer(world, info.closest.getX(), info.closest.getY(),
-									info.closestSide, state2,  sideX1, sideY1, side1, state1, false))
-							{
-								System.out.println("Transferring from " + info.startInv + " to " + info.closest + " with dist " + info.distances.get(info.closest));
-							}
+							transfer(world, info.closest.getX(), info.closest.getY(), info.closestSide, state2, sideX1,
+									sideY1, pair1.side, state1, false);
+
 						}
 
 					}
@@ -189,12 +188,13 @@ public abstract class TileEntityConduit extends TileEntity
 
 			RockSolid.getLogger().info("Size: " + network.size());
 			RockSolid.getLogger().info("Map: ");
-			for (Map.Entry<Pos2, List<ConduitSide>> entry : network.entrySet())
+			for (Map.Entry<Pos2, List<ConduitModeAndSide>> entry : network.entrySet())
 			{
 				RockSolid.getLogger().info("  @ " + entry.getKey().getX() + ", " + entry.getKey().getY());
-				for (ConduitSide side : entry.getValue())
+				for (ConduitModeAndSide pair : entry.getValue())
 				{
-					RockSolid.getLogger().info("    Connection on side " + side.toString());
+					RockSolid.getLogger().info(
+							"    Connection on side " + pair.side.toString() + " with mode " + pair.mode.toString());
 				}
 			}
 		}
@@ -217,27 +217,95 @@ public abstract class TileEntityConduit extends TileEntity
 		return null;
 	}
 
-	public void rebuildNetwork(IWorld world)
+	public void setMode(ConduitSide side, ConduitMode mode)
+	{
+		this.setMode(new Pos2(this.x, this.y), side, mode);
+	}
+
+	private void setMode(Pos2 pos, ConduitSide side, ConduitMode mode)
+	{
+		if (!world.isClient())
+		{
+			if (isMaster())
+			{
+				if (this.network.containsKey(pos))
+				{
+					// one day someone will find this and think im an absolute idiot
+					ConduitModeAndSide pair = new ConduitModeAndSide(side, mode);
+					if (this.network.get(pos).contains(pair))
+					{
+						this.network.get(pos).remove(pair);
+						this.network.get(pos).add(pair);
+					}
+				}
+			} else
+			{
+				TileEntityConduit master = getMasterTE(world);
+
+				if (master != null)
+				{
+					master.setMode(pos, side, mode);
+				}
+			}
+		}
+	}
+
+	@Nullable
+	public ConduitMode getMode(Pos2 pos, ConduitSide side)
+	{
+		if (!world.isClient() && side != null)
+		{
+			if (isMaster())
+			{
+				ConduitModeAndSide pair = new ConduitModeAndSide(side, ConduitMode.ALL_INV);
+				if (this.network.containsKey(pos))
+				{
+					if (this.network.get(pos).contains(pair))
+					{
+						return this.network.get(pos).get(this.network.get(pos).indexOf(pair)).mode;
+					}
+				}
+			} else
+			{
+				TileEntityConduit master = getMasterTE(world);
+
+				if (master != null)
+				{
+					return master.getMode(pos, side);
+				}
+			}
+		}
+		return null;
+	}
+
+	private void rebuildNetwork(IWorld world)
 	{
 		if (isMaster())
 		{
-			Map<Pos2, List<ConduitSide>> newNetwork = new HashMap<>();
+			Map<Pos2, List<ConduitModeAndSide>> newNetwork = new HashMap<>();
 			for (Pos2 conduit : this.network.keySet())
 			{
 				Tile unchecked = world.getState(ModMisc.CONDUIT_LAYER, conduit.getX(), conduit.getY()).getTile();
 				if (unchecked instanceof TileConduit)
 				{
 					TileConduit tileConduit = (TileConduit) unchecked;
-					List<ConduitSide> connections = new ArrayList<>();
+					List<ConduitModeAndSide> connections = new ArrayList<>();
 					for (ConduitSide side : ConduitSide.values())
 					{
+						ConduitModeAndSide pair = new ConduitModeAndSide(side, ConduitMode.ALL_INV);
 						if (tileConduit.canConnect(world,
-								new Pos2(conduit.getX() + side.getOffset().getX(),
-										conduit.getY() + side.getOffset().getY()),
-								null, world.getState(conduit.getX() + side.getOffset().getX(),
-										conduit.getY() + side.getOffset().getY())))
+								new Pos2(conduit.getX() + side.offset.getX(), conduit.getY() + side.offset.getY()),
+								null,
+								world.getState(conduit.getX() + side.offset.getX(),
+										conduit.getY() + side.offset.getY()))
+								|| this.network.get(conduit).contains(pair))
 						{
-							connections.add(side);
+
+							if (this.network.get(conduit).contains(pair))
+							{
+								pair = this.network.get(conduit).get(this.network.get(conduit).indexOf(pair));
+							}
+							connections.add(pair);
 						}
 					}
 					newNetwork.put(conduit, connections);
@@ -269,7 +337,21 @@ public abstract class TileEntityConduit extends TileEntity
 		{
 			if (!this.network.containsKey(conduit))
 			{
-				this.network.put(conduit, new ArrayList<>());
+				List<ConduitModeAndSide> list = new ArrayList<>();
+
+				for (ConduitSide side : ConduitSide.values())
+				{
+					Pos2 pos = new Pos2(conduit.getX() + side.offset.getX(), conduit.getY() + side.offset.getY());
+
+					// There is a conduit at this position
+					if (this.network.containsKey(pos))
+					{
+						list.add(new ConduitModeAndSide(side, ConduitMode.ALL_CONDUIT));
+						this.addConnection(world,
+								new NetworkConnection(pos, side.getOpposite(), ConduitMode.ALL_CONDUIT));
+					}
+				}
+				this.network.put(conduit, list);
 				return true;
 			}
 		} else
@@ -323,9 +405,10 @@ public abstract class TileEntityConduit extends TileEntity
 			{
 				if (this.network.containsKey(connection.getConduitPos()))
 				{
-					if (!this.network.get(connection.getConduitPos()).contains(connection.side))
+					ConduitModeAndSide pair = new ConduitModeAndSide(connection.side, connection.mode);
+					if (!this.network.get(connection.getConduitPos()).contains(pair))
 					{
-						this.network.get(connection.getConduitPos()).add(connection.side);
+						this.network.get(connection.getConduitPos()).add(pair);
 						return true;
 					}
 				}
@@ -355,9 +438,10 @@ public abstract class TileEntityConduit extends TileEntity
 			{
 				if (this.network.containsKey(connection.getConduitPos()))
 				{
-					if (this.network.get(connection.getConduitPos()).contains(connection.side))
+					ConduitModeAndSide pair = new ConduitModeAndSide(connection.side, connection.mode);
+					if (this.network.get(connection.getConduitPos()).contains(pair))
 					{
-						this.network.get(connection.getConduitPos()).remove(connection.side);
+						this.network.get(connection.getConduitPos()).remove(pair);
 						return true;
 					}
 				}
@@ -384,12 +468,12 @@ public abstract class TileEntityConduit extends TileEntity
 				this.addConduit(world, new Pos2(this.x, this.y));
 				for (ConduitSide side : ConduitSide.values())
 				{
-					TileEntityConduit conduit = world.getTileEntity(layer, x + side.getOffset().getX(),
-							y + side.getOffset().getY(), TileEntityConduit.class);
+					TileEntityConduit conduit = world.getTileEntity(layer, x + side.offset.getX(),
+							y + side.offset.getY(), TileEntityConduit.class);
 
 					if (conduit != null && conduit.getMaster() != null && !conduit.getMaster().equals(newMaster))
 					{
-						this.addConduit(world, new Pos2(x + side.getOffset().getX(), y + side.getOffset().getY()));
+						this.addConduit(world, new Pos2(x + side.offset.getX(), y + side.offset.getY()));
 						conduit.setMasterRecursivly(world, newMaster);
 					}
 				}
@@ -412,8 +496,8 @@ public abstract class TileEntityConduit extends TileEntity
 			// First loop determines the master
 			for (ConduitSide side : ConduitSide.values())
 			{
-				TileEntityConduit conduit = world.getTileEntity(layer, x + side.getOffset().getX(),
-						y + side.getOffset().getY(), TileEntityConduit.class);
+				TileEntityConduit conduit = world.getTileEntity(layer, x + side.offset.getX(), y + side.offset.getY(),
+						TileEntityConduit.class);
 
 				if (conduit != null)
 				{
@@ -434,14 +518,19 @@ public abstract class TileEntityConduit extends TileEntity
 			// Second loop adds connected inventories
 			for (ConduitSide side : ConduitSide.values())
 			{
-				TileState state = world.getState(TileLayer.MAIN, x + side.getOffset().getX(),
-						y + side.getOffset().getY());
-				Pos2 pos = new Pos2(x + side.getOffset().getX(), y + side.getOffset().getY());
-				if (((TileConduit) world.getState(layer, x, y).getTile()).canConnect(world, pos, null, state))
+				TileState mainState = world.getState(TileLayer.MAIN, x + side.offset.getX(), y + side.offset.getY());
+				Pos2 pos = new Pos2(x + side.offset.getX(), y + side.offset.getY());
+				ConduitMode existing = this.getMode(pos, side.getOpposite());
+				if (((TileConduit) world.getState(layer, x, y).getTile()).canConnect(world, pos, null, mainState))
 				{
-					System.out.println("Adding new connection for state " + state);
+					System.out.println("Adding new connection for state " + mainState);
 					this.addConnection(world, new NetworkConnection(new Pos2(x, y),
-							ConduitSide.getByOffset(side.getOffset().getX(), side.getOffset().getY())));
+							ConduitSide.getByOffset(side.offset.getX(), side.offset.getY()), ConduitMode.ALL_INV));
+				} else if (existing != null && existing.isConduit())
+				{
+					System.out.println("Adding new mode for conduit with mode " + existing);
+					this.addConnection(world, new NetworkConnection(new Pos2(x, y),
+							ConduitSide.getByOffset(side.offset.getX(), side.offset.getY()), existing));
 				}
 			}
 		}
@@ -456,7 +545,7 @@ public abstract class TileEntityConduit extends TileEntity
 			for (ConduitSide side : ConduitSide.values())
 			{
 				// It dosen't matter if it is in the network or not, removeFromNetwork handles this
-				this.removeConnection(world, new NetworkConnection(new Pos2(x, y), side));
+				this.removeConnection(world, new NetworkConnection(new Pos2(x, y), side, ConduitMode.ALL_INV));
 
 			}
 			this.master = null;
@@ -464,8 +553,8 @@ public abstract class TileEntityConduit extends TileEntity
 			// Second loop to change all surrounding conduits' masters
 			for (ConduitSide side : ConduitSide.values())
 			{
-				TileEntityConduit conduit = world.getTileEntity(layer, x + side.getOffset().getX(),
-						y + side.getOffset().getY(), TileEntityConduit.class);
+				TileEntityConduit conduit = world.getTileEntity(layer, x + side.offset.getX(), y + side.offset.getY(),
+						TileEntityConduit.class);
 
 				if (conduit != null)
 				{
@@ -496,7 +585,8 @@ public abstract class TileEntityConduit extends TileEntity
 				ConduitSide side = ConduitSide.getByOffset(changedX - x, changedY - y);
 				if (side != null)
 				{
-					NetworkConnection changedConnection = new NetworkConnection(x, y, side);
+					NetworkConnection changedConnection = new NetworkConnection(x, y, side, ConduitMode.ALL_INV);
+
 					// Remove the position from the network
 					if (changedState.getTile().isAir())
 					{
@@ -538,7 +628,7 @@ public abstract class TileEntityConduit extends TileEntity
 			// Current entry number
 			int entryNum = 0;
 
-			for (Map.Entry<Pos2, List<ConduitSide>> entry : this.network.entrySet())
+			for (Map.Entry<Pos2, List<ConduitModeAndSide>> entry : this.network.entrySet())
 			{
 				// Save the pos2 and sides in a DataSet
 				DataSet entrySet = new DataSet();
@@ -554,7 +644,8 @@ public abstract class TileEntityConduit extends TileEntity
 				for (int side = 0; side < entry.getValue().size(); side++)
 				{
 					// Add the side to the entry for the conduit
-					entrySet.addInt(POSITION_SIDES_KEY + side, entry.getValue().get(side).getID());
+					entrySet.addInt(POSITION_SIDES_KEY + side, entry.getValue().get(side).side.id);
+					entrySet.addInt(POSITION_MODES_KEY + side, entry.getValue().get(side).mode.id);
 				}
 
 				// Add the conduit entry set to the main dataset
@@ -585,11 +676,12 @@ public abstract class TileEntityConduit extends TileEntity
 			{
 				DataSet entrySet = networkSet.getDataSet(NETWORK_POSITION_KEY + entry);
 
-				List<ConduitSide> sides = new ArrayList<>();
+				List<ConduitModeAndSide> sides = new ArrayList<>();
 
 				for (int side = 0; side < entrySet.getInt(SIDES_LENGTH_KEY); side++)
 				{
-					sides.add(ConduitSide.getByID(entrySet.getInt(POSITION_SIDES_KEY + side)));
+					sides.add(new ConduitModeAndSide(ConduitSide.getByID(entrySet.getInt(POSITION_SIDES_KEY + side)),
+							ConduitMode.getByID(entrySet.getInt(POSITION_MODES_KEY + side))));
 				}
 
 				Pos2 pos = new Pos2(entrySet.getInt(ENTRY_POSITION_X_KEY), entrySet.getInt(ENTRY_POSITION_Y_KEY));
@@ -611,22 +703,24 @@ public abstract class TileEntityConduit extends TileEntity
 		this.lastMaster = this.master;
 	}
 
-	public class NetworkConnection
+	public static class NetworkConnection
 	{
 		private final int conduitX;
 		private final int conduitY;
 		private final ConduitSide side;
+		private final ConduitMode mode;
 
-		public NetworkConnection(Pos2 conduitPos, ConduitSide side)
+		public NetworkConnection(Pos2 conduitPos, ConduitSide side, ConduitMode mode)
 		{
-			this(conduitPos.getX(), conduitPos.getY(), side);
+			this(conduitPos.getX(), conduitPos.getY(), side, mode);
 		}
 
-		public NetworkConnection(int conduitX, int conduitY, ConduitSide side)
+		public NetworkConnection(int conduitX, int conduitY, ConduitSide side, ConduitMode mode)
 		{
 			this.conduitX = conduitX;
 			this.conduitY = conduitY;
 			this.side = side;
+			this.mode = mode;
 		}
 
 		public Pos2 getConduitPos()
@@ -649,6 +743,11 @@ public abstract class TileEntityConduit extends TileEntity
 			return this.side;
 		}
 
+		public ConduitMode getMode()
+		{
+			return this.mode;
+		}
+
 		@Override
 		public int hashCode()
 		{
@@ -657,6 +756,9 @@ public abstract class TileEntityConduit extends TileEntity
 			hash = hash * 31 + getConduitPos().hashCode();
 			return hash;
 		}
+
+		// NOTE: equals and hashcode DO NOT take into account the mode
+		// this is completely intentional
 
 		@Override
 		public boolean equals(Object other)
@@ -672,7 +774,107 @@ public abstract class TileEntityConduit extends TileEntity
 
 			NetworkConnection entry2 = (NetworkConnection) other;
 			return this.getConduitX() == entry2.getConduitX() && this.getConduitY() == entry2.getConduitY()
-					&& this.getSide().getID() == entry2.getSide().getID();
+					&& this.getSide().id == entry2.getSide().id;
+		}
+	}
+
+	public class ConduitModeAndSide
+	{
+		public ConduitSide side;
+		public ConduitMode mode;
+
+		public ConduitModeAndSide(ConduitSide side, ConduitMode mode)
+		{
+			this.side = side;
+			this.mode = mode;
+		}
+
+		// NOTE: equals and hashcode DO NOT take into account the mode
+		// this is completely intentional
+
+		@Override
+		public int hashCode()
+		{
+			int hash = 1;
+			hash = hash * 17 + side.id;
+			return hash;
+		}
+
+		@Override
+		public boolean equals(Object other)
+		{
+			if (this == other)
+			{
+				return true;
+			}
+			if (other == null || this.getClass() != other.getClass())
+			{
+				return false;
+			}
+
+			ConduitModeAndSide entry2 = (ConduitModeAndSide) other;
+			return this.side.id == entry2.side.id;
+		}
+	}
+
+	public enum ConduitMode
+	{
+		ALL_INV(0), INPUT_INV(1), OUTPUT_INV(2), NONE_INV(3), ALL_CONDUIT(4), NONE_CONDUIT(5);
+
+		public final int id;
+		public final IResourceName name;
+
+		private ConduitMode(int id)
+		{
+			this.id = id;
+			this.name = RockSolid.createRes("conduit_mode." + this.toString().toLowerCase());
+		}
+
+		public boolean canInsert()
+		{
+			return this == ALL_INV || this == INPUT_INV;
+		}
+
+		public boolean canExtract()
+		{
+			return this == ALL_INV || this == OUTPUT_INV;
+		}
+
+		public boolean isInv()
+		{
+			return canExtract() || canInsert();
+		}
+
+		public boolean isConduit()
+		{
+			return this == ALL_CONDUIT || this == NONE_CONDUIT;
+		}
+
+		public static List<ConduitMode> getInvModes()
+		{
+			return Arrays.asList(ALL_INV, INPUT_INV, OUTPUT_INV, NONE_INV);
+		}
+
+		public static List<ConduitMode> getConduitModes()
+		{
+			return Arrays.asList(ALL_CONDUIT, NONE_CONDUIT);
+		}
+
+		public boolean shouldRender()
+		{
+			return this != NONE_INV && this != NONE_CONDUIT;
+		}
+
+		public static ConduitMode getByID(int id)
+		{
+			for (ConduitMode mode : ConduitMode.values())
+			{
+				if (mode.id == id)
+				{
+					return mode;
+				}
+			}
+			return null;
 		}
 	}
 
@@ -681,9 +883,9 @@ public abstract class TileEntityConduit extends TileEntity
 		UP(0, new Pos2(0, 1), Direction.UP), DOWN(1, new Pos2(0, -1), Direction.DOWN), LEFT(2, new Pos2(-1, 0),
 				Direction.LEFT), RIGHT(3, new Pos2(1, 0), Direction.RIGHT);
 
-		private final int id;
-		private final Pos2 offset;
-		private final Direction direction;
+		public final int id;
+		public final Pos2 offset;
+		public final Direction direction;
 
 		ConduitSide(int id, Pos2 offset, Direction dir)
 		{
@@ -692,19 +894,20 @@ public abstract class TileEntityConduit extends TileEntity
 			this.direction = dir;
 		}
 
-		public int getID()
+		public ConduitSide getOpposite()
 		{
-			return id;
-		}
-
-		public Pos2 getOffset()
-		{
-			return offset;
-		}
-
-		public Direction getDirection()
-		{
-			return direction;
+			switch (this)
+			{
+			case UP:
+				return DOWN;
+			case DOWN:
+				return UP;
+			case LEFT:
+				return RIGHT;
+			case RIGHT:
+				return LEFT;
+			}
+			return null;
 		}
 
 		@Nullable
@@ -726,6 +929,19 @@ public abstract class TileEntityConduit extends TileEntity
 			for (ConduitSide side : ConduitSide.values())
 			{
 				if (side.offset.getX() == offX && side.offset.getY() == offY)
+				{
+					return side;
+				}
+			}
+			return null;
+		}
+
+		@Nullable
+		public static ConduitSide getByDirection(Direction dir)
+		{
+			for (ConduitSide side : ConduitSide.values())
+			{
+				if (side.direction.equals(dir))
 				{
 					return side;
 				}

@@ -71,8 +71,6 @@ public class RockSolid implements IMod
 	public void prePreInit(IGameInstance game, IApiHandler apiHandler, IEventHandler eventHandler)
 	{
 		this.modLogger = apiHandler.createLogger(this.getDisplayName());
-		
-		ModMisc.initKeybinds();
 	}
 
 	@Override

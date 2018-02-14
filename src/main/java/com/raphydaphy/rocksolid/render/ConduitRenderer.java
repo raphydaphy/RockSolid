@@ -2,6 +2,8 @@ package com.raphydaphy.rocksolid.render;
 
 import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
 import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
+import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitMode;
+import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitSide;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
@@ -11,7 +13,6 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.DefaultTileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
-import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -32,24 +33,28 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 		if (tile instanceof TileConduit)
 		{
 			IResourceName center = this.texture.addSuffix(".center");
-			
-			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
-			
-			if (te != null && te.isMaster())
-			{
-				center = this.texture.addSuffix(".master");
-			}
-			manager.getTexture(center).getPositionalVariation(x, y).draw(renderX, renderY,
-					scale, scale, light);
 
-			for (Direction dir : Direction.ADJACENT)
+			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
+			Pos2 pos = new Pos2(x, y);
+			
+			if (te != null)
 			{
-				TileState adjConduit = world.getState(layer, x + dir.x, y + dir.y);
-				TileState adjMain = world.getState(x + dir.x, y + dir.y);
-				if (((TileConduit) tile).canConnect(world, new Pos2(x + dir.x, y + dir.y), adjConduit, adjMain))
+				if (te.isMaster())
 				{
-					manager.getTexture(this.texture.addSuffix("." + dir.toString().toLowerCase()))
-							.getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+					center = this.texture.addSuffix(".master");
+				}
+
+				manager.getTexture(center).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+
+				for (ConduitSide side : ConduitSide.values())
+				{
+					ConduitMode mode = te.getMode(pos, side);
+					if (mode != null && mode.shouldRender())
+					{
+						manager.getTexture(this.texture.addSuffix("." + side.toString().toLowerCase()))
+								.getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+					}
+
 				}
 			}
 		}

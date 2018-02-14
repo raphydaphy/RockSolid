@@ -48,7 +48,7 @@ public class TileEntityItemConduit extends TileEntityConduit
 
 				ItemInstance toExtract = null;
 				int extractSlot = -1;
-				for (int outSlot : tile2.getInventory().getOutputSlots(side2.getDirection()))
+				for (int outSlot : tile2.getInventory().getOutputSlots(side2.direction))
 				{
 					ItemInstance i = tile2.getInventory().get(outSlot);
 					if (i != null && i.getAmount() > 0)
@@ -63,7 +63,7 @@ public class TileEntityItemConduit extends TileEntityConduit
 				{
 					int insertSlot = -1;
 					boolean add = false;
-					for (int inSlot : tile1.getInventory().getInputSlots(toExtract, side1.getDirection()))
+					for (int inSlot : tile1.getInventory().getInputSlots(toExtract, side1.direction))
 					{
 						ItemInstance i = tile1.getInventory().get(inSlot);
 						if (i == null || i.getAmount() == 0)

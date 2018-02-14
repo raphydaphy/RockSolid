@@ -31,7 +31,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public abstract class TileConduit extends TileBase
 {
-
+	
 	public TileConduit(String name)
 	{
 		super(name, 4f, new ToolInfo(ToolType.PICKAXE, 1));

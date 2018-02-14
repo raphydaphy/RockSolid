@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.gui.GuiConduit;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
 import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
+import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitSide;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
@@ -63,7 +64,7 @@ public class ItemWrench extends ItemBase
 				if (te != null)
 				{
 					player.openGuiContainer(
-							new GuiConduit(player, TileConduit.getMousedConduitPart(RockBottomAPI.getGame()), te),
+							new GuiConduit(player, ConduitSide.getByDirection(TileConduit.getMousedConduitPart(RockBottomAPI.getGame())), te),
 							new ContainerEmpty(player));
 				}
 			}
