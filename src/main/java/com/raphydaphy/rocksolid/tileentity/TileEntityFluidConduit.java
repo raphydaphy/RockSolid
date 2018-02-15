@@ -12,7 +12,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 {
 	public TileEntityFluidConduit(IWorld world, int x, int y, TileLayer layer)
 	{
-		super(world, x, y, layer);
+		super(world, x, y, layer, TileEntityFluidConduit.class);
 	}
 
 	@Override

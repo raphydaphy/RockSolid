@@ -48,7 +48,7 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 
 				for (ConduitSide side : ConduitSide.values())
 				{
-					ConduitMode mode = te.getMode(pos, side);
+					ConduitMode mode = te.getMode(pos, side, false);
 					if (mode != null && mode.shouldRender())
 					{
 						manager.getTexture(this.texture.addSuffix("." + side.toString().toLowerCase()))

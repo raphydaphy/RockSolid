@@ -3,9 +3,7 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.Arrays;
 import java.util.List;
 
-import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
-import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 
 import de.ellpeck.rockbottom.api.GameContent;
@@ -63,12 +61,14 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		super.update(game);
 		if (!this.world.isClient())
 		{
-			if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile().equals(ModTiles.WATER)
-					&& this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile().equals(ModTiles.WATER))
+			if (world.getTotalTime() % 80 == 0
+					&& this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid
+					&& this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
 			{
-				if (world.getTotalTime() % 80 == 0)
+				TileLiquid liquidIn = (TileLiquid) this.world.getState(TileLayer.LIQUIDS, x, y).getTile();
+				if (this.liquidVolume + 25 <= this.getCapacity(new Pos2(this.x, this.y), liquidIn))
 				{
-					this.liquidType = (FluidWater) ModTiles.WATER;
+					this.liquidType = liquidIn;
 					this.liquidVolume += 25;
 
 					int topY = y;
@@ -76,7 +76,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 					for (int i = y; i < y + 30; i++)
 					{
 						TileState state = world.getState(TileLayer.LIQUIDS, x, i);
-						if (state.getTile().equals(ModTiles.WATER))
+						if (state.getTile().equals(liquidIn))
 						{
 							topY = i;
 							top = state;
@@ -89,14 +89,14 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 					{
 						top = world.getState(TileLayer.LIQUIDS, x, topY);
 					}
-					int level = (top.get(((FluidWater) ModTiles.WATER).level));
+					int level = (top.get((liquidIn).level));
 					if (level == 0)
 					{
 						world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
 					} else
 					{
 						world.setState(TileLayer.LIQUIDS, x, topY,
-								top.prop(((FluidWater) ModTiles.WATER).level, level - 1));
+								top.prop((liquidIn).level, level - 1));
 					}
 				}
 			}
@@ -182,7 +182,10 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	@Override
 	public int getCapacity(Pos2 pos, TileLiquid liquid)
 	{
-		if (liquid != null && this.liquidType != null)
+		if (this.liquidType == null && liquid != null)
+		{
+			return 1000;
+		} else if (liquid != null && this.liquidType != null)
 			return liquid.equals(this.liquidType) ? 1000 : 0;
 		return 0;
 	}

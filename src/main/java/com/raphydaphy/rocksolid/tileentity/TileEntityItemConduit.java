@@ -9,12 +9,12 @@ public class TileEntityItemConduit extends TileEntityConduit
 {
 	public TileEntityItemConduit(IWorld world, int x, int y, TileLayer layer)
 	{
-		super(world, x, y, layer);
+		super(world, x, y, layer, TileEntityItemConduit.class);
 	}
 
 	@Override
-	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileEntity tile1, int x2, int y2,
-			ConduitSide side2, TileEntity tile2, boolean simulate)
+	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileEntity tile2, int x2, int y2,
+			ConduitSide side2, TileEntity tile1, boolean simulate)
 	{
 		if (tile1 != null && tile1.getInventory() != null && tile2 != null && tile2.getInventory() != null)
 		{

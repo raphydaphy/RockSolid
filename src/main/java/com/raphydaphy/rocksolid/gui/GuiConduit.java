@@ -33,7 +33,7 @@ public class GuiConduit extends GuiContainer
 		this.te = te;
 		this.side = side;
 		this.pos = new Pos2(te.x, te.y);
-		this.mode = te.getMode(pos, side);
+		this.mode = te.getMode(pos, side, false);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class GuiConduit extends GuiContainer
 	{
 		super.init(game);
 
-		if (side != null)
+		if (side != null && mode != null)
 		{
 			IPacket updatePacket = new PacketConduitUpdate(te.x, te.y, mode, side);
 			if (game.getWorld().isClient())

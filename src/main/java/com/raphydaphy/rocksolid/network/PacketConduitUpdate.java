@@ -62,14 +62,14 @@ public class PacketConduitUpdate implements IPacket
 			if (conduit != null)
 			{
 				NetworkConnection connection = new NetworkConnection(x, y, side, mode);
-				conduit.removeConnection(world, connection);
+				conduit.removeConnection(world, connection, true);
 				conduit.addConnection(world, connection);
 				
 				if (connection.getMode().isConduit())
 				{
 					NetworkConnection opposite = new NetworkConnection(x + side.offset.getX(), y + side.offset.getY(), side.getOpposite(), mode);
 					
-					conduit.removeConnection(world, opposite);
+					conduit.removeConnection(world, opposite, true);
 					conduit.addConnection(world, opposite);
 				}
 			}
