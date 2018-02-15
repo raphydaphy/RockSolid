@@ -28,26 +28,10 @@ public class GuiPump extends GuiContainer
 		super.init(game);
 
 		this.components.add(
-				new ComponentProgressBar(this, 60, 25, 80, 10, Color.magenta.getRGB(), false, new Supplier<Float>()
-				{
-
-					@Override
-					public Float get()
-					{
-						return Math.min((float) GuiPump.this.te.getLiquidVolume() / 1000f, 1);
-					}
-				}));
+				new ComponentProgressBar(this, 60, 25, 80, 10, Color.magenta.getRGB(), false, () -> Math.min( GuiPump.this.te.getEnergyFullness(), 1)));
 
 		this.components.add(
-				new ComponentProgressBar(this, 60, 10, 80, 10, Color.blue.getRGB(), false, new Supplier<Float>()
-				{
-
-					@Override
-					public Float get()
-					{
-						return Math.min((float) GuiPump.this.te.getLiquidFullness(), 1);
-					}
-				}));
+				new ComponentProgressBar(this, 60, 10, 80, 10, Color.blue.getRGB(), false, () -> Math.min( GuiPump.this.te.getLiquidFullness(), 1)));
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.fluid.FluidWater;
+import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
@@ -14,6 +15,7 @@ public class ModTiles
 {
 	public static Tile BOILER;
 	public static Tile PUMP;
+	public static Tile CREATIVE_ENERGY_SOURCE;
 
 	public static Tile FLUID_CONDUIT;
 	public static Tile GAS_CONDUIT;
@@ -26,6 +28,7 @@ public class ModTiles
 	{
 		BOILER = new TileBoiler();
 		PUMP = new TilePump();
+		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource();
 
 		FLUID_CONDUIT = new TileFluidConduit();
 		GAS_CONDUIT = new TileGasConduit();

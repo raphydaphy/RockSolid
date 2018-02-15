@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.Arrays;
 import java.util.List;
 
+import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 
@@ -17,13 +18,17 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityPump>
+public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityPump>, IEnergyTile
 {
 	private static final String KEY_LIQUID_VOLUME = "liquid_volume";
 	public static final String KEY_LIQUID_TYPE = "liquid_type";
+	public static final String KEY_ENERGY_STORED = "energy_stored";
 
 	private int liquidVolume = 0;
 	private int lastLiquidVolume = 0;
+
+	private int energyStored = 0;
+	private int lastEnergyStored = 0;
 
 	private TileLiquid liquidType = null;
 
@@ -37,6 +42,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	{
 		super.save(set, forSync);
 		set.addInt(KEY_LIQUID_VOLUME, this.liquidVolume);
+		set.addInt(KEY_ENERGY_STORED, this.energyStored);
 		if (liquidType != null)
 		{
 			set.addString(KEY_LIQUID_TYPE, RockBottomAPI.TILE_REGISTRY.getId(liquidType).toString());
@@ -48,10 +54,10 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	{
 		super.load(set, forSync);
 		this.liquidVolume = set.getInt(KEY_LIQUID_VOLUME);
+		this.energyStored = set.getInt(KEY_ENERGY_STORED);
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
-			liquidType = (TileLiquid) RockBottomAPI.TILE_REGISTRY
-					.get(RockBottomAPI.createInternalRes(set.getString(KEY_LIQUID_TYPE)));
+			liquidType = (TileLiquid) RockBottomAPI.TILE_REGISTRY.get(RockBottomAPI.createInternalRes(set.getString(KEY_LIQUID_TYPE)));
 		}
 	}
 
@@ -61,12 +67,10 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		super.update(game);
 		if (!this.world.isClient())
 		{
-			if (world.getTotalTime() % 80 == 0
-					&& this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid
-					&& this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
+			if (world.getTotalTime() % 80 == 0 && this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid && this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
 			{
 				TileLiquid liquidIn = (TileLiquid) this.world.getState(TileLayer.LIQUIDS, x, y).getTile();
-				if (this.liquidVolume + 25 <= this.getCapacity(new Pos2(this.x, this.y), liquidIn))
+				if (this.liquidVolume + 25 <= this.getCapacity(world, new Pos2(this.x, this.y), liquidIn))
 				{
 					this.liquidType = liquidIn;
 					this.liquidVolume += 25;
@@ -95,8 +99,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 						world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
 					} else
 					{
-						world.setState(TileLayer.LIQUIDS, x, topY,
-								top.prop((liquidIn).level, level - 1));
+						world.setState(TileLayer.LIQUIDS, x, topY, top.prop((liquidIn).level, level - 1));
 					}
 				}
 			}
@@ -106,7 +109,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	@Override
 	protected boolean needsSync()
 	{
-		return this.liquidVolume != this.lastLiquidVolume;
+		return this.liquidVolume != this.lastLiquidVolume || this.energyStored != this.lastEnergyStored;
 	}
 
 	@Override
@@ -114,6 +117,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	{
 		super.onSync();
 		this.lastLiquidVolume = this.liquidVolume;
+		this.lastEnergyStored = this.energyStored;
 	}
 
 	public int getLiquidVolume()
@@ -136,7 +140,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 				return false;
 			}
 
-			if (this.liquidVolume + ml >= this.getCapacity(pos, this.liquidType))
+			if (this.liquidVolume + ml >= this.getCapacity(world, pos, this.liquidType))
 			{
 				return false;
 			}
@@ -157,7 +161,12 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 
 	public float getLiquidFullness()
 	{
-		return (float) this.liquidVolume / (float) this.getCapacity(new Pos2(this.x, this.y), this.liquidType);
+		return (float) this.liquidVolume / 1000f;
+	}
+
+	public float getEnergyFullness()
+	{
+		return (float) this.energyStored / 1000f;
 	}
 
 	@Override
@@ -180,13 +189,18 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
-	public int getCapacity(Pos2 pos, TileLiquid liquid)
+	public int getCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
 	{
-		if (this.liquidType == null && liquid != null)
+		if (getLiquidsAt(world, pos) != null)
 		{
-			return 1000;
-		} else if (liquid != null && this.liquidType != null)
-			return liquid.equals(this.liquidType) ? 1000 : 0;
+			if (this.liquidType == null && liquid != null)
+			{
+				return 1000;
+			} else if (liquid != null && this.liquidType != null)
+			{
+				return liquid.equals(this.liquidType) ? 1000 : 0;
+			}
+		}
 		return 0;
 	}
 
@@ -205,5 +219,42 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean add(Pos2 pos, int joules, boolean simulate)
+	{
+		if (joules + energyStored <= getCapacity(world, pos))
+		{
+			if (!simulate)
+			{
+				this.energyStored += joules;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean remove(Pos2 pos, int joules, boolean simulate)
+	{
+		return false;
+	}
+
+	@Override
+	public int getCapacity(IWorld world, Pos2 pos)
+	{
+		TileState state = world.getState(pos.getX(), pos.getY());
+
+		if (state.getTile() instanceof TilePump)
+		{
+			Pos2 inner = ((TilePump) state.getTile()).getInnerCoord(state);
+
+			if (inner.getY() != 0)
+			{
+				return 1000;
+			}
+		}
+		return 0;
 	}
 }

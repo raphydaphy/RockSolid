@@ -16,8 +16,9 @@
     	},
     	"tiles.": 
     	{
-    		"fluid_water.": 
-    		{
+		  "creative_energy_source":"/tiles/creative_power_source.png",
+		  "fluid_water.":
+		  {
     			"full": "/fluids/water/full.png",
     			"top": "/fluids/water/top.png"
     		},
@@ -32,6 +33,7 @@
     		},
     		"energy_conduit.":
     		{
+				"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/energy_conduit/energy_conduit.png",
     			"up": "/tiles/energy_conduit/energy_conduit_up.png",
     			"down": "/tiles/energy_conduit/energy_conduit_down.png",

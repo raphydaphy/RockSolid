@@ -11,12 +11,12 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 
 public interface IFluidTile<T extends TileEntity>
 {
-	public boolean add(Pos2 pos, TileLiquid liquid, int ml, boolean simulate);
+	boolean add(Pos2 pos, TileLiquid liquid, int ml, boolean simulate);
 	
-	public boolean remove(Pos2 pos, TileLiquid liquid, int ml, boolean simulate);
+	boolean remove(Pos2 pos, TileLiquid liquid, int ml, boolean simulate);
 	
-	public int getCapacity(Pos2 pos, TileLiquid liquid);
+	int getCapacity(IWorld world, Pos2 pos, TileLiquid liquid);
 	
 	@Nullable
-	public List<TileLiquid> getLiquidsAt(IWorld world, Pos2 pos);
+	List<TileLiquid> getLiquidsAt(IWorld world, Pos2 pos);
 }

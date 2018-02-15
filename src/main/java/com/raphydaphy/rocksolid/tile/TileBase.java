@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
 import de.ellpeck.rockbottom.api.tile.TileBasic;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 
 public class TileBase extends TileBasic
 {

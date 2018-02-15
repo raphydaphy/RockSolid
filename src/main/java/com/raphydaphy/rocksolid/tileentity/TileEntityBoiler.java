@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -88,7 +89,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 
 	public float getWaterFullness()
 	{
-		return (float) this.water / (float) this.getCapacity(new Pos2(this.x, this.y), (TileLiquid) ModTiles.WATER);
+		return (float) this.water / (float) this.getCapacity(world, new Pos2(this.x, this.y), (TileLiquid) ModTiles.WATER);
 	}
 
 	@Override
@@ -139,7 +140,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public boolean add(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (liquid.equals((TileLiquid) ModTiles.WATER) && ml + this.water <= this.getCapacity(pos, liquid))
+		if (liquid.equals(ModTiles.WATER) && ml + this.water <= this.getCapacity(world, pos, liquid))
 		{
 			if (!simulate)
 			{
@@ -157,9 +158,9 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	}
 
 	@Override
-	public int getCapacity(Pos2 pos, TileLiquid liquid)
+	public int getCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
 	{
-		return liquid.equals((TileLiquid) ModTiles.WATER) ? 5000 : 0;
+		return liquid.equals(ModTiles.WATER) && getLiquidsAt(world, pos) != null ? 5000 : 0;
 	}
 
 	@Override
@@ -173,7 +174,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 			
 			if (inner.getY() != 4 && inner.getY() != 0)
 			{
-				return Arrays.asList((TileLiquid) ModTiles.WATER);
+				return Collections.singletonList((TileLiquid) ModTiles.WATER);
 			}
 		}
 		return null;

@@ -13,7 +13,8 @@
         	"fluid_conduit": "Fluid Conduit",
         	"gas_conduit": "Gas Conduit",
         	"item_conduit": "Item Conduit",
-        	"energy_conduit": "Energy Conduit"
+        	"energy_conduit": "Energy Conduit",
+			"creative_energy_source": "Creative Energy Source"
         },
 		"conduit_mode." : {
         	"all_inv" : "In / Out",
