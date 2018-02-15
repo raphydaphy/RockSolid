@@ -94,17 +94,15 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	protected boolean tryTickAction()
 	{
-		if (this.water > 0)
+		if (this.water > 0 && this.steam < 1000)
 		{
 			if (this.coalTime > 0)
 			{
 				if (!this.world.isClient())
 				{
-					int rand = new Random().nextInt(500);
-
-					if (rand == 1)
+					if (world.getTotalTime() % 100 == 0)
 					{
-						this.steam++;
+						this.steam += 1;
 						this.water--;
 					}
 				}
