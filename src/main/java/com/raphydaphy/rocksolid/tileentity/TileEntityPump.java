@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.tileentity;
 import java.util.Arrays;
 import java.util.List;
 
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
@@ -30,11 +31,12 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	private int energyStored = 0;
 	private int lastEnergyStored = 0;
 
-	private TileLiquid liquidType = null;
+	private TileLiquid liquidType;
 
 	public TileEntityPump(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
+		liquidType = null;
 	}
 
 	@Override
@@ -45,7 +47,11 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		set.addInt(KEY_ENERGY_STORED, this.energyStored);
 		if (liquidType != null)
 		{
+			System.out.println(RockBottomAPI.TILE_REGISTRY.getId(liquidType).toString());
 			set.addString(KEY_LIQUID_TYPE, RockBottomAPI.TILE_REGISTRY.getId(liquidType).toString());
+		} else
+		{
+			System.out.println("tried to save null liquid type");
 		}
 	}
 
@@ -55,9 +61,14 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		super.load(set, forSync);
 		this.liquidVolume = set.getInt(KEY_LIQUID_VOLUME);
 		this.energyStored = set.getInt(KEY_ENERGY_STORED);
+
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
-			liquidType = (TileLiquid) RockBottomAPI.TILE_REGISTRY.get(RockBottomAPI.createInternalRes(set.getString(KEY_LIQUID_TYPE)));
+			liquidType = (TileLiquid) RockBottomAPI.TILE_REGISTRY.get(RockBottomAPI.createRes(set.getString(KEY_LIQUID_TYPE)));
+			System.out.println(liquidType);
+		} else
+		{
+			System.out.println("set not contained");
 		}
 	}
 
@@ -65,41 +76,47 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		if (!this.world.isClient())
+		if (!this.world.isClient() && this.energyStored > 8)
 		{
-			if (world.getTotalTime() % 80 == 0 && this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid && this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
+			if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid && this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
 			{
 				TileLiquid liquidIn = (TileLiquid) this.world.getState(TileLayer.LIQUIDS, x, y).getTile();
-				if (this.liquidVolume + 25 <= this.getCapacity(world, new Pos2(this.x, this.y), liquidIn))
+				if (this.liquidVolume + 25 <= 1000)
 				{
-					this.liquidType = liquidIn;
-					this.liquidVolume += 25;
-
-					int topY = y;
-					TileState top = null;
-					for (int i = y; i < y + 30; i++)
+					if (world.getTotalTime() % 8 == 0)
 					{
-						TileState state = world.getState(TileLayer.LIQUIDS, x, i);
-						if (state.getTile().equals(liquidIn))
+						this.energyStored -= 1;
+					}
+					if (world.getTotalTime() % 80 == 0)
+					{
+						this.liquidType = liquidIn;
+						this.liquidVolume += 25;
+						int topY = y;
+						TileState top = null;
+						for (int i = y; i < y + 30; i++)
 						{
-							topY = i;
-							top = state;
+							TileState state = world.getState(TileLayer.LIQUIDS, x, i);
+							if (state.getTile().equals(liquidIn))
+							{
+								topY = i;
+								top = state;
+							} else
+							{
+								break;
+							}
+						}
+						if (top == null)
+						{
+							top = world.getState(TileLayer.LIQUIDS, x, topY);
+						}
+						int level = (top.get((liquidIn).level));
+						if (level == 0)
+						{
+							world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
 						} else
 						{
-							break;
+							world.setState(TileLayer.LIQUIDS, x, topY, top.prop((liquidIn).level, level - 1));
 						}
-					}
-					if (top == null)
-					{
-						top = world.getState(TileLayer.LIQUIDS, x, topY);
-					}
-					int level = (top.get((liquidIn).level));
-					if (level == 0)
-					{
-						world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
-					} else
-					{
-						world.setState(TileLayer.LIQUIDS, x, topY, top.prop((liquidIn).level, level - 1));
 					}
 				}
 			}
@@ -181,6 +198,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 				if (this.liquidVolume == 0)
 				{
 					this.liquidType = null;
+					System.out.println("NULL BOY");
 				}
 			}
 			return true;

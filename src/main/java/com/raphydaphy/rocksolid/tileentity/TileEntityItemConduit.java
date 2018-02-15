@@ -9,7 +9,7 @@ public class TileEntityItemConduit extends TileEntityConduit
 {
 	public TileEntityItemConduit(IWorld world, int x, int y, TileLayer layer)
 	{
-		super(world, x, y, layer, TileEntityItemConduit.class);
+		super(world, x, y, layer, TileEntityItemConduit.class,50);
 	}
 
 	@Override

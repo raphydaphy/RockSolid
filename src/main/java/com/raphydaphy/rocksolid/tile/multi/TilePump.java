@@ -56,6 +56,12 @@ public class TilePump extends MultiTileBase
 	}
 
 	@Override
+	public boolean canPlaceInLayer(TileLayer layer)
+	{
+		return layer == TileLayer.MAIN;
+	}
+
+	@Override
 	protected ITileRenderer<TilePump> createRenderer(IResourceName name)
 	{
 		return new PumpRenderer(name, this);

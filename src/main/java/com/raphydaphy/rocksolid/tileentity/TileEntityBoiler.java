@@ -89,22 +89,22 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 
 	public float getWaterFullness()
 	{
-		return (float) this.water / (float) this.getCapacity(world, new Pos2(this.x, this.y), (TileLiquid) ModTiles.WATER);
+		return (float) this.water / 5000f;
 	}
 
 	@Override
 	protected boolean tryTickAction()
 	{
-		if (this.water > 0 && this.steam < 1000)
+		if (this.water >= 2 && this.steam < 1000)
 		{
 			if (this.coalTime > 0)
 			{
 				if (!this.world.isClient())
 				{
-					if (world.getTotalTime() % 100 == 0)
+					if (world.getTotalTime() % 12 == 0)
 					{
-						this.steam += 1;
-						this.water--;
+						this.steam += 2;
+						this.water -= 2;
 					}
 				}
 			}

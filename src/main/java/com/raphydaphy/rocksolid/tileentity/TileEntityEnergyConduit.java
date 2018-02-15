@@ -8,7 +8,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityEnergyConduit extends TileEntityConduit {
 	public TileEntityEnergyConduit(IWorld world, int x, int y, TileLayer layer) {
-		super(world, x, y, layer, TileEntityEnergyConduit.class);
+		super(world, x, y, layer, TileEntityEnergyConduit.class, 10);
 	}
 
 	@Override
@@ -21,10 +21,10 @@ public class TileEntityEnergyConduit extends TileEntityConduit {
 			Pos2 pos1 = new Pos2(x1, y1);
 
 			Pos2 pos2 = new Pos2(x2, y2);
-			if (f2.add(pos2, 10, true)) {
+			if (f2.add(pos2, 2, true)) {
 				if (!simulate) {
-					f2.add(pos2, 10, false);
-					f1.remove(pos1, 10, false);
+					f2.add(pos2, 2, false);
+					f1.remove(pos1, 2, false);
 				}
 				return true;
 			}

@@ -12,7 +12,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 {
 	public TileEntityFluidConduit(IWorld world, int x, int y, TileLayer layer)
 	{
-		super(world, x, y, layer, TileEntityFluidConduit.class);
+		super(world, x, y, layer, TileEntityFluidConduit.class, 10);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 			Pos2 pos1 = new Pos2(x1, y1);
 			for (TileLiquid liquid : f1.getLiquidsAt(world, new Pos2(x1, y1)))
 			{
-				if (liquid != null && f1.remove(pos1, liquid, 10, true))
+				if (liquid != null && f1.remove(pos1, liquid, 2, true))
 				{
 					toTransfer = liquid;
 					break;
@@ -38,12 +38,12 @@ public class TileEntityFluidConduit extends TileEntityConduit
 			if (toTransfer != null)
 			{
 				Pos2 pos2 = new Pos2(x2, y2);
-				if (f2.add(pos2, toTransfer, 10, true))
+				if (f2.add(pos2, toTransfer, 2, true))
 				{
 					if (!simulate)
 					{
-						f2.add(pos2, toTransfer, 10, false);
-						f1.remove(pos1, toTransfer, 10, false);
+						f2.add(pos2, toTransfer, 2, false);
+						f1.remove(pos1, toTransfer, 2, false);
 					}
 					return true;
 				}
