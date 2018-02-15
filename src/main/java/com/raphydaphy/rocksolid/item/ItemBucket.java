@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.item;
 
 import com.raphydaphy.rocksolid.fluid.FluidWater;
+import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
 
@@ -8,8 +9,11 @@ import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.item.IItemRenderer;
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
+import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -34,6 +38,16 @@ public class ItemBucket extends ItemBase
 			AbstractEntityPlayer player, ItemInstance instance)
 	{
 		TileState state = world.getState(TileLayer.LIQUIDS, x, y);
+		TileState main = world.getState(TileLayer.MAIN, x, y);
+		TileEntity te = null;
+		if (main.getTile() instanceof MultiTile)
+		{
+			Pos2 mainPos = ((MultiTile) main.getTile()).getMainPos(x, y, main);
+			te =  world.getTileEntity(mainPos.getX(), mainPos.getY());
+		} else
+		{
+			te =  world.getTileEntity(x, y);
+		}
 
 		if (instance.getMeta() == BucketType.EMPTY.meta)
 		{
@@ -48,8 +62,15 @@ public class ItemBucket extends ItemBase
 				{
 					world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_AIR.getDefState());
 				}
-				instance.setMeta(BucketType.WATER.meta);
+			} else if (te != null && te instanceof IFluidTile<?>)
+			{
+				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
+				if (!fluidTE.removeFluid(new Pos2(x,y), (TileLiquid)ModTiles.WATER, 25, false))
+				{
+					return false;
+				}
 			}
+			instance.setMeta(BucketType.WATER.meta);
 		} else if (instance.getMeta() == BucketType.WATER.meta)
 		{
 			if (state.getTile().equals(ModTiles.WATER))
@@ -60,6 +81,13 @@ public class ItemBucket extends ItemBase
 					world.setState(TileLayer.LIQUIDS, x, y,
 							state.prop(((TileLiquid) state.getTile()).level, curLevel + 1));
 				} else
+				{
+					return false;
+				}
+			} else if (te != null && te instanceof IFluidTile<?>)
+			{
+				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
+				if (!fluidTE.addFluid(new Pos2(x,y), (TileLiquid)ModTiles.WATER, 25, false))
 				{
 					return false;
 				}

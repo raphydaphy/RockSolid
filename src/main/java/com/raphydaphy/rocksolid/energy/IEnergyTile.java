@@ -6,10 +6,10 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 
 public interface IEnergyTile
 {
-	boolean add(Pos2 pos, int joules, boolean simulate);
+	boolean addEnergy(Pos2 pos, int joules, boolean simulate);
 
-	boolean remove(Pos2 pos, int joules, boolean simulate);
+	boolean removeEnergy(Pos2 pos, int joules, boolean simulate);
 
-	int getCapacity(IWorld world, Pos2 pos);
+	int getEnergyCapacity(IWorld world, Pos2 pos);
 }
 

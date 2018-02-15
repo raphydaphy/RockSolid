@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tileentity;
+package com.raphydaphy.rocksolid.tileentity.conduit;
 
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 
@@ -28,7 +28,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 			Pos2 pos1 = new Pos2(x1, y1);
 			for (TileLiquid liquid : f1.getLiquidsAt(world, new Pos2(x1, y1)))
 			{
-				if (liquid != null && f1.remove(pos1, liquid, 2, true))
+				if (liquid != null && f1.removeFluid(pos1, liquid, 2, true))
 				{
 					toTransfer = liquid;
 					break;
@@ -38,12 +38,12 @@ public class TileEntityFluidConduit extends TileEntityConduit
 			if (toTransfer != null)
 			{
 				Pos2 pos2 = new Pos2(x2, y2);
-				if (f2.add(pos2, toTransfer, 2, true))
+				if (f2.addFluid(pos2, toTransfer, 2, true))
 				{
 					if (!simulate)
 					{
-						f2.add(pos2, toTransfer, 2, false);
-						f1.remove(pos1, toTransfer, 2, false);
+						f2.addFluid(pos2, toTransfer, 2, false);
+						f1.removeFluid(pos1, toTransfer, 2, false);
 					}
 					return true;
 				}

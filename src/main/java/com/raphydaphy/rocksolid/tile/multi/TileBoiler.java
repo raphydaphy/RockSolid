@@ -60,7 +60,7 @@ public class TileBoiler extends MultiTileBase
 	@Override
 	protected boolean[][] makeStructure()
 	{
-		return super.autoStructure(5, 2);
+		return super.autoStructure(2,5);
 	}
 
 	@Override

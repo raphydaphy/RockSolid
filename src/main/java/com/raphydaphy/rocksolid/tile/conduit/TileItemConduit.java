@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tile.conduit;
 
-import com.raphydaphy.rocksolid.tileentity.TileEntityItemConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityItemConduit;
 
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;

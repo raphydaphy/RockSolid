@@ -54,13 +54,13 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 		TileEntityBoiler te = tile.getTE(world, state, x, y);
 		if (te != null)
 		{
-			manager.getTexture(getTextureFor(innerCoord, te.getSteam(), te.isActive())).getPositionalVariation(x, y)
+			manager.getTexture(getTextureFor(innerCoord,  te.isActive())).getPositionalVariation(x, y)
 					.draw(renderX, renderY, scale, scale, light);
 
 			IResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
-			if (te.getSteam() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4)
+			if (te.getSteamFullness() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4)
 			{
-				int STEAM = (int) Math.min(te.getSteam() / (1000/26), 26);
+				int STEAM = (int) Math.min((te.getSteamFullness()*1000) / (1000/26), 26);
 
 				boolean render = false;
 
@@ -121,10 +121,9 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 		}
 	}
 
-	private IResourceName getTextureFor(Pos2 coord, int stage, boolean active)
+	private IResourceName getTextureFor(Pos2 coord, boolean active)
 	{
 		IResourceName tex = baseTextures.get(coord);
-		stage = Math.min(stage, 7);
 
 		if (active && coord.getY() == 0)
 		{

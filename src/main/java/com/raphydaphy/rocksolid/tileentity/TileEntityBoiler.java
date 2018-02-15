@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
+import com.raphydaphy.rocksolid.gas.Gas;
+import com.raphydaphy.rocksolid.gas.IGasTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
@@ -22,7 +24,9 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile<TileEntityBoiler>
+import javax.annotation.Nullable;
+
+public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile<TileEntityBoiler>, IGasTile<TileEntityBoiler>
 {
 	private static final String KEY_STEAM = "steam";
 	public static final String KEY_WATER = "water";
@@ -82,29 +86,29 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 		this.lastWater = this.water;
 	}
 
-	public int getSteam()
+	public float getSteamFullness()
 	{
-		return this.steam;
+		return this.steam / 1000f;
 	}
 
 	public float getWaterFullness()
 	{
-		return (float) this.water / 5000f;
+		return (float) this.water / 1000f;
 	}
 
 	@Override
 	protected boolean tryTickAction()
 	{
-		if (this.water >= 2 && this.steam < 1000)
+		if (this.water >= 1 && this.steam < 1000)
 		{
 			if (this.coalTime > 0)
 			{
 				if (!this.world.isClient())
 				{
-					if (world.getTotalTime() % 12 == 0)
+					if (world.getTotalTime() % 6 == 0)
 					{
-						this.steam += 2;
-						this.water -= 2;
+						this.steam += 1;
+						this.water -= 1;
 					}
 				}
 			}
@@ -138,9 +142,9 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	}
 
 	@Override
-	public boolean add(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
+	public boolean addFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (liquid.equals(ModTiles.WATER) && ml + this.water <= this.getCapacity(world, pos, liquid))
+		if (liquid.equals(ModTiles.WATER) && ml + this.water <= 1000)
 		{
 			if (!simulate)
 			{
@@ -152,15 +156,15 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	}
 
 	@Override
-	public boolean remove(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
+	public boolean removeFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
 		return false;
 	}
 
 	@Override
-	public int getCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
+	public int getFluidCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
 	{
-		return liquid.equals(ModTiles.WATER) && getLiquidsAt(world, pos) != null ? 5000 : 0;
+		return liquid.equals(ModTiles.WATER) && getLiquidsAt(world, pos) != null ? 1000 : 0;
 	}
 
 	@Override
@@ -175,6 +179,50 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 			if (inner.getY() != 4 && inner.getY() != 0)
 			{
 				return Collections.singletonList((TileLiquid) ModTiles.WATER);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean addGas(Pos2 pos, Gas liquid, int cc, boolean simulate)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean removeGas(Pos2 pos, Gas liquid, int cc, boolean simulate)
+	{
+		if (liquid.equals(Gas.STEAM) && this.steam - cc > 0)
+		{
+			if (!simulate)
+			{
+				this.steam -= cc;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int getGasCapacity(IWorld world, Pos2 pos, Gas gas)
+	{
+		return gas.equals(Gas.STEAM) && getGasAt(world, pos) != null ? 1000 : 0;
+	}
+
+	@Nullable
+	@Override
+	public List<Gas> getGasAt(IWorld world, Pos2 pos)
+	{
+		TileState state = world.getState(pos.getX(), pos.getY());
+
+		if (state.getTile() instanceof TileBoiler)
+		{
+			Pos2 inner = ((TileBoiler) state.getTile()).getInnerCoord(state);
+
+			if (inner.getY() != 4 && inner.getY() != 0)
+			{
+				return Collections.singletonList(Gas.STEAM);
 			}
 		}
 		return null;

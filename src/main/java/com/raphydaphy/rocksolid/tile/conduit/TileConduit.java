@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tile.TileBase;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
 import de.ellpeck.rockbottom.api.IGameInstance;

@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tileentity;
+package com.raphydaphy.rocksolid.tileentity.conduit;
 
 import java.util.ArrayList;
 import java.util.Arrays;

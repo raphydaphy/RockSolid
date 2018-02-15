@@ -34,16 +34,15 @@ public abstract class MultiTileBase extends MultiTile
 
 	public boolean[][] autoStructure(int width, int height)
 	{
-		boolean[][] struct = new boolean[width][height];
+		boolean[][] struct = new boolean[height][width];
 
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < height; x++)
 		{
-			for (int y = 0; y < height; y++)
+			for (int y = 0; y < width; y++)
 			{
 				struct[x][y] = true;
 			}
 		}
-		System.out.println(struct.toString());
 		return struct;
 	}
 

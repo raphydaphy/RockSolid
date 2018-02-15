@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tileentity;
+package com.raphydaphy.rocksolid.tileentity.conduit;
 
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;

@@ -148,7 +148,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
-	public boolean add(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
+	public boolean addFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
 		if (liquid != null)
 		{
@@ -157,7 +157,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 				return false;
 			}
 
-			if (this.liquidVolume + ml >= this.getCapacity(world, pos, this.liquidType))
+			if (this.liquidVolume + ml >= this.getFluidCapacity(world, pos, this.liquidType))
 			{
 				return false;
 			}
@@ -187,7 +187,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
-	public boolean remove(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
+	public boolean removeFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
 		if (this.liquidType != null && liquid != null && liquid.equals(this.liquidType) && this.liquidVolume >= ml)
 		{
@@ -207,7 +207,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
-	public int getCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
+	public int getFluidCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
 	{
 		if (getLiquidsAt(world, pos) != null)
 		{
@@ -240,10 +240,11 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
-	public boolean add(Pos2 pos, int joules, boolean simulate)
+	public boolean addEnergy(Pos2 pos, int joules, boolean simulate)
 	{
-		if (joules + energyStored <= getCapacity(world, pos))
+		if (joules + energyStored <= getEnergyCapacity(world, pos))
 		{
+			System.out.println("adding  " + joules + " energy with simulate " + simulate);
 			if (!simulate)
 			{
 				this.energyStored += joules;
@@ -254,13 +255,13 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
-	public boolean remove(Pos2 pos, int joules, boolean simulate)
+	public boolean removeEnergy(Pos2 pos, int joules, boolean simulate)
 	{
 		return false;
 	}
 
 	@Override
-	public int getCapacity(IWorld world, Pos2 pos)
+	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
 		TileState state = world.getState(pos.getX(), pos.getY());
 

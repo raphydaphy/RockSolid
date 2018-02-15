@@ -9,6 +9,7 @@ import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 
+import com.raphydaphy.rocksolid.tile.multi.TileTurbine;
 import de.ellpeck.rockbottom.api.tile.Tile;
 
 public class ModTiles
@@ -16,6 +17,7 @@ public class ModTiles
 	public static Tile BOILER;
 	public static Tile PUMP;
 	public static Tile CREATIVE_ENERGY_SOURCE;
+	public static Tile TURBINE;
 
 	public static Tile FLUID_CONDUIT;
 	public static Tile GAS_CONDUIT;
@@ -29,6 +31,7 @@ public class ModTiles
 		BOILER = new TileBoiler();
 		PUMP = new TilePump();
 		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource();
+		TURBINE = new TileTurbine();
 
 		FLUID_CONDUIT = new TileFluidConduit();
 		GAS_CONDUIT = new TileGasConduit();

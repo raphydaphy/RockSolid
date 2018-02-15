@@ -3,10 +3,10 @@ package com.raphydaphy.rocksolid.network;
 import java.io.IOException;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitMode;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitSide;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.NetworkConnection;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.NetworkConnection;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;

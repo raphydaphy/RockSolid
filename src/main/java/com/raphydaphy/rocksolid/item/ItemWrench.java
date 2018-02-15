@@ -6,8 +6,8 @@ import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiConduit;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitSide;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;

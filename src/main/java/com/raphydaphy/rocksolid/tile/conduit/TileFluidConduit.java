@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.tile.conduit;
 import java.util.List;
 
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
-import com.raphydaphy.rocksolid.tileentity.TileEntityFluidConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityFluidConduit;
 
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;

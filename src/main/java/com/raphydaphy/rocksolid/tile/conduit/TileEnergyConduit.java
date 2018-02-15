@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.tile.conduit;
 
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
-import com.raphydaphy.rocksolid.tileentity.TileEntityEnergyConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityEnergyConduit;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -20,7 +20,7 @@ public class TileEnergyConduit extends TileConduit
 	@Override
 	public boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state)
 	{
-		return (te != null && te instanceof IEnergyTile && ((IEnergyTile)te).getCapacity(world,pos) > 0);
+		return (te != null && te instanceof IEnergyTile && ((IEnergyTile)te).getEnergyCapacity(world,pos) > 0);
 	}
 
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)

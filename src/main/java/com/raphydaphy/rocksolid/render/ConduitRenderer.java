@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.render;
 
 import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitMode;
-import com.raphydaphy.rocksolid.tileentity.TileEntityConduit.ConduitSide;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode;
+import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
 
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;

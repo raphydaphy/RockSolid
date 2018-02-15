@@ -13,17 +13,17 @@ public class TileEntityCreativeEnergySource extends TileEntity implements IEnerg
 	}
 
 	@Override
-	public boolean add(Pos2 pos, int joules, boolean simulate) {
+	public boolean addEnergy(Pos2 pos, int joules, boolean simulate) {
 		return false;
 	}
 
 	@Override
-	public boolean remove(Pos2 pos, int joules, boolean simulate) {
+	public boolean removeEnergy(Pos2 pos, int joules, boolean simulate) {
 		return true;
 	}
 
 	@Override
-	public int getCapacity(IWorld world, Pos2 pos)
+	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
 		return 10000000;
 	}

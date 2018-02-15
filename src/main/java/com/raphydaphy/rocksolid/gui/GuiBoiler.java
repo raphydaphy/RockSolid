@@ -1,16 +1,15 @@
 package com.raphydaphy.rocksolid.gui;
 
-import java.awt.Color;
-
 import com.google.common.base.Supplier;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+
+import java.awt.*;
 
 public class GuiBoiler extends GuiContainer
 {
@@ -27,38 +26,11 @@ public class GuiBoiler extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(
-				new ComponentProgressBar(this, 60, 45, 80, 10, Color.gray.getRGB(), false, new Supplier<Float>()
-				{
+		this.components.add(new ComponentProgressBar(this, 60, 45, 80, 10, Color.gray.getRGB(), false, (Supplier<Float>) () -> Math.min( GuiBoiler.this.te.getSteamFullness(), 1)));
 
-					@Override
-					public Float get()
-					{
-						return Math.min((float) GuiBoiler.this.te.getSteam() / 1000f, 1);
-					}
-				}));
+		this.components.add(new ComponentProgressBar(this, 60, 10, 80, 10, Color.blue.getRGB(), false, () -> Math.min((float) GuiBoiler.this.te.getWaterFullness(), 1)));
 
-		this.components.add(
-				new ComponentProgressBar(this, 60, 10, 80, 10, Color.blue.getRGB(), false, new Supplier<Float>()
-				{
-
-					@Override
-					public Float get()
-					{
-						return Math.min((float) GuiBoiler.this.te.getWaterFullness(), 1);
-					}
-				}));
-
-		this.components
-				.add(new ComponentProgressBar(this, 107, 25, 8, 17, Color.ORANGE.getRGB(), true, new Supplier<Float>()
-				{
-
-					@Override
-					public Float get()
-					{
-						return GuiBoiler.this.te.getFuelPercentage();
-					}
-				}));
+		this.components.add(new ComponentProgressBar(this, 107, 25, 8, 17, Color.ORANGE.getRGB(), true, (Supplier<Float>) () -> GuiBoiler.this.te.getFuelPercentage()));
 	}
 
 	@Override
