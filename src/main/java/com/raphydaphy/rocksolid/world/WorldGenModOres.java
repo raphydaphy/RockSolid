@@ -1,6 +1,8 @@
 package com.raphydaphy.rocksolid.world;
 
 import de.ellpeck.rockbottom.api.Constants;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IChunk;
@@ -8,12 +10,9 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
 import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-public class WorldGenModOres extends IWorldGenerator
+public class WorldGenModOres implements IWorldGenerator
 {
 	private static final List<OreGen> ores = new ArrayList<>();
 	private final Random oreRandom = new Random();
@@ -36,10 +35,10 @@ public class WorldGenModOres extends IWorldGenerator
 		{
 			if (chunk.getGridY() <= ore.highestGridPos && chunk.getGridY() >= ore.lowestGridPos)
 			{
-				this.oreRandom.setSeed(Util.scrambleSeed(chunk.getX(), chunk.getY(), world.getSeed()));
+				this.oreRandom.setSeed(Util.scrambleSeed(chunk.getX() * ()ores.indexOf(ore) + 1), chunk.getY() * (ores.indexOf(ore) + 1), world.getSeed() * (ores.indexOf(ore) + 1));
 				Collection<Biome> allowedBiomes = this.getAllowedBiomes();
 
-				int amount = this.oreRandom.nextInt(this.getMaxAmount() + 1);
+				int amount = this.oreRandom.nextInt(ore.maxAmount) + 1;
 				if (amount > 0)
 				{
 					int radX = ore.radiusX;
@@ -81,19 +80,31 @@ public class WorldGenModOres extends IWorldGenerator
 		return 210;
 	}
 
-	public class OreGen
+	private Set<Biome> getAllowedBiomes()
+	{
+		return RockBottomAPI.BIOME_REGISTRY.getUnmodifiable().values();
+	}
+
+	public static class OreGen
 	{
 		private final TileState ore;
 		private final int highestGridPos;
 		private final int lowestGridPos;
+		private final int maxAmount;
 		private final int radiusX;
 		private final int radiusY;
 
-		public OreGen(TileState ore, int highestGridPos, int lowestGridPos, int radiusX, int radiusY)
+		public OreGen(Tile ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY)
+		{
+			this(ore.getDefState(), highestGridPos, lowestGridPos, maxAmount, radiusX, radiusY);
+		}
+
+		public OreGen(TileState ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY)
 		{
 			this.ore = ore;
 			this.highestGridPos = highestGridPos;
 			this.lowestGridPos = lowestGridPos;
+			this.maxAmount = maxAmount;
 			this.radiusX = radiusX;
 			this.radiusY = radiusY;
 		}

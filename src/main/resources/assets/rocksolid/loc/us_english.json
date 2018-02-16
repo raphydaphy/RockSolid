@@ -1,31 +1,40 @@
 {
-    "rocksolid": {
-        "item.": {
-        	"boiler": "Solid-Fueled Boiler",
-        	"fluid_water": "Water",
-        	"bucket.": 
-        	{
-        		"empty" : "Empty Bucket",
-        		"water" : "Bucket of Water"
-        	},
-        	"pump": "Fluid Pump",
-        	"wrench": "Wrench",
-        	"fluid_conduit": "Fluid Conduit",
-        	"gas_conduit": "Gas Conduit",
-        	"item_conduit": "Item Conduit",
-        	"energy_conduit": "Energy Conduit",
+	"rocksolid": {
+		"item.": {
+			"boiler": "Solid-Fueled Boiler",
+			"fluid_water": "Water",
+			"bucket.": {
+				"empty": "Empty Bucket",
+				"water": "Bucket of Water"
+			},
+			"pump": "Fluid Pump",
+			"wrench": "Wrench",
+			"fluid_conduit": "Fluid Conduit",
+			"gas_conduit": "Gas Conduit",
+			"item_conduit": "Item Conduit",
+			"energy_conduit": "Energy Conduit",
 			"creative_energy_source": "Creative Energy Source",
 			"turbine": "Steam Turbine",
 			"arc_furnace": "Arc Furnace",
-			"coal_coke": "Coal Coke"
-        },
-		"conduit_mode." : {
-        	"all_inv" : "In / Out",
-        	"input_inv" : "Input",
-        	"output_inv" : "Output",
-        	"none_inv": "Disabled",
-        	"all_conduit" : "In / Out",
-        	"none_conduit" : "Disabled"
-        }
-    }
+			"coal_coke": "Coal Coke",
+			"cluster.": {
+				"copper": "Copper Cluster",
+				"tin": "Tin Cluster",
+				"iron": "Iron Cluster"
+			},
+			"ore.": {
+				"copper": "Copper Ore",
+				"tin": "Tin Ore",
+				"iron": "Iron Ore"
+			}
+		},
+		"conduit_mode.": {
+			"all_inv": "In / Out",
+			"input_inv": "Input",
+			"output_inv": "Output",
+			"none_inv": "Disabled",
+			"all_conduit": "In / Out",
+			"none_conduit": "Disabled"
+		}
+	}
 }

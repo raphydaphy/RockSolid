@@ -19,7 +19,10 @@ public class ModMisc
 
 		RockBottomAPI.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_lakes"), WorldGenLakes.class);
 
-		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen());
+		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.COPPER_ORE, -2, -5, 2, 6, 3));
+		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.TIN_ORE, -1, -4, 2, 8, 4));
+		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.IRON_ORE, -4, -9, 1, 9, 4));
+
 		RockBottomAPI.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_ores"), WorldGenModOres.class);
 
 		RockBottomAPI.PACKET_REGISTRY.register(RockBottomAPI.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);

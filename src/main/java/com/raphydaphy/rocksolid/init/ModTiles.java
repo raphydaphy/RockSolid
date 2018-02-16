@@ -34,9 +34,9 @@ public class ModTiles
 
 	public static void init()
 	{
-		COPPER_ORE = new TileOre("copper_ore", 3.5f, 1, null);
-		TIN_ORE = new TileOre("tin_ore", 2.5f, 1, null);
-		IRON_ORE = new TileOre("iron_ore", 4.5f, 3, null);
+		COPPER_ORE = new TileOre("ore.copper", 3.5f, 1, ModItems.COPPER_CLUSTER);
+		TIN_ORE = new TileOre("ore.tin", 2.5f, 1, ModItems.TIN_CLUSTER);
+		IRON_ORE = new TileOre("ore.iron", 4.5f, 3, ModItems.IRON_CLUSTER);
 
 		BOILER = new TileBoiler();
 		PUMP = new TilePump();
