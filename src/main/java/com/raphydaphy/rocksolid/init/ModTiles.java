@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
+import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
@@ -9,12 +10,15 @@ import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.multi.TileArcFurnace;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
-
 import com.raphydaphy.rocksolid.tile.multi.TileTurbine;
 import de.ellpeck.rockbottom.api.tile.Tile;
 
 public class ModTiles
 {
+	public static Tile COPPER_ORE;
+	public static Tile TIN_ORE;
+	public static Tile IRON_ORE;
+
 	public static Tile BOILER;
 	public static Tile PUMP;
 	public static Tile CREATIVE_ENERGY_SOURCE;
@@ -30,6 +34,10 @@ public class ModTiles
 
 	public static void init()
 	{
+		COPPER_ORE = new TileOre("copper_ore", 3.5f, 1, null);
+		TIN_ORE = new TileOre("tin_ore", 2.5f, 1, null);
+		IRON_ORE = new TileOre("iron_ore", 4.5f, 3, null);
+
 		BOILER = new TileBoiler();
 		PUMP = new TilePump();
 		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource();
