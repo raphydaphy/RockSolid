@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.network.PacketConduitDestroyed;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.util.ConduitTileLayer;
 import com.raphydaphy.rocksolid.world.WorldGenLakes;
@@ -19,5 +20,6 @@ public class ModMisc
 		CONDUIT_LAYER = new ConduitTileLayer();
 		
 		RockBottomAPI.PACKET_REGISTRY.register(RockBottomAPI.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
+		RockBottomAPI.PACKET_REGISTRY.register(RockBottomAPI.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
 	}
 }

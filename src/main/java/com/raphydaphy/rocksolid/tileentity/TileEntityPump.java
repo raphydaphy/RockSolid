@@ -47,11 +47,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		set.addInt(KEY_ENERGY_STORED, this.energyStored);
 		if (liquidType != null)
 		{
-			System.out.println(RockBottomAPI.TILE_REGISTRY.getId(liquidType).toString());
 			set.addString(KEY_LIQUID_TYPE, RockBottomAPI.TILE_REGISTRY.getId(liquidType).toString());
-		} else
-		{
-			System.out.println("tried to save null liquid type");
 		}
 	}
 
@@ -65,10 +61,6 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
 			liquidType = (TileLiquid) RockBottomAPI.TILE_REGISTRY.get(RockBottomAPI.createRes(set.getString(KEY_LIQUID_TYPE)));
-			System.out.println(liquidType);
-		} else
-		{
-			System.out.println("set not contained");
 		}
 	}
 
@@ -198,7 +190,6 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 				if (this.liquidVolume == 0)
 				{
 					this.liquidType = null;
-					System.out.println("NULL BOY");
 				}
 			}
 			return true;
@@ -244,7 +235,6 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	{
 		if (joules + energyStored <= getEnergyCapacity(world, pos))
 		{
-			System.out.println("adding  " + joules + " energy with simulate " + simulate);
 			if (!simulate)
 			{
 				this.energyStored += joules;

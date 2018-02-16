@@ -43,14 +43,16 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 		super.load(set, forSync);
 		this.steamVolume = set.getInt(KEY_STEAM_VOLUME);
 		this.energyStored = set.getInt(KEY_ENERGY_STORED);
+
+		System.out.println("loaded turbine with steam " + steamVolume);
 	}
 
 	@Override
 	public void update(IGameInstance game)
 	{
+		super.update(game);
 		if (!world.isClient() && this.steamVolume > 0 && this.energyStored < 2500)
 		{
-			System.out.println(steamVolume);
 			if (world.getTotalTime() % 12 == 0)
 			{
 				this.steamVolume--;
@@ -96,7 +98,6 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 		{
 			if (this.energyStored - joules >= 0)
 			{
-				System.out.println("taking energy with " + energyStored);
 				if (!simulate)
 				{
 					this.energyStored -= joules;

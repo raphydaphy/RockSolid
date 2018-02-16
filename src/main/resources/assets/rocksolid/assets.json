@@ -24,7 +24,6 @@
     		},
     		"fluid_conduit.":
     		{
-    			"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/fluid_conduit/fluid_conduit.png",
     			"up": "/tiles/fluid_conduit/fluid_conduit_up.png",
     			"down": "/tiles/fluid_conduit/fluid_conduit_down.png",
@@ -33,7 +32,6 @@
     		},
     		"energy_conduit.":
     		{
-				"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/energy_conduit/energy_conduit.png",
     			"up": "/tiles/energy_conduit/energy_conduit_up.png",
     			"down": "/tiles/energy_conduit/energy_conduit_down.png",
@@ -42,7 +40,6 @@
     		},
     		"gas_conduit.":
     		{
-				"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/gas_conduit/gas_conduit.png",
     			"up": "/tiles/gas_conduit/gas_conduit_up.png",
     			"down": "/tiles/gas_conduit/gas_conduit_down.png",
@@ -51,7 +48,6 @@
     		},
     		"item_conduit.":
     		{
-    			"master": "/tiles/item_conduit/item_conduit_master.png",
     			"center": "/tiles/item_conduit/item_conduit.png",
     			"up": "/tiles/item_conduit/item_conduit_up.png",
     			"down": "/tiles/item_conduit/item_conduit_down.png",
@@ -73,6 +69,30 @@
 		        },
 		        "item": "/fluids/empty/pump_item.png"
     		},
+			"arc_furnace.":
+			{
+				"active.": {
+					"subtexture":
+					{
+						"0.0": [0,12,12,12],
+						"1.0": [12,12,12,12],
+						"0.1": [0,0,12,12],
+						"1.1": [12,0,12,12],
+						"file": "/tiles/arc_furnace/arc_furnace_active.png"
+					}
+				},
+				"*.": {
+					"subtexture":
+					{
+						"0.0": [0,12,12,12],
+						"1.0": [12,12,12,12],
+						"0.1": [0,0,12,12],
+						"1.1": [12,0,12,12],
+						"file": "/tiles/arc_furnace/arc_furnace.png"
+					}
+				},
+				"item": "/tiles/arc_furnace/arc_furnace_item.png"
+			},
 			"turbine.":
 			{
 				"*.": {

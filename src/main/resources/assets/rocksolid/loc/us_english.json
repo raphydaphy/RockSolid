@@ -15,7 +15,8 @@
         	"item_conduit": "Item Conduit",
         	"energy_conduit": "Energy Conduit",
 			"creative_energy_source": "Creative Energy Source",
-			"turbine": "Steam Turbine"
+			"turbine": "Steam Turbine",
+			"arc_furnace": "Arc Furnace"
         },
 		"conduit_mode." : {
         	"all_inv" : "In / Out",

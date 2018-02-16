@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
+import com.raphydaphy.rocksolid.tile.multi.TileArcFurnace;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 
@@ -18,6 +19,7 @@ public class ModTiles
 	public static Tile PUMP;
 	public static Tile CREATIVE_ENERGY_SOURCE;
 	public static Tile TURBINE;
+	public static Tile ARC_FURNACE;
 
 	public static Tile FLUID_CONDUIT;
 	public static Tile GAS_CONDUIT;
@@ -32,6 +34,7 @@ public class ModTiles
 		PUMP = new TilePump();
 		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource();
 		TURBINE = new TileTurbine();
+		ARC_FURNACE = new TileArcFurnace();
 
 		FLUID_CONDUIT = new TileFluidConduit();
 		GAS_CONDUIT = new TileGasConduit();

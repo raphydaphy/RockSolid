@@ -36,13 +36,9 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 
 			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
 			Pos2 pos = new Pos2(x, y);
-			
+
 			if (te != null)
 			{
-				if (te.isMaster())
-				{
-					center = this.texture.addSuffix(".master");
-				}
 
 				manager.getTexture(center).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 
@@ -51,6 +47,7 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 					ConduitMode mode = te.getMode(pos, side, false);
 					if (mode != null && mode.shouldRender())
 					{
+
 						manager.getTexture(this.texture.addSuffix("." + side.toString().toLowerCase()))
 								.getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 					}
