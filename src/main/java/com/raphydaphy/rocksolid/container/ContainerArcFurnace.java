@@ -15,8 +15,8 @@ public class ContainerArcFurnace extends ItemContainer
 	{
 		super(player, new IInventory[]{player.getInv(), tile.getInventory()});
 		this.addPlayerInventory(player, 32, 65);
-		this.addSlot(new FilteredSlot(tile.getInventory(), 0, 40, 25, tile.getInventory().getSlots().get(0).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getInventory(), 1, 150, 25, tile.getInventory().getSlots().get(1).getPredicate()));
+		this.addSlot(new FilteredSlot(tile.getInventory(), 0, 41, 25, tile.getInventory().getSlots().get(0).getPredicate()));
+		this.addSlot(new FilteredSlot(tile.getInventory(), 1, 143, 25, tile.getInventory().getSlots().get(1).getPredicate()));
 	}
 
 	@Override

@@ -3,10 +3,12 @@ package com.raphydaphy.rocksolid.tile.multi;
 import com.raphydaphy.rocksolid.container.ContainerArcFurnace;
 import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
 import com.raphydaphy.rocksolid.render.ArcFurnaceRenderer;
-import com.raphydaphy.rocksolid.render.PumpRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
 import com.raphydaphy.rocksolid.util.ToolInfo;
+import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.Item;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -16,6 +18,9 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileArcFurnace extends MultiTileBase
 {
@@ -92,6 +97,41 @@ public class TileArcFurnace extends MultiTileBase
 		TileEntityArcFurnace te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiArcFurnace(player, te), new ContainerArcFurnace(player, te));
 		return true;
+	}
+
+	@Override
+	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
+	{
+		List<ItemInstance> drops = new ArrayList<>();
+
+		Item item = this.getItem();
+
+		if (item != null)
+		{
+			drops.add(new ItemInstance(item));
+		}
+
+		TileEntityArcFurnace te = this.getTE(world, world.getState(x, y), x, y);
+
+		if (te != null)
+		{
+			drops.add(te.getInventory().get(0));
+			drops.add(te.getInventory().get(1));
+		}
+
+		return drops;
+	}
+
+	@Override
+	public int getLight(IWorld world, int x, int y, TileLayer layer)
+	{
+		TileState state = world.getState(x, y);
+		TileEntityArcFurnace te = getTE(world, state, x, y);
+		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
+		{
+			return 30;
+		}
+		return 0;
 	}
 
 }

@@ -12,7 +12,8 @@
     			"empty": "/fluids/empty/bucket.png",
     			"water": "/fluids/water/bucket.png"
     		},
-    		"wrench": "/items/misc/wrench.png"
+    		"wrench": "/items/misc/wrench.png",
+			"coal_coke": "/items/misc/gem_coke.png"
     	},
     	"tiles.":
     	{

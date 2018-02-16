@@ -1,10 +1,5 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
@@ -14,7 +9,6 @@ import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
-
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -25,23 +19,21 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile<TileEntityBoiler>, IGasTile<TileEntityBoiler>
 {
-	private static final String KEY_STEAM = "steam";
 	public static final String KEY_WATER = "water";
-
+	private static final String KEY_STEAM = "steam";
+	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance ->
+	{
+		return instance.getItem().equals(GameContent.TILE_COAL.getItem());
+	})));
 	private int steam = 0;
 	private int lastSteam = 0;
-
 	private int water = 0;
 	private int lastWater = 0;
-
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this,
-			SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance ->
-			{
-				return instance.getItem().equals(GameContent.TILE_COAL.getItem());
-			})));
 
 	public TileEntityBoiler(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -171,11 +163,11 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	public List<TileLiquid> getLiquidsAt(IWorld world, Pos2 pos)
 	{
 		TileState state = world.getState(pos.getX(), pos.getY());
-		
+
 		if (state.getTile() instanceof TileBoiler)
 		{
-			Pos2 inner = ((TileBoiler)state.getTile()).getInnerCoord(state);
-			
+			Pos2 inner = ((TileBoiler) state.getTile()).getInnerCoord(state);
+
 			if (inner.getY() != 4 && inner.getY() != 0)
 			{
 				return Collections.singletonList((TileLiquid) ModTiles.WATER);

@@ -23,6 +23,11 @@ public class FilteredTileInventory extends TileInventory
 		return SlotInfo.toInputList(slots, instance, dir);
 	}
 
+	@Override
+	public List<Integer> getOutputSlots(Direction dir){
+		return SlotInfo.toOutputList(slots);
+	}
+
 	public List<SlotInfo> getSlots()
 	{
 		return this.slots;

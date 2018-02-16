@@ -16,7 +16,8 @@
         	"energy_conduit": "Energy Conduit",
 			"creative_energy_source": "Creative Energy Source",
 			"turbine": "Steam Turbine",
-			"arc_furnace": "Arc Furnace"
+			"arc_furnace": "Arc Furnace",
+			"coal_coke": "Coal Coke"
         },
 		"conduit_mode." : {
         	"all_inv" : "In / Out",

@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import de.ellpeck.rockbottom.api.GameContent;
@@ -13,9 +14,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 public class TileEntityArcFurnace extends TileEntity
 {
 	private static final String KEY_BLAST_PROGRESS = "blast_progress";
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(
-		new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem())),
-		new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.INPUT, (ItemInstance instance) -> false)));
+	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem())), new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.OUTPUT)));
 	private int blastProgress = 0;
 	private int lastBlastProgress = 0;
 
@@ -50,16 +49,61 @@ public class TileEntityArcFurnace extends TileEntity
 	public void update(IGameInstance game)
 	{
 		super.update(game);
+		if (!world.isClient())
+		{
+			if (this.inventory.get(0) != null && this.inventory.get(0).getItem().equals(GameContent.TILE_COAL.getItem()))
+			{
+				if (this.blastProgress < 5000)
+				{
+					this.blastProgress++;
+				} else
+				{
+					boolean did = false;
+
+					if (this.inventory.get(1) != null && this.inventory.get(1).equals(ModItems.COKE))
+					{
+						if (this.inventory.get(1).getAmount() < this.inventory.get(1).getMaxAmount())
+						{
+							this.inventory.get(1).addAmount(1);
+							did = true;
+						}
+					} else
+					{
+						this.inventory.set(1, new ItemInstance(ModItems.COKE));
+						did = true;
+					}
+
+					if (did)
+					{
+						this.inventory.remove(0, 1);
+						this.blastProgress = 0;
+					}
+				}
+			} else if (this.blastProgress > 0)
+			{
+				this.blastProgress -= Math.min(25, this.blastProgress);
+			}
+
+			if (this.isActive() != this.lastActive())
+			{
+				world.causeLightUpdate(x, y);
+			}
+		}
 	}
 
 	public float getBlastPercentage()
 	{
-		return this.blastProgress / 500;
+		return this.blastProgress / 5000f;
 	}
 
 	public boolean isActive()
 	{
 		return this.blastProgress > 0;
+	}
+
+	public boolean lastActive()
+	{
+		return this.lastBlastProgress > 0;
 	}
 
 	@Override

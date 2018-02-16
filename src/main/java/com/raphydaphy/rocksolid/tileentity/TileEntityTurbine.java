@@ -43,8 +43,6 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 		super.load(set, forSync);
 		this.steamVolume = set.getInt(KEY_STEAM_VOLUME);
 		this.energyStored = set.getInt(KEY_ENERGY_STORED);
-
-		System.out.println("loaded turbine with steam " + steamVolume);
 	}
 
 	@Override
