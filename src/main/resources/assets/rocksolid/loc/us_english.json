@@ -17,6 +17,7 @@
 			"turbine": "Steam Turbine",
 			"arc_furnace": "Arc Furnace",
 			"coal_coke": "Coal Coke",
+			"slag": "Slag",
 			"cluster.": {
 				"copper": "Copper Cluster",
 				"tin": "Tin Cluster",

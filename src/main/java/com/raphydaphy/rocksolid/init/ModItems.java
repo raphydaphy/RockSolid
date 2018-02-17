@@ -23,6 +23,7 @@ public class ModItems
 	public static Item IRON_INGOT;
 
 	public static Item COKE;
+	public static Item SLAG;
 
 	public static void init()
 	{
@@ -42,5 +43,6 @@ public class ModItems
 		IRON_INGOT = new ItemBase("ingot.iron");
 
 		COKE = new ItemBase("coal_coke");
+		SLAG = new ItemBase("slag");
 	}
 }

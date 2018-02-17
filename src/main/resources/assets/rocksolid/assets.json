@@ -10,6 +10,7 @@
 			},
 			"wrench": "/items/misc/wrench.png",
 			"coal_coke": "/items/misc/gem_coke.png",
+			"slag": "/items/misc/slag.png",
 			"cluster.": {
 				"copper": "/items/cluster/cluster_copper.png",
 				"tin": "/items/cluster/cluster_tin.png",
