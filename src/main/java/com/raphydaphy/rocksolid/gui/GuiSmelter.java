@@ -15,7 +15,7 @@ public class GuiSmelter extends GuiContainer
 
 	public GuiSmelter(AbstractEntityPlayer player, TileEntitySmelter te)
 	{
-		super(player, 198, 140);
+		super(player, 136, 120);
 		this.te = te;
 	}
 
@@ -24,9 +24,9 @@ public class GuiSmelter extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 81, 14, 35, 8, GuiColors.PROGRESS, false, GuiSmelter.this.te::getSmeltPercent));
+		this.components.add(new ComponentProgressBar(this, 49, 4, 35, 8, GuiColors.PROGRESS, false, GuiSmelter.this.te::getSmeltPercent));
 
-		this.components.add(new ComponentProgressBar(this, 80, 30, 8, 16, GuiColors.COAL, true, GuiSmelter.this.te::getFuelPercentage));
+		this.components.add(new ComponentProgressBar(this, 48, 20, 8, 16, GuiColors.COAL, true, GuiSmelter.this.te::getFuelPercentage));
 	}
 
 	@Override
