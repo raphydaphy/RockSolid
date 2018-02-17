@@ -26,7 +26,8 @@
 			"grit.": {
 				"copper": "Copper Grit",
 				"tin": "Tin Grit",
-				"iron": "Iron Grit"
+				"iron": "Iron Grit",
+				"bronze": "Bronze Grit"
 			},
 			"ore.": {
 				"copper": "Copper Ore",
@@ -36,10 +37,12 @@
 			"ingot.": {
 				"copper": "Copper Ingot",
 				"tin": "Tin Ingot",
-				"iron": "Iron Ingot"
+				"iron": "Iron Ingot",
+				"bronze": "Bronze Ingot"
 			},
 			"smelter": "Smelter",
-			"separator": "Separator"
+			"separator": "Separator",
+			"alloy_smelter": "Alloy Smelter"
 		},
 		"conduit_mode.": {
 			"all_inv": "In / Out",

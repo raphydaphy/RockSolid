@@ -19,12 +19,14 @@
 			"grit.": {
 				"copper": "/items/grit/grit_copper.png",
 				"tin": "/items/grit/grit_tin.png",
-				"iron": "/items/grit/grit_iron.png"
+				"iron": "/items/grit/grit_iron.png",
+				"bronze": "/items/grit/grit_bronze.png"
 			},
 			"ingot.": {
 				"copper": "/items/ingot/ingot_copper.png",
 				"tin": "/items/ingot/ingot_tin.png",
-				"iron": "/items/ingot/ingot_iron.png"
+				"iron": "/items/ingot/ingot_iron.png",
+				"bronze": "/items/ingot/ingot_bronze.png"
 			}
 		},
 		"tiles.": {
@@ -116,6 +118,23 @@
 					}
 				},
 				"item": "/tiles/smelter/smelter_item.png"
+			},
+			"alloy_smelter.": {
+				"active.": {
+					"subtexture": {
+						"0.0": [0, 12, 12, 12],
+						"0.1": [0, 0, 12, 12],
+						"file": "/tiles/alloy_smelter/alloy_smelter_active.png"
+					}
+				},
+				"*.": {
+					"subtexture": {
+						"0.0": [0, 12, 12, 12],
+						"0.1": [0, 0, 12, 12],
+						"file": "/tiles/alloy_smelter/alloy_smelter.png"
+					}
+				},
+				"item": "/tiles/alloy_smelter/alloy_smelter_item.png"
 			},
 			"arc_furnace.": {
 				"active.": {
