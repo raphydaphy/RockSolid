@@ -38,7 +38,8 @@
 				"tin": "Tin Ingot",
 				"iron": "Iron Ingot"
 			},
-			"smelter": "Smelter"
+			"smelter": "Smelter",
+			"separator": "Separator"
 		},
 		"conduit_mode.": {
 			"all_inv": "In / Out",

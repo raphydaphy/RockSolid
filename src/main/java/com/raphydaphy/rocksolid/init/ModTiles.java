@@ -22,6 +22,7 @@ public class ModTiles
 	public static Tile TURBINE;
 	public static Tile ARC_FURNACE;
 	public static Tile SMELTER;
+	public static Tile SEPARATOR;
 
 	public static Tile FLUID_CONDUIT;
 	public static Tile GAS_CONDUIT;
@@ -42,6 +43,7 @@ public class ModTiles
 		TURBINE = new TileTurbine();
 		ARC_FURNACE = new TileArcFurnace();
 		SMELTER = new TileSmelter();
+		SEPARATOR = new TileSeparator();
 
 		FLUID_CONDUIT = new TileFluidConduit();
 		GAS_CONDUIT = new TileGasConduit();
