@@ -14,6 +14,10 @@ public class ModItems
 	public static Item TIN_CLUSTER;
 	public static Item IRON_CLUSTER;
 
+	public static Item COPPER_GRIT;
+	public static Item TIN_GRIT;
+	public static Item IRON_GRIT;
+
 	public static Item COKE;
 
 	public static void init()
@@ -24,6 +28,10 @@ public class ModItems
 		COPPER_CLUSTER = new ItemBase("cluster.copper");
 		TIN_CLUSTER = new ItemBase("cluster.tin");
 		IRON_CLUSTER = new ItemBase("cluster.iron");
+
+		COPPER_GRIT = new ItemBase("grit.copper");
+		TIN_GRIT = new ItemBase("grit.tin");
+		IRON_GRIT = new ItemBase("grit.iron");
 
 		COKE = new ItemBase("coal_coke");
 	}

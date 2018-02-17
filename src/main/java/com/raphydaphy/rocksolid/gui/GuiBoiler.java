@@ -26,11 +26,11 @@ public class GuiBoiler extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 60, 45, 80, 10, Color.gray.getRGB(), false, (Supplier<Float>) () -> Math.min( GuiBoiler.this.te.getSteamFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 60, 45, 80, 10, Color.gray.getRGB(), false, (Supplier<Float>) GuiBoiler.this.te::getSteamFullness));
 
-		this.components.add(new ComponentProgressBar(this, 60, 10, 80, 10, Color.blue.getRGB(), false, () -> Math.min((float) GuiBoiler.this.te.getWaterFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 60, 10, 80, 10, Color.blue.getRGB(), false, GuiBoiler.this.te::getWaterFullness));
 
-		this.components.add(new ComponentProgressBar(this, 107, 25, 8, 17, Color.ORANGE.getRGB(), true, (Supplier<Float>) () -> GuiBoiler.this.te.getFuelPercentage()));
+		this.components.add(new ComponentProgressBar(this, 107, 25, 8, 17, Color.ORANGE.getRGB(), true, (Supplier<Float>) GuiBoiler.this.te::getFuelPercentage));
 	}
 
 	@Override

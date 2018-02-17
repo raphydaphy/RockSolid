@@ -26,10 +26,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 {
 	public static final String KEY_WATER = "water";
 	private static final String KEY_STEAM = "steam";
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance ->
-	{
-		return instance.getItem().equals(GameContent.TILE_COAL.getItem());
-	})));
+	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem()))));
 	private int steam = 0;
 	private int lastSteam = 0;
 	private int water = 0;

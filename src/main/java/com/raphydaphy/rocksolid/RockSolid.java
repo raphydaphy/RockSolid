@@ -1,12 +1,9 @@
 package com.raphydaphy.rocksolid;
 
-import java.util.logging.Logger;
-
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.init.ModTiles;
-
 import de.ellpeck.rockbottom.api.IApiHandler;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -14,6 +11,8 @@ import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
 import de.ellpeck.rockbottom.api.mod.IMod;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+
+import java.util.logging.Logger;
 
 public class RockSolid implements IMod
 {
@@ -84,11 +83,10 @@ public class RockSolid implements IMod
 	{
 		ModItems.init();
 		ModTiles.init();
-		
-		ModRecipes.init();
+
 		ModMisc.init();
-		
-		
+
+		ModRecipes.init();
 	}
 
 	@Override

@@ -22,11 +22,17 @@
 				"tin": "Tin Cluster",
 				"iron": "Iron Cluster"
 			},
+			"grit.": {
+				"copper": "Copper Grit",
+				"tin": "Tin Grit",
+				"iron": "Iron Grit"
+			},
 			"ore.": {
 				"copper": "Copper Ore",
 				"tin": "Tin Ore",
 				"iron": "Iron Ore"
-			}
+			},
+			"smelter": "Smelter"
 		},
 		"conduit_mode.": {
 			"all_inv": "In / Out",

@@ -1,12 +1,11 @@
 package com.raphydaphy.rocksolid.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.base.Predicate;
-
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Direction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlotInfo
 {
@@ -39,7 +38,12 @@ public class SlotInfo
 
 	public Predicate<ItemInstance> getPredicate()
 	{
-		if (allowedInput == null)
+		if (type == SlotType.OUTPUT || type == SlotType.NONE)
+		{
+			return instance -> {
+				return false;
+			};
+		} else if (allowedInput == null)
 		{
 			return instance ->
 			{
@@ -149,8 +153,8 @@ public class SlotInfo
 
 	}
 
-	public static enum SlotType
+	public enum SlotType
 	{
-		INPUT, OUTPUT, ALL, NONE;
+		INPUT, OUTPUT, ALL, NONE
 	}
 }
