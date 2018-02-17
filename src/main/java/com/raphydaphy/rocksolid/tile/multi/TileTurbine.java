@@ -80,7 +80,7 @@ public class TileTurbine extends MultiTileBase
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntityTurbine te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiTurbine(player, te), new ContainerEmpty(player, 32, 50));
+		player.openGuiContainer(new GuiTurbine(player, te), new ContainerEmpty(player, 0, 41));
 		return true;
 	}
 

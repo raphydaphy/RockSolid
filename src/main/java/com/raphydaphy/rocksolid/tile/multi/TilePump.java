@@ -5,7 +5,6 @@ import com.raphydaphy.rocksolid.gui.GuiPump;
 import com.raphydaphy.rocksolid.render.PumpRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
@@ -91,7 +90,7 @@ public class TilePump extends MultiTileBase
 			AbstractEntityPlayer player)
 	{
 		TileEntityPump te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiPump(player, te), new ContainerEmpty(player, 32, 50));
+		player.openGuiContainer(new GuiPump(player, te), new ContainerEmpty(player, 0, 41));
 		return true;
 	}
 

@@ -1,7 +1,5 @@
 package com.raphydaphy.rocksolid.gui;
 
-import java.util.List;
-
 import com.google.common.base.Supplier;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.component.ComponentCustomText;
@@ -10,7 +8,6 @@ import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -19,6 +16,8 @@ import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+
+import java.util.List;
 
 public class GuiConduit extends GuiContainer
 {
@@ -29,7 +28,7 @@ public class GuiConduit extends GuiContainer
 
 	public GuiConduit(AbstractEntityPlayer player, ConduitSide side, TileEntityConduit te)
 	{
-		super(player, 198, 140);
+		super(player, 136, 132);
 		this.te = te;
 		this.side = side;
 		this.pos = new Pos2(te.x, te.y);
@@ -53,18 +52,18 @@ public class GuiConduit extends GuiContainer
 			}
 		}
 
-		this.components.add(new ComponentCustomText(this, 65, 20, 50, 1, 0.3f, TextDirection.CENTER, "Direction"));
-		this.components.add(new ComponentCustomText(this, 133, 20, 50, 1, 0.3f, TextDirection.CENTER,
+		this.components.add(new ComponentCustomText(this, 35, 16, 76, 1, 0.3f, TextDirection.CENTER, "Direction"));
+		this.components.add(new ComponentCustomText(this, 103, 16, 50, 1, 0.3f, TextDirection.CENTER,
 				side == null ? "NONE" : side.toString()));
 
-		this.components.add(new ComponentButton(this, 154, 15, 10, 10, supplierTrue, ">"));
-		this.components.add(new ComponentButton(this, 103, 15, 10, 10, supplierTrue, "<"));
+		this.components.add(new ComponentButton(this, 124, 11, 10, 10, supplierTrue, ">"));
+		this.components.add(new ComponentButton(this, 73, 11, 10, 10, supplierTrue, "<"));
 
-		this.components.add(new ComponentCustomText(this, 65, 35, 50, 1, 0.3f, TextDirection.CENTER, "Mode"));
-		this.components.add(new ComponentCustomText(this, 133, 35, 50, 1, 0.3f, TextDirection.CENTER,
+		this.components.add(new ComponentCustomText(this, 35, 31, 76, 1, 0.3f, TextDirection.CENTER, "Mode"));
+		this.components.add(new ComponentCustomText(this, 103, 31, 50, 1, 0.3f, TextDirection.CENTER,
 				mode == null ? "NULL" : RockBottomAPI.getGame().getAssetManager().localize(mode.name)));
 
-		this.components.add(new ComponentButton(this, 154, 30, 10, 10, new Supplier<Boolean>()
+		this.components.add(new ComponentButton(this, 124, 26, 10, 10, new Supplier<Boolean>()
 		{
 			@Override
 			public Boolean get()
@@ -94,7 +93,7 @@ public class GuiConduit extends GuiContainer
 				return false;
 			}
 		}, ">"));
-		this.components.add(new ComponentButton(this, 103, 30, 10, 10, new Supplier<Boolean>()
+		this.components.add(new ComponentButton(this, 73, 26, 10, 10, new Supplier<Boolean>()
 		{
 			@Override
 			public Boolean get()

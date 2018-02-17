@@ -47,7 +47,7 @@ public class TileEntitySmelter extends TileEntityFueledBase
 
 	public float getSmeltPercent()
 	{
-		return this.smeltProgress / 250f;
+		return this.smeltProgress / 300f;
 	}
 
 	@Override
@@ -81,8 +81,14 @@ public class TileEntitySmelter extends TileEntityFueledBase
 				{
 					this.smeltProgress++;
 				}
+			} else if (smeltProgress > 0)
+			{
+				smeltProgress--;
 			}
 			return true;
+		} else if (smeltProgress > 0)
+		{
+			smeltProgress = 0;
 		}
 		return false;
 	}
@@ -90,7 +96,7 @@ public class TileEntitySmelter extends TileEntityFueledBase
 	@Override
 	protected float getFuelModifier()
 	{
-		return 1f;
+		return 1.5f;
 	}
 
 	@Override

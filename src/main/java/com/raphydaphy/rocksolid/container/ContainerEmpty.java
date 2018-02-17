@@ -9,7 +9,7 @@ public class ContainerEmpty extends ItemContainer
 {
 	public ContainerEmpty(AbstractEntityPlayer player)
 	{
-		this(player, 32, 65);
+		this(player, 0, 61);
 	}
 
 	public ContainerEmpty(AbstractEntityPlayer player, int invX, int invY)

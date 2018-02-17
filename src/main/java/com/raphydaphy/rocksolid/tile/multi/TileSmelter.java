@@ -129,11 +129,11 @@ public class TileSmelter extends MultiTileBase
 			TileEntitySmelter te = this.getTE(world, world.getState(x, y), x, y);
 			Random rand = new Random();
 
-			if (rand.nextInt(2) == 1 && te.isActive())
+			if (te.isActive())
 			{
 				boolean left = rand.nextBoolean();
-				double particleX = x + (left ? .55 : .24) + (rand.nextFloat() / 40);
-				double particleY = y + (left ? .9 : .65);
+				double particleX = x + (left ? .05 : .74) + (rand.nextFloat() / 40);
+				double particleY = y + (left ? .9 : .7);
 				RockBottomAPI.getGame().getParticleManager().addSmokeParticle(world, particleX, particleY, 0, 0.02, 0.2f + (rand.nextFloat() / 20));
 			}
 		}
