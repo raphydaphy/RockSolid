@@ -18,6 +18,10 @@ public class ModItems
 	public static Item TIN_GRIT;
 	public static Item IRON_GRIT;
 
+	public static Item COPPER_INGOT;
+	public static Item TIN_INGOT;
+	public static Item IRON_INGOT;
+
 	public static Item COKE;
 
 	public static void init()
@@ -32,6 +36,10 @@ public class ModItems
 		COPPER_GRIT = new ItemBase("grit.copper");
 		TIN_GRIT = new ItemBase("grit.tin");
 		IRON_GRIT = new ItemBase("grit.iron");
+
+		COPPER_INGOT = new ItemBase("ingot.copper");
+		TIN_INGOT = new ItemBase("ingot.tin");
+		IRON_INGOT = new ItemBase("ingot.iron");
 
 		COKE = new ItemBase("coal_coke");
 	}

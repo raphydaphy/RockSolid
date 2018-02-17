@@ -32,6 +32,11 @@
 				"tin": "Tin Ore",
 				"iron": "Iron Ore"
 			},
+			"ingot.": {
+				"copper": "Copper Ingot",
+				"tin": "Tin Ingot",
+				"iron": "Iron Ingot"
+			},
 			"smelter": "Smelter"
 		},
 		"conduit_mode.": {

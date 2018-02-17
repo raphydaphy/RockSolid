@@ -19,6 +19,11 @@
 				"copper": "/items/grit/grit_copper.png",
 				"tin": "/items/grit/grit_tin.png",
 				"iron": "/items/grit/grit_iron.png"
+			},
+			"ingot.": {
+				"copper": "/items/ingot/ingot_copper.png",
+				"tin": "/items/ingot/ingot_tin.png",
+				"iron": "/items/ingot/ingot_iron.png"
 			}
 		},
 		"tiles.": {
