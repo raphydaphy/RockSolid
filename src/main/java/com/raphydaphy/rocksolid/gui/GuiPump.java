@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
-import com.raphydaphy.rocksolid.util.GuiColors;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -26,7 +26,7 @@ public class GuiPump extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 30, 16, 80, 10, GuiColors.ENERGY, false, () -> Math.min(GuiPump.this.te.getEnergyFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 30, 16, 80, 10, ModUtils.ENERGY, false, () -> Math.min(GuiPump.this.te.getEnergyFullness(), 1)));
 
 		this.components.add(new ComponentProgressBar(this, 30, 1, 80, 10, Color.blue.getRGB(), false, () -> Math.min(GuiPump.this.te.getLiquidFullness(), 1)));
 	}

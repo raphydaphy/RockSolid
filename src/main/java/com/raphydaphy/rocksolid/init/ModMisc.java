@@ -4,9 +4,13 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.network.PacketConduitDestroyed;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.util.ConduitTileLayer;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.world.WorldGenLakes;
 import com.raphydaphy.rocksolid.world.WorldGenModOres;
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class ModMisc
@@ -29,5 +33,8 @@ public class ModMisc
 
 		RockBottomAPI.PACKET_REGISTRY.register(RockBottomAPI.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
 		RockBottomAPI.PACKET_REGISTRY.register(RockBottomAPI.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
+
+		ModUtils.FUEL_REGISTRY.put(new ItemUseInfo(new ItemInstance(GameContent.TILE_COAL)), 1800);
+		ModUtils.FUEL_REGISTRY.put(new ItemUseInfo(new ItemInstance(ModItems.COKE)), 3600);
 	}
 }

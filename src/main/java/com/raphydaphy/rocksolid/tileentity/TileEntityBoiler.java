@@ -6,10 +6,10 @@ import com.raphydaphy.rocksolid.gas.IGasTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
@@ -26,7 +26,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 {
 	public static final String KEY_WATER = "water";
 	private static final String KEY_STEAM = "steam";
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem()))));
+	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> ModUtils.getFuelValue(instance) > 0)));
 	private int steam = 0;
 	private int lastSteam = 0;
 	private int water = 0;

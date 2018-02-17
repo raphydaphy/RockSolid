@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
-import com.raphydaphy.rocksolid.util.GuiColors;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -24,9 +24,9 @@ public class GuiAlloySmelter extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 57, 4, 37, 8, GuiColors.PROGRESS, false, GuiAlloySmelter.this.te::getSmeltPercent));
+		this.components.add(new ComponentProgressBar(this, 57, 4, 37, 8, ModUtils.PROGRESS, false, GuiAlloySmelter.this.te::getSmeltPercent));
 
-		this.components.add(new ComponentProgressBar(this, 55, 20, 8, 16, GuiColors.COAL, true, GuiAlloySmelter.this.te::getFuelPercentage));
+		this.components.add(new ComponentProgressBar(this, 55, 20, 8, 16, ModUtils.COAL, true, GuiAlloySmelter.this.te::getFuelPercentage));
 	}
 
 	@Override
