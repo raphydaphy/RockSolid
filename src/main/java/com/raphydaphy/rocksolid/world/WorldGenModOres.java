@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.world;
 
 import de.ellpeck.rockbottom.api.Constants;
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -35,35 +36,40 @@ public class WorldGenModOres implements IWorldGenerator
 		{
 			if (chunk.getGridY() <= ore.highestGridPos && chunk.getGridY() >= ore.lowestGridPos)
 			{
-				this.oreRandom.setSeed(Util.scrambleSeed(chunk.getX() * ()ores.indexOf(ore) + 1), chunk.getY() * (ores.indexOf(ore) + 1), world.getSeed() * (ores.indexOf(ore) + 1));
-				Collection<Biome> allowedBiomes = this.getAllowedBiomes();
+				int oreNum = (ores.indexOf(ore) + 1) * 7919;
+				this.oreRandom.setSeed(Util.scrambleSeed(chunk.getX() * oreNum, chunk.getY() * oreNum, world.getSeed() * oreNum));
 
-				int amount = this.oreRandom.nextInt(ore.maxAmount) + 1;
-				if (amount > 0)
+				if (oreRandom.nextInt(ore.rarity) == 0)
 				{
-					int radX = ore.radiusX;
-					int radY = ore.radiusY;
-					int radXHalf = Util.ceil((double) radX / 2);
-					int radYHalf = Util.ceil((double) radY / 2);
+					Collection<Biome> allowedBiomes = this.getAllowedBiomes();
 
-					for (int i = 0; i < amount; i++)
+					int amount = this.oreRandom.nextInt(ore.maxAmount) + 1;
+					if (amount > 0)
 					{
-						int startX = chunk.getX() + radX + this.oreRandom.nextInt(Constants.CHUNK_SIZE - radX * 2);
-						int startY = chunk.getY() + radY + this.oreRandom.nextInt(Constants.CHUNK_SIZE - radY * 2);
+						int radX = ore.radiusX;
+						int radY = ore.radiusY;
+						int radXHalf = Util.ceil((double) radX / 2);
+						int radYHalf = Util.ceil((double) radY / 2);
 
-						Biome biome = world.getBiome(startX, startY);
-						if (allowedBiomes.contains(biome))
+						for (int i = 0; i < amount; i++)
 						{
-							int thisRadX = this.oreRandom.nextInt(radXHalf) + radXHalf;
-							int thisRadY = this.oreRandom.nextInt(radYHalf) + radYHalf;
+							int startX = chunk.getX() + radX + this.oreRandom.nextInt(Constants.CHUNK_SIZE - radX * 2);
+							int startY = chunk.getY() + radY + this.oreRandom.nextInt(Constants.CHUNK_SIZE - radY * 2);
 
-							for (int x = -thisRadX; x <= thisRadX; x++)
+							Biome biome = world.getBiome(startX, startY);
+							if (allowedBiomes.contains(biome))
 							{
-								for (int y = -thisRadY; y <= thisRadY; y++)
+								int thisRadX = this.oreRandom.nextInt(radXHalf) + radXHalf;
+								int thisRadY = this.oreRandom.nextInt(radYHalf) + radYHalf;
+
+								for (int x = -thisRadX; x <= thisRadX; x++)
 								{
-									if (this.oreRandom.nextInt(thisRadX) == x || this.oreRandom.nextInt(thisRadY) == y)
+									for (int y = -thisRadY; y <= thisRadY; y++)
 									{
-										world.setState(startX + x, startY + y, ore.ore);
+										if ((this.oreRandom.nextInt(thisRadX) == x || this.oreRandom.nextInt(thisRadY) == y) && world.getState(startX + x, startY + y).getTile().equals(GameContent.TILE_STONE))
+										{
+											world.setState(startX + x, startY + y, ore.ore);
+										}
 									}
 								}
 							}
@@ -77,7 +83,7 @@ public class WorldGenModOres implements IWorldGenerator
 	@Override
 	public int getPriority()
 	{
-		return 210;
+		return -210;
 	}
 
 	private Set<Biome> getAllowedBiomes()
@@ -93,13 +99,14 @@ public class WorldGenModOres implements IWorldGenerator
 		private final int maxAmount;
 		private final int radiusX;
 		private final int radiusY;
+		private final int rarity;
 
-		public OreGen(Tile ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY)
+		public OreGen(Tile ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY, int rarity)
 		{
-			this(ore.getDefState(), highestGridPos, lowestGridPos, maxAmount, radiusX, radiusY);
+			this(ore.getDefState(), highestGridPos, lowestGridPos, maxAmount, radiusX, radiusY, rarity);
 		}
 
-		public OreGen(TileState ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY)
+		public OreGen(TileState ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY, int rarity)
 		{
 			this.ore = ore;
 			this.highestGridPos = highestGridPos;
@@ -107,6 +114,7 @@ public class WorldGenModOres implements IWorldGenerator
 			this.maxAmount = maxAmount;
 			this.radiusX = radiusX;
 			this.radiusY = radiusY;
+			this.rarity = rarity;
 		}
 	}
 }

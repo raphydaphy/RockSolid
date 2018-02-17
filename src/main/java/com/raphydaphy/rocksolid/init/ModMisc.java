@@ -11,17 +11,19 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class ModMisc
 {
-	public static TileLayer CONDUIT_LAYER;
+	public static final TileLayer CONDUIT_LAYER;
 
-	public static void init()
+	static
 	{
 		CONDUIT_LAYER = new ConduitTileLayer();
-
+	}
+	public static void init()
+	{
 		RockBottomAPI.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_lakes"), WorldGenLakes.class);
 
-		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.COPPER_ORE, -2, -5, 2, 6, 3));
-		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.TIN_ORE, -1, -4, 2, 8, 4));
-		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.IRON_ORE, -4, -9, 1, 9, 4));
+		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.COPPER_ORE, -2, -5, 2, 7, 4, 2));
+		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.TIN_ORE, -1, -4, 2, 9, 5, 3));
+		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.IRON_ORE, -4, -10, 1, 5, 3, 5));
 
 		RockBottomAPI.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_ores"), WorldGenModOres.class);
 
