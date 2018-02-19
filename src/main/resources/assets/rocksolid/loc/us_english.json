@@ -1,5 +1,8 @@
 {
   "rocksolid": {
+	"layer.": {
+	  "conduit_layer": "Conduit Layer"
+	},
 	"item.": {
 	  "boiler": "Solid-Fueled Boiler",
 	  "fluid_water": "Water",
@@ -15,6 +18,7 @@
 	  "energy_conduit": "Energy Conduit",
 	  "creative_energy_source": "Creative Energy Source",
 	  "turbine": "Steam Turbine",
+	  "battery": "Battery",
 	  "arc_furnace": "Arc Furnace",
 	  "coal_coke": "Coal Coke",
 	  "slag": "Slag",

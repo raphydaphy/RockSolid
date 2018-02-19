@@ -20,6 +20,7 @@ public class ModTiles
 	public static Tile PUMP;
 	public static Tile CREATIVE_ENERGY_SOURCE;
 	public static Tile TURBINE;
+	public static Tile BATTERY;
 
 	public static Tile SMELTER;
 	public static Tile SEPARATOR;
@@ -43,7 +44,7 @@ public class ModTiles
 		PUMP = new TilePump();
 		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource();
 		TURBINE = new TileTurbine();
-
+		BATTERY = new TileBattery();
 
 		SMELTER = new TileSmelter();
 		SEPARATOR = new TileSeparator();
