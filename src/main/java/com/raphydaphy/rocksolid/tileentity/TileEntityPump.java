@@ -266,4 +266,10 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		}
 		return 0;
 	}
+
+	@Override
+	public boolean doesTick()
+	{
+		return true;
+	}
 }

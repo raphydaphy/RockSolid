@@ -27,4 +27,10 @@ public class TileEntityCreativeEnergySource extends TileEntity implements IEnerg
 	{
 		return 10000000;
 	}
+
+	@Override
+	public boolean doesTick()
+	{
+		return false;
+	}
 }

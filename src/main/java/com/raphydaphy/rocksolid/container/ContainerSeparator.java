@@ -12,12 +12,12 @@ public class ContainerSeparator extends ItemContainer
 
 	public ContainerSeparator(AbstractEntityPlayer player, TileEntitySeparator tile)
 	{
-		super(player, player.getInv(), tile.getInventory());
+		super(player, player.getInv(), tile.getTileInventory());
 		this.addPlayerInventory(player, 0, 50);
-		this.addSlot(new FilteredSlot(tile.getInventory(), 0, 51, 20, tile.getInventory().getSlots().get(0).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getInventory(), 1, 17, 0, tile.getInventory().getSlots().get(1).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getInventory(), 2, 85, 0, tile.getInventory().getSlots().get(2).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getInventory(), 3, 102, 0, tile.getInventory().getSlots().get(3).getPredicate()));
+		this.addSlot(new FilteredSlot(tile.getTileInventory(), 0, 51, 20, tile.getTileInventory().getSlots().get(0).getPredicate()));
+		this.addSlot(new FilteredSlot(tile.getTileInventory(), 1, 17, 0, tile.getTileInventory().getSlots().get(1).getPredicate()));
+		this.addSlot(new FilteredSlot(tile.getTileInventory(), 2, 85, 0, tile.getTileInventory().getSlots().get(2).getPredicate()));
+		this.addSlot(new FilteredSlot(tile.getTileInventory(), 3, 102, 0, tile.getTileInventory().getSlots().get(3).getPredicate()));
 	}
 
 	@Override

@@ -144,4 +144,10 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 	{
 		return Collections.singletonList(Gas.STEAM);
 	}
+
+	@Override
+	public boolean doesTick()
+	{
+		return true;
+	}
 }

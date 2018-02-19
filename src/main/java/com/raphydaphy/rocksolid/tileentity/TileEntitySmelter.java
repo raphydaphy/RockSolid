@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -24,7 +25,7 @@ public class TileEntitySmelter extends TileEntityFueledBase
 	}
 
 	@Override
-	public FilteredTileInventory getInventory()
+	public FilteredTileInventory getTileInventory()
 	{
 		return this.inventory;
 	}
@@ -115,13 +116,13 @@ public class TileEntitySmelter extends TileEntityFueledBase
 	@Override
 	protected ItemInstance getFuel()
 	{
-		return this.getInventory().get(0);
+		return this.getTileInventory().get(0);
 	}
 
 	@Override
 	protected void removeFuel()
 	{
-		this.getInventory().remove(0, 1);
+		this.getTileInventory().remove(0, 1);
 	}
 
 	@Override

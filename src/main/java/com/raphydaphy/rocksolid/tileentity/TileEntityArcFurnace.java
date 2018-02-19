@@ -24,7 +24,7 @@ public class TileEntityArcFurnace extends TileEntity
 	}
 
 	@Override
-	public FilteredTileInventory getInventory()
+	public FilteredTileInventory getTileInventory()
 	{
 		return this.inventory;
 	}
@@ -117,5 +117,11 @@ public class TileEntityArcFurnace extends TileEntity
 	{
 		super.onSync();
 		this.lastBlastProgress = this.blastProgress;
+	}
+
+	@Override
+	public boolean doesTick()
+	{
+		return true;
 	}
 }

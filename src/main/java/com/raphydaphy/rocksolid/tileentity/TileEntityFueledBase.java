@@ -121,4 +121,9 @@ public abstract class TileEntityFueledBase extends TileEntity
 		this.maxCoalTime = set.getInt(KEY_MAX_COAL_TIME);
 	}
 
+	public boolean doesTick()
+	{
+		return true;
+	}
+
 }

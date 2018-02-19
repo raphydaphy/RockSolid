@@ -15,7 +15,7 @@ public class TileEntityItemConduit extends TileEntityConduit
 	@Override
 	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileEntity tile2, int x2, int y2, ConduitSide side2, TileEntity tile1, boolean simulate)
 	{
-		if (tile1 != null && tile1.getInventory() != null && tile2 != null && tile2.getInventory() != null)
+		if (tile1 != null && tile1.getTileInventory() != null && tile2 != null && tile2.getTileInventory() != null)
 		{
 			// tile1 = INPUT
 			// tile2 = OUTPUT
@@ -26,21 +26,21 @@ public class TileEntityItemConduit extends TileEntityConduit
 			boolean add = false;
 
 			boolean stop = false;
-			for (int outSlot : tile2.getInventory().getOutputSlots(side2.direction))
+			for (int outSlot : tile2.getTileInventory().getOutputSlots(side2.direction))
 			{
 				if (stop)
 				{
 					break;
 				}
-				ItemInstance outI = tile2.getInventory().get(outSlot);
+				ItemInstance outI = tile2.getTileInventory().get(outSlot);
 				if (outI != null && outI.getAmount() > 0)
 				{
 					ItemInstance toExtractTemp = outI.copy().setAmount(1);
 
 
-					for (int inSlot : tile1.getInventory().getInputSlots(toExtractTemp, side1.direction))
+					for (int inSlot : tile1.getTileInventory().getInputSlots(toExtractTemp, side1.direction))
 					{
-						ItemInstance inI = tile1.getInventory().get(inSlot);
+						ItemInstance inI = tile1.getTileInventory().get(inSlot);
 						if (inI == null || inI.getAmount() == 0)
 						{
 							insertSlot = inSlot;
@@ -68,14 +68,14 @@ public class TileEntityItemConduit extends TileEntityConduit
 			{
 				if (!simulate)
 				{
-					tile2.getInventory().remove(extractSlot, 1);
+					tile2.getTileInventory().remove(extractSlot, 1);
 
 					if (add)
 					{
-						tile1.getInventory().add(insertSlot, 1);
+						tile1.getTileInventory().add(insertSlot, 1);
 					} else
 					{
-						tile1.getInventory().set(insertSlot, toExtract);
+						tile1.getTileInventory().set(insertSlot, toExtract);
 					}
 				}
 				return true;

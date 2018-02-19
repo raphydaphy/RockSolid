@@ -115,8 +115,8 @@ public class TileArcFurnace extends MultiTileBase
 
 		if (te != null)
 		{
-			drops.add(te.getInventory().get(0));
-			drops.add(te.getInventory().get(1));
+			drops.add(te.getTileInventory().get(0));
+			drops.add(te.getTileInventory().get(1));
 		}
 
 		return drops;

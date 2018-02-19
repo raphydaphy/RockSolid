@@ -20,7 +20,7 @@ public class TileItemConduit extends TileConduit
 	@Override
 	public boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state)
 	{
-		return (te != null && te.getInventory() != null);
+		return (te != null && te.getTileInventory() != null);
 	}
 	
 	@Override

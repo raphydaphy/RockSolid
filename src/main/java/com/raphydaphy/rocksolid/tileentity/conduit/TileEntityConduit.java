@@ -985,4 +985,10 @@ public abstract class TileEntityConduit extends TileEntity
 		}
 	}
 
+	@Override
+	public boolean doesTick()
+	{
+		return true;
+	}
+
 }

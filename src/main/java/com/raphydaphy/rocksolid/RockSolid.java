@@ -57,7 +57,7 @@ public class RockSolid implements IMod
 	@Override
 	public String getResourceLocation()
 	{
-		return "/assets/rocksolid";
+		return "assets/rocksolid";
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class RockSolid implements IMod
 	}
 
 	@Override
-	public void initAssets(IGameInstance game, IAssetManager assetManager, IApiHandler apiHandler)
+	public void postInitAssets(IGameInstance game, IAssetManager assetManager, IApiHandler apiHandler)
 	{
 
 	}

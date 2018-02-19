@@ -38,7 +38,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	}
 
 	@Override
-	public FilteredTileInventory getInventory()
+	public FilteredTileInventory getTileInventory()
 	{
 		return this.inventory;
 	}
@@ -115,13 +115,13 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	protected ItemInstance getFuel()
 	{
-		return this.getInventory().get(0);
+		return this.getTileInventory().get(0);
 	}
 
 	@Override
 	protected void removeFuel()
 	{
-		this.getInventory().remove(0, 1);
+		this.getTileInventory().remove(0, 1);
 	}
 
 	@Override
@@ -215,5 +215,11 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean doesTick()
+	{
+		return true;
 	}
 }
