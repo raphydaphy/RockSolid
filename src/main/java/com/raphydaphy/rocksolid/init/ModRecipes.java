@@ -18,5 +18,6 @@ public class ModRecipes
 
 		AlloySmelterRecipe.REGISTRY.add(new AlloySmelterRecipe(ModItems.COPPER_INGOT, 3, ModItems.TIN_INGOT, 1, ModItems.BRONZE_INGOT, 4));
 		AlloySmelterRecipe.REGISTRY.add(new AlloySmelterRecipe(ModItems.COPPER_GRIT, 3, ModItems.TIN_GRIT, 1, ModItems.BRONZE_GRIT, 4));
+		AlloySmelterRecipe.REGISTRY.add(new AlloySmelterRecipe(ModItems.IRON_INGOT, 1, ModItems.COKE, 1, ModItems.STEEL_INGOT, 1));
 	}
 }

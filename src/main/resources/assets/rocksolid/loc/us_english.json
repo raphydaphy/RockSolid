@@ -1,56 +1,57 @@
 {
-	"rocksolid": {
-		"item.": {
-			"boiler": "Solid-Fueled Boiler",
-			"fluid_water": "Water",
-			"bucket.": {
-				"empty": "Empty Bucket",
-				"water": "Bucket of Water"
-			},
-			"pump": "Fluid Pump",
-			"wrench": "Wrench",
-			"fluid_conduit": "Fluid Conduit",
-			"gas_conduit": "Gas Conduit",
-			"item_conduit": "Item Conduit",
-			"energy_conduit": "Energy Conduit",
-			"creative_energy_source": "Creative Energy Source",
-			"turbine": "Steam Turbine",
-			"arc_furnace": "Arc Furnace",
-			"coal_coke": "Coal Coke",
-			"slag": "Slag",
-			"cluster.": {
-				"copper": "Copper Cluster",
-				"tin": "Tin Cluster",
-				"iron": "Iron Cluster"
-			},
-			"grit.": {
-				"copper": "Copper Grit",
-				"tin": "Tin Grit",
-				"iron": "Iron Grit",
-				"bronze": "Bronze Grit"
-			},
-			"ore.": {
-				"copper": "Copper Ore",
-				"tin": "Tin Ore",
-				"iron": "Iron Ore"
-			},
-			"ingot.": {
-				"copper": "Copper Ingot",
-				"tin": "Tin Ingot",
-				"iron": "Iron Ingot",
-				"bronze": "Bronze Ingot"
-			},
-			"smelter": "Smelter",
-			"separator": "Separator",
-			"alloy_smelter": "Alloy Smelter"
-		},
-		"conduit_mode.": {
-			"all_inv": "In / Out",
-			"input_inv": "Input",
-			"output_inv": "Output",
-			"none_inv": "Disabled",
-			"all_conduit": "In / Out",
-			"none_conduit": "Disabled"
-		}
+  "rocksolid": {
+	"item.": {
+	  "boiler": "Solid-Fueled Boiler",
+	  "fluid_water": "Water",
+	  "bucket.": {
+		"empty": "Empty Bucket",
+		"water": "Bucket of Water"
+	  },
+	  "pump": "Fluid Pump",
+	  "wrench": "Wrench",
+	  "fluid_conduit": "Fluid Conduit",
+	  "gas_conduit": "Gas Conduit",
+	  "item_conduit": "Item Conduit",
+	  "energy_conduit": "Energy Conduit",
+	  "creative_energy_source": "Creative Energy Source",
+	  "turbine": "Steam Turbine",
+	  "arc_furnace": "Arc Furnace",
+	  "coal_coke": "Coal Coke",
+	  "slag": "Slag",
+	  "cluster.": {
+		"copper": "Copper Cluster",
+		"tin": "Tin Cluster",
+		"iron": "Iron Cluster"
+	  },
+	  "grit.": {
+		"copper": "Copper Grit",
+		"tin": "Tin Grit",
+		"iron": "Iron Grit",
+		"bronze": "Bronze Grit"
+	  },
+	  "ore.": {
+		"copper": "Copper Ore",
+		"tin": "Tin Ore",
+		"iron": "Iron Ore"
+	  },
+	  "ingot.": {
+		"copper": "Copper Ingot",
+		"tin": "Tin Ingot",
+		"iron": "Iron Ingot",
+		"bronze": "Bronze Ingot",
+		"steel": "Steel Ingot"
+	  },
+	  "smelter": "Smelter",
+	  "separator": "Separator",
+	  "alloy_smelter": "Alloy Smelter"
+	},
+	"conduit_mode.": {
+	  "all_inv": "In / Out",
+	  "input_inv": "Input",
+	  "output_inv": "Output",
+	  "none_inv": "Disabled",
+	  "all_conduit": "In / Out",
+	  "none_conduit": "Disabled"
 	}
+  }
 }

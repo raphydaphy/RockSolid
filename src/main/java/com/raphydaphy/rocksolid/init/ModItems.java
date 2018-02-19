@@ -23,6 +23,7 @@ public class ModItems
 	public static Item TIN_INGOT;
 	public static Item IRON_INGOT;
 	public static Item BRONZE_INGOT;
+	public static Item STEEL_INGOT;
 
 	public static Item COKE;
 	public static Item SLAG;
@@ -45,6 +46,7 @@ public class ModItems
 		TIN_INGOT = new ItemBase("ingot.tin");
 		IRON_INGOT = new ItemBase("ingot.iron");
 		BRONZE_INGOT = new ItemBase("ingot.bronze");
+		STEEL_INGOT = new ItemBase("ingot.steel");
 
 		COKE = new ItemBase("coal_coke");
 		SLAG = new ItemBase("slag");

@@ -26,7 +26,8 @@
 				"copper": "/items/ingot/ingot_copper.png",
 				"tin": "/items/ingot/ingot_tin.png",
 				"iron": "/items/ingot/ingot_iron.png",
-				"bronze": "/items/ingot/ingot_bronze.png"
+				"bronze": "/items/ingot/ingot_bronze.png",
+				"steel": "/items/ingot/ingot_steel.png"
 			}
 		},
 		"tiles.": {
