@@ -24,18 +24,32 @@ public class TileEntityEnergyConduit extends TileEntityConduit
 			Pos2 pos1 = new Pos2(x1, y1);
 
 			Pos2 pos2 = new Pos2(x2, y2);
-			if (f1.removeEnergy(pos1, 4, true))
+
+			int transfer = Math.min(f1.getMaxTransfer() * 5, f2.getMaxTransfer() * 5);
+
+			if (transfer > f1.getEnergyStored())
 			{
-				if (f2.addEnergy(pos2, 4, true))
-				{
-					if (!simulate)
-					{
-						f2.addEnergy(pos2, 4, false);
-						f1.removeEnergy(pos1, 4, false);
-					}
-					return true;
-				}
+				transfer = f1.getEnergyStored();
 			}
+
+			int canStoreF2 = f2.getEnergyCapacity(null, null) - f2.getEnergyStored();
+
+			if (transfer > canStoreF2)
+			{
+				transfer = canStoreF2;
+			}
+
+			if (transfer > 0 && f1.removeEnergy(pos1, transfer, true) && f2.addEnergy(pos2, transfer, true))
+			{
+				if (!simulate)
+				{
+					f2.addEnergy(pos2, transfer, false);
+					f1.removeEnergy(pos1, transfer, false);
+				}
+				return true;
+
+			}
+
 		}
 		return false;
 	}

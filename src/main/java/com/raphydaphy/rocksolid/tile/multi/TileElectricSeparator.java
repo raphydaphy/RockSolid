@@ -1,9 +1,11 @@
 package com.raphydaphy.rocksolid.tile.multi;
 
+import com.raphydaphy.rocksolid.container.ContainerElectricSeparator;
 import com.raphydaphy.rocksolid.container.ContainerSeparator;
+import com.raphydaphy.rocksolid.gui.GuiElectricSeparator;
 import com.raphydaphy.rocksolid.gui.GuiSeparator;
 import com.raphydaphy.rocksolid.render.FueledTERenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntitySeparator;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -25,12 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TileSeparator extends MultiTileBase
+public class TileElectricSeparator extends MultiTileBase
 {
 
-	public TileSeparator()
+	public TileElectricSeparator()
 	{
-		super("separator", 8f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("electric_separator", 13f, new ToolInfo(ToolType.PICKAXE, 1));
 	}
 
 	@Override
@@ -39,11 +41,11 @@ public class TileSeparator extends MultiTileBase
 		return layer == TileLayer.MAIN;
 	}
 
-	@Override
-	protected ITileRenderer<MultiTile> createRenderer(IResourceName name)
-	{
-		return new FueledTERenderer(name, this);
-	}
+	//@Override
+	//protected ITileRenderer<MultiTile> createRenderer(IResourceName name)
+	//{
+	//	return new FueledTERenderer(name, this);
+	//}
 
 	@Override
 	public int getWidth()
@@ -75,10 +77,11 @@ public class TileSeparator extends MultiTileBase
 		return false;
 	}
 
+	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntitySeparator te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiSeparator(player, te), new ContainerSeparator(player, te));
+		TileEntityElectricSeparator te = getTE(world, world.getState(x, y), x, y);
+		player.openGuiContainer(new GuiElectricSeparator(player, te), new ContainerElectricSeparator(player, te));
 		return true;
 	}
 
@@ -86,7 +89,7 @@ public class TileSeparator extends MultiTileBase
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntitySeparator(world, x, y, layer) : null;
+		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityElectricSeparator(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -107,51 +110,29 @@ public class TileSeparator extends MultiTileBase
 			drops.add(new ItemInstance(item));
 		}
 
-		TileEntitySeparator te = this.getTE(world, world.getState(x, y), x, y);
+		TileEntityElectricSeparator te = this.getTE(world, world.getState(x, y), x, y);
 
 		if (te != null)
 		{
 			drops.add(te.getTileInventory().get(0));
 			drops.add(te.getTileInventory().get(1));
 			drops.add(te.getTileInventory().get(2));
-			drops.add(te.getTileInventory().get(3));
 		}
 
 		return drops;
 	}
 
-	@Override
-	public void updateRandomlyForRendering(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player)
-	{
-		TileState state = world.getState(x, y);
-		Pos2 innerCoord = this.getInnerCoord(state);
-
-		if (innerCoord.getY() == 1 && innerCoord.getX() == 1)
-		{
-			TileEntitySeparator te = this.getTE(world, world.getState(x, y), x, y);
-			Random rand = new Random();
-
-			if (te.isActive())
-			{
-				boolean left = rand.nextBoolean();
-				double particleX = x + (left ? .05 : .74) + (rand.nextFloat() / 40);
-				double particleY = y + (left ? .9 : .7);
-				RockBottomAPI.getGame().getParticleManager().addSmokeParticle(world, particleX, particleY, 0, 0.02, 0.2f + (rand.nextFloat() / 20));
-			}
-		}
-	}
-
-	public TileEntitySeparator getTE(IWorld world, TileState state, int x, int y)
+	public TileEntityElectricSeparator getTE(IWorld world, TileState state, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntitySeparator.class);
+		return world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSeparator.class);
 	}
 
 	@Override
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		TileEntitySeparator te = getTE(world, state, x, y);
+		TileEntityElectricSeparator te = getTE(world, state, x, y);
 		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
 		{
 			return 30;

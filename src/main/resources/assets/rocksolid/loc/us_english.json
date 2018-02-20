@@ -47,7 +47,8 @@
 	  },
 	  "smelter": "Smelter",
 	  "separator": "Separator",
-	  "alloy_smelter": "Alloy Smelter"
+	  "alloy_smelter": "Alloy Smelter",
+	  "electric_separator": "Electric Separator"
 	},
 	"conduit_mode.": {
 	  "all_inv": "In / Out",

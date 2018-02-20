@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
@@ -7,6 +8,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -18,11 +20,12 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 {
 	public static final String KEY_ENERGY_STORED = "energy_stored";
 	private static final String KEY_STEAM_VOLUME = "steam_volume";
+	private final IResourceName TURBINE_SOUND = RockSolid.createRes("turbine");
 	private int steamVolume = 0;
 	private int lastSteamVolume = 0;
-
 	private int energyStored = 0;
 	private int lastEnergyStored = 0;
+	private int lastPlayed = -1;
 
 	public TileEntityTurbine(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -46,16 +49,33 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 	}
 
 	@Override
+	public int getEnergyStored()
+	{
+		return this.energyStored;
+	}
+
+	@Override
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		if (!world.isClient() && this.steamVolume > 0 && this.energyStored < 2500)
+		if (this.steamVolume > 0 && this.energyStored < 2500)
 		{
-			if (world.getTotalTime() % 12 == 0)
+			if (!world.isClient())
 			{
-				this.steamVolume--;
+				if (world.getTotalTime() % 12 == 0)
+				{
+					this.steamVolume--;
+				}
+				this.energyStored++;
 			}
-			this.energyStored++;
+			if (!(this.world.isDedicatedServer() && this.world.isServer()))
+			{
+				if (lastPlayed == -1 || world.getTotalTime() - lastPlayed >= 320)
+				{
+					world.playSound(TURBINE_SOUND, x + 0.5d, y + 0.5d, layer.index(), 1, 4);
+					lastPlayed = world.getTotalTime();
+				}
+			}
 		}
 	}
 
@@ -125,6 +145,13 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 		}
 		return false;
 	}
+
+	@Override
+	public int getMaxTransfer()
+	{
+		return 3;
+	}
+
 
 	@Override
 	public boolean removeGas(Pos2 pos, Gas liquid, int cc, boolean simulate)

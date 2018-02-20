@@ -11,27 +11,28 @@ import com.raphydaphy.rocksolid.tile.multi.TilePump;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.assets.ISound;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityPump>, IEnergyTile
 {
-	private static final String KEY_LIQUID_VOLUME = "liquid_volume";
 	public static final String KEY_LIQUID_TYPE = "liquid_type";
 	public static final String KEY_ENERGY_STORED = "energy_stored";
-
+	private static final String KEY_LIQUID_VOLUME = "liquid_volume";
+	private final IResourceName PUMP_SOUND = RockSolid.createRes("pump");
 	private int liquidVolume = 0;
 	private int lastLiquidVolume = 0;
-
 	private int energyStored = 0;
 	private int lastEnergyStored = 0;
-
 	private TileLiquid liquidType;
+	private int lastPlayed = -1;
 
 	public TileEntityPump(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -52,6 +53,12 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
+	public int getEnergyStored()
+	{
+		return this.energyStored;
+	}
+
+	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
@@ -65,51 +72,69 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 	}
 
 	@Override
+	public int getMaxTransfer()
+	{
+		return 12;
+	}
+
+	@Override
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		if (!this.world.isClient() && this.energyStored > 8)
+		if (this.energyStored > 8)
 		{
-			if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid && this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
+			if (!this.world.isClient())
 			{
-				TileLiquid liquidIn = (TileLiquid) this.world.getState(TileLayer.LIQUIDS, x, y).getTile();
-				if (this.liquidVolume + 25 <= 1000)
+				if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid && this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
 				{
-					if (world.getTotalTime() % 8 == 0)
+					TileLiquid liquidIn = (TileLiquid) this.world.getState(TileLayer.LIQUIDS, x, y).getTile();
+					if (this.liquidVolume + 25 <= 1000)
 					{
-						this.energyStored -= 1;
-					}
-					if (world.getTotalTime() % 80 == 0)
-					{
-						this.liquidType = liquidIn;
-						this.liquidVolume += 25;
-						int topY = y;
-						TileState top = null;
-						for (int i = y; i < y + 30; i++)
+						if (world.getTotalTime() % 8 == 0)
 						{
-							TileState state = world.getState(TileLayer.LIQUIDS, x, i);
-							if (state.getTile().equals(liquidIn))
+
+							this.energyStored -= 1;
+						}
+						if (world.getTotalTime() % 80 == 0)
+						{
+							this.liquidType = liquidIn;
+							this.liquidVolume += 25;
+							int topY = y;
+							TileState top = null;
+							for (int i = y; i < y + 30; i++)
 							{
-								topY = i;
-								top = state;
+								TileState state = world.getState(TileLayer.LIQUIDS, x, i);
+								if (state.getTile().equals(liquidIn))
+								{
+									topY = i;
+									top = state;
+								} else
+								{
+									break;
+								}
+							}
+							if (top == null)
+							{
+								top = world.getState(TileLayer.LIQUIDS, x, topY);
+							}
+							int level = (top.get((liquidIn).level));
+							if (level == 0)
+							{
+								world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
 							} else
 							{
-								break;
+								world.setState(TileLayer.LIQUIDS, x, topY, top.prop((liquidIn).level, level - 1));
 							}
 						}
-						if (top == null)
-						{
-							top = world.getState(TileLayer.LIQUIDS, x, topY);
-						}
-						int level = (top.get((liquidIn).level));
-						if (level == 0)
-						{
-							world.setState(TileLayer.LIQUIDS, x, topY, GameContent.TILE_AIR.getDefState());
-						} else
-						{
-							world.setState(TileLayer.LIQUIDS, x, topY, top.prop((liquidIn).level, level - 1));
-						}
 					}
+				}
+			}
+			if (!(this.world.isDedicatedServer() && this.world.isServer()))
+			{
+				if (lastPlayed == -1 || world.getTotalTime() - lastPlayed >= 320)
+				{
+					world.playSound(PUMP_SOUND, x + 0.5d, y + 0.5d, layer.index(), 1, 4);
+					lastPlayed = world.getTotalTime();
 				}
 			}
 		}
@@ -250,9 +275,15 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		return false;
 	}
 
+	private static final int CAPACITY = 1000;
 	@Override
 	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
+		if (pos == null)
+		{
+			return CAPACITY;
+		}
+
 		TileState state = world.getState(pos.getX(), pos.getY());
 
 		if (state.getTile() instanceof TilePump)
@@ -261,7 +292,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 
 			if (inner.getY() != 0)
 			{
-				return 1000;
+				return CAPACITY;
 			}
 		}
 		return 0;

@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
@@ -10,11 +11,13 @@ import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -85,6 +88,9 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 		return (float) this.water / 1000f;
 	}
 
+	private final IResourceName BOILER_SOUND = RockSolid.createRes("boiler");
+	private int lastPlayed = -1;
+
 	@Override
 	protected boolean tryTickAction()
 	{
@@ -98,6 +104,14 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 					{
 						this.steam += 1;
 						this.water -= 1;
+					}
+				}
+				if (!(this.world.isDedicatedServer() && this.world.isServer()))
+				{
+					if (lastPlayed == -1 || world.getTotalTime() - lastPlayed >= 320)
+					{
+						world.playSound(BOILER_SOUND, x + 0.5d, y + 0.5d, layer.index(), 1, 4);
+						lastPlayed = world.getTotalTime();
 					}
 				}
 			}

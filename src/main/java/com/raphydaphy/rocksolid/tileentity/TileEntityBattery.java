@@ -90,6 +90,18 @@ public class TileEntityBattery extends TileEntity implements IEnergyTile
 		return 25000;
 	}
 
+	@Override
+	public int getMaxTransfer()
+	{
+		return 150;
+	}
+
+	@Override
+	public int getEnergyStored()
+	{
+		return this.energyStored;
+	}
+
 	public float getEnergyFullness()
 	{
 		return (float)energyStored / getEnergyCapacity(null, null);

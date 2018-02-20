@@ -23,6 +23,12 @@ public class TileEntityCreativeEnergySource extends TileEntity implements IEnerg
 	}
 
 	@Override
+	public int getEnergyStored()
+	{
+		return this.getMaxTransfer();
+	}
+
+	@Override
 	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
 		return 10000000;
@@ -32,5 +38,11 @@ public class TileEntityCreativeEnergySource extends TileEntity implements IEnerg
 	public boolean doesTick()
 	{
 		return false;
+	}
+
+	@Override
+	public int getMaxTransfer()
+	{
+		return 1000000;
 	}
 }

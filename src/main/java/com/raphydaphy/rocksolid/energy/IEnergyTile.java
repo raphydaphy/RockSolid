@@ -11,5 +11,9 @@ public interface IEnergyTile
 	boolean removeEnergy(Pos2 pos, int joules, boolean simulate);
 
 	int getEnergyCapacity(IWorld world, Pos2 pos);
+
+	int getMaxTransfer();
+
+	int getEnergyStored();
 }
 

@@ -2,6 +2,11 @@
   "loc.": {
 	"us_english": "/loc/us_english.json"
   },
+  "sound.": {
+	"pump": "/sounds/pump.ogg",
+	"boiler": "/sounds/boiler.ogg",
+	"turbine": "/sounds/turbine.ogg"
+  },
   "tex.": {
 	"items.": {
 	  "bucket.": {
@@ -102,6 +107,27 @@
 		  }
 		},
 		"item": "/tiles/separator/separator_item.png"
+	  },
+	  "electric_separator.": {
+		"active.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"1.0": [12, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"1.1": [12, 0, 12, 12],
+			"file": "/tiles/electric_separator/separator_active.png"
+		  }
+		},
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"1.0": [12, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"1.1": [12, 0, 12, 12],
+			"file": "/tiles/electric_separator/electric_separator.png"
+		  }
+		},
+		"item": "/tiles/electric_separator/electric_separator.png"
 	  },
 	  "smelter.": {
 		"active.": {
