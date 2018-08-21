@@ -17,6 +17,15 @@ public class GuiSeparator extends GuiContainer
 	{
 		super(player, 136, 120);
 		this.te = te;
+
+		int playerSlots = player.getInv().getSlotAmount();
+
+		ShiftClickBehavior input = new ShiftClickBehavior(0, playerSlots - 1, playerSlots, playerSlots + 1);
+		shiftClickBehaviors.add(input);
+		shiftClickBehaviors.add(input.reversed());
+
+		ShiftClickBehavior output = new ShiftClickBehavior(0, playerSlots - 1, playerSlots + 2, playerSlots + 3);
+		this.shiftClickBehaviors.add(output.reversed());
 	}
 
 	@Override

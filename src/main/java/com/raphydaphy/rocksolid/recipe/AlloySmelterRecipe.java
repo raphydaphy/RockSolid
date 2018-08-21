@@ -33,15 +33,17 @@ public class AlloySmelterRecipe
 	{
 		for (AlloySmelterRecipe recipe : REGISTRY)
 		{
-			if ((recipe.in1.containsItem(input1) && recipe.in2.containsItem(input2)))
-			{
-				return recipe;
-			} else if ((recipe.in2.containsItem(input1) && recipe.in1.containsItem(input2)))
-			{
-				return new AlloySmelterRecipe(recipe.in2, recipe.in1, recipe.out);
-			}
-
-			if (ignoreNull && input2 == null && (recipe.in1.containsItem(input1) || recipe.in2.containsItem(input1)))
+		    if (input1 != null && input2 != null)
+            {
+                if ((recipe.in1.containsItem(input1) && recipe.in2.containsItem(input2)))
+                {
+                    return recipe;
+                } else if ((recipe.in2.containsItem(input1) && recipe.in1.containsItem(input2)))
+                {
+                    return new AlloySmelterRecipe(recipe.in2, recipe.in1, recipe.out);
+                }
+            }
+			if (input1 != null && ignoreNull && input2 == null && (recipe.in1.containsItem(input1) || recipe.in2.containsItem(input1)))
 			{
 				return recipe;
 			}
