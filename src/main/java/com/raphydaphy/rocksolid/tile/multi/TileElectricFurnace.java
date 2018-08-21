@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.container.ContainerElectricFurnace;
 import com.raphydaphy.rocksolid.gui.GuiElectricFurnace;
+import com.raphydaphy.rocksolid.render.ElectricFurnaceRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -9,10 +10,12 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -33,11 +36,11 @@ public class TileElectricFurnace extends MultiTileBase
 		return layer == TileLayer.MAIN;
 	}
 
-	//@Override
-	//protected ITileRenderer<TileElectricFurnace> createRenderer(ResourceName name)
-	//{
-	//	return new ElectricFurnaceRenderer(name, this);
-	//}
+	@Override
+	protected ITileRenderer<TileElectricFurnace> createRenderer(ResourceName name)
+	{
+		return new ElectricFurnaceRenderer(name, this);
+	}
 
 	@Override
 	public int getWidth()
