@@ -60,6 +60,11 @@ public class RockSolid implements IMod
 	}
 
 	@Override
+	public String getContentLocation() {
+		return "assets/rocksolid/content";
+	}
+
+	@Override
 	public String getDescription()
 	{
 		return "Improves your mining experience in Rock Bottom!";

@@ -1,0 +1,23 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+    {
+      "name": "rocksolid/alloy_smelter"
+    }
+  ],
+  "inputs": [
+    {
+      "name": "stone",
+      "amount": 40
+    },
+    {
+      "name": "tin_processed",
+      "amount": 10
+    },
+    {
+      "name": "coal",
+      "amount": 5
+    }
+  ],
+  "skill": 0.20
+}

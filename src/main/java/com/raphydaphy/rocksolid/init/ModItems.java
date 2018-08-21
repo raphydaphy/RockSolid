@@ -1,9 +1,12 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemBucket;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import de.ellpeck.rockbottom.api.item.Item;
+import de.ellpeck.rockbottom.api.item.ItemTool;
+import de.ellpeck.rockbottom.api.item.ToolType;
 
 public class ModItems
 {
@@ -22,6 +25,12 @@ public class ModItems
 	public static Item IRON_INGOT;
 	public static Item BRONZE_INGOT;
 	public static Item STEEL_INGOT;
+
+	public static Item BRONZE_PICKAXE;
+
+	public static Item BRONZE_AXE;
+
+	public static Item BRONZE_SHOVEL;
 
 	public static Item COKE;
 	public static Item SLAG;
@@ -43,6 +52,12 @@ public class ModItems
 		IRON_INGOT = new ItemBase("ingot.iron").setMaxAmount(50);
 		BRONZE_INGOT = new ItemBase("ingot.bronze").setMaxAmount(50);
 		STEEL_INGOT = new ItemBase("ingot.steel").setMaxAmount(50);
+
+		BRONZE_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.bronze"), 6, 500, ToolType.PICKAXE, 15).register();
+
+		BRONZE_AXE = new ItemTool(RockSolid.createRes("axe.bronze"), 3, 500, ToolType.AXE, 15).register();
+
+		BRONZE_SHOVEL = new ItemTool(RockSolid.createRes("shovel.bronze"), 3, 500, ToolType.SHOVEL, 15).register();
 
 		COKE = new ItemBase("coal_coke").setMaxAmount(45);
 		SLAG = new ItemBase("slag").setMaxAmount(45);

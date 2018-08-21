@@ -1,0 +1,8 @@
+{
+  "recipe.": {
+	"alloy_smelter": "/recipes/alloy_smelter.json",
+	"bronze_pickaxe": "/recipes/bronze_pickaxe.json",
+	"bronze_axe": "/recipes/bronze_axe.json",
+	"bronze_shovel": "/recipes/bronze_shovel.json"
+  }
+}

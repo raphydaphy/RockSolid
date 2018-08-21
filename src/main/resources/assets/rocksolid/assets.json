@@ -33,6 +33,15 @@
 		"iron": "/items/ingot/ingot_iron.png",
 		"bronze": "/items/ingot/ingot_bronze.png",
 		"steel": "/items/ingot/ingot_steel.png"
+	  },
+	  "pickaxe.": {
+		"bronze": "/items/pickaxe/pickaxe_bronze.png"
+	  },
+	  "axe.": {
+		"bronze": "/items/axe/axe_bronze.png"
+	  },
+	  "shovel.": {
+		"bronze": "/items/shovel/shovel_bronze.png"
 	  }
 	},
 	"tiles.": {
