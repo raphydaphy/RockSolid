@@ -115,7 +115,7 @@
 			"1.0": [12, 12, 12, 12],
 			"0.1": [0, 0, 12, 12],
 			"1.1": [12, 0, 12, 12],
-			"file": "/tiles/electric_separator/separator_active.png"
+			"file": "/tiles/electric_separator/electric_separator_active.png"
 		  }
 		},
 		"*.": {
@@ -128,23 +128,6 @@
 		  }
 		},
 		"item": "/tiles/electric_separator/electric_separator.png"
-	  },
-	  "smelter.": {
-		"active.": {
-		  "subtexture": {
-			"0.0": [0, 12, 12, 12],
-			"0.1": [0, 0, 12, 12],
-			"file": "/tiles/smelter/smelter_active.png"
-		  }
-		},
-		"*.": {
-		  "subtexture": {
-			"0.0": [0, 12, 12, 12],
-			"0.1": [0, 0, 12, 12],
-			"file": "/tiles/smelter/smelter.png"
-		  }
-		},
-		"item": "/tiles/smelter/smelter_item.png"
 	  },
 	  "alloy_smelter.": {
 		"active.": {

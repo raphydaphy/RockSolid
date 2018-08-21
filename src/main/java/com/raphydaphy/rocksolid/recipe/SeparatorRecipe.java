@@ -19,16 +19,6 @@ public class SeparatorRecipe
 	public final ItemInstance biproduct;
 	public final int biproductChance;
 
-	public SeparatorRecipe(Item in, Item mainOut)
-	{
-		this(in, mainOut, ModItems.SLAG, 3);
-	}
-
-	public SeparatorRecipe(Item in, Item out, Item biproduct, int biproductChance)
-	{
-		this(new ItemUseInfo(in), new ItemInstance(out, 2), new ItemInstance(biproduct), biproductChance);
-	}
-
 	public SeparatorRecipe(String inRes, Item out)
 	{
 		this(new ResUseInfo(inRes), new ItemInstance(out), new ItemInstance(ModItems.SLAG), 3);
@@ -44,11 +34,14 @@ public class SeparatorRecipe
 
 	public static SeparatorRecipe getFromInputs(ItemInstance input)
 	{
-		for (SeparatorRecipe recipe : REGISTRY)
+		if (input != null)
 		{
-			if (recipe.in.containsItem(input))
+			for (SeparatorRecipe recipe : REGISTRY)
 			{
-				return recipe;
+				if (recipe.in.containsItem(input))
+				{
+					return recipe;
+				}
 			}
 		}
 		return null;

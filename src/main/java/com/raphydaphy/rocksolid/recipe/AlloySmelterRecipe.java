@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.recipe;
 
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
@@ -16,9 +17,9 @@ public class AlloySmelterRecipe
 	public final IUseInfo in2;
 	public final ItemInstance out;
 
-	public AlloySmelterRecipe(Item in1, int quantity1, Item in2, int quantity2, Item out, int quantityOut)
+	public AlloySmelterRecipe(String in1, int quantity1, String in2, int quantity2, Item out, int quantityOut)
 	{
-		this(new ItemUseInfo(in1, quantity1), new ItemUseInfo(in2, quantity2), new ItemInstance(out, quantityOut));
+		this(new ResUseInfo(in1, quantity1), new ResUseInfo(in2, quantity2), new ItemInstance(out, quantityOut));
 	}
 
 	public AlloySmelterRecipe(IUseInfo in1, IUseInfo in2, ItemInstance out)
