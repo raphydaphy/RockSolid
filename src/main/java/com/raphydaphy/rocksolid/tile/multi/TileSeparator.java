@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.container.ContainerSeparator;
 import com.raphydaphy.rocksolid.gui.GuiSeparator;
 import com.raphydaphy.rocksolid.render.FueledTERenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntitySeparator;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -11,6 +12,7 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -121,24 +123,13 @@ public class TileSeparator extends MultiTileBase
 	}
 
 	@Override
-	public void updateRandomly(IWorld world, int x, int y, TileLayer layer)
+	public void updateRandomlyInPlayerView(IWorld world, int x, int y, TileLayer layer, TileState state, IParticleManager manager)
 	{
-		// TODO: is this the correct method?
-		TileState state = world.getState(x, y);
 		Pos2 innerCoord = this.getInnerCoord(state);
 
 		if (innerCoord.getY() == 1 && innerCoord.getX() == 1)
 		{
-			TileEntitySeparator te = this.getTE(world, world.getState(x, y), x, y);
-			Random rand = new Random();
-
-			if (te.isActive())
-			{
-				boolean left = rand.nextBoolean();
-				double particleX = x + (left ? .05 : .74) + (rand.nextFloat() / 40);
-				double particleY = y + (left ? .9 : .7);
-				RockBottomAPI.getGame().getParticleManager().addSmokeParticle(world, particleX, particleY, 0, 0.02, 0.2f + (rand.nextFloat() / 20));
-			}
+			ModUtils.smokeParticle(world, x, y, manager, getTE(world, world.getState(x, y), x, y));
 		}
 	}
 

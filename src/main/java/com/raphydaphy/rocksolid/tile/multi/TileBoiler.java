@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.container.ContainerBoiler;
 import com.raphydaphy.rocksolid.gui.GuiBoiler;
 import com.raphydaphy.rocksolid.render.BoilerRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -11,6 +12,7 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -118,24 +120,13 @@ public class TileBoiler extends MultiTileBase
 	}
 
 	@Override
-	public void updateRandomly(IWorld world, int x, int y, TileLayer layer)
+	public void updateRandomlyInPlayerView(IWorld world, int x, int y, TileLayer layer, TileState state, IParticleManager manager)
 	{
-		// TODO: is this the correct method?
-		TileState state = world.getState(x, y);
 		Pos2 innerCoord = this.getInnerCoord(state);
 
 		if (innerCoord.getY() == 4)
 		{
-			TileEntityBoiler te = this.getTE(world,world.getState(x, y), x, y);
-			Random rand = new Random();
-
-			if (rand.nextInt(2) == 1 && te.isActive())
-			{
-				double particleX = x + (innerCoord.getX() == 0 ? .55 : .24) + (rand.nextFloat() / 40);
-				double particleY = y + (innerCoord.getX() == 0 ? .9 : .65);
-				RockBottomAPI.getGame().getParticleManager().addSmokeParticle(world, particleX, particleY, 0, 0.02,
-						0.2f + (rand.nextFloat() / 20));
-			}
+			ModUtils.smokeParticle(world, x, y, manager, getTE(world, world.getState(x, y), x, y));
 		}
 	}
 
