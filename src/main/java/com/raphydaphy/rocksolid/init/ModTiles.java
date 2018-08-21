@@ -24,6 +24,7 @@ public class ModTiles
 	public static Tile TURBINE;
 	public static Tile BATTERY;
 
+    public static Tile ELECTRIC_FURNACE;
 	public static Tile ELECTRIC_SEPARATOR;
 
 	public static Tile FLUID_CONDUIT;
@@ -46,6 +47,7 @@ public class ModTiles
 		TURBINE = new TileTurbine().setMaxAmount(1);
 		BATTERY = new TileBattery().setMaxAmount(1);
 
+		ELECTRIC_FURNACE = new TileElectricFurnace().setMaxAmount(1);
 		ELECTRIC_SEPARATOR = new TileElectricSeparator().setMaxAmount(1);
 
 		FLUID_CONDUIT = new TileFluidConduit().setMaxAmount(25);

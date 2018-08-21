@@ -10,3 +10,7 @@ processSources {
 dependencies {
     compile group: 'de.ellpeck.rockbottom', name: 'RockBottomAPI', version: '+'
 }
+
+runClient {
+    args += ["--debugMode"]
+}

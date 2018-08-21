@@ -13,7 +13,7 @@ public class ContainerElectricSeparator extends ItemContainer
 	public ContainerElectricSeparator(AbstractEntityPlayer player, TileEntityElectricSeparator tile)
 	{
 		super(player);
-		this.addPlayerInventory(player, 0, 50);
+		this.addPlayerInventory(player, 0, 43);
 		this.addSlot(new FilteredSlot(tile.getTileInventory(), 0, 17, 0, tile.getTileInventory().getSlots().get(0).getPredicate()));
 		this.addSlot(new FilteredSlot(tile.getTileInventory(), 1, 85, 0, tile.getTileInventory().getSlots().get(1).getPredicate()));
 		this.addSlot(new FilteredSlot(tile.getTileInventory(), 2, 102, 0, tile.getTileInventory().getSlots().get(2).getPredicate()));
@@ -22,7 +22,7 @@ public class ContainerElectricSeparator extends ItemContainer
 	@Override
 	public ResourceName getName()
 	{
-		return RockSolid.createRes("container_separator");
+		return RockSolid.createRes("container_electric_separator");
 	}
 
 }

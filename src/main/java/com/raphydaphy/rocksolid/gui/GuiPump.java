@@ -26,9 +26,9 @@ public class GuiPump extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 30, 16, 80, 10, ModUtils.ENERGY, false, () -> Math.min(GuiPump.this.te.getEnergyFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 27, 16, 81, 10, ModUtils.ENERGY, false, () -> Math.min(GuiPump.this.te.getEnergyFullness(), 1)));
 
-		this.components.add(new ComponentProgressBar(this, 30, 1, 80, 10, Color.blue.getRGB(), false, () -> Math.min(GuiPump.this.te.getLiquidFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 27, 1, 81, 10, Color.blue.getRGB(), false, () -> Math.min(GuiPump.this.te.getLiquidFullness(), 1)));
 	}
 
 	@Override

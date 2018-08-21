@@ -15,7 +15,7 @@ public class GuiArcFurnace extends GuiContainer
 
 	public GuiArcFurnace(AbstractEntityPlayer player, TileEntityArcFurnace te)
 	{
-		super(player, 136, 111);
+		super(player, 136, 100);
 		this.te = te;
 
 		int playerSlots = player.getInv().getSlotAmount();
@@ -33,7 +33,7 @@ public class GuiArcFurnace extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 51, 5, 35, 8, ModUtils.PROGRESS, false, GuiArcFurnace.this.te::getBlastPercentage));
+		this.components.add(new ComponentProgressBar(this, 49, 4, 37, 8, ModUtils.PROGRESS, false, GuiArcFurnace.this.te::getBlastPercentage));
 	}
 
 	@Override

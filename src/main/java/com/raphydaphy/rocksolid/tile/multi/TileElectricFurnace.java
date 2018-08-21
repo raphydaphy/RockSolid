@@ -1,33 +1,30 @@
 package com.raphydaphy.rocksolid.tile.multi;
 
-import com.raphydaphy.rocksolid.container.ContainerElectricSeparator;
-import com.raphydaphy.rocksolid.gui.GuiElectricSeparator;
-import com.raphydaphy.rocksolid.render.ElectricSeparatorRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
+import com.raphydaphy.rocksolid.container.ContainerElectricFurnace;
+import com.raphydaphy.rocksolid.gui.GuiElectricFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
-import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileElectricSeparator extends MultiTileBase
+public class TileElectricFurnace extends MultiTileBase
 {
 
-	public TileElectricSeparator()
+	public TileElectricFurnace()
 	{
-		super("electric_separator", 13f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("electric_furnace", 13f, new ToolInfo(ToolType.PICKAXE, 1));
 	}
 
 	@Override
@@ -36,11 +33,11 @@ public class TileElectricSeparator extends MultiTileBase
 		return layer == TileLayer.MAIN;
 	}
 
-	@Override
-	protected ITileRenderer<TileElectricSeparator> createRenderer(ResourceName name)
-	{
-		return new ElectricSeparatorRenderer(name, this);
-	}
+	//@Override
+	//protected ITileRenderer<TileElectricFurnace> createRenderer(ResourceName name)
+	//{
+	//	return new ElectricFurnaceRenderer(name, this);
+	//}
 
 	@Override
 	public int getWidth()
@@ -75,8 +72,8 @@ public class TileElectricSeparator extends MultiTileBase
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityElectricSeparator te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiElectricSeparator(player, te), new ContainerElectricSeparator(player, te));
+		TileEntityElectricFurnace te = getTE(world, world.getState(x, y), x, y);
+		player.openGuiContainer(new GuiElectricFurnace(player, te), new ContainerElectricFurnace(player, te));
 		return true;
 	}
 
@@ -84,7 +81,7 @@ public class TileElectricSeparator extends MultiTileBase
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityElectricSeparator(world, x, y, layer) : null;
+		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityElectricFurnace(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -105,29 +102,28 @@ public class TileElectricSeparator extends MultiTileBase
 			drops.add(new ItemInstance(item));
 		}
 
-		TileEntityElectricSeparator te = this.getTE(world, world.getState(x, y), x, y);
+		TileEntityElectricFurnace te = this.getTE(world, world.getState(x, y), x, y);
 
 		if (te != null)
 		{
 			drops.add(te.getTileInventory().get(0));
 			drops.add(te.getTileInventory().get(1));
-			drops.add(te.getTileInventory().get(2));
 		}
 
 		return drops;
 	}
 
-	public TileEntityElectricSeparator getTE(IWorld world, TileState state, int x, int y)
+	public TileEntityElectricFurnace getTE(IWorld world, TileState state, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntityElectricSeparator.class);
+		return world.getTileEntity(main.getX(), main.getY(), TileEntityElectricFurnace.class);
 	}
 
 	@Override
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		TileEntityElectricSeparator te = getTE(world, state, x, y);
+		TileEntityElectricFurnace te = getTE(world, state, x, y);
 		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
 		{
 			return 30;

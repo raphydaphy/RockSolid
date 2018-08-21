@@ -129,6 +129,27 @@
 		},
 		"item": "/tiles/electric_separator/electric_separator.png"
 	  },
+	  "electric_furnace.": {
+		"active.": {
+			"subtexture": {
+				"0.0": [0, 12, 12, 12],
+				"1.0": [12, 12, 12, 12],
+				"0.1": [0, 0, 12, 12],
+				"1.1": [12, 0, 12, 12],
+				"file": "/tiles/electric_furnace/electric_furnace_active.png"
+			}
+		},
+		"*.": {
+			"subtexture": {
+				"0.0": [0, 12, 12, 12],
+				"1.0": [12, 12, 12, 12],
+				"0.1": [0, 0, 12, 12],
+				"1.1": [12, 0, 12, 12],
+				"file": "/tiles/electric_furnace/electric_furnace.png"
+			}
+		},
+		"item": "/tiles/electric_furnace/electric_furnace.png"
+	  },
 	  "alloy_smelter.": {
 		"active.": {
 		  "subtexture": {

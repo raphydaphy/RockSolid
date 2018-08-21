@@ -24,7 +24,7 @@ public class GuiBattery extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 30, 0, 80, 10, ModUtils.ENERGY, false, () -> Math.min(GuiBattery.this.te.getEnergyFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 27, 0, 81, 10, ModUtils.ENERGY, false, () -> Math.min(GuiBattery.this.te.getEnergyFullness(), 1)));
 	}
 
 	@Override

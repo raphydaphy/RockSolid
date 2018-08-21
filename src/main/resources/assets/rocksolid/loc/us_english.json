@@ -48,6 +48,7 @@
 	  "smelter": "Smelter",
 	  "separator": "Separator",
 	  "alloy_smelter": "Alloy Smelter",
+	  "electric_furnace": "Electric Furnace",
 	  "electric_separator": "Electric Separator"
 	},
 	"conduit_mode.": {
