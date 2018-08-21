@@ -2,20 +2,19 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
-import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
+import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class TileEntityAlloySmelter extends TileEntityFueledBase
 {
 	private static final String KEY_SMELT_PROGRESS = "smelt_progress";
-	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> ModUtils.getFuelValue(instance) > 0), new SimpleSlotInfo(SlotType.INPUT, instance -> (AlloySmelterRecipe.getFromInputs(instance, this.getTileInventory().get(2), true) != null)), new SimpleSlotInfo(SlotType.INPUT, instance -> (AlloySmelterRecipe.getFromInputs(instance, this.getTileInventory().get(1), true) != null)), new SimpleSlotInfo(SlotType.OUTPUT)));
+	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0), new SimpleSlotInfo(SlotType.INPUT, instance -> (AlloySmelterRecipe.getFromInputs(instance, this.getTileInventory().get(2), true) != null)), new SimpleSlotInfo(SlotType.INPUT, instance -> (AlloySmelterRecipe.getFromInputs(instance, this.getTileInventory().get(1), true) != null)), new SimpleSlotInfo(SlotType.OUTPUT)));
 	private int smeltProgress = 0;
 	private int lastSmeltProgress = 0;
 

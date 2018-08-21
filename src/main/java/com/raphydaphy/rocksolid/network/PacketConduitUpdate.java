@@ -1,13 +1,10 @@
 package com.raphydaphy.rocksolid.network;
 
-import java.io.IOException;
-
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.NetworkConnection;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -35,7 +32,7 @@ public class PacketConduitUpdate implements IPacket
 	}
 
 	@Override
-	public void toBuffer(ByteBuf buf) throws IOException
+	public void toBuffer(ByteBuf buf)
 	{
 		buf.writeInt(x);
 		buf.writeInt(y);
@@ -44,7 +41,7 @@ public class PacketConduitUpdate implements IPacket
 	}
 
 	@Override
-	public void fromBuffer(ByteBuf buf) throws IOException
+	public void fromBuffer(ByteBuf buf)
 	{
 		x = buf.readInt();
 		y = buf.readInt();

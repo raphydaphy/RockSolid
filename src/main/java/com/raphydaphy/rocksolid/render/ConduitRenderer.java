@@ -4,7 +4,6 @@ import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -14,14 +13,14 @@ import de.ellpeck.rockbottom.api.render.tile.DefaultTileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 {
 
-	public ConduitRenderer(IResourceName texture)
+	public ConduitRenderer(ResourceName texture)
 	{
 		super(texture);
 	}
@@ -32,7 +31,7 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 	{
 		if (tile instanceof TileConduit)
 		{
-			IResourceName center = this.texture.addSuffix(".center");
+			ResourceName center = this.texture.addSuffix(".center");
 
 			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
 			Pos2 pos = new Pos2(x, y);

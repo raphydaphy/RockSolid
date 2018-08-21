@@ -2,15 +2,12 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
-import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
-
-import java.awt.*;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class GuiBattery extends GuiContainer
 {
@@ -31,7 +28,7 @@ public class GuiBattery extends GuiContainer
 	}
 
 	@Override
-	public IResourceName getName()
+	public ResourceName getName()
 	{
 		return RockSolid.createRes("gui_battery");
 	}

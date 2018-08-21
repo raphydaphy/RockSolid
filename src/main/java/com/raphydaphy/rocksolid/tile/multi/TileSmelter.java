@@ -17,7 +17,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -40,7 +40,7 @@ public class TileSmelter extends MultiTileBase
 	}
 
 	@Override
-	protected ITileRenderer<MultiTile> createRenderer(IResourceName name)
+	protected ITileRenderer<MultiTile> createRenderer(ResourceName name)
 	{
 		return new FueledTERenderer(name, this);
 	}
@@ -119,8 +119,9 @@ public class TileSmelter extends MultiTileBase
 	}
 
 	@Override
-	public void updateRandomlyForRendering(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player)
+	public void updateRandomly(IWorld world, int x, int y, TileLayer layer)
 	{
+		// TODO: is this the correct method?
 		TileState state = world.getState(x, y);
 		Pos2 innerCoord = this.getInnerCoord(state);
 

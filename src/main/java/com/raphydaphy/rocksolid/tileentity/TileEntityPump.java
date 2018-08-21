@@ -1,32 +1,30 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
-
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.assets.ISound;
+import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityPump>, IEnergyTile
 {
 	public static final String KEY_LIQUID_TYPE = "liquid_type";
 	public static final String KEY_ENERGY_STORED = "energy_stored";
 	private static final String KEY_LIQUID_VOLUME = "liquid_volume";
-	private final IResourceName PUMP_SOUND = RockSolid.createRes("pump");
+	private final ResourceName PUMP_SOUND = RockSolid.createRes("pump");
 	private int liquidVolume = 0;
 	private int lastLiquidVolume = 0;
 	private int energyStored = 0;
@@ -48,7 +46,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		set.addInt(KEY_ENERGY_STORED, this.energyStored);
 		if (liquidType != null)
 		{
-			set.addString(KEY_LIQUID_TYPE, RockBottomAPI.TILE_REGISTRY.getId(liquidType).toString());
+			set.addString(KEY_LIQUID_TYPE, Registries.TILE_REGISTRY.getId(liquidType).toString());
 		}
 	}
 
@@ -67,7 +65,7 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
-			liquidType = (TileLiquid) RockBottomAPI.TILE_REGISTRY.get(RockBottomAPI.createRes(set.getString(KEY_LIQUID_TYPE)));
+			liquidType = (TileLiquid) Registries.TILE_REGISTRY.get(ResourceName.intern(set.getString(KEY_LIQUID_TYPE)));
 		}
 	}
 

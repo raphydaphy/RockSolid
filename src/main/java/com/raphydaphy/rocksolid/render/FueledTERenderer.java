@@ -8,13 +8,13 @@ import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class FueledTERenderer extends MultiTileRenderer<MultiTile>
 {
-	public FueledTERenderer(IResourceName texture, MultiTile tile)
+	public FueledTERenderer(ResourceName texture, MultiTile tile)
 	{
 		super(texture, tile);
 	}
@@ -29,7 +29,7 @@ public class FueledTERenderer extends MultiTileRenderer<MultiTile>
 
 		if (te != null)
 		{
-			IResourceName tex = this.textures.get(innerCoord);
+			ResourceName tex = this.textures.get(innerCoord);
 			if (te.isActive())
 			{
 				tex = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());

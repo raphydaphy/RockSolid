@@ -15,7 +15,7 @@ import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.util.List;
 
@@ -127,7 +127,7 @@ public class GuiConduit extends GuiContainer
 	}
 
 	@Override
-	public IResourceName getName()
+	public ResourceName getName()
 	{
 		return RockSolid.createRes("gui_conduit");
 	}

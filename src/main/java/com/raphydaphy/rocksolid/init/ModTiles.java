@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
 import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
@@ -12,7 +11,6 @@ import de.ellpeck.rockbottom.api.tile.Tile;
 
 public class ModTiles
 {
-	public static Tile COPPER_ORE;
 	public static Tile TIN_ORE;
 	public static Tile IRON_ORE;
 
@@ -34,11 +32,8 @@ public class ModTiles
 	public static Tile ENERGY_CONDUIT;
 	public static Tile ITEM_CONDUIT;
 
-	public static Tile WATER;
-
 	public static void init()
 	{
-		COPPER_ORE = new TileOre("ore.copper", 3.5f, 1, ModItems.COPPER_CLUSTER);
 		TIN_ORE = new TileOre("ore.tin", 2.5f, 1, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 4.5f, 3, ModItems.IRON_CLUSTER);
 
@@ -59,7 +54,5 @@ public class ModTiles
 		GAS_CONDUIT = new TileGasConduit();
 		ENERGY_CONDUIT = new TileEnergyConduit();
 		ITEM_CONDUIT = new TileItemConduit();
-		
-		WATER = new FluidWater();
 	}
 }

@@ -1,16 +1,10 @@
 package com.raphydaphy.rocksolid.tile.conduit;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -25,9 +19,13 @@ import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class TileConduit extends TileBase
 {
@@ -38,7 +36,7 @@ public abstract class TileConduit extends TileBase
 	}
 
 	@Override
-	public boolean canPlace(IWorld world, int x, int y, TileLayer layer)
+	public boolean canPlace(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player)
 	{
 		return layer.equals(ModMisc.CONDUIT_LAYER);
 	}
@@ -66,9 +64,9 @@ public abstract class TileConduit extends TileBase
 	}
 
 	@Override
-	protected ITileRenderer<TileConduit> createRenderer(IResourceName name)
+	protected ITileRenderer<TileConduit> createRenderer(ResourceName name)
 	{
-		return new ConduitRenderer<TileConduit>(name);
+		return new ConduitRenderer<>(name);
 	}
 
 	@Override
@@ -127,11 +125,10 @@ public abstract class TileConduit extends TileBase
 
 				Tile currentTile;
 				TileState currentState;
-				IResourceName soundName;
+				ResourceName soundName;
 				Tile tile = getTile();
 
-				if ((currentTile = world.getState(layer, x, y).getTile()) != tile
-						&& currentTile.canReplace(world, x, y, layer) && tile.canPlace(world, x, y, layer))
+				if ((currentTile = world.getState(layer, x, y).getTile()) != tile && currentTile.canReplace(world, x, y, layer) && tile.canPlace(world, x, y, layer, player))
 				{
 					if (!world.isClient())
 					{

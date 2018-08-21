@@ -9,17 +9,14 @@ import de.ellpeck.rockbottom.api.assets.texture.ITexture;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class BatteryRenderer extends MultiTileRenderer<TileBattery>
 {
 
-	public BatteryRenderer(IResourceName texture, TileBattery tile)
+	public BatteryRenderer(ResourceName texture, TileBattery tile)
 	{
 		super(texture, tile);
 
@@ -41,7 +38,7 @@ public class BatteryRenderer extends MultiTileRenderer<TileBattery>
 		{
 			manager.getTexture(this.textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 
-			IResourceName full = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
+			ResourceName full = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
 			if (te.getEnergyFullness() > 0 && innerCoord.getX() == 1)
 			{
 				int ENERGY = (int) Math.min((te.getEnergyFullness() * te.getEnergyCapacity(null, null)) / (te.getEnergyCapacity(null, null) / 24d), 24);

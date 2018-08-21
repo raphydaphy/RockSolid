@@ -7,7 +7,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class GuiArcFurnace extends GuiContainer
 {
@@ -28,7 +28,7 @@ public class GuiArcFurnace extends GuiContainer
 	}
 
 	@Override
-	public IResourceName getName()
+	public ResourceName getName()
 	{
 		return RockSolid.createRes("gui_arc_furnace");
 	}

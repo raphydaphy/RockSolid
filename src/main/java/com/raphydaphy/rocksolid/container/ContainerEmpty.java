@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.container;
 import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class ContainerEmpty extends ItemContainer
 {
@@ -14,12 +14,12 @@ public class ContainerEmpty extends ItemContainer
 
 	public ContainerEmpty(AbstractEntityPlayer player, int invX, int invY)
 	{
-		super(player, player.getInv());
+		super(player);
 		this.addPlayerInventory(player, invX, invY);
 	}
 
 	@Override
-	public IResourceName getName()
+	public ResourceName getName()
 	{
 		return RockSolid.createRes("container_base");
 	}

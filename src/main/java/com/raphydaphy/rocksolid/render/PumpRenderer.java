@@ -1,23 +1,22 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
-
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class PumpRenderer extends MultiTileRenderer<TilePump>
 {
 
-	public PumpRenderer(IResourceName texture, TilePump tile)
+	public PumpRenderer(ResourceName texture, TilePump tile)
 	{
 		super(texture, tile);
 	}
@@ -36,7 +35,7 @@ public class PumpRenderer extends MultiTileRenderer<TilePump>
 
 			if (innerCoord.getY() == 1 && te.getLiquidType() != null)
 			{
-				if (te.getLiquidType().equals(ModTiles.WATER))
+				if (te.getLiquidType().equals(GameContent.TILE_WATER))
 				{
 					float pixel = ((float) scale / 12f);
 					//X 8 BEFORE TEXTURE, 13 TEXTURE WIDTH, 2 AFTER TEXTURE

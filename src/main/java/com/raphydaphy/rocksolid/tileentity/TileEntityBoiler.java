@@ -4,20 +4,19 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
-import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
-import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -29,7 +28,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 {
 	public static final String KEY_WATER = "water";
 	private static final String KEY_STEAM = "steam";
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> ModUtils.getFuelValue(instance) > 0)));
+	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0)));
 	private int steam = 0;
 	private int lastSteam = 0;
 	private int water = 0;
@@ -88,7 +87,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 		return (float) this.water / 1000f;
 	}
 
-	private final IResourceName BOILER_SOUND = RockSolid.createRes("boiler");
+	private final ResourceName BOILER_SOUND = RockSolid.createRes("boiler");
 	private int lastPlayed = -1;
 
 	@Override
@@ -147,7 +146,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public boolean addFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (liquid.equals(ModTiles.WATER) && ml + this.water <= 1000)
+		if (liquid.equals(GameContent.TILE_WATER) && ml + this.water <= 1000)
 		{
 			if (!simulate)
 			{
@@ -167,7 +166,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public int getFluidCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
 	{
-		return liquid.equals(ModTiles.WATER) && getLiquidsAt(world, pos) != null ? 1000 : 0;
+		return liquid.equals(GameContent.TILE_WATER) && getLiquidsAt(world, pos) != null ? 1000 : 0;
 	}
 
 	@Override
@@ -181,7 +180,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 
 			if (inner.getY() != 4 && inner.getY() != 0)
 			{
-				return Collections.singletonList((TileLiquid) ModTiles.WATER);
+				return Collections.singletonList(GameContent.TILE_WATER);
 			}
 		}
 		return null;

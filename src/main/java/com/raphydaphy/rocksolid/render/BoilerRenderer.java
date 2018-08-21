@@ -1,11 +1,7 @@
 package com.raphydaphy.rocksolid.render;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -13,15 +9,18 @@ import de.ellpeck.rockbottom.api.assets.texture.ITexture;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 {
-	protected final Map<Pos2, IResourceName> baseTextures = new HashMap<>();
+	protected final Map<Pos2, ResourceName> baseTextures = new HashMap<>();
 
-	public BoilerRenderer(IResourceName texture, TileBoiler tile)
+	public BoilerRenderer(ResourceName texture, TileBoiler tile)
 	{
 		super(texture, tile);
 
@@ -57,7 +56,7 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 			manager.getTexture(getTextureFor(innerCoord,  te.isActive())).getPositionalVariation(x, y)
 					.draw(renderX, renderY, scale, scale, light);
 
-			IResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
+			ResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
 			if (te.getSteamFullness() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4)
 			{
 				int STEAM = (int) Math.min((te.getSteamFullness()*1000) / (1000/26), 26);
@@ -121,9 +120,9 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 		}
 	}
 
-	private IResourceName getTextureFor(Pos2 coord, boolean active)
+	private ResourceName getTextureFor(Pos2 coord, boolean active)
 	{
-		IResourceName tex = baseTextures.get(coord);
+		ResourceName tex = baseTextures.get(coord);
 
 		if (active && coord.getY() == 0)
 		{

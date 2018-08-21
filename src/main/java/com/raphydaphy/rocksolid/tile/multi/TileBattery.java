@@ -2,9 +2,7 @@ package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiBattery;
-import com.raphydaphy.rocksolid.gui.GuiPump;
 import com.raphydaphy.rocksolid.render.BatteryRenderer;
-import com.raphydaphy.rocksolid.render.PumpRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -14,7 +12,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -63,7 +61,7 @@ public class TileBattery extends MultiTileBase
 	}
 
 	@Override
-	protected ITileRenderer<TileBattery> createRenderer(IResourceName name)
+	protected ITileRenderer<TileBattery> createRenderer(ResourceName name)
 	{
 		return new BatteryRenderer(name, this);
 	}

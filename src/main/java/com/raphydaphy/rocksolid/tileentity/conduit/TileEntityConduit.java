@@ -13,7 +13,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -715,7 +715,7 @@ public abstract class TileEntityConduit extends TileEntity
 		ALL_INV(0), INPUT_INV(1), OUTPUT_INV(2), NONE_INV(3), ALL_CONDUIT(4), NONE_CONDUIT(5);
 
 		public final int id;
-		public final IResourceName name;
+		public final ResourceName name;
 
 		ConduitMode(int id)
 		{

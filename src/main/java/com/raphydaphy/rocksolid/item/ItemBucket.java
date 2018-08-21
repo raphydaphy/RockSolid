@@ -1,10 +1,7 @@
 package com.raphydaphy.rocksolid.item;
 
-import com.raphydaphy.rocksolid.fluid.FluidWater;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
-import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
-
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -14,7 +11,7 @@ import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -28,7 +25,7 @@ public class ItemBucket extends ItemBase
 	}
 
 	@Override
-	protected IItemRenderer<ItemBucket> createRenderer(IResourceName name)
+	protected IItemRenderer<ItemBucket> createRenderer(ResourceName name)
 	{
 		return new BucketRenderer(name);
 	}
@@ -51,13 +48,12 @@ public class ItemBucket extends ItemBase
 
 		if (instance.getMeta() == BucketType.EMPTY.meta)
 		{
-			if (state.getTile().equals(ModTiles.WATER))
+			if (state.getTile().equals(GameContent.TILE_WATER))
 			{
-				int curLevel = state.get(((FluidWater) state.getTile()).level);
+				int curLevel = state.get(GameContent.TILE_WATER.level);
 				if (curLevel > 0)
 				{
-					world.setState(TileLayer.LIQUIDS, x, y,
-							state.prop(((FluidWater) state.getTile()).level, curLevel - 1));
+					world.setState(TileLayer.LIQUIDS, x, y, state.prop(GameContent.TILE_WATER.level, curLevel - 1));
 				} else
 				{
 					world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_AIR.getDefState());
@@ -65,7 +61,7 @@ public class ItemBucket extends ItemBase
 			} else if (te != null && te instanceof IFluidTile<?>)
 			{
 				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
-				if (!fluidTE.removeFluid(new Pos2(x,y), (TileLiquid)ModTiles.WATER, 25, false))
+				if (!fluidTE.removeFluid(new Pos2(x, y), GameContent.TILE_WATER, 25, false))
 				{
 					return false;
 				}
@@ -73,9 +69,9 @@ public class ItemBucket extends ItemBase
 			instance.setMeta(BucketType.WATER.meta);
 		} else if (instance.getMeta() == BucketType.WATER.meta)
 		{
-			if (state.getTile().equals(ModTiles.WATER))
+			if (state.getTile().equals(GameContent.TILE_WATER))
 			{
-				int curLevel = state.get(((FluidWater) state.getTile()).level);
+				int curLevel = state.get(GameContent.TILE_WATER.level);
 				if (curLevel < 11)
 				{
 					world.setState(TileLayer.LIQUIDS, x, y,
@@ -84,16 +80,16 @@ public class ItemBucket extends ItemBase
 				{
 					return false;
 				}
-			} else if (te != null && te instanceof IFluidTile<?>)
+			} else if (te instanceof IFluidTile<?>)
 			{
 				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
-				if (!fluidTE.addFluid(new Pos2(x,y), (TileLiquid)ModTiles.WATER, 25, false))
+				if (!fluidTE.addFluid(new Pos2(x, y), GameContent.TILE_WATER, 25, false))
 				{
 					return false;
 				}
 			} else if (state.getTile().isAir())
 			{
-				world.setState(TileLayer.LIQUIDS, x, y, ModTiles.WATER.getDefState());
+				world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_WATER.getDefState());
 			}
 			instance.setMeta(BucketType.EMPTY.meta);
 		}
@@ -108,7 +104,7 @@ public class ItemBucket extends ItemBase
 	}
 
 	@Override
-	public IResourceName getUnlocalizedName(ItemInstance instance)
+	public ResourceName getUnlocalizedName(ItemInstance instance)
 	{
 		return this.unlocName.addSuffix("." + BucketType.getFromMeta(instance.getMeta()).toString());
 	}

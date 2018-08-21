@@ -15,7 +15,7 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.item.DefaultItemRenderer;
 import de.ellpeck.rockbottom.api.render.item.IItemRenderer;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import org.lwjgl.glfw.GLFW;
@@ -30,7 +30,7 @@ public class ItemWrench extends ItemBase
 	}
 
 	@Override
-	protected IItemRenderer<ItemWrench> createRenderer(IResourceName name)
+	protected IItemRenderer<ItemWrench> createRenderer(ResourceName name)
 	{
 		return new DefaultItemRenderer<ItemWrench>(name)
 		{

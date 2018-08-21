@@ -1,15 +1,14 @@
 package com.raphydaphy.rocksolid.gui.component;
 
-import java.util.List;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.assets.font.IFont;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.GuiComponent;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
+
+import java.util.List;
 
 public class ComponentCustomText extends GuiComponent
 {
@@ -54,9 +53,9 @@ public class ComponentCustomText extends GuiComponent
 	}
 
 	@Override
-	public IResourceName getName()
+	public ResourceName getName()
 	{
-		return RockBottomAPI.createInternalRes("text");
+		return ResourceName.intern("text");
 	}
 
 	@Override

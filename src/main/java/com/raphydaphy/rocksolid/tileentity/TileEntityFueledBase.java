@@ -1,8 +1,8 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -80,7 +80,7 @@ public abstract class TileEntityFueledBase extends TileEntity
 
 	public static int getFuelValue(ItemInstance item)
 	{
-		return ModUtils.getFuelValue(item);
+		return FuelInput.getFuelTime(item);
 	}
 
 	@Override

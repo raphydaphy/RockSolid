@@ -1,15 +1,10 @@
 package com.raphydaphy.rocksolid.tile.multi;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.raphydaphy.rocksolid.container.ContainerBoiler;
 import com.raphydaphy.rocksolid.gui.GuiBoiler;
 import com.raphydaphy.rocksolid.render.BoilerRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -21,9 +16,13 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class TileBoiler extends MultiTileBase
 {
@@ -40,7 +39,7 @@ public class TileBoiler extends MultiTileBase
 	}
 
 	@Override
-	protected ITileRenderer<TileBoiler> createRenderer(IResourceName name)
+	protected ITileRenderer<TileBoiler> createRenderer(ResourceName name)
 	{
 		return new BoilerRenderer(name, this);
 	}
@@ -119,8 +118,9 @@ public class TileBoiler extends MultiTileBase
 	}
 
 	@Override
-	public void updateRandomlyForRendering(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player)
+	public void updateRandomly(IWorld world, int x, int y, TileLayer layer)
 	{
+		// TODO: is this the correct method?
 		TileState state = world.getState(x, y);
 		Pos2 innerCoord = this.getInnerCoord(state);
 

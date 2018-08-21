@@ -1,31 +1,23 @@
 package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.container.ContainerElectricSeparator;
-import com.raphydaphy.rocksolid.container.ContainerSeparator;
 import com.raphydaphy.rocksolid.gui.GuiElectricSeparator;
-import com.raphydaphy.rocksolid.gui.GuiSeparator;
-import com.raphydaphy.rocksolid.render.FueledTERenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
-import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
-import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TileElectricSeparator extends MultiTileBase
 {
@@ -42,7 +34,7 @@ public class TileElectricSeparator extends MultiTileBase
 	}
 
 	//@Override
-	//protected ITileRenderer<MultiTile> createRenderer(IResourceName name)
+	//protected ITileRenderer<MultiTile> createRenderer(ResourceName name)
 	//{
 	//	return new FueledTERenderer(name, this);
 	//}

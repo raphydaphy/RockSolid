@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.world;
 
 import de.ellpeck.rockbottom.api.Constants;
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Util;
@@ -88,7 +88,7 @@ public class WorldGenModOres implements IWorldGenerator
 
 	private Set<Biome> getAllowedBiomes()
 	{
-		return RockBottomAPI.BIOME_REGISTRY.getUnmodifiable().values();
+		return Registries.BIOME_REGISTRY.getUnmodifiable().values();
 	}
 
 	public static class OreGen
@@ -100,6 +100,7 @@ public class WorldGenModOres implements IWorldGenerator
 		private final int radiusX;
 		private final int radiusY;
 		private final int rarity;
+
 
 		public OreGen(Tile ore, int highestGridPos, int lowestGridPos, int maxAmount, int radiusX, int radiusY, int rarity)
 		{

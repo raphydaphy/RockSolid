@@ -8,7 +8,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.reg.IResourceName;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -20,7 +20,7 @@ public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTi
 {
 	public static final String KEY_ENERGY_STORED = "energy_stored";
 	private static final String KEY_STEAM_VOLUME = "steam_volume";
-	private final IResourceName TURBINE_SOUND = RockSolid.createRes("turbine");
+	private final ResourceName TURBINE_SOUND = RockSolid.createRes("turbine");
 	private int steamVolume = 0;
 	private int lastSteamVolume = 0;
 	private int energyStored = 0;
