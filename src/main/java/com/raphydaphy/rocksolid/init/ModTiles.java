@@ -36,21 +36,21 @@ public class ModTiles
 		TIN_ORE = new TileOre("ore.tin", 2.5f, 1, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 4.5f, 3, ModItems.IRON_CLUSTER);
 
-		SEPARATOR = new TileSeparator();
-		ALLOY_SMELTER = new TileAlloySmelter();
-		ARC_FURNACE = new TileArcFurnace();
+		SEPARATOR = new TileSeparator().setMaxAmount(1);
+		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);
+		ARC_FURNACE = new TileArcFurnace().setMaxAmount(1);
 
-		BOILER = new TileBoiler();
-		PUMP = new TilePump();
-		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource();
-		TURBINE = new TileTurbine();
-		BATTERY = new TileBattery();
+		BOILER = new TileBoiler().setMaxAmount(1);
+		PUMP = new TilePump().setMaxAmount(1);
+		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource().setMaxAmount(1);
+		TURBINE = new TileTurbine().setMaxAmount(1);
+		BATTERY = new TileBattery().setMaxAmount(1);
 
-		ELECTRIC_SEPARATOR = new TileElectricSeparator();
+		ELECTRIC_SEPARATOR = new TileElectricSeparator().setMaxAmount(1);
 
-		FLUID_CONDUIT = new TileFluidConduit();
-		GAS_CONDUIT = new TileGasConduit();
-		ENERGY_CONDUIT = new TileEnergyConduit();
-		ITEM_CONDUIT = new TileItemConduit();
+		FLUID_CONDUIT = new TileFluidConduit().setMaxAmount(25);
+		GAS_CONDUIT = new TileGasConduit().setMaxAmount(25);
+		ENERGY_CONDUIT = new TileEnergyConduit().setMaxAmount(25);
+		ITEM_CONDUIT = new TileItemConduit().setMaxAmount(25);
 	}
 }

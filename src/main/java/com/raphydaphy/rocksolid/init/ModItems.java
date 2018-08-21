@@ -31,20 +31,20 @@ public class ModItems
 		BUCKET = new ItemBucket();
 		WRENCH = new ItemWrench();
 
-		TIN_CLUSTER = new ItemBase("cluster.tin");
-		IRON_CLUSTER = new ItemBase("cluster.iron");
+		TIN_CLUSTER = new ItemBase("cluster.tin").setMaxAmount(35);
+		IRON_CLUSTER = new ItemBase("cluster.iron").setMaxAmount(35);
 
-		COPPER_GRIT = new ItemBase("grit.copper");
-		TIN_GRIT = new ItemBase("grit.tin");
-		IRON_GRIT = new ItemBase("grit.iron");
-		BRONZE_GRIT = new ItemBase("grit.bronze");
+		COPPER_GRIT = new ItemBase("grit.copper").setMaxAmount(40);
+		TIN_GRIT = new ItemBase("grit.tin").setMaxAmount(40);
+		IRON_GRIT = new ItemBase("grit.iron").setMaxAmount(40);
+		BRONZE_GRIT = new ItemBase("grit.bronze").setMaxAmount(40);
 
-		TIN_INGOT = new ItemBase("ingot.tin");
-		IRON_INGOT = new ItemBase("ingot.iron");
-		BRONZE_INGOT = new ItemBase("ingot.bronze");
-		STEEL_INGOT = new ItemBase("ingot.steel");
+		TIN_INGOT = new ItemBase("ingot.tin").setMaxAmount(50);
+		IRON_INGOT = new ItemBase("ingot.iron").setMaxAmount(50);
+		BRONZE_INGOT = new ItemBase("ingot.bronze").setMaxAmount(50);
+		STEEL_INGOT = new ItemBase("ingot.steel").setMaxAmount(50);
 
-		COKE = new ItemBase("coal_coke");
-		SLAG = new ItemBase("slag");
+		COKE = new ItemBase("coal_coke").setMaxAmount(45);
+		SLAG = new ItemBase("slag").setMaxAmount(45);
 	}
 }

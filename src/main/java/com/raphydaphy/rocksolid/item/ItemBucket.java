@@ -100,7 +100,7 @@ public class ItemBucket extends ItemBase
 	@Override
 	public int getHighestPossibleMeta()
 	{
-		return BucketType.values().length;
+		return BucketType.values().length - 1;
 	}
 
 	@Override
