@@ -1,5 +1,6 @@
-package com.raphydaphy.rocksolid.tileentity;
+package com.raphydaphy.rocksolid.tileentity.base;
 
+import com.raphydaphy.rocksolid.tileentity.base.IActivatable;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
@@ -9,7 +10,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public abstract class TileEntityFueledBase extends TileEntity
+public abstract class TileEntityFueledBase extends TileEntity implements IActivatable
 {
 	public static final String KEY_COAL_TIME = "coal_time";
 	public static final String KEY_MAX_COAL_TIME = "max_coal_time";
@@ -95,6 +96,7 @@ public abstract class TileEntityFueledBase extends TileEntity
 		this.lastCoalTime = this.coalTime;
 	}
 
+	@Override
 	public boolean isActive()
 	{
 		return this.coalTime > 0;

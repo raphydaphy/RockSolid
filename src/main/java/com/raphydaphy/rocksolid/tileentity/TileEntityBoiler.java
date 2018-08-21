@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;

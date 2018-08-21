@@ -2,7 +2,7 @@ package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.container.ContainerArcFurnace;
 import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
-import com.raphydaphy.rocksolid.render.ArcFurnaceRenderer;
+import com.raphydaphy.rocksolid.render.ActivatableRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -11,6 +11,7 @@ import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
+import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
@@ -67,9 +68,9 @@ public class TileArcFurnace extends MultiTileBase
 	}
 
 	@Override
-	protected ITileRenderer<TileArcFurnace> createRenderer(ResourceName name)
+	protected ITileRenderer<MultiTile> createRenderer(ResourceName name)
 	{
-		return new ArcFurnaceRenderer(name, this);
+		return new ActivatableRenderer(name, this);
 	}
 
 	@Override

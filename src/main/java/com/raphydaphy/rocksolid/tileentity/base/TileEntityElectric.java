@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tileentity;
+package com.raphydaphy.rocksolid.tileentity.base;
 
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
@@ -117,8 +117,6 @@ public abstract class TileEntityElectric extends TileEntity implements IEnergyTi
 			{
 				onActiveChange(isActive());
 			}
-
-			System.out.println(energyStored);
 		}
 	}
 

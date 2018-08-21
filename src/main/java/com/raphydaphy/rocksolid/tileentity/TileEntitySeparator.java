@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;

@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.util;
 
-import com.raphydaphy.rocksolid.tileentity.TileEntityFueledBase;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.world.IWorld;
 

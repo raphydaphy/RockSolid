@@ -36,7 +36,7 @@ public class TileElectricSeparator extends MultiTileBase
 	//@Override
 	//protected ITileRenderer<MultiTile> createRenderer(ResourceName name)
 	//{
-	//	return new FueledTERenderer(name, this);
+	//	return new ActivatableRenderer(name, this);
 	//}
 
 	@Override

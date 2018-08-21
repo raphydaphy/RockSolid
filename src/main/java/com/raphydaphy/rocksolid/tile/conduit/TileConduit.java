@@ -224,7 +224,6 @@ public abstract class TileConduit extends TileBase
 		{
 			for (Map.Entry<Direction, BoundBox> entry : getConduitBounds(game.getWorld(), tileXInt, tileYInt).entrySet())
 			{
-				System.out.println("found the kid at " + entry.getKey());
 				if (entry.getValue().add(tileXInt, tileYInt).contains(tileX, tileY))
 				{
 					return entry.getKey();

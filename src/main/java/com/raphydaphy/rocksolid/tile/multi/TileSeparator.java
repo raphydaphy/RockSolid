@@ -2,11 +2,10 @@ package com.raphydaphy.rocksolid.tile.multi;
 
 import com.raphydaphy.rocksolid.container.ContainerSeparator;
 import com.raphydaphy.rocksolid.gui.GuiSeparator;
-import com.raphydaphy.rocksolid.render.FueledTERenderer;
+import com.raphydaphy.rocksolid.render.ActivatableRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntitySeparator;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
@@ -25,7 +24,6 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TileSeparator extends MultiTileBase
 {
@@ -44,7 +42,7 @@ public class TileSeparator extends MultiTileBase
 	@Override
 	protected ITileRenderer<MultiTile> createRenderer(ResourceName name)
 	{
-		return new FueledTERenderer(name, this);
+		return new ActivatableRenderer(name, this);
 	}
 
 	@Override

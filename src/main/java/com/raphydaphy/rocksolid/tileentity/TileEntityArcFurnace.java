@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.init.ModItems;
+import com.raphydaphy.rocksolid.tileentity.base.IActivatable;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import de.ellpeck.rockbottom.api.GameContent;
@@ -11,7 +12,7 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntityArcFurnace extends TileEntity
+public class TileEntityArcFurnace extends TileEntity implements IActivatable
 {
 	private static final String KEY_BLAST_PROGRESS = "blast_progress";
 	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem())), new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.OUTPUT)));
@@ -96,6 +97,7 @@ public class TileEntityArcFurnace extends TileEntity
 		return this.blastProgress / 5000f;
 	}
 
+	@Override
 	public boolean isActive()
 	{
 		return this.blastProgress > 0;
