@@ -8,28 +8,28 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmelterRecipe
+public class GranulatorRecipe
 {
-	public static final List<SmelterRecipe> REGISTRY = new ArrayList<>();
+	public static final List<GranulatorRecipe> REGISTRY = new ArrayList<>();
 
 	public final IUseInfo in;
 	public final ItemInstance out;
 
-	public SmelterRecipe(Item in, Item out)
+	public GranulatorRecipe(Item in, Item out)
 	{
 		this.in = new ItemUseInfo(in);
 		this.out = new ItemInstance(out);
 	}
 
-	public SmelterRecipe(IUseInfo in, ItemInstance out)
+	public GranulatorRecipe(IUseInfo in, ItemInstance out)
 	{
 		this.in = in;
 		this.out = out;
 	}
 
-	public static SmelterRecipe getFromInputs(ItemInstance input)
+	public static GranulatorRecipe getFromInputs(ItemInstance input)
 	{
-		for (SmelterRecipe recipe : REGISTRY)
+		for (GranulatorRecipe recipe : REGISTRY)
 		{
 			if (recipe.in.containsItem(input))
 			{

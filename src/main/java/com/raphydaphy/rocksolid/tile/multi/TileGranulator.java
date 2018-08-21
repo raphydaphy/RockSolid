@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.tile.multi;
 import com.raphydaphy.rocksolid.container.ContainerSmelter;
 import com.raphydaphy.rocksolid.gui.GuiSmelter;
 import com.raphydaphy.rocksolid.render.FueledTERenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntitySmelter;
+import com.raphydaphy.rocksolid.tileentity.TileEntityGranulator;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -25,12 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TileSmelter extends MultiTileBase
+public class TileGranulator extends MultiTileBase
 {
 
-	public TileSmelter()
+	public TileGranulator()
 	{
-		super("smelter", 6f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("granulator", 6f, new ToolInfo(ToolType.PICKAXE, 1));
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class TileSmelter extends MultiTileBase
 
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntitySmelter te = getTE(world, world.getState(x, y), x, y);
+		TileEntityGranulator te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiSmelter(player, te), new ContainerSmelter(player, te));
 		return true;
 	}
@@ -86,7 +86,7 @@ public class TileSmelter extends MultiTileBase
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntitySmelter(world, x, y, layer) : null;
+		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityGranulator(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class TileSmelter extends MultiTileBase
 			drops.add(new ItemInstance(item));
 		}
 
-		TileEntitySmelter te = this.getTE(world, world.getState(x, y), x, y);
+		TileEntityGranulator te = this.getTE(world, world.getState(x, y), x, y);
 
 		if (te != null)
 		{
@@ -127,7 +127,7 @@ public class TileSmelter extends MultiTileBase
 
 		if (innerCoord.getY() == 1)
 		{
-			TileEntitySmelter te = this.getTE(world, world.getState(x, y), x, y);
+			TileEntityGranulator te = this.getTE(world, world.getState(x, y), x, y);
 			Random rand = new Random();
 
 			if (te.isActive())
@@ -140,17 +140,17 @@ public class TileSmelter extends MultiTileBase
 		}
 	}
 
-	public TileEntitySmelter getTE(IWorld world, TileState state, int x, int y)
+	public TileEntityGranulator getTE(IWorld world, TileState state, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntitySmelter.class);
+		return world.getTileEntity(main.getX(), main.getY(), TileEntityGranulator.class);
 	}
 
 	@Override
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		TileEntitySmelter te = getTE(world, state, x, y);
+		TileEntityGranulator te = getTE(world, state, x, y);
 		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
 		{
 			return 30;

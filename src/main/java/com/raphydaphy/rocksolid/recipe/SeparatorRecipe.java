@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.recipe;
 import com.raphydaphy.rocksolid.init.ModItems;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
@@ -26,6 +27,11 @@ public class SeparatorRecipe
 	public SeparatorRecipe(Item in, Item out, Item biproduct, int biproductChance)
 	{
 		this(new ItemUseInfo(in), new ItemInstance(out, 2), new ItemInstance(biproduct), biproductChance);
+	}
+
+	public SeparatorRecipe(String inRes, Item out)
+	{
+		this(new ResUseInfo(inRes), new ItemInstance(out), new ItemInstance(ModItems.SLAG), 3);
 	}
 
 	public SeparatorRecipe(IUseInfo in, ItemInstance out, ItemInstance biproduct, int biproductChance)

@@ -14,7 +14,7 @@ public class ModTiles
 	public static Tile TIN_ORE;
 	public static Tile IRON_ORE;
 
-	public static Tile SMELTER;
+	public static Tile GRANULATOR;
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
 	public static Tile ARC_FURNACE;
@@ -37,7 +37,7 @@ public class ModTiles
 		TIN_ORE = new TileOre("ore.tin", 2.5f, 1, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 4.5f, 3, ModItems.IRON_CLUSTER);
 
-		SMELTER = new TileSmelter();
+		GRANULATOR = new TileGranulator();
 		SEPARATOR = new TileSeparator();
 		ALLOY_SMELTER = new TileAlloySmelter();
 		ARC_FURNACE = new TileArcFurnace();

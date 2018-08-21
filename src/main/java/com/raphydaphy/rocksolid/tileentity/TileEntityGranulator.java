@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.recipe.SmelterRecipe;
+import com.raphydaphy.rocksolid.recipe.GranulatorRecipe;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
@@ -11,14 +11,14 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntitySmelter extends TileEntityFueledBase
+public class TileEntityGranulator extends TileEntityFueledBase
 {
 	private static final String KEY_SMELT_PROGRESS = "smelt_progress";
-	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0), new SimpleSlotInfo(SlotType.INPUT, instance -> SmelterRecipe.getFromInputs(instance) != null), new SimpleSlotInfo(SlotType.OUTPUT)));
+	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0), new SimpleSlotInfo(SlotType.INPUT, instance -> GranulatorRecipe.getFromInputs(instance) != null), new SimpleSlotInfo(SlotType.OUTPUT)));
 	private int smeltProgress = 0;
 	private int lastSmeltProgress = 0;
 
-	public TileEntitySmelter(IWorld world, int x, int y, TileLayer layer)
+	public TileEntityGranulator(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
 	}
@@ -53,7 +53,7 @@ public class TileEntitySmelter extends TileEntityFueledBase
 	@Override
 	protected boolean tryTickAction()
 	{
-		SmelterRecipe r = SmelterRecipe.getFromInputs(this.inventory.get(1));
+		GranulatorRecipe r = GranulatorRecipe.getFromInputs(this.inventory.get(1));
 		if (r != null)
 		{
 			if (this.coalTime > 0)

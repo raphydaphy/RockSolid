@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.container;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.tileentity.TileEntitySmelter;
+import com.raphydaphy.rocksolid.tileentity.TileEntityGranulator;
 import com.raphydaphy.rocksolid.util.FilteredSlot;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
@@ -10,7 +10,7 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 public class ContainerSmelter extends ItemContainer
 {
 
-	public ContainerSmelter(AbstractEntityPlayer player, TileEntitySmelter tile)
+	public ContainerSmelter(AbstractEntityPlayer player, TileEntityGranulator tile)
 	{
 		super(player);
 		this.addPlayerInventory(player, 0, 50);
