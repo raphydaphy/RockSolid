@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.tile.multi.TilePump;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
@@ -273,27 +274,15 @@ public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityP
 		return false;
 	}
 
-	private static final int CAPACITY = 1000;
 	@Override
 	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
-		if (pos == null)
+		Pos2 innerCoord = ModUtils.innerCoord(world, pos);
+		if (innerCoord != null && innerCoord.getY() == 0)
 		{
-			return CAPACITY;
+			return 0;
 		}
-
-		TileState state = world.getState(pos.getX(), pos.getY());
-
-		if (state.getTile() instanceof TilePump)
-		{
-			Pos2 inner = ((TilePump) state.getTile()).getInnerCoord(state);
-
-			if (inner.getY() != 0)
-			{
-				return CAPACITY;
-			}
-		}
-		return 0;
+		return 1000;
 	}
 
 	@Override

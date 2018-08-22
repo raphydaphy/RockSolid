@@ -32,7 +32,7 @@ public abstract class TileConduit extends TileBase
 	
 	public TileConduit(String name)
 	{
-		super(name, 4f, new ToolInfo(ToolType.PICKAXE, 1));
+		super(name, 5f, new ToolInfo(ToolType.PICKAXE, 2));
 	}
 
 	@Override

@@ -5,6 +5,9 @@ import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.smelting.SmeltingRecipe;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
+import de.ellpeck.rockbottom.api.tile.MultiTile;
+import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
 import java.awt.*;
@@ -39,6 +42,20 @@ public class ModUtils
                 {
                     return recipe;
                 }
+            }
+        }
+        return null;
+    }
+
+    public static Pos2 innerCoord(IWorld world, Pos2 pos)
+    {
+        if (world != null && pos != null)
+        {
+            TileState state = world.getState(pos.getX(), pos.getY());
+
+            if (state.getTile() instanceof MultiTile)
+            {
+                return ((MultiTile) state.getTile()).getInnerCoord(state);
             }
         }
         return null;

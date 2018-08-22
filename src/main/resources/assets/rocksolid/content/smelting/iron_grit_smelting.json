@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "iron_crushed",
+	"amount": 1
+  },
+  "output": {
+	"name": "rocksolid/ingot.iron",
+	"amount": 1
+  },
+  "time": 150
+}

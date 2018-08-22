@@ -13,7 +13,7 @@ public class TileCreativeEnergySource extends TileBase
 {
 	public TileCreativeEnergySource()
 	{
-		super("creative_energy_source", 8, new ToolInfo(ToolType.PICKAXE, 1));
+		super("creative_energy_source", 35, new ToolInfo(ToolType.PICKAXE, 11));
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class TileBoiler extends MultiTileBase
 
 	public TileBoiler()
 	{
-		super("boiler", 7f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("boiler", 20f, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override

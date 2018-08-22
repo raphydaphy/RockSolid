@@ -30,7 +30,7 @@ public class TileAlloySmelter extends MultiTileBase
 
 	public TileAlloySmelter()
 	{
-		super("alloy_smelter", 6f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("alloy_smelter", 15f, new ToolInfo(ToolType.PICKAXE, 2));
 	}
 
 	@Override

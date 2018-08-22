@@ -4,5 +4,13 @@
 	"bronze_pickaxe": "/recipes/bronze_pickaxe.json",
 	"bronze_axe": "/recipes/bronze_axe.json",
 	"bronze_shovel": "/recipes/bronze_shovel.json"
+  },
+  "smelting.": {
+	"tin_smelting": "/smelting/tin_smelting.json",
+	"iron_smelting": "/smelting/iron_smelting.json",
+	"copper_grit_smelting": "/smelting/copper_grit_smelting.json",
+	"tin_grit_smelting": "/smelting/tin_grit_smelting.json",
+	"bronze_grit_smelting": "/smelting/bronze_grit_smelting.json",
+	"iron_grit_smelting": "/smelting/iron_grit_smelting.json"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "bronze_crushed",
+	"amount": 1
+  },
+  "output": {
+	"name": "rocksolid/ingot.bronze",
+	"amount": 1
+  },
+  "time": 150
+}

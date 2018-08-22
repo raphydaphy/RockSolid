@@ -16,7 +16,7 @@ public class TileEntityEnergyConduit extends TileEntityConduit
 	@Override
 	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileEntity tile1, int x2, int y2, ConduitSide side2, TileEntity tile2, boolean simulate)
 	{
-		if (tile1 != null && tile1 instanceof IEnergyTile && tile2 != null && tile2 instanceof IEnergyTile && world.isPosLoaded(x1, y1) && world.isPosLoaded(x2, y2))
+		if (tile1 instanceof IEnergyTile && tile2 instanceof IEnergyTile && world.isPosLoaded(x1, y1) && world.isPosLoaded(x2, y2))
 		{
 			IEnergyTile f1 = (IEnergyTile) tile1;
 			IEnergyTile f2 = (IEnergyTile) tile2;

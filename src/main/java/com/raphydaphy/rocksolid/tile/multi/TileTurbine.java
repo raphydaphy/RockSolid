@@ -18,7 +18,7 @@ public class TileTurbine extends MultiTileBase
 
 	public TileTurbine()
 	{
-		super("turbine", 6, new ToolInfo(ToolType.PICKAXE, 1));
+		super("turbine", 20, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override

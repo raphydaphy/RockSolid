@@ -27,7 +27,7 @@ public class TileElectricFurnace extends MultiTileBase
 
 	public TileElectricFurnace()
 	{
-		super("electric_furnace", 13f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("electric_furnace", 20f, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override

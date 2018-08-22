@@ -28,7 +28,7 @@ public class TileArcFurnace extends MultiTileBase
 
 	public TileArcFurnace()
 	{
-		super("arc_furnace", 10, new ToolInfo(ToolType.PICKAXE, 1));
+		super("arc_furnace", 17, new ToolInfo(ToolType.PICKAXE, 2));
 	}
 
 	@Override

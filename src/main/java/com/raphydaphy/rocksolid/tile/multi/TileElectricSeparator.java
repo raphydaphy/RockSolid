@@ -27,7 +27,7 @@ public class TileElectricSeparator extends MultiTileBase
 
 	public TileElectricSeparator()
 	{
-		super("electric_separator", 13f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("electric_separator", 20f, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override

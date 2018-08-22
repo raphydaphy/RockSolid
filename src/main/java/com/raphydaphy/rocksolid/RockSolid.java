@@ -1,9 +1,6 @@
 package com.raphydaphy.rocksolid;
 
-import com.raphydaphy.rocksolid.init.ModItems;
-import com.raphydaphy.rocksolid.init.ModMisc;
-import com.raphydaphy.rocksolid.init.ModRecipes;
-import com.raphydaphy.rocksolid.init.ModTiles;
+import com.raphydaphy.rocksolid.init.*;
 import de.ellpeck.rockbottom.api.IApiHandler;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;

@@ -23,7 +23,7 @@ public class TileFluidConduit extends TileConduit
 	@Override
 	public boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state)
 	{
-		if (te != null && te instanceof IFluidTile)
+		if (te instanceof IFluidTile)
 		{
 			List<TileLiquid> liquids = ((IFluidTile<?>) te).getLiquidsAt(world, pos);
 

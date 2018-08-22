@@ -21,7 +21,7 @@ public class TileBattery extends MultiTileBase
 
 	public TileBattery()
 	{
-		super("battery", 13, new ToolInfo(ToolType.PICKAXE, 1));
+		super("battery", 20, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class TileSeparator extends MultiTileBase
 
 	public TileSeparator()
 	{
-		super("separator", 8f, new ToolInfo(ToolType.PICKAXE, 1));
+		super("separator", 17f, new ToolInfo(ToolType.PICKAXE, 2));
 	}
 
 	@Override

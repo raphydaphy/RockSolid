@@ -19,7 +19,7 @@ public class TileEntityFluidConduit extends TileEntityConduit
 	public boolean transfer(IWorld world, int x1, int y1, ConduitSide side1, TileEntity tile1, int x2, int y2,
 			ConduitSide side2, TileEntity tile2, boolean simulate)
 	{
-		if (tile1 != null && tile1 instanceof IFluidTile && tile2 != null && tile2 instanceof IFluidTile && world.isPosLoaded(x1, y1) && world.isPosLoaded(x2, y2))
+		if (tile1 instanceof IFluidTile && tile2 instanceof IFluidTile && world.isPosLoaded(x1, y1) && world.isPosLoaded(x2, y2))
 		{
 			IFluidTile<?> f1 = (IFluidTile<?>) tile1;
 			IFluidTile<?> f2 = (IFluidTile<?>) tile2;

@@ -21,7 +21,7 @@ public class TilePump extends MultiTileBase
 
 	public TilePump()
 	{
-		super("pump", 6, new ToolInfo(ToolType.PICKAXE, 1));
+		super("pump", 15, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override
