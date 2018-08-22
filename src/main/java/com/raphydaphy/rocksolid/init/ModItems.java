@@ -29,10 +29,13 @@ public class ModItems
 	public static Item STEEL_INGOT;
 
 	public static Item BRONZE_PICKAXE;
+	public static Item STEEL_PICKAXE;
 
 	public static Item BRONZE_AXE;
+	public static Item STEEL_AXE;
 
 	public static Item BRONZE_SHOVEL;
+	public static Item STEEL_SHOVEL;
 
 	public static Item COKE;
 	public static Item SLAG;
@@ -76,10 +79,13 @@ public class ModItems
 		STEEL_INGOT = new ItemBase("ingot.steel").setMaxAmount(50);
 
 		BRONZE_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.bronze"), 6, 500, ToolType.PICKAXE, 15).register();
+		STEEL_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.steel"), 8.5f, 750, ToolType.PICKAXE, 20).register();
 
 		BRONZE_AXE = new ItemTool(RockSolid.createRes("axe.bronze"), 3, 500, ToolType.AXE, 15).register();
+		STEEL_AXE = new ItemTool(RockSolid.createRes("axe.steel"), 4.5f, 750, ToolType.AXE, 20).register();
 
 		BRONZE_SHOVEL = new ItemTool(RockSolid.createRes("shovel.bronze"), 3, 500, ToolType.SHOVEL, 15).register();
+		STEEL_SHOVEL = new ItemTool(RockSolid.createRes("shovel.steel"), 4.5f, 750, ToolType.SHOVEL, 20).register();
 
 		COKE = new ItemBase("coal_coke").setMaxAmount(45);
 		SLAG = new ItemBase("slag").setMaxAmount(45);

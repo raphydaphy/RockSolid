@@ -2,26 +2,26 @@
   "type": "manual_knowledge",
   "outputs": [
     {
-      "name": "rocksolid/coke_oven"
+      "name": "rocksolid/separator"
     }
   ],
   "inputs": [
     {
       "name": "stone",
-      "amount": 60
+      "amount": 50
     },
     {
       "name": "bronze_processed",
-      "amount": 7
+      "amount": 10
     },
     {
       "name": "iron_processed",
-      "amount": 15
+      "amount": 8
     },
     {
       "name": "coal",
-      "amount": 10
+      "amount": 12
     }
   ],
-  "skill": 0.45
+  "skill": 0.40
 }

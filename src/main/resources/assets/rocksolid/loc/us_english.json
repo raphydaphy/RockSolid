@@ -46,13 +46,16 @@
 		"steel": "Steel Ingot"
 	  },
 	  "pickaxe.": {
-		"bronze": "Bronze Pickaxe"
+		"bronze": "Bronze Pickaxe",
+		"steel": "Steel Pickaxe"
 	  },
 	  "axe.": {
-		"bronze": "Bronze Axe"
+		"bronze": "Bronze Axe",
+		"steel": "Steel Axe"
 	  },
 	  "shovel.": {
-		"bronze": "Bronze Shovel"
+		"bronze": "Bronze Shovel",
+		"steel": "Steel Shovel"
 	  },
 	  "smelter": "Smelter",
 	  "separator": "Separator",

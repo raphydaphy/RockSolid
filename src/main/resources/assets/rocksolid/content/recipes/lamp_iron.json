@@ -1,0 +1,20 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+	{
+	  "name": "rockbottom/lamp_iron",
+	  "amount": 5
+	}
+  ],
+  "inputs": [
+	{
+	  "name": "iron_processed",
+	  "amount": 3
+	},
+	{
+	  "name": "coal",
+	  "amount": 1
+	}
+  ],
+  "skill": 0.01
+}

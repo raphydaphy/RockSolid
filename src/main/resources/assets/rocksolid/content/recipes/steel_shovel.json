@@ -1,0 +1,19 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+	{
+	  "name": "rocksolid/shovel.steel"
+	}
+  ],
+  "inputs": [
+	{
+	  "name": "steel_processed",
+	  "amount": 10
+	},
+	{
+	  "name": "stick",
+	  "amount": 8
+	}
+  ],
+  "skill": 0.10
+}

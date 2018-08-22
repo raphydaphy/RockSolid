@@ -4,7 +4,12 @@
 	"bronze_pickaxe": "/recipes/bronze_pickaxe.json",
 	"bronze_axe": "/recipes/bronze_axe.json",
 	"bronze_shovel": "/recipes/bronze_shovel.json",
-	"coke_oven": "/recipes/coke_oven.json"
+	"lamp_iron": "/recipes/lamp_iron.json",
+	"coke_oven": "/recipes/coke_oven.json",
+	"separator": "/recipes/separator.json",
+	"steel_pickaxe": "/recipes/steel_pickaxe.json",
+	"steel_axe": "/recipes/steel_axe.json",
+	"steel_shovel": "/recipes/steel_shovel.json"
   },
   "smelting.": {
 	"tin_smelting": "/smelting/tin_smelting.json",

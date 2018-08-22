@@ -35,13 +35,16 @@
 		"steel": "/items/ingot/ingot_steel.png"
 	  },
 	  "pickaxe.": {
-		"bronze": "/items/pickaxe/pickaxe_bronze.png"
+		"bronze": "/items/pickaxe/pickaxe_bronze.png",
+		"steel": "/items/pickaxe/pickaxe_steel.png"
 	  },
 	  "axe.": {
-		"bronze": "/items/axe/axe_bronze.png"
+		"bronze": "/items/axe/axe_bronze.png",
+		"steel": "/items/axe/axe_steel.png"
 	  },
 	  "shovel.": {
-		"bronze": "/items/shovel/shovel_bronze.png"
+		"bronze": "/items/shovel/shovel_bronze.png",
+		"steel": "/items/shovel/shovel_steel.png"
 	  }
 	},
 	"tiles.": {
