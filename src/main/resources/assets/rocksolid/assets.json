@@ -293,13 +293,12 @@
 	  }
 	},
 	"gui.": {
-	  "assembly_items": "/gui/assembly_items.png",
-	  "assembly_recipes": "/gui/assembly_recipes.png",
+	  "assembly_station": "/gui/assembly_station.png",
+	  "assembly_arrows": "/gui/assembly_arrows.png",
 	  "assembly_ingredient_background_none": "/gui/assembly_ingredient_background_none.png",
 	  "assembly_ingredient_background": "/gui/assembly_ingredient_background.png",
 	  "assembly_item_background": "/gui/assembly_item_background.png",
-	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png",
-	  "assembly_item_background_selected": "/gui/assembly_item_background_selected.png"
+	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png"
 	}
   }
 }
