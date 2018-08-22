@@ -214,6 +214,16 @@
 		},
 		"item": "/tiles/turbine/turbine_item.png"
 	  },
+	  "assembly_station.": {
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 0, 12, 12],
+			"1.0": [12, 0, 12, 12],
+			"file": "/tiles/assembly_station/assembly_station.png"
+		  }
+		},
+		"item": "/tiles/assembly_station/assembly_station_item.png"
+	  },
 	  "battery.": {
 		"full.": {
 		  "subtexture": {
@@ -281,6 +291,15 @@
 		},
 		"item": "/tiles/boiler/boiler_item.png"
 	  }
+	},
+	"gui.": {
+	  "assembly_items": "/gui/assembly_items.png",
+	  "assembly_recipes": "/gui/assembly_recipes.png",
+	  "assembly_ingredient_background_none": "/gui/assembly_ingredient_background_none.png",
+	  "assembly_ingredient_background": "/gui/assembly_ingredient_background.png",
+	  "assembly_item_background": "/gui/assembly_item_background.png",
+	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png",
+	  "assembly_item_background_selected": "/gui/assembly_item_background_selected.png"
 	}
   }
 }

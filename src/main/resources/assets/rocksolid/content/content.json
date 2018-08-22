@@ -9,7 +9,8 @@
 	"separator": "/recipes/separator.json",
 	"steel_pickaxe": "/recipes/steel_pickaxe.json",
 	"steel_axe": "/recipes/steel_axe.json",
-	"steel_shovel": "/recipes/steel_shovel.json"
+	"steel_shovel": "/recipes/steel_shovel.json",
+	"assembly_station": "/recipes/assembly_station.json"
   },
   "smelting.": {
 	"tin_smelting": "/smelting/tin_smelting.json",

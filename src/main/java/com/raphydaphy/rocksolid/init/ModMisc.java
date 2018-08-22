@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.network.PacketAssemblyConstruct;
 import com.raphydaphy.rocksolid.network.PacketConduitDestroyed;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.util.ConduitTileLayer;
@@ -29,6 +30,7 @@ public class ModMisc
 
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
+		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketAssemblyConstruct.class);
 
 		COKE_INPUT = new FuelInput(new ItemUseInfo(new ItemInstance(ModItems.COKE)), 3600).register();
 	}

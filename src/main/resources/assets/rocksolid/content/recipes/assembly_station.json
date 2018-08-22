@@ -1,0 +1,23 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+    {
+      "name": "rocksolid/assembly_station"
+    }
+  ],
+  "inputs": [
+    {
+      "name": "stone",
+      "amount": 50
+    },
+    {
+      "name": "wood_processed",
+      "amount": 25
+    },
+    {
+      "name": "steel_processed",
+      "amount": 12
+    }
+  ],
+  "skill": 0.6
+}
