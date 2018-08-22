@@ -1,16 +1,16 @@
 package com.raphydaphy.rocksolid.container;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityCokeOven;
 import com.raphydaphy.rocksolid.util.FilteredSlot;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class ContainerArcFurnace extends ItemContainer
+public class ContainerCokeOven extends ItemContainer
 {
 
-	public ContainerArcFurnace(AbstractEntityPlayer player, TileEntityArcFurnace tile)
+	public ContainerCokeOven(AbstractEntityPlayer player, TileEntityCokeOven tile)
 	{
 		super(player);
 		this.addPlayerInventory(player, 0, 30);
@@ -21,7 +21,7 @@ public class ContainerArcFurnace extends ItemContainer
 	@Override
 	public ResourceName getName()
 	{
-		return RockSolid.createRes("container_arc_furnace");
+		return RockSolid.createRes("container_coke_oven");
 	}
 
 }

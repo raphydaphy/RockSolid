@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityCokeOven;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -9,11 +9,11 @@ import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class GuiArcFurnace extends GuiContainer
+public class GuiCokeOven extends GuiContainer
 {
-	private final TileEntityArcFurnace te;
+	private final TileEntityCokeOven te;
 
-	public GuiArcFurnace(AbstractEntityPlayer player, TileEntityArcFurnace te)
+	public GuiCokeOven(AbstractEntityPlayer player, TileEntityCokeOven te)
 	{
 		super(player, 136, 100);
 		this.te = te;
@@ -33,13 +33,13 @@ public class GuiArcFurnace extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 49, 4, 37, 8, ModUtils.PROGRESS, false, GuiArcFurnace.this.te::getBlastPercentage));
+		this.components.add(new ComponentProgressBar(this, 49, 4, 37, 8, ModUtils.PROGRESS, false, GuiCokeOven.this.te::getBlastPercentage));
 	}
 
 	@Override
 	public ResourceName getName()
 	{
-		return RockSolid.createRes("gui_arc_furnace");
+		return RockSolid.createRes("gui_coke_oven");
 	}
 
 }

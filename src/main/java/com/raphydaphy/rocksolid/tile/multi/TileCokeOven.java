@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.tile.multi;
 
-import com.raphydaphy.rocksolid.container.ContainerArcFurnace;
-import com.raphydaphy.rocksolid.gui.GuiArcFurnace;
+import com.raphydaphy.rocksolid.container.ContainerCokeOven;
+import com.raphydaphy.rocksolid.gui.GuiCokeOven;
 import com.raphydaphy.rocksolid.render.ActivatableRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityArcFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityCokeOven;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -23,12 +23,12 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileArcFurnace extends MultiTileBase
+public class TileCokeOven extends MultiTileBase
 {
 
-	public TileArcFurnace()
+	public TileCokeOven()
 	{
-		super("arc_furnace", 17, new ToolInfo(ToolType.PICKAXE, 2));
+		super("coke_oven", 17, new ToolInfo(ToolType.PICKAXE, 2));
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class TileArcFurnace extends MultiTileBase
 	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityArcFurnace(world, x, y, layer) : null;
+		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityCokeOven(world, x, y, layer) : null;
 	}
 
 	@Override
@@ -86,17 +86,17 @@ public class TileArcFurnace extends MultiTileBase
 		return true;
 	}
 
-	public TileEntityArcFurnace getTE(IWorld world, TileState state, int x, int y)
+	public TileEntityCokeOven getTE(IWorld world, TileState state, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntityArcFurnace.class);
+		return world.getTileEntity(main.getX(), main.getY(), TileEntityCokeOven.class);
 	}
 
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityArcFurnace te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiArcFurnace(player, te), new ContainerArcFurnace(player, te));
+		TileEntityCokeOven te = getTE(world, world.getState(x, y), x, y);
+		player.openGuiContainer(new GuiCokeOven(player, te), new ContainerCokeOven(player, te));
 		return true;
 	}
 
@@ -112,7 +112,7 @@ public class TileArcFurnace extends MultiTileBase
 			drops.add(new ItemInstance(item));
 		}
 
-		TileEntityArcFurnace te = this.getTE(world, world.getState(x, y), x, y);
+		TileEntityCokeOven te = this.getTE(world, world.getState(x, y), x, y);
 
 		if (te != null)
 		{
@@ -127,7 +127,7 @@ public class TileArcFurnace extends MultiTileBase
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		TileEntityArcFurnace te = getTE(world, state, x, y);
+		TileEntityCokeOven te = getTE(world, state, x, y);
 		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
 		{
 			return 30;

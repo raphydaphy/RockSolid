@@ -176,14 +176,14 @@
 		},
 		"item": "/tiles/alloy_smelter/alloy_smelter_item.png"
 	  },
-	  "arc_furnace.": {
+	  "coke_oven.": {
 		"active.": {
 		  "subtexture": {
 			"0.0": [0, 12, 12, 12],
 			"1.0": [12, 12, 12, 12],
 			"0.1": [0, 0, 12, 12],
 			"1.1": [12, 0, 12, 12],
-			"file": "/tiles/arc_furnace/arc_furnace_active.png"
+			"file": "/tiles/coke_oven/coke_oven_active.png"
 		  }
 		},
 		"*.": {
@@ -192,10 +192,10 @@
 			"1.0": [12, 12, 12, 12],
 			"0.1": [0, 0, 12, 12],
 			"1.1": [12, 0, 12, 12],
-			"file": "/tiles/arc_furnace/arc_furnace.png"
+			"file": "/tiles/coke_oven/coke_oven.png"
 		  }
 		},
-		"item": "/tiles/arc_furnace/arc_furnace_item.png"
+		"item": "/tiles/coke_oven/coke_oven_item.png"
 	  },
 	  "turbine.": {
 		"*.": {

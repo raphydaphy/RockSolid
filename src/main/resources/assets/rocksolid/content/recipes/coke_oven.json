@@ -1,0 +1,27 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+    {
+      "name": "rocksolid/coke_oven"
+    }
+  ],
+  "inputs": [
+    {
+      "name": "stone",
+      "amount": 60
+    },
+    {
+      "name": "bronze_processed",
+      "amount": 7
+    },
+    {
+      "name": "iron_processed",
+      "amount": 15
+    },
+    {
+      "name": "coal",
+      "amount": 10
+    }
+  ],
+  "skill": 0.20
+}

@@ -12,14 +12,14 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntityArcFurnace extends TileEntity implements IActivatable
+public class TileEntityCokeOven extends TileEntity implements IActivatable
 {
 	private static final String KEY_BLAST_PROGRESS = "blast_progress";
 	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem())), new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.OUTPUT)));
 	private int blastProgress = 0;
 	private int lastBlastProgress = 0;
 
-	public TileEntityArcFurnace(IWorld world, int x, int y, TileLayer layer)
+	public TileEntityCokeOven(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
 	}
