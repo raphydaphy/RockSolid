@@ -2,7 +2,6 @@ package com.raphydaphy.rocksolid.container;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntitySeparator;
-import com.raphydaphy.rocksolid.container.slot.FilteredSlot;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.gui.container.OutputSlot;

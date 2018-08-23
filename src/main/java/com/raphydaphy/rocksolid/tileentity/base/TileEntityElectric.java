@@ -1,21 +1,12 @@
 package com.raphydaphy.rocksolid.tileentity.base;
 
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
-import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
-import com.raphydaphy.rocksolid.util.FilteredTileInventory;
-import com.raphydaphy.rocksolid.util.ModUtils;
-import com.raphydaphy.rocksolid.util.SlotInfo;
-import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
-import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-
-import java.util.Random;
 
 public abstract class TileEntityElectric extends TileEntity implements IEnergyTile
 {

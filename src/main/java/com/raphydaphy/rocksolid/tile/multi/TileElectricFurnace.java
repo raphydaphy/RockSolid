@@ -93,29 +93,6 @@ public class TileElectricFurnace extends MultiTileBase
 		return true;
 	}
 
-	@Override
-	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
-	{
-		List<ItemInstance> drops = new ArrayList<>();
-
-		Item item = this.getItem();
-
-		if (item != null)
-		{
-			drops.add(new ItemInstance(item));
-		}
-
-		TileEntityElectricFurnace te = this.getTE(world, world.getState(x, y), x, y);
-
-		if (te != null)
-		{
-			drops.add(te.getTileInventory().get(0));
-			drops.add(te.getTileInventory().get(1));
-		}
-
-		return drops;
-	}
-
 	public TileEntityElectricFurnace getTE(IWorld world, TileState state, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, state);

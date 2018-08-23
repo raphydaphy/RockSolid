@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.container.slot.AssemblySlot;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
+import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class ContainerAssemblyStation extends ItemContainer
@@ -14,9 +15,11 @@ public class ContainerAssemblyStation extends ItemContainer
 	{
 		super(player);
 		this.addPlayerInventory(player, 0, 99);
-		this.addSlot(new AssemblySlot(tile.getInvHidden(), 0, 34, 69, tile.getInvHidden().getSlots().get(0).getPredicate()));
-		this.addSlot(new AssemblySlot(tile.getInvHidden(), 1, 34 + 18, 69, tile.getInvHidden().getSlots().get(1).getPredicate()));
-		this.addSlot(new AssemblySlot(tile.getInvHidden(), 2, 34 + 18 * 2, 69, tile.getInvHidden().getSlots().get(2).getPredicate()));
+
+		IFilteredInventory inv = tile.getTileInventory();
+		this.addSlot(new AssemblySlot(inv, 0, 34, 69));
+		this.addSlot(new AssemblySlot(inv, 1, 34 + 18, 69));
+		this.addSlot(new AssemblySlot(inv, 2, 34 + 18 * 2, 69));
 		this.te = tile;
 	}
 

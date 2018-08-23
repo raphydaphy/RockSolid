@@ -1,21 +1,36 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.init.ModItems;
+import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.IActivatable;
-import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TileEntityCokeOven extends TileEntity implements IActivatable
 {
 	private static final String KEY_BLAST_PROGRESS = "blast_progress";
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.INPUT, instance -> instance.getItem().equals(GameContent.TILE_COAL.getItem())), new SlotInfo.SimpleSlotInfo(SlotInfo.SlotType.OUTPUT)));
+	private final TileInventory inventory = new TileInventory(this, 2, (input) ->
+	{
+		ArrayList<Integer> avalableSlots = new ArrayList<>(1);
+		if (input.getItem().equals(GameContent.TILE_COAL.getItem()))
+		{
+			avalableSlots.add(0);
+		}
+		return avalableSlots;
+	}, Collections.singletonList(1));
+
 	private int blastProgress = 0;
 	private int lastBlastProgress = 0;
 
@@ -25,7 +40,7 @@ public class TileEntityCokeOven extends TileEntity implements IActivatable
 	}
 
 	@Override
-	public FilteredTileInventory getTileInventory()
+	public TileInventory getTileInventory()
 	{
 		return this.inventory;
 	}

@@ -1,38 +1,42 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
 import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
-import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
+import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
-import de.ellpeck.rockbottom.api.util.Util;
-import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile<TileEntityBoiler>, IGasTile<TileEntityBoiler>
 {
-	public static final String KEY_WATER = "water";
-	private static final String KEY_STEAM = "steam";
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0)));
+	private final TileInventory inventory = new TileInventory(this, 1, (input) ->
+	{
+		ArrayList<Integer> avalableSlots = new ArrayList<>(1);
+		if (FuelInput.getFuelTime(input) > 0)
+		{
+			avalableSlots.add(0);
+		}
+		return avalableSlots;
+	}, Collections.emptyList());
+
 	private SyncedInt water = new SyncedInt("water");
 	private SyncedInt steam = new SyncedInt("steam");
 
@@ -58,7 +62,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	}
 
 	@Override
-	public FilteredTileInventory getTileInventory()
+	public TileInventory getTileInventory()
 	{
 		return this.inventory;
 	}

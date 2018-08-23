@@ -5,14 +5,17 @@ import com.raphydaphy.rocksolid.gui.component.ComponentAssemblySlot;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentSlot;
 import de.ellpeck.rockbottom.api.gui.container.ContainerSlot;
+import de.ellpeck.rockbottom.api.gui.container.RestrictedInputSlot;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 
-public class AssemblySlot extends FilteredSlot
+public class AssemblySlot extends RestrictedInputSlot
 {
-	public AssemblySlot(IInventory inventory, int slot, int x, int y, Predicate<ItemInstance> accepts)
+
+	public AssemblySlot(IFilteredInventory inventory, int slot, int x, int y)
 	{
-		super(inventory, slot, x, y, accepts);
+		super(inventory, slot, x, y);
 	}
 
 	@Override

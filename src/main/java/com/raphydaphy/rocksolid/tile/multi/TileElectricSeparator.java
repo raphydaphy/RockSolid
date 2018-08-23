@@ -93,30 +93,6 @@ public class TileElectricSeparator extends MultiTileBase
 		return true;
 	}
 
-	@Override
-	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
-	{
-		List<ItemInstance> drops = new ArrayList<>();
-
-		Item item = this.getItem();
-
-		if (item != null)
-		{
-			drops.add(new ItemInstance(item));
-		}
-
-		TileEntityElectricSeparator te = this.getTE(world, world.getState(x, y), x, y);
-
-		if (te != null)
-		{
-			drops.add(te.getTileInventory().get(0));
-			drops.add(te.getTileInventory().get(1));
-			drops.add(te.getTileInventory().get(2));
-		}
-
-		return drops;
-	}
-
 	public TileEntityElectricSeparator getTE(IWorld world, TileState state, int x, int y)
 	{
 		Pos2 main = this.getMainPos(x, y, state);

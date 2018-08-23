@@ -1,30 +1,43 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
-import com.raphydaphy.rocksolid.util.FilteredTileInventory;
-import com.raphydaphy.rocksolid.util.SlotInfo;
-import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
-import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class TileEntityAssemblyStation extends TileEntity
 {
-	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(
-			new SimpleSlotInfo(SlotType.INPUT, instance -> new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS).containsItem(instance)),
-			new SimpleSlotInfo(SlotType.INPUT, instance -> new ResUseInfo(ModMisc.RES_ALL_INGOTS).containsItem(instance)),
-			new SimpleSlotInfo(SlotType.INPUT, instance -> new ResUseInfo(ModMisc.RES_ALL_FUELS).containsItem(instance))
-	));
+	private final TileInventory inventory = new TileInventory(this, 3, (input) ->
+	{
+		ArrayList<Integer> avalableSlots = new ArrayList<>(3);
+		if (new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS).containsItem(input))
+		{
+			avalableSlots.add(0);
+		}
+		if (new ResUseInfo(ModMisc.RES_ALL_INGOTS).containsItem(input))
+		{
+			avalableSlots.add(1);
+		}
+		if (new ResUseInfo(ModMisc.RES_ALL_FUELS).containsItem(input))
+		{
+			avalableSlots.add(2);
+		}
+		return avalableSlots;
+	}, Collections.emptyList());
 
 	public TileEntityAssemblyStation(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
 	}
 
-	public FilteredTileInventory getInvHidden()
+	public TileInventory getInvHidden()
 	{
 		return this.inventory;
 	}
