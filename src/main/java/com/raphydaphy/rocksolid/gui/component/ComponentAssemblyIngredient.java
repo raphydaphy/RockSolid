@@ -7,6 +7,7 @@ import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.GuiComponent;
@@ -21,7 +22,6 @@ import java.util.List;
 public class ComponentAssemblyIngredient extends GuiComponent
 {
 	private static final ResourceName RES = RockSolid.createRes("gui.assembly_ingredient_background");
-	private static final ResourceName RES_NONE = RockSolid.createRes("gui.assembly_ingredient_background_none");
 
 	private final boolean hasItem;
 	private final List<ItemInstance> inputs;
@@ -36,15 +36,9 @@ public class ComponentAssemblyIngredient extends GuiComponent
 	@Override
 	public void render(IGameInstance game, IAssetManager manager, IRenderer g, int x, int y)
 	{
-		if (!this.inputs.isEmpty())
-		{
-			ItemInstance input = this.getInput(game);
-			manager.getTexture(RES).draw(x, y, this.width, this.height);
-			g.renderItemInGui(game, manager, input, x + 2, y + 2, 1.0F, this.hasItem ? Colors.WHITE : Colors.multiplyA(Colors.WHITE, 0.35F));
-		} else
-		{
-			manager.getTexture(RES_NONE).draw(x, y, this.width, this.height);
-		}
+		ItemInstance input = this.getInput(game);
+		manager.getTexture(RES).draw(x, y, this.width, this.height);
+		g.renderItemInGui(game, manager, input, x + 2, y + 2, 1.0F, this.hasItem ? Colors.WHITE : Colors.multiplyA(Colors.WHITE, 0.35F));
 	}
 
 	@Override

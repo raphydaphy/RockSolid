@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.util;
+package com.raphydaphy.rocksolid.container.slot;
 
 import com.google.common.base.Predicate;
 

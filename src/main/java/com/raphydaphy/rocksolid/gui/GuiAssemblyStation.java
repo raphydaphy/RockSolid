@@ -5,12 +5,13 @@ import com.raphydaphy.rocksolid.gui.component.ComponentAssemblyIngredient;
 import com.raphydaphy.rocksolid.gui.component.ComponentAssemblyPolaroid;
 import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.network.PacketAssemblyConstruct;
+import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
+import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.construction.BasicRecipe;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -36,26 +37,31 @@ public class GuiAssemblyStation extends GuiContainer
 	private final List<ComponentAssemblyPolaroid> recipeList = new ArrayList<>();
 	private final List<ComponentAssemblyIngredient> ingredients = new ArrayList<>();
 	private IRecipe recipe;
-	private ComponentMenu componentMenu;
+	private ComponentMenu scrollMenu;
 	private ComponentConstruct componentConstruct;
 
 	private int offset = 0;
 	private final BiConsumer<IInventory, Integer> m = (IInventory var1x, Integer var2x) -> this.a();
 
-	public GuiAssemblyStation(AbstractEntityPlayer var1)
+	private TileEntityAssemblyStation te;
+
+	public GuiAssemblyStation(AbstractEntityPlayer player, TileEntityAssemblyStation te)
 	{
-		super(var1, 136, 169);
-		ShiftClickBehavior var2 = new ShiftClickBehavior(0, 7, 8, var1.getInv().getSlotAmount() - 1);
-		this.shiftClickBehaviors.add(var2);
-		this.shiftClickBehaviors.add(var2.reversed());
+		super(player, 136, 169);
+		this.te = te;
+
+		int playerSlots = player.getInv().getSlotAmount();
+		ShiftClickBehavior input = new ShiftClickBehavior(0, playerSlots - 1, playerSlots, playerSlots + 2);
+		shiftClickBehaviors.add(input);
+		shiftClickBehaviors.add(input.reversed());
 	}
 
 	@Override
 	public final void init(IGameInstance game)
 	{
 		super.init(game);
-		this.componentMenu = new ComponentMenu(this, -12 + offset, 2, 12, 90, 1, 4, 6, 0, (new BoundBox(0.0D + offset, 0.0D, 22.0D + offset, 94.0D)).add((double) this.x, (double) this.y), ResourceName.intern("gui.construction.scroll_bar"));
-		this.components.add(this.componentMenu);
+		this.scrollMenu = new ComponentMenu(this, -12 + offset, 2, 12, 90, 1, 4, 6, 0, (new BoundBox(0.0D + offset, 0.0D, 22.0D + offset, 94.0D)).add((double) this.x, (double) this.y), ResourceName.intern("gui.construction.scroll_bar"));
+		this.components.add(this.scrollMenu);
 
 		this.components.add(new ComponentProgressBar(this, 100 + offset, 19, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
 		this.components.add(new ComponentProgressBar(this, 100 + offset, 34, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
@@ -91,20 +97,20 @@ public class GuiAssemblyStation extends GuiContainer
 
 	private void a()
 	{
-		this.componentMenu.clear();
+		this.scrollMenu.clear();
 		this.recipeList.clear();
 		boolean var1 = false;
 		Iterator iter = ModRecipes.ASSEMBLY_STATION_RECIPES.values().iterator();
 
 		do
 		{
-			BasicRecipe var3;
+			AssemblyRecipe var3;
 			uselessLoop:
 			do
 			{
 				while (iter.hasNext())
 				{
-					if ((var3 = (BasicRecipe) iter.next()).isKnown(this.player))
+					if ((var3 = (AssemblyRecipe) iter.next()).isKnown(this.player))
 					{
 						break uselessLoop;
 					}
@@ -125,10 +131,10 @@ public class GuiAssemblyStation extends GuiContainer
 				while (iter.hasNext())
 				{
 					ComponentAssemblyPolaroid var7 = (ComponentAssemblyPolaroid) iter.next();
-					this.componentMenu.add((new MenuComponent(18, 20)).add(0, 2, var7));
+					this.scrollMenu.add((new MenuComponent(18, 20)).add(0, 2, var7));
 				}
 
-				this.componentMenu.organize();
+				this.scrollMenu.organize();
 				if (this.recipe != null)
 				{
 					this.a(ComponentAssemblyIngredient.getIngredientButtons(this.recipe, this, this.player));
@@ -163,7 +169,7 @@ public class GuiAssemblyStation extends GuiContainer
 
 		this.ingredients.addAll(var1);
 
-		while (this.ingredients.size() < 8)
+		while (this.ingredients.size() < 3)
 		{
 			this.ingredients.add(new ComponentAssemblyIngredient(this, false, Collections.emptyList()));
 		}
@@ -175,8 +181,8 @@ public class GuiAssemblyStation extends GuiContainer
 
 		for (ComponentAssemblyIngredient ingredient : this.ingredients)
 		{
-			(ingredient).setPos(var6 + 29 + offset, var2 + 51);
-			var6 += 16;
+			(ingredient).setPos(var6 + 35 + offset, var2 + 51);
+			var6 += 18;
 			++var3;
 			if (var3 >= 4)
 			{
@@ -274,7 +280,7 @@ public class GuiAssemblyStation extends GuiContainer
 		return mouseX >= x1 && mouseX < x1 + 6 && mouseY >= y1 && mouseY < y1 + 10;
 	}
 
-	private boolean nextRecipe(boolean left)
+	private boolean nextRecipe(IGameInstance game, boolean left)
 	{
 		if (recipe == null)
 		{
@@ -295,9 +301,13 @@ public class GuiAssemblyStation extends GuiContainer
 			}
 
 			int newID = id + (left ? -1 : 1);
+
+			clickSound(game);
 			if (newID > -1 && newID < recipeList.size())
 			{
 				selectRecipe(newID);
+				scrollMenu.setNumber(scrollMenu.getNumber() + (left ? -1 : 1));
+				scrollMenu.organize();
 				return true;
 			} else
 			{
@@ -318,15 +328,16 @@ public class GuiAssemblyStation extends GuiContainer
 			return false;
 		} else if (overArrow(game, true))
 		{
-			return nextRecipe(true);
+			return nextRecipe(game,true);
 		} else if (overArrow(game, false))
 		{
-			return nextRecipe(false);
+			return nextRecipe(game,false);
 		} else
 		{
 			boolean selectedRecipe;
 			if (this.componentConstruct != null && this.componentConstruct.isMouseOver(game))
 			{
+				clickSound(game);
 				if (RockBottomAPI.getNet().isClient())
 				{
 					RockBottomAPI.getNet().sendToServer(new PacketAssemblyConstruct(game.getPlayer().getUniqueId(), Registries.ALL_CONSTRUCTION_RECIPES.getId(this.recipe), 1));
@@ -354,6 +365,8 @@ public class GuiAssemblyStation extends GuiContainer
 							recipeIcon.isSelected = true;
 							this.a(recipeIcon.recipe);
 							this.a(ComponentAssemblyIngredient.getIngredientButtons(recipeIcon.recipe, this, this.player));
+
+							clickSound(game);
 						}
 
 						selectedRecipe = true;
@@ -373,9 +386,14 @@ public class GuiAssemblyStation extends GuiContainer
 		}
 	}
 
+	private void clickSound(IGameInstance game)
+	{
+		game.getAssetManager().getSound(ResourceName.intern("menu.click")).play();
+	}
+
 	@Override
 	public final int getSlotOffsetY()
 	{
-		return 99;
+		return 0;
 	}
 }

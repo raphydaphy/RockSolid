@@ -1,0 +1,20 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+	{
+	  "name": "rocksolid/item_conduit",
+	  "amount": 8
+	}
+  ],
+  "inputs": [
+	{
+	  "name": "stone",
+	  "amount": 10
+	},
+	{
+	  "name": "iron_processed",
+	  "amount": 5
+	}
+  ],
+  "skill": 0.2
+}

@@ -4,8 +4,12 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemBucket;
 import com.raphydaphy.rocksolid.item.ItemWrench;
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
+import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
+import de.ellpeck.rockbottom.api.construction.resource.ResInfo;
+import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemTool;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -104,5 +108,6 @@ public class ModItems
 		RES_STEEL_PROCESSED = res().addResources("steel_processed", ModItems.STEEL_INGOT);
 
 		RES_COAL_PROCESSED = res().addResources("coal_processed", ModItems.COKE);
+
 	}
 }

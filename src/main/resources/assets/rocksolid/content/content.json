@@ -10,7 +10,12 @@
 	"steel_pickaxe": "/recipes/steel_pickaxe.json",
 	"steel_axe": "/recipes/steel_axe.json",
 	"steel_shovel": "/recipes/steel_shovel.json",
-	"assembly_station": "/recipes/assembly_station.json"
+	"assembly_station": "/recipes/assembly_station.json",
+	"wrench": "/recipes/wrench.json",
+	"energy_conduit": "/recipes/energy_conduit.json",
+	"item_conduit": "/recipes/item_conduit.json",
+	"fluid_conduit": "/recipes/fluid_conduit.json",
+	"gas_conduit": "/recipes/gas_conduit.json"
   },
   "smelting.": {
 	"tin_smelting": "/smelting/tin_smelting.json",
