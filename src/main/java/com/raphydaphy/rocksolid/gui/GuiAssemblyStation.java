@@ -7,6 +7,7 @@ import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.network.PacketAssemblyConstruct;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.Registries;
@@ -22,12 +23,12 @@ import de.ellpeck.rockbottom.api.gui.component.MenuComponent;
 import de.ellpeck.rockbottom.api.gui.component.construction.ComponentConstruct;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.*;
-import java.util.List;
 import java.util.function.BiConsumer;
 
 public class GuiAssemblyStation extends GuiContainer
@@ -36,7 +37,8 @@ public class GuiAssemblyStation extends GuiContainer
 	private static final ResourceName arrows = RockSolid.createRes("gui.assembly_arrows");
 	private final List<ComponentAssemblyPolaroid> recipeList = new ArrayList<>();
 	private final List<ComponentAssemblyIngredient> ingredients = new ArrayList<>();
-	private IRecipe recipe;
+	private final List<ComponentProgressBar> stats = new ArrayList<>();
+	private AssemblyRecipe recipe;
 	private ComponentMenu scrollMenu;
 	private ComponentConstruct componentConstruct;
 
@@ -63,12 +65,6 @@ public class GuiAssemblyStation extends GuiContainer
 		this.scrollMenu = new ComponentMenu(this, -12 + offset, 2, 12, 90, 1, 4, 6, 0, (new BoundBox(0.0D + offset, 0.0D, 22.0D + offset, 94.0D)).add((double) this.x, (double) this.y), ResourceName.intern("gui.construction.scroll_bar"));
 		this.components.add(this.scrollMenu);
 
-		this.components.add(new ComponentProgressBar(this, 100 + offset, 19, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
-		this.components.add(new ComponentProgressBar(this, 100 + offset, 34, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
-		this.components.add(new ComponentProgressBar(this, 100 + offset, 49, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
-		this.components.add(new ComponentProgressBar(this, 100 + offset, 64, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
-		this.components.add(new ComponentProgressBar(this, 100 + offset, 79, 33, 8, Color.DARK_GRAY.getRGB(), false, this::getDurability));
-
 		this.a();
 
 		selectRecipe(0);
@@ -80,19 +76,16 @@ public class GuiAssemblyStation extends GuiContainer
 		{
 			ComponentAssemblyPolaroid firstRecipe = this.recipeList.get(id);
 
-			this.recipe = firstRecipe.recipe;
+			this.recipe = (AssemblyRecipe)firstRecipe.recipe;
 			firstRecipe.isSelected = true;
 			this.a(firstRecipe.recipe);
 			this.a(ComponentAssemblyIngredient.getIngredientButtons(firstRecipe.recipe, this, this.player));
+
+			onRecipeChanged();
 		} else
 		{
 			selectRecipe(0);
 		}
-	}
-
-	private float getDurability()
-	{
-		return new Random().nextInt(10) / 10f;
 	}
 
 	private void a()
@@ -104,13 +97,13 @@ public class GuiAssemblyStation extends GuiContainer
 
 		do
 		{
-			AssemblyRecipe var3;
+			AssemblyRecipe asmRecipe;
 			uselessLoop:
 			do
 			{
 				while (iter.hasNext())
 				{
-					if ((var3 = (AssemblyRecipe) iter.next()).isKnown(this.player))
+					if ((asmRecipe = (AssemblyRecipe) iter.next()).isKnown(this.player))
 					{
 						break uselessLoop;
 					}
@@ -149,7 +142,7 @@ public class GuiAssemblyStation extends GuiContainer
 
 			Inventory var8 = this.player.getInv();
 			ComponentAssemblyPolaroid var9;
-			(var9 = ComponentAssemblyPolaroid.getPolaroidButton(var3, this, this.player, var3.canConstruct(var8, var8))).isSelected = this.recipe == var3;
+			(var9 = ComponentAssemblyPolaroid.getPolaroidButton(asmRecipe, this, this.player, asmRecipe.canConstruct(te.getInvHidden(), var8))).isSelected = this.recipe == asmRecipe;
 			if (var9.isSelected)
 			{
 				var1 = true;
@@ -205,7 +198,7 @@ public class GuiAssemblyStation extends GuiContainer
 		if (var1 != null)
 		{
 			Inventory var2 = this.player.getInv();
-			this.componentConstruct = var1.getConstructButton(this, this.player, this.recipe.canConstruct(var2, var2));
+			this.componentConstruct = var1.getConstructButton(this, this.player, this.recipe.canConstruct(te.getInvHidden(), var2));
 			this.componentConstruct.setPos(45 + offset, 17);
 			this.components.add(this.componentConstruct);
 		}
@@ -235,12 +228,15 @@ public class GuiAssemblyStation extends GuiContainer
 
 		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 3), "Stats", 0.25F, 22, -16777216, 2147483647, true, false);
 
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14), "Energy Storage", 0.15F, 70, -16777216, 2147483647, true, false);
+		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14), "Capacity", 0.15F, 70, -16777216, 2147483647, true, false);
 		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15), "Efficiency", 0.15F, 70, -16777216, 2147483647, true, false);
 		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 2), "Speed", 0.15F, 70, -16777216, 2147483647, true, false);
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 3), "Bonus Yield", 0.15F, 70, -16777216, 2147483647, true, false);
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 4), "Throughput", 0.15F, 70, -16777216, 2147483647, true, false);
+		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 3), "Throughput", 0.15F, 70, -16777216, 2147483647, true, false);
 
+		if (this.recipe instanceof AssemblyRecipe && this.recipe.hasBonusYield())
+		{
+			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 4), "Bonus Yield", 0.15F, 70, -16777216, 2147483647, true, false);
+		}
 		super.render(game, assetManager, renderer);
 	}
 
@@ -254,14 +250,14 @@ public class GuiAssemblyStation extends GuiContainer
 	public final void onOpened(IGameInstance var1)
 	{
 		super.onOpened(var1);
-		this.player.getInv().addChangeCallback(this.m);
+		this.te.getInvHidden().addChangeCallback(this.m);
 	}
 
 	@Override
 	public final void onClosed(IGameInstance var1)
 	{
 		super.onClosed(var1);
-		this.player.getInv().removeChangeCallback(this.m);
+		this.te.getInvHidden().removeChangeCallback(this.m);
 	}
 
 	private boolean overArrow(IGameInstance game, boolean left)
@@ -278,6 +274,35 @@ public class GuiAssemblyStation extends GuiContainer
 		}
 
 		return mouseX >= x1 && mouseX < x1 + 6 && mouseY >= y1 && mouseY < y1 + 10;
+	}
+
+	private void onRecipeChanged()
+	{
+		this.components.removeAll(stats);
+		stats.clear();
+
+		List<ItemInstance> items = Arrays.asList(te.getInvHidden().get(0), te.getInvHidden().get(1), te.getInvHidden().get(2));
+
+		AssemblyRecipe r = this.recipe;
+		int progressY = 19;
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyCapacity(items)));
+		progressY += 15;
+
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyEfficiency(items)));
+		progressY += 15;
+
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblySpeed(items)));
+		progressY += 15;
+
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyThroughput(items)));
+		progressY += 15;
+
+		if (r.hasBonusYield())
+		{
+			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyBonusYield(items)));
+		}
+
+		this.components.addAll(stats);
 	}
 
 	private boolean nextRecipe(IGameInstance game, boolean left)
@@ -328,10 +353,10 @@ public class GuiAssemblyStation extends GuiContainer
 			return false;
 		} else if (overArrow(game, true))
 		{
-			return nextRecipe(game,true);
+			return nextRecipe(game, true);
 		} else if (overArrow(game, false))
 		{
-			return nextRecipe(game,false);
+			return nextRecipe(game, false);
 		} else
 		{
 			boolean selectedRecipe;
@@ -343,7 +368,7 @@ public class GuiAssemblyStation extends GuiContainer
 					RockBottomAPI.getNet().sendToServer(new PacketAssemblyConstruct(game.getPlayer().getUniqueId(), Registries.ALL_CONSTRUCTION_RECIPES.getId(this.recipe), 1));
 				} else if (this.recipe.isKnown(this.player))
 				{
-					this.recipe.playerConstruct(this.player, 1);
+					this.recipe.playerConstruct(this.player, te,1);
 				}
 
 				return true;
@@ -361,11 +386,12 @@ public class GuiAssemblyStation extends GuiContainer
 					{
 						if (this.recipe != recipeIcon.recipe)
 						{
-							this.recipe = recipeIcon.recipe;
+							this.recipe = (AssemblyRecipe)recipeIcon.recipe;
 							recipeIcon.isSelected = true;
 							this.a(recipeIcon.recipe);
 							this.a(ComponentAssemblyIngredient.getIngredientButtons(recipeIcon.recipe, this, this.player));
 
+							onRecipeChanged();
 							clickSound(game);
 						}
 

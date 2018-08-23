@@ -25,6 +25,8 @@ public class ModMisc
 	public static String RES_ALL_INGOTS;
 	public static String RES_ALL_FUELS;
 
+	public static String RES_SANDSTONE;
+
 	static
 	{
 		CONDUIT_LAYER = new ConduitTileLayer();
@@ -45,6 +47,8 @@ public class ModMisc
 		RES_ALL_INGOTS = res().addResources("all_ingots", new ResInfo(GameContent.ITEM_COPPER_INGOT), new ResInfo(ModItems.TIN_INGOT), new ResInfo(ModItems.BRONZE_INGOT), new ResInfo(ModItems.IRON_INGOT), new ResInfo(ModItems.STEEL_INGOT));
 		RES_MACHINE_MATERIALS = res().addResources("machine_materials", new ResInfo(GameContent.TILE_STONE), new ResInfo(GameContent.TILE_SANDSTONE), new ResInfo(GameContent.TILE_SOIL), new ResInfo(GameContent.TILE_LOG));
 		RES_ALL_FUELS = res().addResources("all_fuels", new ResInfo(GameContent.TILE_COAL), new ResInfo(ModItems.COKE));
+
+		RES_SANDSTONE = res().addResources("sandstone", new ResInfo(GameContent.TILE_SANDSTONE));
 	}
 
 	private static IResourceRegistry res()

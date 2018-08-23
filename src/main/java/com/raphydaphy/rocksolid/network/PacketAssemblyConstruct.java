@@ -1,8 +1,11 @@
 package com.raphydaphy.rocksolid.network;
 
+import com.raphydaphy.rocksolid.container.ContainerAssemblyStation;
+import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.net.NetUtil;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -49,7 +52,16 @@ public class PacketAssemblyConstruct implements IPacket
 		IRecipe iRecipe;
 		if (game.getWorld() != null && (abstractPlayer = game.getWorld().getPlayer(this.playerUUID)) != null && (iRecipe = IRecipe.forName(this.recipeName)) != null && iRecipe.isKnown(abstractPlayer))
 		{
-			iRecipe.playerConstruct(abstractPlayer, this.amount);
+			if (iRecipe instanceof AssemblyRecipe)
+			{
+				AssemblyRecipe recipe = (AssemblyRecipe)iRecipe;
+				ItemContainer container = abstractPlayer.getContainer();
+				if (container instanceof ContainerAssemblyStation)
+				{
+					recipe.playerConstruct(abstractPlayer, ((ContainerAssemblyStation)container).te,this.amount);
+				}
+
+			}
 		}
 
 	}
