@@ -1,34 +1,32 @@
 package com.raphydaphy.rocksolid.tileentity.base;
 
-import com.raphydaphy.rocksolid.tileentity.base.IActivatable;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public abstract class TileEntityFueledBase extends TileEntity implements IActivatable
 {
-	public static final String KEY_COAL_TIME = "coal_time";
-	public static final String KEY_MAX_COAL_TIME = "max_coal_time";
+	protected final SyncedInt smeltTime = new SyncedInt("smelt_time");
+	protected final SyncedInt maxSmeltTime = new SyncedInt("max_smelt_time");
+	protected final SyncedInt fuelTime = new SyncedInt("fuel_time");
+	protected final SyncedInt maxFuelTime = new SyncedInt("max_fuel_time");
 
 	private boolean lastActive = false;
-
-	public int coalTime;
-	private int lastCoalTime;
-	private int maxCoalTime;
 
 	public TileEntityFueledBase(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
 	}
 
-	protected abstract boolean tryTickAction();
+	protected abstract void getRecipeAndStart();
 
-	protected abstract float getFuelModifier();
+	protected abstract void putOutputItems();
 
 	protected abstract ItemInstance getFuel();
 
@@ -41,86 +39,106 @@ public abstract class TileEntityFueledBase extends TileEntity implements IActiva
 	{
 		super.update(game);
 
-		if (!RockBottomAPI.getNet().isClient())
+		if (!world.isClient())
 		{
-			boolean smelted = this.tryTickAction();
-
-			if (this.coalTime > 0)
+			if (this.maxSmeltTime.get() <= 0)
 			{
-				this.coalTime--;
-			}
-
-			if (smelted)
+				getRecipeAndStart();
+			} else if (this.fuelTime.get() <= 0)
 			{
-				if (this.coalTime <= 0)
+				ItemInstance fuelSlot = this.getFuel();
+				int fuelSlotTime;
+				if (fuelSlot != null && (fuelSlotTime = FuelInput.getFuelTime(fuelSlot)) > 0)
 				{
-					ItemInstance inst = this.getFuel();
-					if (inst != null)
-					{
-						int amount = (int) (getFuelValue(inst) * this.getFuelModifier());
-						if (amount > 0)
-						{
-							this.maxCoalTime = amount;
-							this.coalTime = amount;
+					this.fuelTime.set(fuelSlotTime);
+					this.maxFuelTime.set(fuelSlotTime);
+					this.removeFuel();
+				}
 
-							this.removeFuel();
-						}
-					}
+				if (this.fuelTime.get() <= 0 && this.smeltTime.get() > 0)
+				{
+					this.smeltTime.remove(1);
+				}
+			} else
+			{
+				// because it's a bad furnace
+				if (Util.RANDOM.nextFloat() >= 0.45F)
+				{
+					this.smeltTime.add(1);
+				}
+				if (this.smeltTime.get() >= this.maxSmeltTime.get())
+				{
+					putOutputItems();
+					this.smeltTime.set(0);
+					this.maxSmeltTime.set(0);
 				}
 			}
+
+			if (this.fuelTime.get() > 0)
+			{
+				this.fuelTime.remove(1);
+			}
+
+
+			boolean active = this.isActive();
+			if (this.lastActive != active)
+			{
+				this.lastActive = active;
+
+				this.onActiveChange(active);
+			}
 		}
-
-		boolean active = this.isActive();
-		if (this.lastActive != active)
-		{
-			this.lastActive = active;
-
-			this.onActiveChange(active);
-		}
-	}
-
-	public static int getFuelValue(ItemInstance item)
-	{
-		return FuelInput.getFuelTime(item);
-	}
-
-	@Override
-	protected boolean needsSync()
-	{
-		return this.lastCoalTime != this.coalTime;
-	}
-
-	@Override
-	protected void onSync()
-	{
-		this.lastCoalTime = this.coalTime;
 	}
 
 	@Override
 	public boolean isActive()
 	{
-		return this.coalTime > 0;
+		return this.fuelTime.get() > 0 || this.smeltTime.get() > 0;
 	}
 
 	public float getFuelPercentage()
 	{
-		return (float) this.coalTime / (float) this.maxCoalTime;
+		return this.maxFuelTime.get() > 0 ? (float) this.fuelTime.get() / (float) this.maxFuelTime.get() : 0.0F;
+	}
+
+	public float getSmeltPercentage()
+	{
+		return this.maxSmeltTime.get() > 0 ? (float) this.smeltTime.get() / (float) this.maxSmeltTime.get() : 0.0F;
+	}
+
+	@Override
+	protected boolean needsSync()
+	{
+		return smeltTime.needsSync() || maxSmeltTime.needsSync() || fuelTime.needsSync() || maxFuelTime.needsSync();
+	}
+
+	@Override
+	protected void onSync()
+	{
+		smeltTime.onSync();
+		maxSmeltTime.onSync();
+		fuelTime.onSync();
+		maxFuelTime.onSync();
 	}
 
 	@Override
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt(KEY_COAL_TIME, this.coalTime);
-		set.addInt(KEY_MAX_COAL_TIME, this.maxCoalTime);
+		smeltTime.save(set);
+		maxSmeltTime.save(set);
+		fuelTime.save(set);
+		maxFuelTime.save(set);
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		this.coalTime = set.getInt(KEY_COAL_TIME);
-		this.maxCoalTime = set.getInt(KEY_MAX_COAL_TIME);
+		smeltTime.load(set);
+		maxSmeltTime.load(set);
+		fuelTime.load(set);
+		maxFuelTime.load(set);
 	}
 
 	public boolean doesTick()

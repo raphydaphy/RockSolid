@@ -5,6 +5,9 @@ import com.raphydaphy.rocksolid.tileentity.TileEntitySeparator;
 import com.raphydaphy.rocksolid.container.slot.FilteredSlot;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
+import de.ellpeck.rockbottom.api.gui.container.OutputSlot;
+import de.ellpeck.rockbottom.api.gui.container.RestrictedInputSlot;
+import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class ContainerSeparator extends ItemContainer
@@ -14,10 +17,11 @@ public class ContainerSeparator extends ItemContainer
 	{
 		super(player);
 		this.addPlayerInventory(player, 0, 50);
-		this.addSlot(new FilteredSlot(tile.getTileInventory(), 0, 51, 20, tile.getTileInventory().getSlots().get(0).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getTileInventory(), 1, 17, 0, tile.getTileInventory().getSlots().get(1).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getTileInventory(), 2, 85, 0, tile.getTileInventory().getSlots().get(2).getPredicate()));
-		this.addSlot(new FilteredSlot(tile.getTileInventory(), 3, 102, 0, tile.getTileInventory().getSlots().get(3).getPredicate()));
+		IFilteredInventory inv = tile.getTileInventory();
+		this.addSlot(new RestrictedInputSlot(inv, 0, 51, 20));
+		this.addSlot(new RestrictedInputSlot(inv, 1, 17, 0));
+		this.addSlot(new OutputSlot(inv, 2, 85, 0));
+		this.addSlot(new OutputSlot(inv, 3, 102, 0));
 	}
 
 	@Override

@@ -11,12 +11,15 @@ import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
+import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -30,14 +33,28 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	public static final String KEY_WATER = "water";
 	private static final String KEY_STEAM = "steam";
 	public final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0)));
-	private int steam = 0;
-	private int lastSteam = 0;
-	private int water = 0;
-	private int lastWater = 0;
+	private SyncedInt water = new SyncedInt("water");
+	private SyncedInt steam = new SyncedInt("steam");
 
 	public TileEntityBoiler(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
+	}
+
+	@Override
+	protected void getRecipeAndStart()
+	{
+		if (this.water.get() >= 1 && this.steam.get() < 1000)
+		{
+			this.maxSmeltTime.set(6);
+			this.water.remove(1);
+		}
+	}
+
+	@Override
+	protected void putOutputItems()
+	{
+		this.steam.add(1);
 	}
 
 	@Override
@@ -50,80 +67,48 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt(KEY_STEAM, this.steam);
-		set.addInt(KEY_WATER, this.water);
-		inventory.save(set);
+		water.save(set);
+		steam.save(set);
+		if (!forSync)
+		{
+			inventory.save(set);
+		}
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		this.steam = set.getInt(KEY_STEAM);
-		this.water = set.getInt(KEY_WATER);
-		inventory.load(set);
+		water.load(set);
+		steam.load(set);
+		if (!forSync)
+		{
+			inventory.load(set);
+		}
 	}
 
 	@Override
 	protected boolean needsSync()
 	{
-		return this.lastSteam != this.steam || this.lastWater != this.water || super.needsSync();
+		return water.needsSync() || steam.needsSync();
 	}
 
 	@Override
 	public void onSync()
 	{
 		super.onSync();
-		this.lastSteam = this.steam;
-		this.lastWater = this.water;
+		water.onSync();
+		steam.onSync();
 	}
 
 	public float getSteamFullness()
 	{
-		return this.steam / 1000f;
+		return this.steam.get() / 1000f;
 	}
 
 	public float getWaterFullness()
 	{
-		return (float) this.water / 1000f;
-	}
-
-	private final ResourceName BOILER_SOUND = RockSolid.createRes("boiler");
-	private int lastPlayed = -1;
-
-	@Override
-	protected boolean tryTickAction()
-	{
-		if (this.water >= 1 && this.steam < 1000)
-		{
-			if (this.coalTime > 0)
-			{
-				if (!this.world.isClient())
-				{
-					if (world.getTotalTime() % 6 == 0)
-					{
-						this.steam += 1;
-						this.water -= 1;
-					}
-				}
-				if (!(this.world.isDedicatedServer() && this.world.isServer()))
-				{
-					if (lastPlayed == -1 || world.getTotalTime() - lastPlayed >= 320)
-					{
-						world.playSound(BOILER_SOUND, x + 0.5d, y + 0.5d, layer.index(), 1, 4);
-						lastPlayed = world.getTotalTime();
-					}
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	protected float getFuelModifier()
-	{
-		return 1f;
+		return (float) this.water.get() / 1000f;
 	}
 
 	@Override
@@ -147,11 +132,11 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public boolean addFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (liquid.equals(GameContent.TILE_WATER) && ml + this.water <= 1000)
+		if (liquid.equals(GameContent.TILE_WATER) && ml + this.water.get() <= 1000)
 		{
 			if (!simulate)
 			{
-				this.water += ml;
+				this.water.add(ml);
 			}
 			return true;
 		}
@@ -196,11 +181,11 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public boolean removeGas(Pos2 pos, Gas liquid, int cc, boolean simulate)
 	{
-		if (liquid.equals(Gas.STEAM) && this.steam - cc > 0)
+		if (liquid.equals(Gas.STEAM) && this.steam.get() - cc > 0)
 		{
 			if (!simulate)
 			{
-				this.steam -= cc;
+				this.steam.remove(cc);
 			}
 			return true;
 		}

@@ -33,7 +33,7 @@ public class GuiSeparator extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 40, 4, 37, 8, ModUtils.PROGRESS, false, GuiSeparator.this.te::getSmeltPercent));
+		this.components.add(new ComponentProgressBar(this, 40, 4, 37, 8, ModUtils.PROGRESS, false, GuiSeparator.this.te::getSmeltPercentage));
 
 		this.components.add(new ComponentProgressBar(this, 39, 20, 8, 16, ModUtils.COAL, true, GuiSeparator.this.te::getFuelPercentage));
 	}

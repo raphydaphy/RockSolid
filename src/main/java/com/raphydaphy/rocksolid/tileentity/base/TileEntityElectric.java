@@ -57,6 +57,8 @@ public abstract class TileEntityElectric extends TileEntity implements IEnergyTi
 		super.load(set, forSync);
 		smeltProgress = set.getInt(KEY_SMELT_PROGRESS);
 		energyStored = set.getInt(KEY_ENERGY_STORED);
+
+		System.out.println(energyStored);
 	}
 
 	public abstract float getSmeltTime();

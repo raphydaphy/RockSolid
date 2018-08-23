@@ -8,8 +8,6 @@ import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.tile.MultiTile;
-import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -18,7 +16,7 @@ import java.util.Random;
 
 public class TileEntityElectricSeparator extends TileEntityElectric
 {
-	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> SeparatorRecipe.getFromInputs(instance) != null), new SimpleSlotInfo(SlotType.OUTPUT), new SimpleSlotInfo(SlotType.OUTPUT)));
+	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> SeparatorRecipe.forInput(instance) != null), new SimpleSlotInfo(SlotType.OUTPUT), new SimpleSlotInfo(SlotType.OUTPUT)));
 
 	public TileEntityElectricSeparator(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -48,12 +46,12 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 
 	public boolean hasValidRecipe()
 	{
-		return SeparatorRecipe.getFromInputs(this.inventory.get(0)) != null;
+		return SeparatorRecipe.forInput(this.inventory.get(0)) != null;
 	}
 
 	public boolean processSmelt()
 	{
-		SeparatorRecipe r = SeparatorRecipe.getFromInputs(this.inventory.get(0));
+		SeparatorRecipe r = SeparatorRecipe.forInput(this.inventory.get(0));
 		if (r != null && (this.inventory.get(2) == null) || (this.inventory.get(2).getItem().equals(r.biproduct.getItem()) && this.inventory.get(2).getAmount() + r.biproduct.getAmount() <= r.biproduct.getMaxAmount()))
 		{
 			boolean removed = false;

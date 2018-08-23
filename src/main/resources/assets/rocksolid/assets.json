@@ -3,9 +3,7 @@
 	"us_english": "/loc/us_english.json"
   },
   "sound.": {
-	"pump": "/sounds/pump.ogg",
-	"boiler": "/sounds/boiler.ogg",
-	"turbine": "/sounds/turbine.ogg"
+	"pump": "/sounds/pump.ogg"
   },
   "tex.": {
 	"items.": {

@@ -16,26 +16,28 @@ public class AlloySmelterRecipe
 	public final IUseInfo in1;
 	public final IUseInfo in2;
 	public final ItemInstance out;
+	public final int time;
 
-	public AlloySmelterRecipe(String in1, int quantity1, String in2, int quantity2, Item out, int quantityOut)
+	public AlloySmelterRecipe(String in1, int quantity1, String in2, int quantity2, Item out, int quantityOut, int time)
 	{
-		this(new ResUseInfo(in1, quantity1), new ResUseInfo(in2, quantity2), new ItemInstance(out, quantityOut));
+		this(new ResUseInfo(in1, quantity1), new ResUseInfo(in2, quantity2), new ItemInstance(out, quantityOut), time);
 	}
 
-	public AlloySmelterRecipe(IUseInfo in1, IUseInfo in2, ItemInstance out)
+	public AlloySmelterRecipe(IUseInfo in1, IUseInfo in2, ItemInstance out, int time)
 	{
-		this(out.getItem().getName(), in1, in2, out);
+		this(out.getItem().getName(), in1, in2, out, time);
 	}
 
-	public AlloySmelterRecipe(ResourceName name, IUseInfo in1, IUseInfo in2, ItemInstance out)
+	public AlloySmelterRecipe(ResourceName name, IUseInfo in1, IUseInfo in2, ItemInstance out, int time)
 	{
 		this.name = name;
 		this.in1 = in1;
 		this.in2 = in2;
 		this.out = out;
+		this.time = time;
 	}
 
-	public static AlloySmelterRecipe getFromInputs(ItemInstance input1, ItemInstance input2, boolean ignoreNull)
+	public static AlloySmelterRecipe forInput(ItemInstance input1, ItemInstance input2, boolean ignoreNull)
 	{
 		for (AlloySmelterRecipe recipe : REGISTRY.values())
 		{
@@ -46,7 +48,7 @@ public class AlloySmelterRecipe
 					return recipe;
 				} else if ((recipe.in2.containsItem(input1) && recipe.in1.containsItem(input2)))
 				{
-					return new AlloySmelterRecipe(recipe.in2, recipe.in1, recipe.out);
+					return new AlloySmelterRecipe(recipe.in2, recipe.in1, recipe.out, recipe.time);
 				}
 			}
 			if (input1 != null && ignoreNull && input2 == null && (recipe.in1.containsItem(input1) || recipe.in2.containsItem(input1)))

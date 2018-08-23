@@ -47,21 +47,18 @@ public class AssemblyRecipe extends BasicRecipe
 	@Override
 	public List<ItemInstance> getActualOutputs(IInventory inputInventory, IInventory outputInventory, List<ItemInstance> inputs)
 	{
-		float capacity = ModUtils.getAssemblyCapacity(inputs);
-		float efficiency = ModUtils.getAssemblyEfficiency(inputs);
-		float speed = ModUtils.getAssemblySpeed(inputs);
-		float yield = ModUtils.getAssemblyBonusYield(inputs);
-		float throughput = ModUtils.getAssemblyThroughput(inputs);
-
 		ItemInstance nbtOut = output.copy();
 
-		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, capacity);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, efficiency);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, speed);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, yield);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, throughput);
+		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, ModUtils.getAssemblyCapacity(inputs));
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, ModUtils.getAssemblyEfficiency(inputs));
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, ModUtils.getAssemblySpeed(inputs));
 
-		System.out.println("Capacity: " +capacity + ", Efficiency: " + efficiency + ", Speed: " + speed + ", Bonus Yield: " + yield + ", Throughput: " + throughput);
+		if (hasBonusYield())
+		{
+			nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, ModUtils.getAssemblyBonusYield(inputs));
+		}
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, ModUtils.getAssemblyThroughput(inputs));
+
 		return Collections.singletonList(nbtOut);
 	}
 

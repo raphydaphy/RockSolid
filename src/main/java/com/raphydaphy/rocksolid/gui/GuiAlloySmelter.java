@@ -33,7 +33,7 @@ public class GuiAlloySmelter extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 57, 4, 37, 8, ModUtils.PROGRESS, false, GuiAlloySmelter.this.te::getSmeltPercent));
+		this.components.add(new ComponentProgressBar(this, 57, 4, 37, 8, ModUtils.PROGRESS, false, GuiAlloySmelter.this.te::getSmeltPercentage));
 
 		this.components.add(new ComponentProgressBar(this, 55, 20, 8, 16, ModUtils.COAL, true, GuiAlloySmelter.this.te::getFuelPercentage));
 	}

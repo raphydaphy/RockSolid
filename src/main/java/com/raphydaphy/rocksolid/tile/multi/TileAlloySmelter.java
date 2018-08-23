@@ -96,29 +96,6 @@ public class TileAlloySmelter extends MultiTileBase
 	}
 
 	@Override
-	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
-	{
-		List<ItemInstance> drops = new ArrayList<>();
-
-		Item item = this.getItem();
-
-		if (item != null)
-		{
-			drops.add(new ItemInstance(item));
-		}
-
-		TileEntityAlloySmelter te = this.getTE(world, world.getState(x, y), x, y);
-
-		if (te != null)
-		{
-			drops.add(te.getTileInventory().get(0));
-			drops.add(te.getTileInventory().get(1));
-		}
-
-		return drops;
-	}
-
-	@Override
 	public void updateRandomlyInPlayerView(IWorld world, int x, int y, TileLayer layer, TileState state, IParticleManager manager)
 	{
 		Pos2 innerCoord = this.getInnerCoord(state);

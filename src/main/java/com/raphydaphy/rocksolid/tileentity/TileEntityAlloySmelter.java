@@ -1,23 +1,47 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
+import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import com.raphydaphy.rocksolid.util.FilteredTileInventory;
 import com.raphydaphy.rocksolid.util.SlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
 import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class TileEntityAlloySmelter extends TileEntityFueledBase
 {
-	private static final String KEY_SMELT_PROGRESS = "smelt_progress";
-	private final FilteredTileInventory inventory = new FilteredTileInventory(this, SlotInfo.makeList(new SimpleSlotInfo(SlotType.INPUT, instance -> FuelInput.getFuelTime(instance) > 0), new SimpleSlotInfo(SlotType.INPUT, instance -> (AlloySmelterRecipe.getFromInputs(instance, this.getTileInventory().get(2), true) != null)), new SimpleSlotInfo(SlotType.INPUT, instance -> (AlloySmelterRecipe.getFromInputs(instance, this.getTileInventory().get(1), true) != null)), new SimpleSlotInfo(SlotType.OUTPUT)));
-	private int smeltProgress = 0;
-	private int lastSmeltProgress = 0;
+	private static final String KEY_OUTPUT = "output";
+
+	private final TileInventory inventory = new TileInventory(this, 4, (input) ->
+	{
+		ArrayList<Integer> avalableSlots = new ArrayList<>(2);
+		if (FuelInput.getFuelTime(input) > 0)
+		{
+			avalableSlots.add(0);
+		}
+		if (AlloySmelterRecipe.forInput(input, this.inventory.get(2), true) != null)
+		{
+			avalableSlots.add(1);
+		}
+		if (AlloySmelterRecipe.forInput(input, this.inventory.get(1), true) != null)
+		{
+			avalableSlots.add(2);
+		}
+		return avalableSlots;
+	}, Collections.singletonList(3));
+
+	private ItemInstance output;
 
 	public TileEntityAlloySmelter(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -25,7 +49,54 @@ public class TileEntityAlloySmelter extends TileEntityFueledBase
 	}
 
 	@Override
-	public FilteredTileInventory getTileInventory()
+	protected void getRecipeAndStart()
+	{
+		ItemInstance item1 = this.inventory.get(1);
+		ItemInstance item2 = this.inventory.get(2);
+		AlloySmelterRecipe recipe;
+		if (item1 != null && item2 != null && (recipe = AlloySmelterRecipe.forInput(item1, item2, false)) != null)
+		{
+			IUseInfo input1 = recipe.in1;
+			IUseInfo input2 = recipe.in2;
+			if (item1.getAmount() >= input1.getAmount() && item2.getAmount() >= input2.getAmount())
+			{
+				ItemInstance rOut = recipe.out;
+				ItemInstance var4;
+				if (((var4 = this.inventory.get(3)) == null || var4.isEffectivelyEqual(rOut) && var4.fitsAmount(rOut.getAmount())))
+				{
+					System.out.println(recipe.time);
+					this.maxSmeltTime.set(recipe.time);
+					this.output = rOut.copy();
+					this.inventory.remove(1, input1.getAmount());
+					this.inventory.remove(2, input2.getAmount());
+				}
+			}
+		}
+
+		if (this.maxSmeltTime.get() <= 0)
+		{
+			this.output = null;
+		}
+	}
+
+	@Override
+	protected void putOutputItems()
+	{
+		ItemInstance outSlot;
+
+		if ((outSlot = this.inventory.get(3)) != null && outSlot.isEffectivelyEqual(this.output))
+		{
+			this.inventory.add(3, this.output.getAmount());
+		} else
+		{
+			this.inventory.set(3, this.output);
+		}
+
+		this.output = null;
+	}
+
+	@Override
+	public TileInventory getTileInventory()
 	{
 		return this.inventory;
 	}
@@ -34,84 +105,31 @@ public class TileEntityAlloySmelter extends TileEntityFueledBase
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt(KEY_SMELT_PROGRESS, smeltProgress);
-		inventory.save(set);
+		if (!forSync)
+		{
+			inventory.save(set);
+			if (this.output != null)
+			{
+				DataSet tmpSet = new DataSet();
+				this.output.save(tmpSet);
+				set.addDataSet(KEY_OUTPUT, tmpSet);
+			}
+		}
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		smeltProgress = set.getInt(KEY_SMELT_PROGRESS);
-		inventory.load(set);
-	}
-
-	public float getSmeltPercent()
-	{
-		return this.smeltProgress / 625f;
-	}
-
-	@Override
-	protected boolean tryTickAction()
-	{
-		AlloySmelterRecipe r = AlloySmelterRecipe.getFromInputs(this.inventory.get(1), this.inventory.get(2), false);
-		if (r != null)
+		if (!forSync)
 		{
-			if (this.coalTime > 0)
+			inventory.load(set);
+			if (set.hasKey(KEY_OUTPUT))
 			{
-				if (getSmeltPercent() >= 1)
-				{
-					boolean removed = false;
-
-					if (this.inventory.get(3) == null)
-					{
-						this.inventory.set(3, r.out.copy());
-						removed = true;
-					} else if (this.inventory.get(3).getItem().equals(r.out.getItem()) && this.inventory.get(3).getAmount() + r.out.getAmount() <= r.out.getMaxAmount())
-					{
-						this.inventory.add(3, r.out.getAmount());
-						removed = true;
-					}
-
-					if (removed)
-					{
-						this.inventory.remove(1, r.in1.getAmount());
-						this.inventory.remove(2, r.in2.getAmount());
-						this.smeltProgress = 0;
-					}
-				} else
-				{
-					this.smeltProgress++;
-				}
-			} else if (smeltProgress > 0)
-			{
-				smeltProgress--;
+				DataSet tepSet = set.getDataSet(KEY_OUTPUT);
+				this.output = ItemInstance.load(tepSet);
 			}
-			return true;
-		} else if (smeltProgress > 0)
-		{
-			smeltProgress = 0;
 		}
-		return false;
-	}
-
-	@Override
-	protected float getFuelModifier()
-	{
-		return 1f;
-	}
-
-	@Override
-	protected boolean needsSync()
-	{
-		return this.smeltProgress != this.lastSmeltProgress || super.needsSync();
-	}
-
-	@Override
-	public void onSync()
-	{
-		super.onSync();
-		this.lastSmeltProgress = this.smeltProgress;
 	}
 
 	@Override

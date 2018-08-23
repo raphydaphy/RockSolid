@@ -3,15 +3,11 @@ package com.raphydaphy.rocksolid.recipe;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
-import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SeparatorRecipe
 {
@@ -22,27 +18,29 @@ public class SeparatorRecipe
 	public final ItemInstance out;
 	public final ItemInstance biproduct;
 	public final int biproductChance;
+	public final int time;
 
-	public SeparatorRecipe(String inRes, Item out)
+	public SeparatorRecipe(String inRes, Item out, int time)
 	{
-		this(RockSolid.createRes(inRes + "_separation"), inRes, out);
+		this(RockSolid.createRes(inRes + "_separation"), inRes, out, time);
 	}
 
-	public SeparatorRecipe(ResourceName name, String inRes, Item out)
+	public SeparatorRecipe(ResourceName name, String inRes, Item out, int time)
 	{
-		this(name, new ResUseInfo(inRes), new ItemInstance(out), new ItemInstance(ModItems.SLAG), 3);
+		this(name, new ResUseInfo(inRes), new ItemInstance(out), new ItemInstance(ModItems.SLAG), 3, time);
 	}
 
-	public SeparatorRecipe(ResourceName name, IUseInfo in, ItemInstance out, ItemInstance biproduct, int biproductChance)
+	public SeparatorRecipe(ResourceName name, IUseInfo in, ItemInstance out, ItemInstance biproduct, int biproductChance, int time)
 	{
 		this.name = name;
 		this.in = in;
 		this.out = out;
 		this.biproduct = biproduct;
 		this.biproductChance = biproductChance;
+		this.time = time;
 	}
 
-	public static SeparatorRecipe getFromInputs(ItemInstance input)
+	public static SeparatorRecipe forInput(ItemInstance input)
 	{
 		if (input != null)
 		{
