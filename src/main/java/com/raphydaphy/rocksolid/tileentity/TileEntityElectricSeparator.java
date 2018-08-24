@@ -3,18 +3,23 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityElectric;
 import com.raphydaphy.rocksolid.util.ModUtils;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class TileEntityElectricSeparator extends TileEntityElectric
 {
+	private static final String KEY_OUTPUT = "output";
+	private static final String KEY_BIPRODUCT = "biproduct";
+
 	private final TileInventory inventory = new TileInventory(this, 3, (input) ->
 	{
 		ArrayList<Integer> avalableSlots = new ArrayList<>(1);
@@ -25,9 +30,13 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 		return avalableSlots;
 	}, Arrays.asList(1, 2));
 
+	public ItemInstance output;
+	public ItemInstance biproduct;
+
 	public TileEntityElectricSeparator(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
+		this.maxEnergyStored.set(2500);
 	}
 
 	@Override
@@ -40,57 +49,105 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		inventory.save(set);
+		if (!forSync)
+		{
+			inventory.save(set);
+			if (this.output != null)
+			{
+				DataSet tmpSet = new DataSet();
+				this.output.save(tmpSet);
+				set.addDataSet(KEY_OUTPUT, tmpSet);
+			}
+			if (this.biproduct != null)
+			{
+				DataSet tmpSet = new DataSet();
+				this.biproduct.save(tmpSet);
+				set.addDataSet(KEY_BIPRODUCT, tmpSet);
+			}
+		}
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		inventory.load(set);
-	}
-
-
-	public boolean hasValidRecipe()
-	{
-		return SeparatorRecipe.forInput(this.inventory.get(0)) != null;
-	}
-
-	public boolean processSmelt()
-	{
-		SeparatorRecipe r = SeparatorRecipe.forInput(this.inventory.get(0));
-		if (r != null && (this.inventory.get(2) == null) || (this.inventory.get(2).getItem().equals(r.biproduct.getItem()) && this.inventory.get(2).getAmount() + r.biproduct.getAmount() <= r.biproduct.getMaxAmount()))
+		if (!forSync)
 		{
-			boolean removed = false;
-
-			if (this.inventory.get(1) == null)
+			inventory.load(set);
+			if (set.hasKey(KEY_OUTPUT))
 			{
-				this.inventory.set(1, r.out.copy());
-				removed = true;
-			} else if (this.inventory.get(1).getItem().equals(r.out.getItem()) && this.inventory.get(1).getAmount() + r.out.getAmount() <= r.out.getMaxAmount())
-			{
-				this.inventory.add(1, r.out.getAmount());
-				removed = true;
+				DataSet tepSet = set.getDataSet(KEY_OUTPUT);
+				this.output = ItemInstance.load(tepSet);
 			}
-
-			if (removed)
+			if (set.hasKey(KEY_BIPRODUCT))
 			{
-				if (new Random().nextInt(r.biproductChance) == 0)
-				{
-					if (this.inventory.get(2) == null)
-					{
-						this.inventory.set(2, r.biproduct.copy());
-					} else
-					{
-						this.inventory.add(2, r.biproduct.getAmount());
-					}
-				}
-				this.inventory.remove(0, r.in.getAmount());
-
-				return true;
+				DataSet tepSet = set.getDataSet(KEY_BIPRODUCT);
+				this.biproduct = ItemInstance.load(tepSet);
 			}
 		}
-		return false;
+	}
+
+	@Override
+	protected void getRecipeAndStart()
+	{
+		ItemInstance item;
+		SeparatorRecipe recipe;
+		if ((item = this.inventory.get(0)) != null && (recipe = SeparatorRecipe.forInput(item)) != null)
+		{
+			IUseInfo input = recipe.in;
+			if (item.getAmount() >= input.getAmount())
+			{
+				item = recipe.out;
+				ItemInstance biproduct = recipe.biproduct;
+				ItemInstance var4;
+				boolean doBiproduct = Util.RANDOM.nextInt(recipe.biproductChance) == 0;
+				if (((var4 = this.inventory.get(1)) == null || var4.isEffectivelyEqual(item) && var4.fitsAmount(item.getAmount())) && (!doBiproduct || ((var4 = this.inventory.get(2)) == null || var4.isEffectivelyEqual(biproduct) && var4.fitsAmount(biproduct.getAmount()))))
+				{
+					this.maxSmeltTime.set(recipe.time / 5); // speed multiplier
+					this.output = item.copy();
+					this.biproduct = null;
+					if (doBiproduct)
+					{
+						this.biproduct = biproduct.copy();
+					}
+					this.inventory.remove(0, input.getAmount());
+				}
+			}
+		}
+
+		if (this.maxSmeltTime.get() <= 0)
+		{
+			this.output = null;
+			this.biproduct = null;
+		}
+	}
+
+	@Override
+	protected void putOutputItems()
+	{
+		ItemInstance outSlot;
+
+		if ((outSlot = this.inventory.get(1)) != null && outSlot.isEffectivelyEqual(this.output))
+		{
+			this.inventory.add(1, this.output.getAmount());
+		} else
+		{
+			this.inventory.set(1, this.output);
+		}
+
+		if (biproduct != null)
+		{
+			if ((outSlot = this.inventory.get(2)) != null && outSlot.isEffectivelyEqual(this.biproduct))
+			{
+				this.inventory.add(2, this.biproduct.getAmount());
+			} else
+			{
+				this.inventory.set(2, this.biproduct);
+			}
+		}
+
+		this.output = null;
+		this.biproduct = null;
 	}
 
 	@Override
@@ -101,12 +158,6 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 		{
 			return 0;
 		}
-		return 2500;
-	}
-
-	@Override
-	public float getSmeltTime()
-	{
-		return 100f;
+		return this.maxEnergyStored.get();
 	}
 }

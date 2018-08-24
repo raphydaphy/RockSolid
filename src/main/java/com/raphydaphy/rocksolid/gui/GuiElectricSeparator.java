@@ -33,7 +33,7 @@ public class GuiElectricSeparator extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 40, 4, 37, 8, ModUtils.PROGRESS, false, GuiElectricSeparator.this.te::getSmeltPercent));
+		this.components.add(new ComponentProgressBar(this, 40, 4, 37, 8, ModUtils.PROGRESS, false, GuiElectricSeparator.this.te::getSmeltPercentage));
 
 		this.components.add(new ComponentProgressBar(this, 27, 20, 81, 10, ModUtils.ENERGY, false, () -> Math.min(GuiElectricSeparator.this.te.getEnergyFullness(), 1)));
 	}

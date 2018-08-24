@@ -2,11 +2,10 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityElectric;
 import com.raphydaphy.rocksolid.util.ModUtils;
-import com.raphydaphy.rocksolid.util.SlotInfo;
-import com.raphydaphy.rocksolid.util.SlotInfo.SimpleSlotInfo;
-import com.raphydaphy.rocksolid.util.SlotInfo.SlotType;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.SmeltingRecipe;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -17,6 +16,8 @@ import java.util.Collections;
 
 public class TileEntityElectricFurnace extends TileEntityElectric
 {
+	private static final String KEY_OUTPUT = "output";
+
 	private final TileInventory inventory = new TileInventory(this, 2, (input) ->
 	{
 		ArrayList<Integer> avalableSlots = new ArrayList<>(1);
@@ -27,9 +28,12 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 		return avalableSlots;
 	}, Collections.singletonList(1));
 
+	public ItemInstance output;
+
 	public TileEntityElectricFurnace(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
+		this.maxEnergyStored.set(2500);
 	}
 
 	@Override
@@ -42,20 +46,74 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		inventory.save(set);
+		if (!forSync)
+		{
+			inventory.save(set);
+			if (this.output != null)
+			{
+				DataSet tmpSet = new DataSet();
+				this.output.save(tmpSet);
+				set.addDataSet(KEY_OUTPUT, tmpSet);
+			}
+		}
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		inventory.load(set);
+		if (!forSync)
+		{
+			inventory.load(set);
+			if (set.hasKey(KEY_OUTPUT))
+			{
+				DataSet tepSet = set.getDataSet(KEY_OUTPUT);
+				this.output = ItemInstance.load(tepSet);
+			}
+		}
 	}
 
-
-	public boolean hasValidRecipe()
+	@Override
+	protected void getRecipeAndStart()
 	{
-		return ModUtils.getSmeltingRecipeSafe(this.inventory.get(0)) != null;
+		ItemInstance item;
+		SmeltingRecipe recipe;
+		if ((item = this.inventory.get(0)) != null && (recipe = SmeltingRecipe.forInput(item)) != null)
+		{
+			IUseInfo input = recipe.getInput();
+			if (item.getAmount() >= input.getAmount())
+			{
+				item = recipe.getOutput();
+				ItemInstance var4;
+				if (((var4 = this.inventory.get(1)) == null || var4.isEffectivelyEqual(item) && var4.fitsAmount(item.getAmount())))
+				{
+					this.maxSmeltTime.set(recipe.getTime() / 5); // speed multiplier
+					this.output = item.copy();
+					this.inventory.remove(0, input.getAmount());
+				}
+			}
+		}
+
+		if (this.maxSmeltTime.get() <= 0)
+		{
+			this.output = null;
+		}
+	}
+
+	@Override
+	protected void putOutputItems()
+	{
+		ItemInstance outSlot;
+
+		if ((outSlot = this.inventory.get(1)) != null && outSlot.isEffectivelyEqual(this.output))
+		{
+			this.inventory.add(1, this.output.getAmount());
+		} else
+		{
+			this.inventory.set(1, this.output);
+		}
+
+		this.output = null;
 	}
 
 	public boolean processSmelt()
@@ -93,17 +151,6 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 		{
 			return 0;
 		}
-		return 2500;
-	}
-
-	@Override
-	public float getSmeltTime()
-	{
-		SmeltingRecipe r = ModUtils.getSmeltingRecipeSafe(this.inventory.get(0));
-		if (r != null)
-		{
-			return r.getTime();
-		}
-		return 100f;
+		return maxEnergyStored.get();
 	}
 }
