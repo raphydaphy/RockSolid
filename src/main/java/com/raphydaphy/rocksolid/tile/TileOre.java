@@ -14,34 +14,34 @@ import java.util.List;
 
 public class TileOre extends TileBasic
 {
-    private final ItemInstance drop;
+	private final ItemInstance drop;
 
-    public TileOre(String name, float hardness, int level, Item drop)
-    {
-        this(name, hardness, level, new ItemInstance(drop));
-    }
+	public TileOre(String name, float hardness, int level, Item drop)
+	{
+		this(name, hardness, level, new ItemInstance(drop));
+	}
 
-    public TileOre(String name, float hardness, int level, ItemInstance drop)
-    {
-        super(RockSolid.createRes(name));
+	public TileOre(String name, float hardness, int level, ItemInstance drop)
+	{
+		super(RockSolid.createRes(name));
 
-        this.drop = drop;
+		this.drop = drop;
 
-        this.setHardness(hardness);
-        this.addEffectiveTool(ToolType.PICKAXE, level);
+		this.setHardness(hardness);
+		this.addEffectiveTool(ToolType.PICKAXE, level);
 
-        this.register();
-    }
+		this.register();
+	}
 
-    @Override
-    public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
-    {
-        return Collections.singletonList(drop);
-    }
+	@Override
+	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
+	{
+		return Collections.singletonList(drop);
+	}
 
-    @Override
-    protected boolean hasItem()
-    {
-        return false;
-    }
+	@Override
+	protected boolean hasItem()
+	{
+		return false;
+	}
 }

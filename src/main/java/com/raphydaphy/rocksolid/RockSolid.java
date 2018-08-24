@@ -88,6 +88,7 @@ public class RockSolid implements IMod
 		ModMisc.init();
 
 		ModRecipes.init();
+		ModEvents.init(eventHandler);
 	}
 
 	@Override
