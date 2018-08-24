@@ -49,9 +49,9 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
+		inventory.save(set);
 		if (!forSync)
 		{
-			inventory.save(set);
 			if (this.output != null)
 			{
 				DataSet tmpSet = new DataSet();
@@ -71,9 +71,9 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
+		inventory.load(set);
 		if (!forSync)
 		{
-			inventory.load(set);
 			if (set.hasKey(KEY_OUTPUT))
 			{
 				DataSet tepSet = set.getDataSet(KEY_OUTPUT);

@@ -47,7 +47,7 @@ public class RockSolid implements IMod
 	@Override
 	public String getVersion()
 	{
-		return "0.1";
+		return "3.0";
 	}
 
 	@Override

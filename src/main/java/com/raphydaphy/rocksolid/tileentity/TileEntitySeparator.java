@@ -54,9 +54,9 @@ public class TileEntitySeparator extends TileEntityFueledBase
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
+		inventory.save(set);
 		if (!forSync)
 		{
-			inventory.save(set);
 			if (this.output != null)
 			{
 				DataSet tmpSet = new DataSet();

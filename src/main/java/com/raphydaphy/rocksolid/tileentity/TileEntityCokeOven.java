@@ -76,9 +76,9 @@ public class TileEntityCokeOven extends TileEntity implements IActivatable
 				{
 					boolean did = false;
 
-					if (this.inventory.get(1) != null && this.inventory.get(1).equals(ModItems.COKE))
+					if (this.inventory.get(1) != null)
 					{
-						if (this.inventory.get(1).getAmount() < this.inventory.get(1).getMaxAmount())
+						if (this.inventory.get(1).getItem().equals(ModItems.COKE) && this.inventory.get(1).getAmount() < this.inventory.get(1).getMaxAmount())
 						{
 							this.inventory.get(1).addAmount(1);
 							did = true;

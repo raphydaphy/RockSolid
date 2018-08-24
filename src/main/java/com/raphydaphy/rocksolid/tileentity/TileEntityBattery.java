@@ -8,6 +8,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
+import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -19,10 +20,7 @@ import java.util.List;
 
 public class TileEntityBattery extends TileEntity implements IEnergyTile
 {
-	public static final String KEY_ENERGY_STORED = "energy_stored";
-
-	private int energyStored = 0;
-	private int lastEnergyStored = 0;
+	private SyncedInt energyStored = new SyncedInt("energy_stored");
 
 	public TileEntityBattery(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -33,37 +31,37 @@ public class TileEntityBattery extends TileEntity implements IEnergyTile
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt(KEY_ENERGY_STORED, this.energyStored);
+		energyStored.save(set);
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		this.energyStored = set.getInt(KEY_ENERGY_STORED);
+		energyStored.load(set);
 	}
 
 	@Override
 	protected boolean needsSync()
 	{
-		return this.energyStored != this.lastEnergyStored;
+		return this.energyStored.needsSync();
 	}
 
 	@Override
 	public void onSync()
 	{
 		super.onSync();
-		this.lastEnergyStored = this.energyStored;
+		energyStored.onSync();
 	}
 
 	@Override
 	public boolean addEnergy(Pos2 pos, int joules, boolean simulate)
 	{
-		if (joules + energyStored <= getEnergyCapacity(world, pos))
+		if (joules + energyStored.get() <= getEnergyCapacity(world, pos))
 		{
 			if (!simulate)
 			{
-				this.energyStored += joules;
+				this.energyStored.add(joules);
 			}
 			return true;
 		}
@@ -73,11 +71,11 @@ public class TileEntityBattery extends TileEntity implements IEnergyTile
 	@Override
 	public boolean removeEnergy(Pos2 pos, int joules, boolean simulate)
 	{
-		if (energyStored - joules > 0)
+		if (energyStored.get() - joules > 0)
 		{
 			if (!simulate)
 			{
-				this.energyStored -= joules;
+				this.energyStored.remove(joules);
 			}
 			return true;
 		}
@@ -99,12 +97,13 @@ public class TileEntityBattery extends TileEntity implements IEnergyTile
 	@Override
 	public int getEnergyStored()
 	{
-		return this.energyStored;
+		return this.energyStored.get();
 	}
 
 	public float getEnergyFullness()
 	{
-		return (float)energyStored / getEnergyCapacity(null, null);
+		int capacity = getEnergyCapacity(world, null);
+		return capacity > 0 ? (float) this.energyStored.get() / (float) capacity : 0.0F;
 	}
 
 	@Override
