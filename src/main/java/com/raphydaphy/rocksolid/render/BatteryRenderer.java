@@ -82,7 +82,7 @@ public class BatteryRenderer extends MultiTileRenderer<TileBattery>
 					srcY2 = srcY + localEnergy;
 
 
-					manager.getTexture(this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY())).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, srcY, 12, srcY2, light);
+					manager.getTexture(full).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, srcY, 12, srcY2, light);
 				}
 			}
 		}

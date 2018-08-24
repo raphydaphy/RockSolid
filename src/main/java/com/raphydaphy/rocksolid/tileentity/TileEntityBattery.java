@@ -1,22 +1,12 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
-import com.raphydaphy.rocksolid.fluid.IFluidTile;
-import com.raphydaphy.rocksolid.tile.multi.TilePump;
-import de.ellpeck.rockbottom.api.GameContent;
-import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
-import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class TileEntityBattery extends TileEntity implements IEnergyTile
 {
@@ -109,6 +99,6 @@ public class TileEntityBattery extends TileEntity implements IEnergyTile
 	@Override
 	public boolean doesTick()
 	{
-		return false;
+		return true;
 	}
 }
