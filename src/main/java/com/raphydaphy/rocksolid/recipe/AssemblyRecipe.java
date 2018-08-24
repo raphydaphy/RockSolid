@@ -18,7 +18,10 @@ import java.util.List;
 
 public class AssemblyRecipe extends BasicRecipe
 {
+	private boolean efficiency = true;
+	private boolean speed = true;
 	private boolean bonusYield = true;
+
 	private ItemInstance output;
 
 	public AssemblyRecipe(float skillReward, ItemInstance output, int baseAmount, int metalAmount, int fuelAmount)
@@ -33,10 +36,32 @@ public class AssemblyRecipe extends BasicRecipe
 		return this;
 	}
 
+	public AssemblyRecipe disableEfficiency()
+	{
+		efficiency = false;
+		return this;
+	}
+
+	public AssemblyRecipe disableSpeed()
+	{
+		speed = false;
+		return this;
+	}
+
 	public AssemblyRecipe disableBonusYield()
 	{
 		bonusYield = false;
 		return this;
+	}
+
+	public boolean hasEfficiency()
+	{
+		return efficiency;
+	}
+
+	public boolean hasSpeed()
+	{
+		return speed;
 	}
 
 	public boolean hasBonusYield()
@@ -49,15 +74,11 @@ public class AssemblyRecipe extends BasicRecipe
 	{
 		ItemInstance nbtOut = output.copy();
 
-		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, ModUtils.getAssemblyCapacity(inputs));
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, ModUtils.getAssemblyEfficiency(inputs));
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, ModUtils.getAssemblySpeed(inputs));
-
-		if (hasBonusYield())
-		{
-			nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, ModUtils.getAssemblyBonusYield(inputs));
-		}
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, ModUtils.getAssemblyThroughput(inputs));
+		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, ModUtils.getAssemblyCapacity(inputs) * 2);
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, hasEfficiency() ? ModUtils.getAssemblyEfficiency(inputs) * 2 : -1);
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, hasSpeed() ? ModUtils.getAssemblySpeed(inputs) * 2 : -1);
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, hasBonusYield() ? ModUtils.getAssemblyBonusYield(inputs) * 2 : -1);
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, ModUtils.getAssemblyThroughput(inputs) * 2);
 
 		return Collections.singletonList(nbtOut);
 	}

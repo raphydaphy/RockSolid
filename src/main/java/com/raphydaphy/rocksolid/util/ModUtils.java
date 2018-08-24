@@ -217,24 +217,4 @@ public class ModUtils
 
 	    return Math.min(Math.max(0, throughput), 1);
     }
-
-    public static void putAssemblyStatistics(IWorld world, int x, int y, ItemInstance instance, TileMachineBase<? extends TileEntityAssemblyConfigurable> tile)
-    {
-	    if (!world.isClient())
-	    {
-		    TileEntityAssemblyConfigurable te = tile.getTE(world, world.getState(x, y), x, y);
-		    ModBasedDataSet data = instance.getAdditionalData();
-
-		    if (data != null)
-		    {
-			    te.setCapacityModifier(data.getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY));
-			    te.setEfficiencyModifier(data.getFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY));
-			    te.setSpeedModifier(data.getFloat(ModUtils.ASSEMBLY_SPEED_KEY));
-			    te.setBonusYieldModifier(data.getFloat(ModUtils.ASSEMBLY_BONUS_KEY));
-			    te.setThroughputModifier(data.getFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY));
-
-			    System.out.println("here we go with capacity " + te.getCapacityModifier());
-		    }
-	    }
-    }
 }

@@ -76,13 +76,13 @@ public class TileEntityBattery extends TileEntityAssemblyConfigurable implements
 	@Override
 	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
-		return 25000;
+		return (int)(25000 * getCapacityModifier());
 	}
 
 	@Override
 	public int getMaxTransfer()
 	{
-		return 150;
+		return (int)(150 * getThroughputModifier());
 	}
 
 	@Override

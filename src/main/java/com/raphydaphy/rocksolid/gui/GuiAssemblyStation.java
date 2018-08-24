@@ -224,18 +224,29 @@ public class GuiAssemblyStation extends GuiContainer
 		{
 			String recipeName = (this.recipe.getOutputs().get(0)).getDisplayName();
 			assetManager.getFont().drawAutoScaledString((float) (this.x + 60 + offset), (float) (this.y + 6), recipeName, 0.25F, 70, -16777216, 2147483647, true, false);
-		}
 
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 3), "Stats", 0.25F, 22, -16777216, 2147483647, true, false);
+			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 3), "Stats", 0.25F, 22, -16777216, 2147483647, true, false);
 
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14), "Capacity", 0.15F, 70, -16777216, 2147483647, true, false);
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15), "Efficiency", 0.15F, 70, -16777216, 2147483647, true, false);
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 2), "Speed", 0.15F, 70, -16777216, 2147483647, true, false);
-		assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 3), "Throughput", 0.15F, 70, -16777216, 2147483647, true, false);
+			int drawY = 14;
 
-		if (this.recipe instanceof AssemblyRecipe && this.recipe.hasBonusYield())
-		{
-			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 14 + 15 * 4), "Bonus Yield", 0.15F, 70, -16777216, 2147483647, true, false);
+			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Capacity", 0.15F, 70, -16777216, 2147483647, true, false);
+			drawY += 15;
+			if (this.recipe.hasEfficiency())
+			{
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Efficiency", 0.15F, 70, -16777216, 2147483647, true, false);
+				drawY += 15;
+			}
+			if (this.recipe.hasSpeed())
+			{
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Speed", 0.15F, 70, -16777216, 2147483647, true, false);
+				drawY += 15;
+			}
+			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Throughput", 0.15F, 70, -16777216, 2147483647, true, false);
+			drawY += 15;
+			if (this.recipe.hasBonusYield())
+			{
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Bonus Yield", 0.15F, 70, -16777216, 2147483647, true, false);
+			}
 		}
 		super.render(game, assetManager, renderer);
 	}
@@ -291,11 +302,17 @@ public class GuiAssemblyStation extends GuiContainer
 		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyCapacity(getTEItems())));
 		progressY += 15;
 
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyEfficiency(getTEItems())));
-		progressY += 15;
+		if (r.hasEfficiency())
+		{
+			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyEfficiency(getTEItems())));
+			progressY += 15;
+		}
 
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblySpeed(getTEItems())));
-		progressY += 15;
+		if (r.hasSpeed())
+		{
+			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblySpeed(getTEItems())));
+			progressY += 15;
+		}
 
 		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyThroughput(getTEItems())));
 		progressY += 15;

@@ -8,6 +8,7 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -84,11 +85,18 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 			if (item.getAmount() >= input.getAmount())
 			{
 				item = recipe.getOutput();
-				ItemInstance var4;
-				if (((var4 = this.inventory.get(1)) == null || var4.isEffectivelyEqual(item) && var4.fitsAmount(item.getAmount())))
+				ItemInstance curOutputSlot;
+				if (((curOutputSlot = this.inventory.get(1)) == null || curOutputSlot.isEffectivelyEqual(item) && curOutputSlot.fitsAmount(item.getAmount())))
 				{
-					this.maxSmeltTime.set(recipe.getTime() / 5); // speed multiplier
 					this.output = item.copy();
+
+					double chance = Math.pow(2, 5 * (getBonusYieldModifier() / 2f)); // Bonus Yield Modifier
+					if ((Util.RANDOM.nextDouble() * 100) < chance && (curOutputSlot == null || curOutputSlot.fitsAmount(item.getAmount() + 1)))
+					{
+						this.output.addAmount(1);
+					}
+
+					this.maxSmeltTime.set((int)((recipe.getTime() / 2.5f) / getSpeedModifier())); // speed multiplier
 					this.inventory.remove(0, input.getAmount());
 				}
 			}
@@ -114,33 +122,6 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 		}
 
 		this.output = null;
-	}
-
-	public boolean processSmelt()
-	{
-		SmeltingRecipe r = ModUtils.getSmeltingRecipeSafe(this.inventory.get(0));
-		if (r != null)
-		{
-			boolean removed = false;
-
-			if (this.inventory.get(1) == null)
-			{
-				this.inventory.set(1, r.getOutput().copy());
-				removed = true;
-			} else if (this.inventory.get(1).getItem().equals(r.getOutput().getItem()) && this.inventory.get(1).getAmount() + r.getOutput().getAmount() <= r.getOutput().getMaxAmount())
-			{
-				this.inventory.add(1, r.getOutput().getAmount());
-				removed = true;
-			}
-
-			if (removed)
-			{
-				this.inventory.remove(0, r.getInput().getAmount());
-
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override

@@ -73,13 +73,13 @@ public abstract class TileEntityElectric extends TileEntityAssemblyConfigurable 
 
 	public int getEnergyPerTick()
 	{
-		return 1;
+		return Math.max(1,Math.round((1 + getSpeedModifier()) / getEfficiencyModifier()));
 	}
 
 	@Override
 	public int getMaxTransfer()
 	{
-		return getEnergyPerTick() * 5;
+		return (int)(getEnergyPerTick() * 5 * getThroughputModifier());
 	}
 
 	@Override

@@ -100,11 +100,18 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 				item = recipe.out;
 				ItemInstance biproduct = recipe.biproduct;
 				ItemInstance var4;
-				boolean doBiproduct = Util.RANDOM.nextInt(recipe.biproductChance) == 0;
+				boolean doBiproduct = Util.RANDOM.nextInt((int)(recipe.biproductChance / getBonusYieldModifier())) == 0; // Bonus Yield Modifier
 				if (((var4 = this.inventory.get(1)) == null || var4.isEffectivelyEqual(item) && var4.fitsAmount(item.getAmount())) && (!doBiproduct || ((var4 = this.inventory.get(2)) == null || var4.isEffectivelyEqual(biproduct) && var4.fitsAmount(biproduct.getAmount()))))
 				{
-					this.maxSmeltTime.set(recipe.time / 5); // speed multiplier
 					this.output = item.copy();
+
+					double chance = Math.pow(2, 5 * (getBonusYieldModifier() / 2f)); // Bonus Yield Modifier
+					if ((Util.RANDOM.nextDouble() * 100) < chance && this.inventory.get(1).fitsAmount(this.inventory.get(1).getAmount() + 1))
+					{
+						this.output.addAmount(1);
+					}
+
+					this.maxSmeltTime.set((int)((recipe.time / 2.5f) / getSpeedModifier())); // speed multiplier
 					this.biproduct = null;
 					if (doBiproduct)
 					{

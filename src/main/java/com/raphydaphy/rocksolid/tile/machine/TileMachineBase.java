@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 
+import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
@@ -121,9 +122,23 @@ public abstract class TileMachineBase<T extends TileEntity> extends MultiTile
 	public void doPlace(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
 	{
 		super.doPlace(world, x, y, layer, instance, placer);
-		if (hasAssemblyProperties)
+		T teUnchecked;
+		if (hasAssemblyProperties && (teUnchecked = getTE(world, world.getState(x, y), x, y)) instanceof TileEntityAssemblyConfigurable)
 		{
-			ModUtils.putAssemblyStatistics(world, x, y, instance, (TileMachineBase<? extends TileEntityAssemblyConfigurable>) this);
+			if (!world.isClient())
+			{
+				TileEntityAssemblyConfigurable te = (TileEntityAssemblyConfigurable)teUnchecked;
+				ModBasedDataSet data = instance.getAdditionalData();
+
+				if (data != null)
+				{
+					te.setCapacityModifier(data.getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY));
+					te.setEfficiencyModifier(data.getFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY));
+					te.setSpeedModifier(data.getFloat(ModUtils.ASSEMBLY_SPEED_KEY));
+					te.setBonusYieldModifier(data.getFloat(ModUtils.ASSEMBLY_BONUS_KEY));
+					te.setThroughputModifier(data.getFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY));
+				}
+			}
 		}
 	}
 
@@ -143,10 +158,7 @@ public abstract class TileMachineBase<T extends TileEntity> extends MultiTile
 			nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, te.getCapacityModifier());
 			nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, te.getEfficiencyModifier());
 			nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, te.getSpeedModifier());
-			if (te.getBonusYieldModifier() >= 0)
-			{
-				nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, te.getBonusYieldModifier());
-			}
+			nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, te.getBonusYieldModifier());
 			nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, te.getThroughputModifier());
 			drops.add(nbtOut);
 		}
