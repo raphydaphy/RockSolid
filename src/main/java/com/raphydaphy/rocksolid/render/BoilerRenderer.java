@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.tile.multi.TileBoiler;
+import com.raphydaphy.rocksolid.tile.machine.TileBoiler;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;

@@ -3,7 +3,8 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
-import com.raphydaphy.rocksolid.tile.multi.TilePump;
+import com.raphydaphy.rocksolid.tile.machine.TilePump;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -20,7 +21,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import java.util.Arrays;
 import java.util.List;
 
-public class TileEntityPump extends TileEntity implements IFluidTile<TileEntityPump>, IEnergyTile
+public class TileEntityPump extends TileEntityAssemblyConfigurable implements IFluidTile<TileEntityPump>, IEnergyTile
 {
 	public static final String KEY_LIQUID_TYPE = "liquid_type";
 	public static final String KEY_ENERGY_STORED = "energy_stored";

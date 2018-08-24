@@ -3,11 +3,14 @@ package com.raphydaphy.rocksolid.util;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModMisc;
+import com.raphydaphy.rocksolid.tile.machine.TileMachineBase;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.SmeltingRecipe;
+import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -213,5 +216,25 @@ public class ModUtils
 	    }
 
 	    return Math.min(Math.max(0, throughput), 1);
+    }
+
+    public static void putAssemblyStatistics(IWorld world, int x, int y, ItemInstance instance, TileMachineBase<? extends TileEntityAssemblyConfigurable> tile)
+    {
+	    if (!world.isClient())
+	    {
+		    TileEntityAssemblyConfigurable te = tile.getTE(world, world.getState(x, y), x, y);
+		    ModBasedDataSet data = instance.getAdditionalData();
+
+		    if (data != null)
+		    {
+			    te.setCapacityModifier(data.getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY));
+			    te.setEfficiencyModifier(data.getFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY));
+			    te.setSpeedModifier(data.getFloat(ModUtils.ASSEMBLY_SPEED_KEY));
+			    te.setBonusYieldModifier(data.getFloat(ModUtils.ASSEMBLY_BONUS_KEY));
+			    te.setThroughputModifier(data.getFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY));
+
+			    System.out.println("here we go with capacity " + te.getCapacityModifier());
+		    }
+	    }
     }
 }

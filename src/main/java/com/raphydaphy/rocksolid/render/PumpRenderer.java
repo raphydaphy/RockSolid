@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.tile.multi.TilePump;
+import com.raphydaphy.rocksolid.tile.machine.TilePump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;

@@ -36,7 +36,8 @@ public class TileEntityEnergyConduit extends TileEntityConduit
 
 			if (transfer > canStoreF2)
 			{
-				transfer = canStoreF2;
+				//transfer = canStoreF2;
+				return false;
 			}
 
 			if (transfer > 0 && f1.removeEnergy(pos1, transfer, true) && f2.addEnergy(pos2, transfer, true))

@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile.multi;
+package com.raphydaphy.rocksolid.tile.machine;
 
 import com.raphydaphy.rocksolid.container.ContainerAlloySmelter;
 import com.raphydaphy.rocksolid.gui.GuiAlloySmelter;
@@ -6,10 +6,7 @@ import com.raphydaphy.rocksolid.render.ActivatableRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.Item;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
@@ -22,21 +19,12 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TileAlloySmelter extends MultiTileBase
+public class TileAlloySmelter extends TileMachineBase<TileEntityAlloySmelter>
 {
 
 	public TileAlloySmelter()
 	{
-		super("alloy_smelter", 15f, new ToolInfo(ToolType.PICKAXE, 2));
-	}
-
-	@Override
-	public boolean canPlaceInLayer(TileLayer layer)
-	{
-		return layer == TileLayer.MAIN;
+		super("alloy_smelter", TileEntityAlloySmelter.class,15f, false,new ToolInfo(ToolType.PICKAXE, 2));
 	}
 
 	@Override
@@ -63,18 +51,6 @@ public class TileAlloySmelter extends MultiTileBase
 		return super.autoStructure(1, 2);
 	}
 
-	@Override
-	public BoundBox getBoundBox(IWorld world, int x, int y, TileLayer layer)
-	{
-		return null;
-	}
-
-	@Override
-	public boolean isFullTile()
-	{
-		return false;
-	}
-
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		TileEntityAlloySmelter te = getTE(world, world.getState(x, y), x, y);
@@ -83,16 +59,9 @@ public class TileAlloySmelter extends MultiTileBase
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
+	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
 	{
-		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityAlloySmelter(world, x, y, layer) : null;
-	}
-
-	@Override
-	public boolean canProvideTileEntity()
-	{
-		return true;
+		return new TileEntityAlloySmelter(world, x, y, layer);
 	}
 
 	@Override
@@ -104,12 +73,6 @@ public class TileAlloySmelter extends MultiTileBase
 		{
 			ModUtils.smokeParticle(world, x, y, manager, getTE(world, world.getState(x, y), x, y));
 		}
-	}
-
-	public TileEntityAlloySmelter getTE(IWorld world, TileState state, int x, int y)
-	{
-		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntityAlloySmelter.class);
 	}
 
 	@Override

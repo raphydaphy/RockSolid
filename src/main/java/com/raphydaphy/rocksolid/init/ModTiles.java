@@ -6,7 +6,7 @@ import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
-import com.raphydaphy.rocksolid.tile.multi.*;
+import com.raphydaphy.rocksolid.tile.machine.*;
 import de.ellpeck.rockbottom.api.tile.Tile;
 
 public class ModTiles

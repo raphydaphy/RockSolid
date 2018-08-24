@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gas.IGasTile;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -16,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class TileEntityTurbine extends TileEntity implements IEnergyTile, IGasTile<TileEntityTurbine>
+public class TileEntityTurbine extends TileEntityAssemblyConfigurable implements IEnergyTile, IGasTile<TileEntityTurbine>
 {
 	public static final String KEY_ENERGY_STORED = "energy_stored";
 	private static final String KEY_STEAM_VOLUME = "steam_volume";

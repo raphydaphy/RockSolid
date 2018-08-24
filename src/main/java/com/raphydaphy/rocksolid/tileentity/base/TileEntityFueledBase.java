@@ -10,7 +10,8 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public abstract class TileEntityFueledBase extends TileEntity implements IActivatable
+// TODO: it's not ideal to have all fueled TE's extend configurable just so that boilers can be
+public abstract class TileEntityFueledBase extends TileEntityAssemblyConfigurable implements IActivatable
 {
 	protected final SyncedInt smeltTime = new SyncedInt("smelt_time");
 	protected final SyncedInt maxSmeltTime = new SyncedInt("max_smelt_time");

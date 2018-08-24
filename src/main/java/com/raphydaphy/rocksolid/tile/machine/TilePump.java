@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile.multi;
+package com.raphydaphy.rocksolid.tile.machine;
 
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiPump;
@@ -16,12 +16,12 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TilePump extends MultiTileBase
+public class TilePump extends TileMachineBase<TileEntityPump>
 {
 
 	public TilePump()
 	{
-		super("pump", 15, new ToolInfo(ToolType.PICKAXE, 6));
+		super("pump", TileEntityPump.class,15, true,new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override
@@ -43,46 +43,15 @@ public class TilePump extends MultiTileBase
 	}
 
 	@Override
-	public BoundBox getBoundBox(IWorld world, int x, int y, TileLayer layer)
-	{
-		return null;
-	}
-
-	@Override
-	public boolean isFullTile()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean canPlaceInLayer(TileLayer layer)
-	{
-		return layer == TileLayer.MAIN;
-	}
-
-	@Override
 	protected ITileRenderer<TilePump> createRenderer(ResourceName name)
 	{
 		return new PumpRenderer(name, this);
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
+	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
 	{
-		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityPump(world, x, y, layer) : null;
-	}
-
-	@Override
-	public boolean canProvideTileEntity()
-	{
-		return true;
-	}
-
-	public TileEntityPump getTE(IWorld world, TileState state, int x, int y)
-	{
-		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntityPump.class);
+		return new TileEntityPump(world, x, y, layer);
 	}
 
 	@Override

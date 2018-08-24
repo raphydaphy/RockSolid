@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.tile.multi;
+package com.raphydaphy.rocksolid.tile.machine;
 
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiTurbine;
@@ -13,12 +13,12 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileTurbine extends MultiTileBase
+public class TileTurbine extends TileMachineBase<TileEntityTurbine>
 {
 
 	public TileTurbine()
 	{
-		super("turbine", 20, new ToolInfo(ToolType.PICKAXE, 6));
+		super("turbine", TileEntityTurbine.class,20, true,new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override
@@ -40,40 +40,9 @@ public class TileTurbine extends MultiTileBase
 	}
 
 	@Override
-	public BoundBox getBoundBox(IWorld world, int x, int y, TileLayer layer)
+	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
 	{
-		return null;
-	}
-
-	@Override
-	public boolean isFullTile()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean canPlaceInLayer(TileLayer layer)
-	{
-		return layer == TileLayer.MAIN;
-	}
-
-	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
-	{
-		TileState state = world.getState(x, y);
-		return layer == TileLayer.MAIN && this.isMainPos(x, y, state) ? new TileEntityTurbine(world, x, y, layer) : null;
-	}
-
-	@Override
-	public boolean canProvideTileEntity()
-	{
-		return true;
-	}
-
-	public TileEntityTurbine getTE(IWorld world, TileState state, int x, int y)
-	{
-		Pos2 main = this.getMainPos(x, y, state);
-		return world.getTileEntity(main.getX(), main.getY(), TileEntityTurbine.class);
+		return new TileEntityTurbine(world, x, y, layer);
 	}
 
 	@Override

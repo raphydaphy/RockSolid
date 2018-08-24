@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.tile.multi.TileBattery;
+import com.raphydaphy.rocksolid.tile.machine.TileBattery;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;

@@ -10,7 +10,7 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public abstract class TileEntityElectric extends TileEntity implements IEnergyTile
+public abstract class TileEntityElectric extends TileEntityAssemblyConfigurable implements IEnergyTile
 {
 	protected final SyncedInt smeltTime = new SyncedInt("smelt_time");
 	protected final SyncedInt maxSmeltTime = new SyncedInt("max_smelt_time");
@@ -175,6 +175,6 @@ public abstract class TileEntityElectric extends TileEntity implements IEnergyTi
 	@Override
 	public int getEnergyCapacity(IWorld world, Pos2 pos)
 	{
-		return maxEnergyStored.get();
+		return (int)(maxEnergyStored.get() * this.getCapacityModifier());
 	}
 }

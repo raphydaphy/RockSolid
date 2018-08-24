@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.tile.multi.TileElectricFurnace;
+import com.raphydaphy.rocksolid.tile.machine.TileElectricFurnace;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;

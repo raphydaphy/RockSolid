@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
-import com.raphydaphy.rocksolid.tile.multi.TileElectricSeparator;
+import com.raphydaphy.rocksolid.tile.machine.TileElectricSeparator;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
