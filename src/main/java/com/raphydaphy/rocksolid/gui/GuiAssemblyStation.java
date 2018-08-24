@@ -142,7 +142,7 @@ public class GuiAssemblyStation extends GuiContainer
 
 			Inventory var8 = this.player.getInv();
 			ComponentAssemblyPolaroid var9;
-			(var9 = ComponentAssemblyPolaroid.getPolaroidButton(asmRecipe, this, this.player, asmRecipe.canConstruct(te.getInvHidden(), var8))).isSelected = this.recipe == asmRecipe;
+			(var9 = ComponentAssemblyPolaroid.getPolaroidButton(asmRecipe, this, this.player, asmRecipe.canConstruct(te.getTileInventory(), var8))).isSelected = this.recipe == asmRecipe;
 			if (var9.isSelected)
 			{
 				var1 = true;
@@ -198,7 +198,7 @@ public class GuiAssemblyStation extends GuiContainer
 		if (var1 != null)
 		{
 			Inventory var2 = this.player.getInv();
-			this.componentConstruct = var1.getConstructButton(this, this.player, this.recipe.canConstruct(te.getInvHidden(), var2));
+			this.componentConstruct = var1.getConstructButton(this, this.player, this.recipe.canConstruct(te.getTileInventory(), var2));
 			this.componentConstruct.setPos(45 + offset, 17);
 			this.components.add(this.componentConstruct);
 		}
@@ -250,14 +250,14 @@ public class GuiAssemblyStation extends GuiContainer
 	public final void onOpened(IGameInstance var1)
 	{
 		super.onOpened(var1);
-		this.te.getInvHidden().addChangeCallback(this.m);
+		this.te.getTileInventory().addChangeCallback(this.m);
 	}
 
 	@Override
 	public final void onClosed(IGameInstance var1)
 	{
 		super.onClosed(var1);
-		this.te.getInvHidden().removeChangeCallback(this.m);
+		this.te.getTileInventory().removeChangeCallback(this.m);
 	}
 
 	private boolean overArrow(IGameInstance game, boolean left)
@@ -281,7 +281,7 @@ public class GuiAssemblyStation extends GuiContainer
 		this.components.removeAll(stats);
 		stats.clear();
 
-		List<ItemInstance> items = Arrays.asList(te.getInvHidden().get(0), te.getInvHidden().get(1), te.getInvHidden().get(2));
+		List<ItemInstance> items = Arrays.asList(te.getTileInventory().get(0), te.getTileInventory().get(1), te.getTileInventory().get(2));
 
 		AssemblyRecipe r = this.recipe;
 		int progressY = 19;

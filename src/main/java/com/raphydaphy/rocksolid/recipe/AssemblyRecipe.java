@@ -64,7 +64,7 @@ public class AssemblyRecipe extends BasicRecipe
 
 	public void playerConstruct(AbstractEntityPlayer player, TileEntityAssemblyStation station, int amount)
 	{
-		Inventory in = station.getInvHidden();
+		Inventory in = station.getTileInventory();
 		Inventory out = player.getInv();
 		List<ItemInstance> remains = RockBottomAPI.getApiHandler().construct(player, in, out, this, amount, this.getActualInputs(in), items -> this.getActualOutputs(in, out, items), this.getSkillReward());
 		for (ItemInstance instance : remains)

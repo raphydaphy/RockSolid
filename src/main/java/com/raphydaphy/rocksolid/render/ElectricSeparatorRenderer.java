@@ -40,7 +40,7 @@ public class ElectricSeparatorRenderer extends MultiTileRenderer<TileElectricSep
             ResourceName activeFull = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
 
             // draw fire
-            if (te.isActive() && innerCoord.getX() == 0 || innerCoord.getY() == 1)
+            if (te.isActive() && (innerCoord.getX() == 0 || innerCoord.getY() == 1))
             {
                 manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
             }

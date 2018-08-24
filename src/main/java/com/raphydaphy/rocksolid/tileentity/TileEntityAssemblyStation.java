@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.tileentity;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -37,7 +36,8 @@ public class TileEntityAssemblyStation extends TileEntity
 		super(world, x, y, layer);
 	}
 
-	public TileInventory getInvHidden()
+	@Override
+	public TileInventory getTileInventory()
 	{
 		return this.inventory;
 	}
