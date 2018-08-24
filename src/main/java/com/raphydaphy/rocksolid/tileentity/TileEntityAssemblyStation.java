@@ -36,8 +36,7 @@ public class TileEntityAssemblyStation extends TileEntity
 		super(world, x, y, layer);
 	}
 
-	@Override
-	public TileInventory getTileInventory()
+	public TileInventory getInvHidden()
 	{
 		return this.inventory;
 	}

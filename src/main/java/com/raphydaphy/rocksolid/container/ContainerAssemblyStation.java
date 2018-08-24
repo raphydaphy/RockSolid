@@ -16,7 +16,7 @@ public class ContainerAssemblyStation extends ItemContainer
 		super(player);
 		this.addPlayerInventory(player, 0, 99);
 
-		IFilteredInventory inv = tile.getTileInventory();
+		IFilteredInventory inv = tile.getInvHidden();
 		this.addSlot(new AssemblySlot(inv, 0, 34, 69));
 		this.addSlot(new AssemblySlot(inv, 1, 34 + 18, 69));
 		this.addSlot(new AssemblySlot(inv, 2, 34 + 18 * 2, 69));

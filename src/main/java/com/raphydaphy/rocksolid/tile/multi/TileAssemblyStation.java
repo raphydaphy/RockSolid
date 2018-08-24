@@ -105,7 +105,7 @@ public class TileAssemblyStation extends MultiTileBase
 
 		if (te != null)
 		{
-			drops.add(te.getTileInventory().get(0));
+			drops.add(te.getInvHidden().get(0));
 		}
 
 		return drops;
