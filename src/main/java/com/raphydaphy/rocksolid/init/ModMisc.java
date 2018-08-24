@@ -5,14 +5,14 @@ import com.raphydaphy.rocksolid.network.PacketAssemblyConstruct;
 import com.raphydaphy.rocksolid.network.PacketConduitDestroyed;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.util.ConduitTileLayer;
-import com.raphydaphy.rocksolid.world.WorldGenModOres;
+import com.raphydaphy.rocksolid.world.WorldGenIron;
+import com.raphydaphy.rocksolid.world.WorldGenTin;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResInfo;
-import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -33,10 +33,8 @@ public class ModMisc
 	}
 	public static void init()
 	{
-		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.TIN_ORE, -1, -4, 2, 9, 5, 3));
-		WorldGenModOres.registerOreGen(new WorldGenModOres.OreGen(ModTiles.IRON_ORE, -4, -10, 1, 5, 3, 5));
-
-		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_ores"), WorldGenModOres.class);
+		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_tin"), WorldGenTin.class);
+		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_iron"), WorldGenIron.class);
 
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
