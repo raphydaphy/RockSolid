@@ -276,30 +276,33 @@ public class GuiAssemblyStation extends GuiContainer
 		return mouseX >= x1 && mouseX < x1 + 6 && mouseY >= y1 && mouseY < y1 + 10;
 	}
 
+	private List<ItemInstance> getTEItems()
+	{
+		return Arrays.asList(te.getInvHidden().get(0), te.getInvHidden().get(1), te.getInvHidden().get(2));
+	}
+
 	private void onRecipeChanged()
 	{
 		this.components.removeAll(stats);
 		stats.clear();
 
-		List<ItemInstance> items = Arrays.asList(te.getInvHidden().get(0), te.getInvHidden().get(1), te.getInvHidden().get(2));
-
 		AssemblyRecipe r = this.recipe;
 		int progressY = 19;
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyCapacity(items)));
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyCapacity(getTEItems())));
 		progressY += 15;
 
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyEfficiency(items)));
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyEfficiency(getTEItems())));
 		progressY += 15;
 
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblySpeed(items)));
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblySpeed(getTEItems())));
 		progressY += 15;
 
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyThroughput(items)));
+		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyThroughput(getTEItems())));
 		progressY += 15;
 
 		if (r.hasBonusYield())
 		{
-			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyBonusYield(items)));
+			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyBonusYield(getTEItems())));
 		}
 
 		this.components.addAll(stats);

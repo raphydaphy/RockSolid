@@ -4,20 +4,15 @@ import com.raphydaphy.rocksolid.container.ContainerAssemblyStation;
 import com.raphydaphy.rocksolid.gui.GuiAssemblyStation;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.Item;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileAssemblyStation extends MultiTileBase
 {
@@ -29,7 +24,7 @@ public class TileAssemblyStation extends MultiTileBase
 	@Override
 	protected boolean[][] makeStructure()
 	{
-		return super.autoStructure(2,1);
+		return super.autoStructure(2, 1);
 	}
 
 	@Override
@@ -78,7 +73,7 @@ public class TileAssemblyStation extends MultiTileBase
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityAssemblyStation te = getTE(world, world.getState(x, y),x, y);
+		TileEntityAssemblyStation te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiAssemblyStation(player, te), new ContainerAssemblyStation(player, te));
 		return true;
 	}
@@ -90,25 +85,20 @@ public class TileAssemblyStation extends MultiTileBase
 	}
 
 	@Override
-	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
+	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
 	{
-		List<ItemInstance> drops = new ArrayList<>();
-
-		Item item = this.getItem();
-
-		if (item != null)
+		if (!world.isClient())
 		{
-			drops.add(new ItemInstance(item));
+			TileEntityAssemblyStation tile = world.getTileEntity(x, y, TileEntityAssemblyStation.class);
+			if (tile != null)
+			{
+				IFilteredInventory inv = tile.getInvHidden();
+				if (inv != null)
+				{
+					tile.dropInventory(inv);
+				}
+			}
 		}
-
-		TileEntityAssemblyStation te = this.getTE(world,world.getState(x, y), x, y);
-
-		if (te != null)
-		{
-			drops.add(te.getInvHidden().get(0));
-		}
-
-		return drops;
 	}
 
 
