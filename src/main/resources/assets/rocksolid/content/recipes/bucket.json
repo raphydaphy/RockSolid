@@ -1,0 +1,19 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+    {
+      "name": "rocksolid/bucket"
+    }
+  ],
+  "inputs": [
+    {
+      "name": "stone",
+      "amount": 20
+    },
+    {
+      "name": "iron_processed",
+      "amount": 13
+    }
+  ],
+  "skill": 0.10
+}

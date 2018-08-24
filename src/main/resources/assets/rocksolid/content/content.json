@@ -12,6 +12,7 @@
 	"steel_shovel": "/recipes/steel_shovel.json",
 	"assembly_station": "/recipes/assembly_station.json",
 	"wrench": "/recipes/wrench.json",
+	"bucket": "/recipes/bucket.json",
 	"energy_conduit": "/recipes/energy_conduit.json",
 	"item_conduit": "/recipes/item_conduit.json",
 	"fluid_conduit": "/recipes/fluid_conduit.json",
