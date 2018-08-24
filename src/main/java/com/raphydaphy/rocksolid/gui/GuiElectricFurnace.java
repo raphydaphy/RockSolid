@@ -35,7 +35,7 @@ public class GuiElectricFurnace extends GuiContainer
 
 		this.components.add(new ComponentProgressBar(this, 49, 4, 37, 8, ModUtils.PROGRESS, false, GuiElectricFurnace.this.te::getSmeltPercentage));
 
-		this.components.add(new ComponentProgressBar(this, 27, 20, 81, 10, ModUtils.ENERGY, false, () -> Math.min(GuiElectricFurnace.this.te.getEnergyFullness(), 1)));
+		this.components.add(new ComponentProgressBar(this, 27, 20, 81, 10, ModUtils.ENERGY, false, GuiElectricFurnace.this.te::getEnergyFullness));
 	}
 
 	@Override

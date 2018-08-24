@@ -15,7 +15,7 @@ public abstract class TileEntityElectric extends TileEntity implements IEnergyTi
 	protected final SyncedInt smeltTime = new SyncedInt("smelt_time");
 	protected final SyncedInt maxSmeltTime = new SyncedInt("max_smelt_time");
 	protected final SyncedInt energyStored = new SyncedInt("energy_stored");
-	protected final SyncedInt maxEnergyStored = new SyncedInt("energy_stored");
+	protected final SyncedInt maxEnergyStored = new SyncedInt("max_energy_stored");
 
 	private boolean lastActive = false;
 
