@@ -56,8 +56,8 @@ public class GuiConduit extends GuiContainer
 		this.components.add(new ComponentCustomText(this, 103, 16, 50, 1, 0.3f, TextDirection.CENTER,
 				side == null ? "NONE" : side.toString()));
 
-		this.components.add(new ComponentButton(this, 124, 11, 10, 10, supplierTrue, ">"));
-		this.components.add(new ComponentButton(this, 73, 11, 10, 10, supplierTrue, "<"));
+		this.components.add(new ComponentButton(this, 124, 11, 10, 10, () -> true, ">"));
+		this.components.add(new ComponentButton(this, 73, 11, 10, 10, () -> true, "<"));
 
 		this.components.add(new ComponentCustomText(this, 35, 31, 76, 1, 0.3f, TextDirection.CENTER, "Mode"));
 		this.components.add(new ComponentCustomText(this, 103, 31, 50, 1, 0.3f, TextDirection.CENTER,
@@ -131,14 +131,5 @@ public class GuiConduit extends GuiContainer
 	{
 		return RockSolid.createRes("gui_conduit");
 	}
-
-	Supplier<Boolean> supplierTrue = new Supplier<Boolean>()
-	{
-		@Override
-		public Boolean get()
-		{
-			return true;
-		}
-	};
 
 }

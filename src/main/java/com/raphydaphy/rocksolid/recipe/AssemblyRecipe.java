@@ -21,6 +21,7 @@ public class AssemblyRecipe extends BasicRecipe
 	private boolean efficiency = true;
 	private boolean speed = true;
 	private boolean bonusYield = true;
+	private boolean throughput = true;
 
 	private ItemInstance output;
 
@@ -54,6 +55,12 @@ public class AssemblyRecipe extends BasicRecipe
 		return this;
 	}
 
+	public AssemblyRecipe disableThroughput()
+	{
+		throughput = false;
+		return this;
+	}
+
 	public boolean hasEfficiency()
 	{
 		return efficiency;
@@ -69,6 +76,11 @@ public class AssemblyRecipe extends BasicRecipe
 		return bonusYield;
 	}
 
+	public boolean hasThroughput()
+	{
+		return throughput;
+	}
+
 	@Override
 	public List<ItemInstance> getActualOutputs(IInventory inputInventory, IInventory outputInventory, List<ItemInstance> inputs)
 	{
@@ -78,7 +90,7 @@ public class AssemblyRecipe extends BasicRecipe
 		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, hasEfficiency() ? ModUtils.getAssemblyEfficiency(inputs) * 2 : -1);
 		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, hasSpeed() ? ModUtils.getAssemblySpeed(inputs) * 2 : -1);
 		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, hasBonusYield() ? ModUtils.getAssemblyBonusYield(inputs) * 2 : -1);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, ModUtils.getAssemblyThroughput(inputs) * 2);
+		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, hasThroughput() ? ModUtils.getAssemblyThroughput(inputs) * 2 : -1);
 
 		return Collections.singletonList(nbtOut);
 	}

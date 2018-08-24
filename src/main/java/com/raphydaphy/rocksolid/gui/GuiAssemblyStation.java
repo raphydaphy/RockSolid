@@ -205,6 +205,13 @@ public class GuiAssemblyStation extends GuiContainer
 
 	}
 
+	private static final ResourceName STATS_NAME = RockSolid.createRes("assembly_station.stats");
+	private static final ResourceName CAPACITY_NAME = RockSolid.createRes("assembly_station.capacity");
+	private static final ResourceName EFFICIENCY_NAME = RockSolid.createRes("assembly_station.efficiency");
+	private static final ResourceName SPEED_NAME = RockSolid.createRes("assembly_station.speed");
+	private static final ResourceName BONUS_NAME = RockSolid.createRes("assembly_station.bonus_yield");
+	private static final ResourceName THROUGHPUT_NAME = RockSolid.createRes("assembly_station.throughput");
+
 	@Override
 	public final void render(IGameInstance game, IAssetManager assetManager, IRenderer renderer)
 	{
@@ -225,27 +232,30 @@ public class GuiAssemblyStation extends GuiContainer
 			String recipeName = (this.recipe.getOutputs().get(0)).getDisplayName();
 			assetManager.getFont().drawAutoScaledString((float) (this.x + 60 + offset), (float) (this.y + 6), recipeName, 0.25F, 70, -16777216, 2147483647, true, false);
 
-			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 3), "Stats", 0.25F, 22, -16777216, 2147483647, true, false);
+			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + 3), RockBottomAPI.getGame().getAssetManager().localize(STATS_NAME), 0.25F, 22, -16777216, 2147483647, true, false);
 
 			int drawY = 14;
 
-			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Capacity", 0.15F, 70, -16777216, 2147483647, true, false);
+			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(CAPACITY_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
 			drawY += 15;
 			if (this.recipe.hasEfficiency())
 			{
-				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Efficiency", 0.15F, 70, -16777216, 2147483647, true, false);
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(EFFICIENCY_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
 				drawY += 15;
 			}
 			if (this.recipe.hasSpeed())
 			{
-				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Speed", 0.15F, 70, -16777216, 2147483647, true, false);
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(SPEED_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
 				drawY += 15;
 			}
-			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Throughput", 0.15F, 70, -16777216, 2147483647, true, false);
-			drawY += 15;
+			if (this.recipe.hasThroughput())
+			{
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(THROUGHPUT_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
+				drawY += 15;
+			}
 			if (this.recipe.hasBonusYield())
 			{
-				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), "Bonus Yield", 0.15F, 70, -16777216, 2147483647, true, false);
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(BONUS_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
 			}
 		}
 		super.render(game, assetManager, renderer);
@@ -313,10 +323,11 @@ public class GuiAssemblyStation extends GuiContainer
 			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblySpeed(getTEItems())));
 			progressY += 15;
 		}
-
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyThroughput(getTEItems())));
-		progressY += 15;
-
+		if (r.hasThroughput())
+		{
+			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyThroughput(getTEItems())));
+			progressY += 15;
+		}
 		if (r.hasBonusYield())
 		{
 			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyBonusYield(getTEItems())));

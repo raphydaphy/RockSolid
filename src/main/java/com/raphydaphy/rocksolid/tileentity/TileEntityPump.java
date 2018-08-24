@@ -11,26 +11,25 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
+import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TileEntityPump extends TileEntityAssemblyConfigurable implements IFluidTile<TileEntityPump>, IEnergyTile
 {
 	public static final String KEY_LIQUID_TYPE = "liquid_type";
-	public static final String KEY_ENERGY_STORED = "energy_stored";
-	private static final String KEY_LIQUID_VOLUME = "liquid_volume";
+
 	private final ResourceName PUMP_SOUND = RockSolid.createRes("pump");
-	private int liquidVolume = 0;
-	private int lastLiquidVolume = 0;
-	private int energyStored = 0;
-	private int lastEnergyStored = 0;
+
+	private SyncedInt liquidVolume = new SyncedInt("liquid_volume");
+	private SyncedInt energyStored = new SyncedInt("energy_stored");
+
 	private TileLiquid liquidType;
 	private int lastPlayed = -1;
 
@@ -44,8 +43,8 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		set.addInt(KEY_LIQUID_VOLUME, this.liquidVolume);
-		set.addInt(KEY_ENERGY_STORED, this.energyStored);
+		liquidVolume.save(set);
+		energyStored.save(set);
 		if (liquidType != null)
 		{
 			set.addString(KEY_LIQUID_TYPE, Registries.TILE_REGISTRY.getId(liquidType).toString());
@@ -55,15 +54,15 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	@Override
 	public int getEnergyStored()
 	{
-		return this.energyStored;
+		return this.energyStored.get();
 	}
 
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		this.liquidVolume = set.getInt(KEY_LIQUID_VOLUME);
-		this.energyStored = set.getInt(KEY_ENERGY_STORED);
+		liquidVolume.load(set);
+		energyStored.load(set);
 
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
@@ -74,31 +73,31 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	@Override
 	public int getMaxTransfer()
 	{
-		return 12;
+		return Math.round(12 * getThroughputModifier());
 	}
 
 	@Override
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		if (this.energyStored > 8)
+		if (this.energyStored.get() > 8)
 		{
 			if (!this.world.isClient())
 			{
 				if (this.world.getState(TileLayer.LIQUIDS, x, y).getTile() instanceof TileLiquid && this.world.getState(TileLayer.LIQUIDS, x + 1, y).getTile() instanceof TileLiquid)
 				{
 					TileLiquid liquidIn = (TileLiquid) this.world.getState(TileLayer.LIQUIDS, x, y).getTile();
-					if (this.liquidVolume + 25 <= 1000)
+					if (this.liquidVolume.get() + 25 + Math.round(getBonusYieldModifier()) <= fluidCapacityNull())
 					{
-						if (world.getTotalTime() % 8 == 0)
+						if (world.getTotalTime() % Math.round(8 / getSpeedModifier()) == 0)
 						{
 
-							this.energyStored -= 1;
+							this.energyStored.remove(1);
 						}
-						if (world.getTotalTime() % 80 == 0)
+						if (world.getTotalTime() % Math.round(80 / getSpeedModifier()) == 0)
 						{
 							this.liquidType = liquidIn;
-							this.liquidVolume += 25;
+							this.liquidVolume.add(25 + Math.round(getBonusYieldModifier()));
 							int topY = y;
 							TileState top = null;
 							for (int i = y; i < y + 30; i++)
@@ -143,20 +142,15 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	@Override
 	protected boolean needsSync()
 	{
-		return this.liquidVolume != this.lastLiquidVolume || this.energyStored != this.lastEnergyStored;
+		return this.liquidVolume.needsSync() || this.energyStored.needsSync();
 	}
 
 	@Override
 	public void onSync()
 	{
 		super.onSync();
-		this.lastLiquidVolume = this.liquidVolume;
-		this.lastEnergyStored = this.energyStored;
-	}
-
-	public int getLiquidVolume()
-	{
-		return this.liquidVolume;
+		this.liquidVolume.onSync();;
+		this.energyStored.onSync();;
 	}
 
 	public TileLiquid getLiquidType()
@@ -174,7 +168,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 				return false;
 			}
 
-			if (this.liquidVolume + ml >= this.getFluidCapacity(world, pos, this.liquidType))
+			if (this.liquidVolume.get() + ml >= this.getFluidCapacity(world, pos, this.liquidType))
 			{
 				return false;
 			}
@@ -185,7 +179,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 				{
 					this.liquidType = liquid;
 				}
-				this.liquidVolume += ml;
+				this.liquidVolume.add(ml);
 			}
 
 			return true;
@@ -195,24 +189,24 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 
 	public float getLiquidFullness()
 	{
-		return (float) this.liquidVolume / 1000f;
+		return (float) this.liquidVolume.get() / (float)fluidCapacityNull();
 	}
 
 	public float getEnergyFullness()
 	{
-		return (float) this.energyStored / 1000f;
+		return (float) this.energyStored.get() / (float)getEnergyCapacity(null, null);
 	}
 
 	@Override
 	public boolean removeFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (this.liquidType != null && liquid != null && liquid.equals(this.liquidType) && this.liquidVolume >= ml)
+		if (liquid != null && liquid.equals(this.liquidType) && this.liquidVolume.get() >= ml)
 		{
 			if (!simulate)
 			{
-				this.liquidVolume -= ml;
+				this.liquidVolume.remove(ml);
 
-				if (this.liquidVolume == 0)
+				if (this.liquidVolume.get() == 0)
 				{
 					this.liquidType = null;
 				}
@@ -229,13 +223,18 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 		{
 			if (this.liquidType == null && liquid != null)
 			{
-				return 1000;
-			} else if (liquid != null && this.liquidType != null)
+				return fluidCapacityNull();
+			} else if (liquid != null)
 			{
-				return liquid.equals(this.liquidType) ? 1000 : 0;
+				return liquid.equals(this.liquidType) ? fluidCapacityNull() : 0;
 			}
 		}
 		return 0;
+	}
+
+	private int fluidCapacityNull()
+	{
+		return Math.round(1000 * getCapacityModifier());
 	}
 
 	@Override
@@ -249,7 +248,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 
 			if (inner.getY() != 0)
 			{
-				return Arrays.asList(this.liquidType);
+				return Collections.singletonList(this.liquidType);
 			}
 		}
 		return null;
@@ -258,11 +257,11 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	@Override
 	public boolean addEnergy(Pos2 pos, int joules, boolean simulate)
 	{
-		if (joules + energyStored <= getEnergyCapacity(world, pos))
+		if (joules + energyStored.get() <= getEnergyCapacity(world, pos))
 		{
 			if (!simulate)
 			{
-				this.energyStored += joules;
+				this.energyStored.add(joules);
 			}
 			return true;
 		}
@@ -283,7 +282,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 		{
 			return 0;
 		}
-		return 1000;
+		return Math.round(1000 * getCapacityModifier());
 	}
 
 	@Override

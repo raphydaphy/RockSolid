@@ -14,6 +14,7 @@ import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -45,9 +46,9 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	protected void getRecipeAndStart()
 	{
-		if (this.water.get() >= 1 && this.steam.get() < 1000)
+		if (this.water.get() >= 1 && this.steam.get() < getCapacity())
 		{
-			this.maxSmeltTime.set(6);
+			this.maxSmeltTime.set(Math.round(6 / getSpeedModifier()));
 			this.water.remove(1);
 		}
 	}
@@ -56,6 +57,11 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	protected void putOutputItems()
 	{
 		this.steam.add(1);
+		double chance = Math.pow(2, 5 * (getBonusYieldModifier() / 2f)); // Bonus Yield Modifier
+		if (this.steam.get() < getCapacity() && (Util.RANDOM.nextDouble() * 100) < chance)
+		{
+			this.steam.add(1);
+		}
 	}
 
 	@Override
@@ -104,12 +110,17 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 
 	public float getSteamFullness()
 	{
-		return this.steam.get() / 1000f;
+		return (float)this.steam.get() / (float)getCapacity();
+	}
+
+	private int getCapacity()
+	{
+		return Math.round(1000f / getCapacityModifier());
 	}
 
 	public float getWaterFullness()
 	{
-		return (float) this.water.get() / 1000f;
+		return (float) this.water.get() / (float)getCapacity();
 	}
 
 	@Override
@@ -133,7 +144,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public boolean addFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (liquid.equals(GameContent.TILE_WATER) && ml + this.water.get() <= 1000)
+		if (liquid.equals(GameContent.TILE_WATER) && ml + this.water.get() <= getCapacity())
 		{
 			if (!simulate)
 			{
@@ -153,7 +164,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public int getFluidCapacity(IWorld world, Pos2 pos, TileLiquid liquid)
 	{
-		return liquid.equals(GameContent.TILE_WATER) && getLiquidsAt(world, pos) != null ? 1000 : 0;
+		return liquid.equals(GameContent.TILE_WATER) && getLiquidsAt(world, pos) != null ? getCapacity() : 0;
 	}
 
 	@Override
@@ -196,7 +207,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	@Override
 	public int getGasCapacity(IWorld world, Pos2 pos, Gas gas)
 	{
-		return gas.equals(Gas.STEAM) && getGasAt(world, pos) != null ? 1000 : 0;
+		return gas.equals(Gas.STEAM) && getGasAt(world, pos) != null ? getCapacity() : 0;
 	}
 
 	@Nullable

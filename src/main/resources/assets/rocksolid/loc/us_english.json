@@ -71,6 +71,14 @@
 	  "none_inv": "Disabled",
 	  "all_conduit": "In / Out",
 	  "none_conduit": "Disabled"
+	},
+	"assembly_station.": {
+	  "stats": "Stats",
+	  "capacity": "Capacity",
+	  "efficiency": "Efficiency",
+	  "speed": "Speed",
+	  "bonus_yield": "Bonus Yield",
+	  "throughput": "Throughput"
 	}
   }
 }

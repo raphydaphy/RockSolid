@@ -34,9 +34,9 @@ public class ItemBucket extends ItemBase
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
 			AbstractEntityPlayer player, ItemInstance instance)
 	{
-		TileState state = world.getState(TileLayer.LIQUIDS, x, y);
+		TileState liquidState = world.getState(TileLayer.LIQUIDS, x, y);
 		TileState main = world.getState(TileLayer.MAIN, x, y);
-		TileEntity te = null;
+		TileEntity te;
 		if (main.getTile() instanceof MultiTile)
 		{
 			Pos2 mainPos = ((MultiTile) main.getTile()).getMainPos(x, y, main);
@@ -48,17 +48,17 @@ public class ItemBucket extends ItemBase
 
 		if (instance.getMeta() == BucketType.EMPTY.meta)
 		{
-			if (state.getTile().equals(GameContent.TILE_WATER))
+			if (liquidState.getTile().equals(GameContent.TILE_WATER))
 			{
-				int curLevel = state.get(GameContent.TILE_WATER.level);
+				int curLevel = liquidState.get(GameContent.TILE_WATER.level);
 				if (curLevel > 0)
 				{
-					world.setState(TileLayer.LIQUIDS, x, y, state.prop(GameContent.TILE_WATER.level, curLevel - 1));
+					world.setState(TileLayer.LIQUIDS, x, y, liquidState.prop(GameContent.TILE_WATER.level, curLevel - 1));
 				} else
 				{
 					world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_AIR.getDefState());
 				}
-			} else if (te != null && te instanceof IFluidTile<?>)
+			} else if (te instanceof IFluidTile<?>)
 			{
 				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
 				if (!fluidTE.removeFluid(new Pos2(x, y), GameContent.TILE_WATER, 25, false))
@@ -66,16 +66,20 @@ public class ItemBucket extends ItemBase
 					return false;
 				}
 			}
+			else
+			{
+				return false;
+			}
 			instance.setMeta(BucketType.WATER.meta);
 		} else if (instance.getMeta() == BucketType.WATER.meta)
 		{
-			if (state.getTile().equals(GameContent.TILE_WATER))
+			if (liquidState.getTile().equals(GameContent.TILE_WATER))
 			{
-				int curLevel = state.get(GameContent.TILE_WATER.level);
+				int curLevel = liquidState.get(GameContent.TILE_WATER.level);
 				if (curLevel < 11)
 				{
 					world.setState(TileLayer.LIQUIDS, x, y,
-							state.prop(((TileLiquid) state.getTile()).level, curLevel + 1));
+							liquidState.prop(((TileLiquid) liquidState.getTile()).level, curLevel + 1));
 				} else
 				{
 					return false;
@@ -87,9 +91,12 @@ public class ItemBucket extends ItemBase
 				{
 					return false;
 				}
-			} else if (state.getTile().isAir())
+			} else if (liquidState.getTile().isAir())
 			{
 				world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_WATER.getDefState());
+			} else
+			{
+				return false;
 			}
 			instance.setMeta(BucketType.EMPTY.meta);
 		}
