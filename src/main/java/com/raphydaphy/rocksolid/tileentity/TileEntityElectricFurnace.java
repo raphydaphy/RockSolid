@@ -47,7 +47,7 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 	public void save(DataSet set, boolean forSync)
 	{
 		super.save(set, forSync);
-		inventory.save(set);
+		getTileInventory().save(set);
 		if (!forSync)
 		{
 			if (this.output != null)
@@ -63,7 +63,7 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 	public void load(DataSet set, boolean forSync)
 	{
 		super.load(set, forSync);
-		inventory.load(set);
+		getTileInventory().load(set);
 		if (!forSync)
 		{
 			if (set.hasKey(KEY_OUTPUT))
@@ -79,14 +79,14 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 	{
 		ItemInstance item;
 		SmeltingRecipe recipe;
-		if ((item = this.inventory.get(0)) != null && (recipe = SmeltingRecipe.forInput(item)) != null)
+		if ((item = this.getTileInventory().get(0)) != null && (recipe = SmeltingRecipe.forInput(item)) != null)
 		{
 			IUseInfo input = recipe.getInput();
 			if (item.getAmount() >= input.getAmount())
 			{
 				item = recipe.getOutput();
 				ItemInstance curOutputSlot;
-				if (((curOutputSlot = this.inventory.get(1)) == null || curOutputSlot.isEffectivelyEqual(item) && curOutputSlot.fitsAmount(item.getAmount())))
+				if (((curOutputSlot = this.getTileInventory().get(1)) == null || curOutputSlot.isEffectivelyEqual(item) && curOutputSlot.fitsAmount(item.getAmount())))
 				{
 					this.output = item.copy();
 
@@ -97,7 +97,7 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 					}
 
 					this.maxSmeltTime.set((int)((recipe.getTime() / 2.5f) / getSpeedModifier())); // speed multiplier
-					this.inventory.remove(0, input.getAmount());
+					this.getTileInventory().remove(0, input.getAmount());
 				}
 			}
 		}
@@ -113,12 +113,12 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 	{
 		ItemInstance outSlot;
 
-		if ((outSlot = this.inventory.get(1)) != null && outSlot.isEffectivelyEqual(this.output))
+		if ((outSlot = this.getTileInventory().get(1)) != null && outSlot.isEffectivelyEqual(this.output))
 		{
-			this.inventory.add(1, this.output.getAmount());
+			this.getTileInventory().add(1, this.output.getAmount());
 		} else
 		{
-			this.inventory.set(1, this.output);
+			this.getTileInventory().set(1, this.output);
 		}
 
 		this.output = null;

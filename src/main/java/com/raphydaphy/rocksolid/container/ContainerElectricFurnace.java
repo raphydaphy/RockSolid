@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.container;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityElectric;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.gui.container.OutputSlot;
@@ -12,7 +13,7 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 public class ContainerElectricFurnace extends ItemContainer
 {
 
-	public ContainerElectricFurnace(AbstractEntityPlayer player, TileEntityElectricFurnace tile)
+	public ContainerElectricFurnace(AbstractEntityPlayer player, TileEntityElectric tile)
 	{
 		super(player);
 		this.addPlayerInventory(player, 0, 43);

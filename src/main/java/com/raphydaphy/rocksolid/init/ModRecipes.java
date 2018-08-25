@@ -3,14 +3,12 @@ package com.raphydaphy.rocksolid.init;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
+import com.raphydaphy.rocksolid.recipe.BlastingRecipe;
 import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
-import de.ellpeck.rockbottom.api.construction.BasicRecipe;
-import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.ParentedNameRegistry;
-import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class ModRecipes
 {
@@ -25,6 +23,8 @@ public class ModRecipes
 		new AlloySmelterRecipe(GameContent.RES_COPPER_PROCESSED, 3, ModItems.RES_TIN_PROCESSED, 1, ModItems.BRONZE_INGOT, 4, 350).register();
 		new AlloySmelterRecipe(ModItems.RES_COPPER_CRUSHED, 3, ModItems.RES_TIN_CRUSHED, 1, ModItems.BRONZE_GRIT, 4, 350).register();
 		new AlloySmelterRecipe(ModItems.RES_IRON_PROCESSED, 1, ModItems.RES_COAL_PROCESSED, 1, ModItems.STEEL_INGOT, 1, 500).register();
+
+		new BlastingRecipe(GameContent.RES_COAL, ModItems.COKE, 5000).register();
 
 		new AssemblyRecipe(0.8f, new ItemInstance(ModTiles.BOILER), 55, 8, 12).disableEfficiency().disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TURBINE),49, 5, 6).disableThroughput().registerAssembly();

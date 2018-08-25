@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.gui;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.component.ComponentEnergyBar;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityElectric;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -12,9 +13,9 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 public class GuiElectricFurnace extends GuiContainer
 {
-	private final TileEntityElectricFurnace te;
+	private final TileEntityElectric te;
 
-	public GuiElectricFurnace(AbstractEntityPlayer player, TileEntityElectricFurnace te)
+	public GuiElectricFurnace(AbstractEntityPlayer player, TileEntityElectric te)
 	{
 		super(player, 136, 113);
 		this.te = te;
