@@ -71,7 +71,6 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
 			liquidType = (TileLiquid) Registries.TILE_REGISTRY.get(new ResourceName(set.getString(KEY_LIQUID_TYPE)));
-			System.out.println("got out of the shop with a " + liquidType + " from a " + set.getString(KEY_LIQUID_TYPE));
 		}
 	}
 
@@ -102,7 +101,6 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 						if (world.getTotalTime() % Math.round(80 / getSpeedModifier()) == 0)
 						{
 							this.liquidType = liquidIn;
-							System.out.println("got a brand new spanking " + liquidType);
 							this.liquidVolume.add(25 + Math.round(getBonusYieldModifier()));
 							int topY = y;
 							TileState top = null;
@@ -191,7 +189,6 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 
 				if (this.liquidVolume.get() == 0)
 				{
-					System.out.println("and the foundations are now gone, sorry guys");
 					this.liquidType = null;
 				}
 			}
