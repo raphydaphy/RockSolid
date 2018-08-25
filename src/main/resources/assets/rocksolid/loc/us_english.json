@@ -79,6 +79,10 @@
 	  "speed": "Speed",
 	  "bonus_yield": "Bonus Yield",
 	  "throughput": "Throughput"
+	},
+	"progress_overlay.": {
+	  "energy_storage": "Storing &9%s kWH&y",
+	  "energy_throughput": "Transferring up to &9%s kWH&y"
 	}
   }
 }

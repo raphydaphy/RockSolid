@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.gui.component.ComponentEnergyBar;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -24,7 +25,7 @@ public class GuiBattery extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 27, 0, 81, 10, ModUtils.ENERGY, false, GuiBattery.this.te::getEnergyFullness));
+		this.components.add(new ComponentEnergyBar(this, 27, 0, 81, 10, ModUtils.ENERGY, false, GuiBattery.this.te::getEnergyFullness, GuiBattery.this.te::getEnergyStored, GuiBattery.this.te::getMaxTransfer));
 	}
 
 	@Override

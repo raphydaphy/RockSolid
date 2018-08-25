@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.gui.component.ComponentEnergyBar;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -35,7 +36,7 @@ public class GuiElectricFurnace extends GuiContainer
 
 		this.components.add(new ComponentProgressBar(this, 49, 4, 37, 8, ModUtils.PROGRESS, false, GuiElectricFurnace.this.te::getSmeltPercentage));
 
-		this.components.add(new ComponentProgressBar(this, 27, 20, 81, 10, ModUtils.ENERGY, false, GuiElectricFurnace.this.te::getEnergyFullness));
+		this.components.add(new ComponentEnergyBar(this, 27, 20, 81, 10, ModUtils.ENERGY, false, GuiElectricFurnace.this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
 	}
 
 	@Override
