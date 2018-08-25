@@ -17,39 +17,51 @@
 	  "cluster.": {
 		"copper": "/items/cluster/cluster_copper.png",
 		"tin": "/items/cluster/cluster_tin.png",
-		"iron": "/items/cluster/cluster_iron.png"
+		"iron": "/items/cluster/cluster_iron.png",
+		"magnesium": "/items/cluster/cluster_magnesium.png"
 	  },
 	  "grit.": {
 		"copper": "/items/grit/grit_copper.png",
 		"tin": "/items/grit/grit_tin.png",
 		"iron": "/items/grit/grit_iron.png",
-		"bronze": "/items/grit/grit_bronze.png"
+		"nickel": "/items/grit/grit_nickel.png",
+		"bronze": "/items/grit/grit_bronze.png",
+		"magnesium": "/items/grit/grit_magnesium.png"
 	  },
 	  "ingot.": {
 		"copper": "/items/ingot/ingot_copper.png",
 		"tin": "/items/ingot/ingot_tin.png",
 		"iron": "/items/ingot/ingot_iron.png",
+		"nickel": "/items/ingot/ingot_nickel.png",
 		"bronze": "/items/ingot/ingot_bronze.png",
-		"steel": "/items/ingot/ingot_steel.png"
+		"steel": "/items/ingot/ingot_steel.png",
+		"magnesium": "/items/ingot/ingot_magnesium.png",
+		"impure_titanium": "/items/ingot/ingot_titanium_impure.png",
+		"titanium": "/items/ingot/ingot_titanium.png"
 	  },
 	  "pickaxe.": {
 		"bronze": "/items/pickaxe/pickaxe_bronze.png",
-		"steel": "/items/pickaxe/pickaxe_steel.png"
+		"steel": "/items/pickaxe/pickaxe_steel.png",
+		"titanium": "/items/pickaxe/pickaxe_titanium.png"
 	  },
 	  "axe.": {
 		"bronze": "/items/axe/axe_bronze.png",
-		"steel": "/items/axe/axe_steel.png"
+		"steel": "/items/axe/axe_steel.png",
+		"titanium": "/items/axe/axe_titanium.png"
 	  },
 	  "shovel.": {
 		"bronze": "/items/shovel/shovel_bronze.png",
-		"steel": "/items/shovel/shovel_steel.png"
+		"steel": "/items/shovel/shovel_steel.png",
+		"titanium": "/items/shovel/shovel_titanium.png"
 	  }
 	},
 	"tiles.": {
 	  "ore.": {
 		"copper": "/tiles/ore/ore_copper.png",
 		"tin": "/tiles/ore/ore_tin.png",
-		"iron": "/tiles/ore/ore_iron.png"
+		"iron": "/tiles/ore/ore_iron.png",
+		"rutile": "/tiles/ore/ore_rutile.png",
+		"magnesium": "/tiles/ore/ore_magnesium.png"
 	  },
 	  "creative_energy_source": "/tiles/creative_power_source.png",
 	  "fluid_water.": {

@@ -73,6 +73,16 @@ public class ModEvents
 								event.player.getKnowledge().teachRecipe(IRecipe.forName((RockSolid.createRes("fluid_conduit"))));
 							}
 						}
+						else if (changed.getItem() == ModItems.TITANIUM_INGOT)
+						{
+							IRecipe recipe = IRecipe.forName((RockSolid.createRes("titanium_pickaxe")));
+							if (!event.player.getKnowledge().knowsRecipe(recipe))
+							{
+								event.player.getKnowledge().teachRecipe(recipe);
+								event.player.getKnowledge().teachRecipe(IRecipe.forName((RockSolid.createRes("titanium_axe"))));
+								event.player.getKnowledge().teachRecipe(IRecipe.forName((RockSolid.createRes("titanium_shovel"))));
+							}
+						}
 					}
 				});
 			}

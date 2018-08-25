@@ -16,7 +16,10 @@
 	"energy_conduit": "/recipes/energy_conduit.json",
 	"item_conduit": "/recipes/item_conduit.json",
 	"fluid_conduit": "/recipes/fluid_conduit.json",
-	"gas_conduit": "/recipes/gas_conduit.json"
+	"gas_conduit": "/recipes/gas_conduit.json",
+	"titanium_pickaxe": "/recipes/titanium_pickaxe.json",
+	"titanium_axe": "/recipes/titanium_axe.json",
+	"titanium_shovel": "/recipes/titanium_shovel.json"
   },
   "smelting.": {
 	"tin_smelting": "/smelting/tin_smelting.json",
@@ -24,6 +27,9 @@
 	"copper_grit_smelting": "/smelting/copper_grit_smelting.json",
 	"tin_grit_smelting": "/smelting/tin_grit_smelting.json",
 	"bronze_grit_smelting": "/smelting/bronze_grit_smelting.json",
-	"iron_grit_smelting": "/smelting/iron_grit_smelting.json"
+	"iron_grit_smelting": "/smelting/iron_grit_smelting.json",
+	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
+	"magnesium_smelting": "/smelting/magnesium_smelting.json",
+	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json"
   }
 }

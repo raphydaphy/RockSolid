@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
 import com.raphydaphy.rocksolid.tile.TileOre;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
@@ -7,12 +8,18 @@ import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.machine.*;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
+import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
+import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.tile.Tile;
+import de.ellpeck.rockbottom.api.tile.TileBasic;
 
 public class ModTiles
 {
 	public static Tile TIN_ORE;
 	public static Tile IRON_ORE;
+	public static Tile RUTILE_ORE;
+	public static Tile MAGNESIUM_ORE;
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
@@ -36,10 +43,19 @@ public class ModTiles
 	public static Tile ENERGY_CONDUIT;
 	public static Tile ITEM_CONDUIT;
 
+	public static String RES_TITANIUM_RAW;
+
+	private static IResourceRegistry res()
+	{
+		return RockBottomAPI.getResourceRegistry();
+	}
+
 	public static void init()
 	{
 		TIN_ORE = new TileOre("ore.tin", 8f, 2, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
+		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);
+		RUTILE_ORE = new TileBasic(RockSolid.createRes("ore.rutile")).setHardness(18f).addEffectiveTool(ToolType.PICKAXE, 19).register().setMaxAmount(15);
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);
@@ -62,5 +78,7 @@ public class ModTiles
 		GAS_CONDUIT = new TileGasConduit().setMaxAmount(25);
 		ENERGY_CONDUIT = new TileEnergyConduit().setMaxAmount(25);
 		ITEM_CONDUIT = new TileItemConduit().setMaxAmount(25);
+
+		RES_TITANIUM_RAW = res().addResources("titanium_raw", RUTILE_ORE);
 	}
 }

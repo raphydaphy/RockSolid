@@ -86,7 +86,11 @@ public class ModUtils
     private static ResUseInfo tin = new ResUseInfo(ModItems.RES_TIN_PROCESSED);
     private static ResUseInfo bronze = new ResUseInfo(ModItems.RES_BRONZE_PROCESSED);
     private static ResUseInfo iron = new ResUseInfo(ModItems.RES_IRON_PROCESSED);
+    private static ResUseInfo nickel = new ResUseInfo(ModItems.RES_NICKEL_PROCESSED);
     private static ResUseInfo steel = new ResUseInfo(ModItems.RES_STEEL_PROCESSED);
+	private static ResUseInfo magnesium = new ResUseInfo(ModItems.RES_MAGNESIUM_PROCESSED);
+	private static ResUseInfo impure_titanium = new ResUseInfo(ModItems.RES_TITANIUM_IMPURE);
+	private static ResUseInfo titanium = new ResUseInfo(ModItems.RES_TITANIUM_PROCESSED);
 
     private static ResUseInfo coal = new ResUseInfo(GameContent.RES_COAL);
     private static ResUseInfo coke = new ResUseInfo(ModItems.RES_COAL_PROCESSED);
@@ -106,6 +110,7 @@ public class ModUtils
 			    else if (copper.containsItem(item)) { capacity *= 1.5f; }
 			    else if (iron.containsItem(item)) { capacity *= 0.95f; }
 			    else if (bronze.containsItem(item)) { capacity *= 1.25f; }
+			    else if (impure_titanium.containsItem(item)) { capacity *= 0.65f; }
 
 			    else if (coke.containsItem(item)) { capacity *= 1.1f; }
 		    }
@@ -127,11 +132,15 @@ public class ModUtils
 			    else if (soil.containsItem(item)) { efficiency *= 0.6f; }
 			    else if (sandstone.containsItem(item)) { efficiency *= 0.9f; }
 
-			    else if (steel.containsItem(item)) { efficiency *= 1.5f; }
+			    else if (steel.containsItem(item)) { efficiency *= 1.45f; }
 			    else if (iron.containsItem(item)) { efficiency *= 0.9f; }
 			    else if (bronze.containsItem(item)) { efficiency *= 1.25f; }
 			    else if (tin.containsItem(item)) { efficiency *= 0.8f; }
 			    else if (copper.containsItem(item)) { efficiency *= 0.85f; }
+			    else if (impure_titanium.containsItem(item)) { efficiency *= 0.8f; }
+			    else if (titanium.containsItem(item)) { efficiency *= 1.6f; }
+			    else if (magnesium.containsItem(item)) { efficiency *= 0.9f; }
+			    else if (nickel.containsItem(item)) { efficiency *= 1.15f; }
 
 			    else if (coal.containsItem(item)) { efficiency *= 0.9f; }
 			    else if (coke.containsItem(item)) { efficiency *= 1.1f; }
@@ -157,6 +166,10 @@ public class ModUtils
 			    else if (iron.containsItem(item)) { speed *= 1.1f; }
 			    else if (bronze.containsItem(item)) { speed *= 1.25f; }
 			    else if (copper.containsItem(item)) { speed *= 0.9f; }
+			    else if (impure_titanium.containsItem(item)) { speed *= 1.3f; }
+			    else if (titanium.containsItem(item)) { speed *= 0.9f; }
+			    else if (magnesium.containsItem(item)) { speed *= 1.1f; }
+			    else if (nickel.containsItem(item)) { speed *= 0.7f; }
 
 			    else if (coal.containsItem(item)) { speed *= 0.8f; }
 			    else if (coke.containsItem(item)) { speed *= 1.2f; }
@@ -183,6 +196,9 @@ public class ModUtils
 			    else if (bronze.containsItem(item)) { bonus *= 0.9f; }
 			    else if (tin.containsItem(item)) { bonus *= 1.05f; }
 			    else if (copper.containsItem(item)) { bonus *= 1.1f; }
+			    else if (magnesium.containsItem(item)) { bonus *= 1.3f; }
+			    else if (titanium.containsItem(item)) { bonus *= 1.2f; }
+			    else if (nickel.containsItem(item)) { bonus *= 1.8f; }
 
 			    else if (coal.containsItem(item)) { bonus *= 1.2f; }
 			    else if (coke.containsItem(item)) { bonus *= 0.85f; }
@@ -209,6 +225,7 @@ public class ModUtils
 			    else if (bronze.containsItem(item)) { throughput *= 1.25f; }
 			    else if (tin.containsItem(item)) { throughput *= 1.3f; }
 			    else if (copper.containsItem(item)) { throughput *= 1.35f; }
+			    else if (titanium.containsItem(item)) { throughput *= 1.2f; }
 
 			    else if (coal.containsItem(item)) { throughput *= 0.9f; }
 			    else if (coke.containsItem(item)) { throughput *= 1.2f; }

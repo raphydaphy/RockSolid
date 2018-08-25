@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "magnesium_raw",
+	"amount": 2
+  },
+  "output": {
+	"name": "rocksolid/ingot.magnesium",
+	"amount": 1
+  },
+  "time": 200
+}

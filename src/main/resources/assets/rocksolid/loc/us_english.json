@@ -29,37 +29,49 @@
 	  "cluster.": {
 		"copper": "Copper Cluster",
 		"tin": "Tin Cluster",
-		"iron": "Iron Cluster"
+		"iron": "Iron Cluster",
+		"magnesium": "Magnesium Cluster"
 	  },
 	  "grit.": {
 		"copper": "Copper Grit",
 		"tin": "Tin Grit",
 		"iron": "Iron Grit",
-		"bronze": "Bronze Grit"
+		"nickel": "Nickel Grit",
+		"bronze": "Bronze Grit",
+		"magnesium": "Magnesium Grit"
 	  },
 	  "ore.": {
 		"copper": "Copper Ore",
 		"tin": "Tin Ore",
-		"iron": "Iron Ore"
+		"iron": "Iron Ore",
+		"rutile": "Rutile Ore",
+		"magnesium": "Magnesium Ore"
 	  },
 	  "ingot.": {
 		"copper": "Copper Ingot",
 		"tin": "Tin Ingot",
 		"iron": "Iron Ingot",
+		"nickel": "Nickel Ingot",
 		"bronze": "Bronze Ingot",
-		"steel": "Steel Ingot"
+		"steel": "Steel Ingot",
+		"magnesium": "Magnesium Ingot",
+		"impure_titanium": "Impure Titanium Ingot",
+		"titanium": "Titanium Ingot"
 	  },
 	  "pickaxe.": {
 		"bronze": "Bronze Pickaxe",
-		"steel": "Steel Pickaxe"
+		"steel": "Steel Pickaxe",
+		"titanium": "Titanium Pickaxe"
 	  },
 	  "axe.": {
 		"bronze": "Bronze Axe",
-		"steel": "Steel Axe"
+		"steel": "Steel Axe",
+		"titanium": "Titanium Axe"
 	  },
 	  "shovel.": {
 		"bronze": "Bronze Shovel",
-		"steel": "Steel Shovel"
+		"steel": "Steel Shovel",
+		"titanium": "Titanium Shovel"
 	  },
 	  "smelter": "Smelter",
 	  "separator": "Separator",
