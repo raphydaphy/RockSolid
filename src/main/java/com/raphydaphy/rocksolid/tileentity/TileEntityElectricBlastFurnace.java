@@ -58,7 +58,7 @@ public class TileEntityElectricBlastFurnace extends TileEntityElectricFurnace
 						this.output.addAmount(1);
 					}
 
-					this.maxSmeltTime.set((int) ((recipe.time / 4f) / getSpeedModifier())); // speed multiplier
+					this.maxSmeltTime.set((int) ((recipe.time / 5f) / getSpeedModifier())); // speed multiplier
 					this.inventory.remove(0, input.getAmount());
 				}
 			}

@@ -36,7 +36,6 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	public TileEntityPump(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
-		liquidType = null;
 	}
 
 	@Override
@@ -71,7 +70,8 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 
 		if (set.hasKey(KEY_LIQUID_TYPE))
 		{
-			liquidType = (TileLiquid) Registries.TILE_REGISTRY.get(ResourceName.intern(set.getString(KEY_LIQUID_TYPE)));
+			liquidType = (TileLiquid) Registries.TILE_REGISTRY.get(new ResourceName(set.getString(KEY_LIQUID_TYPE)));
+			System.out.println("got out of the shop with a " + liquidType + " from a " + set.getString(KEY_LIQUID_TYPE));
 		}
 	}
 
@@ -102,6 +102,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 						if (world.getTotalTime() % Math.round(80 / getSpeedModifier()) == 0)
 						{
 							this.liquidType = liquidIn;
+							System.out.println("got a brand new spanking " + liquidType);
 							this.liquidVolume.add(25 + Math.round(getBonusYieldModifier()));
 							int topY = y;
 							TileState top = null;
@@ -154,8 +155,8 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	public void onSync()
 	{
 		super.onSync();
-		this.liquidVolume.onSync();;
-		this.energyStored.onSync();;
+		this.liquidVolume.onSync();
+		this.energyStored.onSync();
 	}
 
 	public TileLiquid getLiquidType()
@@ -166,29 +167,6 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 	@Override
 	public boolean addFluid(Pos2 pos, TileLiquid liquid, int ml, boolean simulate)
 	{
-		if (liquid != null)
-		{
-			if (this.liquidType != null && !this.liquidType.equals(liquid))
-			{
-				return false;
-			}
-
-			if (this.liquidVolume.get() + ml >= this.getFluidCapacity(world, pos, this.liquidType))
-			{
-				return false;
-			}
-
-			if (!simulate)
-			{
-				if (this.liquidType == null)
-				{
-					this.liquidType = liquid;
-				}
-				this.liquidVolume.add(ml);
-			}
-
-			return true;
-		}
 		return false;
 	}
 
@@ -213,6 +191,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 
 				if (this.liquidVolume.get() == 0)
 				{
+					System.out.println("and the foundations are now gone, sorry guys");
 					this.liquidType = null;
 				}
 			}

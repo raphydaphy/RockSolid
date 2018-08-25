@@ -58,7 +58,7 @@ public class ElectricBlastFurnaceRenderer extends MultiTileRenderer<TileElectric
 			else
 			{
 				yMax = 12;
-				energy -= 3;
+				energy -= 4;
 			}
 
 			if (energy > 0)

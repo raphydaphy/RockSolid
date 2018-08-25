@@ -123,21 +123,18 @@ public abstract class TileMachineBase<T extends TileEntity> extends MultiTile
 	{
 		super.doPlace(world, x, y, layer, instance, placer);
 		T teUnchecked;
-		if (hasAssemblyProperties && (teUnchecked = getTE(world, world.getState(x, y), x, y)) instanceof TileEntityAssemblyConfigurable)
+		if (!world.isClient() && hasAssemblyProperties && (teUnchecked = getTE(world, world.getState(x, y), x, y)) instanceof TileEntityAssemblyConfigurable)
 		{
-			if (!world.isClient())
-			{
-				TileEntityAssemblyConfigurable te = (TileEntityAssemblyConfigurable)teUnchecked;
-				ModBasedDataSet data = instance.getAdditionalData();
+			TileEntityAssemblyConfigurable te = (TileEntityAssemblyConfigurable)teUnchecked;
+			ModBasedDataSet data = instance.getAdditionalData();
 
-				if (data != null)
-				{
-					te.setCapacityModifier(data.getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY));
-					te.setEfficiencyModifier(data.getFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY));
-					te.setSpeedModifier(data.getFloat(ModUtils.ASSEMBLY_SPEED_KEY));
-					te.setBonusYieldModifier(data.getFloat(ModUtils.ASSEMBLY_BONUS_KEY));
-					te.setThroughputModifier(data.getFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY));
-				}
+			if (data != null)
+			{
+				te.setCapacityModifier(data.getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY));
+				te.setEfficiencyModifier(data.getFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY));
+				te.setSpeedModifier(data.getFloat(ModUtils.ASSEMBLY_SPEED_KEY));
+				te.setBonusYieldModifier(data.getFloat(ModUtils.ASSEMBLY_BONUS_KEY));
+				te.setThroughputModifier(data.getFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY));
 			}
 		}
 	}

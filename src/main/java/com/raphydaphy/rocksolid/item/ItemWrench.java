@@ -30,7 +30,7 @@ public class ItemWrench extends ItemBase
 	}
 
 	@Override
-	protected IItemRenderer<ItemWrench> createRenderer(ResourceName name)
+	protected IItemRenderer createRenderer(ResourceName name)
 	{
 		return new DefaultItemRenderer<ItemWrench>(name)
 		{
