@@ -2,7 +2,11 @@ package com.raphydaphy.rocksolid.gui;
 
 import com.google.common.base.Supplier;
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.gas.Gas;
+import com.raphydaphy.rocksolid.gui.component.ComponentGasBar;
+import com.raphydaphy.rocksolid.gui.component.ComponentLiquidBar;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -32,9 +36,9 @@ public class GuiBoiler extends GuiContainer
 	{
 		super.init(game);
 
-		this.components.add(new ComponentProgressBar(this, 27, 36, 81, 10, Color.gray.getRGB(), false, this.te::getSteamFullness));
+		this.components.add(new ComponentGasBar(this, 27, 36, 81, 10, Color.gray.getRGB(), false, this.te::getSteamFullness, this.te::getSteamVolume, () -> Gas.STEAM));
 
-		this.components.add(new ComponentProgressBar(this, 27, 1, 81, 10, Color.blue.getRGB(), false, this.te::getWaterFullness));
+		this.components.add(new ComponentLiquidBar(this, 27, 1, 81, 10, Color.blue.getRGB(), false, this.te::getWaterFullness, this.te::getWaterVolume, () -> GameContent.TILE_WATER));
 
 		this.components.add(new ComponentProgressBar(this, 75, 16, 8, 16, Color.ORANGE.getRGB(), true, this.te::getFuelPercentage));
 	}

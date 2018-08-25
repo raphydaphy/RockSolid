@@ -1,4 +1,7 @@
 {
+  "rockbottom": {
+	"water": "&jWater&y"
+  },
   "rocksolid": {
 	"layer.": {
 	  "conduit_layer": "Conduit Layer"
@@ -82,7 +85,15 @@
 	},
 	"progress_overlay.": {
 	  "energy_storage": "Storing &9%s kWH&y",
-	  "energy_throughput": "Transferring up to &9%s kWH&y"
+	  "energy_throughput": "Transferring up to &9%s kWH&y",
+	  "gas_storage": "Storing &2%s cc&y of",
+	  "liquid_storage": "Storing &j%s mL &y of",
+	  "empty": "Empty"
+	},
+	"gas.": {
+	  "steam": "&2Steam&y",
+	  "hydrogen": "&8Hydrogen&y",
+	  "oxygen": "&kOxygen&y"
 	}
   }
 }

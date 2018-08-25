@@ -233,4 +233,14 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 	{
 		return true;
 	}
+
+	public int getSteamVolume()
+	{
+		return steam.get();
+	}
+
+	public int getWaterVolume()
+	{
+		return water.get();
+	}
 }

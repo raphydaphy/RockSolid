@@ -131,6 +131,11 @@ public class TileEntityTurbine extends TileEntityAssemblyConfigurable implements
 		return Math.round(2500 * getCapacityModifier());
 	}
 
+	public int getSteamVolume()
+	{
+		return steamVolume.get();
+	}
+
 	@Override
 	public boolean addGas(Pos2 pos, Gas gas, int cc, boolean simulate)
 	{

@@ -57,6 +57,11 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 		return this.energyStored.get();
 	}
 
+	public int getLiquidVolume()
+	{
+		return liquidVolume.get();
+	}
+
 	@Override
 	public void load(DataSet set, boolean forSync)
 	{
