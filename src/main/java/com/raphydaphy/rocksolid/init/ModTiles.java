@@ -16,7 +16,7 @@ public class ModTiles
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
-	public static Tile COKE_OVEN;
+	public static Tile BLAST_FURNACE;
 
 	public static Tile ASSEMBLY_STATION;
 
@@ -42,7 +42,7 @@ public class ModTiles
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);
-		COKE_OVEN = new TileCokeOven().setMaxAmount(1);
+		BLAST_FURNACE = new TileBlastFurnace().setMaxAmount(1);
 
 		ASSEMBLY_STATION = new TileAssemblyStation().setMaxAmount(1);
 

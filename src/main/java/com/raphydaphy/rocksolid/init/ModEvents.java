@@ -36,7 +36,7 @@ public class ModEvents
 							{
 								event.player.getKnowledge().teachRecipe(ironLamp);
 								event.player.getKnowledge().teachRecipe(IRecipe.forName(RockSolid.createRes("bucket")));
-								event.player.getKnowledge().teachRecipe(IRecipe.forName(RockSolid.createRes("coke_oven")));
+								event.player.getKnowledge().teachRecipe(IRecipe.forName(RockSolid.createRes("blast_furnace")));
 								event.player.getKnowledge().teachRecipe(IRecipe.forName(RockSolid.createRes("separator")));
 							}
 						}

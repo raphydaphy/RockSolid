@@ -1,15 +1,11 @@
 package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.init.ModItems;
-import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.IActivatable;
-import com.raphydaphy.rocksolid.util.SlotInfo;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -18,7 +14,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class TileEntityCokeOven extends TileEntity implements IActivatable
+public class TileEntityBlastFurnace extends TileEntity implements IActivatable
 {
 	private static final String KEY_BLAST_PROGRESS = "blast_progress";
 	private final TileInventory inventory = new TileInventory(this, 2, (input) ->
@@ -34,7 +30,7 @@ public class TileEntityCokeOven extends TileEntity implements IActivatable
 	private int blastProgress = 0;
 	private int lastBlastProgress = 0;
 
-	public TileEntityCokeOven(IWorld world, int x, int y, TileLayer layer)
+	public TileEntityBlastFurnace(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
 	}

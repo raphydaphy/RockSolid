@@ -22,7 +22,7 @@
 	  "creative_energy_source": "Creative Energy Source",
 	  "turbine": "Steam Turbine",
 	  "battery": "Battery",
-	  "coke_oven": "Coke Oven",
+	  "blast_furnace": "Blast Furnace",
 	  "assembly_station": "Assembly Station",
 	  "coal_coke": "Coal Coke",
 	  "slag": "Slag",
@@ -66,7 +66,8 @@
 	  "alloy_smelter": "Alloy Smelter",
 	  "electric_furnace": "Electric Furnace",
 	  "electric_separator": "Electric Separator",
-	  "electric_alloy_smelter": "Electric Alloy Smelter"
+	  "electric_alloy_smelter": "Electric Alloy Smelter",
+	  "electric_blast_furnace": "Electric Blast Furnace"
 	},
 	"conduit_mode.": {
 	  "all_inv": "In / Out",

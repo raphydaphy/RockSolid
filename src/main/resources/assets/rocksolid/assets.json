@@ -181,6 +181,27 @@
 		},
 		"item": "/tiles/electric_alloy_smelter/electric_alloy_smelter.png"
 	  },
+	  "electric_blast_furnace.": {
+		"active.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"1.0": [12, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"1.1": [12, 0, 12, 12],
+			"file": "/tiles/electric_blast_furnace/electric_blast_furnace_active.png"
+		  }
+		},
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"1.0": [12, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"1.1": [12, 0, 12, 12],
+			"file": "/tiles/electric_blast_furnace/electric_blast_furnace.png"
+		  }
+		},
+		"item": "/tiles/electric_blast_furnace/electric_blast_furnace.png"
+	  },
 	  "alloy_smelter.": {
 		"active.": {
 		  "subtexture": {
@@ -198,14 +219,14 @@
 		},
 		"item": "/tiles/alloy_smelter/alloy_smelter_item.png"
 	  },
-	  "coke_oven.": {
+	  "blast_furnace.": {
 		"active.": {
 		  "subtexture": {
 			"0.0": [0, 12, 12, 12],
 			"1.0": [12, 12, 12, 12],
 			"0.1": [0, 0, 12, 12],
 			"1.1": [12, 0, 12, 12],
-			"file": "/tiles/coke_oven/coke_oven_active.png"
+			"file": "/tiles/blast_furnace/blast_furnace_active.png"
 		  }
 		},
 		"*.": {
@@ -214,10 +235,10 @@
 			"1.0": [12, 12, 12, 12],
 			"0.1": [0, 0, 12, 12],
 			"1.1": [12, 0, 12, 12],
-			"file": "/tiles/coke_oven/coke_oven.png"
+			"file": "/tiles/blast_furnace/blast_furnace.png"
 		  }
 		},
-		"item": "/tiles/coke_oven/coke_oven_item.png"
+		"item": "/tiles/blast_furnace/blast_furnace_item.png"
 	  },
 	  "turbine.": {
 		"*.": {
