@@ -1,7 +1,8 @@
 package com.raphydaphy.rocksolid.render;
 
 import com.raphydaphy.rocksolid.tile.machine.TileElectricFurnace;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
+import com.raphydaphy.rocksolid.tile.machine.TileMachineBase;
+import com.raphydaphy.rocksolid.tileentity.base.TileEntityElectric;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -13,26 +14,26 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class ElectricFurnaceRenderer extends MultiTileRenderer<TileElectricFurnace>
+public class ElectricSmelterRenderer extends MultiTileRenderer<TileMachineBase<? extends TileEntityElectric>>
 {
-    public ElectricFurnaceRenderer(ResourceName texture, TileElectricFurnace tile)
+    public ElectricSmelterRenderer(ResourceName texture, TileMachineBase<? extends TileEntityElectric> tile)
     {
         super(texture, tile);
 
     }
 
     @Override
-    public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, TileElectricFurnace tile, TileState state)
+    public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, TileMachineBase<? extends TileEntityElectric> tile, TileState state)
     {
         Pos2 innerCoord = tile.getInnerCoord(state);
         return manager.getTexture(this.textures.get(innerCoord));
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileElectricFurnace tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileMachineBase<? extends TileEntityElectric> tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
     {
         Pos2 innerCoord = tile.getInnerCoord(state);
-        TileEntityElectricFurnace te = tile.getTE(world, state, x, y);
+        TileEntityElectric te = tile.getTE(world, state, x, y);
         if (te != null)
         {
             manager.getTexture(this.textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);

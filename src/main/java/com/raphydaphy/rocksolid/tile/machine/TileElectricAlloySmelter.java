@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.tile.machine;
 
-import com.raphydaphy.rocksolid.container.ContainerElectricFurnace;
-import com.raphydaphy.rocksolid.gui.GuiElectricFurnace;
+import com.raphydaphy.rocksolid.container.ContainerElectricAlloySmelter;
+import com.raphydaphy.rocksolid.gui.GuiElectricAlloySmelter;
 import com.raphydaphy.rocksolid.render.ElectricSmelterRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricFurnace;
+import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolType;
@@ -14,11 +14,11 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileElectricFurnace extends TileMachineBase<TileEntityElectricFurnace>
+public class TileElectricAlloySmelter extends TileMachineBase<TileEntityElectricAlloySmelter>
 {
-	public TileElectricFurnace()
+	public TileElectricAlloySmelter()
 	{
-		super("electric_furnace",TileEntityElectricFurnace.class, 20f,true, new ToolInfo(ToolType.PICKAXE, 6));
+		super("electric_alloy_smelter",TileEntityElectricAlloySmelter.class, 20f,true, new ToolInfo(ToolType.PICKAXE, 6));
 	}
 
 	@Override
@@ -48,22 +48,22 @@ public class TileElectricFurnace extends TileMachineBase<TileEntityElectricFurna
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityElectricFurnace te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiElectricFurnace(player, te), new ContainerElectricFurnace(player, te));
+		TileEntityElectricAlloySmelter te = getTE(world, world.getState(x, y), x, y);
+		player.openGuiContainer(new GuiElectricAlloySmelter(player, te), new ContainerElectricAlloySmelter(player, te));
 		return true;
 	}
 
 	@Override
 	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityElectricFurnace(world, x, y, layer);
+		return new TileEntityElectricAlloySmelter(world, x, y, layer);
 	}
 
 	@Override
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
 		TileState state = world.getState(x, y);
-		TileEntityElectricFurnace te = getTE(world, state, x, y);
+		TileEntityElectricAlloySmelter te = getTE(world, state, x, y);
 		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
 		{
 			return 30;

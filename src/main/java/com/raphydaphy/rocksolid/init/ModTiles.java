@@ -28,6 +28,7 @@ public class ModTiles
 
     public static Tile ELECTRIC_FURNACE;
 	public static Tile ELECTRIC_SEPARATOR;
+	public static Tile ELECTRIC_ALLOY_SMELTER;
 
 	public static Tile FLUID_CONDUIT;
 	public static Tile GAS_CONDUIT;
@@ -53,6 +54,7 @@ public class ModTiles
 
 		ELECTRIC_FURNACE = new TileElectricFurnace().setMaxAmount(1);
 		ELECTRIC_SEPARATOR = new TileElectricSeparator().setMaxAmount(1);
+		ELECTRIC_ALLOY_SMELTER = new TileElectricAlloySmelter().setMaxAmount(1);
 
 		FLUID_CONDUIT = new TileFluidConduit().setMaxAmount(25);
 		GAS_CONDUIT = new TileGasConduit().setMaxAmount(25);
