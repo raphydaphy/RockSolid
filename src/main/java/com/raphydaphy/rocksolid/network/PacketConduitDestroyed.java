@@ -1,9 +1,12 @@
 package com.raphydaphy.rocksolid.network;
 
+import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModMisc;
+import com.raphydaphy.rocksolid.item.ItemWrench;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import io.netty.buffer.ByteBuf;
@@ -56,6 +59,12 @@ public class PacketConduitDestroyed implements IPacket
 
 			if (entity instanceof AbstractEntityPlayer)
 			{
+				ItemInstance held = ((AbstractEntityPlayer) entity).getInv().get(((AbstractEntityPlayer) entity).getSelectedSlot());
+				System.out.println(held);
+				if (held != null && held.getItem() == ModItems.WRENCH)
+				{
+					((ItemWrench)held.getItem()).takeDamage(held, (AbstractEntityPlayer)entity, 1);
+				}
 				world.destroyTile(x,y,ModMisc.CONDUIT_LAYER,entity,true);
 			}
 		}

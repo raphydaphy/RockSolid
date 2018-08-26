@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.BasicRecipe;
+import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.entity.AbstractEntityItem;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -27,7 +28,12 @@ public class AssemblyRecipe extends BasicRecipe
 
 	public AssemblyRecipe(float skillReward, ItemInstance output, int baseAmount, int metalAmount, int fuelAmount)
 	{
-		super(output.getItem().getName(), skillReward, output, new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS, baseAmount), new ResUseInfo(ModMisc.RES_ALL_INGOTS, metalAmount), new ResUseInfo(ModMisc.RES_ALL_FUELS, fuelAmount));
+		this(skillReward, new ResUseInfo(ModMisc.RES_ALL_INGOTS, metalAmount), output, baseAmount, metalAmount, fuelAmount);
+	}
+
+	public AssemblyRecipe(float skillReward, IUseInfo metal, ItemInstance output, int baseAmount, int metalAmount, int fuelAmount)
+	{
+		super(output.getItem().getName(), skillReward, output, new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS, baseAmount), metal, new ResUseInfo(ModMisc.RES_ALL_FUELS, fuelAmount));
 		this.output = output;
 	}
 

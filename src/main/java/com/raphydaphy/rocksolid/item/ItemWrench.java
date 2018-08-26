@@ -20,13 +20,14 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import org.lwjgl.glfw.GLFW;
 
-public class ItemWrench extends ItemBase
+import java.util.List;
+
+public class ItemWrench extends ItemDurability
 {
 
 	public ItemWrench()
 	{
-		super("wrench");
-		this.maxAmount = 1;
+		super("wrench", 250);
 	}
 
 	@Override
@@ -57,8 +58,16 @@ public class ItemWrench extends ItemBase
 		{
 			if ( RockBottomAPI.getGame().getInput().isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT))
 			{
-				world.destroyTile(x, y, layer, player, true);
-				RockBottomAPI.getNet().sendToServer(new PacketConduitDestroyed(x, y, player.getUniqueId()));
+				PacketConduitDestroyed packet = new PacketConduitDestroyed(x, y, player.getUniqueId());
+				if (world.isClient())
+				{
+					RockBottomAPI.getNet().sendToServer(packet);
+				}
+				else
+				{
+					packet.handle(RockBottomAPI.getGame(), null);
+				}
+
 			} else
 			{
 				TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
@@ -72,5 +81,4 @@ public class ItemWrench extends ItemBase
 
 		return false;
 	}
-
 }

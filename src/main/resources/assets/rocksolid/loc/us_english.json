@@ -21,11 +21,14 @@
 	  "energy_conduit": "Energy Conduit",
 	  "creative_energy_source": "Creative Energy Source",
 	  "turbine": "Steam Turbine",
+	  "nuclear_reactor": "Nuclear Reactor",
 	  "battery": "Battery",
 	  "blast_furnace": "Blast Furnace",
 	  "assembly_station": "Assembly Station",
 	  "coal_coke": "Coal Coke",
 	  "slag": "Slag",
+	  "uranium_pellet": "Uranium Pellet",
+	  "uranium_rod": "Uranium Fuel Rod",
 	  "cluster.": {
 		"copper": "Copper Cluster",
 		"tin": "Tin Cluster",
@@ -102,12 +105,14 @@
 	  "energy_throughput": "Transferring up to &9%s kWH&y",
 	  "gas_storage": "Storing &2%s cc&y of",
 	  "liquid_storage": "Storing &j%s mL&y of",
+	  "heat_storage": "Internal Temperature at &7%s°C&y",
 	  "empty": "Empty"
 	},
 	"gas.": {
 	  "steam": "&2Steam&y",
 	  "hydrogen": "&8Hydrogen&y",
 	  "oxygen": "&kOxygen&y"
-	}
+	},
+	"reactor_depth": "Rod Depth"
   }
 }

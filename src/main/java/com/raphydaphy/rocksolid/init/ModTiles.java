@@ -31,6 +31,7 @@ public class ModTiles
 	public static Tile PUMP;
 	public static Tile CREATIVE_ENERGY_SOURCE;
 	public static Tile TURBINE;
+	public static Tile NUCLEAR_REACTOR;
 	public static Tile BATTERY;
 
     public static Tile ELECTRIC_FURNACE;
@@ -67,6 +68,7 @@ public class ModTiles
 		PUMP = new TilePump().setMaxAmount(1);
 		CREATIVE_ENERGY_SOURCE = new TileCreativeEnergySource().setMaxAmount(1);
 		TURBINE = new TileTurbine().setMaxAmount(1);
+		NUCLEAR_REACTOR = new TileNuclearReactor().setMaxAmount(1);
 		BATTERY = new TileBattery().setMaxAmount(1);
 
 		ELECTRIC_FURNACE = new TileElectricFurnace().setMaxAmount(1);

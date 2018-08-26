@@ -14,7 +14,7 @@ public class ComponentCustomText extends GuiComponent
 {
 
 	private final float scale;
-	private final String[] text;
+	private String[] text;
 	private final TextDirection direction;
 
 	public ComponentCustomText(Gui gui, int x, int y, int width, int height, float scale, TextDirection direction, String... text){
@@ -22,6 +22,11 @@ public class ComponentCustomText extends GuiComponent
         this.scale = scale;
         this.direction = direction;
         this.text = text;
+    }
+
+    public void setText(String... text)
+    {
+    	this.text = text;
     }
 
 	@Override

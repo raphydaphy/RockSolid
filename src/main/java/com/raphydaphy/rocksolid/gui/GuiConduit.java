@@ -63,66 +63,58 @@ public class GuiConduit extends GuiContainer
 		this.components.add(new ComponentCustomText(this, 103, 31, 50, 1, 0.3f, TextDirection.CENTER,
 				mode == null ? "NULL" : RockBottomAPI.getGame().getAssetManager().localize(mode.name)));
 
-		this.components.add(new ComponentButton(this, 124, 26, 10, 10, new Supplier<Boolean>()
+		this.components.add(new ComponentButton(this, 124, 26, 10, 10, (Supplier<Boolean>) () ->
 		{
-			@Override
-			public Boolean get()
+			if (mode != null)
 			{
-				if (mode != null)
+				List<ConduitMode> all;
+				if (mode.isConduit())
 				{
-					List<ConduitMode> all;
-					if (mode.isConduit())
-					{
-						all = ConduitMode.getConduitModes();
-					} else
-					{
-						all = ConduitMode.getInvModes();
-					}
-					int index = all.indexOf(mode);
-					if (index + 1 < all.size())
-					{
-						mode = all.get(index + 1);
-					} else
-					{
-						mode = all.get(0);
-					}
-					components.clear();
-					init(game);
-					return true;
+					all = ConduitMode.getConduitModes();
+				} else
+				{
+					all = ConduitMode.getInvModes();
 				}
-				return false;
+				int index = all.indexOf(mode);
+				if (index + 1 < all.size())
+				{
+					mode = all.get(index + 1);
+				} else
+				{
+					mode = all.get(0);
+				}
+				components.clear();
+				init(game);
+				return true;
 			}
+			return false;
 		}, ">"));
-		this.components.add(new ComponentButton(this, 73, 26, 10, 10, new Supplier<Boolean>()
+		this.components.add(new ComponentButton(this, 73, 26, 10, 10, (Supplier<Boolean>) () ->
 		{
-			@Override
-			public Boolean get()
+			if (mode != null)
 			{
-				if (mode != null)
-				{
 
-					List<ConduitMode> all;
-					if (mode.isConduit())
-					{
-						all = ConduitMode.getConduitModes();
-					} else
-					{
-						all = ConduitMode.getInvModes();
-					}
-					int index = all.indexOf(mode);
-					if (index - 1 >= 0)
-					{
-						mode = all.get(index - 1);
-					} else
-					{
-						mode = all.get(all.size() - 1);
-					}
-					components.clear();
-					init(game);
-					return true;
+				List<ConduitMode> all;
+				if (mode.isConduit())
+				{
+					all = ConduitMode.getConduitModes();
+				} else
+				{
+					all = ConduitMode.getInvModes();
 				}
-				return false;
+				int index = all.indexOf(mode);
+				if (index - 1 >= 0)
+				{
+					mode = all.get(index - 1);
+				} else
+				{
+					mode = all.get(all.size() - 1);
+				}
+				components.clear();
+				init(game);
+				return true;
 			}
+			return false;
 		}, "<"));
 	}
 

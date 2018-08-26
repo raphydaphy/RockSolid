@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.init;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.item.ItemBase;
 import com.raphydaphy.rocksolid.item.ItemBucket;
+import com.raphydaphy.rocksolid.item.ItemDurability;
 import com.raphydaphy.rocksolid.item.ItemWrench;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -53,6 +54,8 @@ public class ModItems
 
 	public static Item COKE;
 	public static Item SLAG;
+	public static Item URANIUM_PELLET;
+	public static Item URANIUM_ROD;
 
 	public static String RES_TIN_RAW;
 	public static String RES_IRON_RAW;
@@ -121,6 +124,8 @@ public class ModItems
 
 		COKE = new ItemBase("coal_coke").setMaxAmount(45);
 		SLAG = new ItemBase("slag").setMaxAmount(45);
+		URANIUM_PELLET = new ItemBase("uranium_pellet").setMaxAmount(25);
+		URANIUM_ROD = new ItemDurability("uranium_rod", 125);
 
 		RES_TIN_RAW = res().addResources("tin_raw", TIN_CLUSTER);
 		RES_IRON_RAW = res().addResources("iron_raw", IRON_CLUSTER);

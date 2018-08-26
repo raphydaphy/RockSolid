@@ -76,7 +76,7 @@ public class TileEntityBlastFurnace extends TileEntity implements IActivatable
 					{
 						if (this.inventory.get(1).getItem().equals(ModItems.COKE) && this.inventory.get(1).getAmount() < this.inventory.get(1).getMaxAmount())
 						{
-							this.inventory.get(1).addAmount(1);
+							this.inventory.add(1, 1);
 							did = true;
 						}
 					} else
