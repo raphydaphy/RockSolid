@@ -1,13 +1,9 @@
 package com.raphydaphy.rocksolid.container.slot;
 
-import com.google.common.base.Predicate;
 import com.raphydaphy.rocksolid.gui.component.ComponentAssemblySlot;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
 import de.ellpeck.rockbottom.api.gui.component.ComponentSlot;
-import de.ellpeck.rockbottom.api.gui.container.ContainerSlot;
 import de.ellpeck.rockbottom.api.gui.container.RestrictedInputSlot;
-import de.ellpeck.rockbottom.api.inventory.IInventory;
-import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 
 public class AssemblySlot extends RestrictedInputSlot

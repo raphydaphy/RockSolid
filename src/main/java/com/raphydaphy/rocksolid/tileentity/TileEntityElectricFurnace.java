@@ -78,13 +78,13 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 	protected void getRecipeAndStart()
 	{
 		ItemInstance item;
-		SmeltingRecipe recipe;
-		if ((item = this.getTileInventory().get(0)) != null && (recipe = SmeltingRecipe.forInput(item)) != null)
+		SmeltingRecipe smeltingRecipe;
+		if ((item = this.getTileInventory().get(0)) != null && (smeltingRecipe = SmeltingRecipe.forInput(item)) != null)
 		{
-			IUseInfo input = recipe.getInput();
+			IUseInfo input = smeltingRecipe.getInput();
 			if (item.getAmount() >= input.getAmount())
 			{
-				item = recipe.getOutput();
+				item = smeltingRecipe.getOutput();
 				ItemInstance curOutputSlot;
 				if (((curOutputSlot = this.getTileInventory().get(1)) == null || curOutputSlot.isEffectivelyEqual(item) && curOutputSlot.fitsAmount(item.getAmount())))
 				{
@@ -96,7 +96,7 @@ public class TileEntityElectricFurnace extends TileEntityElectric
 						this.output.addAmount(1);
 					}
 
-					this.maxSmeltTime.set((int)((recipe.getTime() / 2.5f) / getSpeedModifier())); // speed multiplier
+					this.maxSmeltTime.set((int) ((smeltingRecipe.getTime() / 2.5f) / getSpeedModifier())); // speed multiplier
 					this.getTileInventory().remove(0, input.getAmount());
 				}
 			}
