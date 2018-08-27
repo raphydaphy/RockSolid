@@ -25,6 +25,7 @@ public class AssemblyRecipe extends BasicRecipe
 	private boolean throughput = true;
 
 	private ItemInstance output;
+	private IUseInfo metal;
 
 	public AssemblyRecipe(float skillReward, ItemInstance output, int baseAmount, int metalAmount, int fuelAmount)
 	{
@@ -35,6 +36,12 @@ public class AssemblyRecipe extends BasicRecipe
 	{
 		super(output.getItem().getName(), skillReward, output, new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS, baseAmount), metal, new ResUseInfo(ModMisc.RES_ALL_FUELS, fuelAmount));
 		this.output = output;
+		this.metal = metal;
+	}
+
+	public IUseInfo getMetal()
+	{
+		return this.metal;
 	}
 
 	public AssemblyRecipe registerAssembly()

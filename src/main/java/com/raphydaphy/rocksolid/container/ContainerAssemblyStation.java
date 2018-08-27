@@ -11,6 +11,8 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 public class ContainerAssemblyStation extends ItemContainer
 {
 	public final TileEntityAssemblyStation te;
+	public final AssemblySlot metalSlot;
+
 	public ContainerAssemblyStation(AbstractEntityPlayer player, TileEntityAssemblyStation tile)
 	{
 		super(player);
@@ -18,7 +20,8 @@ public class ContainerAssemblyStation extends ItemContainer
 
 		IFilteredInventory inv = tile.getInvHidden();
 		this.addSlot(new AssemblySlot(inv, 0, 34, 69));
-		this.addSlot(new AssemblySlot(inv, 1, 34 + 18, 69));
+		this.metalSlot = new AssemblySlot(inv, 1, 34 + 18, 69);
+		this.addSlot(metalSlot);
 		this.addSlot(new AssemblySlot(inv, 2, 34 + 18 * 2, 69));
 		this.te = tile;
 	}

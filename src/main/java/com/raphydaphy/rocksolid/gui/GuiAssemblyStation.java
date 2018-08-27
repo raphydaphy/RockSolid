@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.gui;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.container.ContainerAssemblyStation;
 import com.raphydaphy.rocksolid.gui.component.ComponentAssemblyIngredient;
 import com.raphydaphy.rocksolid.gui.component.ComponentAssemblyPolaroid;
 import com.raphydaphy.rocksolid.init.ModRecipes;
@@ -27,8 +28,9 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class GuiAssemblyStation extends GuiContainer
@@ -334,6 +336,9 @@ public class GuiAssemblyStation extends GuiContainer
 		}
 
 		this.components.addAll(stats);
+
+
+		((ContainerAssemblyStation) this.getContainer()).metalSlot.setMetal(this.recipe.getMetal());
 	}
 
 	private boolean nextRecipe(IGameInstance game, boolean left)

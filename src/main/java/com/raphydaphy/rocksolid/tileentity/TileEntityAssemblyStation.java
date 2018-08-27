@@ -13,7 +13,6 @@ import java.util.Collections;
 
 public class TileEntityAssemblyStation extends TileEntity
 {
-	private static final String KEY_RECIPE = "recipe";
 	private final TileInventory inventory = new TileInventory(this, 3, (input) ->
 	{
 		ArrayList<Integer> avalableSlots = new ArrayList<>(3);
