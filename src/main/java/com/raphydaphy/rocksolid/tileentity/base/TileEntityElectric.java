@@ -4,13 +4,12 @@ import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public abstract class TileEntityElectric extends TileEntityAssemblyConfigurable implements IEnergyTile
+public abstract class TileEntityElectric extends TileEntityAssemblyConfigurable implements IEnergyTile, IActivatable
 {
 	protected final SyncedInt smeltTime = new SyncedInt("smelt_time");
 	protected final SyncedInt maxSmeltTime = new SyncedInt("max_smelt_time");
@@ -147,6 +146,7 @@ public abstract class TileEntityElectric extends TileEntityAssemblyConfigurable 
 		world.causeLightUpdate(this.x, this.y);
 	}
 
+	@Override
 	public boolean isActive()
 	{
 		return this.smeltTime.get() > 0;

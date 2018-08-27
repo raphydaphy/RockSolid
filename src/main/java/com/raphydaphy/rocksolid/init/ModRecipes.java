@@ -1,10 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
-import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
-import com.raphydaphy.rocksolid.recipe.BlastingRecipe;
-import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
+import com.raphydaphy.rocksolid.recipe.*;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
@@ -30,6 +27,8 @@ public class ModRecipes
 		new BlastingRecipe(GameContent.RES_COAL, ModItems.COKE, 5000).register();
 		new BlastingRecipe(ModTiles.RES_TITANIUM_RAW, ModItems.IMPURE_TITANIUM_INGOT, 2500).register();
 
+		new CompressingRecipe(ModItems.RES_URANIUM_PROCESSED, ModItems.URANIUM_PELLET, 300).register();
+
 		new AssemblyRecipe(0.8f, new ItemInstance(ModTiles.BOILER), 55, 8, 12).disableEfficiency().disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TURBINE),49, 5, 6).disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_TITANIUM_PROCESSED), new ItemInstance(ModTiles.NUCLEAR_REACTOR),75, 15, 10).disableThroughput().registerAssembly();
@@ -38,6 +37,7 @@ public class ModRecipes
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_SEPARATOR), 45, 7, 15).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_ALLOY_SMELTER), 35, 9, 10).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_BLAST_FURNACE), 50, 8, 20).registerAssembly();
+		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_COMPRESSOR), 70, 6, 8).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.PUMP),40, 4, 8).disableEfficiency().registerAssembly();
 	}
 }

@@ -30,10 +30,10 @@
 	  "uranium_pellet": "Uranium Pellet",
 	  "uranium_rod": "Uranium Fuel Rod",
 	  "cluster.": {
-		"copper": "Copper Cluster",
 		"tin": "Tin Cluster",
 		"iron": "Iron Cluster",
-		"magnesium": "Magnesium Cluster"
+		"magnesium": "Magnesium Cluster",
+		"uranium": "Uranium Cluster"
 	  },
 	  "grit.": {
 		"copper": "Copper Grit",
@@ -41,17 +41,17 @@
 		"iron": "Iron Grit",
 		"nickel": "Nickel Grit",
 		"bronze": "Bronze Grit",
-		"magnesium": "Magnesium Grit"
+		"magnesium": "Magnesium Grit",
+		"uranium": "Uranium Grit"
 	  },
 	  "ore.": {
-		"copper": "Copper Ore",
 		"tin": "Tin Ore",
 		"iron": "Iron Ore",
 		"rutile": "Rutile Ore",
-		"magnesium": "Magnesium Ore"
+		"magnesium": "Magnesium Ore",
+		"uranium": "Uranium Ore"
 	  },
 	  "ingot.": {
-		"copper": "Copper Ingot",
 		"tin": "Tin Ingot",
 		"iron": "Iron Ingot",
 		"nickel": "Nickel Ingot",
@@ -59,7 +59,8 @@
 		"steel": "Steel Ingot",
 		"magnesium": "Magnesium Ingot",
 		"impure_titanium": "Impure Titanium Ingot",
-		"titanium": "Titanium Ingot"
+		"titanium": "Titanium Ingot",
+		"uranium": "Uranium Ingot"
 	  },
 	  "pickaxe.": {
 		"bronze": "Bronze Pickaxe",
@@ -82,7 +83,8 @@
 	  "electric_furnace": "Electric Furnace",
 	  "electric_separator": "Electric Separator",
 	  "electric_alloy_smelter": "Electric Alloy Smelter",
-	  "electric_blast_furnace": "Electric Blast Furnace"
+	  "electric_blast_furnace": "Electric Blast Furnace",
+	  "electric_compressor": "Electric Compressor"
 	},
 	"conduit_mode.": {
 	  "all_inv": "In / Out",

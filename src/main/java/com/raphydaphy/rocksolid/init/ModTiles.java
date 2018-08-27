@@ -20,6 +20,7 @@ public class ModTiles
 	public static Tile IRON_ORE;
 	public static Tile RUTILE_ORE;
 	public static Tile MAGNESIUM_ORE;
+	public static Tile URANIUM_ORE;
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
@@ -38,6 +39,7 @@ public class ModTiles
 	public static Tile ELECTRIC_SEPARATOR;
 	public static Tile ELECTRIC_ALLOY_SMELTER;
 	public static Tile ELECTRIC_BLAST_FURNACE;
+	public static Tile ELECTRIC_COMPRESSOR;
 
 	public static Tile FLUID_CONDUIT;
 	public static Tile GAS_CONDUIT;
@@ -57,6 +59,7 @@ public class ModTiles
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
 		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);
 		RUTILE_ORE = new TileBasic(RockSolid.createRes("ore.rutile")).setHardness(18f).addEffectiveTool(ToolType.PICKAXE, 19).register().setMaxAmount(15);
+		URANIUM_ORE = new TileOre("ore.uranium", 15f, 25, ModItems.URANIUM_CLUSTER);
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);
@@ -75,7 +78,8 @@ public class ModTiles
 		ELECTRIC_SEPARATOR = new TileElectricSeparator().setMaxAmount(1);
 		ELECTRIC_ALLOY_SMELTER = new TileElectricAlloySmelter().setMaxAmount(1);
 		ELECTRIC_BLAST_FURNACE = new TileElectricBlastFurnace().setMaxAmount(1);
-
+		ELECTRIC_COMPRESSOR = new TileElectricCompressor().setMaxAmount(1);
+		
 		FLUID_CONDUIT = new TileFluidConduit().setMaxAmount(25);
 		GAS_CONDUIT = new TileGasConduit().setMaxAmount(25);
 		ENERGY_CONDUIT = new TileEnergyConduit().setMaxAmount(25);

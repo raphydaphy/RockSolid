@@ -6,10 +6,7 @@ import com.raphydaphy.rocksolid.network.PacketConduitDestroyed;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
 import com.raphydaphy.rocksolid.network.PacketReactorDepth;
 import com.raphydaphy.rocksolid.util.ConduitTileLayer;
-import com.raphydaphy.rocksolid.world.WorldGenIron;
-import com.raphydaphy.rocksolid.world.WorldGenMagnesium;
-import com.raphydaphy.rocksolid.world.WorldGenRutile;
-import com.raphydaphy.rocksolid.world.WorldGenTin;
+import com.raphydaphy.rocksolid.world.*;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -40,6 +37,7 @@ public class ModMisc
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_iron"), WorldGenIron.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_magnesium"), WorldGenMagnesium.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_rutile"), WorldGenRutile.class);
+		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_uranium"), WorldGenUranium.class);
 
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
