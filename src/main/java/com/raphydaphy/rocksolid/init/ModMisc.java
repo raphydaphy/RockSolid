@@ -1,10 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.network.PacketAssemblyConstruct;
-import com.raphydaphy.rocksolid.network.PacketConduitDestroyed;
-import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
-import com.raphydaphy.rocksolid.network.PacketReactorDepth;
+import com.raphydaphy.rocksolid.network.*;
 import com.raphydaphy.rocksolid.util.ConduitTileLayer;
 import com.raphydaphy.rocksolid.world.*;
 import de.ellpeck.rockbottom.api.GameContent;
@@ -43,6 +40,7 @@ public class ModMisc
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketAssemblyConstruct.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketReactorDepth.class);
+		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketAssemblyRecipeChanged.class);
 
 		new FuelInput(new ItemUseInfo(new ItemInstance(ModItems.COKE)), 3600).register();
 

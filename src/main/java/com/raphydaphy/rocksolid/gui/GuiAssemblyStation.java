@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.gui.component.ComponentAssemblyIngredient;
 import com.raphydaphy.rocksolid.gui.component.ComponentAssemblyPolaroid;
 import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.network.PacketAssemblyConstruct;
+import com.raphydaphy.rocksolid.network.PacketAssemblyRecipeChanged;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import com.raphydaphy.rocksolid.util.ModUtils;
@@ -25,6 +26,7 @@ import de.ellpeck.rockbottom.api.gui.component.construction.ComponentConstruct;
 import de.ellpeck.rockbottom.api.inventory.IInventory;
 import de.ellpeck.rockbottom.api.inventory.Inventory;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
@@ -337,7 +339,14 @@ public class GuiAssemblyStation extends GuiContainer
 
 		this.components.addAll(stats);
 
-
+		IPacket updatePacket = new PacketAssemblyRecipeChanged(player.getUniqueId(), recipe.getName());
+		if (RockBottomAPI.getGame().getWorld().isClient())
+		{
+			RockBottomAPI.getNet().sendToServer(updatePacket);
+		} else
+		{
+			updatePacket.handle(RockBottomAPI.getGame(), null);
+		}
 		((ContainerAssemblyStation) this.getContainer()).metalSlot.setMetal(this.recipe.getMetal());
 	}
 
