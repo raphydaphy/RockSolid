@@ -58,7 +58,10 @@ public class PacketReactorDepth implements IPacket
 			TileEntityNuclearReactor reactor = ((TileNuclearReactor)ModTiles.NUCLEAR_REACTOR).getTE(world, world.getState(x, y), x, y);
 			if (reactor != null)
 			{
-				reactor.setDepth(depth);
+				if (depth <= 100 && depth > 0)
+				{
+					reactor.setDepth(depth);
+				}
 			}
 		}
 	}

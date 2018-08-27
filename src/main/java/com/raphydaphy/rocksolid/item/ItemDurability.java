@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ItemDurability extends ItemBase
 {
-	private final int durability;
+	protected final int durability;
 
 	public ItemDurability(String name, int durability)
 	{

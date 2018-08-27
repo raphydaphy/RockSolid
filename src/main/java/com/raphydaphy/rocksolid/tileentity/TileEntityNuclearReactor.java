@@ -2,18 +2,17 @@ package com.raphydaphy.rocksolid.tileentity;
 
 import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.init.ModItems;
-import com.raphydaphy.rocksolid.item.ItemDurability;
 import com.raphydaphy.rocksolid.tileentity.base.IActivatable;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
 import de.ellpeck.rockbottom.api.tile.entity.TileInventory;
 import de.ellpeck.rockbottom.api.util.Pos2;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
@@ -38,6 +37,10 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	public TileEntityNuclearReactor(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
+		if (depth.get() == 0)
+		{
+			depth.set(1);
+		}
 	}
 
 	@Override
@@ -87,25 +90,62 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	public void update(IGameInstance game)
 	{
 		super.update(game);
-		int production = Math.round(10 * getEfficiencyModifier() + getBonusYieldModifier());
-		if (isActive() && this.energyStored.get() + production < getEnergyCapacity(world, null))
+		if (this.energyStored.get() < getEnergyCapacity(world, null))
 		{
 			if (!world.isClient())
 			{
 				if (world.getTotalTime() % (12 / getSpeedModifier()) == 0)
 				{
-					if (this.heat.get() + 5 < getHeatCapacity())
+					int rods = 0;
+					for (int slot = 0; slot < 4; slot++)
 					{
-						this.heat.add(5);
+						if (this.inventory.get(slot) != null)
+						{
+							float capacityMod = this.inventory.get(slot).getOrCreateAdditionalData().getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY);
+							if (capacityMod == 0)
+							{
+								this.inventory.get(slot).getAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, 1);
+								this.inventory.notifyChange(slot);
+							}
+							float heatFullness = 1 - getHeatFullness();
+							if (heatFullness > 0)
+							{
+								int bound = Math.round((50 * capacityMod) / (getHeatFullness() * 2f));
+								System.out.println(bound);
+								if (bound > 0 && Util.RANDOM.nextInt(bound) == 0)
+								{
+									damageRod(slot, 1);
+								}
+							}
+							rods++;
+						}
 					}
-					else
+					if (rods > 0)
 					{
-						damageRod(0, 5);
-						damageRod(1, 5);
-						damageRod(2, 5);
-						damageRod(3, 5);
+						int rodsSq =  Math.round(rods * rods) * depth.get();
+						int production = Math.round(rods * depth.get() * getEfficiencyModifier() + getBonusYieldModifier());
+						if (this.heat.get() + rodsSq <= getHeatCapacity())
+						{
+							this.heat.add(rodsSq);
+						} else
+						{
+							damageRod(0, rods);
+							damageRod(1, rods);
+							damageRod(2, rods);
+							damageRod(3, rods);
+							production = Math.round(rodsSq * getEfficiencyModifier() + getBonusYieldModifier());
+							this.heat.set(getHeatCapacity());
+						}
+
+						if (this.energyStored.get() + production < this.getEnergyCapacity(world, null))
+						{
+							this.energyStored.add(production);
+						}
+						else
+						{
+							this.energyStored.set(getEnergyCapacity(world, null));
+						}
 					}
-					this.energyStored.add(production);
 				}
 			}
 		}

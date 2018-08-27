@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.render.NuclearReactorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -53,6 +54,11 @@ public class TileNuclearReactor extends TileMachineBase<TileEntityNuclearReactor
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
+		ItemInstance held = player.getInv().get(player.getSelectedSlot());
+		if (held != null)
+		{
+
+		}
 		TileEntityNuclearReactor te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiNuclearReactor(player, te), new ContainerNuclearReactor(player, te));
 		return true;

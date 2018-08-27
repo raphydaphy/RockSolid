@@ -66,7 +66,7 @@ public class GuiNuclearReactor extends GuiContainer
 		}, "+"));
 		this.components.add(new ComponentButton(this, depthTextX, depthTextY, 10, 10,(Supplier<Boolean>) () ->
 		{
-			if (te.getDepth() > 0)
+			if (te.getDepth() > 1)
 			{
 				IPacket updatePacket = new PacketReactorDepth(te.x, te.y, te.getDepth() - 1);
 				if (game.getWorld().isClient())
