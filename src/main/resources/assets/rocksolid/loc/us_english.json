@@ -117,6 +117,6 @@
 	  "hydrogen": "&8Hydrogen&y",
 	  "oxygen": "&kOxygen&y"
 	},
-	"reactor_depth": "Rod Depth"
+	"reactor_tempshift_plates": "%s Tempshift Plates Installed"
   }
 }

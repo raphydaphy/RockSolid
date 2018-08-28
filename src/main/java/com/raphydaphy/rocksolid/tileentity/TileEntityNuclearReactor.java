@@ -34,15 +34,20 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	private int newHeat;
 	private SyncedInt heat = new SyncedInt("heat");
 	private SyncedInt energyStored = new SyncedInt("energy_stored");
-	private SyncedInt depth = new SyncedInt("rod_depth");
+	private SyncedInt tempshiftPlates = new SyncedInt("tempshift_plates");
 
 	public TileEntityNuclearReactor(IWorld world, int x, int y, TileLayer layer)
 	{
 		super(world, x, y, layer);
-		if (depth.get() == 0)
+		if (heat.get() < getMinHeat())
 		{
-			depth.set(1);
+			heat.set(getMinHeat());
 		}
+	}
+
+	private int getMinHeat()
+	{
+		return 60;
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		super.save(set, forSync);
 		heat.save(set);
 		energyStored.save(set);
-		depth.save(set);
+		tempshiftPlates.save(set);
 		inventory.save(set);
 		set.addInt(NEW_HEAT_KEY, newHeat);
 	}
@@ -68,21 +73,19 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		super.load(set, forSync);
 		heat.load(set);
 		energyStored.load(set);
-		depth.load(set);
+		tempshiftPlates.load(set);
 		inventory.load(set);
 		newHeat = set.getInt(NEW_HEAT_KEY);
-
 	}
 
-	public void setDepth(int depth)
+	public void addTempshiftPlate(int amount)
 	{
-		this.depth.set(depth);
-		world.setDirty(x, y);
+		this.tempshiftPlates.add(amount);
 	}
 
-	public int getDepth()
+	public int getTempshiftPlates()
 	{
-		return this.depth.get();
+		return this.tempshiftPlates.get();
 	}
 
 	@Override
@@ -131,38 +134,46 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 						rods++;
 					}
 				}
+				if (tempshiftPlates.get() > 0)
+				{
+					// TODO: materials of tempshift plate should make a difference
+					if (world.getTotalTime() % getTickInterval() == 0)
+					{
+						for (int plate = 0; plate < tempshiftPlates.get(); plate++)
+						{
+							int toRemove = Math.min(getHeat(), Math.round(6 * getThroughputModifier()));
+							newHeat -= toRemove;
+						}
+					}
+				}
 				if (rods > 0)
 				{
 					int rlNewHeat = (rods * (rods + 1) * 2) * rods;
-					int production = Math.max(Math.round(rods * (depth.get() / 10f) * getEfficiencyModifier() + getBonusYieldModifier()), 1);
+					int production = Math.round(rods * 5 * rods * getEfficiencyModifier() + getBonusYieldModifier());
 
 					if (world.getTotalTime() % getTickInterval() == 0)
 					{
 						if (this.heat.get() + newHeat <= getHeatCapacity())
 						{
-							if (this.heat.get() + newHeat < 0)
+							if (this.heat.get() + newHeat < getMinHeat())
 							{
-								this.heat.set(0);
-							}
-							else
+								this.heat.set(getMinHeat());
+							} else
 							{
 								this.heat.add(newHeat);
 							}
-						}
-						else
+						} else
 						{
 							this.heat.set(getHeatCapacity());
 						}
 					}
-					if (this.heat.get() + rlNewHeat <= getHeatCapacity())
+
+					if (world.getTotalTime() % getTickInterval() == 0)
 					{
-						if (world.getTotalTime() % getTickInterval() == 0)
+						if (this.heat.get() + rlNewHeat <= getHeatCapacity())
 						{
 							newHeat = rlNewHeat;
-						}
-					} else
-					{
-						if (world.getTotalTime() % getTickInterval() == 0)
+						} else
 						{
 							damageRod(0, rods);
 							damageRod(1, rods);
@@ -170,14 +181,17 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 							damageRod(3, rods);
 							newHeat = getHeatCapacity() - this.heat.get();
 						}
-						production = Math.round(rlNewHeat * getEfficiencyModifier() + getBonusYieldModifier());
 					}
-					if (this.energyStored.get() + production < this.getEnergyCapacity(world, null))
+
+					if (world.getTotalTime() % (Math.round(getTickInterval() / 3)) == 0)
 					{
-						this.energyStored.add(production);
-					} else
-					{
-						this.energyStored.set(getEnergyCapacity(world, null));
+						if (this.energyStored.get() + production < this.getEnergyCapacity(world, null))
+						{
+							this.energyStored.add(production);
+						} else
+						{
+							this.energyStored.set(getEnergyCapacity(world, null));
+						}
 					}
 				}
 			}
@@ -204,7 +218,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	@Override
 	protected boolean needsSync()
 	{
-		return heat.needsSync() || energyStored.needsSync() || depth.needsSync();
+		return heat.needsSync() || energyStored.needsSync() || tempshiftPlates.needsSync();
 	}
 
 	@Override
@@ -213,12 +227,12 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		super.onSync();
 		heat.onSync();
 		energyStored.onSync();
-		depth.onSync();
+		tempshiftPlates.onSync();
 	}
 
 	public float getHeatFullness()
 	{
-		return (float) this.heat.get() / (float)getHeatCapacity();
+		return ((float) this.heat.get() - 50) / ((float)getHeatCapacity() - 50);
 	}
 
 	public float getEnergyFullness()

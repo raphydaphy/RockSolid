@@ -1,33 +1,24 @@
 package com.raphydaphy.rocksolid.gui;
 
-import com.google.common.base.Supplier;
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.gas.Gas;
 import com.raphydaphy.rocksolid.gui.component.ComponentCustomText;
 import com.raphydaphy.rocksolid.gui.component.ComponentEnergyBar;
-import com.raphydaphy.rocksolid.gui.component.ComponentGasBar;
 import com.raphydaphy.rocksolid.gui.component.ComponentHeatBar;
-import com.raphydaphy.rocksolid.network.PacketReactorDepth;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
-import com.raphydaphy.rocksolid.tileentity.TileEntityTurbine;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
-import de.ellpeck.rockbottom.api.gui.component.ComponentButton;
-import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.awt.*;
-import java.util.List;
 
 public class GuiNuclearReactor extends GuiContainer
 {
 	private final TileEntityNuclearReactor te;
-	private int lastDepth;
-	private ComponentCustomText depthText;
-	private final ResourceName DEPTH = RockSolid.createRes("reactor_depth");
+	private int lastTempshiftPlates;
+	private ComponentCustomText tempshiftPlateText;
+	private final ResourceName TEMPSHIFT_PLATES = RockSolid.createRes("reactor_tempshift_plates");
 
 	public GuiNuclearReactor(AbstractEntityPlayer player, TileEntityNuclearReactor te)
 	{
@@ -40,46 +31,10 @@ public class GuiNuclearReactor extends GuiContainer
 	{
 		super.init(game);
 
-		int depthTextX = 24;
-		int depthTextY = 0;
-
-		lastDepth = te.getDepth();
-		depthText = new ComponentCustomText(this, depthTextX + 43, depthTextY + 5, 80, 1, 0.3f, ComponentCustomText.TextDirection.CENTER,
-				lastDepth + " " + game.getAssetManager().localize(DEPTH));
-		this.components.add(depthText);
-
-		this.components.add(new ComponentButton(this, depthTextX + 77, depthTextY, 10, 10, (Supplier<Boolean>) () ->
-		{
-			if (te.getDepth() < 100)
-			{
-				IPacket updatePacket = new PacketReactorDepth(te.x, te.y, te.getDepth() + 1);
-				if (game.getWorld().isClient())
-				{
-					RockBottomAPI.getNet().sendToServer(updatePacket);
-				} else
-				{
-					updatePacket.handle(game, null);
-				}
-				return true;
-			}
-			return false;
-		}, "+"));
-		this.components.add(new ComponentButton(this, depthTextX, depthTextY, 10, 10,(Supplier<Boolean>) () ->
-		{
-			if (te.getDepth() > 1)
-			{
-				IPacket updatePacket = new PacketReactorDepth(te.x, te.y, te.getDepth() - 1);
-				if (game.getWorld().isClient())
-				{
-					RockBottomAPI.getNet().sendToServer(updatePacket);
-				} else
-				{
-					updatePacket.handle(game, null);
-				}
-				return true;
-			}
-			return false;
-		}, "-"));
+		lastTempshiftPlates = te.getTempshiftPlates();
+		tempshiftPlateText = new ComponentCustomText(this, 24 + 43, 5, 80, 1, 0.3f, ComponentCustomText.TextDirection.CENTER,
+				game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
+		this.components.add(tempshiftPlateText);
 
 		this.components.add(new ComponentEnergyBar(this, 27, 50, 81, 10, ModUtils.ENERGY, false, this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
 
@@ -95,10 +50,10 @@ public class GuiNuclearReactor extends GuiContainer
 	@Override
 	public void update(IGameInstance game)
 	{
-		if (te.getDepth() != lastDepth)
+		if (te.getTempshiftPlates() != lastTempshiftPlates)
 		{
-			lastDepth = te.getDepth();
-			depthText.setText(lastDepth + " " + game.getAssetManager().localize(DEPTH));
+			lastTempshiftPlates = te.getTempshiftPlates();
+			tempshiftPlateText.setText(game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
 		}
 	}
 

@@ -3,7 +3,8 @@ package com.raphydaphy.rocksolid.tile;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.render.TempshiftPlateRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityTempshiftPlate;
+import com.raphydaphy.rocksolid.tile.machine.TileNuclearReactor;
+import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -11,7 +12,6 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ItemTile;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.tile.Tile;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -99,15 +99,33 @@ public class TileTempshiftPlate extends TileBase
 	}
 
 	@Override
-	public boolean canProvideTileEntity()
+	public void doPlace(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
 	{
-		return true;
+		super.doPlace(world, x, y, layer, instance, placer);
+		if (!world.isClient())
+		{
+			TileState state = world.getState(x, y);
+			if (state.getTile() == ModTiles.NUCLEAR_REACTOR)
+			{
+				TileEntityNuclearReactor te = ((TileNuclearReactor) state.getTile()).getTE(world, state, x, y);
+				te.addTempshiftPlate(1);
+			}
+		}
 	}
 
 	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
+	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityTempshiftPlate(world, x, y, layer);
+		super.onRemoved(world, x, y, layer);
+		if (!world.isClient())
+		{
+			TileState state = world.getState(x, y);
+			if (state.getTile() == ModTiles.NUCLEAR_REACTOR)
+			{
+				TileEntityNuclearReactor te = ((TileNuclearReactor) state.getTile()).getTE(world, state, x, y);
+				te.addTempshiftPlate(-1);
+			}
+		}
 	}
 
 	@Override
