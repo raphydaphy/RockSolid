@@ -32,7 +32,7 @@ public class GuiNuclearReactor extends GuiContainer
 		super.init(game);
 
 		lastTempshiftPlates = te.getTempshiftPlates();
-		tempshiftPlateText = new ComponentCustomText(this, 24 + 43, 5, 80, 1, 0.3f, ComponentCustomText.TextDirection.CENTER,
+		tempshiftPlateText = new ComponentCustomText(this, 24 + 43, 5, 150, 1, 0.3f, ComponentCustomText.TextDirection.CENTER,
 				game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
 		this.components.add(tempshiftPlateText);
 
