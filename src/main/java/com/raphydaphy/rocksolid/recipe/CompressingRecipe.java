@@ -17,14 +17,14 @@ public class CompressingRecipe
 	public final ItemInstance out;
 	public final int time;
 
-	public CompressingRecipe(String inRes, Item out, int time)
+	public CompressingRecipe(String inRes, int inAmount, Item out, int time)
 	{
-		this(RockSolid.createRes(inRes + "_compressing"), inRes, out, time);
+		this(RockSolid.createRes(inRes + "_compressing"), inRes, inAmount, out, time);
 	}
 
-	public CompressingRecipe(ResourceName name, String inRes, Item out, int time)
+	public CompressingRecipe(ResourceName name, String inRes, int inAmount, Item out, int time)
 	{
-		this(name, new ResUseInfo(inRes), new ItemInstance(out), time);
+		this(name, new ResUseInfo(inRes, inAmount), new ItemInstance(out), time);
 	}
 
 	public CompressingRecipe(ResourceName name, IUseInfo in, ItemInstance out, int time)

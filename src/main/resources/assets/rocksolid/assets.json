@@ -102,6 +102,14 @@
 		"left": "/tiles/item_conduit/item_conduit_left.png",
 		"right": "/tiles/item_conduit/item_conduit_right.png"
 	  },
+	  "tempshift_plate.": {
+		"up": "/tiles/tempshift_plate/tempshift_plate_up.png",
+		"down": "/tiles/tempshift_plate/tempshift_plate_down.png",
+		"left": "/tiles/tempshift_plate/tempshift_plate_left.png",
+		"right": "/tiles/tempshift_plate/tempshift_plate_right.png",
+		"*": "/tiles/tempshift_plate/tempshift_plate.png",
+		"item": "/tiles/tempshift_plate/tempshift_plate_item.png"
+	  },
 	  "pump.": {
 		"water": "/fluids/water/pump.png",
 		"*.": {

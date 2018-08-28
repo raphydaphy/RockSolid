@@ -50,6 +50,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 		{
 			this.maxSmeltTime.set(Math.round(6 / getSpeedModifier()));
 			this.water.remove(1);
+			world.setDirty(x, y);
 		}
 	}
 
@@ -60,6 +61,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 		double chance = Math.pow(2, 5 * (getBonusYieldModifier() / 2f)); // Bonus Yield Modifier
 		if (this.steam.get() < getCapacity() && (Util.RANDOM.nextDouble() * 100) < chance)
 		{
+			world.setDirty(x, y);
 			this.steam.add(1);
 		}
 	}
@@ -149,6 +151,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 			if (!simulate)
 			{
 				this.water.add(ml);
+				world.setDirty(x, y);
 			}
 			return true;
 		}
@@ -198,6 +201,7 @@ public class TileEntityBoiler extends TileEntityFueledBase implements IFluidTile
 			if (!simulate)
 			{
 				this.steam.remove(cc);
+				world.setDirty(x, y);
 			}
 			return true;
 		}

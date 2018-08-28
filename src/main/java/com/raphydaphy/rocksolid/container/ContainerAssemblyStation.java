@@ -31,5 +31,4 @@ public class ContainerAssemblyStation extends ItemContainer
 	{
 		return RockSolid.createRes("container_assembly_station");
 	}
-
 }

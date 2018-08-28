@@ -2,7 +2,8 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.network.*;
-import com.raphydaphy.rocksolid.util.ConduitTileLayer;
+import com.raphydaphy.rocksolid.tile.layer.ConduitTileLayer;
+import com.raphydaphy.rocksolid.tile.layer.TempshiftTileLayer;
 import com.raphydaphy.rocksolid.world.*;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
@@ -17,6 +18,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 public class ModMisc
 {
 	public static final TileLayer CONDUIT_LAYER;
+	public static final TileLayer TEMPSHIFT_LAYER;
 
 	public static String RES_MACHINE_MATERIALS;
 	public static String RES_ALL_INGOTS;
@@ -27,6 +29,7 @@ public class ModMisc
 	static
 	{
 		CONDUIT_LAYER = new ConduitTileLayer();
+		TEMPSHIFT_LAYER = new TempshiftTileLayer();
 	}
 	public static void init()
 	{

@@ -2,6 +2,8 @@ package com.raphydaphy.rocksolid.tile.machine;
 
 import com.raphydaphy.rocksolid.container.ContainerNuclearReactor;
 import com.raphydaphy.rocksolid.gui.GuiNuclearReactor;
+import com.raphydaphy.rocksolid.init.ModMisc;
+import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.render.NuclearReactorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
 import com.raphydaphy.rocksolid.util.ToolInfo;
@@ -55,9 +57,9 @@ public class TileNuclearReactor extends TileMachineBase<TileEntityNuclearReactor
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
 		ItemInstance held = player.getInv().get(player.getSelectedSlot());
-		if (held != null)
+		if (held != null && held.getItem() == ModTiles.TEMPSHIFT_PLATE.getItem())
 		{
-
+			return world.getState(ModMisc.TEMPSHIFT_LAYER, x, y).getTile() != ModTiles.TEMPSHIFT_PLATE;
 		}
 		TileEntityNuclearReactor te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiNuclearReactor(player, te), new ContainerNuclearReactor(player, te));

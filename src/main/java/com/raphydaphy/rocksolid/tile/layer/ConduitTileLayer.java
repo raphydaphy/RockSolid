@@ -1,10 +1,7 @@
-package com.raphydaphy.rocksolid.util;
-
-import java.util.Map;
+package com.raphydaphy.rocksolid.tile.layer;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
-
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.MovableWorldObject;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -15,6 +12,8 @@ import de.ellpeck.rockbottom.api.util.Direction;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.Map;
 
 public class ConduitTileLayer extends TileLayer
 {

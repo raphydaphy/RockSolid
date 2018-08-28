@@ -97,11 +97,13 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 						{
 
 							this.energyStored.remove(1);
+							world.setDirty(x, y);
 						}
 						if (world.getTotalTime() % Math.round(80 / getSpeedModifier()) == 0)
 						{
 							this.liquidType = liquidIn;
 							this.liquidVolume.add(25 + Math.round(getBonusYieldModifier()));
+							world.setDirty(x, y);
 							int topY = y;
 							TileState top = null;
 							for (int i = y; i < y + 30; i++)
@@ -190,6 +192,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 				if (this.liquidVolume.get() == 0)
 				{
 					this.liquidType = null;
+					world.setDirty(x, y);
 				}
 			}
 			return true;
@@ -243,6 +246,7 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 			if (!simulate)
 			{
 				this.energyStored.add(joules);
+				world.setDirty(x, y);
 			}
 			return true;
 		}

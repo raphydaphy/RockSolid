@@ -4,7 +4,6 @@ import com.raphydaphy.rocksolid.energy.IEnergyTile;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.tile.entity.SyncedInt;
-import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -53,6 +52,7 @@ public class TileEntityBattery extends TileEntityAssemblyConfigurable implements
 			if (!simulate)
 			{
 				this.energyStored.add(joules);
+				world.setDirty(x, y);
 			}
 			return true;
 		}
@@ -67,6 +67,7 @@ public class TileEntityBattery extends TileEntityAssemblyConfigurable implements
 			if (!simulate)
 			{
 				this.energyStored.remove(joules);
+				world.setDirty(x, y);
 			}
 			return true;
 		}

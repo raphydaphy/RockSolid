@@ -27,7 +27,7 @@ public class ModRecipes
 		new BlastingRecipe(GameContent.RES_COAL, ModItems.COKE, 5000).register();
 		new BlastingRecipe(ModTiles.RES_TITANIUM_RAW, ModItems.IMPURE_TITANIUM_INGOT, 2500).register();
 
-		new CompressingRecipe(ModItems.RES_URANIUM_PROCESSED, ModItems.URANIUM_PELLET, 300).register();
+		new CompressingRecipe(ModItems.RES_URANIUM_PROCESSED, 2, ModItems.URANIUM_PELLET, 300).register();
 
 		new AssemblyRecipe(0.8f, new ItemInstance(ModTiles.BOILER), 55, 8, 12).disableEfficiency().disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TURBINE),49, 5, 6).disableThroughput().registerAssembly();
@@ -39,6 +39,6 @@ public class ModRecipes
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_BLAST_FURNACE), 50, 8, 20).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_COMPRESSOR), 70, 6, 8).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.PUMP),40, 4, 8).disableEfficiency().registerAssembly();
-		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_URANIUM_COMPRESSED, 4), new ItemInstance(ModItems.URANIUM_ROD), 8, 2).disableThroughput().disableSpeed().disableBonusYield().registerAssembly();
+		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_URANIUM_COMPRESSED, 4), new ItemInstance(ModItems.URANIUM_ROD), 16, 4).disableThroughput().disableSpeed().disableBonusYield().registerAssembly();
 	}
 }

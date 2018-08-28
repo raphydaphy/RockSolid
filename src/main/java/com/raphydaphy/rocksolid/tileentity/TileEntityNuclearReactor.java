@@ -94,57 +94,52 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		{
 			if (!world.isClient())
 			{
-				if (world.getTotalTime() % (12 / getSpeedModifier()) == 0)
+				int rods = 0;
+				for (int slot = 0; slot < 4; slot++)
 				{
-					int rods = 0;
-					for (int slot = 0; slot < 4; slot++)
+					if (this.inventory.get(slot) != null)
 					{
-						if (this.inventory.get(slot) != null)
+						float capacityMod = this.inventory.get(slot).getOrCreateAdditionalData().getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY);
+						if (capacityMod == 0)
 						{
-							float capacityMod = this.inventory.get(slot).getOrCreateAdditionalData().getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY);
-							if (capacityMod == 0)
-							{
-								this.inventory.get(slot).getAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, 1);
-								this.inventory.notifyChange(slot);
-							}
-							float heatFullness = 1 - getHeatFullness();
-							if (heatFullness > 0)
-							{
-								int bound = Math.round((50 * capacityMod) / (getHeatFullness() * 2f));
-								System.out.println(bound);
-								if (bound > 0 && Util.RANDOM.nextInt(bound) == 0)
-								{
-									damageRod(slot, 1);
-								}
-							}
-							rods++;
+							this.inventory.get(slot).getAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, 1);
+							this.inventory.notifyChange(slot);
 						}
+						float heatFullness = 1 - getHeatFullness();
+						if (heatFullness > 0)
+						{
+							int bound = Math.round((50 * capacityMod) / (getHeatFullness() * 2f)) * 10;
+							if (bound > 0 && Util.RANDOM.nextInt(bound) == 0)
+							{
+								damageRod(slot, 1);
+							}
+						}
+						rods++;
 					}
-					if (rods > 0)
+				}
+				if (rods > 0)
+				{
+					int rodsSq = Math.max(Math.round(rods * depth.get() / 2f), 1);
+					int production = Math.max(Math.round(rods * (depth.get() / 10f) * getEfficiencyModifier() + getBonusYieldModifier()), 1);
+					if (this.heat.get() + rodsSq <= getHeatCapacity())
 					{
-						int rodsSq =  Math.round(rods * rods) * depth.get();
-						int production = Math.round(rods * depth.get() * getEfficiencyModifier() + getBonusYieldModifier());
-						if (this.heat.get() + rodsSq <= getHeatCapacity())
-						{
-							this.heat.add(rodsSq);
-						} else
-						{
-							damageRod(0, rods);
-							damageRod(1, rods);
-							damageRod(2, rods);
-							damageRod(3, rods);
-							production = Math.round(rodsSq * getEfficiencyModifier() + getBonusYieldModifier());
-							this.heat.set(getHeatCapacity());
-						}
+						this.heat.add(rodsSq);
+					} else
+					{
+						damageRod(0, rods);
+						damageRod(1, rods);
+						damageRod(2, rods);
+						damageRod(3, rods);
+						production = Math.round(rodsSq * getEfficiencyModifier() + getBonusYieldModifier());
+						this.heat.set(getHeatCapacity());
+					}
 
-						if (this.energyStored.get() + production < this.getEnergyCapacity(world, null))
-						{
-							this.energyStored.add(production);
-						}
-						else
-						{
-							this.energyStored.set(getEnergyCapacity(world, null));
-						}
+					if (this.energyStored.get() + production < this.getEnergyCapacity(world, null))
+					{
+						this.energyStored.add(production);
+					} else
+					{
+						this.energyStored.set(getEnergyCapacity(world, null));
 					}
 				}
 			}
@@ -235,6 +230,22 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	public int getHeat()
 	{
 		return heat.get();
+	}
+
+	public void setHeat(int heat)
+	{
+		this.heat.add(heat);
+	}
+
+	public void removeHeat(int amount)
+	{
+		if (this.heat.get() >= amount)
+		{
+			this.heat.remove(amount);
+		} else
+		{
+			this.heat.set(0);
+		}
 	}
 
 	@Override
