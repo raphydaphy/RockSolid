@@ -86,7 +86,10 @@
 	  "electric_separator": "Electric Separator",
 	  "electric_alloy_smelter": "Electric Alloy Smelter",
 	  "electric_blast_furnace": "Electric Blast Furnace",
-	  "electric_compressor": "Electric Compressor"
+	  "electric_compressor": "Electric Compressor",
+	  "moon.": {
+		"stone": "Moon Stone"
+	  }
 	},
 	"conduit_mode.": {
 	  "all_inv": "In / Out",

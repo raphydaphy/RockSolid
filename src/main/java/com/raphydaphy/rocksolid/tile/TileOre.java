@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -28,7 +29,7 @@ public class TileOre extends TileBasic
 		this.drop = drop;
 
 		this.setHardness(hardness);
-		this.addEffectiveTool(ToolType.PICKAXE, level);
+		this.addEffectiveTool(ToolProperty.PICKAXE, level);
 
 		this.register();
 	}

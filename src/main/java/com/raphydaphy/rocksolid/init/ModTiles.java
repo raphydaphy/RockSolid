@@ -11,6 +11,7 @@ import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.machine.*;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.item.ToolType;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
@@ -48,6 +49,8 @@ public class ModTiles
 	public static Tile ENERGY_CONDUIT;
 	public static Tile ITEM_CONDUIT;
 
+	public static Tile MOON_STONE;
+
 	public static String RES_TITANIUM_RAW;
 
 	private static IResourceRegistry res()
@@ -60,7 +63,7 @@ public class ModTiles
 		TIN_ORE = new TileOre("ore.tin", 8f, 2, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
 		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);
-		RUTILE_ORE = new TileBasic(RockSolid.createRes("ore.rutile")).setHardness(18f).addEffectiveTool(ToolType.PICKAXE, 19).register().setMaxAmount(15);
+		RUTILE_ORE = new TileBasic(RockSolid.createRes("ore.rutile")).setHardness(18f).addEffectiveTool(ToolProperty.PICKAXE, 19).register().setMaxAmount(15);
 		URANIUM_ORE = new TileOre("ore.uranium", 15f, 25, ModItems.URANIUM_CLUSTER);
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
@@ -87,6 +90,8 @@ public class ModTiles
 		GAS_CONDUIT = new TileGasConduit().setMaxAmount(25);
 		ENERGY_CONDUIT = new TileEnergyConduit().setMaxAmount(25);
 		ITEM_CONDUIT = new TileItemConduit().setMaxAmount(25);
+
+		MOON_STONE = new TileBasic(RockSolid.createRes("moon.stone")).setHardness(8f).addEffectiveTool(ToolProperty.PICKAXE, 10).register().setMaxAmount(50);
 
 		RES_TITANIUM_RAW = res().addResources("titanium_raw", RUTILE_ORE);
 	}

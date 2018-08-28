@@ -434,6 +434,15 @@
 		  }
 		},
 		"item": "/tiles/boiler/boiler_item.png"
+	  },
+	  "moon.": {
+		"stone": {
+		  "path": "/tiles/moon/moon_stone_0.png",
+		  "variations": [
+			"/tiles/moon/moon_stone_1.png",
+			"/tiles/moon/moon_stone_2.png"
+		  ]
+		}
 	  }
 	},
 	"gui.": {

@@ -13,12 +13,19 @@ import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
+import de.ellpeck.rockbottom.api.world.SubWorldInitializer;
+import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class ModMisc
 {
 	public static final TileLayer CONDUIT_LAYER;
 	public static final TileLayer TEMPSHIFT_LAYER;
+
+	public static final ResourceName MOON_WORLD = RockSolid.createRes("moon");
+
+	public static Biome MOON_BIOME;
 
 	public static String RES_MACHINE_MATERIALS;
 	public static String RES_ALL_INGOTS;
@@ -33,6 +40,12 @@ public class ModMisc
 	}
 	public static void init()
 	{
+		new MoonWorldInitializer(MOON_WORLD).register();
+
+		MOON_BIOME = new MoonSurfaceBiome().register();
+
+		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_biome_generator"), MoonBiomeGenerator.class);
+
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_tin"), WorldGenTin.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_iron"), WorldGenIron.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_magnesium"), WorldGenMagnesium.class);
