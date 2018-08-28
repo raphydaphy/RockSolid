@@ -4,7 +4,8 @@
   },
   "rocksolid": {
 	"layer.": {
-	  "conduit_layer": "Conduit Layer"
+	  "conduit_layer": "Conduit Layer",
+	  "tempshift_layer": "Tempshift Layer"
 	},
 	"item.": {
 	  "boiler": "Solid-Fueled Boiler",

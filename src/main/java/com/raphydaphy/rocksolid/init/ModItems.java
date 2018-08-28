@@ -130,7 +130,7 @@ public class ModItems
 		COKE = new ItemBase("coal_coke").setMaxAmount(45);
 		SLAG = new ItemBase("slag").setMaxAmount(45);
 		URANIUM_PELLET = new ItemBase("uranium_pellet").setMaxAmount(25);
-		URANIUM_ROD = new ItemDurability("uranium_rod", 125);
+		URANIUM_ROD = new ItemDurability("uranium_rod", 20000);
 
 		RES_TIN_RAW = res().addResources("tin_raw", TIN_CLUSTER);
 		RES_IRON_RAW = res().addResources("iron_raw", IRON_CLUSTER);

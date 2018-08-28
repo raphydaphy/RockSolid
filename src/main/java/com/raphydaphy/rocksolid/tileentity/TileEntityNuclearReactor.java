@@ -21,6 +21,7 @@ import java.util.Collections;
 
 public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable implements IEnergyTile, IActivatable
 {
+	private static final String NEW_HEAT_KEY = "new_heat";
 	private final TileInventory inventory = new TileInventory(this, 4, (input) ->
 	{
 		if (input != null && input.getItem() == ModItems.URANIUM_ROD)
@@ -30,6 +31,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		return Collections.emptyList();
 	}, Collections.emptyList());
 
+	private int newHeat;
 	private SyncedInt heat = new SyncedInt("heat");
 	private SyncedInt energyStored = new SyncedInt("energy_stored");
 	private SyncedInt depth = new SyncedInt("rod_depth");
@@ -57,6 +59,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		energyStored.save(set);
 		depth.save(set);
 		inventory.save(set);
+		set.addInt(NEW_HEAT_KEY, newHeat);
 	}
 
 	@Override
@@ -67,6 +70,8 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		energyStored.load(set);
 		depth.load(set);
 		inventory.load(set);
+		newHeat = set.getInt(NEW_HEAT_KEY);
+
 	}
 
 	public void setDepth(int depth)
@@ -84,6 +89,11 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	public int getEnergyStored()
 	{
 		return this.energyStored.get();
+	}
+
+	private int getTickInterval()
+	{
+		return Math.round(40 / getSpeedModifier());
 	}
 
 	@Override
@@ -105,8 +115,12 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 							this.inventory.get(slot).getAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, 1);
 							this.inventory.notifyChange(slot);
 						}
+						if (world.getTotalTime() % getTickInterval() == 0)
+						{
+							damageRod(slot, 1);
+						}
 						float heatFullness = 1 - getHeatFullness();
-						if (heatFullness > 0)
+						if (heatFullness > 0.5f)
 						{
 							int bound = Math.round((50 * capacityMod) / (getHeatFullness() * 2f)) * 10;
 							if (bound > 0 && Util.RANDOM.nextInt(bound) == 0)
@@ -119,21 +133,45 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 				}
 				if (rods > 0)
 				{
-					int rodsSq = Math.max(Math.round(rods * depth.get() / 2f), 1);
+					int rlNewHeat = (rods * (rods + 1) * 2) * rods;
 					int production = Math.max(Math.round(rods * (depth.get() / 10f) * getEfficiencyModifier() + getBonusYieldModifier()), 1);
-					if (this.heat.get() + rodsSq <= getHeatCapacity())
+
+					if (world.getTotalTime() % getTickInterval() == 0)
 					{
-						this.heat.add(rodsSq);
+						if (this.heat.get() + newHeat <= getHeatCapacity())
+						{
+							if (this.heat.get() + newHeat < 0)
+							{
+								this.heat.set(0);
+							}
+							else
+							{
+								this.heat.add(newHeat);
+							}
+						}
+						else
+						{
+							this.heat.set(getHeatCapacity());
+						}
+					}
+					if (this.heat.get() + rlNewHeat <= getHeatCapacity())
+					{
+						if (world.getTotalTime() % getTickInterval() == 0)
+						{
+							newHeat = rlNewHeat;
+						}
 					} else
 					{
-						damageRod(0, rods);
-						damageRod(1, rods);
-						damageRod(2, rods);
-						damageRod(3, rods);
-						production = Math.round(rodsSq * getEfficiencyModifier() + getBonusYieldModifier());
-						this.heat.set(getHeatCapacity());
+						if (world.getTotalTime() % getTickInterval() == 0)
+						{
+							damageRod(0, rods);
+							damageRod(1, rods);
+							damageRod(2, rods);
+							damageRod(3, rods);
+							newHeat = getHeatCapacity() - this.heat.get();
+						}
+						production = Math.round(rlNewHeat * getEfficiencyModifier() + getBonusYieldModifier());
 					}
-
 					if (this.energyStored.get() + production < this.getEnergyCapacity(world, null))
 					{
 						this.energyStored.add(production);
@@ -232,20 +270,9 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		return heat.get();
 	}
 
-	public void setHeat(int heat)
-	{
-		this.heat.add(heat);
-	}
-
 	public void removeHeat(int amount)
 	{
-		if (this.heat.get() >= amount)
-		{
-			this.heat.remove(amount);
-		} else
-		{
-			this.heat.set(0);
-		}
+		newHeat -= amount;
 	}
 
 	@Override
