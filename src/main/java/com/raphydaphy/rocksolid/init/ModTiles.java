@@ -1,14 +1,13 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
-import com.raphydaphy.rocksolid.tile.TileOre;
-import com.raphydaphy.rocksolid.tile.TileTempshiftPlate;
+import com.raphydaphy.rocksolid.tile.*;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
 import com.raphydaphy.rocksolid.tile.machine.*;
+import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
@@ -49,6 +48,7 @@ public class ModTiles
 	public static Tile ITEM_CONDUIT;
 
 	public static Tile MOON_STONE;
+	public static Tile MOON_SURFACE;
 
 	public static String RES_TITANIUM_RAW;
 
@@ -62,7 +62,7 @@ public class ModTiles
 		TIN_ORE = new TileOre("ore.tin", 8f, 2, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
 		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);
-		RUTILE_ORE = new TileBasic(RockSolid.createRes("ore.rutile")).setHardness(18f).addEffectiveTool(ToolProperty.PICKAXE, 19).register().setMaxAmount(15);
+		RUTILE_ORE = new TileBase("ore.rutile", 18, new ToolInfo(ToolProperty.PICKAXE, 19)).setMaxAmount(15);
 		URANIUM_ORE = new TileOre("ore.uranium", 15f, 25, ModItems.URANIUM_CLUSTER);
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
@@ -90,7 +90,8 @@ public class ModTiles
 		ENERGY_CONDUIT = new TileEnergyConduit().setMaxAmount(25);
 		ITEM_CONDUIT = new TileItemConduit().setMaxAmount(25);
 
-		MOON_STONE = new TileBasic(RockSolid.createRes("moon.stone")).setHardness(8f).addEffectiveTool(ToolProperty.PICKAXE, 10).register().setMaxAmount(50);
+		MOON_STONE = new TileBase("moon.stone", 8, new ToolInfo(ToolProperty.PICKAXE, 10)).setMaxAmount(50);
+		MOON_SURFACE = new TileMoonSurface().setMaxAmount(50);
 
 		RES_TITANIUM_RAW = res().addResources("titanium_raw", RUTILE_ORE);
 	}

@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.world.moon;
 import com.google.common.base.Preconditions;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -72,7 +73,13 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	@Override
 	public void update(IWorld subWorld, IGameInstance game)
 	{
-
+		for (Entity entity : subWorld.getAllEntities())
+		{
+			if (entity.motionY < 0)
+			{
+				entity.motionY /= 1.25;
+			}
+		}
 	}
 
 	@Override

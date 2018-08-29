@@ -29,8 +29,7 @@ public class MoonSurfaceBiome extends BiomeBasic
 		{
 			if (var1 == var2 && var0 == TileLayer.MAIN)
 			{
-				//return GameContent.TILE_GRASS.getDefState();
-				return ModTiles.MOON_STONE.getDefState();
+				return ModTiles.MOON_SURFACE.getDefState();
 			}
 
 			if (var1 <= var2)

@@ -88,7 +88,8 @@
 	  "electric_blast_furnace": "Electric Blast Furnace",
 	  "electric_compressor": "Electric Compressor",
 	  "moon.": {
-		"stone": "Moon Stone"
+		"stone": "Moon Stone",
+		"surface_rock": "Moon Surface Rock"
 	  }
 	},
 	"conduit_mode.": {
