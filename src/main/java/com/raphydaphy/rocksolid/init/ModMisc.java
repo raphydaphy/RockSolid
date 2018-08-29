@@ -25,7 +25,9 @@ public class ModMisc
 	public static final TileLayer CONDUIT_LAYER;
 	public static final TileLayer TEMPSHIFT_LAYER;
 
-	public static final ResourceName MOON_GENERATOR = RockSolid.createRes("moon");
+	public static final ResourceName MOON_WORLD = RockSolid.createRes("moon");
+	public static final ResourceName MOON_BIOME_GENERATOR = RockSolid.createRes("moon_biome_generator");
+	public static final ResourceName MOON_HEIGHTS_GENERATOR = RockSolid.createRes("moon_heights_generator");
 
 	public static Biome MOON_SURFACE;
 
@@ -45,13 +47,13 @@ public class ModMisc
 	}
 	public static void init()
 	{
-		new MoonWorldInitializer(MOON_GENERATOR).register();
+		new MoonWorldInitializer(MOON_WORLD).register();
 
 		MOON_SURFACE = new MoonSurfaceBiome().register();
 
-		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_biome_generator"), MoonBiomeGenerator.class);
+		Registries.WORLD_GENERATORS.register(MOON_BIOME_GENERATOR, MoonBiomeGenerator.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_pebbles_generator"), MoonPebblesGenerator.class);
-		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_heights_generator"), MoonCavesGenerator.class);
+		Registries.WORLD_GENERATORS.register(MOON_HEIGHTS_GENERATOR, MoonHeightGenerator.class);
 
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_tin"), WorldGenTin.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_iron"), WorldGenIron.class);

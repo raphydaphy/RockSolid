@@ -1,7 +1,6 @@
 package com.raphydaphy.rocksolid.world;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
-import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -21,7 +20,7 @@ public class MoonPebblesGenerator implements IWorldGenerator
 	}
 
 	public boolean shouldGenerate(IWorld world, IChunk var2) {
-		return world.getSubName() != null && world.getSubName().equals(ModMisc.MOON_GENERATOR);
+		return world.getSubName() != null && world.getSubName().equals(ModMisc.MOON_WORLD);
 	}
 
 	public void generate(IWorld var1, IChunk var2) {

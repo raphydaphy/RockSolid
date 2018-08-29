@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.world;
 
+import com.google.common.base.Preconditions;
 import com.raphydaphy.rocksolid.init.ModMisc;
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -17,7 +17,8 @@ import java.util.List;
 
 public class MoonWorldInitializer extends SubWorldInitializer
 {
-	private MoonBiomeGenerator generator = new MoonBiomeGenerator();
+	private MoonHeightGenerator heightGenerator;
+	private MoonBiomeGenerator biomeGenerator;
 
 	public MoonWorldInitializer(ResourceName name)
 	{
@@ -45,25 +46,27 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	@Override
 	public Biome getExpectedBiome(IWorld subWorld, int x, int y)
 	{
-		return generator.getExpectedBiome(subWorld, x, y, 0);
+		return biomeGenerator.getExpectedBiome(subWorld, x, y, 0);
 	}
 
 	@Override
 	public BiomeLevel getExpectedBiomeLevel(IWorld subWorld, int x, int y)
 	{
-		return generator.getBiomeLevel(subWorld, x, y, 0);
+		return biomeGenerator.getBiomeLevel(subWorld, x, y, 0);
 	}
 
 	@Override
 	public int getExpectedSurfaceHeight(IWorld subWorld, TileLayer layer, int x)
 	{
-		return 0;
+		MoonHeightGenerator var4 = this.heightGenerator;
+		return MoonHeightGenerator.a(layer, x, var4.b, 0, 10, 45);
 	}
 
 	@Override
 	public void onGeneratorsInitialized(IWorld subWorld)
 	{
-
+		biomeGenerator = (MoonBiomeGenerator)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid couldn't find the moon biome generator!");
+		heightGenerator = (MoonHeightGenerator)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid couldn't find the moon height generator!");
 	}
 
 	@Override

@@ -94,7 +94,7 @@ public class MoonBiomeGenerator implements IWorldGenerator
 		{
 			return false;
 		}
-		return var1.getSubName().equals(ModMisc.MOON_GENERATOR);
+		return var1.getSubName().equals(ModMisc.MOON_WORLD);
 	}
 
 	public void generate(IWorld var1, IChunk var2)
