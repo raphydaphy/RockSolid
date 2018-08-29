@@ -1,19 +1,19 @@
 package com.raphydaphy.rocksolid.world.moon;
 
+import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
-import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.INoiseGen;
-import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevel;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 public class MoonUndergroundBiome extends MoonBiome
 {
-	public MoonUndergroundBiome(ResourceName var1, int var2, BiomeLevel... var3) {
-		super(var1, var2, var3);
+	public MoonUndergroundBiome()
+	{
+		super(RockSolid.createRes("moon_underground_biome"), 1000, GameContent.BIOME_LEVEL_UNDERGROUND);
 	}
 
 	@Override

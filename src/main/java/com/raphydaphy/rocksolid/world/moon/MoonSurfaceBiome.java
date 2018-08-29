@@ -20,7 +20,7 @@ public class MoonSurfaceBiome extends MoonBiome
 {
 	public MoonSurfaceBiome()
 	{
-		super(RockSolid.createRes("moon_biome"), 1000, GameContent.BIOME_LEVEL_SURFACE);
+		super(RockSolid.createRes("moon_surface_biome"), 1000, GameContent.BIOME_LEVEL_SURFACE);
 	}
 
 	public static TileState a(TileLayer var0, int var1, int var2, int var3)
@@ -36,7 +36,7 @@ public class MoonSurfaceBiome extends MoonBiome
 			{
 				if (var1 >= var3)
 				{
-					//return GameContent.TILE_SOIL.getDefState();
+					return ModTiles.MOON_TURF.getDefState();
 				}
 
 				return ModTiles.MOON_STONE.getDefState();
@@ -59,15 +59,9 @@ public class MoonSurfaceBiome extends MoonBiome
 	}
 
 	@Override
-	public final boolean canTreeGrow(IWorld var1, IChunk var2, int var3, int var4)
-	{
-		return var4 > 0 && var2.getStateInner(var3, var4 - 1).getTile().canKeepPlants(var1, var2.getX() + var3, var2.getY() + var4, TileLayer.MAIN);
-	}
-
-	@Override
 	public final TileState getFillerTile(IWorld var1, IChunk var2, int var3, int var4)
 	{
-		return ModTiles.MOON_STONE.getDefState();
+		return ModTiles.MOON_TURF.getDefState();
 	}
 
 	@Override

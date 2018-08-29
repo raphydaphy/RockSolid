@@ -23,7 +23,7 @@ public class TileMoonSurface extends TileBase
 
 	public final List<ItemInstance> getDrops(IWorld var1, int var2, int var3, TileLayer var4, Entity var5)
 	{
-		return Collections.singletonList(new ItemInstance(ModTiles.MOON_STONE));
+		return Collections.singletonList(new ItemInstance(ModTiles.MOON_TURF));
 	}
 
 	public final void onChangeAround(IWorld var1, int var2, int var3, TileLayer var4, int var5, int var6, TileLayer var7)
@@ -31,7 +31,7 @@ public class TileMoonSurface extends TileBase
 		super.onChangeAround(var1, var2, var3, var4, var5, var6, var7);
 		if (cantStay(var1, var2, var3, var4))
 		{
-			var1.setState(var4, var2, var3, ModTiles.MOON_STONE.getDefState());
+			var1.setState(var4, var2, var3, ModTiles.MOON_TURF.getDefState());
 		}
 
 	}
@@ -49,6 +49,6 @@ public class TileMoonSurface extends TileBase
 
 	public final TileState getPlacementState(IWorld var1, int var2, int var3, TileLayer var4, ItemInstance var5, AbstractEntityPlayer var6)
 	{
-		return cantStay(var1, var2, var3, var4) ? ModTiles.MOON_STONE.getDefState() : this.getDefState();
+		return cantStay(var1, var2, var3, var4) ? ModTiles.MOON_TURF.getDefState() : this.getDefState();
 	}
 }

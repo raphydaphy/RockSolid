@@ -31,6 +31,7 @@ public class ModMisc
 	public static final ResourceName MOON_HEIGHTS_GENERATOR = RockSolid.createRes("moon_heights_generator");
 
 	public static Biome MOON_SURFACE;
+	public static Biome MOON_UNDERGROUND;
 
 	public static String RES_MACHINE_MATERIALS;
 	public static String RES_ALL_INGOTS;
@@ -44,13 +45,13 @@ public class ModMisc
 		TEMPSHIFT_LAYER = new TempshiftTileLayer();
 
 		MOON_BIOME_REGISTRY.register(GameContent.BIOME_SKY.getName(), GameContent.BIOME_SKY);
-		MOON_BIOME_REGISTRY.register(GameContent.BIOME_UNDERGROUND.getName(), GameContent.BIOME_UNDERGROUND);
 	}
 	public static void init()
 	{
 		new MoonWorldInitializer(MOON_WORLD).register();
 
 		MOON_SURFACE = new MoonSurfaceBiome().register();
+		MOON_UNDERGROUND = new MoonUndergroundBiome().register();
 
 		Registries.WORLD_GENERATORS.register(MOON_BIOME_GENERATOR, MoonBiomeGenerator.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_pebbles_generator"), MoonPebblesGenerator.class);
