@@ -10,7 +10,6 @@ import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemTool;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
-import de.ellpeck.rockbottom.api.item.ToolType;
 
 public class ModItems
 {

@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.world;
+package com.raphydaphy.rocksolid.world.moon;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModMisc;

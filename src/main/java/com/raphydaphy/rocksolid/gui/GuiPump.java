@@ -8,7 +8,6 @@ import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
-import de.ellpeck.rockbottom.api.gui.component.ComponentProgressBar;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.awt.*;

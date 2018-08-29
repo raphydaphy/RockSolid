@@ -60,10 +60,9 @@ public class PacketConduitDestroyed implements IPacket
 			if (entity instanceof AbstractEntityPlayer)
 			{
 				ItemInstance held = ((AbstractEntityPlayer) entity).getInv().get(((AbstractEntityPlayer) entity).getSelectedSlot());
-				System.out.println(held);
 				if (held != null && held.getItem() == ModItems.WRENCH)
 				{
-					((ItemWrench)held.getItem()).takeDamage(held, (AbstractEntityPlayer)entity, 1);
+					(held.getItem()).takeDamage(held, (AbstractEntityPlayer)entity, 1);
 				}
 				world.destroyTile(x,y,ModMisc.CONDUIT_LAYER,entity,true);
 			}

@@ -1,19 +1,19 @@
 package com.raphydaphy.rocksolid.util;
 
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 
 public class ToolInfo
 {
-	private final ToolType type;
+	private final ToolProperty type;
 	private final int level;
 
-	public ToolInfo(ToolType type, int level)
+	public ToolInfo(ToolProperty type, int level)
 	{
 		this.type = type;
 		this.level = level;
 	}
 
-	public ToolType getType()
+	public ToolProperty getType()
 	{
 		return this.type;
 	}

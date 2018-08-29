@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.world;
+package com.raphydaphy.rocksolid.world.moon;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModMisc;
@@ -12,7 +12,7 @@ import de.ellpeck.rockbottom.api.world.gen.INoiseGen;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class MoonHeightGenerator implements IWorldGenerator
+public class MoonHeightGenerator implements IMoonGenerator
 {
 	public static final ResourceName a = RockSolid.createRes("heights");
 	public INoiseGen b;

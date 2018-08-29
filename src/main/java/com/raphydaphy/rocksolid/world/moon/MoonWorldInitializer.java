@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.world;
+package com.raphydaphy.rocksolid.world.moon;
 
 import com.google.common.base.Preconditions;
 import com.raphydaphy.rocksolid.init.ModMisc;
@@ -78,6 +78,6 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	@Override
 	public boolean shouldGenerateHere(IWorld subWorld, ResourceName name, IWorldGenerator generator)
 	{
-		return name.getDomain().equals("rocksolid");
+		return generator instanceof IMoonGenerator;
 	}
 }

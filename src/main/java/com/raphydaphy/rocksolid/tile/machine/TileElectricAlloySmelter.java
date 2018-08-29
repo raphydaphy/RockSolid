@@ -6,7 +6,7 @@ import com.raphydaphy.rocksolid.render.ElectricSmelterRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricAlloySmelter;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -18,7 +18,7 @@ public class TileElectricAlloySmelter extends TileMachineBase<TileEntityElectric
 {
 	public TileElectricAlloySmelter()
 	{
-		super("electric_alloy_smelter",TileEntityElectricAlloySmelter.class, 20f,true, new ToolInfo(ToolType.PICKAXE, 6));
+		super("electric_alloy_smelter",TileEntityElectricAlloySmelter.class, 20f,true, new ToolInfo(ToolProperty.PICKAXE, 6));
 	}
 
 	@Override

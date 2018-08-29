@@ -10,7 +10,7 @@ import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ItemTile;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -21,7 +21,7 @@ public class TileTempshiftPlate extends TileBase
 {
 	public TileTempshiftPlate()
 	{
-		super("tempshift_plate", 25f, new ToolInfo(ToolType.PICKAXE, 8));
+		super("tempshift_plate", 25f, new ToolInfo(ToolProperty.PICKAXE, 8));
 	}
 
 	@Override

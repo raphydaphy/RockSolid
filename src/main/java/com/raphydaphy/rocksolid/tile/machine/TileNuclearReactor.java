@@ -9,7 +9,7 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -20,7 +20,7 @@ public class TileNuclearReactor extends TileMachineBase<TileEntityNuclearReactor
 {
 	public TileNuclearReactor()
 	{
-		super("nuclear_reactor", TileEntityNuclearReactor.class,35, true,new ToolInfo(ToolType.PICKAXE, 11));
+		super("nuclear_reactor", TileEntityNuclearReactor.class,35, true,new ToolInfo(ToolProperty.PICKAXE, 11));
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.network.*;
 import com.raphydaphy.rocksolid.tile.layer.ConduitTileLayer;
 import com.raphydaphy.rocksolid.tile.layer.TempshiftTileLayer;
 import com.raphydaphy.rocksolid.world.*;
+import com.raphydaphy.rocksolid.world.moon.*;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;

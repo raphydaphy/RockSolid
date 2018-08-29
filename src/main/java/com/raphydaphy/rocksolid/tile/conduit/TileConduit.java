@@ -10,7 +10,7 @@ import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ItemTile;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -32,7 +32,7 @@ public abstract class TileConduit extends TileBase
 	
 	public TileConduit(String name)
 	{
-		super(name, 5f, new ToolInfo(ToolType.PICKAXE, 2));
+		super(name, 5f, new ToolInfo(ToolProperty.PICKAXE, 2));
 	}
 
 	@Override

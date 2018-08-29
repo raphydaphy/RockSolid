@@ -7,13 +7,12 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityAlloySmelter;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
-import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -24,7 +23,7 @@ public class TileAlloySmelter extends TileMachineBase<TileEntityAlloySmelter>
 
 	public TileAlloySmelter()
 	{
-		super("alloy_smelter", TileEntityAlloySmelter.class,15f, false,new ToolInfo(ToolType.PICKAXE, 2));
+		super("alloy_smelter", TileEntityAlloySmelter.class,15f, false,new ToolInfo(ToolProperty.PICKAXE, 2));
 	}
 
 	@Override

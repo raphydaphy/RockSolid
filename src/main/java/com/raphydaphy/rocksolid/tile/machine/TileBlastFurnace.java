@@ -6,7 +6,7 @@ import com.raphydaphy.rocksolid.render.ActivatableRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBlastFurnace;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
@@ -20,7 +20,7 @@ public class TileBlastFurnace extends TileMachineBase<TileEntityBlastFurnace>
 
 	public TileBlastFurnace()
 	{
-		super("blast_furnace", TileEntityBlastFurnace.class, 17,false, new ToolInfo(ToolType.PICKAXE, 2));
+		super("blast_furnace", TileEntityBlastFurnace.class, 17,false, new ToolInfo(ToolProperty.PICKAXE, 2));
 	}
 
 	@Override

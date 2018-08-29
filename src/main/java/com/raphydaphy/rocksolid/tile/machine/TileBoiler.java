@@ -7,12 +7,11 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityBoiler;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
-import de.ellpeck.rockbottom.api.util.BoundBox;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -22,7 +21,7 @@ public class TileBoiler extends TileMachineBase<TileEntityBoiler>
 {
 	public TileBoiler()
 	{
-		super("boiler", TileEntityBoiler.class,20f,true, new ToolInfo(ToolType.PICKAXE, 6));
+		super("boiler", TileEntityBoiler.class,20f,true, new ToolInfo(ToolProperty.PICKAXE, 6));
 	}
 
 	@Override

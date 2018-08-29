@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.world;
+package com.raphydaphy.rocksolid.world.moon;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
 import de.ellpeck.rockbottom.api.GameContent;
@@ -12,7 +12,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.Random;
 
-public class MoonPebblesGenerator implements IWorldGenerator
+public class MoonPebblesGenerator implements IMoonGenerator
 {
 	private final Random a = new Random();
 

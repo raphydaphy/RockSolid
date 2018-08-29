@@ -6,7 +6,7 @@ import com.raphydaphy.rocksolid.render.ElectricSeparatorRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityElectricSeparator;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -18,7 +18,7 @@ public class TileElectricSeparator extends TileMachineBase<TileEntityElectricSep
 {
 	public TileElectricSeparator()
 	{
-		super("electric_separator", TileEntityElectricSeparator.class,20f, true,new ToolInfo(ToolType.PICKAXE, 6));
+		super("electric_separator", TileEntityElectricSeparator.class,20f, true,new ToolInfo(ToolProperty.PICKAXE, 6));
 	}
 
 	@Override

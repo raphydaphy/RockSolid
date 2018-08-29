@@ -7,7 +7,7 @@ import com.raphydaphy.rocksolid.tileentity.TileEntitySeparator;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
-import de.ellpeck.rockbottom.api.item.ToolType;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
@@ -23,7 +23,7 @@ public class TileSeparator extends TileMachineBase<TileEntitySeparator>
 
 	public TileSeparator()
 	{
-		super("separator", TileEntitySeparator.class,17f, false,new ToolInfo(ToolType.PICKAXE, 2));
+		super("separator", TileEntitySeparator.class,17f, false,new ToolInfo(ToolProperty.PICKAXE, 2));
 	}
 
 	@Override

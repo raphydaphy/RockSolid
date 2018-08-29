@@ -1,4 +1,4 @@
-package com.raphydaphy.rocksolid.world;
+package com.raphydaphy.rocksolid.world.moon;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
@@ -13,14 +13,13 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.INoiseGen;
-import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
 import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevel;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.*;
 
-public class MoonBiomeGenerator implements IWorldGenerator
+public class MoonBiomeGenerator implements IMoonGenerator
 {
 	private final Map<Biome, INoiseGen> b = new HashMap<>();
 	private final ListMultimap<BiomeLevel, Biome> c = ArrayListMultimap.create();
