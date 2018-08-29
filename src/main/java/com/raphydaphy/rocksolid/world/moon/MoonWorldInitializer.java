@@ -3,7 +3,6 @@ package com.raphydaphy.rocksolid.world.moon;
 import com.google.common.base.Preconditions;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -60,7 +59,7 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	public int getExpectedSurfaceHeight(IWorld subWorld, TileLayer layer, int x)
 	{
 		MoonHeightGenerator var4 = this.heightGenerator;
-		return MoonHeightGenerator.a(layer, x, var4.b, 0, 10, 45);
+		return MoonHeightGenerator.estimate(layer, x, var4.b, 0, 10, 45);
 	}
 
 	@Override

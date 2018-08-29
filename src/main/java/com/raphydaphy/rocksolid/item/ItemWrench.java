@@ -15,6 +15,7 @@ import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.item.DefaultItemRenderer;
 import de.ellpeck.rockbottom.api.render.item.IItemRenderer;
+import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -48,7 +49,7 @@ public class ItemWrench extends ItemDurability
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)
 	{
-		world.travelToSubWorld(player, ModMisc.MOON_WORLD, x, y);
+		world.travelToSubWorld(player, ModMisc.MOON_WORLD, x, world.getSubWorld(ModMisc.MOON_WORLD).getExpectedSurfaceHeight(TileLayer.MAIN, x));
 		if ((world.isServer() && world.isDedicatedServer()))
 		{
 			return true;

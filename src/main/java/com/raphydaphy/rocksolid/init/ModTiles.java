@@ -47,7 +47,6 @@ public class ModTiles
 	public static Tile ENERGY_CONDUIT;
 	public static Tile ITEM_CONDUIT;
 
-	public static Tile MOON_SURFACE;
 	public static Tile MOON_TURF;
 	public static Tile MOON_STONE;
 
@@ -91,7 +90,6 @@ public class ModTiles
 		ENERGY_CONDUIT = new TileEnergyConduit().setMaxAmount(25);
 		ITEM_CONDUIT = new TileItemConduit().setMaxAmount(25);
 
-		MOON_SURFACE = new TileMoonSurface().setMaxAmount(50);
 		MOON_TURF = new TileBase("moon.turf", 7, new ToolInfo(ToolProperty.PICKAXE, 10)).setMaxAmount(50);
 		MOON_STONE = new TileBase("moon.stone", 8, new ToolInfo(ToolProperty.PICKAXE, 10)).setMaxAmount(50);
 

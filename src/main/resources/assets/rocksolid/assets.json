@@ -449,13 +449,6 @@
 			"/tiles/moon/moon_turf_1.png",
 			"/tiles/moon/moon_turf_2.png"
 		  ]
-		},
-		"surface_rock": {
-		  "path": "/tiles/moon/moon_surface_0.png",
-		  "variations": [
-			"/tiles/moon/moon_surface_1.png",
-			"/tiles/moon/moon_surface_2.png"
-		  ]
 		}
 	  }
 	},
