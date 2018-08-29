@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.world;
 
-import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -18,6 +17,8 @@ import java.util.List;
 
 public class MoonWorldInitializer extends SubWorldInitializer
 {
+	private MoonBiomeGenerator generator = new MoonBiomeGenerator();
+
 	public MoonWorldInitializer(ResourceName name)
 	{
 		super(name);
@@ -44,13 +45,13 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	@Override
 	public Biome getExpectedBiome(IWorld subWorld, int x, int y)
 	{
-		return ModMisc.MOON_BIOME;
+		return generator.getExpectedBiome(subWorld, x, y, 0);
 	}
 
 	@Override
 	public BiomeLevel getExpectedBiomeLevel(IWorld subWorld, int x, int y)
 	{
-		return GameContent.BIOME_LEVEL_SURFACE;
+		return generator.getBiomeLevel(subWorld, x, y, 0);
 	}
 
 	@Override
@@ -72,7 +73,8 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	}
 
 	@Override
-	public boolean shouldGenerateHere(IWorld subWorld, ResourceName name, IWorldGenerator generator){
+	public boolean shouldGenerateHere(IWorld subWorld, ResourceName name, IWorldGenerator generator)
+	{
 		return name.getDomain().equals("rocksolid");
 	}
 }

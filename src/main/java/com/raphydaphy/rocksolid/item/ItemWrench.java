@@ -20,8 +20,6 @@ import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.List;
-
 public class ItemWrench extends ItemDurability
 {
 
@@ -50,7 +48,7 @@ public class ItemWrench extends ItemDurability
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)
 	{
-		world.travelToSubWorld(player, ModMisc.MOON_WORLD, x, y);
+		world.travelToSubWorld(player, ModMisc.MOON_GENERATOR, x, y);
 		if ((world.isServer() && world.isDedicatedServer()))
 		{
 			return true;

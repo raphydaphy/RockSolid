@@ -1,11 +1,12 @@
 package com.raphydaphy.rocksolid.world;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Util;
-import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.INoiseGen;
@@ -28,7 +29,8 @@ public class MoonSurfaceBiome extends BiomeBasic
 		{
 			if (var1 == var2 && var0 == TileLayer.MAIN)
 			{
-				return GameContent.TILE_GRASS.getDefState();
+				//return GameContent.TILE_GRASS.getDefState();
+				return ModTiles.MOON_STONE.getDefState();
 			}
 
 			if (var1 <= var2)
@@ -88,5 +90,11 @@ public class MoonSurfaceBiome extends BiomeBasic
 	public final float getLakeChance(IWorld var1, IChunk var2)
 	{
 		return 0F;
+	}
+
+	public Biome register() {
+		Registries.BIOME_REGISTRY.register(this.getName(), this);
+		ModMisc.MOON_BIOME_REGISTRY.register(this.getName(), this);
+		return this;
 	}
 }

@@ -9,6 +9,7 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemTool;
+import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.item.ToolType;
 
 public class ModItems
@@ -115,17 +116,17 @@ public class ModItems
 		TITANIUM_INGOT = new ItemBase("ingot.titanium").setMaxAmount(50);
 		URANIUM_INGOT = new ItemBase("ingot.uranium").setMaxAmount(50);
 
-		BRONZE_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.bronze"), 6, 500, ToolType.PICKAXE, 15).register();
-		STEEL_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.steel"), 8.5f, 750, ToolType.PICKAXE, 20).register();
-		TITANIUM_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.titanium"), 10f, 1000, ToolType.PICKAXE, 30).register();
+		BRONZE_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.bronze"), 6, 500, ToolProperty.PICKAXE, 15).register();
+		STEEL_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.steel"), 8.5f, 750, ToolProperty.PICKAXE, 20).register();
+		TITANIUM_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.titanium"), 10f, 1000, ToolProperty.PICKAXE, 30).register();
 
-		BRONZE_AXE = new ItemTool(RockSolid.createRes("axe.bronze"), 3, 500, ToolType.AXE, 15).register();
-		STEEL_AXE = new ItemTool(RockSolid.createRes("axe.steel"), 4.5f, 750, ToolType.AXE, 20).register();
-		TITANIUM_AXE = new ItemTool(RockSolid.createRes("axe.titanium"), 6f, 1000, ToolType.AXE, 30).register();
+		BRONZE_AXE = new ItemTool(RockSolid.createRes("axe.bronze"), 3, 500, ToolProperty.AXE, 15).register();
+		STEEL_AXE = new ItemTool(RockSolid.createRes("axe.steel"), 4.5f, 750, ToolProperty.AXE, 20).register();
+		TITANIUM_AXE = new ItemTool(RockSolid.createRes("axe.titanium"), 6f, 1000, ToolProperty.AXE, 30).register();
 
-		BRONZE_SHOVEL = new ItemTool(RockSolid.createRes("shovel.bronze"), 3, 500, ToolType.SHOVEL, 15).register();
-		STEEL_SHOVEL = new ItemTool(RockSolid.createRes("shovel.steel"), 4.5f, 750, ToolType.SHOVEL, 20).register();
-		TITANIUM_SHOVEL = new ItemTool(RockSolid.createRes("shovel.titanium"), 6f, 1000, ToolType.SHOVEL, 30).register();
+		BRONZE_SHOVEL = new ItemTool(RockSolid.createRes("shovel.bronze"), 3, 500, ToolProperty.SHOVEL, 15).register();
+		STEEL_SHOVEL = new ItemTool(RockSolid.createRes("shovel.steel"), 4.5f, 750, ToolProperty.SHOVEL, 20).register();
+		TITANIUM_SHOVEL = new ItemTool(RockSolid.createRes("shovel.titanium"), 6f, 1000, ToolProperty.SHOVEL, 30).register();
 
 		COKE = new ItemBase("coal_coke").setMaxAmount(45);
 		SLAG = new ItemBase("slag").setMaxAmount(45);
