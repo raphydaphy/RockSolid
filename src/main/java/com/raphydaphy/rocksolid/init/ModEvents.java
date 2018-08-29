@@ -1,9 +1,11 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
+import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
 import de.ellpeck.rockbottom.api.event.impl.PlayerJoinWorldEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 
@@ -11,6 +13,17 @@ public class ModEvents
 {
 	public static void init(IEventHandler handler)
 	{
+		handler.registerListener(EntityTickEvent.class, (result, event) ->
+		{
+			if (event.entity.world.getSubName() != null && event.entity.world.getSubName().equals(ModMisc.MOON_WORLD))
+			{
+				if (event.entity.motionY < 0)
+				{
+					event.entity.motionY /= 1.25;
+				}
+			}
+			return EventResult.DEFAULT;
+		});
 		handler.registerListener(PlayerJoinWorldEvent.class, (result, event) ->
 		{
 			if (!event.isConnected)

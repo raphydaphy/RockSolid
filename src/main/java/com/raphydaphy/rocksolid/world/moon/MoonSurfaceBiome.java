@@ -16,7 +16,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.Random;
 
-public class MoonSurfaceBiome extends BiomeBasic
+public class MoonSurfaceBiome extends MoonBiome
 {
 	public MoonSurfaceBiome()
 	{
@@ -52,32 +52,16 @@ public class MoonSurfaceBiome extends BiomeBasic
 		return a(var5, var2.getY() + var4, var7, var8);
 	}
 
-	public final boolean hasGrasslandDecoration()
-	{
-		return false;
-	}
-
-	public final float getFlowerChance()
-	{
-		return 0F;
-	}
-
+	@Override
 	public final float getPebbleChance()
 	{
-		return 0.4F;
+		return 0.25F;
 	}
 
+	@Override
 	public final boolean canTreeGrow(IWorld var1, IChunk var2, int var3, int var4)
 	{
 		return var4 > 0 && var2.getStateInner(var3, var4 - 1).getTile().canKeepPlants(var1, var2.getX() + var3, var2.getY() + var4, TileLayer.MAIN);
-	}
-
-	public final Biome getVariationToGenerate(IWorld var1, int var2, int var3, int var4, Random var5)
-	{
-		double var6 = Math.max(0.0D, Math.min(1.0D, (double) (var4 - 20) / 5.0D));
-		var5.setSeed(Util.scrambleSeed(var2, var3, var1.getSeed()) + 12382342L);
-		//return (Biome)(var5.nextDouble() < var6 ? GameContent.BIOME_COLD_GRASSLAND : this);
-		return this;
 	}
 
 	@Override
@@ -86,14 +70,10 @@ public class MoonSurfaceBiome extends BiomeBasic
 		return ModTiles.MOON_STONE.getDefState();
 	}
 
+	@Override
 	public final float getLakeChance(IWorld var1, IChunk var2)
 	{
 		return 0F;
 	}
 
-	public Biome register() {
-		Registries.BIOME_REGISTRY.register(this.getName(), this);
-		ModMisc.MOON_BIOME_REGISTRY.register(this.getName(), this);
-		return this;
-	}
 }

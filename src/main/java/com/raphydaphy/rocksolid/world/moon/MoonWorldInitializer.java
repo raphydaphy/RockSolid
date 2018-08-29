@@ -73,13 +73,7 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	@Override
 	public void update(IWorld subWorld, IGameInstance game)
 	{
-		for (Entity entity : subWorld.getAllEntities())
-		{
-			if (entity.motionY < 0)
-			{
-				entity.motionY /= 1.25;
-			}
-		}
+
 	}
 
 	@Override
