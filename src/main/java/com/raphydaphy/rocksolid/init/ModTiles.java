@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
+import com.raphydaphy.rocksolid.tile.liquid.TileFuel;
 import com.raphydaphy.rocksolid.tile.liquid.TileOil;
 import com.raphydaphy.rocksolid.tile.machine.*;
 import com.raphydaphy.rocksolid.util.ToolInfo;
@@ -28,6 +29,7 @@ public class ModTiles
 	public static Tile LUNAR_COBALT_ORE;
 
 	public static TileLiquid OIL;
+	public static TileLiquid FUEL;
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
@@ -79,6 +81,7 @@ public class ModTiles
 		LUNAR_COBALT_ORE = new TileOre("ore.lunar.cobalt", 25f, 28, ModItems.LUNAR_COBALT_CLUSTER);
 
 		OIL = new TileOil();
+		FUEL = new TileFuel();
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);

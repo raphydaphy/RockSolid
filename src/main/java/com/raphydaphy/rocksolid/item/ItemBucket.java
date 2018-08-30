@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.item;
 import com.raphydaphy.rocksolid.fluid.IFluidTile;
 import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.render.BucketRenderer;
+import com.raphydaphy.rocksolid.tile.liquid.TileLiquidBase;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -15,6 +16,11 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ItemBucket extends ItemBase
 {
@@ -49,105 +55,79 @@ public class ItemBucket extends ItemBase
 
 		if (instance.getMeta() == BucketType.EMPTY.meta)
 		{
-			if (liquidState.getTile().equals(GameContent.TILE_WATER))
+			if (liquidState.getTile() instanceof TileLiquid)
 			{
-				int curLevel = liquidState.get(GameContent.TILE_WATER.level);
-				if (curLevel > 0)
+				TileLiquid liquid = (TileLiquid) liquidState.getTile();
+				BucketType possibleType = BucketType.getFromLiquid(liquid);
+				if (possibleType != null)
 				{
-					world.setState(TileLayer.LIQUIDS, x, y, liquidState.prop(GameContent.TILE_WATER.level, curLevel - 1));
-				} else
-				{
-					world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_AIR.getDefState());
+					int curLevel = liquidState.get(liquid.level);
+					if (curLevel > 0)
+					{
+						world.setState(TileLayer.LIQUIDS, x, y, liquidState.prop(liquid.level, curLevel - 1));
+					} else
+					{
+						world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_AIR.getDefState());
+					}
+					instance.setMeta(possibleType.meta);
 				}
-				instance.setMeta(BucketType.WATER.meta);
 			}
-			else if (liquidState.getTile().equals(ModTiles.OIL))
-			{
-				int curLevel = liquidState.get(ModTiles.OIL.level);
-				if (curLevel > 0)
-				{
-					world.setState(TileLayer.LIQUIDS, x, y, liquidState.prop(ModTiles.OIL.level, curLevel - 1));
-				} else
-				{
-					world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_AIR.getDefState());
-				}
-				instance.setMeta(BucketType.OIL.meta);
-			} else if (te instanceof IFluidTile<?>)
+			else if (te instanceof IFluidTile<?>)
 			{
 				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
-				if (fluidTE.removeFluid(new Pos2(x, y), GameContent.TILE_WATER, 25, false))
+				for (BucketType type : BucketType.TYPES)
 				{
-					instance.setMeta(BucketType.WATER.meta);
+					if (type.liquid != null)
+					{
+						if (fluidTE.removeFluid(new Pos2(x, y), type.liquid, 25, false))
+						{
+							instance.setMeta(type.meta);
+							return true;
+						}
+					}
 				}
-				else if (fluidTE.removeFluid(new Pos2(x, y), ModTiles.OIL, 25, false))
-				{
-					instance.setMeta(BucketType.OIL.meta);
-				}
-				else
-				{
-					return false;
-				}
+				return false;
 			}
 			else
 			{
 				return false;
 			}
-		} else if (instance.getMeta() == BucketType.WATER.meta)
+		} else
 		{
-			if (liquidState.getTile().equals(GameContent.TILE_WATER))
+			BucketType type = BucketType.getFromMeta(instance.getMeta());
+			if (type != null)
 			{
-				int curLevel = liquidState.get(GameContent.TILE_WATER.level);
-				if (curLevel < 11)
+				if (liquidState.getTile().equals(type.liquid))
 				{
-					world.setState(TileLayer.LIQUIDS, x, y,
-							liquidState.prop(((TileLiquid) liquidState.getTile()).level, curLevel + 1));
+					int curLevel = liquidState.get(type.liquid.level);
+					if (curLevel < 11)
+					{
+						world.setState(TileLayer.LIQUIDS, x, y,
+								liquidState.prop(((TileLiquid) liquidState.getTile()).level, curLevel + 1));
+					} else
+					{
+						return false;
+					}
+				} else if (te instanceof IFluidTile<?>)
+				{
+					IFluidTile<?> fluidTE = (IFluidTile<?>) te;
+					if (!fluidTE.addFluid(new Pos2(x, y), type.liquid, 25, false))
+					{
+						return false;
+					}
+				} else if (liquidState.getTile().isAir())
+				{
+					world.setState(TileLayer.LIQUIDS, x, y, type.liquid.getDefState());
 				} else
 				{
 					return false;
 				}
-			} else if (te instanceof IFluidTile<?>)
-			{
-				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
-				if (!fluidTE.addFluid(new Pos2(x, y), GameContent.TILE_WATER, 25, false))
-				{
-					return false;
-				}
-			} else if (liquidState.getTile().isAir())
-			{
-				world.setState(TileLayer.LIQUIDS, x, y, GameContent.TILE_WATER.getDefState());
-			} else
+				instance.setMeta(BucketType.EMPTY.meta);
+			}
+			else
 			{
 				return false;
 			}
-			instance.setMeta(BucketType.EMPTY.meta);
-		} else if (instance.getMeta() == BucketType.OIL.meta)
-		{
-			if (liquidState.getTile().equals(ModTiles.OIL))
-			{
-				int curLevel = liquidState.get(ModTiles.OIL.level);
-				if (curLevel < 11)
-				{
-					world.setState(TileLayer.LIQUIDS, x, y,
-							liquidState.prop(((TileLiquid) liquidState.getTile()).level, curLevel + 1));
-				} else
-				{
-					return false;
-				}
-			} else if (te instanceof IFluidTile<?>)
-			{
-				IFluidTile<?> fluidTE = (IFluidTile<?>) te;
-				if (!fluidTE.addFluid(new Pos2(x, y), ModTiles.OIL, 25, false))
-				{
-					return false;
-				}
-			} else if (liquidState.getTile().isAir())
-			{
-				world.setState(TileLayer.LIQUIDS, x, y, ModTiles.OIL.getDefState());
-			} else
-			{
-				return false;
-			}
-			instance.setMeta(BucketType.EMPTY.meta);
 		}
 		return true;
 
@@ -156,7 +136,7 @@ public class ItemBucket extends ItemBase
 	@Override
 	public int getHighestPossibleMeta()
 	{
-		return BucketType.values().length - 1;
+		return BucketType.amount();
 	}
 
 	@Override
@@ -165,33 +145,51 @@ public class ItemBucket extends ItemBase
 		return this.unlocName.addSuffix("." + BucketType.getFromMeta(instance.getMeta()).toString());
 	}
 
-	public enum BucketType
+	public static class BucketType
 	{
-		EMPTY(0), WATER(1), OIL(2);
+		private final static List<BucketType> TYPES = new ArrayList<>();
+
+		public static final BucketType EMPTY = new BucketType("empty", null);
 
 		public final int meta;
+		public final TileLiquid liquid;
+		private final String name;
 
-		BucketType(int meta)
+		public BucketType(String name, TileLiquid liquid)
 		{
-			this.meta = meta;
-		}
+			this.meta = TYPES.size();
+			this.liquid = liquid;
+			this.name = name;
 
-		public static BucketType getFromMeta(int meta)
-		{
-			for (BucketType type : BucketType.values())
-			{
-				if (type.meta == meta)
-				{
-					return type;
-				}
-			}
-			return EMPTY;
+			TYPES.add(this);
 		}
 
 		@Override
 		public String toString()
 		{
-			return super.toString().toLowerCase();
+			return name;
+		}
+
+		public static BucketType getFromLiquid(TileLiquid liquid)
+		{
+			for (BucketType type : TYPES)
+			{
+				if (type.liquid == liquid)
+				{
+					return type;
+				}
+			}
+			return null;
+		}
+
+		public static BucketType getFromMeta(int meta)
+		{
+			return meta >= TYPES.size() ? TYPES.get(0) : TYPES.get(meta);
+		}
+
+		public static int amount()
+		{
+			return TYPES.size() - 1;
 		}
 	}
 

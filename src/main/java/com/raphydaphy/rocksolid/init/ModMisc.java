@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.item.ItemBucket;
 import com.raphydaphy.rocksolid.network.*;
 import com.raphydaphy.rocksolid.recipe.loader.AlloyingRecipeLoader;
 import com.raphydaphy.rocksolid.recipe.loader.BlastingRecipeLoader;
@@ -90,6 +91,10 @@ public class ModMisc
 		RES_ALL_FUELS = res().addResources("all_fuels", new ResInfo(GameContent.TILE_COAL), new ResInfo(ModItems.COKE));
 
 		RES_SANDSTONE = res().addResources("sandstone", new ResInfo(GameContent.TILE_SANDSTONE));
+
+		new ItemBucket.BucketType("water", GameContent.TILE_WATER);
+		new ItemBucket.BucketType("oil", ModTiles.OIL);
+		new ItemBucket.BucketType("fuel", ModTiles.FUEL);
 	}
 
 	private static IResourceRegistry res()
