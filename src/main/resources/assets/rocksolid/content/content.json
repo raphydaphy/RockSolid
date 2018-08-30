@@ -33,6 +33,13 @@
 	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
 	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json"
   },
+  "separating.": {
+	"copper_separating": "/separating/copper_separating.json",
+	"tin_separating": "/separating/tin_separating.json",
+	"iron_separating": "/separating/iron_separating.json",
+	"nickel_separating": "/separating/nickel_separating.json",
+	"magnesium_separating": "/separating/magnesium_separating.json"
+  },
   "blasting.": {
 	"coal_blasting": "/blasting/coal_blasting.json",
 	"rutile_blasting": "/blasting/rutile_blasting.json"

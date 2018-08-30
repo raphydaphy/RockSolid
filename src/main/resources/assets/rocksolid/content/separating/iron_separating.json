@@ -1,0 +1,13 @@
+{
+  "input": {
+	"name": "iron_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.iron"
+  },
+  "biproduct": {
+	"name": "rocksolid/grit.nickel",
+	"chance": 2
+  },
+  "time": 300
+}

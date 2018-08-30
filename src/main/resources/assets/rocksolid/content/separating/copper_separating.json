@@ -1,0 +1,9 @@
+{
+  "input": {
+	"name": "copper_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.copper"
+  },
+  "time": 300
+}

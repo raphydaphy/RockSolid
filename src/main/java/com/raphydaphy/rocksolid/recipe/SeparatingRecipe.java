@@ -9,9 +9,9 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class SeparatorRecipe
+public class SeparatingRecipe
 {
-	public static final NameRegistry<SeparatorRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("separator_registry"), true).register();
+	public static final NameRegistry<SeparatingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("separator_registry"), true).register();
 
 	private final ResourceName name;
 	public final IUseInfo in;
@@ -20,17 +20,17 @@ public class SeparatorRecipe
 	public final int biproductChance;
 	public final int time;
 
-	public SeparatorRecipe(String inRes, Item out, int time)
+	public SeparatingRecipe(String inRes, Item out, int time)
 	{
 		this(RockSolid.createRes(inRes + "_separation"), inRes, out, time);
 	}
 
-	public SeparatorRecipe(ResourceName name, String inRes, Item out, int time)
+	public SeparatingRecipe(ResourceName name, String inRes, Item out, int time)
 	{
 		this(name, new ResUseInfo(inRes), new ItemInstance(out), new ItemInstance(ModItems.SLAG), 3, time);
 	}
 
-	public SeparatorRecipe(ResourceName name, IUseInfo in, ItemInstance out, ItemInstance biproduct, int biproductChance, int time)
+	public SeparatingRecipe(ResourceName name, IUseInfo in, ItemInstance out, ItemInstance biproduct, int biproductChance, int time)
 	{
 		this.name = name;
 		this.in = in;
@@ -40,11 +40,11 @@ public class SeparatorRecipe
 		this.time = time;
 	}
 
-	public static SeparatorRecipe forInput(ItemInstance input)
+	public static SeparatingRecipe forInput(ItemInstance input)
 	{
 		if (input != null)
 		{
-			for (SeparatorRecipe recipe : REGISTRY.values())
+			for (SeparatingRecipe recipe : REGISTRY.values())
 			{
 				if (recipe.in.containsItem(input))
 				{
@@ -55,7 +55,7 @@ public class SeparatorRecipe
 		return null;
 	}
 
-	public SeparatorRecipe register()
+	public SeparatingRecipe register()
 	{
 		REGISTRY.register(this.name, this);
 		return this;

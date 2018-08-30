@@ -1,0 +1,9 @@
+{
+  "input": {
+	"name": "magnesium_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.magnesium"
+  },
+  "time": 300
+}

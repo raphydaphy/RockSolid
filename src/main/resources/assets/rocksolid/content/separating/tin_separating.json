@@ -1,0 +1,9 @@
+{
+  "input": {
+	"name": "tin_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.tin"
+  },
+  "time": 300
+}

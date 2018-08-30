@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
+import com.raphydaphy.rocksolid.recipe.SeparatingRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
@@ -26,7 +26,7 @@ public class TileEntitySeparator extends TileEntityFueledBase
 		{
 			avalableSlots.add(0);
 		}
-		if (SeparatorRecipe.forInput(input) != null)
+		if (SeparatingRecipe.forInput(input) != null)
 		{
 			avalableSlots.add(1);
 		}
@@ -93,8 +93,8 @@ public class TileEntitySeparator extends TileEntityFueledBase
 	protected void getRecipeAndStart()
 	{
 		ItemInstance item;
-		SeparatorRecipe recipe;
-		if ((item = this.inventory.get(1)) != null && (recipe = SeparatorRecipe.forInput(item)) != null)
+		SeparatingRecipe recipe;
+		if ((item = this.inventory.get(1)) != null && (recipe = SeparatingRecipe.forInput(item)) != null)
 		{
 			IUseInfo input = recipe.in;
 			if (item.getAmount() >= input.getAmount())

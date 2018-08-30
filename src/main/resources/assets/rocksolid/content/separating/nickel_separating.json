@@ -1,0 +1,9 @@
+{
+  "input": {
+	"name": "nickel_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.nickel"
+  },
+  "time": 300
+}

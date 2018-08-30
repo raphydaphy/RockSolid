@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.recipe.SeparatorRecipe;
+import com.raphydaphy.rocksolid.recipe.SeparatingRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityElectric;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
@@ -23,7 +23,7 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 	private final TileInventory inventory = new TileInventory(this, 3, (input) ->
 	{
 		ArrayList<Integer> avalableSlots = new ArrayList<>(1);
-		if (SeparatorRecipe.forInput(input) != null)
+		if (SeparatingRecipe.forInput(input) != null)
 		{
 			avalableSlots.add(0);
 		}
@@ -91,8 +91,8 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 	protected void getRecipeAndStart()
 	{
 		ItemInstance item;
-		SeparatorRecipe recipe;
-		if ((item = this.inventory.get(0)) != null && (recipe = SeparatorRecipe.forInput(item)) != null)
+		SeparatingRecipe recipe;
+		if ((item = this.inventory.get(0)) != null && (recipe = SeparatingRecipe.forInput(item)) != null)
 		{
 			IUseInfo input = recipe.in;
 			if (item.getAmount() >= input.getAmount())
