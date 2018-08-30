@@ -14,11 +14,6 @@ public class ModRecipes
 
 	public static void init()
 	{
-		new AlloySmelterRecipe(GameContent.RES_COPPER_PROCESSED, 3, ModItems.RES_TIN_PROCESSED, 1, ModItems.BRONZE_INGOT, 4, 350).register();
-		new AlloySmelterRecipe(ModItems.RES_COPPER_CRUSHED, 3, ModItems.RES_TIN_CRUSHED, 1, ModItems.BRONZE_GRIT, 4, 350).register();
-		new AlloySmelterRecipe(ModItems.RES_IRON_PROCESSED, 1, ModItems.RES_COAL_PROCESSED, 1, ModItems.STEEL_INGOT, 1, 500).register();
-		new AlloySmelterRecipe(ModItems.RES_MAGNESIUM_PROCESSED, 1, ModItems.RES_TITANIUM_IMPURE, 1, ModItems.TITANIUM_INGOT, 1, 650).register();
-
 		new AssemblyRecipe(0.8f, new ItemInstance(ModTiles.BOILER), 55, 8, 12).disableEfficiency().disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TURBINE),49, 5, 6).disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_TITANIUM_PROCESSED, 15), new ItemInstance(ModTiles.NUCLEAR_REACTOR), 75, 10).disableThroughput().registerAssembly();

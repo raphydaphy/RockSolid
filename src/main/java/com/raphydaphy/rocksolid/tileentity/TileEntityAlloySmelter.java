@@ -1,6 +1,6 @@
 package com.raphydaphy.rocksolid.tileentity;
 
-import com.raphydaphy.rocksolid.recipe.AlloySmelterRecipe;
+import com.raphydaphy.rocksolid.recipe.AlloyingRecipe;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
@@ -24,11 +24,11 @@ public class TileEntityAlloySmelter extends TileEntityFueledBase
 		{
 			avalableSlots.add(0);
 		}
-		if (AlloySmelterRecipe.forInput(input, this.inventory.get(2), true) != null)
+		if (AlloyingRecipe.forInput(input, this.inventory.get(2), true) != null)
 		{
 			avalableSlots.add(1);
 		}
-		if (AlloySmelterRecipe.forInput(input, this.inventory.get(1), true) != null)
+		if (AlloyingRecipe.forInput(input, this.inventory.get(1), true) != null)
 		{
 			avalableSlots.add(2);
 		}
@@ -47,8 +47,8 @@ public class TileEntityAlloySmelter extends TileEntityFueledBase
 	{
 		ItemInstance item1 = this.inventory.get(1);
 		ItemInstance item2 = this.inventory.get(2);
-		AlloySmelterRecipe recipe;
-		if (item1 != null && item2 != null && (recipe = AlloySmelterRecipe.forInput(item1, item2, false)) != null)
+		AlloyingRecipe recipe;
+		if (item1 != null && item2 != null && (recipe = AlloyingRecipe.forInput(item1, item2, false)) != null)
 		{
 			IUseInfo input1 = recipe.in1;
 			IUseInfo input2 = recipe.in2;

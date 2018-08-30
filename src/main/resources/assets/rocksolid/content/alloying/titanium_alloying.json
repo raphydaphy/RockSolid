@@ -1,0 +1,13 @@
+{
+  "input_1": {
+	"name": "magnesium_processed"
+  },
+  "input_2": {
+	"name": "titanium_impure"
+  },
+  "output": {
+	"name": "rocksolid/ingot.titanium",
+	"amount": 2
+  },
+  "time": 650
+}

@@ -33,6 +33,12 @@
 	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
 	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json"
   },
+  "alloying.": {
+	"bronze_grit_alloying": "/alloying/bronze_grit_alloying.json",
+	"bronze_ingot_alloying": "/alloying/bronze_ingot_alloying.json",
+	"steel_alloying": "/alloying/steel_alloying.json",
+	"titanium_alloying": "/alloying/titanium_alloying.json"
+  },
   "separating.": {
 	"copper_separating": "/separating/copper_separating.json",
 	"tin_separating": "/separating/tin_separating.json",

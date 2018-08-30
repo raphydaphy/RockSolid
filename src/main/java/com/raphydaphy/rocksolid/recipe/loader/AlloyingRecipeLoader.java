@@ -5,8 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
+import com.raphydaphy.rocksolid.recipe.AlloyingRecipe;
 import com.raphydaphy.rocksolid.recipe.SeparatingRecipe;
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
@@ -25,12 +25,12 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SeparatingRecipeLoader implements IContentLoader
+public class AlloyingRecipeLoader implements IContentLoader
 {
-	public static final ResourceName ID = RockSolid.createRes("separating");
+	public static final ResourceName ID = RockSolid.createRes("alloying");
 	private final Set<ResourceName> disabled = new HashSet<>();
 
-	public SeparatingRecipeLoader()
+	public AlloyingRecipeLoader()
 	{
 	}
 
@@ -47,7 +47,7 @@ public class SeparatingRecipeLoader implements IContentLoader
 		{
 			if (IRecipe.forName(resourceName) != null)
 			{
-				RockSolid.getLogger().info("Separating recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
+				RockSolid.getLogger().info("Alloying recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
 			} else
 			{
 				String fileName = path + element.getAsString();
@@ -66,41 +66,30 @@ public class SeparatingRecipeLoader implements IContentLoader
 
 				ItemInstance outputInstance = new ItemInstance(outputItem, outputAmount, outputMeta);
 
-				int biproductChance = 3;
-				ItemInstance biproductInstance = new ItemInstance(ModItems.SLAG);
+				IUseInfo input1 = getInput(curObject, 1);
+				IUseInfo input2 = getInput(curObject, 2);
 
-				if (curObject.has("biproduct"))
-				{
-					JsonObject biproductObject = curObject.get("biproduct").getAsJsonObject();
-
-					Item biproductItem = Registries.ITEM_REGISTRY.get(new ResourceName(biproductObject.get("name").getAsString()));
-					int biproductAmount = biproductObject.has("amount") ? biproductObject.get("amount").getAsInt() : 1;
-					int biproductMeta = biproductObject.has("meta") ? biproductObject.get("meta").getAsInt() : 0;
-					biproductChance = biproductObject.has("chance") ? biproductObject.get("chance").getAsInt() : 3;
-
-					biproductInstance = new ItemInstance(biproductItem, biproductAmount, biproductMeta);
-				}
-
-
-				elementName = (curObject = curObject.get("input").getAsJsonObject()).get("name").getAsString();
-				outputAmount = curObject.has("amount") ? curObject.get("amount").getAsInt() : 1;
-				IUseInfo inputUse;
-
-				if (Util.isResourceName(elementName))
-				{
-					int var12 = curObject.has("meta") ? curObject.get("meta").getAsInt() : 0;
-					inputUse = new ItemUseInfo(Registries.ITEM_REGISTRY.get(new ResourceName(elementName)), outputAmount, var12);
-				} else
-				{
-					inputUse = new ResUseInfo(elementName, outputAmount);
-				}
-
-				new SeparatingRecipe(resourceName, inputUse, outputInstance, biproductInstance, biproductChance, recipeTime).register();
-				RockSolid.getLogger().config("Loaded separating recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + recipeTime + ", input " + inputUse + " , output " + outputInstance + " and biproduct " + biproductInstance + " with content pack " + pack.getName());
+				new AlloyingRecipe(resourceName, input1, input2, outputInstance, recipeTime).register();
+				RockSolid.getLogger().config("Loaded alloying recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + recipeTime + ", input (" + input1 + " and " + input2 + ") and output " + outputInstance + " with content pack " + pack.getName());
 			}
 		} else
 		{
-			RockSolid.getLogger().info("Separating recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
+			RockSolid.getLogger().info("Alloying recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
+		}
+	}
+
+	private IUseInfo getInput(JsonObject recipe, int input)
+	{
+		String name = (recipe = recipe.get("input_" + input).getAsJsonObject()).get("name").getAsString();
+		int amount = recipe.has("amount") ? recipe.get("amount").getAsInt() : 1;
+
+		if (Util.isResourceName(name))
+		{
+			int var12 = recipe.has("meta") ? recipe.get("meta").getAsInt() : 0;
+			return new ItemUseInfo(Registries.ITEM_REGISTRY.get(new ResourceName(name)), amount, var12);
+		} else
+		{
+			return new ResUseInfo(name, amount);
 		}
 	}
 

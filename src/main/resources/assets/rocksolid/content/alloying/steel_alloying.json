@@ -1,0 +1,12 @@
+{
+  "input_1": {
+	"name": "iron_processed"
+  },
+  "input_2": {
+	"name": "coal_processed"
+  },
+  "output": {
+	"name": "rocksolid/ingot.steel"
+  },
+  "time": 500
+}

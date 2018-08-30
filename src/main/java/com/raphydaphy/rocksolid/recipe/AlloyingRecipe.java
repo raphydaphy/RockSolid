@@ -8,9 +8,9 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class AlloySmelterRecipe
+public class AlloyingRecipe
 {
-	public static final NameRegistry<AlloySmelterRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("alloy_smelting_registry"), true).register();
+	public static final NameRegistry<AlloyingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("alloy_smelting_registry"), true).register();
 
 	private final ResourceName name;
 	public final IUseInfo in1;
@@ -18,17 +18,17 @@ public class AlloySmelterRecipe
 	public final ItemInstance out;
 	public final int time;
 
-	public AlloySmelterRecipe(String in1, int quantity1, String in2, int quantity2, Item out, int quantityOut, int time)
+	public AlloyingRecipe(String in1, int quantity1, String in2, int quantity2, Item out, int quantityOut, int time)
 	{
 		this(new ResUseInfo(in1, quantity1), new ResUseInfo(in2, quantity2), new ItemInstance(out, quantityOut), time);
 	}
 
-	public AlloySmelterRecipe(IUseInfo in1, IUseInfo in2, ItemInstance out, int time)
+	public AlloyingRecipe(IUseInfo in1, IUseInfo in2, ItemInstance out, int time)
 	{
 		this(out.getItem().getName(), in1, in2, out, time);
 	}
 
-	public AlloySmelterRecipe(ResourceName name, IUseInfo in1, IUseInfo in2, ItemInstance out, int time)
+	public AlloyingRecipe(ResourceName name, IUseInfo in1, IUseInfo in2, ItemInstance out, int time)
 	{
 		this.name = name;
 		this.in1 = in1;
@@ -37,9 +37,9 @@ public class AlloySmelterRecipe
 		this.time = time;
 	}
 
-	public static AlloySmelterRecipe forInput(ItemInstance input1, ItemInstance input2, boolean ignoreNull)
+	public static AlloyingRecipe forInput(ItemInstance input1, ItemInstance input2, boolean ignoreNull)
 	{
-		for (AlloySmelterRecipe recipe : REGISTRY.values())
+		for (AlloyingRecipe recipe : REGISTRY.values())
 		{
 			if (input1 != null && input2 != null)
 			{
@@ -48,7 +48,7 @@ public class AlloySmelterRecipe
 					return recipe;
 				} else if ((recipe.in2.containsItem(input1) && recipe.in1.containsItem(input2)))
 				{
-					return new AlloySmelterRecipe(recipe.in2, recipe.in1, recipe.out, recipe.time);
+					return new AlloyingRecipe(recipe.in2, recipe.in1, recipe.out, recipe.time);
 				}
 			}
 			if (input1 != null && ignoreNull && input2 == null && (recipe.in1.containsItem(input1) || recipe.in2.containsItem(input1)))
@@ -59,7 +59,7 @@ public class AlloySmelterRecipe
 		return null;
 	}
 
-	public AlloySmelterRecipe register()
+	public AlloyingRecipe register()
 	{
 		REGISTRY.register(this.name, this);
 		return this;

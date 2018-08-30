@@ -1,0 +1,14 @@
+{
+  "input_1": {
+	"name": "copper_crushed",
+	"amount": 3
+  },
+  "input_2": {
+	"name": "tin_crushed"
+  },
+  "output": {
+	"name": "rocksolid/grit.bronze",
+	"amount": 4
+  },
+  "time": 350
+}
