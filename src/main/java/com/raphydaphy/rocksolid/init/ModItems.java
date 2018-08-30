@@ -11,6 +11,7 @@ import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemTool;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
 
+@SuppressWarnings("WeakerAccess")
 public class ModItems
 {
 	public static Item BUCKET;
@@ -20,6 +21,7 @@ public class ModItems
 	public static Item IRON_CLUSTER;
 	public static Item MAGNESIUM_CLUSTER;
 	public static Item URANIUM_CLUSTER;
+	public static Item TUNGSTEN_CLUSTER;
 	public static Item LUNAR_NICKEL_CLUSTER;
 	public static Item LUNAR_ALUMINUM_CLUSTER;
 	public static Item LUNAR_COBALT_CLUSTER;
@@ -31,6 +33,7 @@ public class ModItems
 	public static Item BRONZE_GRIT;
 	public static Item MAGNESIUM_GRIT;
 	public static Item URANIUM_GRIT;
+	public static Item TUNGSTEN_GRIT;
 
 	public static Item TIN_INGOT;
 	public static Item IRON_INGOT;
@@ -41,6 +44,9 @@ public class ModItems
 	public static Item IMPURE_TITANIUM_INGOT;
 	public static Item TITANIUM_INGOT;
 	public static Item URANIUM_INGOT;
+	public static Item TUNGSTEN_INGOT;
+	public static Item NICKEL_TUNGSTEN_INGOT;
+	public static Item NICKEL_TUNGSTEN_CARBIDE_INGOT;
 
 	public static Item BRONZE_PICKAXE;
 	public static Item STEEL_PICKAXE;
@@ -66,6 +72,7 @@ public class ModItems
 	public static String RES_NICKEL_RAW;
 	public static String RES_ALUMINUM_RAW;
 	public static String RES_COBALT_RAW;
+	public static String RES_TUNGSTEN_RAW;
 
 	public static String RES_COPPER_CRUSHED;
 	public static String RES_TIN_CRUSHED;
@@ -74,6 +81,7 @@ public class ModItems
 	public static String RES_NICKEL_CRUSHED;
 	public static String RES_MAGNESIUM_CRUSHED;
 	public static String RES_URANIUM_CRUSHED;
+	public static String RES_TUNGSTEN_CRUSHED;
 
 	public static String RES_TIN_PROCESSED;
 	public static String RES_BRONZE_PROCESSED;
@@ -83,6 +91,9 @@ public class ModItems
 	public static String RES_MAGNESIUM_PROCESSED;
 	public static String RES_TITANIUM_PROCESSED;
 	public static String RES_URANIUM_PROCESSED;
+	public static String RES_TUNGSTEN_PROCESSED;
+	public static String RES_NICKEL_TUNGSTEN_PROCESSED;
+	public static String RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED;
 
 	public static String RES_COAL_PROCESSED;
 	public static String RES_TITANIUM_IMPURE;
@@ -102,6 +113,7 @@ public class ModItems
 		IRON_CLUSTER = new ItemBase("cluster.iron").setMaxAmount(35);
 		MAGNESIUM_CLUSTER = new ItemBase("cluster.magnesium").setMaxAmount(35);
 		URANIUM_CLUSTER = new ItemBase("cluster.uranium").setMaxAmount(35);
+		TUNGSTEN_CLUSTER = new ItemBase("cluster.tungsten").setMaxAmount(35);
 		LUNAR_NICKEL_CLUSTER = new ItemBase("cluster.lunar.nickel").setMaxAmount(30);
 		LUNAR_ALUMINUM_CLUSTER = new ItemBase("cluster.lunar.aluminum").setMaxAmount(30);
 		LUNAR_COBALT_CLUSTER = new ItemBase("cluster.lunar.cobalt").setMaxAmount(30);
@@ -113,6 +125,7 @@ public class ModItems
 		BRONZE_GRIT = new ItemBase("grit.bronze").setMaxAmount(40);
 		MAGNESIUM_GRIT = new ItemBase("grit.magnesium").setMaxAmount(40);
 		URANIUM_GRIT = new ItemBase("grit.uranium").setMaxAmount(40);
+		TUNGSTEN_GRIT = new ItemBase("grit.tungsten").setMaxAmount(40);
 
 		TIN_INGOT = new ItemBase("ingot.tin").setMaxAmount(50);
 		IRON_INGOT = new ItemBase("ingot.iron").setMaxAmount(50);
@@ -123,6 +136,9 @@ public class ModItems
 		IMPURE_TITANIUM_INGOT = new ItemBase("ingot.impure_titanium").setMaxAmount(50);
 		TITANIUM_INGOT = new ItemBase("ingot.titanium").setMaxAmount(50);
 		URANIUM_INGOT = new ItemBase("ingot.uranium").setMaxAmount(50);
+		TUNGSTEN_INGOT = new ItemBase("ingot.tungsten").setMaxAmount(50);
+		NICKEL_TUNGSTEN_INGOT = new ItemBase("ingot.nickel_tungsten").setMaxAmount(50);
+		NICKEL_TUNGSTEN_CARBIDE_INGOT = new ItemBase("ingot.nickel_tungsten_carbide").setMaxAmount(50);
 
 		BRONZE_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.bronze"), 6, 500, ToolProperty.PICKAXE, 15).register();
 		STEEL_PICKAXE = new ItemTool(RockSolid.createRes("pickaxe.steel"), 8.5f, 750, ToolProperty.PICKAXE, 20).register();
@@ -145,6 +161,7 @@ public class ModItems
 		RES_IRON_RAW = res().addResources("iron_raw", IRON_CLUSTER);
 		RES_MAGNESIUM_RAW = res().addResources("magnesium_raw", MAGNESIUM_CLUSTER);
 		RES_URANIUM_RAW = res().addResources("uranium_raw", URANIUM_CLUSTER);
+		RES_TUNGSTEN_RAW = res().addResources("tungsten_raw", TUNGSTEN_CLUSTER);
 		RES_NICKEL_RAW = res().addResources("nickel_raw", LUNAR_NICKEL_CLUSTER);
 		RES_ALUMINUM_RAW = res().addResources("aluminum_raw", LUNAR_ALUMINUM_CLUSTER);
 		RES_COBALT_RAW = res().addResources("cobalt_raw", LUNAR_COBALT_CLUSTER);
@@ -156,6 +173,7 @@ public class ModItems
 		RES_NICKEL_CRUSHED = res().addResources("nickel_crushed", NICKEL_GRIT);
 		RES_MAGNESIUM_CRUSHED = res().addResources("magnesium_crushed", MAGNESIUM_GRIT);
 		RES_URANIUM_CRUSHED = res().addResources("uranium_crushed", URANIUM_GRIT);
+		RES_TUNGSTEN_CRUSHED = res().addResources("tungsten_crushed", TUNGSTEN_GRIT);
 
 		RES_TIN_PROCESSED = res().addResources("tin_processed", TIN_INGOT);
 		RES_BRONZE_PROCESSED = res().addResources("bronze_processed", BRONZE_INGOT);
@@ -165,6 +183,9 @@ public class ModItems
 		RES_MAGNESIUM_PROCESSED = res().addResources("magnesium_processed", MAGNESIUM_INGOT);
 		RES_TITANIUM_PROCESSED = res().addResources("titanium_processed", TITANIUM_INGOT);
 		RES_URANIUM_PROCESSED = res().addResources("uranium_processed", URANIUM_INGOT);
+		RES_TUNGSTEN_PROCESSED = res().addResources("tungsten_processed", TUNGSTEN_INGOT);
+		RES_NICKEL_TUNGSTEN_PROCESSED = res().addResources("nickel_tungsten_processed", NICKEL_TUNGSTEN_INGOT);
+		RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED = res().addResources("nickel_tungsten_carbide_processed", NICKEL_TUNGSTEN_CARBIDE_INGOT);
 
 		RES_COAL_PROCESSED = res().addResources("coal_processed", COKE);
 		RES_TITANIUM_IMPURE = res().addResources("titanium_impure", IMPURE_TITANIUM_INGOT);

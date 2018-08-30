@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.util;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModMisc;
+import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.machine.TileMachineBase;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityFueledBase;
@@ -81,6 +82,8 @@ public class ModUtils
     private static ResUseInfo sandstone = new ResUseInfo(ModMisc.RES_SANDSTONE);
     private static ResUseInfo soil = new ResUseInfo(GameContent.RES_SOIL);
     private static ResUseInfo log = new ResUseInfo(GameContent.RES_WOOD_RAW);
+	private static ResUseInfo moon_stone = new ResUseInfo(ModTiles.RES_MOON_STONE);
+	private static ResUseInfo moon_turf = new ResUseInfo(ModTiles.RES_MOON_TURF);
 
     private static ResUseInfo copper = new ResUseInfo(GameContent.RES_COPPER_PROCESSED);
     private static ResUseInfo tin = new ResUseInfo(ModItems.RES_TIN_PROCESSED);
@@ -91,6 +94,9 @@ public class ModUtils
 	private static ResUseInfo magnesium = new ResUseInfo(ModItems.RES_MAGNESIUM_PROCESSED);
 	private static ResUseInfo impure_titanium = new ResUseInfo(ModItems.RES_TITANIUM_IMPURE);
 	private static ResUseInfo titanium = new ResUseInfo(ModItems.RES_TITANIUM_PROCESSED);
+	private static ResUseInfo tungsten = new ResUseInfo(ModItems.RES_TUNGSTEN_PROCESSED);
+	private static ResUseInfo nickel_tungsten = new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_PROCESSED);
+	private static ResUseInfo nickel_tungsten_carbide = new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED);
 
     private static ResUseInfo coal = new ResUseInfo(GameContent.RES_COAL);
     private static ResUseInfo coke = new ResUseInfo(ModItems.RES_COAL_PROCESSED);
@@ -106,11 +112,13 @@ public class ModUtils
 			    if (sandstone.containsItem(item)) { capacity *= 1.2f; }
 			    else if (stone.containsItem(item)) { capacity *= 1.1f; }
 			    else if (soil.containsItem(item)) { capacity *= 0.8f; }
+			    else if (moon_stone.containsItem(item)) { capacity *= 1.3f; }
 
 			    else if (copper.containsItem(item)) { capacity *= 1.5f; }
 			    else if (iron.containsItem(item)) { capacity *= 0.95f; }
 			    else if (bronze.containsItem(item)) { capacity *= 1.25f; }
 			    else if (impure_titanium.containsItem(item)) { capacity *= 0.65f; }
+			    else if (nickel_tungsten_carbide.containsItem(item)) { capacity *= 1.3f; }
 
 			    else if (coke.containsItem(item)) { capacity *= 1.1f; }
 		    }
@@ -131,6 +139,7 @@ public class ModUtils
 			    else if (log.containsItem(item)) { efficiency *= 1.15f; }
 			    else if (soil.containsItem(item)) { efficiency *= 0.6f; }
 			    else if (sandstone.containsItem(item)) { efficiency *= 0.9f; }
+			    else if (moon_turf.containsItem(item)) { efficiency *= 1.2f; }
 
 			    else if (steel.containsItem(item)) { efficiency *= 1.45f; }
 			    else if (iron.containsItem(item)) { efficiency *= 0.9f; }
@@ -141,6 +150,7 @@ public class ModUtils
 			    else if (titanium.containsItem(item)) { efficiency *= 1.6f; }
 			    else if (magnesium.containsItem(item)) { efficiency *= 0.9f; }
 			    else if (nickel.containsItem(item)) { efficiency *= 1.15f; }
+			    else if (tungsten.containsItem(item)) { efficiency *= 1.25f; }
 
 			    else if (coal.containsItem(item)) { efficiency *= 0.9f; }
 			    else if (coke.containsItem(item)) { efficiency *= 1.1f; }
@@ -161,6 +171,7 @@ public class ModUtils
 			    if (stone.containsItem(item)) { speed *= 0.9f; }
 			    else if (log.containsItem(item)) { speed *= 0.8f; }
 			    else if (soil.containsItem(item)) { speed *= 1.35f; }
+			    else if (moon_turf.containsItem(item)) { speed *= 1.3f; }
 
 			    else if (steel.containsItem(item)) { speed *= 1.4f; }
 			    else if (iron.containsItem(item)) { speed *= 1.1f; }
@@ -170,6 +181,7 @@ public class ModUtils
 			    else if (titanium.containsItem(item)) { speed *= 0.9f; }
 			    else if (magnesium.containsItem(item)) { speed *= 1.1f; }
 			    else if (nickel.containsItem(item)) { speed *= 0.7f; }
+			    else if (nickel_tungsten_carbide.containsItem(item)) { speed *= 1.5f; }
 
 			    else if (coal.containsItem(item)) { speed *= 0.8f; }
 			    else if (coke.containsItem(item)) { speed *= 1.2f; }
@@ -190,6 +202,7 @@ public class ModUtils
 			    if (log.containsItem(item)) { bonus *= 1.15f; }
 			    else if (soil.containsItem(item)) { bonus *= 0.8f; }
 			    else if (sandstone.containsItem(item)) { bonus *= 1.05f; }
+			    else if (moon_stone.containsItem(item)) { bonus *= 1.5f; }
 
 			    else if (steel.containsItem(item)) { bonus *= 0.95f; }
 			    else if (iron.containsItem(item)) { bonus *= 1.2f; }
@@ -219,6 +232,7 @@ public class ModUtils
 			    if (stone.containsItem(item)) { throughput *= 1.1f; }
 			    else if (log.containsItem(item)) { throughput *= 1.05f; }
 			    else if (soil.containsItem(item)) { throughput *= 1.3f; }
+			    else if (moon_turf.containsItem(item)) { throughput *= 1.4f; }
 
 			    else if (steel.containsItem(item)) { throughput *= 0.95f; }
 			    else if (iron.containsItem(item)) { throughput *= 1.1f; }
@@ -226,6 +240,7 @@ public class ModUtils
 			    else if (tin.containsItem(item)) { throughput *= 1.3f; }
 			    else if (copper.containsItem(item)) { throughput *= 1.35f; }
 			    else if (titanium.containsItem(item)) { throughput *= 1.2f; }
+			    else if (nickel_tungsten.containsItem(item)) { throughput *= 1.4f; }
 
 			    else if (coal.containsItem(item)) { throughput *= 0.9f; }
 			    else if (coke.containsItem(item)) { throughput *= 1.2f; }

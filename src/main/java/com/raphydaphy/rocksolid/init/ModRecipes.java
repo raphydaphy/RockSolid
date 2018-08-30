@@ -1,8 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.recipe.*;
-import de.ellpeck.rockbottom.api.GameContent;
+import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;

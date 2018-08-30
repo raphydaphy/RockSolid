@@ -1,0 +1,9 @@
+{
+  "input": {
+	"name": "tungsten_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.tungsten"
+  },
+  "time": 300
+}

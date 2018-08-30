@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.tile.*;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
@@ -12,8 +11,8 @@ import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.tile.Tile;
-import de.ellpeck.rockbottom.api.tile.TileBasic;
 
+@SuppressWarnings("WeakerAccess")
 public class ModTiles
 {
 	public static Tile TIN_ORE;
@@ -21,6 +20,7 @@ public class ModTiles
 	public static Tile RUTILE_ORE;
 	public static Tile MAGNESIUM_ORE;
 	public static Tile URANIUM_ORE;
+	public static Tile WOLFRAMITE_ORE;
 	public static Tile LUNAR_NICKEL_ORE;
 	public static Tile LUNAR_ALUMINUM_ORE;
 	public static Tile LUNAR_COBALT_ORE;
@@ -54,6 +54,8 @@ public class ModTiles
 	public static Tile MOON_STONE;
 
 	public static String RES_TITANIUM_RAW;
+	public static String RES_MOON_STONE;
+	public static String RES_MOON_TURF;
 
 	private static IResourceRegistry res()
 	{
@@ -67,6 +69,7 @@ public class ModTiles
 		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);
 		RUTILE_ORE = new TileBase("ore.rutile", 18, new ToolInfo(ToolProperty.PICKAXE, 19)).setMaxAmount(15);
 		URANIUM_ORE = new TileOre("ore.uranium", 15f, 25, ModItems.URANIUM_CLUSTER);
+		WOLFRAMITE_ORE = new TileOre("ore.wolframite", 25f, 25, ModItems.TUNGSTEN_CLUSTER);
 		LUNAR_NICKEL_ORE = new TileOre("ore.lunar.nickel", 13f, 15, ModItems.LUNAR_NICKEL_CLUSTER);
 		LUNAR_ALUMINUM_ORE = new TileOre("ore.lunar.aluminum", 18f, 23, ModItems.LUNAR_ALUMINUM_CLUSTER);
 		LUNAR_COBALT_ORE = new TileOre("ore.lunar.cobalt", 25f, 28, ModItems.LUNAR_COBALT_CLUSTER);
@@ -100,5 +103,7 @@ public class ModTiles
 		MOON_STONE = new TileBase("moon.stone", 8, new ToolInfo(ToolProperty.PICKAXE, 10)).setMaxAmount(50);
 
 		RES_TITANIUM_RAW = res().addResources("titanium_raw", RUTILE_ORE);
+		RES_MOON_STONE = res().addResources("moon_stone", MOON_STONE);
+		RES_MOON_TURF = res().addResources("moon_turf", MOON_TURF);
 	}
 }

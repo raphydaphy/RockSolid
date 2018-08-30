@@ -1,0 +1,12 @@
+{
+  "input_1": {
+	"name": "nickel_tungsten_processed"
+  },
+  "input_2": {
+	"name": "coal_processed"
+  },
+  "output": {
+	"name": "rocksolid/ingot.nickel_tungsten_carbide"
+  },
+  "time": 650
+}

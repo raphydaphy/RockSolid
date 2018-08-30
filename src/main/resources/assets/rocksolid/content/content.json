@@ -25,26 +25,31 @@
 	"tin_smelting": "/smelting/tin_smelting.json",
 	"iron_smelting": "/smelting/iron_smelting.json",
 	"magnesium_smelting": "/smelting/magnesium_smelting.json",
+	"tungsten_smelting": "/smelting/tungsten_smelting.json",
 	"nickel_smelting": "/smelting/nickel_smelting.json",
 	"copper_grit_smelting": "/smelting/copper_grit_smelting.json",
 	"tin_grit_smelting": "/smelting/tin_grit_smelting.json",
 	"bronze_grit_smelting": "/smelting/bronze_grit_smelting.json",
 	"iron_grit_smelting": "/smelting/iron_grit_smelting.json",
 	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
-	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json"
+	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json",
+	"tungsten_grit_smelting": "/smelting/tungsten_grit_smelting.json"
   },
   "alloying.": {
 	"bronze_grit_alloying": "/alloying/bronze_grit_alloying.json",
 	"bronze_ingot_alloying": "/alloying/bronze_ingot_alloying.json",
 	"steel_alloying": "/alloying/steel_alloying.json",
-	"titanium_alloying": "/alloying/titanium_alloying.json"
+	"titanium_alloying": "/alloying/titanium_alloying.json",
+	"nickel_tungsten_alloying": "/alloying/nickel_tungsten_alloying.json",
+	"nickel_tungsten_carbide_alloying": "/alloying/nickel_tungsten_carbide_alloying.json"
   },
   "separating.": {
 	"copper_separating": "/separating/copper_separating.json",
 	"tin_separating": "/separating/tin_separating.json",
 	"iron_separating": "/separating/iron_separating.json",
 	"nickel_separating": "/separating/nickel_separating.json",
-	"magnesium_separating": "/separating/magnesium_separating.json"
+	"magnesium_separating": "/separating/magnesium_separating.json",
+	"tungsten_separating": "/separating/tungsten_separating.json"
   },
   "blasting.": {
 	"coal_blasting": "/blasting/coal_blasting.json",

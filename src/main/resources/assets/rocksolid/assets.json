@@ -22,6 +22,7 @@
 		"iron": "/items/cluster/cluster_iron.png",
 		"magnesium": "/items/cluster/cluster_magnesium.png",
 		"uranium": "/items/cluster/cluster_uranium.png",
+		"tungsten": "/items/cluster/cluster_tungsten.png",
 		"lunar.": {
 		  "nickel": "/items/cluster/lunar_nickel_cluster.png",
 		  "aluminum": "/items/cluster/lunar_aluminum_cluster.png",
@@ -35,7 +36,8 @@
 		"nickel": "/items/grit/grit_nickel.png",
 		"bronze": "/items/grit/grit_bronze.png",
 		"magnesium": "/items/grit/grit_magnesium.png",
-		"uranium": "/items/grit/grit_uranium.png"
+		"uranium": "/items/grit/grit_uranium.png",
+		"tungsten": "/items/grit/grit_tungsten.png"
 	  },
 	  "ingot.": {
 		"copper": "/items/ingot/ingot_copper.png",
@@ -47,7 +49,10 @@
 		"magnesium": "/items/ingot/ingot_magnesium.png",
 		"impure_titanium": "/items/ingot/ingot_titanium_impure.png",
 		"titanium": "/items/ingot/ingot_titanium.png",
-		"uranium": "/items/ingot/ingot_uranium.png"
+		"uranium": "/items/ingot/ingot_uranium.png",
+		"tungsten": "/items/ingot/ingot_tungsten.png",
+		"nickel_tungsten": "/items/ingot/ingot_nickel_tungsten.png",
+		"nickel_tungsten_carbide": "/items/ingot/ingot_nickel_tungsten_carbide.png"
 	  },
 	  "pickaxe.": {
 		"bronze": "/items/pickaxe/pickaxe_bronze.png",
@@ -73,6 +78,7 @@
 		"rutile": "/tiles/ore/ore_rutile.png",
 		"magnesium": "/tiles/ore/ore_magnesium.png",
 		"uranium": "/tiles/ore/ore_uranium.png",
+		"wolframite": "/tiles/ore/ore_wolframite.png",
 		"lunar.": {
 		  "nickel": "/tiles/ore/lunar_nickel_ore.png",
 		  "aluminum": "/tiles/ore/lunar_aluminum_ore.png",

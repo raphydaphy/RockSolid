@@ -23,6 +23,7 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
+@SuppressWarnings("WeakerAccess")
 public class ModMisc
 {
 	public static final NameRegistry<Biome> MOON_BIOME_REGISTRY = new NameRegistry<>(RockSolid.createRes("moon_biome_registry"), true).register();
@@ -69,6 +70,7 @@ public class ModMisc
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_magnesium"), WorldGenMagnesium.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_rutile"), WorldGenRutile.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_uranium"), WorldGenUranium.class);
+		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_wolframite"), WorldGenWolframite.class);
 
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
@@ -82,8 +84,8 @@ public class ModMisc
 
 		new FuelInput(new ItemUseInfo(new ItemInstance(ModItems.COKE)), 3600).register();
 
-		RES_ALL_INGOTS = res().addResources("all_ingots", new ResInfo(GameContent.ITEM_COPPER_INGOT), new ResInfo(ModItems.TIN_INGOT), new ResInfo(ModItems.BRONZE_INGOT), new ResInfo(ModItems.IRON_INGOT), new ResInfo(ModItems.NICKEL_INGOT), new ResInfo(ModItems.STEEL_INGOT), new ResInfo(ModItems.MAGNESIUM_INGOT), new ResInfo(ModItems.IMPURE_TITANIUM_INGOT), new ResInfo(ModItems.TITANIUM_INGOT));
-		RES_MACHINE_MATERIALS = res().addResources("machine_materials", new ResInfo(GameContent.TILE_STONE), new ResInfo(GameContent.TILE_SANDSTONE), new ResInfo(GameContent.TILE_SOIL), new ResInfo(GameContent.TILE_LOG));
+		RES_ALL_INGOTS = res().addResources("all_ingots", new ResInfo(GameContent.ITEM_COPPER_INGOT), new ResInfo(ModItems.TIN_INGOT), new ResInfo(ModItems.BRONZE_INGOT), new ResInfo(ModItems.IRON_INGOT), new ResInfo(ModItems.NICKEL_INGOT), new ResInfo(ModItems.STEEL_INGOT), new ResInfo(ModItems.MAGNESIUM_INGOT), new ResInfo(ModItems.IMPURE_TITANIUM_INGOT), new ResInfo(ModItems.TITANIUM_INGOT), new ResInfo(ModItems.TUNGSTEN_INGOT), new ResInfo(ModItems.NICKEL_TUNGSTEN_INGOT), new ResInfo(ModItems.NICKEL_TUNGSTEN_CARBIDE_INGOT));
+		RES_MACHINE_MATERIALS = res().addResources("machine_materials", new ResInfo(GameContent.TILE_STONE), new ResInfo(GameContent.TILE_SANDSTONE), new ResInfo(GameContent.TILE_SOIL), new ResInfo(GameContent.TILE_LOG), new ResInfo(ModTiles.MOON_STONE), new ResInfo(ModTiles.MOON_TURF));
 		RES_ALL_FUELS = res().addResources("all_fuels", new ResInfo(GameContent.TILE_COAL), new ResInfo(ModItems.COKE));
 
 		RES_SANDSTONE = res().addResources("sandstone", new ResInfo(GameContent.TILE_SANDSTONE));

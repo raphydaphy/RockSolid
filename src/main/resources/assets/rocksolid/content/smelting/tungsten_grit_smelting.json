@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "tungsten_crushed",
+	"amount": 1
+  },
+  "output": {
+	"name": "rocksolid/ingot.tungsten",
+	"amount": 1
+  },
+  "time": 150
+}
