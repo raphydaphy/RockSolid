@@ -2,10 +2,12 @@ package com.raphydaphy.rocksolid.render;
 
 import com.raphydaphy.rocksolid.tile.machine.TileBattery;
 import com.raphydaphy.rocksolid.tileentity.TileEntityBattery;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.assets.texture.ITexture;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.MultiTileRenderer;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -75,15 +77,34 @@ public class BatteryRenderer extends MultiTileRenderer<TileBattery>
 
 				if (render)
 				{
-					y1 = renderY + pixel * ( yMax - localEnergy);
+					y1 = renderY + pixel * (yMax - localEnergy);
 					y2 = y1 + pixel * localEnergy;
 
-					srcY= yMax - localEnergy;
+					srcY = yMax - localEnergy;
 					srcY2 = srcY + localEnergy;
 
 
 					manager.getTexture(full).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, srcY, 12, srcY2, light);
 				}
+			}
+		}
+	}
+
+	@Override
+	public void renderItem(IGameInstance game, IAssetManager manager, IRenderer g, TileBattery tile, ItemInstance instance, float x, float y, float scale, int filter)
+	{
+		manager.getTexture(this.texItem.addSuffix(".empty")).draw(x, y, scale, scale, filter);
+		if (instance.hasAdditionalData())
+		{
+			int itemPower = instance.getAdditionalData().getInt(TileBattery.ITEM_POWER);
+			float capacity = TileEntityBattery.energyCapacityStatic(instance.getAdditionalData().getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY));
+			float fullness = capacity > 0 ? (float) itemPower / capacity : 0.0F;
+			if (fullness > 0)
+			{
+				int progress = (int) Math.min((fullness * capacity) / (capacity / 12d), 12);
+				float pixel = scale / 18f;
+				float y1 = y + pixel * (15 - progress);
+				manager.getTexture(this.texItem.addSuffix(".full")).draw(x, y1, x + scale, y1 + pixel * progress, 0, 15 - progress, 18, 15, filter);
 			}
 		}
 	}

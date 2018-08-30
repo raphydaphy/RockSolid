@@ -413,7 +413,10 @@
 			"file": "/tiles/battery/battery_empty.png"
 		  }
 		},
-		"item": "/tiles/battery/battery_item.png"
+		"item.": {
+		  "full": "/tiles/battery/battery_item_full.png",
+		  "empty": "/tiles/battery/battery_item_empty.png"
+		}
 	  },
 	  "boiler.": {
 		"active.": {
