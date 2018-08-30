@@ -21,6 +21,9 @@ public class ModTiles
 	public static Tile RUTILE_ORE;
 	public static Tile MAGNESIUM_ORE;
 	public static Tile URANIUM_ORE;
+	public static Tile LUNAR_NICKEL_ORE;
+	public static Tile LUNAR_ALUMINUM_ORE;
+	public static Tile LUNAR_COBALT_ORE;
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
@@ -64,6 +67,9 @@ public class ModTiles
 		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);
 		RUTILE_ORE = new TileBase("ore.rutile", 18, new ToolInfo(ToolProperty.PICKAXE, 19)).setMaxAmount(15);
 		URANIUM_ORE = new TileOre("ore.uranium", 15f, 25, ModItems.URANIUM_CLUSTER);
+		LUNAR_NICKEL_ORE = new TileOre("ore.lunar.nickel", 13f, 15, ModItems.LUNAR_NICKEL_CLUSTER);
+		LUNAR_ALUMINUM_ORE = new TileOre("ore.lunar.aluminum", 18f, 23, ModItems.LUNAR_ALUMINUM_CLUSTER);
+		LUNAR_COBALT_ORE = new TileOre("ore.lunar.cobalt", 25f, 28, ModItems.LUNAR_COBALT_CLUSTER);
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);

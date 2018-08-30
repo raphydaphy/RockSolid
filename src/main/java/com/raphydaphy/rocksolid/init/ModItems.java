@@ -20,6 +20,9 @@ public class ModItems
 	public static Item IRON_CLUSTER;
 	public static Item MAGNESIUM_CLUSTER;
 	public static Item URANIUM_CLUSTER;
+	public static Item LUNAR_NICKEL_CLUSTER;
+	public static Item LUNAR_ALUMINUM_CLUSTER;
+	public static Item LUNAR_COBALT_CLUSTER;
 
 	public static Item COPPER_GRIT;
 	public static Item TIN_GRIT;
@@ -60,6 +63,9 @@ public class ModItems
 	public static String RES_IRON_RAW;
 	public static String RES_MAGNESIUM_RAW;
 	public static String RES_URANIUM_RAW;
+	public static String RES_NICKEL_RAW;
+	public static String RES_ALUMINUM_RAW;
+	public static String RES_COBALT_RAW;
 
 	public static String RES_COPPER_CRUSHED;
 	public static String RES_TIN_CRUSHED;
@@ -96,6 +102,9 @@ public class ModItems
 		IRON_CLUSTER = new ItemBase("cluster.iron").setMaxAmount(35);
 		MAGNESIUM_CLUSTER = new ItemBase("cluster.magnesium").setMaxAmount(35);
 		URANIUM_CLUSTER = new ItemBase("cluster.uranium").setMaxAmount(35);
+		LUNAR_NICKEL_CLUSTER = new ItemBase("cluster.lunar.nickel").setMaxAmount(30);
+		LUNAR_ALUMINUM_CLUSTER = new ItemBase("cluster.lunar.aluminum").setMaxAmount(30);
+		LUNAR_COBALT_CLUSTER = new ItemBase("cluster.lunar.cobalt").setMaxAmount(30);
 
 		COPPER_GRIT = new ItemBase("grit.copper").setMaxAmount(40);
 		TIN_GRIT = new ItemBase("grit.tin").setMaxAmount(40);
@@ -136,6 +145,9 @@ public class ModItems
 		RES_IRON_RAW = res().addResources("iron_raw", IRON_CLUSTER);
 		RES_MAGNESIUM_RAW = res().addResources("magnesium_raw", MAGNESIUM_CLUSTER);
 		RES_URANIUM_RAW = res().addResources("uranium_raw", URANIUM_CLUSTER);
+		RES_NICKEL_RAW = res().addResources("nickel_raw", LUNAR_NICKEL_CLUSTER);
+		RES_ALUMINUM_RAW = res().addResources("aluminum_raw", LUNAR_ALUMINUM_CLUSTER);
+		RES_COBALT_RAW = res().addResources("cobalt_raw", LUNAR_COBALT_CLUSTER);
 
 		RES_COPPER_CRUSHED = res().addResources("copper_crushed", COPPER_GRIT);
 		RES_TIN_CRUSHED = res().addResources("tin_crushed", TIN_GRIT);

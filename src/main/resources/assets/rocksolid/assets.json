@@ -21,7 +21,12 @@
 		"tin": "/items/cluster/cluster_tin.png",
 		"iron": "/items/cluster/cluster_iron.png",
 		"magnesium": "/items/cluster/cluster_magnesium.png",
-		"uranium": "/items/cluster/cluster_uranium.png"
+		"uranium": "/items/cluster/cluster_uranium.png",
+		"lunar.": {
+		  "nickel": "/items/cluster/lunar_nickel_cluster.png",
+		  "aluminum": "/items/cluster/lunar_aluminum_cluster.png",
+		  "cobalt": "/items/cluster/lunar_cobalt_cluster.png"
+		}
 	  },
 	  "grit.": {
 		"copper": "/items/grit/grit_copper.png",
@@ -67,7 +72,12 @@
 		"iron": "/tiles/ore/ore_iron.png",
 		"rutile": "/tiles/ore/ore_rutile.png",
 		"magnesium": "/tiles/ore/ore_magnesium.png",
-		"uranium": "/tiles/ore/ore_uranium.png"
+		"uranium": "/tiles/ore/ore_uranium.png",
+		"lunar.": {
+		  "nickel": "/tiles/ore/lunar_nickel_ore.png",
+		  "aluminum": "/tiles/ore/lunar_aluminum_ore.png",
+		  "cobalt": "/tiles/ore/lunar_cobalt_ore.png"
+		}
 	  },
 	  "creative_energy_source": "/tiles/creative_power_source.png",
 	  "fluid_water.": {

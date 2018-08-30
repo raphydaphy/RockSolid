@@ -17,8 +17,8 @@ import java.util.List;
 
 public class MoonWorldInitializer extends SubWorldInitializer
 {
-	private MoonHeightGenerator heightGenerator;
-	private MoonBiomeGenerator biomeGenerator;
+	private MoonGenHeights heightGenerator;
+	private MoonGenBiomes biomeGenerator;
 
 	public MoonWorldInitializer(ResourceName name)
 	{
@@ -58,15 +58,15 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	@Override
 	public int getExpectedSurfaceHeight(IWorld subWorld, TileLayer layer, int x)
 	{
-		MoonHeightGenerator var4 = this.heightGenerator;
-		return MoonHeightGenerator.estimate(layer, x, var4.b, 0, 10, 45);
+		MoonGenHeights var4 = this.heightGenerator;
+		return MoonGenHeights.estimate(layer, x, var4.b, 0, 45);
 	}
 
 	@Override
 	public void onGeneratorsInitialized(IWorld subWorld)
 	{
-		biomeGenerator = (MoonBiomeGenerator)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid couldn't find the moon biome generator!");
-		heightGenerator = (MoonHeightGenerator)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid couldn't find the moon height generator!");
+		biomeGenerator = (MoonGenBiomes)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid couldn't find the moon biome generator!");
+		heightGenerator = (MoonGenHeights)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid couldn't find the moon height generator!");
 	}
 
 	@Override

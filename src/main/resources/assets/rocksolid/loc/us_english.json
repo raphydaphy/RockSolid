@@ -35,7 +35,12 @@
 		"tin": "Tin Cluster",
 		"iron": "Iron Cluster",
 		"magnesium": "Magnesium Cluster",
-		"uranium": "Uranium Cluster"
+		"uranium": "Uranium Cluster",
+		"lunar.": {
+		  "nickel": "Lunar Nickel Cluster",
+		  "aluminum": "Lunar Aluminum Cluster",
+		  "cobalt": "Lunar Cobalt Cluster"
+		}
 	  },
 	  "grit.": {
 		"copper": "Copper Grit",
@@ -51,7 +56,12 @@
 		"iron": "Iron Ore",
 		"rutile": "Rutile Ore",
 		"magnesium": "Magnesium Ore",
-		"uranium": "Uranium Ore"
+		"uranium": "Uranium Ore",
+		"lunar.": {
+		  "nickel": "Lunar Nickel Ore",
+		  "cobalt": "Lunar Cobalt Ore",
+		  "aluminum": "Lunar Aluminum Ore"
+		}
 	  },
 	  "ingot.": {
 		"tin": "Tin Ingot",

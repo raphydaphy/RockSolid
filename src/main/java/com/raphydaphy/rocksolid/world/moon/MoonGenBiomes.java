@@ -19,7 +19,7 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.*;
 
-public class MoonBiomeGenerator implements IMoonGenerator
+public class MoonGenBiomes implements IMoonGenerator
 {
 	private final Map<Biome, INoiseGen> b = new HashMap<>();
 	private final ListMultimap<BiomeLevel, Biome> c = ArrayListMultimap.create();
@@ -28,7 +28,7 @@ public class MoonBiomeGenerator implements IMoonGenerator
 	private final Random rand = new Random();
 	private INoiseGen noiseGenerator;
 
-	public MoonBiomeGenerator()
+	public MoonGenBiomes()
 	{
 	}
 

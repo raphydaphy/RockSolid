@@ -12,11 +12,11 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.Random;
 
-public class MoonPebblesGenerator implements IMoonGenerator
+public class MoonGenPebbles implements IMoonGenerator
 {
 	private final Random a = new Random();
 
-	public MoonPebblesGenerator() {
+	public MoonGenPebbles() {
 	}
 
 	public boolean shouldGenerate(IWorld world, IChunk var2) {
