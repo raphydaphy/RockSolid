@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "uranium_processed",
+	"amount": 2
+  },
+  "output": {
+	"name": "rocksolid/uranium_pellet",
+	"amount": 1
+  },
+  "time": 300
+}

@@ -1,0 +1,10 @@
+{
+  "input": {
+	"name": "coal"
+  },
+  "output": {
+	"name": "rocksolid/coal_coke",
+	"amount": 1
+  },
+  "time": 5000
+}

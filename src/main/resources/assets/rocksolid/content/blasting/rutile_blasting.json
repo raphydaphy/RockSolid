@@ -1,0 +1,10 @@
+{
+  "input": {
+	"name": "titanium_raw"
+  },
+  "output": {
+	"name": "rocksolid/ingot.impure_titanium",
+	"amount": 1
+  },
+  "time": 2500
+}

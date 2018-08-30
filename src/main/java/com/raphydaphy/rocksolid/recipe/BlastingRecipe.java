@@ -4,12 +4,13 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
+import de.ellpeck.rockbottom.api.content.IContent;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class BlastingRecipe
+public class BlastingRecipe implements IContent
 {
 	public static final NameRegistry<BlastingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("blasting_registry"), true).register();
 

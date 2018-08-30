@@ -24,12 +24,20 @@
   "smelting.": {
 	"tin_smelting": "/smelting/tin_smelting.json",
 	"iron_smelting": "/smelting/iron_smelting.json",
+	"magnesium_smelting": "/smelting/magnesium_smelting.json",
+	"nickel_smelting": "/smelting/nickel_smelting.json",
 	"copper_grit_smelting": "/smelting/copper_grit_smelting.json",
 	"tin_grit_smelting": "/smelting/tin_grit_smelting.json",
 	"bronze_grit_smelting": "/smelting/bronze_grit_smelting.json",
 	"iron_grit_smelting": "/smelting/iron_grit_smelting.json",
 	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
-	"magnesium_smelting": "/smelting/magnesium_smelting.json",
 	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json"
+  },
+  "blasting.": {
+	"coal_blasting": "/blasting/coal_blasting.json",
+	"rutile_blasting": "/blasting/rutile_blasting.json"
+  },
+  "compressing.": {
+	"uranium_compressing": "/compressing/uranium_compressing.json"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "nickel_raw",
+	"amount": 2
+  },
+  "output": {
+	"name": "rocksolid/ingot.nickel",
+	"amount": 1
+  },
+  "time": 200
+}
