@@ -13,6 +13,7 @@ import de.ellpeck.rockbottom.api.item.ItemTile;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
+import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -66,7 +67,15 @@ public class TileTempshiftPlate extends TileBase
 			@Override
 			public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)
 			{
-				if (world.getState(x, y).getTile() != ModTiles.NUCLEAR_REACTOR)
+				TileState mainState = world.getState(x, y);
+				if (mainState.getTile() != ModTiles.NUCLEAR_REACTOR)
+				{
+					return false;
+				}
+
+				Pos2 inner = ((TileNuclearReactor)mainState.getTile()).getInnerCoord(mainState);
+
+				if (inner.getX() == 2 && inner.getY() != 3)
 				{
 					return false;
 				}

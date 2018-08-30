@@ -56,11 +56,6 @@ public class TileNuclearReactor extends TileMachineBase<TileEntityNuclearReactor
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		ItemInstance held = player.getInv().get(player.getSelectedSlot());
-		if (held != null && held.getItem() == ModTiles.TEMPSHIFT_PLATE.getItem())
-		{
-			return world.getState(ModMisc.TEMPSHIFT_LAYER, x, y).getTile() != ModTiles.TEMPSHIFT_PLATE;
-		}
 		TileEntityNuclearReactor te = getTE(world, world.getState(x, y), x, y);
 		player.openGuiContainer(new GuiNuclearReactor(player, te), new ContainerNuclearReactor(player, te));
 		return true;
