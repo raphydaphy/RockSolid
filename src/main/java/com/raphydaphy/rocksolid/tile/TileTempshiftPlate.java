@@ -5,18 +5,26 @@ import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.render.TempshiftPlateRenderer;
 import com.raphydaphy.rocksolid.tile.machine.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
+import com.raphydaphy.rocksolid.tileentity.TileEntityTempshiftPlate;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
+import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ItemTile;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.tile.Tile;
+import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileTempshiftPlate extends TileBase
 {
@@ -108,16 +116,44 @@ public class TileTempshiftPlate extends TileBase
 	}
 
 	@Override
+	public List<ItemInstance> getDrops(IWorld world, int x, int y, TileLayer layer, Entity destroyer)
+	{
+		List<ItemInstance> drops = new ArrayList<>();
+		Item item = this.getItem();
+		if (item != null)
+		{
+			TileEntityTempshiftPlate te = world.getTileEntity(ModMisc.TEMPSHIFT_LAYER, x, y, TileEntityTempshiftPlate.class);
+			ItemInstance nbtOut = new ItemInstance(item);
+			nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, te.getCapacityModifier());
+			drops.add(nbtOut);
+		}
+
+		return drops;
+	}
+
+	@Override
 	public void doPlace(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
 	{
 		super.doPlace(world, x, y, layer, instance, placer);
 		if (!world.isClient())
 		{
+			float capacityModifier = 1;
+			TileEntityTempshiftPlate plateTE = world.getTileEntity(ModMisc.TEMPSHIFT_LAYER, x, y, TileEntityTempshiftPlate.class);
+			if (plateTE != null)
+			{
+				ModBasedDataSet data = instance.getAdditionalData();
+
+				if (data != null)
+				{
+					capacityModifier = data.getFloat(ModUtils.ASSEMBLY_CAPACITY_KEY);
+					plateTE.setCapacityModifier(capacityModifier);
+				}
+			}
 			TileState state = world.getState(x, y);
 			if (state.getTile() == ModTiles.NUCLEAR_REACTOR)
 			{
 				TileEntityNuclearReactor te = ((TileNuclearReactor) state.getTile()).getTE(world, state, x, y);
-				te.addTempshiftPlate(1);
+				te.addTempshiftPlate(capacityModifier);
 			}
 		}
 	}
@@ -132,7 +168,13 @@ public class TileTempshiftPlate extends TileBase
 			if (state.getTile() == ModTiles.NUCLEAR_REACTOR)
 			{
 				TileEntityNuclearReactor te = ((TileNuclearReactor) state.getTile()).getTE(world, state, x, y);
-				te.addTempshiftPlate(-1);
+				TileEntityTempshiftPlate tempshiftTE = world.getTileEntity(ModMisc.TEMPSHIFT_LAYER, x, y, TileEntityTempshiftPlate.class);
+				float capacityModifier = 1;
+				if (tempshiftTE != null)
+				{
+					capacityModifier = tempshiftTE.getCapacityModifier();
+				}
+				te.removeTempshiftPlate(capacityModifier);
 			}
 		}
 	}
@@ -144,6 +186,18 @@ public class TileTempshiftPlate extends TileBase
 		{
 			return world.getState(x, y).getTile() == ModTiles.NUCLEAR_REACTOR;
 		}
+		return true;
+	}
+
+	@Override
+	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
+	{
+		return new TileEntityTempshiftPlate(world, x, y, layer);
+	}
+
+	@Override
+	public boolean canProvideTileEntity()
+	{
 		return true;
 	}
 }

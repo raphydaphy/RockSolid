@@ -22,6 +22,8 @@ import java.util.Collections;
 public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable implements IEnergyTile, IActivatable
 {
 	private static final String NEW_HEAT_KEY = "new_heat";
+	private static final String TEMPSHIFT_CAPACITY_MODIFIER_KEY = "tempshift_capacity_modifier";
+
 	private final TileInventory inventory = new TileInventory(this, 4, (input) ->
 	{
 		if (input != null && input.getItem() == ModItems.URANIUM_ROD)
@@ -35,6 +37,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	private SyncedInt heat = new SyncedInt("heat");
 	private SyncedInt energyStored = new SyncedInt("energy_stored");
 	private SyncedInt tempshiftPlates = new SyncedInt("tempshift_plates");
+	private float tempshiftCapacityModifier = 1;
 
 	public TileEntityNuclearReactor(IWorld world, int x, int y, TileLayer layer)
 	{
@@ -64,6 +67,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		energyStored.save(set);
 		tempshiftPlates.save(set);
 		inventory.save(set);
+		set.addFloat(TEMPSHIFT_CAPACITY_MODIFIER_KEY, tempshiftCapacityModifier);
 		set.addInt(NEW_HEAT_KEY, newHeat);
 	}
 
@@ -75,12 +79,20 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 		energyStored.load(set);
 		tempshiftPlates.load(set);
 		inventory.load(set);
+		tempshiftCapacityModifier = set.getFloat(TEMPSHIFT_CAPACITY_MODIFIER_KEY);
 		newHeat = set.getInt(NEW_HEAT_KEY);
 	}
 
-	public void addTempshiftPlate(int amount)
+	public void addTempshiftPlate(float modifier)
 	{
-		this.tempshiftPlates.add(amount);
+		this.tempshiftPlates.add(1);
+		this.tempshiftCapacityModifier *= modifier;
+	}
+
+	public void removeTempshiftPlate(float modifier)
+	{
+		this.tempshiftPlates.remove(1);
+		this.tempshiftCapacityModifier /= modifier;
 	}
 
 	public int getTempshiftPlates()
@@ -136,12 +148,11 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 				}
 				if (tempshiftPlates.get() > 0)
 				{
-					// TODO: materials of tempshift plate should make a difference
 					if (world.getTotalTime() % getTickInterval() == 0)
 					{
 						for (int plate = 0; plate < tempshiftPlates.get(); plate++)
 						{
-							int toRemove = Math.min(getHeat(), Math.round(6 * getThroughputModifier()));
+							int toRemove = Math.min(getHeat(), Math.round(6 * tempshiftCapacityModifier));
 							newHeat -= toRemove;
 						}
 					}
