@@ -9,7 +9,8 @@
 	"items.": {
 	  "bucket.": {
 		"empty": "/fluids/empty/bucket.png",
-		"water": "/fluids/water/bucket.png"
+		"water": "/fluids/water/bucket.png",
+		"oil": "/fluids/oil/bucket.png"
 	  },
 	  "wrench": "/items/misc/wrench.png",
 	  "coal_coke": "/items/misc/gem_coke.png",
@@ -86,9 +87,20 @@
 		}
 	  },
 	  "creative_energy_source": "/tiles/creative_power_source.png",
-	  "fluid_water.": {
-		"full": "/fluids/water/full.png",
-		"top": "/fluids/water/top.png"
+	  "oil.": {
+		"0": "/fluids/oil/oil_0.png",
+		"1": "/fluids/oil/oil_1.png",
+		"2": "/fluids/oil/oil_2.png",
+		"3": "/fluids/oil/oil_3.png",
+		"4": "/fluids/oil/oil_4.png",
+		"5": "/fluids/oil/oil_5.png",
+		"6": "/fluids/oil/oil_6.png",
+		"7": "/fluids/oil/oil_7.png",
+		"8": "/fluids/oil/oil_8.png",
+		"9": "/fluids/oil/oil_9.png",
+		"10": "/fluids/oil/oil_10.png",
+		"11": "/fluids/oil/oil_11.png",
+		"top": "/fluids/oil/oil_top.png"
 	  },
 	  "fluid_conduit.": {
 		"center": "/tiles/fluid_conduit/fluid_conduit.png",
@@ -128,6 +140,7 @@
 	  },
 	  "pump.": {
 		"water": "/fluids/water/pump.png",
+		"oil": "/fluids/oil/pump.png",
 		"*.": {
 		  "subtexture": {
 			"0.0": [0, 12, 12, 12],

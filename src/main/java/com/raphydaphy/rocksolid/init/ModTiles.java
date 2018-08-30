@@ -5,12 +5,14 @@ import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileItemConduit;
+import com.raphydaphy.rocksolid.tile.liquid.TileOil;
 import com.raphydaphy.rocksolid.tile.machine.*;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
 import de.ellpeck.rockbottom.api.tile.Tile;
+import de.ellpeck.rockbottom.api.tile.TileLiquid;
 
 @SuppressWarnings("WeakerAccess")
 public class ModTiles
@@ -24,6 +26,8 @@ public class ModTiles
 	public static Tile LUNAR_NICKEL_ORE;
 	public static Tile LUNAR_ALUMINUM_ORE;
 	public static Tile LUNAR_COBALT_ORE;
+
+	public static TileLiquid OIL;
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
@@ -73,6 +77,8 @@ public class ModTiles
 		LUNAR_NICKEL_ORE = new TileOre("ore.lunar.nickel", 13f, 15, ModItems.LUNAR_NICKEL_CLUSTER);
 		LUNAR_ALUMINUM_ORE = new TileOre("ore.lunar.aluminum", 18f, 23, ModItems.LUNAR_ALUMINUM_CLUSTER);
 		LUNAR_COBALT_ORE = new TileOre("ore.lunar.cobalt", 25f, 28, ModItems.LUNAR_COBALT_CLUSTER);
+
+		OIL = new TileOil();
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);

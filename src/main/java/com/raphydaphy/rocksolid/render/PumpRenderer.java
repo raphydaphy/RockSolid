@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
+import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.machine.TilePump;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPump;
 import de.ellpeck.rockbottom.api.GameContent;
@@ -35,7 +36,7 @@ public class PumpRenderer extends MultiTileRenderer<TilePump>
 
 			if (innerCoord.getY() == 1 && te.getLiquidType() != null)
 			{
-				if (te.getLiquidType().equals(GameContent.TILE_WATER))
+				if (te.getLiquidType() != null)
 				{
 					float pixel = ((float) scale / 12f);
 					//X 8 BEFORE TEXTURE, 13 TEXTURE WIDTH, 2 AFTER TEXTURE
@@ -81,7 +82,13 @@ public class PumpRenderer extends MultiTileRenderer<TilePump>
 					
 					if (doRender)
 					{
-						manager.getTexture(this.texture.addSuffix(".water")).getPositionalVariation(x, y).draw(x1, y1,
+						String type = ".water";
+						if (te.getLiquidType() == ModTiles.OIL)
+						{
+							type = ".oil";
+						}
+
+						manager.getTexture(this.texture.addSuffix(type)).getPositionalVariation(x, y).draw(x1, y1,
 								x2, y2, srcX, srcY, srcX2, srcY2, light);
 					}
 				}

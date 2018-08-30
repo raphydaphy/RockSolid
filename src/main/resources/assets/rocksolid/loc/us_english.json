@@ -7,12 +7,13 @@
 	  "conduit_layer": "Conduit Layer",
 	  "tempshift_layer": "Tempshift Layer"
 	},
+	"oil": "&0Oil&y",
 	"item.": {
 	  "boiler": "Solid-Fueled Boiler",
-	  "fluid_water": "Water",
 	  "bucket.": {
 		"empty": "Empty Bucket",
-		"water": "Bucket of Water"
+		"water": "Bucket of Water",
+		"oil": "Bucket of Oil"
 	  },
 	  "pump": "Fluid Pump",
 	  "wrench": "Wrench",
