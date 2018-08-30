@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.render.ConduitRenderer;
 import com.raphydaphy.rocksolid.tile.TileBase;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
+import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.entity.Entity;
@@ -121,32 +122,7 @@ public abstract class TileConduit extends TileBase
 				{
 					return false;
 				}
-				layer = ModMisc.CONDUIT_LAYER;
-
-				Tile currentTile;
-				TileState currentState;
-				ResourceName soundName;
-				Tile tile = getTile();
-
-				if ((currentTile = world.getState(layer, x, y).getTile()) != tile && currentTile.canReplace(world, x, y, layer) && tile.canPlace(world, x, y, layer, player))
-				{
-					if (!world.isClient())
-					{
-						tile.doPlace(world, x, y, layer, instance, player);
-						player.getInv().remove(player.getSelectedSlot(), 1);
-
-						if ((currentState = world.getState(layer, x, y)).getTile() == tile && (soundName = tile
-								.getPlaceSound(player.world, x, y, layer, player, currentState)) != null)
-						{
-							world.playSound(soundName, (double) x + 0.5D, (double) y + 0.5D, (double) layer.index(),
-									1.0F, 1.0F);
-						}
-					}
-					return true;
-				} else
-				{
-					return false;
-				}
+				return ModUtils.placeInCustomLayer(world, x, y, player, instance, getTile(), ModMisc.CONDUIT_LAYER);
 			}
 		};
 	}

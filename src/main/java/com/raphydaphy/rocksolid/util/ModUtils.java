@@ -12,13 +12,17 @@ import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.SmeltingRecipe;
 import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
+import de.ellpeck.rockbottom.api.item.ItemTile;
 import de.ellpeck.rockbottom.api.particle.IParticleManager;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
+import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.awt.Color;
 import java.util.List;
@@ -248,5 +252,30 @@ public class ModUtils
 	    }
 
 	    return Math.min(Math.max(0, throughput), 1);
+    }
+
+    public static boolean placeInCustomLayer(IWorld world, int x, int y, AbstractEntityPlayer player, ItemInstance instance, Tile tile, TileLayer layer)
+    {
+	    Tile currentTile;
+	    TileState currentState;
+	    ResourceName soundName;
+
+	    if ((currentTile = world.getState(layer, x, y).getTile()) != tile && currentTile.canReplace(world, x, y, layer) && tile.canPlace(world, x, y, layer, player))
+	    {
+		    if (!world.isClient())
+		    {
+			    tile.doPlace(world, x, y, layer, instance, player);
+			    player.getInv().remove(player.getSelectedSlot(), 1);
+
+			    if ((currentState = world.getState(layer, x, y)).getTile() == tile && (soundName = tile.getPlaceSound(player.world, x, y, layer, player, currentState)) != null)
+			    {
+				    world.playSound(soundName, (double) x + 0.5D, (double) y + 0.5D, (double) layer.index(), 1.0F, 1.0F);
+			    }
+		    }
+		    return true;
+	    } else
+	    {
+		    return false;
+	    }
     }
 }

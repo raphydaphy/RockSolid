@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.tile;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModTiles;
+import com.raphydaphy.rocksolid.item.ItemSensitiveTile;
 import com.raphydaphy.rocksolid.render.TempshiftPlateRenderer;
 import com.raphydaphy.rocksolid.tile.machine.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
@@ -70,7 +71,7 @@ public class TileTempshiftPlate extends TileBase
 	@Override
 	protected ItemTile createItemTile()
 	{
-		return new ItemTile(this.getName())
+		return new ItemSensitiveTile(this.getName())
 		{
 			@Override
 			public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)
@@ -87,30 +88,7 @@ public class TileTempshiftPlate extends TileBase
 				{
 					return false;
 				}
-				layer = ModMisc.TEMPSHIFT_LAYER;
-
-				Tile currentTile;
-				TileState currentState;
-				ResourceName soundName;
-				Tile tile = getTile();
-
-				if ((currentTile = world.getState(layer, x, y).getTile()) != tile && currentTile.canReplace(world, x, y, layer) && tile.canPlace(world, x, y, layer, player))
-				{
-					if (!world.isClient())
-					{
-						tile.doPlace(world, x, y, layer, instance, player);
-						player.getInv().remove(player.getSelectedSlot(), 1);
-
-						if ((currentState = world.getState(layer, x, y)).getTile() == tile && (soundName = tile.getPlaceSound(player.world, x, y, layer, player, currentState)) != null)
-						{
-							world.playSound(soundName, (double) x + 0.5D, (double) y + 0.5D, (double) layer.index(), 1.0F, 1.0F);
-						}
-					}
-					return true;
-				} else
-				{
-					return false;
-				}
+				return ModUtils.placeInCustomLayer(world, x, y, player, instance, getTile(), ModMisc.TEMPSHIFT_LAYER);
 			}
 		};
 	}

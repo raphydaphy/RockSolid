@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.tile.liquid;
 import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.Entity;
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
@@ -46,6 +47,12 @@ public class TileOil extends TileLiquid
 
 	public final void onIntersectWithEntity(IWorld var1, int var2, int var3, TileLayer var4, TileState var5, BoundBox var6, BoundBox var7, List<BoundBox> var8, Entity var9) {
 		super.onIntersectWithEntity(var1, var2, var3, var4, var5, var6, var7, var8, var9);
+
+		if (var9 instanceof AbstractEntityPlayer)
+		{
+			((AbstractEntityPlayer)var9).jumping = true;
+		}
+
 		Iterator var10 = var8.iterator();
 
 		do {

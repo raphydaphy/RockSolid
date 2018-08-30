@@ -85,7 +85,7 @@ public class ModTiles
 		BLAST_FURNACE = new TileBlastFurnace().setMaxAmount(1);
 
 		ASSEMBLY_STATION = new TileAssemblyStation().setMaxAmount(1);
-		TEMPSHIFT_PLATE = new TileTempshiftPlate().setMaxAmount(1);
+		TEMPSHIFT_PLATE = new TileTempshiftPlate().setMaxAmount(5);
 
 		BOILER = new TileBoiler().setMaxAmount(1);
 		PUMP = new TilePump().setMaxAmount(1);
