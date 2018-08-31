@@ -24,10 +24,13 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @SuppressWarnings("WeakerAccess")
 public class ModMisc
 {
-	public static final NameRegistry<Biome> MOON_BIOME_REGISTRY = new NameRegistry<>(RockSolid.createRes("moon_biome_registry"), true).register();
+	public static final Set<Biome> MOON_BIOME_REGISTRY = new HashSet<>();
 
 	public static final TileLayer CONDUIT_LAYER;
 	public static final TileLayer TEMPSHIFT_LAYER;
@@ -50,7 +53,7 @@ public class ModMisc
 		CONDUIT_LAYER = new ConduitTileLayer();
 		TEMPSHIFT_LAYER = new TempshiftTileLayer();
 
-		MOON_BIOME_REGISTRY.register(GameContent.BIOME_SKY.getName(), GameContent.BIOME_SKY);
+		MOON_BIOME_REGISTRY.add(GameContent.BIOME_SKY);
 	}
 	public static void init()
 	{
@@ -59,12 +62,12 @@ public class ModMisc
 		MOON_SURFACE = new MoonSurfaceBiome().register();
 		MOON_UNDERGROUND = new MoonUndergroundBiome().register();
 
-		Registries.WORLD_GENERATORS.register(MOON_BIOME_GENERATOR, MoonGenBiomes.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_pebbles_generator"), MoonGenPebbles.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_nickel_generator"), MoonGenNickel.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_aluminum_generator"), MoonGenAluminum.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_cobalt_generator"), MoonGenCobalt.class);
-		Registries.WORLD_GENERATORS.register(MOON_HEIGHTS_GENERATOR, MoonGenHeights.class);
+		Registries.WORLD_GENERATORS.register(MOON_HEIGHTS_GENERATOR, MoonHeightGen.class);
+		Registries.WORLD_GENERATORS.register(MOON_BIOME_GENERATOR, MoonBiomeGen.class);
 
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_tin"), WorldGenTin.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_iron"), WorldGenIron.class);

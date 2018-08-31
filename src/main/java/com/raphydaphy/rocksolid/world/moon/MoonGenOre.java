@@ -80,7 +80,7 @@ public abstract class MoonGenOre implements IMoonGenerator
 	protected abstract TileState getOreState();
 
 	protected Set<Biome> getAllowedBiomes() {
-		return ModMisc.MOON_BIOME_REGISTRY.values();
+		return ModMisc.MOON_BIOME_REGISTRY;
 	}
 
 	protected Set<TileState> getAllwedTiles() {

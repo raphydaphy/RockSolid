@@ -7,18 +7,17 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.SubWorldInitializer;
+import de.ellpeck.rockbottom.api.world.gen.BiomeGen;
+import de.ellpeck.rockbottom.api.world.gen.HeightGen;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
-import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
-import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevel;
-import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.Collections;
 import java.util.List;
 
 public class MoonWorldInitializer extends SubWorldInitializer
 {
-	private MoonGenHeights heightGenerator;
-	private MoonGenBiomes biomeGenerator;
+	private MoonHeightGen heightGenerator;
+	private MoonBiomeGen biomeGenerator;
 
 	public MoonWorldInitializer(ResourceName name)
 	{
@@ -44,29 +43,22 @@ public class MoonWorldInitializer extends SubWorldInitializer
 	}
 
 	@Override
-	public Biome getExpectedBiome(IWorld subWorld, int x, int y)
+	public HeightGen initHeightGen(IWorld subWorld)
 	{
-		return biomeGenerator.getExpectedBiome(subWorld, x, y, 0);
+		return heightGenerator;
 	}
 
 	@Override
-	public BiomeLevel getExpectedBiomeLevel(IWorld subWorld, int x, int y)
+	public BiomeGen initBiomeGen(IWorld subWorld)
 	{
-		return biomeGenerator.getBiomeLevel(subWorld, x, y, 0);
-	}
-
-	@Override
-	public int getExpectedSurfaceHeight(IWorld subWorld, TileLayer layer, int x)
-	{
-		MoonGenHeights var4 = this.heightGenerator;
-		return MoonGenHeights.estimate(layer, x, var4.b, 0, 45);
+		return biomeGenerator;
 	}
 
 	@Override
 	public void onGeneratorsInitialized(IWorld subWorld)
 	{
-		biomeGenerator = (MoonGenBiomes)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid couldn't find the moon biome generator!");
-		heightGenerator = (MoonGenHeights)Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid couldn't find the moon height generator!");
+		biomeGenerator = (MoonBiomeGen) Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid couldn't find the moon biome generator!");
+		heightGenerator = (MoonHeightGen) Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid couldn't find the moon height generator!");
 	}
 
 	@Override
