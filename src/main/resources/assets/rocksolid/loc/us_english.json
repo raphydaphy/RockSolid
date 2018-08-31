@@ -106,6 +106,8 @@
 	  "electric_alloy_smelter": "Electric Alloy Smelter",
 	  "electric_blast_furnace": "Electric Blast Furnace",
 	  "electric_compressor": "Electric Compressor",
+	  "launch_pad": "Rocket Launch Pad",
+	  "rocket": "Rocket",
 	  "moon.": {
 		"turf": "Moon Turf",
 		"stone": "Moon Stone"

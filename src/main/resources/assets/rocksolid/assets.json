@@ -70,7 +70,8 @@
 		"bronze": "/items/shovel/shovel_bronze.png",
 		"steel": "/items/shovel/shovel_steel.png",
 		"titanium": "/items/shovel/shovel_titanium.png"
-	  }
+	  },
+	  "rocket": "/tiles/rocket/rocket_item.png"
 	},
 	"tiles.": {
 	  "ore.": {
@@ -325,6 +326,25 @@
 		  }
 		},
 		"item": "/tiles/turbine/turbine_item.png"
+	  },
+	  "launch_pad.": {
+		"full.": {
+		  "subtexture": {
+			"0.0": [0, 0, 12, 12],
+			"1.0": [12, 0, 12, 12],
+			"2.0": [24, 0, 12, 12],
+			"file": "/tiles/launch_pad/launch_pad_full.png"
+		  }
+		},
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 0, 12, 12],
+			"1.0": [12, 0, 12, 12],
+			"2.0": [24, 0, 12, 12],
+			"file": "/tiles/launch_pad/launch_pad.png"
+		  }
+		},
+		"item": "/tiles/launch_pad/launch_pad_item.png"
 	  },
 	  "electric_compressor.": {
 		"active.": {

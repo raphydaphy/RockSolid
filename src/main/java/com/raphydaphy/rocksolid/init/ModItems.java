@@ -65,6 +65,8 @@ public class ModItems
 	public static Item URANIUM_PELLET;
 	public static Item URANIUM_ROD;
 
+	public static Item ROCKET;
+
 	public static String RES_TIN_RAW;
 	public static String RES_IRON_RAW;
 	public static String RES_MAGNESIUM_RAW;
@@ -156,6 +158,8 @@ public class ModItems
 		SLAG = new ItemBase("slag").setMaxAmount(45);
 		URANIUM_PELLET = new ItemBase("uranium_pellet").setMaxAmount(25);
 		URANIUM_ROD = new ItemDurability("uranium_rod", 20000);
+
+		ROCKET = new ItemBase("rocket").setMaxAmount(1);
 
 		RES_TIN_RAW = res().addResources("tin_raw", TIN_CLUSTER);
 		RES_IRON_RAW = res().addResources("iron_raw", IRON_CLUSTER);

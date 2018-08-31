@@ -64,7 +64,7 @@ public class RockSolid implements IMod
 	@Override
 	public String getDescription()
 	{
-		return "Improves your mining experience in Rock Bottom!";
+		return "Solid content for a rocky universe.";
 	}
 
 	@Override
