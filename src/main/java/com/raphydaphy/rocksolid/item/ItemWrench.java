@@ -49,36 +49,40 @@ public class ItemWrench extends ItemDurability
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)
 	{
-		world.travelToSubWorld(player, ModMisc.MOON_WORLD, x, world.getSubWorld(ModMisc.MOON_WORLD).getExpectedSurfaceHeight(TileLayer.MAIN, x) + 2);
-		if ((world.isServer() && world.isDedicatedServer()))
+		if (!world.isClient())
 		{
-			return true;
+			world.travelToSubWorld(player, ModMisc.MOON_WORLD, x, world.getSubWorld(ModMisc.MOON_WORLD).getExpectedSurfaceHeight(TileLayer.MAIN, x) + 2);
 		}
 		if (layer == ModMisc.CONDUIT_LAYER)
 		{
-			if ( RockBottomAPI.getGame().getInput().isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT))
+			if (!(world.isServer() && world.isDedicatedServer()))
 			{
-				PacketConduitDestroyed packet = new PacketConduitDestroyed(x, y, player.getUniqueId());
-				if (world.isClient())
+				if (RockBottomAPI.getGame().getInput().isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT))
 				{
-					RockBottomAPI.getNet().sendToServer(packet);
-				}
-				else
-				{
-					packet.handle(RockBottomAPI.getGame(), null);
-				}
-
-			} else
-			{
-				TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
-				if (te != null)
-				{
-					player.openGuiContainer(new GuiConduit(player, ConduitSide.getByDirection(TileConduit.getMousedConduitPart(RockBottomAPI.getGame(), player.world)), te), new ContainerEmpty(player));
+					PacketConduitDestroyed packet = new PacketConduitDestroyed(x, y, player.getUniqueId());
+					if (world.isClient())
+					{
+						RockBottomAPI.getNet().sendToServer(packet);
+					} else
+					{
+						packet.handle(RockBottomAPI.getGame(), null);
+					}
+					return false;
 				}
 			}
-			return true;
+			// not holding shift:
+			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
+			if (!world.isClient())
+			{
+				TileEntityConduit master = world.getTileEntity(layer, te.getMaster().getX(), te.getMaster().getY(), TileEntityConduit.class);
+				master.sendToClients();
+			}
+			if (te != null)
+			{
+				player.openGuiContainer(new GuiConduit(player, te), new ContainerEmpty(player));
+			}
 		}
 
-		return false;
+		return true;
 	}
 }

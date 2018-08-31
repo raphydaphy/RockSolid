@@ -1,22 +1,53 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.entity.EntityRocket;
+import com.raphydaphy.rocksolid.network.PacketLeaveRocket;
 import com.raphydaphy.rocksolid.util.ModUtils;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
-import de.ellpeck.rockbottom.api.event.impl.EntityTickEvent;
-import de.ellpeck.rockbottom.api.event.impl.PlayerJoinWorldEvent;
-import de.ellpeck.rockbottom.api.event.impl.WorldObjectCollisionEvent;
+import de.ellpeck.rockbottom.api.event.impl.*;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
+import org.lwjgl.glfw.GLFW;
+
+import java.util.UUID;
 
 public class ModEvents
 {
 	public static void init(IEventHandler handler)
 	{
+		handler.registerListener(PlayerRenderEvent.class, (result, event) ->
+		{
+			if (event.player.hasAdditionalData() && event.player.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
+			{
+				return EventResult.CANCELLED;
+			}
+			return EventResult.DEFAULT;
+		});
+		handler.registerListener(KeyEvent.class, (result, event) ->
+		{
+			if (event.key == GLFW.GLFW_KEY_LEFT_SHIFT && event.action == 1)
+			{
+				AbstractEntityPlayer player = RockBottomAPI.getGame().getPlayer();
+				if (player.hasAdditionalData() && player.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
+				{
+					PacketLeaveRocket packet = new PacketLeaveRocket(player.getUniqueId());
+					if (player.world.isClient())
+					{
+						RockBottomAPI.getNet().sendToServer(packet);
+					} else
+					{
+						packet.handle(RockBottomAPI.getGame(), null);
+					}
+				}
+			}
+			return EventResult.DEFAULT;
+		});
 		handler.registerListener(EntityTickEvent.class, (result, event) ->
 		{
 			if (event.entity.world.getSubName() != null && event.entity.world.getSubName().equals(ModMisc.MOON_WORLD))

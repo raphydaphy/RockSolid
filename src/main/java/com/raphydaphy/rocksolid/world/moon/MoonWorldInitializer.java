@@ -75,7 +75,7 @@ public class MoonWorldInitializer extends SubWorldInitializer
 
 	@Override
 	public boolean renderSky(IWorld subWorld, IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, AbstractEntityPlayer player, double width, double height) {
-		skyRenderer.a(game, manager, g, world, player);
+		skyRenderer.render(game, manager, g, world, player);
 		return false;
 	}
 }

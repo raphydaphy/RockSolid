@@ -29,53 +29,53 @@ public class NuclearReactorRenderer extends MultiTileRenderer<TileNuclearReactor
 		Pos2 main = tile.getMainPos(x, y, state);
 		TileEntityNuclearReactor te = world.getTileEntity(main.getX(), main.getY(), TileEntityNuclearReactor.class);
 
-		ResourceName activeFull = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
-
-		manager.getTexture(textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
-
-		float pixel = scale / 12f;
-
-		if (te.isActive() && innerCoord.getX() > 0 && innerCoord.getX() < 4 && (innerCoord.getY() == 1 || innerCoord.getY() == 2))
+		if (te != null)
 		{
-			if (innerCoord.getY() == 1)
-			{
-				manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, renderY, renderX + scale, renderY + pixel * 11, 0, 0, 12, 11, light);
-			}
-			else
-			{
-				manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
-			}
-		}
-		// draw energy bar
-		if ((innerCoord.getY() == 0 || innerCoord.getY() == 1) && innerCoord.getX() > 0 && innerCoord.getX() < 4 && te.getEnergyFullness() > 0)
-		{
-			int energy = (int) Math.min((te.getEnergyFullness() * te.getEnergyCapacity(null, null)) / (te.getEnergyCapacity(null, null) / 16d), 16);
+			ResourceName activeFull = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
 
-			float xStart = 0;
+			manager.getTexture(textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 
-			if (innerCoord.getX() == 1)
+			float pixel = scale / 12f;
+
+			if (te.isActive() && innerCoord.getX() > 0 && innerCoord.getX() < 4 && (innerCoord.getY() == 1 || innerCoord.getY() == 2))
 			{
-				xStart = 10;
-				energy = Math.min(energy, 2);
+				if (innerCoord.getY() == 1)
+				{
+					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, renderY, renderX + scale, renderY + pixel * 11, 0, 0, 12, 11, light);
+				} else
+				{
+					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+				}
 			}
-			else if (innerCoord.getX() == 3)
+			// draw energy bar
+			if ((innerCoord.getY() == 0 || innerCoord.getY() == 1) && innerCoord.getX() > 0 && innerCoord.getX() < 4 && te.getEnergyFullness() > 0)
 			{
-				energy -= 14;
-			}
-			else
-			{
-				energy -= 2;
-				energy = Math.min(energy, 12);
-			}
+				int energy = (int) Math.min((te.getEnergyFullness() * te.getEnergyCapacity(null, null)) / (te.getEnergyCapacity(null, null) / 16d), 16);
 
-			if (energy > 0)
-			{
-				float x1 = renderX + pixel * xStart;
-				float x2 = x1 + pixel * energy;
+				float xStart = 0;
 
-				float srcX2 = xStart + energy;
+				if (innerCoord.getX() == 1)
+				{
+					xStart = 10;
+					energy = Math.min(energy, 2);
+				} else if (innerCoord.getX() == 3)
+				{
+					energy -= 14;
+				} else
+				{
+					energy -= 2;
+					energy = Math.min(energy, 12);
+				}
 
-				manager.getTexture(activeFull).getPositionalVariation(x, y).draw(x1, renderY + (innerCoord.getY() == 1 ? pixel * 9 : 0), x2, renderY + pixel * 3 + (innerCoord.getY() == 1 ? pixel * 9 : 0), xStart, innerCoord.getY() == 1 ? 9 : 0, srcX2, innerCoord.getY() == 1 ? 12 : 3, light);
+				if (energy > 0)
+				{
+					float x1 = renderX + pixel * xStart;
+					float x2 = x1 + pixel * energy;
+
+					float srcX2 = xStart + energy;
+
+					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(x1, renderY + (innerCoord.getY() == 1 ? pixel * 9 : 0), x2, renderY + pixel * 3 + (innerCoord.getY() == 1 ? pixel * 9 : 0), xStart, innerCoord.getY() == 1 ? 9 : 0, srcX2, innerCoord.getY() == 1 ? 12 : 3, light);
+				}
 			}
 		}
 	}

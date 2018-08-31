@@ -24,7 +24,7 @@ public final class MoonSkyRenderer {
 	public MoonSkyRenderer() {
 	}
 
-	public final void a(IGameInstance game, IAssetManager manager, IRenderer renderer, IWorld world, AbstractEntityPlayer player)
+	public final void render(IGameInstance game, IAssetManager manager, IRenderer renderer, IWorld world, AbstractEntityPlayer player)
 	{
 		double width = (double)renderer.getWidthInWorld();
 		double height = (double)renderer.getHeightInWorld();

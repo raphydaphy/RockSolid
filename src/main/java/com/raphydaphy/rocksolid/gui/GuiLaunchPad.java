@@ -31,7 +31,7 @@ public class GuiLaunchPad extends GuiContainer
 
 		this.components.add(new ComponentEnergyBar(this, 27, 16, 81, 10, ModUtils.ENERGY, false, this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
 
-		this.components.add(new ComponentLiquidBar(this, 27, 1, 81, 10, Color.blue.getRGB(), false, this.te::getLiquidFullness, this.te::getFuelVolume, () -> ModTiles.FUEL));
+		this.components.add(new ComponentLiquidBar(this, 27, 1, 81, 10, Color.yellow.getRGB(), false, this.te::getLiquidFullness, this.te::getFuelVolume, () -> ModTiles.FUEL));
 	}
 
 	@Override

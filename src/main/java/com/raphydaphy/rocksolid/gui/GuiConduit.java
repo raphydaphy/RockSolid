@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.gui.component.ComponentCustomText;
 import com.raphydaphy.rocksolid.gui.component.ComponentCustomText.TextDirection;
 import com.raphydaphy.rocksolid.network.PacketConduitUpdate;
+import com.raphydaphy.rocksolid.tile.conduit.TileConduit;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
@@ -26,13 +27,16 @@ public class GuiConduit extends GuiContainer
 	private ConduitSide side;
 	private ConduitMode mode;
 
-	public GuiConduit(AbstractEntityPlayer player, ConduitSide side, TileEntityConduit te)
+	public GuiConduit(AbstractEntityPlayer player, TileEntityConduit te)
 	{
 		super(player, 136, 132);
 		this.te = te;
-		this.side = side;
 		this.pos = new Pos2(te.x, te.y);
 		this.mode = te.getMode(pos, side, false);
+		if (!(te.world.isServer() && te.world.isDedicatedServer()))
+		{
+			this.side = ConduitSide.getByDirection(TileConduit.getMousedConduitPart(RockBottomAPI.getGame(), player.world));
+		}
 	}
 
 	@Override

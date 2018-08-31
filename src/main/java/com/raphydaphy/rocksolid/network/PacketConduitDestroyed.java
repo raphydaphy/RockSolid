@@ -38,7 +38,8 @@ public class PacketConduitDestroyed implements IPacket
 	{
 		buf.writeInt(x);
 		buf.writeInt(y);
-		buf.writeBytes(this.uuid.toString().getBytes(StandardCharsets.UTF_8));
+		buf.writeLong(this.uuid.getMostSignificantBits());
+		buf.writeLong(this.uuid.getLeastSignificantBits());
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class PacketConduitDestroyed implements IPacket
 	{
 		x = buf.readInt();
 		y = buf.readInt();
-		this.uuid = UUID.fromString(buf.readBytes(36).toString(StandardCharsets.UTF_8));
+		this.uuid = new UUID(buf.readLong(), buf.readLong());
 	}
 
 	@Override
@@ -55,17 +56,14 @@ public class PacketConduitDestroyed implements IPacket
 		IWorld world = game.getWorld();
 		if (!world.isClient())
 		{
-			Entity entity = world.getEntity(uuid);
+			AbstractEntityPlayer entity = world.getPlayer(uuid);
 
-			if (entity instanceof AbstractEntityPlayer)
+			ItemInstance held = ( entity).getInv().get((entity).getSelectedSlot());
+			if (held != null && held.getItem() == ModItems.WRENCH)
 			{
-				ItemInstance held = ((AbstractEntityPlayer) entity).getInv().get(((AbstractEntityPlayer) entity).getSelectedSlot());
-				if (held != null && held.getItem() == ModItems.WRENCH)
-				{
-					(held.getItem()).takeDamage(held, (AbstractEntityPlayer)entity, 1);
-				}
-				entity.world.destroyTile(x,y,ModMisc.CONDUIT_LAYER,entity,true);
+				(held.getItem()).takeDamage(held, entity, 1);
 			}
+			entity.world.destroyTile(x,y,ModMisc.CONDUIT_LAYER,entity,true);
 		}
 	}
 
