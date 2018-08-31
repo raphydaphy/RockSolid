@@ -6,13 +6,16 @@ import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitMode
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide;
 import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.NetworkConnection;
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.net.NetUtil;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
 public class PacketConduitUpdate implements IPacket
 {
+	private ResourceName worldName;
 	private int x;
 	private int y;
 	private ConduitMode mode;
@@ -23,8 +26,9 @@ public class PacketConduitUpdate implements IPacket
 
 	}
 
-	public PacketConduitUpdate(int x, int y, ConduitMode mode, ConduitSide side)
+	public PacketConduitUpdate(ResourceName worldName, int x, int y, ConduitMode mode, ConduitSide side)
 	{
+		this.worldName = worldName;
 		this.x = x;
 		this.y = y;
 		this.mode = mode;
@@ -38,6 +42,11 @@ public class PacketConduitUpdate implements IPacket
 		buf.writeInt(y);
 		buf.writeInt(mode.id);
 		buf.writeInt(side.id);
+		buf.writeBoolean(this.worldName != null);
+		if (this.worldName != null)
+		{
+			NetUtil.writeStringToBuffer(this.worldName.toString(), buf);
+		}
 	}
 
 	@Override
@@ -47,12 +56,20 @@ public class PacketConduitUpdate implements IPacket
 		y = buf.readInt();
 		mode = ConduitMode.getByID(buf.readInt());
 		side = ConduitSide.getByID(buf.readInt());
+		if (buf.readBoolean())
+		{
+			worldName = new ResourceName(NetUtil.readStringFromBuffer(buf));
+		}
 	}
 
 	@Override
 	public void handle(IGameInstance game, ChannelHandlerContext context)
 	{
 		IWorld world = game.getWorld();
+		if (this.worldName != null)
+		{
+			world = world.getSubWorld(this.worldName);
+		}
 		if (!world.isClient())
 		{
 			TileEntityConduit conduit = world.getTileEntity(ModMisc.CONDUIT_LAYER, x, y, TileEntityConduit.class);

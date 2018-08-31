@@ -530,6 +530,9 @@
 	},
 	"sky.": {
 	  "earth": "/misc/earth.png"
+	},
+	"entities.": {
+	  "rocket": "/tiles/rocket/rocket.png"
 	}
   }
 }

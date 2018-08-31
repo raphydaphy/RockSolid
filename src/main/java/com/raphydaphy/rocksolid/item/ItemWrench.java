@@ -73,7 +73,7 @@ public class ItemWrench extends ItemDurability
 				TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
 				if (te != null)
 				{
-					player.openGuiContainer(new GuiConduit(player, ConduitSide.getByDirection(TileConduit.getMousedConduitPart(RockBottomAPI.getGame())), te), new ContainerEmpty(player));
+					player.openGuiContainer(new GuiConduit(player, ConduitSide.getByDirection(TileConduit.getMousedConduitPart(RockBottomAPI.getGame(), player.world)), te), new ContainerEmpty(player));
 				}
 			}
 			return true;

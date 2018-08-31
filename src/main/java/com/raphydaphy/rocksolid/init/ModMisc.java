@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.entity.EntityRocket;
 import com.raphydaphy.rocksolid.item.ItemBucket;
 import com.raphydaphy.rocksolid.network.*;
 import com.raphydaphy.rocksolid.recipe.loader.AlloyingRecipeLoader;
@@ -80,6 +81,8 @@ public class ModMisc
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketAssemblyConstruct.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketAssemblyRecipeChanged.class);
+
+		Registries.ENTITY_REGISTRY.register(RockSolid.createRes("rocket"), EntityRocket.class);
 
 		new AlloyingRecipeLoader().register();
 		new SeparatingRecipeLoader().register();

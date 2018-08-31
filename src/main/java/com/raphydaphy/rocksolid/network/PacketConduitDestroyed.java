@@ -55,7 +55,7 @@ public class PacketConduitDestroyed implements IPacket
 		IWorld world = game.getWorld();
 		if (!world.isClient())
 		{
-			Entity entity = game.getWorld().getEntity(uuid);
+			Entity entity = world.getEntity(uuid);
 
 			if (entity instanceof AbstractEntityPlayer)
 			{
@@ -64,7 +64,7 @@ public class PacketConduitDestroyed implements IPacket
 				{
 					(held.getItem()).takeDamage(held, (AbstractEntityPlayer)entity, 1);
 				}
-				world.destroyTile(x,y,ModMisc.CONDUIT_LAYER,entity,true);
+				entity.world.destroyTile(x,y,ModMisc.CONDUIT_LAYER,entity,true);
 			}
 		}
 	}

@@ -59,12 +59,11 @@ public class ConduitTileLayer extends TileLayer
 		int tileXInt = (int) Math.floor(tileX);
 		int tileYInt = (int) Math.floor(tileY);
 
-		TileState state = game.getWorld().getState(this, tileXInt, tileYInt);
-
+		TileState state = player.world.getState(this, tileXInt, tileYInt);
 		if (state != null && state.getTile() instanceof TileConduit)
 		{
 			for (Map.Entry<Direction, BoundBox> entry : TileConduit
-					.getConduitBounds(game.getWorld(), tileXInt, tileYInt).entrySet())
+					.getConduitBounds(player.world, tileXInt, tileYInt).entrySet())
 			{
 				if (entry.getValue().add(tileXInt, tileYInt).contains(tileX, tileY))
 				{

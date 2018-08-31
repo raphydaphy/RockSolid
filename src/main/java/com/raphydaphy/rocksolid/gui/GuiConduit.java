@@ -42,7 +42,7 @@ public class GuiConduit extends GuiContainer
 
 		if (side != null && mode != null)
 		{
-			IPacket updatePacket = new PacketConduitUpdate(te.x, te.y, mode, side);
+			IPacket updatePacket = new PacketConduitUpdate(game.getPlayerWorld().getSubName(), te.x, te.y, mode, side);
 			if (game.getWorld().isClient())
 			{
 				RockBottomAPI.getNet().sendToServer(updatePacket);

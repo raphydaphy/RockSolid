@@ -186,7 +186,7 @@ public abstract class TileConduit extends TileBase
 	}
 
 	@Nullable
-	public static Direction getMousedConduitPart(IGameInstance game)
+	public static Direction getMousedConduitPart(IGameInstance game, IWorld world)
 	{
 		double tileX = game.getRenderer().getMousedTileX();
 		double tileY = game.getRenderer().getMousedTileY();
@@ -194,11 +194,11 @@ public abstract class TileConduit extends TileBase
 		int tileXInt = (int) Math.floor(tileX);
 		int tileYInt = (int) Math.floor(tileY);
 
-		TileState state = game.getWorld().getState(ModMisc.CONDUIT_LAYER, tileXInt, tileYInt);
+		TileState state = world.getState(ModMisc.CONDUIT_LAYER, tileXInt, tileYInt);
 
 		if (state != null && state.getTile() instanceof TileConduit)
 		{
-			for (Map.Entry<Direction, BoundBox> entry : getConduitBounds(game.getWorld(), tileXInt, tileYInt).entrySet())
+			for (Map.Entry<Direction, BoundBox> entry : getConduitBounds(world, tileXInt, tileYInt).entrySet())
 			{
 				if (entry.getValue().add(tileXInt, tileYInt).contains(tileX, tileY))
 				{

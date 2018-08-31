@@ -9,6 +9,7 @@ import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.net.NetUtil;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
+import de.ellpeck.rockbottom.api.world.IWorld;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -50,7 +51,8 @@ public class PacketAssemblyConstruct implements IPacket
 	{
 		AbstractEntityPlayer abstractPlayer;
 		IRecipe iRecipe;
-		if (game.getWorld() != null && (abstractPlayer = game.getWorld().getPlayer(this.playerUUID)) != null && (iRecipe = IRecipe.forName(this.recipeName)) != null && iRecipe.isKnown(abstractPlayer))
+		IWorld world = game.getWorld();
+		if (world != null && (abstractPlayer = world.getPlayer(this.playerUUID)) != null && (iRecipe = IRecipe.forName(this.recipeName)) != null && iRecipe.isKnown(abstractPlayer))
 		{
 			if (iRecipe instanceof AssemblyRecipe)
 			{

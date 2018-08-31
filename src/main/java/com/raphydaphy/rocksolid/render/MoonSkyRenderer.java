@@ -58,7 +58,7 @@ public final class MoonSkyRenderer {
 		double var51 = Math.toRadians((double)time / 24000.0D * 360.0D);
 		var10 = (float)(width / 2.0D + Math.cos(var51) * var87);
 		var79 = (float)(height + Math.sin(var51) * var88);
-		float size = 4;
+		float size = 2;
 		manager.getTexture(moon).draw(var10 - 2.0F * size, var79 - 2.0F * size, 4.0F * size, 4.0F * size);
 
 		renderer.setScale(1.0F, 1.0F);
