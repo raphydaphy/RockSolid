@@ -19,7 +19,6 @@ import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResInfo;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
@@ -66,8 +65,8 @@ public class ModMisc
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_nickel_generator"), MoonGenNickel.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_aluminum_generator"), MoonGenAluminum.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("moon_cobalt_generator"), MoonGenCobalt.class);
-		Registries.WORLD_GENERATORS.register(MOON_HEIGHTS_GENERATOR, MoonHeightGen.class);
-		Registries.WORLD_GENERATORS.register(MOON_BIOME_GENERATOR, MoonBiomeGen.class);
+		Registries.WORLD_GENERATORS.register(MOON_HEIGHTS_GENERATOR, MoonGenHeights.class);
+		Registries.WORLD_GENERATORS.register(MOON_BIOME_GENERATOR, MoonGenBiomes.class);
 
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_tin"), WorldGenTin.class);
 		Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_iron"), WorldGenIron.class);

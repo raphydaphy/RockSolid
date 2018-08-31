@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.world.moon;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
 import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.BiomeGen;
 import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
@@ -9,7 +10,7 @@ import de.ellpeck.rockbottom.api.world.gen.biome.level.BiomeLevel;
 
 import java.util.Set;
 
-public class MoonBiomeGen extends BiomeGen implements IMoonGenerator
+public class MoonGenBiomes extends BiomeGen
 {
 	@Override
 	public int getLevelTransition(IWorld world)
@@ -51,5 +52,10 @@ public class MoonBiomeGen extends BiomeGen implements IMoonGenerator
 	public Set<BiomeLevel> getLevelsToGen(IWorld world)
 	{
 		return Set.of(GameContent.BIOME_LEVEL_SKY, GameContent.BIOME_LEVEL_SURFACE, GameContent.BIOME_LEVEL_UNDERGROUND);
+	}
+
+	@Override
+	public boolean shouldGenerate(IWorld world, IChunk chunk) {
+		return world.getSubName() != null && world.getSubName().equals(ModMisc.MOON_WORLD);
 	}
 }

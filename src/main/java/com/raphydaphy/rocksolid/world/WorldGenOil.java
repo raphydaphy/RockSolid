@@ -26,8 +26,8 @@ public class WorldGenOil implements IWorldGenerator
 
 	public void generate(IWorld var1, IChunk var2)
 	{
-		this.a.setSeed(Util.scrambleSeed(var2.getGridX() + 4931, var2.getGridY() - 3947, var1.getSeed() + 398473) + 1293473);
-		if (this.a.nextFloat() <= var2.getMostProminentBiome().getLakeChance(var1, var2))
+		this.a.setSeed(Util.scrambleSeed(var2.getGridX() + 4931, var2.getGridY() - 3947, var1.getSeed() + 398473) - 1293473);
+		if (this.a.nextBoolean() && this.a.nextFloat() <= var2.getMostProminentBiome().getLakeChance(var1, var2))
 		{
 			int var3 = this.a.nextInt(15) + 8;
 			int var4;

@@ -1,9 +1,11 @@
 package com.raphydaphy.rocksolid.world.moon;
 
+import com.raphydaphy.rocksolid.init.ModMisc;
+import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.HeightGen;
 
-public class MoonHeightGen extends HeightGen implements IMoonGenerator
+public class MoonGenHeights extends HeightGen
 {
 	@Override
 	public int getMinHeight(IWorld world)
@@ -14,7 +16,7 @@ public class MoonHeightGen extends HeightGen implements IMoonGenerator
 	@Override
 	public int getMaxHeight(IWorld world)
 	{
-		return 30;
+		return 20;
 	}
 
 	@Override
@@ -33,5 +35,10 @@ public class MoonHeightGen extends HeightGen implements IMoonGenerator
 	public int getPriority()
 	{
 		return 15000;
+	}
+
+	@Override
+	public boolean shouldGenerate(IWorld world, IChunk chunk) {
+		return world.getSubName() != null && world.getSubName().equals(ModMisc.MOON_WORLD);
 	}
 }

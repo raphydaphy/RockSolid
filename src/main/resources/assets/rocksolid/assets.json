@@ -507,6 +507,9 @@
 	  "assembly_ingredient_background": "/gui/assembly_ingredient_background.png",
 	  "assembly_item_background": "/gui/assembly_item_background.png",
 	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png"
+	},
+	"sky.": {
+	  "earth": "/misc/earth.png"
 	}
   }
 }
