@@ -49,10 +49,6 @@ public class ItemWrench extends ItemDurability
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)
 	{
-		if (!world.isClient())
-		{
-			world.travelToSubWorld(player, ModMisc.MOON_WORLD, x, world.getSubWorld(ModMisc.MOON_WORLD).getExpectedSurfaceHeight(TileLayer.MAIN, x) + 2);
-		}
 		if (layer == ModMisc.CONDUIT_LAYER)
 		{
 			if (!(world.isServer() && world.isDedicatedServer()))

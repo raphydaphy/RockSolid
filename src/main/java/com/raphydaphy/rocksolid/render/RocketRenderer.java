@@ -27,7 +27,6 @@ public class RocketRenderer implements IEntityRenderer<EntityRocket>
 	{
 		if (entity.shouldRender())
 		{
-
 			manager.getTexture(texture.addSuffix(".back")).draw(x - 0.5f, y - 2, 1, 4, light);
 			if (entity.passenger != null)
 			{

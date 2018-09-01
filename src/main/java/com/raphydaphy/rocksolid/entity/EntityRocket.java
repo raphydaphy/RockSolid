@@ -3,10 +3,10 @@ package com.raphydaphy.rocksolid.entity;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiRocket;
+import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.network.PacketEnterRocket;
 import com.raphydaphy.rocksolid.particle.RocketParticle;
 import com.raphydaphy.rocksolid.render.RocketRenderer;
-import com.raphydaphy.rocksolid.tile.machine.TileLaunchPad;
 import com.raphydaphy.rocksolid.tileentity.TileEntityLaunchPad;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -18,6 +18,7 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
+import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.UUID;
@@ -34,17 +35,27 @@ public class EntityRocket extends Entity
 	private int timeFlying;
 
 	public Pos2 launchPad = null;
+	private RocketDestination destination;
 
 	private int lastPlayed = -1;
 
 	public EntityRocket(IWorld world)
 	{
 		super(world);
+
+		if (RocketDestination.EARTH.arrived(world))
+		{
+			this.destination = RocketDestination.MOON;
+		}
+		else if (RocketDestination.MOON.arrived(world))
+		{
+			this.destination = RocketDestination.EARTH;
+		}
 	}
 
 	public void launch()
 	{
-		if (launchPad != null && !flying && onGround)
+		if (launchPad != null && !flying && onGround && destination != null)
 		{
 			flying = true;
 			sendToClients();
@@ -72,6 +83,7 @@ public class EntityRocket extends Entity
 		set.addInt("fuel_volume", fuelVolume);
 		set.addBoolean("flying", flying);
 		set.addInt("time_flying", timeFlying);
+		set.addInt("destination", destination.id);
 		if (passenger != null)
 		{
 			set.addUniqueId("rocket_passanger", passenger);
@@ -90,6 +102,7 @@ public class EntityRocket extends Entity
 		fuelVolume = set.getInt("fuel_volume");
 		flying = set.getBoolean("flying");
 		timeFlying = set.getInt("time_flying");
+		destination = RocketDestination.fromID(set.getInt("destination"));
 		if (set.hasKey("rocket_passanger"))
 		{
 			passenger = set.getUniqueId("rocket_passanger");
@@ -159,13 +172,44 @@ public class EntityRocket extends Entity
 			if (!world.isClient())
 			{
 				timeFlying++;
-				this.sendToClients();
-				world.setDirty((int)getX(), (int)getY());
 
 				if (timeFlying > 0)
 				{
-					motionY = 0.1f;
+					if (destination.arrived(world))
+					{
+						if (onGround)
+						{
+							flying = false;
+						}
+						else
+						{
+							motionY = -0.25f;
+						}
+					}
+					else
+					{
+						motionY = 0.1f;
+					}
 				}
+				if (timeFlying >= 2000)
+				{
+					IWorld dest = destination.getDestination(game);
+
+					if (dest != null)
+					{
+						AbstractEntityPlayer player = passenger == null ? null : world.getPlayer(passenger);
+						int entryHeight = dest.getExpectedSurfaceHeight(TileLayer.MAIN, (int) getX()) + 100;
+
+						world.travelToSubWorld(this, dest.getSubName(), getX(), entryHeight);
+						if (player != null)
+						{
+							world.travelToSubWorld(player, dest.getSubName(), getX(), entryHeight);
+						}
+					}
+				}
+
+				this.sendToClients();
+				world.setDirty((int)getX(), (int)getY());
 			}
 
 			if (!(world.isServer() && world.isDedicatedServer()))
@@ -208,5 +252,55 @@ public class EntityRocket extends Entity
 	public int getFuelVolume()
 	{
 		return fuelVolume;
+	}
+
+	private static int nextDestID = 0;
+
+	public enum RocketDestination
+	{
+		EARTH, MOON;
+
+		public final int id;
+
+		private RocketDestination()
+		{
+			this.id = nextDestID++;
+		}
+
+		public boolean arrived(IWorld at)
+		{
+			switch(this)
+			{
+				case EARTH:
+					return at.getSubName() == null;
+				case MOON:
+					return at.getSubName() != null && at.getSubName().equals(ModMisc.MOON_WORLD);
+			}
+			return false;
+		}
+
+		public IWorld getDestination(IGameInstance game)
+		{
+			switch(this)
+			{
+				case EARTH:
+					return game.getWorld().getMainWorld();
+				case MOON:
+					return game.getWorld().getSubWorld(ModMisc.MOON_WORLD);
+			}
+			return null;
+		}
+
+		public static RocketDestination fromID(int id)
+		{
+			for (RocketDestination destination : RocketDestination.values())
+			{
+				if (destination.id == id)
+				{
+					return destination;
+				}
+			}
+			return null;
+		}
 	}
 }
