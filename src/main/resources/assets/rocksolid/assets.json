@@ -3,7 +3,8 @@
 	"us_english": "/loc/us_english.json"
   },
   "sound.": {
-	"pump": "/sounds/pump.ogg"
+	"pump": "/sounds/pump.ogg",
+	"rocket": "/sounds/rocket.ogg"
   },
   "tex.": {
 	"items.": {

@@ -78,6 +78,16 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 
 	public boolean setRocket(ItemInstance newRocket)
 	{
+		if (newRocket == null && this.rocket != null)
+		{
+			if (!world.isClient())
+			{
+				this.rocket = null;
+				this.sendToClients();
+				world.setDirty(x, y);
+			}
+			return true;
+		}
 		if (this.rocket == null && newRocket.getItem() == ModItems.ROCKET)
 		{
 			if (!world.isClient())
@@ -87,6 +97,7 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 				world.addEntity(rocket);
 				this.sendToClients();
 				world.setDirty(x, y);
+				rocket.launchPad = new Pos2(this.x, this.y);
 			}
 			return true;
 		}
