@@ -60,6 +60,9 @@ public class PacketEnterRocket implements IPacket
 
 			entityPlayer.setPos(entityRocket.getX(), entityRocket.getY());
 
+			entityRocket.sendToClients();
+			entityPlayer.sendToClients();
+
 		}
 	}
 

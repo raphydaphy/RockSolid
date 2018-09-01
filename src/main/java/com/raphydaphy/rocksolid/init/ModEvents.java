@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.network.PacketLeaveRocket;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.IRecipe;
+import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.event.EventResult;
 import de.ellpeck.rockbottom.api.event.IEventHandler;
@@ -21,14 +22,6 @@ public class ModEvents
 {
 	public static void init(IEventHandler handler)
 	{
-		handler.registerListener(PlayerRenderEvent.class, (result, event) ->
-		{
-			if (event.player.hasAdditionalData() && event.player.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
-			{
-				return EventResult.CANCELLED;
-			}
-			return EventResult.DEFAULT;
-		});
 		handler.registerListener(KeyEvent.class, (result, event) ->
 		{
 			if (event.key == GLFW.GLFW_KEY_LEFT_SHIFT && event.action == 1)
@@ -56,6 +49,11 @@ public class ModEvents
 				{
 					event.entity.motionY /= 1.25;
 				}
+			}
+
+			if (event.entity.hasAdditionalData() && event.entity.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
+			{
+				event.entity.motionX = 0;
 			}
 			return EventResult.DEFAULT;
 		});

@@ -532,7 +532,8 @@
 	  "earth": "/misc/earth.png"
 	},
 	"entities.": {
-	  "rocket": "/tiles/rocket/rocket.png"
+	  "rocket": "/tiles/rocket/rocket.png",
+	  "rocket.back": "/tiles/rocket/rocket_back.png"
 	}
   }
 }

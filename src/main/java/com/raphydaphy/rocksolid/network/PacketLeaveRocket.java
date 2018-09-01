@@ -53,6 +53,8 @@ public class PacketLeaveRocket implements IPacket
 					entityPlayer.getOrCreateAdditionalData().addBoolean(EntityRocket.IN_ROCKET, false);
 					entityRocket.passenger = null;
 					entityPlayer.world.setDirty((int)entityRocket.getX(), (int)entityRocket.getY());
+					entityRocket.sendToClients();
+					entityPlayer.sendToClients();
 				}
 			}
 		}

@@ -88,10 +88,17 @@ public class EntityRocket extends Entity
 		if (passenger != null)
 		{
 			AbstractEntityPlayer player = world.getPlayer(passenger);
-			player.setPos(getX(), getY());
-			player.motionX = this.motionX;
-			player.motionY = this.motionY;
-			player.isFalling = false;
+
+			if (player != null)
+			{
+				if (player.getY() != getY())
+				{
+					player.motionY = getY() - 0.25f - player.getY();
+				}
+
+				player.jumping = true;
+				player.isFalling = false;
+			}
 		}
 	}
 
