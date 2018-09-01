@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
+import com.raphydaphy.rocksolid.network.PacketLaunchRocket;
 import com.raphydaphy.rocksolid.network.PacketLeaveRocket;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -24,18 +25,33 @@ public class ModEvents
 	{
 		handler.registerListener(KeyEvent.class, (result, event) ->
 		{
-			if (event.key == GLFW.GLFW_KEY_LEFT_SHIFT && event.action == 1)
+			AbstractEntityPlayer player = RockBottomAPI.getGame().getPlayer();
+
+			if (player != null)
 			{
-				AbstractEntityPlayer player = RockBottomAPI.getGame().getPlayer();
 				if (player.hasAdditionalData() && player.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
 				{
-					PacketLeaveRocket packet = new PacketLeaveRocket(player.getUniqueId());
-					if (player.world.isClient())
+
+					if (event.key == GLFW.GLFW_KEY_LEFT_SHIFT && event.action == 1)
 					{
-						RockBottomAPI.getNet().sendToServer(packet);
-					} else
+						PacketLeaveRocket packet = new PacketLeaveRocket(player.getUniqueId());
+						if (player.world.isClient())
+						{
+							RockBottomAPI.getNet().sendToServer(packet);
+						} else
+						{
+							packet.handle(RockBottomAPI.getGame(), null);
+						}
+					} else if (event.key == Settings.KEY_JUMP.getKey() && event.action == 1)
 					{
-						packet.handle(RockBottomAPI.getGame(), null);
+						PacketLaunchRocket packet = new PacketLaunchRocket(player.getUniqueId());
+						if (player.world.isClient())
+						{
+							RockBottomAPI.getNet().sendToServer(packet);
+						} else
+						{
+							packet.handle(RockBottomAPI.getGame(), null);
+						}
 					}
 				}
 			}

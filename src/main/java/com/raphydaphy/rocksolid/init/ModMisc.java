@@ -83,6 +83,7 @@ public class ModMisc
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketAssemblyRecipeChanged.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketEnterRocket.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketLeaveRocket.class);
+		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketLaunchRocket.class);
 
 		Registries.ENTITY_REGISTRY.register(RockSolid.createRes("rocket"), EntityRocket.class);
 

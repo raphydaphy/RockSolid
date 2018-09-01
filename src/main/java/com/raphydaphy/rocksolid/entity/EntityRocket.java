@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiRocket;
 import com.raphydaphy.rocksolid.network.PacketEnterRocket;
+import com.raphydaphy.rocksolid.particle.RocketParticle;
 import com.raphydaphy.rocksolid.render.RocketRenderer;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -11,11 +12,11 @@ import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.render.entity.IEntityRenderer;
+import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import org.lwjgl.glfw.GLFW;
 
-import java.sql.SQLOutput;
 import java.util.UUID;
 
 public class EntityRocket extends Entity
@@ -26,9 +27,21 @@ public class EntityRocket extends Entity
 	private int fuelVolume = 0;
 	public UUID passenger;
 
+	private boolean flying = false;
+
 	public EntityRocket(IWorld world)
 	{
 		super(world);
+	}
+
+	public void launch()
+	{
+		if (!flying && onGround)
+		{
+			flying = true;
+			sendToClients();
+			world.setDirty((int)getX(), (int)getY());
+		}
 	}
 
 	@Override
@@ -36,6 +49,7 @@ public class EntityRocket extends Entity
 	{
 		super.save(set, forFullSync);
 		set.addInt("fuel_volume", fuelVolume);
+		set.addBoolean("flying", flying);
 		if (passenger != null)
 		{
 			set.addUniqueId("rocket_passanger", passenger);
@@ -47,6 +61,7 @@ public class EntityRocket extends Entity
 	{
 		super.load(set, forFullSync);
 		fuelVolume = set.getInt("fuel_volume");
+		flying = set.getBoolean("flying");
 		if (set.hasKey("rocket_passanger"))
 		{
 			passenger = set.getUniqueId("rocket_passanger");
@@ -85,6 +100,7 @@ public class EntityRocket extends Entity
 	}
 
 	public void update(IGameInstance game) {
+		super.update(game);
 		if (passenger != null)
 		{
 			AbstractEntityPlayer player = world.getPlayer(passenger);
@@ -98,6 +114,25 @@ public class EntityRocket extends Entity
 
 				player.jumping = true;
 				player.isFalling = false;
+			}
+		}
+
+		if (flying)
+		{
+			if (!world.isClient())
+			{
+				motionY = 0.1f;
+				this.sendToClients();
+				world.setDirty((int)getX(), (int)getY());
+			}
+			if (!(world.isServer() && world.isDedicatedServer()))
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					double particleX = getX() + (Util.RANDOM.nextFloat() - 0.5) * 0.4f;
+					double particleY = getY() - 2.1f;
+					game.getParticleManager().addParticle(new RocketParticle(world, particleX, particleY, Util.RANDOM.nextGaussian() * 0.02f, -0.05, 30, 0.2f + (Util.RANDOM.nextFloat() / 20)));
+				}
 			}
 		}
 	}

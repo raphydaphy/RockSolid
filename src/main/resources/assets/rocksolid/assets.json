@@ -534,6 +534,10 @@
 	"entities.": {
 	  "rocket": "/tiles/rocket/rocket.png",
 	  "rocket.back": "/tiles/rocket/rocket_back.png"
+	},
+	"particles.": {
+	  "fire": "/misc/fire.png",
+	  "smoke": "/misc/smoke.png"
 	}
   }
 }
