@@ -86,7 +86,7 @@ public class EntityRocket extends Entity
 		set.addInt("destination", destination.id);
 		if (passenger != null)
 		{
-			set.addUniqueId("rocket_passanger", passenger);
+			set.addUniqueId("rocket_passenger", passenger);
 		}
 		if (launchPad != null)
 		{
@@ -103,9 +103,9 @@ public class EntityRocket extends Entity
 		flying = set.getBoolean("flying");
 		timeFlying = set.getInt("time_flying");
 		destination = RocketDestination.fromID(set.getInt("destination"));
-		if (set.hasKey("rocket_passanger"))
+		if (set.hasKey("rocket_passenger"))
 		{
-			passenger = set.getUniqueId("rocket_passanger");
+			passenger = set.getUniqueId("rocket_passenger");
 		}
 		else
 		{
@@ -154,7 +154,7 @@ public class EntityRocket extends Entity
 		{
 			AbstractEntityPlayer player = world.getPlayer(passenger);
 
-			if (player != null)
+			if (player != null && player.hasAdditionalData() && player.getAdditionalData().getBoolean(IN_ROCKET))
 			{
 				if (player.getY() != getY())
 				{
@@ -164,6 +164,12 @@ public class EntityRocket extends Entity
 				player.jumping = true;
 				player.isFalling = false;
 				player.sendToClients();
+			}
+			else
+			{
+				passenger = null;
+				sendToClients();
+				world.setDirty((int)getX(), (int)getY());
 			}
 		}
 
@@ -201,9 +207,13 @@ public class EntityRocket extends Entity
 						int entryHeight = dest.getExpectedSurfaceHeight(TileLayer.MAIN, (int) getX()) + 100;
 
 						world.travelToSubWorld(this, dest.getSubName(), getX(), entryHeight);
-						if (player != null)
+						if (player != null && player.hasAdditionalData() && player.getAdditionalData().getBoolean(IN_ROCKET))
 						{
 							world.travelToSubWorld(player, dest.getSubName(), getX(), entryHeight);
+						}
+						else
+						{
+							passenger = null;
 						}
 					}
 				}
