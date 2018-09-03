@@ -1,7 +1,7 @@
 package com.raphydaphy.rocksolid.world.moon;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
-import de.ellpeck.rockbottom.api.GameContent;
+import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.world.IChunk;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.gen.BiomeGen;
@@ -51,7 +51,7 @@ public class MoonGenBiomes extends BiomeGen
 	@Override
 	public Set<BiomeLevel> getLevelsToGen(IWorld world)
 	{
-		return Set.of(GameContent.BIOME_LEVEL_SKY, GameContent.BIOME_LEVEL_SURFACE, GameContent.BIOME_LEVEL_UNDERGROUND);
+		return Registries.BIOME_LEVEL_REGISTRY.values();
 	}
 
 	@Override

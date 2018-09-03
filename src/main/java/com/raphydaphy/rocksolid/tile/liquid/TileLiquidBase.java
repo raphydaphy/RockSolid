@@ -20,8 +20,9 @@ public class TileLiquidBase extends TileLiquid
 	private final BoundBox[] levelBounds = new BoundBox[this.getLevels()];
 	private final double movementSpeed;
 	private final float evaporationChance;
+	private final boolean canSwim;
 
-	public TileLiquidBase(String name, double movementSpeed, float evaporationChance)
+	public TileLiquidBase(String name, double movementSpeed, float evaporationChance, boolean canSwim)
 	{
 		super(RockSolid.createRes(name));
 
@@ -32,6 +33,7 @@ public class TileLiquidBase extends TileLiquid
 
 		this.movementSpeed = movementSpeed;
 		this.evaporationChance = evaporationChance;
+		this.canSwim = canSwim;
 		register();
 	}
 
@@ -116,5 +118,11 @@ public class TileLiquidBase extends TileLiquid
 			world.setState(layer, x, y, state.prop(this.level, level - 1));
 		}
 
+	}
+
+	@Override
+	public boolean canSwim(IWorld world, int x, int y, TileLayer layer, Entity entity)
+	{
+		return canSwim;
 	}
 }

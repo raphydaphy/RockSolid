@@ -18,6 +18,8 @@ import de.ellpeck.rockbottom.api.tile.TileLiquid;
 @SuppressWarnings("WeakerAccess")
 public class ModTiles
 {
+	public static Tile COTTON;
+
 	public static Tile TIN_ORE;
 	public static Tile IRON_ORE;
 	public static Tile RUTILE_ORE;
@@ -72,6 +74,8 @@ public class ModTiles
 
 	public static void init()
 	{
+		COTTON = new TileCotton();
+
 		TIN_ORE = new TileOre("ore.tin", 8f, 2, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
 		MAGNESIUM_ORE = new TileOre("ore.magnesium", 12f, 17, ModItems.MAGNESIUM_CLUSTER);

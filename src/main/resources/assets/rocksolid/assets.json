@@ -276,6 +276,15 @@
 		},
 		"item": "/tiles/electric_blast_furnace/electric_blast_furnace.png"
 	  },
+	  "cotton.": {
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"file": "/tiles/cotton.png"
+		  }
+		}
+	  },
 	  "alloy_smelter.": {
 		"active.": {
 		  "subtexture": {
