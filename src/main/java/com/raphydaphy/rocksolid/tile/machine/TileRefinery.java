@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.tile.machine;
 
-import com.raphydaphy.rocksolid.container.ContainerElectricFurnace;
-import com.raphydaphy.rocksolid.gui.GuiElectricFurnace;
+import com.raphydaphy.rocksolid.container.ContainerEmpty;
+import com.raphydaphy.rocksolid.gui.GuiRefinery;
 import com.raphydaphy.rocksolid.render.ActivatableRenderer;
-import com.raphydaphy.rocksolid.tileentity.TileEntityElectricCompressor;
+import com.raphydaphy.rocksolid.tileentity.TileEntityRefinery;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
@@ -13,11 +13,11 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileElectricCompressor extends TileMachineBase<TileEntityElectricCompressor>
+public class TileRefinery extends TileMachineBase<TileEntityRefinery>
 {
-	public TileElectricCompressor()
+	public TileRefinery()
 	{
-		super("electric_compressor", TileEntityElectricCompressor.class, 25, false, new ToolInfo(ToolProperty.PICKAXE, 6));
+		super("refinery", TileEntityRefinery.class, 25, false, new ToolInfo(ToolProperty.PICKAXE, 6));
 	}
 
 	@Override
@@ -47,14 +47,14 @@ public class TileElectricCompressor extends TileMachineBase<TileEntityElectricCo
 	@Override
 	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityElectricCompressor(world, x, y, layer);
+		return new TileEntityRefinery(world, x, y, layer);
 	}
 
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityElectricCompressor te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiElectricFurnace(player, te), new ContainerElectricFurnace(player, te));
+		TileEntityRefinery te = getTE(world, world.getState(x, y), x, y);
+		player.openGuiContainer(new GuiRefinery(player, te), new ContainerEmpty(player));
 		return true;
 	}
 }

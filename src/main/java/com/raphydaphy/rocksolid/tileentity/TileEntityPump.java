@@ -188,11 +188,11 @@ public class TileEntityPump extends TileEntityAssemblyConfigurable implements IF
 			if (!simulate)
 			{
 				this.liquidVolume.remove(ml);
+				world.setDirty(x, y);
 
 				if (this.liquidVolume.get() == 0)
 				{
 					this.liquidType = null;
-					world.setDirty(x, y);
 				}
 			}
 			return true;

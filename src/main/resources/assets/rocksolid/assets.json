@@ -381,6 +381,31 @@
 		},
 		"item": "/tiles/compressor/compressor_item.png"
 	  },
+	  "refinery.": {
+		"active.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"1.0": [12, 12, 12, 12],
+			"2.0": [24, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"1.1": [12, 0, 12, 12],
+			"2.1": [24, 0, 12, 12],
+			"file": "/tiles/refinery/refinery_active.png"
+		  }
+		},
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 12, 12, 12],
+			"1.0": [12, 12, 12, 12],
+			"2.0": [24, 12, 12, 12],
+			"0.1": [0, 0, 12, 12],
+			"1.1": [12, 0, 12, 12],
+			"2.1": [24, 0, 12, 12],
+			"file": "/tiles/refinery/refinery.png"
+		  }
+		},
+		"item": "/tiles/refinery/refinery_item.png"
+	  },
 	  "nuclear_reactor.": {
 		"active.": {
 		  "subtexture": {

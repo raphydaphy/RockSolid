@@ -24,6 +24,12 @@ public class GuiNuclearReactor extends GuiContainer
 	{
 		super(player, 136, 135);
 		this.te = te;
+
+		int playerSlots = player.getInv().getSlotAmount();
+
+		ShiftClickBehavior input = new ShiftClickBehavior(0, playerSlots - 1, playerSlots, playerSlots + 3);
+		shiftClickBehaviors.add(input);
+		shiftClickBehaviors.add(input.reversed());
 	}
 
 	@Override
