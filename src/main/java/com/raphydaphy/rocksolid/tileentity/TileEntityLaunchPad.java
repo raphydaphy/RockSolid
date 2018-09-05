@@ -8,6 +8,7 @@ import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.machine.TileLaunchPad;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.util.ModUtils;
+import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileLiquid;
@@ -41,6 +42,21 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 		{
 			set.addUniqueId("rocket_uuid", rocket.getUniqueId());
 		}
+	}
+
+
+	@Override
+	protected boolean needsSync()
+	{
+		return fuelVolume.needsSync() || energyStored.needsSync();
+	}
+
+	@Override
+	public void onSync()
+	{
+		super.onSync();
+		fuelVolume.onSync();
+		energyStored.onSync();
 	}
 
 	@Override
@@ -119,7 +135,6 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 			{
 				this.fuelVolume.add(ml);
 				world.setDirty(x, y);
-				this.sendToClients();
 			}
 			return true;
 		}
@@ -183,7 +198,6 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 			{
 				this.energyStored.add(joules);
 				world.setDirty(x, y);
-				this.sendToClients();
 			}
 			return true;
 		}
@@ -208,8 +222,23 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 	}
 
 	@Override
+	public void update(IGameInstance game)
+	{
+		super.update(game);
+		if (world.getTotalTime() % 5 == 0 && this.energyStored.get() >= Math.round(10 / getEfficiencyModifier()) && this.fuelVolume.get() >= 1 && rocket != null)
+		{
+			if (!this.world.isClient() && rocket.addFuel(1))
+			{
+				this.energyStored.remove(Math.round(10 / getEfficiencyModifier()));
+				this.fuelVolume.remove(1);
+				world.setDirty(x, y);
+			}
+		}
+	}
+
+	@Override
 	public boolean doesTick()
 	{
-		return false;
+		return true;
 	}
 }

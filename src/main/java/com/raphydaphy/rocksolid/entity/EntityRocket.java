@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.entity;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiRocket;
+import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.network.PacketEnterRocket;
 import com.raphydaphy.rocksolid.particle.RocketParticle;
@@ -11,8 +12,10 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityLaunchPad;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.entity.AbstractEntityItem;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.entity.IEntityRenderer;
 import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.util.Util;
@@ -33,6 +36,8 @@ public class EntityRocket extends Entity
 	public UUID passenger;
 	private boolean flying = false;
 	private int timeFlying;
+
+	private int startY;
 
 	public Pos2 launchPad = null;
 	private RocketDestination destination;
@@ -58,9 +63,8 @@ public class EntityRocket extends Entity
 		if (launchPad != null && !flying && onGround && destination != null)
 		{
 			flying = true;
-			sendToClients();
-			world.setDirty((int)getX(), (int)getY());
 			timeFlying = -1000;
+			startY = (int) getY();
 			if (!(world.isServer() && world.isDedicatedServer()))
 			{
 				world.playSound(ROCKET_SOUND, getX(), getY(), 1, 0.5f, 2);
@@ -73,6 +77,9 @@ public class EntityRocket extends Entity
 				pad.setRocket(null);
 				launchPad = null;
 			}
+
+			sendToClients();
+			world.setDirty((int) getX(), (int) getY());
 		}
 	}
 
@@ -84,6 +91,7 @@ public class EntityRocket extends Entity
 		set.addBoolean("flying", flying);
 		set.addInt("time_flying", timeFlying);
 		set.addInt("destination", destination.id);
+		set.addInt("start_y", startY);
 		if (passenger != null)
 		{
 			set.addUniqueId("rocket_passenger", passenger);
@@ -103,6 +111,7 @@ public class EntityRocket extends Entity
 		flying = set.getBoolean("flying");
 		timeFlying = set.getInt("time_flying");
 		destination = RocketDestination.fromID(set.getInt("destination"));
+		startY = set.getInt("start_y");
 		if (set.hasKey("rocket_passenger"))
 		{
 			passenger = set.getUniqueId("rocket_passenger");
@@ -179,50 +188,60 @@ public class EntityRocket extends Entity
 			{
 				timeFlying++;
 
-				if (timeFlying > 0)
+				if (getFuelVolume() > 0)
 				{
-					if (destination.arrived(world))
+					if (world.getTotalTime() % 60 == 0)
 					{
-						if (onGround)
+						fuelVolume -= 1;
+					}
+					if (timeFlying > 0)
+					{
+						if (destination.arrived(world))
 						{
-							flying = false;
-						}
-						else
+							System.out.println("arrived at " + destination);
+							if (onGround)
+							{
+								flying = false;
+							} else
+							{
+								motionY = -0.25f;
+							}
+						} else
 						{
-							motionY = -0.25f;
+							motionY += 0.03f;
 						}
 					}
-					else
+					if (getY() - startY >= 300)
 					{
-						motionY = 0.1f;
+						IWorld dest = destination.getDestination(game);
+
+						if (dest != null)
+						{
+							AbstractEntityPlayer player = passenger == null ? null : world.getPlayer(passenger);
+							int entryHeight = dest.getExpectedSurfaceHeight(TileLayer.MAIN, (int) getX()) + 100;
+
+							world.travelToSubWorld(this, dest.getSubName(), getX(), entryHeight);
+							if (player != null && player.hasAdditionalData() && player.getAdditionalData().getBoolean(IN_ROCKET))
+							{
+								world.travelToSubWorld(player, dest.getSubName(), getX(), entryHeight);
+							} else
+							{
+								passenger = null;
+							}
+						}
 					}
-				}
-				if (timeFlying >= 2000)
+				} else
 				{
-					IWorld dest = destination.getDestination(game);
-
-					if (dest != null)
-					{
-						AbstractEntityPlayer player = passenger == null ? null : world.getPlayer(passenger);
-						int entryHeight = dest.getExpectedSurfaceHeight(TileLayer.MAIN, (int) getX()) + 100;
-
-						world.travelToSubWorld(this, dest.getSubName(), getX(), entryHeight);
-						if (player != null && player.hasAdditionalData() && player.getAdditionalData().getBoolean(IN_ROCKET))
-						{
-							world.travelToSubWorld(player, dest.getSubName(), getX(), entryHeight);
-						}
-						else
-						{
-							passenger = null;
-						}
-					}
+					flying = false;
 				}
+
+
 
 				this.sendToClients();
 				world.setDirty((int)getX(), (int)getY());
 			}
 
-			if (!(world.isServer() && world.isDedicatedServer()))
+			if (fuelVolume > 0 && !(world.isServer() && world.isDedicatedServer()))
 			{
 				for (int i = 0; i < 3; i++)
 				{
@@ -235,6 +254,23 @@ public class EntityRocket extends Entity
 					world.playSound(ROCKET_SOUND, getX(), getY(), 1, timeFlying < 0 ? (timeFlying + 200f) / 200f : 1, 2);
 					lastPlayed = world.getTotalTime();
 				}
+			}
+		} else if (!world.isClient() && onGround && launchPad == null)
+		{
+			AbstractEntityItem.spawn(world, new ItemInstance(ModItems.ROCKET), getX(), getY(), Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
+			setDead(true);
+		}
+	}
+
+	@Override
+	public void onRemoveFromWorld()
+	{
+		if (!world.isClient() && passenger != null)
+		{
+			AbstractEntityPlayer player = world.getPlayer(passenger);
+			if (player != null && player.hasAdditionalData())
+			{
+				player.getAdditionalData().addBoolean(IN_ROCKET, false);
 			}
 		}
 	}
@@ -262,6 +298,18 @@ public class EntityRocket extends Entity
 	public int getFuelVolume()
 	{
 		return fuelVolume;
+	}
+
+	public boolean addFuel(int amount)
+	{
+		if (fuelVolume + amount <= 250)
+		{
+			fuelVolume += amount;
+			world.setDirty((int) getX(), (int) getY());
+			sendToClients();
+			return true;
+		}
+		return false;
 	}
 
 	private static int nextDestID = 0;

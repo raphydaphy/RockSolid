@@ -50,10 +50,13 @@ public class PacketLeaveRocket implements IPacket
 				if (rocketUUID != null)
 				{
 					EntityRocket entityRocket = (EntityRocket) entityPlayer.world.getEntity(rocketUUID);
+					if (entityRocket != null)
+					{
+						entityRocket.passenger = null;
+						entityPlayer.world.setDirty((int) entityRocket.getX(), (int) entityRocket.getY());
+						entityRocket.sendToClients();
+					}
 					entityPlayer.getOrCreateAdditionalData().addBoolean(EntityRocket.IN_ROCKET, false);
-					entityRocket.passenger = null;
-					entityPlayer.world.setDirty((int)entityRocket.getX(), (int)entityRocket.getY());
-					entityRocket.sendToClients();
 					entityPlayer.sendToClients();
 				}
 			}

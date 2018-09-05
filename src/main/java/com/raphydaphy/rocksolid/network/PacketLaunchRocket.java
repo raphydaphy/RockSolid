@@ -47,7 +47,13 @@ public class PacketLaunchRocket implements IPacket
 			if (entityPlayer.hasAdditionalData() && entityPlayer.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
 			{
 				EntityRocket rocket = (EntityRocket) entityPlayer.world.getEntity(entityPlayer.getAdditionalData().getUniqueId(EntityRocket.PLAYER_ROCKET));
-				rocket.launch();
+				if (rocket != null)
+				{
+					rocket.launch();
+				} else
+				{
+					entityPlayer.getAdditionalData().addBoolean(EntityRocket.IN_ROCKET, false);
+				}
 			}
 		}
 	}
