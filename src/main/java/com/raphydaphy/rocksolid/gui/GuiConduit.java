@@ -32,11 +32,11 @@ public class GuiConduit extends GuiContainer
 		super(player, 136, 132);
 		this.te = te;
 		this.pos = new Pos2(te.x, te.y);
-		this.mode = te.getMode(pos, side, false);
 		if (!(te.world.isServer() && te.world.isDedicatedServer()))
 		{
 			this.side = ConduitSide.getByDirection(TileConduit.getMousedConduitPart(RockBottomAPI.getGame(), player.world));
 		}
+		this.mode = te.getMode(pos, side, false);
 	}
 
 	@Override
