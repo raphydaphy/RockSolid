@@ -303,7 +303,7 @@ public class TileEntityNuclearReactor extends TileEntityAssemblyConfigurable imp
 	@Override
 	public int getMaxTransfer()
 	{
-		return 50;
+		return Math.round(50 * getThroughputModifier());
 	}
 
 	@Override

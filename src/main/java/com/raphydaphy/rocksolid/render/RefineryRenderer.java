@@ -1,5 +1,6 @@
 package com.raphydaphy.rocksolid.render;
 
+import com.raphydaphy.rocksolid.init.ModTiles;
 import com.raphydaphy.rocksolid.tile.machine.TileRefinery;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRefinery;
 import de.ellpeck.rockbottom.api.IGameInstance;
@@ -39,6 +40,114 @@ public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 			manager.getTexture(this.textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 
 			ResourceName activeFull = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
+			if (te.getFuelFullness() > 0 && innerCoord.getX() != 0)
+			{
+				int FUEL = (int) Math.min((te.getFuelFullness() * te.getFluidCapacity(null,null, ModTiles.FUEL)) / (te.getFluidCapacity(null, null, ModTiles.FUEL) / 16d), 16);
+				boolean render = false;
+
+				float pixel = scale / 12f;
+
+				int localFuel = FUEL;
+				float yMax = 12;
+
+				float y1;
+				float y2;
+
+				float srcY;
+				float srcY2;
+
+				float x1 = renderX + pixel * 10;
+				float x2 = x1 + pixel * 2;
+
+				int srcX = 10;
+				int srcX2 = 12;
+
+				if (innerCoord.getX() == 2)
+				{
+					x1 = renderX;
+					x2 = renderX + pixel * 2;
+
+					srcX = 0;
+					srcX2 = 2;
+				}
+
+				if (innerCoord.getY() == 0)
+				{
+					localFuel = Math.min(8, FUEL);
+					yMax = 8;
+					render = true;
+				} else if (innerCoord.getY() == 1 && FUEL > 8)
+				{
+					localFuel -= 8;
+					render = true;
+				}
+
+				if (render)
+				{
+					y1 = renderY + pixel * (yMax - localFuel);
+					y2 = y1 + pixel * localFuel;
+
+					srcY = yMax - localFuel;
+					srcY2 = srcY + localFuel;
+
+
+					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(x1, y1, x2, y2, srcX, srcY, srcX2, srcY2, light);
+				}
+			}
+			if (te.getOilFullness() > 0 && innerCoord.getX() != 2)
+			{
+				int OIL = (int) Math.min((te.getOilFullness() * te.getFluidCapacity(null,null, ModTiles.OIL)) / (te.getFluidCapacity(null, null, ModTiles.OIL) / 16d), 16);
+				boolean render = false;
+
+				float pixel = scale / 12f;
+
+				int localOil = OIL;
+				float yMax = 12;
+
+				float y1;
+				float y2;
+
+				float srcY;
+				float srcY2;
+
+				float x1 = renderX + pixel * 10;
+				float x2 = x1 + pixel * 2;
+
+				int srcX = 10;
+				int srcX2 = 12;
+
+				if (innerCoord.getX() == 1)
+				{
+					x1 = renderX;
+					x2 = renderX + pixel * 2;
+
+					srcX = 0;
+					srcX2 = 2;
+				}
+
+				if (innerCoord.getY() == 0)
+				{
+					localOil = Math.min(8, OIL);
+					yMax = 8;
+					render = true;
+				} else if (innerCoord.getY() == 1 && OIL > 8)
+				{
+					localOil -= 8;
+					render = true;
+				}
+
+				if (render)
+				{
+					y1 = renderY + pixel * (yMax - localOil);
+					y2 = y1 + pixel * localOil;
+
+					srcY = yMax - localOil;
+					srcY2 = srcY + localOil;
+
+
+					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(x1, y1, x2, y2, srcX, srcY, srcX2, srcY2, light);
+				}
+			}
 			if (te.getEnergyFullness() > 0 && innerCoord.getX() == 0)
 			{
 				int ENERGY = (int) Math.min((te.getEnergyFullness() * te.getEnergyCapacity(null, null)) / (te.getEnergyCapacity(null, null) / 9d), 9);
@@ -59,7 +168,7 @@ public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 				if (innerCoord.getY() == 0)
 				{
 					localEnergy = Math.min(6, ENERGY);
-					yMax = 6;
+					yMax = 5;
 					render = true;
 				} else if (innerCoord.getY() == 1 && ENERGY > 5)
 				{
@@ -76,7 +185,7 @@ public class RefineryRenderer extends MultiTileRenderer<TileRefinery>
 					srcY2 = srcY + localEnergy;
 
 
-					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, y1, renderX + scale, y2, 0, srcY, 12, srcY2, light);
+					manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX + pixel * 2, y1, renderX + pixel * 4, y2, 2, srcY, 4, srcY2, light);
 				}
 			}
 		}

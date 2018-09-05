@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.tile.machine;
 import com.raphydaphy.rocksolid.container.ContainerEmpty;
 import com.raphydaphy.rocksolid.gui.GuiRefinery;
 import com.raphydaphy.rocksolid.render.ActivatableRenderer;
+import com.raphydaphy.rocksolid.render.RefineryRenderer;
 import com.raphydaphy.rocksolid.tileentity.TileEntityRefinery;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -41,7 +42,7 @@ public class TileRefinery extends TileMachineBase<TileEntityRefinery>
 	@Override
 	protected ITileRenderer createRenderer(ResourceName name)
 	{
-		return new ActivatableRenderer(name, this);
+		return new RefineryRenderer(name, this);
 	}
 
 	@Override
