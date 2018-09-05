@@ -21,9 +21,14 @@ public class ModRecipes
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_ALLOY_SMELTER), 35, 9, 10).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_BLAST_FURNACE), 50, 8, 20).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_COMPRESSOR), 70, 6, 8).registerAssembly();
+		new AssemblyRecipe(0.7f, new ItemInstance(ModTiles.REFINERY), 45, 12, 8).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.PUMP),40, 4, 8).disableEfficiency().registerAssembly();
 		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_TITANIUM_PROCESSED, 15), new ItemInstance(ModTiles.NUCLEAR_REACTOR), 75, 10).registerAssembly();
 		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_URANIUM_COMPRESSED, 4), new ItemInstance(ModItems.URANIUM_ROD), 16, 4).disableThroughput().disableSpeed().disableBonusYield().registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TEMPSHIFT_PLATE),50, 15, 5).disableBonusYield().disableEfficiency().disableSpeed().disableThroughput().registerAssembly();
+
+		// Temporary until precision assembler is done
+		new AssemblyRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 6), new ItemInstance(ModTiles.LAUNCH_PAD), 25, 3).disableSpeed().disableBonusYield().registerAssembly();
+		new AssemblyRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerAssembly();
 	}
 }

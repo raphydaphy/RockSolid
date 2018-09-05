@@ -19,6 +19,7 @@ import java.util.List;
 
 public class AssemblyRecipe extends BasicRecipe
 {
+	private boolean capacity = true;
 	private boolean efficiency = true;
 	private boolean speed = true;
 	private boolean bonusYield = true;
@@ -50,6 +51,12 @@ public class AssemblyRecipe extends BasicRecipe
 		return this;
 	}
 
+	public AssemblyRecipe disableCapacity()
+	{
+		capacity = false;
+		return this;
+	}
+
 	public AssemblyRecipe disableEfficiency()
 	{
 		efficiency = false;
@@ -72,6 +79,11 @@ public class AssemblyRecipe extends BasicRecipe
 	{
 		throughput = false;
 		return this;
+	}
+
+	public boolean hasCapacity()
+	{
+		return capacity;
 	}
 
 	public boolean hasEfficiency()
@@ -99,7 +111,7 @@ public class AssemblyRecipe extends BasicRecipe
 	{
 		ItemInstance nbtOut = output.copy();
 
-		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, ModUtils.getAssemblyCapacity(inputs) * 2);
+		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, hasCapacity() ? ModUtils.getAssemblyCapacity(inputs) * 2 : -1);
 		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, hasEfficiency() ? ModUtils.getAssemblyEfficiency(inputs) * 2 : -1);
 		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, hasSpeed() ? ModUtils.getAssemblySpeed(inputs) * 2 : -1);
 		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, hasBonusYield() ? ModUtils.getAssemblyBonusYield(inputs) * 2 : -1);

@@ -240,8 +240,11 @@ public class GuiAssemblyStation extends GuiContainer
 
 			int drawY = 14;
 
-			assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(CAPACITY_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
-			drawY += 15;
+			if (this.recipe.hasCapacity())
+			{
+				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(CAPACITY_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
+				drawY += 15;
+			}
 			if (this.recipe.hasEfficiency())
 			{
 				assetManager.getFont().drawAutoScaledString((float) (this.x + 116 + offset), (float) (this.y + drawY), RockBottomAPI.getGame().getAssetManager().localize(EFFICIENCY_NAME), 0.15F, 70, -16777216, 2147483647, true, false);
@@ -313,9 +316,12 @@ public class GuiAssemblyStation extends GuiContainer
 
 		AssemblyRecipe r = this.recipe;
 		int progressY = 19;
-		this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyCapacity(getTEItems())));
-		progressY += 15;
 
+		if (r.hasCapacity())
+		{
+			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyCapacity(getTEItems())));
+			progressY += 15;
+		}
 		if (r.hasEfficiency())
 		{
 			this.stats.add(new ComponentProgressBar(this, 100 + offset, progressY, 33, 8, Color.DARK_GRAY.getRGB(), false, () -> ModUtils.getAssemblyEfficiency(getTEItems())));
