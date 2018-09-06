@@ -469,6 +469,16 @@
 		},
 		"item": "/tiles/assembly_station/assembly_station_item.png"
 	  },
+	  "precision_assembler.": {
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 0, 12, 12],
+			"1.0": [12, 0, 12, 12],
+			"file": "/tiles/precision_assembler/precision_assembler.png"
+		  }
+		},
+		"item": "/tiles/precision_assembler/precision_assembler_item.png"
+	  },
 	  "battery.": {
 		"full.": {
 		  "subtexture": {
