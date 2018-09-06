@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
+import com.raphydaphy.rocksolid.recipe.PrecisionRecipe;
 import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -10,6 +11,7 @@ import de.ellpeck.rockbottom.api.util.reg.ParentedNameRegistry;
 public class ModRecipes
 {
 	public static final ParentedNameRegistry<AssemblyRecipe> ASSEMBLY_STATION_RECIPES = new ParentedNameRegistry<>(RockSolid.createRes("assembly_station_registry"), true, Registries.ALL_CONSTRUCTION_RECIPES).register();
+	public static final ParentedNameRegistry<PrecisionRecipe> PRECISION_ASSEMBLER_RECIPES = new ParentedNameRegistry<>(RockSolid.createRes("precision_assembler_registry"), true, Registries.ALL_CONSTRUCTION_RECIPES).register();
 
 	public static void init()
 	{
@@ -26,9 +28,8 @@ public class ModRecipes
 		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_TITANIUM_PROCESSED, 15), new ItemInstance(ModTiles.NUCLEAR_REACTOR), 75, 10).registerAssembly();
 		new AssemblyRecipe(0.6f, new ResUseInfo(ModItems.RES_URANIUM_COMPRESSED, 4), new ItemInstance(ModItems.URANIUM_ROD), 16, 4).disableThroughput().disableSpeed().disableBonusYield().registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TEMPSHIFT_PLATE),50, 15, 5).disableBonusYield().disableEfficiency().disableSpeed().disableThroughput().registerAssembly();
+		new AssemblyRecipe(0.7f, new ItemInstance(ModTiles.LAUNCH_PAD), 25, 16,3).disableSpeed().disableBonusYield().registerAssembly();
 
-		// Temporary until precision assembler is done
-		new AssemblyRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 6), new ItemInstance(ModTiles.LAUNCH_PAD), 25, 3).disableSpeed().disableBonusYield().registerAssembly();
-		new AssemblyRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerAssembly();
+		new PrecisionRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15, 300).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerPrecision();
 	}
 }

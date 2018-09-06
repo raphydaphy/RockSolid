@@ -1,8 +1,11 @@
 package com.raphydaphy.rocksolid.tile.machine;
 
 import com.raphydaphy.rocksolid.container.ContainerAssemblyStation;
+import com.raphydaphy.rocksolid.container.ContainerPrecisionAssembler;
 import com.raphydaphy.rocksolid.gui.GuiAssemblyStation;
+import com.raphydaphy.rocksolid.gui.GuiPrecisionAssembler;
 import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
+import com.raphydaphy.rocksolid.tileentity.TileEntityPrecisionAssembler;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
@@ -11,11 +14,11 @@ import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TilePrecisionAssembler extends TileMachineBase<TileEntityAssemblyStation>
+public class TilePrecisionAssembler extends TileMachineBase<TileEntityPrecisionAssembler>
 {
 	public TilePrecisionAssembler()
 	{
-		super("precision_assembler", TileEntityAssemblyStation.class,23, false, new ToolInfo(ToolProperty.PICKAXE, 11));
+		super("precision_assembler", TileEntityPrecisionAssembler.class,23, false, new ToolInfo(ToolProperty.PICKAXE, 11));
 	}
 
 	@Override
@@ -39,14 +42,14 @@ public class TilePrecisionAssembler extends TileMachineBase<TileEntityAssemblySt
 	@Override
 	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
 	{
-		return new TileEntityAssemblyStation(world, x, y, layer);
+		return new TileEntityPrecisionAssembler(world, x, y, layer);
 	}
 
 	@Override
 	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
 	{
-		TileEntityAssemblyStation te = getTE(world, world.getState(x, y), x, y);
-		player.openGuiContainer(new GuiAssemblyStation(player, te), new ContainerAssemblyStation(player, te));
+		TileEntityPrecisionAssembler te = getTE(world, world.getState(x, y), x, y);
+		player.openGuiContainer(new GuiPrecisionAssembler(player, te), new ContainerPrecisionAssembler(player, te));
 		return true;
 	}
 
@@ -55,7 +58,7 @@ public class TilePrecisionAssembler extends TileMachineBase<TileEntityAssemblySt
 	{
 		if (!world.isClient())
 		{
-			TileEntityAssemblyStation tile = world.getTileEntity(x, y, TileEntityAssemblyStation.class);
+			TileEntityPrecisionAssembler tile = world.getTileEntity(x, y, TileEntityPrecisionAssembler.class);
 			if (tile != null)
 			{
 				IFilteredInventory inv = tile.getInvHidden();
