@@ -198,7 +198,6 @@ public class EntityRocket extends Entity
 					{
 						if (destination.arrived(world))
 						{
-							System.out.println("arrived at " + destination);
 							if (onGround)
 							{
 								flying = false;
@@ -259,11 +258,11 @@ public class EntityRocket extends Entity
 		{
 			AbstractEntityItem.spawn(world, new ItemInstance(ModItems.ROCKET), getX(), getY(), Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
 			setDead(true);
+			onDead();
 		}
 	}
 
-	@Override
-	public void onRemoveFromWorld()
+	public void onDead()
 	{
 		if (!world.isClient() && passenger != null)
 		{
@@ -360,5 +359,10 @@ public class EntityRocket extends Entity
 			}
 			return null;
 		}
+	}
+
+	@Override
+	public boolean doesInterpolate() {
+		return true;
 	}
 }

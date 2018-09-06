@@ -28,9 +28,8 @@ public class GuiRocket extends GuiContainer
 
 		this.components.add(new ComponentButton(this, 37, 0, 60, 18, () ->
 		{
-			System.out.println("go space");
 			return this.rocket.getFuelFullness() > 0.5f;
-		}, "Launch", "Good luck!"));
+		}, "Launch", "This button does nothing"));
 		this.components.add(new ComponentLiquidBar(this, 27, 24, 81, 10, Color.yellow.getRGB(), false, this.rocket::getFuelFullness, this.rocket::getFuelVolume, () -> ModTiles.FUEL));
 	}
 

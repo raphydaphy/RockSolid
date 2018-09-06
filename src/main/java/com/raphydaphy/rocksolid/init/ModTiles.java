@@ -18,7 +18,7 @@ import de.ellpeck.rockbottom.api.tile.TileLiquid;
 @SuppressWarnings("WeakerAccess")
 public class ModTiles
 {
-	public static Tile COTTON;
+	//public static Tile COTTON;
 
 	public static Tile TIN_ORE;
 	public static Tile IRON_ORE;
@@ -38,7 +38,7 @@ public class ModTiles
 	public static Tile BLAST_FURNACE;
 
 	public static Tile ASSEMBLY_STATION;
-	public static Tile PRECISION_ASSEMBLER;
+	//public static Tile PRECISION_ASSEMBLER;
 	public static Tile TEMPSHIFT_PLATE;
 
 	public static Tile BOILER;
@@ -76,7 +76,7 @@ public class ModTiles
 
 	public static void init()
 	{
-		COTTON = new TileCotton();
+		//COTTON = new TileCotton();
 
 		TIN_ORE = new TileOre("ore.tin", 8f, 2, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
@@ -96,7 +96,7 @@ public class ModTiles
 		BLAST_FURNACE = new TileBlastFurnace().setMaxAmount(1);
 
 		ASSEMBLY_STATION = new TileAssemblyStation().setMaxAmount(1);
-		PRECISION_ASSEMBLER = new TilePrecisionAssembler().setMaxAmount(1);
+		//PRECISION_ASSEMBLER = new TilePrecisionAssembler().setMaxAmount(1);
 		TEMPSHIFT_PLATE = new TileTempshiftPlate().setMaxAmount(5);
 
 		BOILER = new TileBoiler().setMaxAmount(1);

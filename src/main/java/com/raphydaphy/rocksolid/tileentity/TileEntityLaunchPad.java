@@ -86,6 +86,7 @@ public class TileEntityLaunchPad extends TileEntityAssemblyConfigurable implemen
 	{
 		if (rocket != null)
 		{
+			rocket.onDead();
 			world.removeEntity(rocket, world.getChunk(x, y));
 			return true;
 		}
