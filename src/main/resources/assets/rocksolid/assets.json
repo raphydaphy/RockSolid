@@ -571,7 +571,9 @@
 	  "assembly_arrows": "/gui/assembly_arrows.png",
 	  "assembly_ingredient_background": "/gui/assembly_ingredient_background.png",
 	  "assembly_item_background": "/gui/assembly_item_background.png",
-	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png"
+	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png",
+	  "blasting_icon": "/gui/blasting_icon.png",
+	  "blasting_page": "/gui/blasting_page.png"
 	},
 	"sky.": {
 	  "earth": "/misc/earth.png"

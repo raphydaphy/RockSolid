@@ -144,6 +144,11 @@
 	  "hydrogen": "&8Hydrogen&y",
 	  "oxygen": "&kOxygen&y"
 	},
-	"reactor_tempshift_plates": "%s Tempshift Plates"
+	"reactor_tempshift_plates": "%s Tempshift Plates",
+	"info.": {
+	  "compendium_category.": {
+		"blasting": "Blasting Recipes"
+	  }
+	}
   }
 }
