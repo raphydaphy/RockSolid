@@ -7,7 +7,6 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.recipe.CompressingRecipe;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
@@ -43,7 +42,7 @@ public class CompressingRecipeLoader implements IContentLoader
 	{
 		if (!this.disabled.contains(resourceName))
 		{
-			if (IRecipe.forName(resourceName) != null)
+			if (CompressingRecipe.REGISTRY.get(resourceName) != null)
 			{
 				RockSolid.getLogger().info("Compressing recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
 			} else

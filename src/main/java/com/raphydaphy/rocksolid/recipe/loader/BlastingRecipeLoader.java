@@ -7,8 +7,6 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.recipe.BlastingRecipe;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
-import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
@@ -44,7 +42,7 @@ public class BlastingRecipeLoader implements IContentLoader
 	{
 		if (!this.disabled.contains(resourceName))
 		{
-			if (IRecipe.forName(resourceName) != null)
+			if (BlastingRecipe.REGISTRY.get(resourceName) != null)
 			{
 				RockSolid.getLogger().info("Blasting recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
 			} else

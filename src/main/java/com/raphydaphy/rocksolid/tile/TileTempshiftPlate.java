@@ -2,7 +2,6 @@ package com.raphydaphy.rocksolid.tile;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModTiles;
-import com.raphydaphy.rocksolid.item.ItemSensitiveTile;
 import com.raphydaphy.rocksolid.render.TempshiftPlateRenderer;
 import com.raphydaphy.rocksolid.tile.machine.TileNuclearReactor;
 import com.raphydaphy.rocksolid.tileentity.TileEntityNuclearReactor;
@@ -16,7 +15,6 @@ import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.item.ItemTile;
 import de.ellpeck.rockbottom.api.item.ToolProperty;
-import de.ellpeck.rockbottom.api.tile.Tile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.Pos2;
@@ -71,7 +69,7 @@ public class TileTempshiftPlate extends TileBase
 	@Override
 	protected ItemTile createItemTile()
 	{
-		return new ItemSensitiveTile(this.getName())
+		return new ItemTile(this.getName())
 		{
 			@Override
 			public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player, ItemInstance instance)

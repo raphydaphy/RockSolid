@@ -5,13 +5,11 @@ import de.ellpeck.rockbottom.api.Constants;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
+import de.ellpeck.rockbottom.api.construction.compendium.ICompendiumRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
-import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.GuiComponent;
-import de.ellpeck.rockbottom.api.gui.component.construction.ComponentIngredient;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Colors;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
@@ -74,7 +72,7 @@ public class ComponentAssemblyIngredient extends GuiComponent
 		return this.isMouseOver(game);
 	}
 
-	public static List<ComponentAssemblyIngredient> getIngredientButtons(IRecipe recipe, Gui gui, AbstractEntityPlayer player)
+	public static List<ComponentAssemblyIngredient> getIngredientButtons(ICompendiumRecipe recipe, Gui gui, AbstractEntityPlayer player)
 	{
 		List<ComponentAssemblyIngredient> ingredients = new ArrayList<>();
 		for (IUseInfo info : recipe.getInputs())

@@ -1,17 +1,14 @@
 package com.raphydaphy.rocksolid.tile.machine;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.item.ItemSensitiveTile;
 import com.raphydaphy.rocksolid.tileentity.base.TileEntityAssemblyConfigurable;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import com.raphydaphy.rocksolid.util.ToolInfo;
-
 import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.item.ItemTile;
 import de.ellpeck.rockbottom.api.tile.MultiTile;
 import de.ellpeck.rockbottom.api.tile.entity.TileEntity;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
@@ -163,11 +160,6 @@ public abstract class TileMachineBase<T extends TileEntity> extends MultiTile
 		}
 
 		return drops;
-	}
-
-	@Override
-	protected ItemTile createItemTile() {
-		return new ItemSensitiveTile(this.getName());
 	}
 
 }

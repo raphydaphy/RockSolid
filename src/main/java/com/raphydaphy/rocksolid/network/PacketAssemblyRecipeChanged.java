@@ -3,13 +3,13 @@ package com.raphydaphy.rocksolid.network;
 import com.raphydaphy.rocksolid.container.ContainerAssemblyStation;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
+import de.ellpeck.rockbottom.api.construction.compendium.ICompendiumRecipe;
+import de.ellpeck.rockbottom.api.construction.compendium.construction.ConstructionRecipe;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.net.NetUtil;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
-import de.ellpeck.rockbottom.api.world.IWorld;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -46,12 +46,12 @@ public class PacketAssemblyRecipeChanged implements IPacket
 	public void handle(IGameInstance game, ChannelHandlerContext ctx)
 	{
 		AbstractEntityPlayer abstractPlayer;
-		IRecipe iRecipe;
-		if (game.getWorld() != null && (abstractPlayer = game.getWorld().getPlayer(this.playerUUID)) != null && (iRecipe = IRecipe.forName(this.recipeName)) != null)
+		ICompendiumRecipe compendiumRecipe;
+		if (game.getWorld() != null && (abstractPlayer = game.getWorld().getPlayer(this.playerUUID)) != null && (compendiumRecipe = ConstructionRecipe.forName(this.recipeName)) != null)
 		{
-			if (iRecipe instanceof AssemblyRecipe)
+			if (compendiumRecipe instanceof AssemblyRecipe)
 			{
-				AssemblyRecipe recipe = (AssemblyRecipe) iRecipe;
+				AssemblyRecipe recipe = (AssemblyRecipe) compendiumRecipe;
 				ItemContainer container = abstractPlayer.getContainer();
 				if (container instanceof ContainerAssemblyStation)
 				{

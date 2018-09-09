@@ -12,10 +12,9 @@ import com.raphydaphy.rocksolid.tileentity.TileEntityPrecisionAssembler;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
-import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
+import de.ellpeck.rockbottom.api.construction.compendium.ICompendiumRecipe;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.GuiContainer;
@@ -191,7 +190,7 @@ public class GuiPrecisionAssembler extends GuiContainer
 
 	}
 
-	private void a(IRecipe var1)
+	private void a(ICompendiumRecipe var1)
 	{
 		if (this.componentConstruct != null)
 		{
@@ -416,7 +415,7 @@ public class GuiPrecisionAssembler extends GuiContainer
 				clickSound(game);
 				if (RockBottomAPI.getNet().isClient())
 				{
-					RockBottomAPI.getNet().sendToServer(new PacketAssemblyConstruct(game.getPlayer().getUniqueId(), Registries.ALL_CONSTRUCTION_RECIPES.getId(this.recipe), 1));
+					RockBottomAPI.getNet().sendToServer(new PacketAssemblyConstruct(game.getPlayer().getUniqueId(), ModRecipes.PRECISION_ASSEMBLER_RECIPES.getId(this.recipe), 1));
 				} else if (this.recipe.isKnown(this.player))
 				{
 					this.recipe.playerConstruct(this.player, te,1);

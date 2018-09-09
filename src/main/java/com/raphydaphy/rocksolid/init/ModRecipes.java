@@ -3,15 +3,14 @@ package com.raphydaphy.rocksolid.init;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import com.raphydaphy.rocksolid.recipe.PrecisionRecipe;
-import de.ellpeck.rockbottom.api.Registries;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.util.reg.ParentedNameRegistry;
+import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 
 public class ModRecipes
 {
-	public static final ParentedNameRegistry<AssemblyRecipe> ASSEMBLY_STATION_RECIPES = new ParentedNameRegistry<>(RockSolid.createRes("assembly_station_registry"), true, Registries.ALL_CONSTRUCTION_RECIPES).register();
-	public static final ParentedNameRegistry<PrecisionRecipe> PRECISION_ASSEMBLER_RECIPES = new ParentedNameRegistry<>(RockSolid.createRes("precision_assembler_registry"), true, Registries.ALL_CONSTRUCTION_RECIPES).register();
+	public static final NameRegistry<AssemblyRecipe> ASSEMBLY_STATION_RECIPES = new NameRegistry<>(RockSolid.createRes("assembly_station_registry"), true).register();
+	public static final NameRegistry<PrecisionRecipe> PRECISION_ASSEMBLER_RECIPES = new NameRegistry<>(RockSolid.createRes("precision_assembler_registry"), true).register();
 
 	public static void init()
 	{

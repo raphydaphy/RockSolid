@@ -1,9 +1,9 @@
 package com.raphydaphy.rocksolid.network;
 
 import com.raphydaphy.rocksolid.container.ContainerAssemblyStation;
+import com.raphydaphy.rocksolid.init.ModRecipes;
 import com.raphydaphy.rocksolid.recipe.AssemblyRecipe;
 import de.ellpeck.rockbottom.api.IGameInstance;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ItemContainer;
 import de.ellpeck.rockbottom.api.net.NetUtil;
@@ -50,19 +50,14 @@ public class PacketAssemblyConstruct implements IPacket
 	public void handle(IGameInstance game, ChannelHandlerContext ctx)
 	{
 		AbstractEntityPlayer abstractPlayer;
-		IRecipe iRecipe;
+		AssemblyRecipe recipe;
 		IWorld world = game.getWorld();
-		if (world != null && (abstractPlayer = world.getPlayer(this.playerUUID)) != null && (iRecipe = IRecipe.forName(this.recipeName)) != null && iRecipe.isKnown(abstractPlayer))
+		if (world != null && (abstractPlayer = world.getPlayer(this.playerUUID)) != null && (recipe = ModRecipes.ASSEMBLY_STATION_RECIPES.get(this.recipeName)) != null && recipe.isKnown(abstractPlayer))
 		{
-			if (iRecipe instanceof AssemblyRecipe)
+			ItemContainer container = abstractPlayer.getContainer();
+			if (container instanceof ContainerAssemblyStation)
 			{
-				AssemblyRecipe recipe = (AssemblyRecipe)iRecipe;
-				ItemContainer container = abstractPlayer.getContainer();
-				if (container instanceof ContainerAssemblyStation)
-				{
-					recipe.playerConstruct(abstractPlayer, ((ContainerAssemblyStation)container).te,this.amount);
-				}
-
+				recipe.playerConstruct(abstractPlayer, ((ContainerAssemblyStation) container).te, this.amount);
 			}
 		}
 

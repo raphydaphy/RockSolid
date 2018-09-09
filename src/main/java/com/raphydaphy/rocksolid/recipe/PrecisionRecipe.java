@@ -2,11 +2,10 @@ package com.raphydaphy.rocksolid.recipe;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModRecipes;
-import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPrecisionAssembler;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
-import de.ellpeck.rockbottom.api.construction.BasicRecipe;
+import de.ellpeck.rockbottom.api.construction.compendium.construction.ConstructionRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.entity.AbstractEntityItem;
@@ -18,7 +17,7 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import java.util.Collections;
 import java.util.List;
 
-public class PrecisionRecipe extends BasicRecipe
+public class PrecisionRecipe extends ConstructionRecipe
 {
 	private boolean capacity = true;
 	private boolean efficiency = true;

@@ -4,7 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
+import de.ellpeck.rockbottom.api.construction.compendium.ICompendiumRecipe;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.construction.ComponentPolaroid;
@@ -17,7 +17,7 @@ public class ComponentAssemblyPolaroid extends ComponentPolaroid
 	private static final ResourceName RES_HIGHLIGHTED = RockSolid.createRes("gui.assembly_item_background_highlighted");
 	private static final ResourceName RES_SELECTED = ResourceName.intern("gui.construction.item_background_selected");
 
-	public ComponentAssemblyPolaroid(Gui gui, IRecipe recipe, boolean canConstruct)
+	public ComponentAssemblyPolaroid(Gui gui, ICompendiumRecipe recipe, boolean canConstruct)
 	{
 		super(gui, recipe, canConstruct);
 	}
@@ -37,7 +37,8 @@ public class ComponentAssemblyPolaroid extends ComponentPolaroid
 		}
 	}
 
-	public static  ComponentAssemblyPolaroid getPolaroidButton(IRecipe recipe, Gui gui, AbstractEntityPlayer player, boolean canConstruct) {
+	public static ComponentAssemblyPolaroid getPolaroidButton(ICompendiumRecipe recipe, Gui gui, AbstractEntityPlayer player, boolean canConstruct)
+	{
 		return new ComponentAssemblyPolaroid(gui, recipe, canConstruct);
 	}
 }

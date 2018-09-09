@@ -6,10 +6,8 @@ import com.google.gson.JsonObject;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
 import com.raphydaphy.rocksolid.recipe.SeparatingRecipe;
-import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.Registries;
-import de.ellpeck.rockbottom.api.construction.IRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ItemUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
@@ -45,7 +43,7 @@ public class SeparatingRecipeLoader implements IContentLoader
 	{
 		if (!this.disabled.contains(resourceName))
 		{
-			if (IRecipe.forName(resourceName) != null)
+			if (SeparatingRecipe.REGISTRY.get(resourceName) != null)
 			{
 				RockSolid.getLogger().info("Separating recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
 			} else
