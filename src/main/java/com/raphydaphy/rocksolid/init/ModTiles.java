@@ -1,6 +1,9 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.tile.*;
+import com.raphydaphy.rocksolid.tile.TileBase;
+import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
+import com.raphydaphy.rocksolid.tile.TileOre;
+import com.raphydaphy.rocksolid.tile.TileTempshiftPlate;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
@@ -38,7 +41,7 @@ public class ModTiles
 	public static Tile BLAST_FURNACE;
 
 	public static Tile ASSEMBLY_STATION;
-	public static Tile PRECISION_ASSEMBLER;
+	//public static Tile PRECISION_ASSEMBLER;
 	public static Tile TEMPSHIFT_PLATE;
 
 	public static Tile BOILER;
@@ -96,7 +99,7 @@ public class ModTiles
 		BLAST_FURNACE = new TileBlastFurnace().setMaxAmount(1);
 
 		ASSEMBLY_STATION = new TileAssemblyStation().setMaxAmount(1);
-		PRECISION_ASSEMBLER = new TilePrecisionAssembler().setMaxAmount(1);
+		//PRECISION_ASSEMBLER = new TilePrecisionAssembler().setMaxAmount(1);
 		TEMPSHIFT_PLATE = new TileTempshiftPlate().setMaxAmount(5);
 
 		BOILER = new TileBoiler().setMaxAmount(1);
