@@ -1,14 +1,19 @@
 package com.raphydaphy.rocksolid.recipe;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import de.ellpeck.rockbottom.api.construction.compendium.BasicCompendiumRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class CompressingRecipe
+import java.util.Collections;
+import java.util.List;
+
+public class CompressingRecipe extends BasicCompendiumRecipe
 {
 	public static final NameRegistry<CompressingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("compressing_registry"), true).register();
 
@@ -29,6 +34,7 @@ public class CompressingRecipe
 
 	public CompressingRecipe(ResourceName name, IUseInfo in, ItemInstance out, int time)
 	{
+		super(name);
 		this.name = name;
 		this.in = in;
 		this.out = out;
@@ -54,5 +60,23 @@ public class CompressingRecipe
 	{
 		REGISTRY.register(this.name, this);
 		return this;
+	}
+
+	@Override
+	public boolean isKnown(AbstractEntityPlayer player)
+	{
+		return true;
+	}
+
+	@Override
+	public List<IUseInfo> getInputs()
+	{
+		return Collections.singletonList(in);
+	}
+
+	@Override
+	public List<ItemInstance> getOutputs()
+	{
+		return Collections.singletonList(out);
 	}
 }

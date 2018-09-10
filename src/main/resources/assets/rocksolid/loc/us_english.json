@@ -147,7 +147,9 @@
 	"reactor_tempshift_plates": "%s Tempshift Plates",
 	"info.": {
 	  "compendium_category.": {
-		"blasting": "Blasting Recipes"
+		"alloying": "Alloying Recipes",
+		"blasting": "Blasting Recipes",
+		"compressing": "Compressing Recipes"
 	  }
 	}
   }
