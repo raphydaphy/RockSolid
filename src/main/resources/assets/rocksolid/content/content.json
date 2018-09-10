@@ -25,6 +25,7 @@
 	"tin_smelting": "/smelting/tin_smelting.json",
 	"iron_smelting": "/smelting/iron_smelting.json",
 	"magnesium_smelting": "/smelting/magnesium_smelting.json",
+	"uranium_smelting": "/smelting/uranium_smelting.json",
 	"tungsten_smelting": "/smelting/tungsten_smelting.json",
 	"nickel_smelting": "/smelting/nickel_smelting.json",
 	"copper_grit_smelting": "/smelting/copper_grit_smelting.json",
@@ -33,6 +34,7 @@
 	"iron_grit_smelting": "/smelting/iron_grit_smelting.json",
 	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
 	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json",
+	"uranium_grit_smelting": "/smelting/uranium_grit_smelting.json",
 	"tungsten_grit_smelting": "/smelting/tungsten_grit_smelting.json"
   },
   "alloying.": {
@@ -49,6 +51,7 @@
 	"iron_separating": "/separating/iron_separating.json",
 	"nickel_separating": "/separating/nickel_separating.json",
 	"magnesium_separating": "/separating/magnesium_separating.json",
+	"uranium_separating": "/separating/uranium_separating.json",
 	"tungsten_separating": "/separating/tungsten_separating.json"
   },
   "blasting.": {

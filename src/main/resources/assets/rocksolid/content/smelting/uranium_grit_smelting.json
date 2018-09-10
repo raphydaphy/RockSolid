@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "uranium_crushed",
+	"amount": 1
+  },
+  "output": {
+	"name": "rocksolid/ingot.uranium",
+	"amount": 1
+  },
+  "time": 150
+}

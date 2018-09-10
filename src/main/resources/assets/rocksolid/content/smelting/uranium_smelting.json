@@ -1,0 +1,11 @@
+{
+  "input": {
+	"name": "uranium_raw",
+	"amount": 2
+  },
+  "output": {
+	"name": "rocksolid/ingot.uranium",
+	"amount": 1
+  },
+  "time": 200
+}

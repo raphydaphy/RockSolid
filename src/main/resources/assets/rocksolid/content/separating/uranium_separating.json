@@ -1,0 +1,9 @@
+{
+  "input": {
+	"name": "uranium_raw"
+  },
+  "output": {
+	"name": "rocksolid/grit.uranium"
+  },
+  "time": 300
+}

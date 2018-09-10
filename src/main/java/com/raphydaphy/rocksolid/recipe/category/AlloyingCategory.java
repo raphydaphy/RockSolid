@@ -6,6 +6,7 @@ import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
 import de.ellpeck.rockbottom.api.construction.compendium.CompendiumCategory;
+import de.ellpeck.rockbottom.api.construction.compendium.construction.ConstructionRecipe;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.Gui;
 import de.ellpeck.rockbottom.api.gui.component.construction.ComponentIngredient;
@@ -52,9 +53,11 @@ public class AlloyingCategory extends CompendiumCategory
 		return AlloyingRecipe.REGISTRY.values();
 	}
 
+	private ConstructionRecipe alloySmelter = ConstructionRecipe.forName(RockSolid.createRes("alloy_smelter"));
+
 	@Override
 	public final boolean shouldDisplay(AbstractEntityPlayer player)
 	{
-		return true;
+		return alloySmelter.isKnown(player);
 	}
 }

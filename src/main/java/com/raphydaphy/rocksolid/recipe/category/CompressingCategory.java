@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.recipe.category;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.recipe.CompressingRecipe;
+import com.raphydaphy.rocksolid.recipe.MachineRecipe;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
@@ -55,6 +56,13 @@ public class CompressingCategory extends CompendiumCategory
 	@Override
 	public final boolean shouldDisplay(AbstractEntityPlayer player)
 	{
-		return true;
+		for (MachineRecipe recipe : getRecipes())
+		{
+			if (recipe.isKnown(player))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
