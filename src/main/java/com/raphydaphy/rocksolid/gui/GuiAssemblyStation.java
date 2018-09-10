@@ -38,17 +38,21 @@ public class GuiAssemblyStation extends GuiContainer
 {
 	private static final ResourceName background = RockSolid.createRes("gui.assembly_station");
 	private static final ResourceName arrows = RockSolid.createRes("gui.assembly_arrows");
+	private static final ResourceName STATS_NAME = RockSolid.createRes("assembly_station.stats");
+	private static final ResourceName CAPACITY_NAME = RockSolid.createRes("assembly_station.capacity");
+	private static final ResourceName EFFICIENCY_NAME = RockSolid.createRes("assembly_station.efficiency");
+	private static final ResourceName SPEED_NAME = RockSolid.createRes("assembly_station.speed");
+	private static final ResourceName BONUS_NAME = RockSolid.createRes("assembly_station.bonus_yield");
+	private static final ResourceName THROUGHPUT_NAME = RockSolid.createRes("assembly_station.throughput");
 	private final List<ComponentAssemblyPolaroid> recipeList = new ArrayList<>();
 	private final List<ComponentAssemblyIngredient> ingredients = new ArrayList<>();
 	private final List<ComponentProgressBar> stats = new ArrayList<>();
 	private AssemblyRecipe recipe;
 	private ComponentMenu scrollMenu;
 	private ComponentConstruct componentConstruct;
-
 	private int offset = 0;
-	private final BiConsumer<IInventory, Integer> m = (IInventory var1x, Integer var2x) -> this.a();
-
 	private TileEntityAssemblyStation te;
+	private final BiConsumer<IInventory, Integer> m = (IInventory var1x, Integer var2x) -> this.a();
 
 	public GuiAssemblyStation(AbstractEntityPlayer player, TileEntityAssemblyStation te)
 	{
@@ -79,7 +83,7 @@ public class GuiAssemblyStation extends GuiContainer
 		{
 			ComponentAssemblyPolaroid firstRecipe = this.recipeList.get(id);
 
-			this.recipe = (AssemblyRecipe)firstRecipe.recipe;
+			this.recipe = (AssemblyRecipe) firstRecipe.recipe;
 			firstRecipe.isSelected = true;
 			this.a(firstRecipe.recipe);
 			this.a(ComponentAssemblyIngredient.getIngredientButtons(firstRecipe.recipe, this, this.player));
@@ -201,19 +205,24 @@ public class GuiAssemblyStation extends GuiContainer
 		if (var1 != null)
 		{
 			Inventory var2 = this.player.getInv();
-			this.componentConstruct = var1.getConstructButton(this, this.player, this.recipe.canConstruct(te.getInvHidden(), var2));
+			this.componentConstruct = new ComponentConstruct(this, var1, this.recipe.canConstruct(te.getInvHidden(), var2), () -> {
+				clickSound(RockBottomAPI.getGame());
+				if (RockBottomAPI.getNet().isClient())
+				{
+					RockBottomAPI.getNet().sendToServer(new PacketAssemblyConstruct(RockBottomAPI.getGame().getPlayer().getUniqueId(), ModRecipes.ASSEMBLY_STATION_RECIPES.getId(this.recipe), 1));
+				} else if (this.recipe.isKnown(this.player))
+				{
+					this.recipe.playerConstruct(this.player, te, 1);
+				}
+
+				return true;
+			});
+			componentConstruct.setActive(true);
 			this.componentConstruct.setPos(45 + offset, 17);
 			this.components.add(this.componentConstruct);
 		}
 
 	}
-
-	private static final ResourceName STATS_NAME = RockSolid.createRes("assembly_station.stats");
-	private static final ResourceName CAPACITY_NAME = RockSolid.createRes("assembly_station.capacity");
-	private static final ResourceName EFFICIENCY_NAME = RockSolid.createRes("assembly_station.efficiency");
-	private static final ResourceName SPEED_NAME = RockSolid.createRes("assembly_station.speed");
-	private static final ResourceName BONUS_NAME = RockSolid.createRes("assembly_station.bonus_yield");
-	private static final ResourceName THROUGHPUT_NAME = RockSolid.createRes("assembly_station.throughput");
 
 	@Override
 	public final void render(IGameInstance game, IAssetManager assetManager, IRenderer renderer)
@@ -410,55 +419,41 @@ public class GuiAssemblyStation extends GuiContainer
 		} else
 		{
 			boolean selectedRecipe;
-			if (this.componentConstruct != null && this.componentConstruct.isMouseOver(game))
+
+			selectedRecipe = false;
+			Iterator<ComponentAssemblyPolaroid> recipeListIterator = this.recipeList.iterator();
+
+			ComponentAssemblyPolaroid curRecipe = null;
+
+			while (recipeListIterator.hasNext())
 			{
-				clickSound(game);
-				if (RockBottomAPI.getNet().isClient())
+				ComponentAssemblyPolaroid recipeIcon;
+				if ((recipeIcon = recipeListIterator.next()).recipe != null && recipeIcon.isMouseOverPrioritized(game))
 				{
-					RockBottomAPI.getNet().sendToServer(new PacketAssemblyConstruct(game.getPlayer().getUniqueId(), ModRecipes.ASSEMBLY_STATION_RECIPES.getId(this.recipe), 1));
-				} else if (this.recipe.isKnown(this.player))
-				{
-					this.recipe.playerConstruct(this.player, te,1);
-				}
-
-				return true;
-			} else
-			{
-				selectedRecipe = false;
-				Iterator<ComponentAssemblyPolaroid> recipeListIterator = this.recipeList.iterator();
-
-				ComponentAssemblyPolaroid curRecipe = null;
-
-				while (recipeListIterator.hasNext())
-				{
-					ComponentAssemblyPolaroid recipeIcon;
-					if ((recipeIcon = recipeListIterator.next()).recipe != null && recipeIcon.isMouseOverPrioritized(game))
+					if (this.recipe != recipeIcon.recipe)
 					{
-						if (this.recipe != recipeIcon.recipe)
-						{
-							this.recipe = (AssemblyRecipe)recipeIcon.recipe;
-							recipeIcon.isSelected = true;
-							this.a(recipeIcon.recipe);
-							this.a(ComponentAssemblyIngredient.getIngredientButtons(recipeIcon.recipe, this, this.player));
+						this.recipe = (AssemblyRecipe) recipeIcon.recipe;
+						recipeIcon.isSelected = true;
+						this.a(recipeIcon.recipe);
+						this.a(ComponentAssemblyIngredient.getIngredientButtons(recipeIcon.recipe, this, this.player));
 
-							onRecipeChanged();
-							clickSound(game);
-						}
-
-						selectedRecipe = true;
-					} else if (recipeIcon.isSelected)
-					{
-						curRecipe = recipeIcon;
+						onRecipeChanged();
+						clickSound(game);
 					}
-				}
 
-				if (selectedRecipe && curRecipe != null)
+					selectedRecipe = true;
+				} else if (recipeIcon.isSelected)
 				{
-					curRecipe.isSelected = false;
+					curRecipe = recipeIcon;
 				}
-
-				return selectedRecipe;
 			}
+
+			if (selectedRecipe && curRecipe != null)
+			{
+				curRecipe.isSelected = false;
+			}
+
+			return selectedRecipe;
 		}
 	}
 

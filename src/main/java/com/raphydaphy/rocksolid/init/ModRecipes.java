@@ -6,6 +6,7 @@ import com.raphydaphy.rocksolid.recipe.PrecisionRecipe;
 import com.raphydaphy.rocksolid.recipe.category.AlloyingCategory;
 import com.raphydaphy.rocksolid.recipe.category.BlastingCategory;
 import com.raphydaphy.rocksolid.recipe.category.CompressingCategory;
+import com.raphydaphy.rocksolid.recipe.category.SeparatingCategory;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
@@ -35,6 +36,7 @@ public class ModRecipes
 		new PrecisionRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15, 300).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerPrecision();
 
 		new AlloyingCategory().register();
+		new SeparatingCategory().register();
 		new BlastingCategory().register();
 		new CompressingCategory().register();
 	}

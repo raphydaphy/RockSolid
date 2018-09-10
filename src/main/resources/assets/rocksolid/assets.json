@@ -572,12 +572,14 @@
 	  "assembly_ingredient_background": "/gui/assembly_ingredient_background.png",
 	  "assembly_item_background": "/gui/assembly_item_background.png",
 	  "assembly_item_background_highlighted": "/gui/assembly_item_background_highlighted.png",
+	  "alloying_icon": "/gui/alloying_icon.png",
+	  "alloying_page": "/gui/alloying_page.png",
+	  "separating_icon": "/gui/separating_icon.png",
+	  "separating_page": "/gui/separating_page.png",
 	  "blasting_icon": "/gui/blasting_icon.png",
 	  "blasting_page": "/gui/blasting_page.png",
 	  "compressing_icon": "/gui/compressing_icon.png",
-	  "compressing_page": "/gui/compressing_page.png",
-	  "alloying_icon": "/gui/alloying_icon.png",
-	  "alloying_page": "/gui/alloying_page.png"
+	  "compressing_page": "/gui/compressing_page.png"
 	},
 	"sky.": {
 	  "earth": "/misc/earth.png"

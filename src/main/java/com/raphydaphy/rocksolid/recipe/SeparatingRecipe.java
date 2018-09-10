@@ -2,14 +2,20 @@ package com.raphydaphy.rocksolid.recipe;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.init.ModItems;
+import de.ellpeck.rockbottom.api.construction.compendium.BasicCompendiumRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
+import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class SeparatingRecipe
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class SeparatingRecipe extends BasicCompendiumRecipe
 {
 	public static final NameRegistry<SeparatingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("separator_registry"), true).register();
 
@@ -32,6 +38,7 @@ public class SeparatingRecipe
 
 	public SeparatingRecipe(ResourceName name, IUseInfo in, ItemInstance out, ItemInstance biproduct, int biproductChance, int time)
 	{
+		super(name);
 		this.name = name;
 		this.in = in;
 		this.out = out;
@@ -59,5 +66,23 @@ public class SeparatingRecipe
 	{
 		REGISTRY.register(this.name, this);
 		return this;
+	}
+
+	@Override
+	public boolean isKnown(AbstractEntityPlayer player)
+	{
+		return true;
+	}
+
+	@Override
+	public List<IUseInfo> getInputs()
+	{
+		return Collections.singletonList(in);
+	}
+
+	@Override
+	public List<ItemInstance> getOutputs()
+	{
+		return Arrays.asList(out, biproduct);
 	}
 }
