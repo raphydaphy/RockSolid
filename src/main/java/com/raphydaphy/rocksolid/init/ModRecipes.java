@@ -33,7 +33,7 @@ public class ModRecipes
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TEMPSHIFT_PLATE),50, 15, 5).disableBonusYield().disableEfficiency().disableSpeed().disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.7f, new ItemInstance(ModTiles.LAUNCH_PAD), 25, 16,3).disableSpeed().disableBonusYield().registerAssembly();
 
-		new PrecisionRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15, 300).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerPrecision();
+		new AssemblyRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerAssembly();
 
 		new AlloyingCategory().register();
 		new SeparatingCategory().register();

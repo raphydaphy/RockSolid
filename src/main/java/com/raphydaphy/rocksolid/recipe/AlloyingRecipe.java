@@ -1,10 +1,8 @@
 package com.raphydaphy.rocksolid.recipe;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import de.ellpeck.rockbottom.api.construction.compendium.BasicCompendiumRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
-import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
@@ -14,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class AlloyingRecipe extends BasicCompendiumRecipe
+public class AlloyingRecipe extends MachineRecipe
 {
 	public static final NameRegistry<AlloyingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("alloy_smelting_registry"), true).register();
 
@@ -73,12 +71,6 @@ public class AlloyingRecipe extends BasicCompendiumRecipe
 	}
 
 	@Override
-	public boolean isKnown(AbstractEntityPlayer player)
-	{
-		return true;
-	}
-
-	@Override
 	public List<IUseInfo> getInputs()
 	{
 		return Arrays.asList(in1, in2);
@@ -88,5 +80,11 @@ public class AlloyingRecipe extends BasicCompendiumRecipe
 	public List<ItemInstance> getOutputs()
 	{
 		return Collections.singletonList(out);
+	}
+
+	@Override
+	public NameRegistry<? extends MachineRecipe> getRegistry()
+	{
+		return REGISTRY;
 	}
 }

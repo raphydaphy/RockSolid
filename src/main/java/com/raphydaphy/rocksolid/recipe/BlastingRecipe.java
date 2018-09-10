@@ -1,10 +1,8 @@
 package com.raphydaphy.rocksolid.recipe;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import de.ellpeck.rockbottom.api.construction.compendium.BasicCompendiumRecipe;
 import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
-import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
@@ -13,7 +11,7 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import java.util.Collections;
 import java.util.List;
 
-public class BlastingRecipe extends BasicCompendiumRecipe
+public class BlastingRecipe extends MachineRecipe
 {
 	public static final NameRegistry<BlastingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("blasting_registry"), true).register();
 
@@ -63,9 +61,9 @@ public class BlastingRecipe extends BasicCompendiumRecipe
 	}
 
 	@Override
-	public boolean isKnown(AbstractEntityPlayer player)
+	public NameRegistry<? extends MachineRecipe> getRegistry()
 	{
-		return true;
+		return REGISTRY;
 	}
 
 	@Override
