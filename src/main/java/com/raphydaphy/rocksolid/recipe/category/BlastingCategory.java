@@ -53,11 +53,9 @@ public class BlastingCategory extends CompendiumCategory
 		return BlastingRecipe.REGISTRY.values();
 	}
 
-	private ConstructionRecipe blastFurnace = ConstructionRecipe.forName(RockSolid.createRes("blast_furnace"));
-
 	@Override
 	public final boolean shouldDisplay(AbstractEntityPlayer player)
 	{
-		return blastFurnace.isKnown(player);
+		return ConstructionRecipe.forName(RockSolid.createRes("blast_furnace")).isKnown(player);
 	}
 }

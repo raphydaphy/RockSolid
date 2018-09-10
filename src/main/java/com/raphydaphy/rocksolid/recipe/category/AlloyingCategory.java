@@ -53,11 +53,9 @@ public class AlloyingCategory extends CompendiumCategory
 		return AlloyingRecipe.REGISTRY.values();
 	}
 
-	private ConstructionRecipe alloySmelter = ConstructionRecipe.forName(RockSolid.createRes("alloy_smelter"));
-
 	@Override
 	public final boolean shouldDisplay(AbstractEntityPlayer player)
 	{
-		return alloySmelter.isKnown(player);
+		return ConstructionRecipe.forName(RockSolid.createRes("alloy_smelter")).isKnown(player);
 	}
 }

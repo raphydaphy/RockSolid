@@ -53,11 +53,9 @@ public class SeparatingCategory extends CompendiumCategory
 		return SeparatingRecipe.REGISTRY.values();
 	}
 
-	private ConstructionRecipe separator = ConstructionRecipe.forName(RockSolid.createRes("separator"));
-
 	@Override
 	public final boolean shouldDisplay(AbstractEntityPlayer player)
 	{
-		return separator.isKnown(player);
+		return ConstructionRecipe.forName(RockSolid.createRes("separator")).isKnown(player);
 	}
 }
