@@ -5,7 +5,7 @@ import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
+import de.ellpeck.rockbottom.api.util.reg.ParentedNameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AlloyingRecipe extends MachineRecipe
 {
-	public static final NameRegistry<AlloyingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("alloy_smelting_registry"), true).register();
+	public static final ParentedNameRegistry<AlloyingRecipe> REGISTRY = new ParentedNameRegistry<>(RockSolid.createRes("alloy_smelting_registry"), true, MachineRecipe.MACHINE_RECIPES).register();
 
 	private final ResourceName name;
 	public final IUseInfo in1;
@@ -80,11 +80,5 @@ public class AlloyingRecipe extends MachineRecipe
 	public List<ItemInstance> getOutputs()
 	{
 		return Collections.singletonList(out);
-	}
-
-	@Override
-	public NameRegistry<? extends MachineRecipe> getRegistry()
-	{
-		return REGISTRY;
 	}
 }

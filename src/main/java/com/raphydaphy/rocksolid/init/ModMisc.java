@@ -4,6 +4,7 @@ import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
 import com.raphydaphy.rocksolid.item.ItemBucket;
 import com.raphydaphy.rocksolid.network.*;
+import com.raphydaphy.rocksolid.recipe.MachineRecipeInformation;
 import com.raphydaphy.rocksolid.recipe.loader.AlloyingRecipeLoader;
 import com.raphydaphy.rocksolid.recipe.loader.BlastingRecipeLoader;
 import com.raphydaphy.rocksolid.recipe.loader.CompressingRecipeLoader;
@@ -47,6 +48,8 @@ public class ModMisc
 	public static String RES_ALL_FUELS;
 
 	public static String RES_SANDSTONE;
+
+	public static ResourceName MACHINE_RECIPE_INFO = RockSolid.createRes("machine_recipe");
 
 	static
 	{
@@ -103,6 +106,8 @@ public class ModMisc
 		new ItemBucket.BucketType("water", GameContent.TILE_WATER);
 		new ItemBucket.BucketType("oil", ModTiles.OIL);
 		new ItemBucket.BucketType("fuel", ModTiles.FUEL);
+
+		Registries.INFORMATION_REGISTRY.register(MACHINE_RECIPE_INFO, MachineRecipeInformation.class);
 	}
 
 	private static IResourceRegistry res()

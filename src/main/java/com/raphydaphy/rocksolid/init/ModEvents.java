@@ -77,11 +77,15 @@ public class ModEvents
 		});
 		handler.registerListener(PlayerJoinWorldEvent.class, (result, event) ->
 		{
-			if (!event.isConnected)
+			System.out.println("join world");
+			if (!event.player.world.isClient())
 			{
+				System.out.println("make listen");
 				event.player.getInv().addChangeCallback((inv, slot) ->
 				{
 					ItemInstance changed = inv.get(slot);
+
+					System.out.println("was a change in " + slot);
 
 					if (changed != null)
 					{
