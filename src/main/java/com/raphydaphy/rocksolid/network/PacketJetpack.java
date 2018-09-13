@@ -1,8 +1,11 @@
 package com.raphydaphy.rocksolid.network;
 
+import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.container.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
 import com.raphydaphy.rocksolid.item.ItemJetpack;
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.net.packet.IPacket;
@@ -46,20 +49,30 @@ public class PacketJetpack implements IPacket
 		if (!world.isClient())
 		{
 			AbstractEntityPlayer entityPlayer = world.getPlayer(player);
-			ItemInstance held = entityPlayer.getInv().get(entityPlayer.getSelectedSlot());
-			if (held != null && held.getItem() instanceof ItemJetpack)
+			ItemInstance jetpack = PlayerInvSlot.getSlotItem(entityPlayer, PlayerInvSlot.JETPACK);
+			if (jetpack != null && jetpack.getItem() instanceof ItemJetpack)
 			{
-				int fuel = held.getItem().getHighestPossibleMeta() - held.getMeta();
+				int fuel = jetpack.getItem().getHighestPossibleMeta() - jetpack.getMeta();
 				if (fuel > 0)
 				{
 					if (entityPlayer.world.getTotalTime() % 10 == 0)
 					{
-						held.setMeta(held.getMeta() + 1);
+						jetpack.setMeta(jetpack.getMeta() + 1);
+						DataSet jetpackSet = new DataSet();
+						jetpack.save(jetpackSet);
+						entityPlayer.getAdditionalData().addDataSet(PlayerInvSlot.JETPACK, jetpackSet);
 					}
 
 					if (context != null)
 					{
-						entityPlayer.motionY += 0.05f;
+						if (entityPlayer.motionY < 0.5)
+						{
+							entityPlayer.motionY += 0.05f;
+						}
+						else
+						{
+							entityPlayer.motionY = 0.5;
+						}
 					}
 
 					entityPlayer.fallStartY = entityPlayer.getY();

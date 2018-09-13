@@ -1,8 +1,10 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.container.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
 import com.raphydaphy.rocksolid.network.PacketJetpack;
+import com.raphydaphy.rocksolid.network.PacketJoinServer;
 import com.raphydaphy.rocksolid.network.PacketLaunchRocket;
 import com.raphydaphy.rocksolid.network.PacketLeaveRocket;
 import com.raphydaphy.rocksolid.particle.RocketParticle;
@@ -65,8 +67,8 @@ public class ModEvents
 		});
 		handler.registerListener(ResetMovedPlayerEvent.class, (result, event) ->
 		{
-			ItemInstance held = event.player.getInv().get(event.player.getSelectedSlot());
-			if (held != null && held.getItem() == ModItems.JETPACK)
+			ItemInstance jetpack = PlayerInvSlot.getSlotItem(event.player, PlayerInvSlot.JETPACK);
+			if (jetpack != null && jetpack.getItem() == ModItems.JETPACK)
 			{
 				return EventResult.CANCELLED;
 			}
@@ -78,21 +80,28 @@ public class ModEvents
 			{
 				AbstractEntityPlayer player = (AbstractEntityPlayer)event.entity;
 
-				ItemInstance held = player.getInv().get(player.getSelectedSlot());
-				if (held != null && held.getItem() == ModItems.JETPACK)
+				ItemInstance jetpack = PlayerInvSlot.getSlotItem(player, PlayerInvSlot.JETPACK);
+				if (jetpack != null && jetpack.getItem() == ModItems.JETPACK)
 				{
-					int fuel = held.getItem().getHighestPossibleMeta() - held.getMeta();
+					int fuel = jetpack.getItem().getHighestPossibleMeta() - jetpack.getMeta();
 					if (fuel > 0)
 					{
 						if (Settings.KEY_JUMP.isDown() && RockBottomAPI.getGame().getGuiManager().getGui() == null)
 						{
-							player.motionY += 0.05f;
+							if (player.motionY < 0.5)
+							{
+								player.motionY += 0.05;
+							}
+							else
+							{
+								player.motionY = 0.5;
+							}
 							PacketJetpack packet = new PacketJetpack(player.getUniqueId());
 
 							for (int i = 0; i < Util.RANDOM.nextInt(10); i++)
 							{
 								double particleX = player.getX() + (Util.RANDOM.nextFloat() - 0.5) * 0.6f;
-								double particleY = player.getY() - 1f;
+								double particleY = player.getY() - 0.7f;
 								RockBottomAPI.getGame().getParticleManager().addParticle(new RocketParticle(player.world, particleX, particleY, Util.RANDOM.nextGaussian() * 0.02f, -0.05, 30, 0.2f + (Util.RANDOM.nextFloat() / 20)));
 							}
 
@@ -125,6 +134,16 @@ public class ModEvents
 		{
 			if (!event.player.world.isClient())
 			{
+				if (event.player.getInvContainer() != null)
+				{
+					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 165, 25));
+
+					if (event.player.world.isServer() && event.player.world.isDedicatedServer())
+					{
+						event.player.sendPacket(new PacketJoinServer());
+					}
+				}
+
 				event.player.getInv().addChangeCallback((inv, slot) ->
 				{
 					ItemInstance changed = inv.get(slot);
@@ -297,6 +316,7 @@ public class ModEvents
 						}
 					}
 				});
+				return EventResult.MODIFIED;
 			}
 			return EventResult.DEFAULT;
 		});
