@@ -136,7 +136,7 @@ public class ModEvents
 			{
 				if (event.player.getInvContainer() != null)
 				{
-					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 165, 25));
+					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 137, 20));
 
 					if (event.player.world.isServer() && event.player.world.isDedicatedServer())
 					{

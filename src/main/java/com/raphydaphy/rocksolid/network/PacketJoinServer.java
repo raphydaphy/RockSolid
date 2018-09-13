@@ -37,7 +37,7 @@ public class PacketJoinServer implements IPacket
 		System.out.println(entityPlayer);
 		if (entityPlayer != null)
 		{
-			entityPlayer.getInvContainer().addSlot(new PlayerInvSlot(entityPlayer, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 165, 25));
+			entityPlayer.getInvContainer().addSlot(new PlayerInvSlot(entityPlayer, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 137, 20));
 		}
 	}
 
