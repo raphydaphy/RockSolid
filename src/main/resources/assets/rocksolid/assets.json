@@ -72,6 +72,7 @@
 		"steel": "/items/shovel/shovel_steel.png",
 		"titanium": "/items/shovel/shovel_titanium.png"
 	  },
+	  "jetpack": "/items/misc/jetpack.png",
 	  "rocket": "/tiles/rocket/rocket_item.png"
 	},
 	"tiles.": {

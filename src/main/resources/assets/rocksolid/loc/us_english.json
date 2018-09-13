@@ -108,6 +108,7 @@
 	  "electric_blast_furnace": "Electric Blast Furnace",
 	  "electric_compressor": "Electric Compressor",
 	  "refinery": "Oil Refinery",
+	  "jetpack": "Jetpack",
 	  "launch_pad": "Rocket Launch Pad",
 	  "rocket": "Rocket",
 	  "moon.": {
@@ -151,7 +152,8 @@
 		"separating": "Separating Recipes",
 		"blasting": "Blasting Recipes",
 		"compressing": "Compressing Recipes"
-	  }
+	  },
+	  "jetpack_fuel": "Fuel: %smL (%s%% Full)"
 	}
   }
 }

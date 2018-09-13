@@ -1,10 +1,7 @@
 package com.raphydaphy.rocksolid.init;
 
 import com.raphydaphy.rocksolid.RockSolid;
-import com.raphydaphy.rocksolid.item.ItemBase;
-import com.raphydaphy.rocksolid.item.ItemBucket;
-import com.raphydaphy.rocksolid.item.ItemDurability;
-import com.raphydaphy.rocksolid.item.ItemWrench;
+import com.raphydaphy.rocksolid.item.*;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.resource.IResourceRegistry;
 import de.ellpeck.rockbottom.api.item.Item;
@@ -65,6 +62,7 @@ public class ModItems
 	public static Item URANIUM_PELLET;
 	public static Item URANIUM_ROD;
 
+	public static Item JETPACK;
 	public static Item ROCKET;
 
 	public static String RES_TIN_RAW;
@@ -159,6 +157,7 @@ public class ModItems
 		URANIUM_PELLET = new ItemBase("uranium_pellet").setMaxAmount(25);
 		URANIUM_ROD = new ItemDurability("uranium_rod", 20000);
 
+		JETPACK = new ItemJetpack();
 		ROCKET = new ItemBase("rocket").setMaxAmount(1);
 
 		RES_TIN_RAW = res().addResources("tin_raw", TIN_CLUSTER);

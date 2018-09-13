@@ -12,5 +12,5 @@ dependencies {
 }
 
 runClient {
-    args += ["--debugMode"]
+    args += ["--debugMode", "--skipIntro"]
 }
