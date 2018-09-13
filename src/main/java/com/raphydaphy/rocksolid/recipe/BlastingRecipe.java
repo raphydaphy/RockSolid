@@ -5,7 +5,7 @@ import de.ellpeck.rockbottom.api.construction.resource.IUseInfo;
 import de.ellpeck.rockbottom.api.construction.resource.ResUseInfo;
 import de.ellpeck.rockbottom.api.item.Item;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.util.reg.NameRegistry;
+import de.ellpeck.rockbottom.api.util.reg.ParentedNameRegistry;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BlastingRecipe extends MachineRecipe
 {
-	public static final NameRegistry<BlastingRecipe> REGISTRY = new NameRegistry<>(RockSolid.createRes("blasting_registry"), true).register();
+	public static final ParentedNameRegistry<BlastingRecipe> REGISTRY = new ParentedNameRegistry<>(RockSolid.createRes("blasting_registry"), true, MachineRecipe.MACHINE_RECIPES).register();
 
 	private final ResourceName name;
 	public final IUseInfo in;
@@ -58,12 +58,6 @@ public class BlastingRecipe extends MachineRecipe
 	{
 		REGISTRY.register(this.name, this);
 		return this;
-	}
-
-	@Override
-	public NameRegistry<? extends MachineRecipe> getRegistry()
-	{
-		return REGISTRY;
 	}
 
 	@Override
