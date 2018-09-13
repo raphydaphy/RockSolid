@@ -8,7 +8,7 @@
   "inputs": [
     {
       "name": "stone",
-      "amount": 60
+	  "amount": 50
     },
     {
       "name": "bronze_processed",
