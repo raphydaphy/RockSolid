@@ -18,8 +18,8 @@ public class ModRecipes
 
 	public static void init()
 	{
-		new AssemblyRecipe(0.8f, new ItemInstance(ModTiles.BOILER), 55, 8, 12).disableEfficiency().disableThroughput().registerAssembly();
-		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TURBINE),49, 5, 6).disableThroughput().registerAssembly();
+		new AssemblyRecipe(0.8f, new ItemInstance(ModTiles.BOILER), 50, 8, 12).disableEfficiency().disableThroughput().registerAssembly();
+		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.TURBINE), 40, 5, 6).disableThroughput().registerAssembly();
 		new AssemblyRecipe(0.5f, new ItemInstance(ModTiles.BATTERY), 75,6, 5).disableBonusYield().disableEfficiency().disableSpeed().registerAssembly();
 		new AssemblyRecipe(0.55f, new ItemInstance(ModTiles.ELECTRIC_FURNACE), 30, 5, 16).registerAssembly();
 		new AssemblyRecipe(0.6f, new ItemInstance(ModTiles.ELECTRIC_SEPARATOR), 45, 7, 15).registerAssembly();
