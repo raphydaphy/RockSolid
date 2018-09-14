@@ -61,7 +61,7 @@ public class TileEntityTurbine extends TileEntityAssemblyConfigurable implements
 		{
 			if (!world.isClient())
 			{
-				if (world.getTotalTime() % (12 / getSpeedModifier()) == 0)
+				if (world.getTotalTime() % Math.round(12 / getSpeedModifier()) == 0)
 				{
 					this.steamVolume.remove(1);
 					this.energyStored.add(Math.round(10 * getEfficiencyModifier() + getBonusYieldModifier()));
