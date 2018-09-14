@@ -33,6 +33,7 @@
 	  "tempshift_plate": "Tempshift Plate",
 	  "coal_coke": "Coal Coke",
 	  "slag": "Slag",
+	  "lantern": "Lantern",
 	  "uranium_pellet": "Uranium Pellet",
 	  "uranium_rod": "Uranium Fuel Rod",
 	  "cluster.": {
@@ -153,6 +154,7 @@
 		"blasting": "Blasting Recipes",
 		"compressing": "Compressing Recipes"
 	  },
+	  "lantern_fuel": "%skg of Coal Remaining",
 	  "jetpack_fuel": "Fuel: %smL (%s%% Full)"
 	}
   }

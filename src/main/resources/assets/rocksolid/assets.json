@@ -17,6 +17,7 @@
 	  "wrench": "/items/misc/wrench.png",
 	  "coal_coke": "/items/misc/gem_coke.png",
 	  "slag": "/items/misc/slag.png",
+	  "lantern": "/items/misc/lantern.png",
 	  "uranium_pellet": "/items/misc/pellet_uranium.png",
 	  "uranium_rod": "/items/misc/rod_uranium.png",
 	  "cluster.": {

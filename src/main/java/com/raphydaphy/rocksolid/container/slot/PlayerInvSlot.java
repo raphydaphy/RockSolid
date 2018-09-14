@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.container.slot;
 
 import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
+import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.gui.container.ContainerSlot;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -12,6 +13,8 @@ import java.util.function.Predicate;
 public class PlayerInvSlot extends ContainerSlot
 {
 	public static final ResourceName JETPACK = RockSolid.createRes("jetpack_slot");
+	public static final ResourceName LANTERN = RockSolid.createRes("lantern_slot");
+	public static final ResourceName LANTERN_FUEL = RockSolid.createRes("lantern_fuel_slot");
 
 	private final AbstractEntityPlayer player;
 	private final ResourceName name;
@@ -34,19 +37,16 @@ public class PlayerInvSlot extends ContainerSlot
 	@Override
 	public void set(ItemInstance instance)
 	{
-		if (player.getAdditionalData() != null)
+		if (instance != null)
 		{
-			if (instance != null)
-			{
-				// adding new item
-				DataSet instanceSet = new DataSet();
-				instance.save(instanceSet);
-				player.getAdditionalData().addDataSet(name, instanceSet);
-			} else
-			{
-				// removing the item
-				player.getAdditionalData().addDataSet(name, new DataSet());
-			}
+			// adding new item
+			DataSet instanceSet = new DataSet();
+			instance.save(instanceSet);
+			player.getOrCreateAdditionalData().addDataSet(name, instanceSet);
+		} else
+		{
+			// removing the item
+			player.getOrCreateAdditionalData().addDataSet(name, new DataSet());
 		}
 	}
 

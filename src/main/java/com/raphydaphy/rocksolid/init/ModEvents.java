@@ -15,6 +15,7 @@ import com.raphydaphy.rocksolid.recipe.SeparatingRecipe;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.compendium.construction.ConstructionRecipe;
+import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.event.EventResult;
@@ -137,6 +138,8 @@ public class ModEvents
 				if (event.player.getInvContainer() != null)
 				{
 					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 137, 20));
+					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 1, PlayerInvSlot.LANTERN, (instance) -> instance != null && instance.getItem() == ModItems.LANTERN, 137, 37));
+					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 2, PlayerInvSlot.LANTERN_FUEL, (instance) -> instance != null && FuelInput.getFuelTime(instance) > 0, 137, 54));
 
 					if (event.player.world.isServer() && event.player.world.isDedicatedServer())
 					{

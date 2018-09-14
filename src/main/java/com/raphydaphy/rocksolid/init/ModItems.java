@@ -59,6 +59,7 @@ public class ModItems
 
 	public static Item COKE;
 	public static Item SLAG;
+	public static Item LANTERN;
 	public static Item URANIUM_PELLET;
 	public static Item URANIUM_ROD;
 
@@ -154,6 +155,7 @@ public class ModItems
 
 		COKE = new ItemBase("coal_coke").setMaxAmount(45);
 		SLAG = new ItemBase("slag").setMaxAmount(45);
+		LANTERN = new ItemLantern();
 		URANIUM_PELLET = new ItemBase("uranium_pellet").setMaxAmount(25);
 		URANIUM_ROD = new ItemDurability("uranium_rod", 20000);
 
