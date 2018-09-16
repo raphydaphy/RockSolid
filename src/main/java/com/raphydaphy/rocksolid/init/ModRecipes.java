@@ -35,7 +35,7 @@ public class ModRecipes
 
 		// TODO: Precision Recipes
 		new AssemblyRecipe(0.7f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 18), new ItemInstance(ModItems.ROCKET), 50, 15).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerAssembly();
-		new AssemblyRecipe(0.65f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 10), new ItemInstance(ModItems.JETPACK), 25, 25).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerAssembly();
+		new AssemblyRecipe(0.65f, new ResUseInfo(ModItems.RES_NICKEL_TUNGSTEN_CARBIDE_PROCESSED, 10), new ItemInstance(ModItems.JETPACK, 1, ModItems.JETPACK.getHighestPossibleMeta()), 25, 25).disableCapacity().disableBonusYield().disableSpeed().disableThroughput().disableEfficiency().registerAssembly();
 
 		new AlloyingCategory().register();
 		new SeparatingCategory().register();

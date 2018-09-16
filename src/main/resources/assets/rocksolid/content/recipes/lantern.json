@@ -1,0 +1,28 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+    {
+      "name": "rocksolid/lantern",
+      "meta": 100
+    }
+  ],
+  "inputs": [
+    {
+      "name": "stone",
+      "amount": 20
+    },
+    {
+      "name": "wood_processed",
+      "amount": 10
+    },
+    {
+      "name": "tin_processed",
+      "amount": 15
+    },
+    {
+      "name": "coal",
+      "amount": 10
+    }
+  ],
+  "skill": 0.30
+}

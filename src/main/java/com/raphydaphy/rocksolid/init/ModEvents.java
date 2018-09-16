@@ -249,6 +249,7 @@ public class ModEvents
 							if (!event.player.getKnowledge().knowsRecipe(alloySmelter))
 							{
 								event.player.getKnowledge().teachRecipe(alloySmelter);
+								event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("lantern"))));
 							}
 						} else if (changed.getItem() == ModTiles.ALLOY_SMELTER.getItem())
 						{
