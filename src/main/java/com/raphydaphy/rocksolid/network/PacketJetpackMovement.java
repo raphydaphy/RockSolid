@@ -5,6 +5,7 @@ import com.raphydaphy.rocksolid.container.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
 import com.raphydaphy.rocksolid.item.ItemJetpack;
 import de.ellpeck.rockbottom.api.IGameInstance;
+import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
@@ -15,16 +16,16 @@ import io.netty.channel.ChannelHandlerContext;
 
 import java.util.UUID;
 
-public class PacketJetpack implements IPacket
+public class PacketJetpackMovement implements IPacket
 {
 	private UUID player;
 
-	public PacketJetpack()
+	public PacketJetpackMovement()
 	{
 
 	}
 
-	public PacketJetpack(UUID player)
+	public PacketJetpackMovement(UUID player)
 	{
 		this.player = player;
 	}
@@ -77,6 +78,16 @@ public class PacketJetpack implements IPacket
 
 					entityPlayer.fallStartY = entityPlayer.getY();
 					entityPlayer.isFalling = false;
+
+					PacketJetpackParticles packet = new PacketJetpackParticles(player);
+					if (entityPlayer.world.isServer())
+					{
+						RockBottomAPI.getNet().sendToAllPlayersAround(entityPlayer.world, packet, entityPlayer.getX(), entityPlayer.getY(), 100);
+					}
+					if (!game.isDedicatedServer())
+					{
+						packet.handle(game, null);
+					}
 				}
 			}
 		}

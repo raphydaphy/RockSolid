@@ -1,9 +1,6 @@
 package com.raphydaphy.rocksolid.init;
 
-import com.raphydaphy.rocksolid.tile.TileBase;
-import com.raphydaphy.rocksolid.tile.TileCreativeEnergySource;
-import com.raphydaphy.rocksolid.tile.TileOre;
-import com.raphydaphy.rocksolid.tile.TileTempshiftPlate;
+import com.raphydaphy.rocksolid.tile.*;
 import com.raphydaphy.rocksolid.tile.conduit.TileEnergyConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileFluidConduit;
 import com.raphydaphy.rocksolid.tile.conduit.TileGasConduit;
@@ -35,6 +32,8 @@ public class ModTiles
 
 	public static TileLiquid OIL;
 	public static TileLiquid FUEL;
+
+	public static Tile LIGHT;
 
 	public static Tile SEPARATOR;
 	public static Tile ALLOY_SMELTER;
@@ -93,6 +92,8 @@ public class ModTiles
 
 		OIL = new TileOil();
 		FUEL = new TileFuel();
+
+		LIGHT = new TileLight();
 
 		SEPARATOR = new TileSeparator().setMaxAmount(1);
 		ALLOY_SMELTER = new TileAlloySmelter().setMaxAmount(1);

@@ -3,7 +3,7 @@ package com.raphydaphy.rocksolid.init;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.container.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.entity.EntityRocket;
-import com.raphydaphy.rocksolid.network.PacketJetpack;
+import com.raphydaphy.rocksolid.network.PacketJetpackMovement;
 import com.raphydaphy.rocksolid.network.PacketJoinServer;
 import com.raphydaphy.rocksolid.network.PacketLaunchRocket;
 import com.raphydaphy.rocksolid.network.PacketLeaveRocket;
@@ -16,6 +16,7 @@ import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.compendium.construction.ConstructionRecipe;
 import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
+import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.event.EventResult;
@@ -26,10 +27,14 @@ import de.ellpeck.rockbottom.api.event.impl.PlayerJoinWorldEvent;
 import de.ellpeck.rockbottom.api.event.impl.ResetMovedPlayerEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.util.Util;
+import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import org.lwjgl.glfw.GLFW;
 
 public class ModEvents
 {
+	private static final ResourceName PREV_X = RockSolid.createRes("prev_x");
+	private static final ResourceName PREV_Y = RockSolid.createRes("prev_y");
+
 	public static void init(IEventHandler handler)
 	{
 		handler.registerListener(KeyEvent.class, (result, event) ->
@@ -77,41 +82,64 @@ public class ModEvents
 		});
 		handler.registerListener(EntityTickEvent.class, (result, event) ->
 		{
-			if (!(RockBottomAPI.getNet().isServer() && RockBottomAPI.getGame().isDedicatedServer()) && event.entity instanceof AbstractEntityPlayer)
+			if (event.entity instanceof AbstractEntityPlayer)
 			{
-				AbstractEntityPlayer player = (AbstractEntityPlayer)event.entity;
-
-				ItemInstance jetpack = PlayerInvSlot.getSlotItem(player, PlayerInvSlot.JETPACK);
-				if (jetpack != null && jetpack.getItem() == ModItems.JETPACK)
+				ItemInstance lantern = PlayerInvSlot.getSlotItem((AbstractEntityPlayer)event.entity, PlayerInvSlot.LANTERN);
+				if (lantern != null && lantern.getItem() == ModItems.LANTERN)
 				{
-					int fuel = jetpack.getItem().getHighestPossibleMeta() - jetpack.getMeta();
-					if (fuel > 0)
+					if (!event.entity.world.isClient())
 					{
-						if (Settings.KEY_JUMP.isDown() && RockBottomAPI.getGame().getGuiManager().getGui() == null)
+						// TODO: if lantern has fuel
+
+						ModBasedDataSet data = event.entity.getOrCreateAdditionalData();
+
+						int prevX = data.getInt(PREV_X);
+						int prevY = data.getInt(PREV_Y);
+
+						int curX = (int)Math.floor(event.entity.getX());
+						int curY = (int)Math.floor(event.entity.getY());
+
+						if (curX != prevX || curY != prevY)
 						{
-							if (player.motionY < 0.5)
-							{
-								player.motionY += 0.05;
-							}
-							else
-							{
-								player.motionY = 0.5;
-							}
-							PacketJetpack packet = new PacketJetpack(player.getUniqueId());
+							event.entity.world.setState(ModMisc.LIGHTING_LAYER, prevX, prevY, GameContent.TILE_AIR.getDefState());
+							event.entity.world.setState(ModMisc.LIGHTING_LAYER, prevX, prevY + 1, GameContent.TILE_AIR.getDefState());
 
-							for (int i = 0; i < Util.RANDOM.nextInt(10); i++)
-							{
-								double particleX = player.getX() + (Util.RANDOM.nextFloat() - 0.5) * 0.6f;
-								double particleY = player.getY() - 0.7f;
-								RockBottomAPI.getGame().getParticleManager().addParticle(new RocketParticle(player.world, particleX, particleY, Util.RANDOM.nextGaussian() * 0.02f, -0.05, 30, 0.2f + (Util.RANDOM.nextFloat() / 20)));
-							}
+							event.entity.world.setState(ModMisc.LIGHTING_LAYER, curX, curY, ModTiles.LIGHT.getDefState());
+							event.entity.world.setState(ModMisc.LIGHTING_LAYER, curX, curY + 1, ModTiles.LIGHT.getDefState());
 
-							if (player.world.isClient())
+							event.entity.getAdditionalData().addInt(PREV_X, curX);
+							event.entity.getAdditionalData().addInt(PREV_Y, curY);
+						}
+					}
+				}
+				if (!(RockBottomAPI.getNet().isServer() && RockBottomAPI.getGame().isDedicatedServer()))
+				{
+					AbstractEntityPlayer player = (AbstractEntityPlayer) event.entity;
+
+					ItemInstance jetpack = PlayerInvSlot.getSlotItem(player, PlayerInvSlot.JETPACK);
+					if (jetpack != null && jetpack.getItem() == ModItems.JETPACK)
+					{
+						int fuel = jetpack.getItem().getHighestPossibleMeta() - jetpack.getMeta();
+						if (fuel > 0)
+						{
+							if (Settings.KEY_JUMP.isDown() && RockBottomAPI.getGame().getGuiManager().getGui() == null)
 							{
-								RockBottomAPI.getNet().sendToServer(packet);
-							} else
-							{
-								packet.handle(RockBottomAPI.getGame(), null);
+								if (player.motionY < 0.5)
+								{
+									player.motionY += 0.05;
+								} else
+								{
+									player.motionY = 0.5;
+								}
+								PacketJetpackMovement packet = new PacketJetpackMovement(player.getUniqueId());
+
+								if (player.world.isClient())
+								{
+									RockBottomAPI.getNet().sendToServer(packet);
+								} else
+								{
+									packet.handle(RockBottomAPI.getGame(), null);
+								}
 							}
 						}
 					}
@@ -189,8 +217,7 @@ public class ModEvents
 							{
 								grit.teach(event.player, true);
 							}
-						}
-						else if (changed.getItem() == ModItems.BRONZE_INGOT)
+						} else if (changed.getItem() == ModItems.BRONZE_INGOT)
 						{
 							ConstructionRecipe recipe = ConstructionRecipe.forName((RockSolid.createRes("bronze_pickaxe")));
 							if (!event.player.getKnowledge().knowsRecipe(recipe))

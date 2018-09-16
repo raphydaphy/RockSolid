@@ -10,6 +10,7 @@ import com.raphydaphy.rocksolid.recipe.loader.BlastingRecipeLoader;
 import com.raphydaphy.rocksolid.recipe.loader.CompressingRecipeLoader;
 import com.raphydaphy.rocksolid.recipe.loader.SeparatingRecipeLoader;
 import com.raphydaphy.rocksolid.tile.layer.ConduitTileLayer;
+import com.raphydaphy.rocksolid.tile.layer.LightingTileLayer;
 import com.raphydaphy.rocksolid.tile.layer.TempshiftTileLayer;
 import com.raphydaphy.rocksolid.world.*;
 import com.raphydaphy.rocksolid.world.moon.*;
@@ -35,6 +36,7 @@ public class ModMisc
 
 	public static final TileLayer CONDUIT_LAYER;
 	public static final TileLayer TEMPSHIFT_LAYER;
+	public static final TileLayer LIGHTING_LAYER;
 
 	public static final ResourceName MOON_WORLD = RockSolid.createRes("moon");
 	public static final ResourceName MOON_BIOME_GENERATOR = RockSolid.createRes("moon_biome_generator");
@@ -55,6 +57,7 @@ public class ModMisc
 	{
 		CONDUIT_LAYER = new ConduitTileLayer();
 		TEMPSHIFT_LAYER = new TempshiftTileLayer();
+		LIGHTING_LAYER = new LightingTileLayer();
 
 		MOON_BIOME_REGISTRY.add(GameContent.BIOME_SKY);
 	}
@@ -87,8 +90,9 @@ public class ModMisc
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketEnterRocket.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketLeaveRocket.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketLaunchRocket.class);
-		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketJetpack.class);
+		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketJetpackMovement.class);
 		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketJoinServer.class);
+		Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketJetpackParticles.class);
 
 		Registries.ENTITY_REGISTRY.register(RockSolid.createRes("rocket"), EntityRocket.class);
 
