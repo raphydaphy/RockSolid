@@ -52,10 +52,8 @@ public class PacketAssemblyConstruct implements IPacket
 		AbstractEntityPlayer abstractPlayer;
 		AssemblyRecipe recipe;
 		IWorld world = game.getWorld();
-		System.out.println("cook time");
 		if (world != null && (abstractPlayer = world.getPlayer(this.playerUUID)) != null && (recipe = ModRecipes.ASSEMBLY_STATION_RECIPES.get(this.recipeName)) != null && recipe.isKnown(abstractPlayer))
 		{
-			System.out.println("known");
 			ItemContainer container = abstractPlayer.getContainer();
 			if (container instanceof ContainerAssemblyStation)
 			{

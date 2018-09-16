@@ -122,7 +122,6 @@ public class AssemblyRecipe extends ConstructionRecipe
 
 	public void playerConstruct(AbstractEntityPlayer player, TileEntityAssemblyStation station, int amount)
 	{
-		System.out.println("build it");
 		Inventory in = station.getInvHidden();
 		Inventory out = player.getInv();
 		List<ItemInstance> remains = RockBottomAPI.getApiHandler().construct(player, in, out, this, amount, this.getActualInputs(in), items -> this.getActualOutputs(in, out, items), this.getSkillReward());
