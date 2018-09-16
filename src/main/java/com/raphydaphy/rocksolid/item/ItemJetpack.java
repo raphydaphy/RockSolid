@@ -21,7 +21,7 @@ public class ItemJetpack extends ItemDurability
 {
 	public ItemJetpack()
 	{
-		super("jetpack", 1000);
+		super("jetpack", 1001);
 	}
 
 	@Override

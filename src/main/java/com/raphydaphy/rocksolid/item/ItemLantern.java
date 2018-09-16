@@ -21,7 +21,7 @@ public class ItemLantern extends ItemDurability
 {
 	public ItemLantern()
 	{
-		super("lantern", 100);
+		super("lantern", 101);
 	}
 
 	@Override

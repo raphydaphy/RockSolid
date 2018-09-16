@@ -7,7 +7,6 @@ import com.raphydaphy.rocksolid.network.PacketJetpackMovement;
 import com.raphydaphy.rocksolid.network.PacketJoinServer;
 import com.raphydaphy.rocksolid.network.PacketLaunchRocket;
 import com.raphydaphy.rocksolid.network.PacketLeaveRocket;
-import com.raphydaphy.rocksolid.particle.RocketParticle;
 import com.raphydaphy.rocksolid.recipe.AlloyingRecipe;
 import com.raphydaphy.rocksolid.recipe.BlastingRecipe;
 import com.raphydaphy.rocksolid.recipe.CompressingRecipe;
@@ -15,7 +14,7 @@ import com.raphydaphy.rocksolid.recipe.SeparatingRecipe;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
 import de.ellpeck.rockbottom.api.construction.compendium.construction.ConstructionRecipe;
-import de.ellpeck.rockbottom.api.construction.smelting.FuelInput;
+import de.ellpeck.rockbottom.api.data.set.DataSet;
 import de.ellpeck.rockbottom.api.data.set.ModBasedDataSet;
 import de.ellpeck.rockbottom.api.data.settings.Settings;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -26,7 +25,6 @@ import de.ellpeck.rockbottom.api.event.impl.KeyEvent;
 import de.ellpeck.rockbottom.api.event.impl.PlayerJoinWorldEvent;
 import de.ellpeck.rockbottom.api.event.impl.ResetMovedPlayerEvent;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
-import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import org.lwjgl.glfw.GLFW;
 
@@ -89,23 +87,73 @@ public class ModEvents
 				{
 					if (!event.entity.world.isClient())
 					{
+						boolean fueled = false;
+						boolean refueled = false;
+
 						// TODO: if lantern has fuel
+						if (lantern.getMeta() < 100)
+						{
+							if (event.entity.world.getTotalTime() % 100 == 0)
+							{
+								lantern.setMeta(lantern.getMeta() + 1);
+								DataSet lanternSet = new DataSet();
+								lantern.save(lanternSet);
+								event.entity.getAdditionalData().addDataSet(PlayerInvSlot.LANTERN, lanternSet);
+
+							}
+							fueled = true;
+						}
+						else
+						{
+							ItemInstance coal = PlayerInvSlot.getSlotItem((AbstractEntityPlayer)event.entity, PlayerInvSlot.LANTERN_FUEL);
+							if (coal != null && (coal.getItem() == GameContent.TILE_COAL.getItem() || coal.getItem() == ModItems.COKE))
+							{
+								if (coal.getAmount() == 1)
+								{
+									event.entity.getAdditionalData().addDataSet(PlayerInvSlot.LANTERN_FUEL, new DataSet());
+								}
+								else
+								{
+									coal.setAmount(coal.getAmount() - 1);
+									DataSet coalSet = new DataSet();
+									coal.save(coalSet);
+									event.entity.getAdditionalData().addDataSet(PlayerInvSlot.LANTERN_FUEL, coalSet);
+								}
+
+								if (coal.getItem() == GameContent.TILE_COAL.getItem())
+								{
+									lantern.setMeta(50);
+								}
+								else if (coal.getItem() == ModItems.COKE)
+								{
+									lantern.setMeta(0);
+								}
+								DataSet lanternSet = new DataSet();
+								lantern.save(lanternSet);
+								event.entity.getAdditionalData().addDataSet(PlayerInvSlot.LANTERN, lanternSet);
+								fueled = true;
+								refueled = true;
+							}
+						}
 
 						ModBasedDataSet data = event.entity.getOrCreateAdditionalData();
 
 						int prevX = data.getInt(PREV_X);
 						int prevY = data.getInt(PREV_Y);
 
-						int curX = (int)Math.floor(event.entity.getX());
-						int curY = (int)Math.floor(event.entity.getY());
+						int curX = (int) Math.floor(event.entity.getX());
+						int curY = (int) Math.floor(event.entity.getY());
 
-						if (curX != prevX || curY != prevY)
+						if ((curX != prevX || curY != prevY) || refueled)
 						{
 							event.entity.world.setState(ModMisc.LIGHTING_LAYER, prevX, prevY, GameContent.TILE_AIR.getDefState());
 							event.entity.world.setState(ModMisc.LIGHTING_LAYER, prevX, prevY + 1, GameContent.TILE_AIR.getDefState());
 
-							event.entity.world.setState(ModMisc.LIGHTING_LAYER, curX, curY, ModTiles.LIGHT.getDefState());
-							event.entity.world.setState(ModMisc.LIGHTING_LAYER, curX, curY + 1, ModTiles.LIGHT.getDefState());
+							if (fueled)
+							{
+								event.entity.world.setState(ModMisc.LIGHTING_LAYER, curX, curY, ModTiles.LIGHT.getDefState());
+								event.entity.world.setState(ModMisc.LIGHTING_LAYER, curX, curY + 1, ModTiles.LIGHT.getDefState());
+							}
 
 							event.entity.getAdditionalData().addInt(PREV_X, curX);
 							event.entity.getAdditionalData().addInt(PREV_Y, curY);
@@ -167,7 +215,7 @@ public class ModEvents
 				{
 					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 0, PlayerInvSlot.JETPACK, (instance) -> instance != null && instance.getItem() == ModItems.JETPACK, 137, 20));
 					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 1, PlayerInvSlot.LANTERN, (instance) -> instance != null && instance.getItem() == ModItems.LANTERN, 137, 37));
-					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 2, PlayerInvSlot.LANTERN_FUEL, (instance) -> instance != null && FuelInput.getFuelTime(instance) > 0, 137, 54));
+					event.player.getInvContainer().addSlot(new PlayerInvSlot(event.player, 2, PlayerInvSlot.LANTERN_FUEL, (instance) -> instance != null && (instance.getItem() == GameContent.TILE_COAL.getItem() || instance.getItem() == ModItems.COKE), 137, 54));
 
 					if (event.player.world.isServer() && event.player.world.isDedicatedServer())
 					{

@@ -1,10 +1,12 @@
 package com.raphydaphy.rocksolid.tile;
 
 import com.raphydaphy.rocksolid.RockSolid;
+import com.raphydaphy.rocksolid.container.slot.PlayerInvSlot;
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.render.LightRenderer;
 import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
+import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
@@ -58,7 +60,11 @@ public class TileLight extends TileBasic
 				int playerY = (int)Math.floor(player.getY());
 				if (playerX == x && (playerY != y || playerY + 1 != y))
 				{
-					return;
+					ItemInstance lantern = PlayerInvSlot.getSlotItem(player, PlayerInvSlot.LANTERN);
+					if (lantern != null && lantern.getMeta() < 100)
+					{
+						return;
+					}
 				}
 			}
 			world.setState(layer, x, y, GameContent.TILE_AIR.getDefState());
