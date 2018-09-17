@@ -67,7 +67,7 @@ public class TileEntityRefinery extends TileEntityElectric implements IFluidTile
 	@Override
 	protected boolean needsSync()
 	{
-		return oil.needsSync() || fuel.needsSync();
+		return super.needsSync() || oil.needsSync() || fuel.needsSync();
 	}
 
 	@Override
