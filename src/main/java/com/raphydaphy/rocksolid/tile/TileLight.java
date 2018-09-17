@@ -29,7 +29,7 @@ public class TileLight extends TileBasic
 	@Override
 	public int getLight(IWorld world, int x, int y, TileLayer layer)
 	{
-		return 50;
+		return 75;
 	}
 
 	@Override

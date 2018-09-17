@@ -256,9 +256,12 @@ public class EntityRocket extends Entity
 			}
 		} else if (!world.isClient() && onGround && launchPad == null)
 		{
-			AbstractEntityItem.spawn(world, new ItemInstance(ModItems.ROCKET), getX(), getY(), Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
-			setDead(true);
-			onDead();
+			if (!isDead())
+			{
+				AbstractEntityItem.spawn(world, new ItemInstance(ModItems.ROCKET), getX(), getY(), Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
+				setDead(true);
+				onDead();
+			}
 		}
 	}
 
