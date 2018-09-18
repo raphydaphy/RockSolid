@@ -5,7 +5,7 @@ RockSolid is a tech mod for Rock Bottom that covers everything from alloying to 
 The very beginning.
 
 ### Your first day
-You've just spawned into a new world. Your first priority should be to find cotton before you freeze to death. It's a tall, white plant which spawns in grassy areas. Once you have enough, get some pebbles and sticks to make a Spinning Wheel. This can produce Yarn using your cotton, but you will need to manually operate it by right-clicking to spin it.
+You've just spawned into a new world. Your first priority should be to find cotton before you freeze to death. It's a tall, white plant which spawns in grassy areas next to water. Once you find some, you can replant it near a water source to grow more. When you have enough, get some pebbles and sticks to make a Spinning Wheel. This can produce Yarn using your cotton, but you will need to manually operate it by right-clicking to spin it.
 
 Unfortunately clothes aren't made out of single pieces of yarn, and you will need a Weaving Loom to produce usable Fabric. Make one of them, and you should be able to craft some clothes with ease.
 
