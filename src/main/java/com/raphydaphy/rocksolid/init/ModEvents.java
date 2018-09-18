@@ -75,6 +75,9 @@ public class ModEvents
 			if (jetpack != null && jetpack.getItem() == ModItems.JETPACK)
 			{
 				return EventResult.CANCELLED;
+			} else if (event.player.hasAdditionalData() && event.player.getAdditionalData().getBoolean(EntityRocket.IN_ROCKET))
+			{
+				return EventResult.CANCELLED;
 			}
 			return EventResult.DEFAULT;
 		});

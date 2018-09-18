@@ -7,7 +7,6 @@ import com.raphydaphy.rocksolid.tileentity.conduit.TileEntityConduit.ConduitSide
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
 import de.ellpeck.rockbottom.api.assets.IAssetManager;
-import de.ellpeck.rockbottom.api.assets.texture.ITexture;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.DefaultTileRenderer;
 import de.ellpeck.rockbottom.api.tile.Tile;
@@ -31,15 +30,13 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 	{
 		if (tile instanceof TileConduit)
 		{
-			ResourceName center = this.texture.addSuffix(".center");
-
 			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
 			Pos2 pos = new Pos2(x, y);
 
 			if (te != null)
 			{
 
-				manager.getTexture(center).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+				manager.getTexture(this.texture).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 
 				for (ConduitSide side : ConduitSide.values())
 				{
@@ -60,16 +57,8 @@ public class ConduitRenderer<T extends Tile> extends DefaultTileRenderer<T>
 	public void renderItem(IGameInstance game, IAssetManager manager, IRenderer g, Tile tile, ItemInstance instance,
 			float x, float y, float scale, int filter)
 	{
-		manager.getTexture(this.texture.addSuffix(".center")).draw(x, y, scale, scale, filter);
+		manager.getTexture(this.texture).draw(x, y, scale, scale, filter);
 		manager.getTexture(this.texture.addSuffix(".up")).draw(x, y, scale, scale, filter);
 		manager.getTexture(this.texture.addSuffix(".down")).draw(x, y, scale, scale, filter);
 	}
-
-	@Override
-	public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, Tile tile,
-			TileState state)
-	{
-		return manager.getTexture(this.texture.addSuffix(".center"));
-	}
-
 }

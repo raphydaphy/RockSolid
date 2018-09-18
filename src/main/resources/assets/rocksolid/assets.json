@@ -9,7 +9,7 @@
   "tex.": {
 	"items.": {
 	  "bucket.": {
-		"empty": "/fluids/empty/bucket.png",
+		"*": "/fluids/empty/bucket.png",
 		"water": "/fluids/water/bucket.png",
 		"oil": "/fluids/oil/bucket.png",
 		"fuel": "/fluids/fuel/bucket.png"
@@ -201,6 +201,121 @@
 		  }
 		}
 	  },
+	  "spinning_wheel.": {
+		"1.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_1.png"
+		  }
+		},
+		"2.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_2.png"
+		  }
+		},
+		"3.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_3.png"
+		  }
+		},
+		"4.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_4.png"
+		  }
+		},
+		"5.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_5.png"
+		  }
+		},
+		"6.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_6.png"
+		  }
+		},
+		"7.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_7.png"
+		  }
+		},
+		"item": "/tiles/spinning_wheel/spinning_wheel_1.png",
+		"*.": {
+		  "subtexture": {
+			"0.0": [0, 24, 12, 12],
+			"1.0": [12, 24, 12, 12],
+			"2.0": [24, 24, 12, 12],
+			"0.1": [0, 12, 12, 12],
+			"1.1": [12, 12, 12, 12],
+			"2.1": [24, 12, 12, 12],
+			"0.2": [0, 0, 12, 12],
+			"1.2": [12, 0, 12, 12],
+			"2.2": [24, 0, 12, 12],
+			"file": "/tiles/spinning_wheel/spinning_wheel_0.png"
+		  }
+		}
+	  },
 	  "creative_energy_source": "/tiles/creative_power_source.png",
 	  "oil.": {
 		"0": "/fluids/oil/oil_0.png",
@@ -233,28 +348,28 @@
 		"top": "/fluids/fuel/fuel_top.png"
 	  },
 	  "fluid_conduit.": {
-		"center": "/tiles/fluid_conduit/fluid_conduit.png",
+		"*": "/tiles/fluid_conduit/fluid_conduit.png",
 		"up": "/tiles/fluid_conduit/fluid_conduit_up.png",
 		"down": "/tiles/fluid_conduit/fluid_conduit_down.png",
 		"left": "/tiles/fluid_conduit/fluid_conduit_left.png",
 		"right": "/tiles/fluid_conduit/fluid_conduit_right.png"
 	  },
 	  "energy_conduit.": {
-		"center": "/tiles/energy_conduit/energy_conduit.png",
+		"*": "/tiles/energy_conduit/energy_conduit.png",
 		"up": "/tiles/energy_conduit/energy_conduit_up.png",
 		"down": "/tiles/energy_conduit/energy_conduit_down.png",
 		"left": "/tiles/energy_conduit/energy_conduit_left.png",
 		"right": "/tiles/energy_conduit/energy_conduit_right.png"
 	  },
 	  "gas_conduit.": {
-		"center": "/tiles/gas_conduit/gas_conduit.png",
+		"*": "/tiles/gas_conduit/gas_conduit.png",
 		"up": "/tiles/gas_conduit/gas_conduit_up.png",
 		"down": "/tiles/gas_conduit/gas_conduit_down.png",
 		"left": "/tiles/gas_conduit/gas_conduit_left.png",
 		"right": "/tiles/gas_conduit/gas_conduit_right.png"
 	  },
 	  "item_conduit.": {
-		"center": "/tiles/item_conduit/item_conduit.png",
+		"*": "/tiles/item_conduit/item_conduit.png",
 		"up": "/tiles/item_conduit/item_conduit_up.png",
 		"down": "/tiles/item_conduit/item_conduit_down.png",
 		"left": "/tiles/item_conduit/item_conduit_left.png",
@@ -624,7 +739,7 @@
 			"file": "/tiles/boiler/boiler.png"
 		  }
 		},
-		"base.": {
+		"*.": {
 		  "subtexture": {
 			"0.4": [0, 0, 12, 12],
 			"1.4": [12, 0, 12, 12],

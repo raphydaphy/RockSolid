@@ -20,7 +20,8 @@ public class BucketRenderer extends DefaultItemRenderer<ItemBucket>
 	public void render(IGameInstance game, IAssetManager manager, IRenderer g, ItemBucket item, ItemInstance instance,
 			float x, float y, float scale, int filter)
 	{
-		manager.getTexture(this.texture.addSuffix("." + ItemBucket.BucketType.getFromMeta(instance.getMeta()))).draw(x,
+		ItemBucket.BucketType type = ItemBucket.BucketType.getFromMeta(instance.getMeta());
+		manager.getTexture(type.liquid == null ? this.texture : this.texture.addSuffix("." + type)).draw(x,
 				y, 1F * scale, 1F * scale, filter);
 	}
 

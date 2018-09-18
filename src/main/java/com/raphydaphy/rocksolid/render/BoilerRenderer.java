@@ -30,7 +30,7 @@ public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
 			{
 				if (tile.isStructurePart(x, y))
 				{
-					this.baseTextures.put(new Pos2(x, y), this.texture.addSuffix(".base." + x + "." + y));
+					this.baseTextures.put(new Pos2(x, y), this.texture.addSuffix("." + x + "." + y));
 				}
 			}
 		}

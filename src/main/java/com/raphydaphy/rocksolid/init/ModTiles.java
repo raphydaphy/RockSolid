@@ -19,6 +19,7 @@ import de.ellpeck.rockbottom.api.tile.TileLiquid;
 public class ModTiles
 {
 	public static Tile COTTON;
+	public static Tile SPINNING_WHEEL;
 
 	public static Tile TIN_ORE;
 	public static Tile IRON_ORE;
@@ -79,6 +80,7 @@ public class ModTiles
 	public static void init()
 	{
 		COTTON = new TileCotton().setMaxAmount(25);
+		SPINNING_WHEEL = new TileSpinningWheel().setMaxAmount(1);
 
 		TIN_ORE = new TileOre("ore.tin", 8f, 2, ModItems.TIN_CLUSTER);
 		IRON_ORE = new TileOre("ore.iron", 12f, 12, ModItems.IRON_CLUSTER);
