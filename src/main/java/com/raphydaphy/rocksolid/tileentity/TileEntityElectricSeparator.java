@@ -106,7 +106,7 @@ public class TileEntityElectricSeparator extends TileEntityElectric
 					this.output = item.copy();
 
 					double chance = Math.pow(2, 5 * (getBonusYieldModifier() / 2f)); // Bonus Yield Modifier
-					if ((Util.RANDOM.nextDouble() * 100) < chance && this.inventory.get(1).fitsAmount(this.inventory.get(1).getAmount() + 1))
+					if ((Util.RANDOM.nextDouble() * 100) < chance && (this.inventory.get(1) == null || this.inventory.get(1).fitsAmount(this.inventory.get(1).getAmount() + 1)))
 					{
 						this.output.addAmount(1);
 					}
