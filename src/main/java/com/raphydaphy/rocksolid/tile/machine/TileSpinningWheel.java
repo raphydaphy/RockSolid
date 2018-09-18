@@ -77,7 +77,7 @@ public class TileSpinningWheel extends TileMachineBase<TileEntitySpinningWheel>
 					} else
 					{
 						te.setStage(0);
-						AbstractEntityItem.spawn(world, new ItemInstance(ModItems.LUNAR_COBALT_CLUSTER), x, y, Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
+						AbstractEntityItem.spawn(world, new ItemInstance(ModItems.YARN), te.x + 2.5, te.y + 1.5, Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
 					}
 				}
 				return true;

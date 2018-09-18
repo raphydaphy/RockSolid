@@ -15,6 +15,7 @@
 		"fuel": "/fluids/fuel/bucket.png"
 	  },
 	  "wrench": "/items/misc/wrench.png",
+	  "yarn": "/items/misc/yarn.png",
 	  "coal_coke": "/items/misc/gem_coke.png",
 	  "slag": "/items/misc/slag.png",
 	  "lantern": "/items/misc/lantern.png",

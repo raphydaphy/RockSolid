@@ -232,7 +232,14 @@ public class ModEvents
 
 					if (changed != null)
 					{
-						if (changed.getItem() == GameContent.TILE_COPPER.getItem())
+						if (changed.getItem() == GameContent.TILE_WOOD_BOARDS.getItem())
+						{
+							ConstructionRecipe spinningWheel = ConstructionRecipe.forName(RockSolid.createRes("spinning_wheel"));
+							if (!event.player.getKnowledge().knowsRecipe(spinningWheel))
+							{
+								event.player.getKnowledge().teachRecipe(spinningWheel);
+							}
+						} else if (changed.getItem() == GameContent.TILE_COPPER.getItem())
 						{
 							SeparatingRecipe grit = SeparatingRecipe.REGISTRY.get(RockSolid.createRes("copper_separating"));
 							if (!grit.isKnown(event.player))

@@ -1,5 +1,6 @@
 {
   "recipe.": {
+	"spinning_wheel": "/recipes/spinning_wheel.json",
 	"alloy_smelter": "/recipes/alloy_smelter.json",
 	"lantern": "/recipes/lantern.json",
 	"bronze_pickaxe": "/recipes/bronze_pickaxe.json",

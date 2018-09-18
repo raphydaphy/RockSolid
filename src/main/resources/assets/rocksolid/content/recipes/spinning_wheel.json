@@ -1,0 +1,23 @@
+{
+  "type": "manual_knowledge",
+  "outputs": [
+	{
+	  "name": "rocksolid/spinning_wheel"
+	}
+  ],
+  "inputs": [
+	{
+	  "name": "pebbles",
+	  "amount": 25
+	},
+	{
+	  "name": "stick",
+	  "amount": 15
+	},
+	{
+	  "name": "wood_processed",
+	  "amount": 20
+	}
+  ],
+  "skill": 0.25
+}
