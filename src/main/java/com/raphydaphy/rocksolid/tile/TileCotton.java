@@ -83,7 +83,6 @@ public class TileCotton extends TileBase
 			}
 
 			boolean wasAlive = state.get(ALIVE);
-			System.out.println("light: " + world.getCombinedLight(x, y));
 			boolean alive = liquid.getTile() == GameContent.TILE_WATER && world.getCombinedLight(x, y) > 50;
 			if (wasAlive != alive)
 			{
@@ -132,9 +131,8 @@ public class TileCotton extends TileBase
 							world.setState(layer, x, y + 1, this.getDefState().prop(StaticTileProps.TOP_HALF, Boolean.TRUE).prop(COTTON_GROWTH, growth + 1).prop(ALIVE, true));
 						}
 					}
-					if (Util.RANDOM.nextFloat() >= 0.3f)
+					if (Util.RANDOM.nextFloat() >= 0.6f)
 					{
-						System.out.println("cotton decreasing water level");
 						int level = liquid.get(GameContent.TILE_WATER.level);
 						if (level > 0)
 						{
