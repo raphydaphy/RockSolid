@@ -3,6 +3,7 @@ package com.raphydaphy.rocksolid.tile;
 import com.raphydaphy.rocksolid.RockSolid;
 import com.raphydaphy.rocksolid.util.ToolInfo;
 import de.ellpeck.rockbottom.api.tile.TileBasic;
+import de.ellpeck.rockbottom.api.tile.state.TileProp;
 
 public class TileBase extends TileBasic
 {
@@ -12,6 +13,11 @@ public class TileBase extends TileBasic
 	}
 
 	public TileBase(String name, float hardness, boolean forceDrop, ToolInfo... infos)
+	{
+		this(name, hardness, forceDrop, true, infos);
+	}
+
+	public TileBase(String name, float hardness, boolean forceDrop, boolean register, ToolInfo... infos)
 	{
 		super(RockSolid.createRes(name));
 		this.setHardness(hardness);
@@ -26,6 +32,9 @@ public class TileBase extends TileBasic
 			this.addEffectiveTool(info.getType(), info.getLevel());
 		}
 
-		this.register();
+		if (register)
+		{
+			this.register();
+		}
 	}
 }
