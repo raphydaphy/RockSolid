@@ -7,6 +7,7 @@ import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.render.tile.ITileRenderer;
+import de.ellpeck.rockbottom.api.tile.state.BoolProp;
 import de.ellpeck.rockbottom.api.tile.state.IntProp;
 import de.ellpeck.rockbottom.api.tile.state.TileState;
 import de.ellpeck.rockbottom.api.util.BoundBox;
@@ -21,18 +22,19 @@ import java.util.List;
 public class TileCotton extends TileBase
 {
 	public static final IntProp COTTON_GROWTH = new IntProp("growth", 0, 10);
+	public static final BoolProp IRRIGATED = new BoolProp("irrigated", false);
 
 	public TileCotton()
 	{
 		super("cotton", 2, true, false);
-		this.addProps(StaticTileProps.TOP_HALF, COTTON_GROWTH);
+		this.addProps(StaticTileProps.TOP_HALF, COTTON_GROWTH, IRRIGATED);
 		register();
 	}
 
 	@Override
-	protected final ITileRenderer createRenderer(ResourceName var1)
+	protected final ITileRenderer createRenderer(ResourceName name)
 	{
-		return new CottonRenderer(var1);
+		return new CottonRenderer(name);
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class TileCotton extends TileBase
 	@Override
 	public final void updateRandomly(IWorld world, int x, int y, TileLayer layer)
 	{
-		TileState bottomHalf;
+		TileState state = world.getState(layer, x, y);
 		int growth;
 
 		boolean left = true;
@@ -78,38 +80,61 @@ public class TileCotton extends TileBase
 			liquid = world.getState(TileLayer.LIQUIDS, x + 1, y - 1);
 		}
 
-		if (liquid.getTile() == GameContent.TILE_WATER && Util.RANDOM.nextFloat() >= 0.95F && !(bottomHalf = world.getState(layer, x, y)).get(StaticTileProps.TOP_HALF) && (growth = bottomHalf.get(COTTON_GROWTH)) < 9)
+		boolean wasIrrigated = state.get(IRRIGATED);
+		if (wasIrrigated != (liquid.getTile() == GameContent.TILE_WATER))
 		{
-			if (growth >= 3)
+			if (liquid.getTile() == GameContent.TILE_WATER)
 			{
-				TileState topHalf;
-				if ((topHalf = world.getState(layer, x, y + 1)).getTile() == this)
-				{
-					world.setState(layer, x, y + 1, topHalf.prop(COTTON_GROWTH, growth + 1));
-				} else
-				{
-					if (!world.getState(layer, x, y + 1).getTile().canReplace(world, x, y + 1, layer))
-					{
-						return;
-					}
+				world.setState(layer, x, y, state.prop(IRRIGATED, true));
+			} else
+			{
+				world.setState(layer, x, y, state.prop(IRRIGATED, false));
+			}
+		}
 
-					world.setState(layer, x, y + 1, this.getDefState().prop(StaticTileProps.TOP_HALF, Boolean.TRUE).prop(COTTON_GROWTH, growth + 1));
-				}
-			}
-			if (Util.RANDOM.nextFloat() >= 0.7f)
+		if (Util.RANDOM.nextFloat() >= 0.95F && !state.get(StaticTileProps.TOP_HALF) && (growth = state.get(COTTON_GROWTH)) < 9)
+		{
+
+			if (liquid.getTile() == GameContent.TILE_WATER)
 			{
-				System.out.println("decreasing level");
-				int level = liquid.get(GameContent.TILE_WATER.level);
-				if (level > 0)
+				if (growth >= 3)
 				{
-					world.setState(TileLayer.LIQUIDS,x + (left ? -1 : 1), y - 1, liquid.prop(GameContent.TILE_WATER.level,level - 1));
+					TileState topHalf;
+					if ((topHalf = world.getState(layer, x, y + 1)).getTile() == this)
+					{
+						world.setState(layer, x, y + 1, topHalf.prop(COTTON_GROWTH, growth + 1).prop(IRRIGATED, true));
+					} else
+					{
+						if (!world.getState(layer, x, y + 1).getTile().canReplace(world, x, y + 1, layer))
+						{
+							return;
+						}
+
+						world.setState(layer, x, y + 1, this.getDefState().prop(StaticTileProps.TOP_HALF, Boolean.TRUE).prop(COTTON_GROWTH, growth + 1).prop(IRRIGATED, true));
+					}
 				}
-				else
+				if (Util.RANDOM.nextFloat() >= 0.7f)
 				{
-					world.setState(TileLayer.LIQUIDS, x + (left ? -1 : 1), y - 1, GameContent.TILE_AIR.getDefState());
+					System.out.println("cotton decreasing water level");
+					int level = liquid.get(GameContent.TILE_WATER.level);
+					if (level > 0)
+					{
+						world.setState(TileLayer.LIQUIDS, x + (left ? -1 : 1), y - 1, liquid.prop(GameContent.TILE_WATER.level, level - 1));
+					} else
+					{
+						world.setState(TileLayer.LIQUIDS, x + (left ? -1 : 1), y - 1, GameContent.TILE_AIR.getDefState());
+					}
+				}
+				world.setState(layer, x, y, state.prop(COTTON_GROWTH, growth + 1).prop(IRRIGATED, true));
+			}
+			else
+			{
+				world.setState(layer, x, y, state.prop(IRRIGATED, false));
+				if (growth >= 3)
+				{
+					world.setState(layer, x, y + 1, this.getDefState().prop(StaticTileProps.TOP_HALF, Boolean.TRUE).prop(COTTON_GROWTH, growth).prop(IRRIGATED, false));
 				}
 			}
-			world.setState(layer, x, y, bottomHalf.prop(COTTON_GROWTH, growth + 1));
 		}
 
 	}

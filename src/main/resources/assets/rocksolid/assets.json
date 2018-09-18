@@ -93,6 +93,43 @@
 	  },
 	  "cotton.": {
 		"*": "/items/misc/cotton.png",
+		"dehydrated.": {
+		  "0.": {
+			"subtexture": {
+			  "file": "/tiles/cotton/cotton_dehydrated_0.png",
+			  "top": [0, 0, 12, 12],
+			  "bottom": [0, 12, 12, 12]
+			}
+		  },
+		  "1.": {
+			"subtexture": {
+			  "file": "/tiles/cotton/cotton_dehydrated_1.png",
+			  "top": [0, 0, 12, 12],
+			  "bottom": [0, 12, 12, 12]
+			}
+		  },
+		  "2.": {
+			"subtexture": {
+			  "file": "/tiles/cotton/cotton_dehydrated_2.png",
+			  "top": [0, 0, 12, 12],
+			  "bottom": [0, 12, 12, 12]
+			}
+		  },
+		  "3.": {
+			"subtexture": {
+			  "file": "/tiles/cotton/cotton_dehydrated_3.png",
+			  "top": [0, 0, 12, 12],
+			  "bottom": [0, 12, 12, 12]
+			}
+		  },
+		  "4.": {
+			"subtexture": {
+			  "file": "/tiles/cotton/cotton_dehydrated_4.png",
+			  "top": [0, 0, 12, 12],
+			  "bottom": [0, 12, 12, 12]
+			}
+		  }
+		},
 		"0.": {
 		  "subtexture": {
 			"file": "/tiles/cotton/cotton_0.png",
