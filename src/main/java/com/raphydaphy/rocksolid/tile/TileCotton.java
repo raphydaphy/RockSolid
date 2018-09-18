@@ -1,6 +1,7 @@
 package com.raphydaphy.rocksolid.tile;
 
 import com.raphydaphy.rocksolid.render.CottonRenderer;
+import de.ellpeck.rockbottom.api.GameContent;
 import de.ellpeck.rockbottom.api.StaticTileProps;
 import de.ellpeck.rockbottom.api.entity.Entity;
 import de.ellpeck.rockbottom.api.entity.player.AbstractEntityPlayer;
@@ -68,7 +69,16 @@ public class TileCotton extends TileBase
 	{
 		TileState bottomHalf;
 		int growth;
-		if (Util.RANDOM.nextFloat() >= 0.95F && !(bottomHalf = world.getState(layer, x, y)).get(StaticTileProps.TOP_HALF) && (growth = bottomHalf.get(COTTON_GROWTH)) < 9)
+
+		boolean left = true;
+		TileState liquid = world.getState(TileLayer.LIQUIDS, x - 1, y - 1);
+		if (liquid.getTile() != GameContent.TILE_WATER)
+		{
+			left = false;
+			liquid = world.getState(TileLayer.LIQUIDS, x + 1, y - 1);
+		}
+
+		if (liquid.getTile() == GameContent.TILE_WATER && Util.RANDOM.nextFloat() >= 0.95F && !(bottomHalf = world.getState(layer, x, y)).get(StaticTileProps.TOP_HALF) && (growth = bottomHalf.get(COTTON_GROWTH)) < 9)
 		{
 			if (growth >= 3)
 			{
@@ -86,7 +96,19 @@ public class TileCotton extends TileBase
 					world.setState(layer, x, y + 1, this.getDefState().prop(StaticTileProps.TOP_HALF, Boolean.TRUE).prop(COTTON_GROWTH, growth + 1));
 				}
 			}
-
+			if (Util.RANDOM.nextFloat() >= 0.7f)
+			{
+				System.out.println("decreasing level");
+				int level = liquid.get(GameContent.TILE_WATER.level);
+				if (level > 0)
+				{
+					world.setState(TileLayer.LIQUIDS,x + (left ? -1 : 1), y - 1, liquid.prop(GameContent.TILE_WATER.level,level - 1));
+				}
+				else
+				{
+					world.setState(TileLayer.LIQUIDS, x + (left ? -1 : 1), y - 1, GameContent.TILE_AIR.getDefState());
+				}
+			}
 			world.setState(layer, x, y, bottomHalf.prop(COTTON_GROWTH, growth + 1));
 		}
 

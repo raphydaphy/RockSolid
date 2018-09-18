@@ -31,8 +31,15 @@ public class CottonRenderer extends DefaultTileRenderer
 	@Override
 	public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, Tile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
 	{
+
+	}
+
+	@Override
+	public void renderInForeground(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, Tile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
+	{
 		boolean top = state.get(StaticTileProps.TOP_HALF);
 		int growth = state.get(TileCotton.COTTON_GROWTH);
 		manager.getTexture(this.textures[top ? 1 : 0][growth]).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+
 	}
 }
