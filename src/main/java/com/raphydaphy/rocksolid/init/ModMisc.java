@@ -79,7 +79,6 @@ public class ModMisc {
         Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_uranium"), WorldGenUranium.class);
         Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_wolframite"), WorldGenWolframite.class);
         Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_oil"), WorldGenOil.class);
-        Registries.WORLD_GENERATORS.register(RockSolid.createRes("world_gen_cotton"), WorldGenCotton.class);
 
         Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitUpdate.class);
         Registries.PACKET_REGISTRY.register(Registries.PACKET_REGISTRY.getNextFreeId(), PacketConduitDestroyed.class);

@@ -13,8 +13,6 @@ public class ModItems {
     public static Item BUCKET;
     public static Item WRENCH;
 
-    public static Item YARN;
-
     public static Item TIN_CLUSTER;
     public static Item IRON_CLUSTER;
     public static Item MAGNESIUM_CLUSTER;
@@ -108,8 +106,6 @@ public class ModItems {
     public static void init() {
         BUCKET = new ItemBucket();
         WRENCH = new ItemWrench();
-
-        YARN = new ItemBase("yarn").setMaxAmount(15);
 
         TIN_CLUSTER = new ItemBase("cluster.tin").setMaxAmount(35);
         IRON_CLUSTER = new ItemBase("cluster.iron").setMaxAmount(35);
