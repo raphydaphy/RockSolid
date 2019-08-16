@@ -1,19 +1,20 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rocksolid/wrench"
-	}
+    {
+      "name": "rocksolid/wrench"
+    }
   ],
   "inputs": [
-	{
-	  "name": "steel_processed",
-	  "amount": 4
-	},
-	{
-	  "name": "stick",
-	  "amount": 8
-	}
+    {
+      "name": "steel_processed",
+      "amount": 4
+    },
+    {
+      "name": "stick",
+      "amount": 8
+    }
   ],
   "skill": 0.06
 }

@@ -22,72 +22,61 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CompressingRecipeLoader implements IContentLoader
-{
-	public static final ResourceName ID = RockSolid.createRes("compressing");
-	private final Set<ResourceName> disabled = new HashSet<>();
+public class CompressingRecipeLoader implements IContentLoader {
+    public static final ResourceName ID = RockSolid.createRes("compressing");
+    private final Set<ResourceName> disabled = new HashSet<>();
 
-	public CompressingRecipeLoader()
-	{
-	}
+    public CompressingRecipeLoader() {
+    }
 
-	@Override
-	public ResourceName getContentIdentifier()
-	{
-		return ID;
-	}
+    @Override
+    public ResourceName getContentIdentifier() {
+        return ID;
+    }
 
-	@Override
-	public void loadContent(IGameInstance game, ResourceName resourceName, String path, JsonElement element, String elementName, IMod loadingMod, ContentPack pack) throws Exception
-	{
-		if (!this.disabled.contains(resourceName))
-		{
-			if (CompressingRecipe.REGISTRY.get(resourceName) != null)
-			{
-				RockSolid.getLogger().info("Compressing recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
-			} else
-			{
-				String fileName = path + element.getAsString();
-				InputStreamReader fileReader = new InputStreamReader(game.getClassLoader().getResourceAsStream(fileName), Charsets.UTF_8);
-				JsonElement fileParser = Util.JSON_PARSER.parse(fileReader);
-				fileReader.close();
-				JsonObject curObject;
+    @Override
+    public void loadContent(IGameInstance game, ResourceName resourceName, String path, JsonElement element, String elementName, IMod loadingMod, ContentPack pack) throws Exception {
+        if (!this.disabled.contains(resourceName)) {
+            if (CompressingRecipe.REGISTRY.get(resourceName) != null) {
+                RockSolid.getLogger().info("Compressing recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
+            } else {
+                String fileName = path + element.getAsString();
+                InputStreamReader fileReader = new InputStreamReader(game.getClassLoader().getResourceAsStream(fileName), Charsets.UTF_8);
+                JsonElement fileParser = Util.JSON_PARSER.parse(fileReader);
+                fileReader.close();
+                JsonObject curObject;
 
-				int recipeTime = (curObject = fileParser.getAsJsonObject()).get("time").getAsInt();
+                int recipeTime = (curObject = fileParser.getAsJsonObject()).get("time").getAsInt();
 
-				JsonObject outputObject = curObject.get("output").getAsJsonObject();
+                JsonObject outputObject = curObject.get("output").getAsJsonObject();
 
-				Item outputItem = Registries.ITEM_REGISTRY.get(new ResourceName(outputObject.get("name").getAsString()));
-				int outputAmount = outputObject.has("amount") ? outputObject.get("amount").getAsInt() : 1;
-				int outputMeta = outputObject.has("meta") ? outputObject.get("meta").getAsInt() : 0;
+                Item outputItem = Registries.ITEM_REGISTRY.get(new ResourceName(outputObject.get("name").getAsString()));
+                int outputAmount = outputObject.has("amount") ? outputObject.get("amount").getAsInt() : 1;
+                int outputMeta = outputObject.has("meta") ? outputObject.get("meta").getAsInt() : 0;
 
-				ItemInstance outputInstance = new ItemInstance(outputItem, outputAmount, outputMeta);
+                ItemInstance outputInstance = new ItemInstance(outputItem, outputAmount, outputMeta);
 
-				elementName = (curObject = curObject.get("input").getAsJsonObject()).get("name").getAsString();
-				outputAmount = curObject.has("amount") ? curObject.get("amount").getAsInt() : 1;
-				IUseInfo inputUse;
+                elementName = (curObject = curObject.get("input").getAsJsonObject()).get("name").getAsString();
+                outputAmount = curObject.has("amount") ? curObject.get("amount").getAsInt() : 1;
+                IUseInfo inputUse;
 
-				if (Util.isResourceName(elementName))
-				{
-					int var12 = curObject.has("meta") ? curObject.get("meta").getAsInt() : 0;
-					inputUse = new ItemUseInfo(Registries.ITEM_REGISTRY.get(new ResourceName(elementName)), outputAmount, var12);
-				} else
-				{
-					inputUse = new ResUseInfo(elementName, outputAmount);
-				}
+                if (Util.isResourceName(elementName)) {
+                    int var12 = curObject.has("meta") ? curObject.get("meta").getAsInt() : 0;
+                    inputUse = new ItemUseInfo(Registries.ITEM_REGISTRY.get(new ResourceName(elementName)), outputAmount, var12);
+                } else {
+                    inputUse = new ResUseInfo(elementName, outputAmount);
+                }
 
-				new CompressingRecipe(resourceName, inputUse, outputInstance, recipeTime).register();
-				RockSolid.getLogger().config("Loaded compressing recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + recipeTime + ", input " + inputUse + " and output " + outputInstance + " with content pack " + pack.getName());
-			}
-		} else
-		{
-			RockSolid.getLogger().info("Compressing recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
-		}
-	}
+                new CompressingRecipe(resourceName, inputUse, outputInstance, recipeTime).register();
+                RockSolid.getLogger().config("Loaded compressing recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + recipeTime + ", input " + inputUse + " and output " + outputInstance + " with content pack " + pack.getName());
+            }
+        } else {
+            RockSolid.getLogger().info("Compressing recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
+        }
+    }
 
-	@Override
-	public void disableContent(IGameInstance game, ResourceName resourceName)
-	{
-		disabled.add(resourceName);
-	}
+    @Override
+    public void disableContent(IGameInstance game, ResourceName resourceName) {
+        disabled.add(resourceName);
+    }
 }

@@ -1,20 +1,21 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rocksolid/energy_conduit",
-	  "amount": 8
-	}
+    {
+      "name": "rocksolid/energy_conduit",
+      "amount": 8
+    }
   ],
   "inputs": [
-	{
-	  "name": "stone",
-	  "amount": 15
-	},
-	{
-	  "name": "copper_processed",
-	  "amount": 6
-	}
+    {
+      "name": "stone",
+      "amount": 15
+    },
+    {
+      "name": "copper_processed",
+      "amount": 6
+    }
   ],
   "skill": 0.2
 }

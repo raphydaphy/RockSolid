@@ -13,54 +13,48 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.awt.*;
 
-public class GuiNuclearReactor extends GuiContainer
-{
-	private final TileEntityNuclearReactor te;
-	private int lastTempshiftPlates;
-	private ComponentCustomText tempshiftPlateText;
-	private final ResourceName TEMPSHIFT_PLATES = RockSolid.createRes("reactor_tempshift_plates");
+public class GuiNuclearReactor extends GuiContainer {
+    private final TileEntityNuclearReactor te;
+    private final ResourceName TEMPSHIFT_PLATES = RockSolid.createRes("reactor_tempshift_plates");
+    private int lastTempshiftPlates;
+    private ComponentCustomText tempshiftPlateText;
 
-	public GuiNuclearReactor(AbstractEntityPlayer player, TileEntityNuclearReactor te)
-	{
-		super(player, 136, 135);
-		this.te = te;
+    public GuiNuclearReactor(AbstractEntityPlayer player, TileEntityNuclearReactor te) {
+        super(player, 136, 135);
+        this.te = te;
 
-		int playerSlots = player.getInv().getSlotAmount();
+        int playerSlots = player.getInv().getSlotAmount();
 
-		ShiftClickBehavior input = new ShiftClickBehavior(0, playerSlots - 1, playerSlots, playerSlots + 3);
-		shiftClickBehaviors.add(input);
-		shiftClickBehaviors.add(input.reversed());
-	}
+        ShiftClickBehavior input = new ShiftClickBehavior(0, playerSlots - 1, playerSlots, playerSlots + 3);
+        shiftClickBehaviors.add(input);
+        shiftClickBehaviors.add(input.reversed());
+    }
 
-	@Override
-	public void init(IGameInstance game)
-	{
-		super.init(game);
+    @Override
+    public void init(IGameInstance game) {
+        super.init(game);
 
-		lastTempshiftPlates = te.getTempshiftPlates();
-		tempshiftPlateText = new ComponentCustomText(this, 24 + 43, 5, 150, 1, 0.3f, ComponentCustomText.TextDirection.CENTER,
-				game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
-		this.components.add(tempshiftPlateText);
+        lastTempshiftPlates = te.getTempshiftPlates();
+        tempshiftPlateText = new ComponentCustomText(this, 24 + 43, 5, 150, 1, 0.3f, ComponentCustomText.TextDirection.CENTER,
+                game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
+        this.components.add(tempshiftPlateText);
 
-		this.components.add(new ComponentEnergyBar(this, 27, 50, 81, 10, ModUtils.ENERGY, false, this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
+        this.components.add(new ComponentEnergyBar(this, 27, 50, 81, 10, ModUtils.ENERGY, false, this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
 
-		this.components.add(new ComponentHeatBar(this, 27, 35, 81, 10, Color.red.getRGB(), false, this.te::getHeatFullness, this.te::getHeat));
-	}
+        this.components.add(new ComponentHeatBar(this, 27, 35, 81, 10, Color.red.getRGB(), false, this.te::getHeatFullness, this.te::getHeat));
+    }
 
-	@Override
-	public ResourceName getName()
-	{
-		return RockSolid.createRes("gui_nuclear_reactor");
-	}
+    @Override
+    public ResourceName getName() {
+        return RockSolid.createRes("gui_nuclear_reactor");
+    }
 
-	@Override
-	public void update(IGameInstance game)
-	{
-		if (te.getTempshiftPlates() != lastTempshiftPlates)
-		{
-			lastTempshiftPlates = te.getTempshiftPlates();
-			tempshiftPlateText.setText(game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
-		}
-	}
+    @Override
+    public void update(IGameInstance game) {
+        if (te.getTempshiftPlates() != lastTempshiftPlates) {
+            lastTempshiftPlates = te.getTempshiftPlates();
+            tempshiftPlateText.setText(game.getAssetManager().localize(TEMPSHIFT_PLATES, lastTempshiftPlates));
+        }
+    }
 
 }

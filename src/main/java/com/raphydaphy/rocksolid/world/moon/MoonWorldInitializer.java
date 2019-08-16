@@ -15,67 +15,59 @@ import de.ellpeck.rockbottom.api.world.gen.BiomeGen;
 import de.ellpeck.rockbottom.api.world.gen.HeightGen;
 import de.ellpeck.rockbottom.api.world.gen.IWorldGenerator;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
-public class MoonWorldInitializer extends SubWorldInitializer
-{
-	private MoonSkyRenderer skyRenderer = new MoonSkyRenderer();
-	public MoonWorldInitializer(ResourceName name)
-	{
-		super(name);
-	}
+public class MoonWorldInitializer extends SubWorldInitializer {
+    private MoonSkyRenderer skyRenderer = new MoonSkyRenderer();
 
-	@Override
-	public int getSeedModifier()
-	{
-		return 247835941;
-	}
+    public MoonWorldInitializer(ResourceName name) {
+        super(name);
+    }
 
-	@Override
-	public List<Pos2> getDefaultPersistentChunks(IWorld subWorld)
-	{
-		return Collections.emptyList();
-	}
+    @Override
+    public int getSeedModifier() {
+        return 247835941;
+    }
 
-	@Override
-	public void onSave(IWorld subWorld)
-	{
+    @Override
+    public List<Pos2> getDefaultPersistentChunks(IWorld subWorld) {
+        return Collections.emptyList();
+    }
 
-	}
+    @Override
+    public void onSave(IWorld subWorld) {
 
-	@Override
-	public HeightGen initHeightGen(IWorld subWorld)
-	{
-		return (MoonGenHeights) Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid failed to initialize the moon height generator");
-	}
+    }
 
-	@Override
-	public BiomeGen initBiomeGen(IWorld subWorld)
-	{
-		return (MoonGenBiomes) Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid failed to initialize the moon biome generator");
-	}
+    @Override
+    public HeightGen initHeightGen(IWorld subWorld) {
+        return (MoonGenHeights) Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_HEIGHTS_GENERATOR), "RockSolid failed to initialize the moon height generator");
+    }
 
-	@Override
-	public void onGeneratorsInitialized(IWorld subWorld)
-	{
+    @Override
+    public BiomeGen initBiomeGen(IWorld subWorld) {
+        return (MoonGenBiomes) Preconditions.checkNotNull(subWorld.getGenerator(ModMisc.MOON_BIOME_GENERATOR), "RockSolid failed to initialize the moon biome generator");
+    }
 
-	}
+    @Override
+    public void onGeneratorsInitialized(IWorld subWorld) {
 
-	@Override
-	public void update(IWorld subWorld, IGameInstance game)
-	{
+    }
 
-	}
+    @Override
+    public void update(IWorld subWorld, IGameInstance game) {
 
-	@Override
-	public boolean shouldGenerateHere(IWorld subWorld, ResourceName name, IWorldGenerator generator)
-	{
-		return generator instanceof IMoonGenerator || generator instanceof MoonGenHeights || generator instanceof MoonGenBiomes;
-	}
+    }
 
-	@Override
-	public boolean renderSky(IWorld subWorld, IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, AbstractEntityPlayer player, double width, double height) {
-		skyRenderer.render(game, manager, g, world, player);
-		return false;
-	}
+    @Override
+    public boolean shouldGenerateHere(IWorld subWorld, ResourceName name, IWorldGenerator generator) {
+        return generator instanceof IMoonGenerator || generator instanceof MoonGenHeights || generator instanceof MoonGenBiomes;
+    }
+
+    @Override
+    public boolean renderSky(IWorld subWorld, IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, AbstractEntityPlayer player, double width, double height) {
+        skyRenderer.render(game, manager, g, world, player);
+        return false;
+    }
 }

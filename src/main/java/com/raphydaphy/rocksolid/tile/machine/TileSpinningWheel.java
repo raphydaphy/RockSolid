@@ -16,80 +16,64 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileSpinningWheel extends TileMachineBase<TileEntitySpinningWheel>
-{
-	public TileSpinningWheel()
-	{
-		super("spinning_wheel", TileEntitySpinningWheel.class, 7, false, new ToolInfo(ToolProperty.PICKAXE, 1));
-	}
+public class TileSpinningWheel extends TileMachineBase<TileEntitySpinningWheel> {
+    public TileSpinningWheel() {
+        super("spinning_wheel", TileEntitySpinningWheel.class, 7, false, new ToolInfo(ToolProperty.PICKAXE, 1));
+    }
 
-	@Override
-	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
-	{
-		return new TileEntitySpinningWheel(world, x, y, layer);
-	}
+    @Override
+    public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer) {
+        return new TileEntitySpinningWheel(world, x, y, layer);
+    }
 
-	@Override
-	protected boolean[][] makeStructure()
-	{
-		return super.autoStructure(3, 3);
-	}
+    @Override
+    protected boolean[][] makeStructure() {
+        return super.autoStructure(3, 3);
+    }
 
-	@Override
-	public int getWidth()
-	{
-		return 3;
-	}
+    @Override
+    public int getWidth() {
+        return 3;
+    }
 
-	@Override
-	public int getHeight()
-	{
-		return 3;
-	}
+    @Override
+    public int getHeight() {
+        return 3;
+    }
 
-	@Override
-	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player)
-	{
-		TileEntitySpinningWheel te = getTE(world, world.getState(x, y), x, y);
-		if (te != null)
-		{
-			int stage = te.getStage();
+    @Override
+    public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY, AbstractEntityPlayer player) {
+        TileEntitySpinningWheel te = getTE(world, world.getState(x, y), x, y);
+        if (te != null) {
+            int stage = te.getStage();
 
-			if (stage == 0)
-			{
-				ItemInstance held = player.getInv().get(player.getSelectedSlot());
-				if (held != null && held.getItem() == ModTiles.COTTON.getItem() && held.getAmount() >= 3)
-				{
-					if (!world.isClient())
-					{
-						player.getInv().set(player.getSelectedSlot(), held.copy().removeAmount(3));
-						te.setStage(1);
-					}
-					return true;
-				}
-			} else
-			{
-				if (!world.isClient())
-				{
-					if (stage < 7)
-					{
-						te.setStage(stage + 1);
-					} else
-					{
-						te.setStage(0);
-						AbstractEntityItem.spawn(world, new ItemInstance(ModItems.YARN), te.x + 2.5, te.y + 1.5, Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
-					}
-				}
-				return true;
-			}
-		}
-		return false;
-	}
+            if (stage == 0) {
+                ItemInstance held = player.getInv().get(player.getSelectedSlot());
+                if (held != null && held.getItem() == ModTiles.COTTON.getItem() && held.getAmount() >= 3) {
+                    if (!world.isClient()) {
+                        player.getInv().set(player.getSelectedSlot(), held.copy().removeAmount(3));
+                        te.setStage(1);
+                    }
+                    return true;
+                }
+            } else {
+                if (!world.isClient()) {
+                    if (stage < 7) {
+                        te.setStage(stage + 1);
+                    } else {
+                        te.setStage(0);
+                        AbstractEntityItem.spawn(world, new ItemInstance(ModItems.YARN), te.x + 2.5, te.y + 1.5, Util.RANDOM.nextGaussian() * 0.1, Util.RANDOM.nextGaussian() * 0.1);
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	protected ITileRenderer<TileSpinningWheel> createRenderer(ResourceName name)
-	{
-		return new SpinningWheelRenderer(name, this);
-	}
+    @Override
+    protected ITileRenderer<TileSpinningWheel> createRenderer(ResourceName name) {
+        return new SpinningWheelRenderer(name, this);
+    }
 
 }

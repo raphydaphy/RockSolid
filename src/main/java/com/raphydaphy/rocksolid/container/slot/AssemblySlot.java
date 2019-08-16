@@ -8,32 +8,27 @@ import de.ellpeck.rockbottom.api.gui.container.RestrictedInputSlot;
 import de.ellpeck.rockbottom.api.item.ItemInstance;
 import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 
-public class AssemblySlot extends RestrictedInputSlot
-{
-	private IUseInfo metal;
+public class AssemblySlot extends RestrictedInputSlot {
+    private IUseInfo metal;
 
-	public AssemblySlot(IFilteredInventory inventory, int slot, int x, int y)
-	{
-		super(inventory, slot, x, y);
-	}
+    public AssemblySlot(IFilteredInventory inventory, int slot, int x, int y) {
+        super(inventory, slot, x, y);
+    }
 
-	@Override
-	public ComponentSlot getGraphicalSlot(GuiContainer gui, int index, int xOffset, int yOffset) {
-		return new ComponentAssemblySlot(gui, this, index, xOffset + this.x, yOffset + this.y);
-	}
+    @Override
+    public ComponentSlot getGraphicalSlot(GuiContainer gui, int index, int xOffset, int yOffset) {
+        return new ComponentAssemblySlot(gui, this, index, xOffset + this.x, yOffset + this.y);
+    }
 
-	public void setMetal(IUseInfo metal)
-	{
-		this.metal = metal;
-	}
+    public void setMetal(IUseInfo metal) {
+        this.metal = metal;
+    }
 
-	@Override
-	public boolean canPlace(ItemInstance instance)
-	{
-		if (this.slot == 1 && metal != null)
-		{
-			return metal.containsItem(instance);
-		}
-		return super.canPlace(instance);
-	}
+    @Override
+    public boolean canPlace(ItemInstance instance) {
+        if (this.slot == 1 && metal != null) {
+            return metal.containsItem(instance);
+        }
+        return super.canPlace(instance);
+    }
 }

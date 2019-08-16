@@ -12,30 +12,26 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
 import java.awt.*;
 
-public class GuiPump extends GuiContainer
-{
-	private final TileEntityPump te;
+public class GuiPump extends GuiContainer {
+    private final TileEntityPump te;
 
-	public GuiPump(AbstractEntityPlayer player, TileEntityPump te)
-	{
-		super(player, 136, 112);
-		this.te = te;
-	}
+    public GuiPump(AbstractEntityPlayer player, TileEntityPump te) {
+        super(player, 136, 112);
+        this.te = te;
+    }
 
-	@Override
-	public void init(IGameInstance game)
-	{
-		super.init(game);
+    @Override
+    public void init(IGameInstance game) {
+        super.init(game);
 
-		this.components.add(new ComponentEnergyBar(this, 27, 16, 81, 10, ModUtils.ENERGY, false, this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
+        this.components.add(new ComponentEnergyBar(this, 27, 16, 81, 10, ModUtils.ENERGY, false, this.te::getEnergyFullness, this.te::getEnergyStored, this.te::getMaxTransfer));
 
-		this.components.add(new ComponentLiquidBar(this, 27, 1, 81, 10, Color.blue.getRGB(), false, this.te::getLiquidFullness, this.te::getLiquidVolume, this.te::getLiquidType));
-	}
+        this.components.add(new ComponentLiquidBar(this, 27, 1, 81, 10, Color.blue.getRGB(), false, this.te::getLiquidFullness, this.te::getLiquidVolume, this.te::getLiquidType));
+    }
 
-	@Override
-	public ResourceName getName()
-	{
-		return RockSolid.createRes("gui_pump");
-	}
+    @Override
+    public ResourceName getName() {
+        return RockSolid.createRes("gui_pump");
+    }
 
 }

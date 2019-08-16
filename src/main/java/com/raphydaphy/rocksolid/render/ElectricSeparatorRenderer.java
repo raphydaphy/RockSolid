@@ -13,41 +13,34 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class ElectricSeparatorRenderer extends MultiTileRenderer<TileElectricSeparator>
-{
-    public ElectricSeparatorRenderer(ResourceName texture, TileElectricSeparator tile)
-    {
+public class ElectricSeparatorRenderer extends MultiTileRenderer<TileElectricSeparator> {
+    public ElectricSeparatorRenderer(ResourceName texture, TileElectricSeparator tile) {
         super(texture, tile);
 
     }
 
     @Override
-    public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, TileElectricSeparator tile, TileState state)
-    {
+    public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, TileElectricSeparator tile, TileState state) {
         Pos2 innerCoord = tile.getInnerCoord(state);
         return manager.getTexture(this.textures.get(innerCoord));
     }
 
     @Override
-    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileElectricSeparator tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
-    {
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileElectricSeparator tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
         Pos2 innerCoord = tile.getInnerCoord(state);
         TileEntityElectricSeparator te = tile.getTE(world, state, x, y);
-        if (te != null)
-        {
+        if (te != null) {
             manager.getTexture(this.textures.get(innerCoord)).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
 
             ResourceName activeFull = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
 
             // draw fire
-            if (te.isActive() && (innerCoord.getX() == 0 || innerCoord.getY() == 1))
-            {
+            if (te.isActive() && (innerCoord.getX() == 0 || innerCoord.getY() == 1)) {
                 manager.getTexture(activeFull).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
             }
 
             // draw energy bar
-            if (innerCoord.getX() == 1 && innerCoord.getY() == 0 && te.getEnergyFullness() > 0)
-            {
+            if (innerCoord.getX() == 1 && innerCoord.getY() == 0 && te.getEnergyFullness() > 0) {
                 int energy = (int) Math.min((te.getEnergyFullness() * te.getEnergyCapacity(null, null)) / (te.getEnergyCapacity(null, null) / 8d), 8);
                 float pixel = scale / 12f;
 

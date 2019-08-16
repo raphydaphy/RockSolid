@@ -16,120 +16,103 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoilerRenderer extends MultiTileRenderer<TileBoiler>
-{
-	protected final Map<Pos2, ResourceName> baseTextures = new HashMap<>();
+public class BoilerRenderer extends MultiTileRenderer<TileBoiler> {
+    protected final Map<Pos2, ResourceName> baseTextures = new HashMap<>();
 
-	public BoilerRenderer(ResourceName texture, TileBoiler tile)
-	{
-		super(texture, tile);
+    public BoilerRenderer(ResourceName texture, TileBoiler tile) {
+        super(texture, tile);
 
-		for (int x = 0; x < tile.getWidth(); x++)
-		{
-			for (int y = 0; y < tile.getHeight(); y++)
-			{
-				if (tile.isStructurePart(x, y))
-				{
-					this.baseTextures.put(new Pos2(x, y), this.texture.addSuffix("." + x + "." + y));
-				}
-			}
-		}
+        for (int x = 0; x < tile.getWidth(); x++) {
+            for (int y = 0; y < tile.getHeight(); y++) {
+                if (tile.isStructurePart(x, y)) {
+                    this.baseTextures.put(new Pos2(x, y), this.texture.addSuffix("." + x + "." + y));
+                }
+            }
+        }
 
-	}
+    }
 
-	@Override
-	public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, TileBoiler tile,
-			TileState state)
-	{
-		Pos2 innerCoord = tile.getInnerCoord(state);
-		return manager.getTexture(this.baseTextures.get(innerCoord));
-	}
+    @Override
+    public ITexture getParticleTexture(IGameInstance game, IAssetManager manager, IRenderer g, TileBoiler tile,
+                                       TileState state) {
+        Pos2 innerCoord = tile.getInnerCoord(state);
+        return manager.getTexture(this.baseTextures.get(innerCoord));
+    }
 
-	@Override
-	public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileBoiler tile,
-			TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
-	{
-		Pos2 innerCoord = tile.getInnerCoord(state);
-		TileEntityBoiler te = tile.getTE(world, state, x, y);
-		if (te != null)
-		{
-			manager.getTexture(getTextureFor(innerCoord,  te.isActive())).getPositionalVariation(x, y)
-					.draw(renderX, renderY, scale, scale, light);
+    @Override
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, TileBoiler tile,
+                       TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+        Pos2 innerCoord = tile.getInnerCoord(state);
+        TileEntityBoiler te = tile.getTE(world, state, x, y);
+        if (te != null) {
+            manager.getTexture(getTextureFor(innerCoord, te.isActive())).getPositionalVariation(x, y)
+                    .draw(renderX, renderY, scale, scale, light);
 
-			ResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
-			if (te.getSteamFullness() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4)
-			{
-				int STEAM = (int) Math.min((te.getSteamFullness()*1000) / (1000/26), 26);
+            ResourceName steam = this.texture.addSuffix(".full." + innerCoord.getX() + "." + innerCoord.getY());
+            if (te.getSteamFullness() > 0 && innerCoord.getY() != 0 && innerCoord.getY() != 4) {
+                int STEAM = (int) Math.min((te.getSteamFullness() * 1000) / (1000 / 26), 26);
 
-				boolean render = false;
+                boolean render = false;
 
-				float pixel = ((float) scale / 12f);
+                float pixel = ((float) scale / 12f);
 
-				float x1 = renderX;
-				float x2 = renderX + scale;
+                float x1 = renderX;
+                float x2 = renderX + scale;
 
-				float y1 = renderY;
-				float y2 = renderY + scale;
+                float y1 = renderY;
+                float y2 = renderY + scale;
 
-				float srcX = 0f;
-				float srcX2 = 12f;
+                float srcX = 0f;
+                float srcX2 = 12f;
 
-				float srcY = 0f;
-				float srcY2 = 12f;
+                float srcY = 0f;
+                float srcY2 = 12f;
 
-				if (innerCoord.getX() == 0)
-				{
-					x1 = renderX + pixel * 11f;
-					srcX = 11f;
-				} else if (innerCoord.getX() == 1)
-				{
-					x2 = renderX + pixel * 5;
-					srcX2 = 5f;
-				}
+                if (innerCoord.getX() == 0) {
+                    x1 = renderX + pixel * 11f;
+                    srcX = 11f;
+                } else if (innerCoord.getX() == 1) {
+                    x2 = renderX + pixel * 5;
+                    srcX2 = 5f;
+                }
 
-				int localSteam = STEAM;
-				float yMax = 12;
-				if (innerCoord.getY() == 1)
-				{
-					localSteam = (int) Math.min(7, STEAM);
-					yMax = 7;
-					render = true;
-				} else if (innerCoord.getY() == 2 && STEAM > 7)
-				{
-					localSteam = (int) Math.min(19, STEAM);
-					localSteam -= 7;
-					render = true;
-				} else if (innerCoord.getY() == 3 && STEAM > 19)
-				{
-					localSteam = STEAM - 19;
-					render = true;
-				}
+                int localSteam = STEAM;
+                float yMax = 12;
+                if (innerCoord.getY() == 1) {
+                    localSteam = (int) Math.min(7, STEAM);
+                    yMax = 7;
+                    render = true;
+                } else if (innerCoord.getY() == 2 && STEAM > 7) {
+                    localSteam = (int) Math.min(19, STEAM);
+                    localSteam -= 7;
+                    render = true;
+                } else if (innerCoord.getY() == 3 && STEAM > 19) {
+                    localSteam = STEAM - 19;
+                    render = true;
+                }
 
-				if (render)
-				{
-					y1 = renderY + pixel * (yMax - localSteam);
-					y2 = y1 + pixel * localSteam;
+                if (render) {
+                    y1 = renderY + pixel * (yMax - localSteam);
+                    y2 = y1 + pixel * localSteam;
 
-					srcY = yMax - localSteam;
-					srcY2 = srcY + localSteam;
+                    srcY = yMax - localSteam;
+                    srcY2 = srcY + localSteam;
 
-					manager.getTexture(steam).getPositionalVariation(x, y).draw(x1, y1, x2, y2, srcX, srcY, srcX2,
-							srcY2, light);
-				}
-			}
-		}
-	}
+                    manager.getTexture(steam).getPositionalVariation(x, y).draw(x1, y1, x2, y2, srcX, srcY, srcX2,
+                            srcY2, light);
+                }
+            }
+        }
+    }
 
-	private ResourceName getTextureFor(Pos2 coord, boolean active)
-	{
-		ResourceName tex = baseTextures.get(coord);
+    private ResourceName getTextureFor(Pos2 coord, boolean active) {
+        ResourceName tex = baseTextures.get(coord);
 
-		if (active && coord.getY() == 0)
-		{
-			tex = this.texture.addSuffix(".active." + coord.getX() + "." + coord.getY());
-		}
+        if (active && coord.getY() == 0) {
+            tex = this.texture.addSuffix(".active." + coord.getX() + "." + coord.getY());
+        }
 
-		return tex;
-	}
+        return tex;
+    }
 
 }

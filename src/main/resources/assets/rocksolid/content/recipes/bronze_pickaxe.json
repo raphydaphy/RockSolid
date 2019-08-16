@@ -1,19 +1,20 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rocksolid/pickaxe.bronze"
-	}
+    {
+      "name": "rocksolid/pickaxe.bronze"
+    }
   ],
   "inputs": [
-	{
-	  "name": "bronze_processed",
-	  "amount": 16
-	},
-	{
-	  "name": "stick",
-	  "amount": 8
-	}
+    {
+      "name": "bronze_processed",
+      "amount": 16
+    },
+    {
+      "name": "stick",
+      "amount": 8
+    }
   ],
   "skill": 0.05
 }

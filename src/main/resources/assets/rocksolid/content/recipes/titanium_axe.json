@@ -1,19 +1,20 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rocksolid/axe.titanium"
-	}
+    {
+      "name": "rocksolid/axe.titanium"
+    }
   ],
   "inputs": [
-	{
-	  "name": "titanium_processed",
-	  "amount": 12
-	},
-	{
-	  "name": "stick",
-	  "amount": 8
-	}
+    {
+      "name": "titanium_processed",
+      "amount": 12
+    },
+    {
+      "name": "stick",
+      "amount": 8
+    }
   ],
   "skill": 0.05
 }

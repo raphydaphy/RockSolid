@@ -15,52 +15,44 @@ import io.netty.channel.ChannelHandlerContext;
 
 import java.util.UUID;
 
-public class PacketAssemblyConstruct implements IPacket
-{
-	private UUID playerUUID;
-	private ResourceName recipeName;
-	private int amount;
+public class PacketAssemblyConstruct implements IPacket {
+    private UUID playerUUID;
+    private ResourceName recipeName;
+    private int amount;
 
-	public PacketAssemblyConstruct(UUID player, ResourceName recipeName, int recipeAmount)
-	{
-		this.playerUUID = player;
-		this.recipeName = recipeName;
-		this.amount = recipeAmount;
-	}
+    public PacketAssemblyConstruct(UUID player, ResourceName recipeName, int recipeAmount) {
+        this.playerUUID = player;
+        this.recipeName = recipeName;
+        this.amount = recipeAmount;
+    }
 
-	public PacketAssemblyConstruct()
-	{
-	}
+    public PacketAssemblyConstruct() {
+    }
 
-	public void toBuffer(ByteBuf buf)
-	{
-		buf.writeLong(this.playerUUID.getMostSignificantBits());
-		buf.writeLong(this.playerUUID.getLeastSignificantBits());
-		NetUtil.writeStringToBuffer(this.recipeName.toString(), buf);
-		buf.writeInt(this.amount);
-	}
+    public void toBuffer(ByteBuf buf) {
+        buf.writeLong(this.playerUUID.getMostSignificantBits());
+        buf.writeLong(this.playerUUID.getLeastSignificantBits());
+        NetUtil.writeStringToBuffer(this.recipeName.toString(), buf);
+        buf.writeInt(this.amount);
+    }
 
-	public void fromBuffer(ByteBuf buf)
-	{
-		this.playerUUID = new UUID(buf.readLong(), buf.readLong());
-		this.recipeName = new ResourceName(NetUtil.readStringFromBuffer(buf));
-		this.amount = buf.readInt();
-	}
+    public void fromBuffer(ByteBuf buf) {
+        this.playerUUID = new UUID(buf.readLong(), buf.readLong());
+        this.recipeName = new ResourceName(NetUtil.readStringFromBuffer(buf));
+        this.amount = buf.readInt();
+    }
 
-	public void handle(IGameInstance game, ChannelHandlerContext ctx)
-	{
-		AbstractEntityPlayer abstractPlayer;
-		AssemblyRecipe recipe;
-		IWorld world = game.getWorld();
-		if (world != null && (abstractPlayer = world.getPlayer(this.playerUUID)) != null && (recipe = ModRecipes.ASSEMBLY_STATION_RECIPES.get(this.recipeName)) != null && recipe.isKnown(abstractPlayer))
-		{
-			ItemContainer container = abstractPlayer.getContainer();
-			if (container instanceof ContainerAssemblyStation)
-			{
-				recipe.playerConstruct(abstractPlayer, ((ContainerAssemblyStation) container).te, this.amount);
-			}
-		}
+    public void handle(IGameInstance game, ChannelHandlerContext ctx) {
+        AbstractEntityPlayer abstractPlayer;
+        AssemblyRecipe recipe;
+        IWorld world = game.getWorld();
+        if (world != null && (abstractPlayer = world.getPlayer(this.playerUUID)) != null && (recipe = ModRecipes.ASSEMBLY_STATION_RECIPES.get(this.recipeName)) != null && recipe.isKnown(abstractPlayer)) {
+            ItemContainer container = abstractPlayer.getContainer();
+            if (container instanceof ContainerAssemblyStation) {
+                recipe.playerConstruct(abstractPlayer, ((ContainerAssemblyStation) container).te, this.amount);
+            }
+        }
 
-	}
+    }
 }
 

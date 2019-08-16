@@ -28,207 +28,171 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class TileConduit extends TileBase
-{
-	
-	public TileConduit(String name)
-	{
-		super(name, 5f, new ToolInfo(ToolProperty.PICKAXE, 2));
-	}
+public abstract class TileConduit extends TileBase {
 
-	@Override
-	public boolean canPlace(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player)
-	{
-		return layer.equals(ModMisc.CONDUIT_LAYER);
-	}
+    public static final Map<Direction, BoundBox> subBoxes = new HashMap<>();
 
-	@Override
-	public boolean canPlaceInLayer(TileLayer layer)
-	{
-		return layer.equals(ModMisc.CONDUIT_LAYER);
-	}
+    static {
+        double pixel = 1d / 12d;
+        subBoxes.put(Direction.UP, new BoundBox(4 * pixel, 8 * pixel, 8 * pixel, 1));
+        subBoxes.put(Direction.DOWN, new BoundBox(4 * pixel, 0, 8 * pixel, 4 * pixel));
+        subBoxes.put(Direction.LEFT, new BoundBox(0, 4 * pixel, 4 * pixel, 8 * pixel));
+        subBoxes.put(Direction.RIGHT, new BoundBox(8 * pixel, 4 * pixel, 1, 8 * pixel));
+        subBoxes.put(Direction.NONE, new BoundBox(4 * pixel, 4 * pixel, 8 * pixel, 8 * pixel));
+    }
 
-	@Override
-	public boolean isFullTile()
-	{
-		return false;
-	}
+    public TileConduit(String name) {
+        super(name, 5f, new ToolInfo(ToolProperty.PICKAXE, 2));
+    }
 
-	@Override
-	public void onDestroyed(IWorld world, int x, int y, Entity destroyer, TileLayer layer, boolean shouldDrop)
-	{
-		if (destroyer == null)
-		{
-			shouldDrop = true;
-		}
-		super.onDestroyed(world, x, y, destroyer, layer, shouldDrop);
-	}
+    @Nullable
+    public static Direction getMousedConduitPart(IGameInstance game, IWorld world) {
+        double tileX = game.getRenderer().getMousedTileX();
+        double tileY = game.getRenderer().getMousedTileY();
 
-	@Override
-	protected ITileRenderer<TileConduit> createRenderer(ResourceName name)
-	{
-		return new ConduitRenderer<>(name);
-	}
+        int tileXInt = (int) Math.floor(tileX);
+        int tileYInt = (int) Math.floor(tileY);
 
-	@Override
-	public void doPlace(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer)
-	{
-		if (!world.isClient())
-		{
-			super.doPlace(world, x, y, layer, instance, placer);
-			TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
-			if (te != null)
-			{
-				te.doPlace(world, x, y, layer, instance, placer);
-			}
-		}
-	}
+        TileState state = world.getState(ModMisc.CONDUIT_LAYER, tileXInt, tileYInt);
 
-	@Override
-	public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
-			TileLayer changedLayer)
-	{
-		super.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
+        if (state != null && state.getTile() instanceof TileConduit) {
+            for (Map.Entry<Direction, BoundBox> entry : getConduitBounds(world, tileXInt, tileYInt).entrySet()) {
+                if (entry.getValue().add(tileXInt, tileYInt).contains(tileX, tileY)) {
+                    return entry.getKey();
+                }
+            }
+        }
+        return null;
+    }
 
-		TileEntity te = world.getTileEntity(layer, x, y);
-		if (te != null && te instanceof TileEntityConduit)
-		{
-			((TileEntityConduit) te).onChangedAround(world, x, y, layer, changedX, changedY, changedLayer);
-		}
-	}
+    public static Map<Direction, BoundBox> getConduitBounds(IWorld world, int x, int y) {
+        Map<Direction, BoundBox> boxes = new HashMap<>();
 
-	@Override
-	public void onRemoved(IWorld world, int x, int y, TileLayer layer)
-	{
-		super.onRemoved(world, x, y, layer);
+        boxes.put(Direction.NONE, subBoxes.get(Direction.NONE).copy());
 
-		TileEntity te = world.getTileEntity(layer, x, y);
-		if (te != null && te instanceof TileEntityConduit)
-		{
-			((TileEntityConduit) te).onRemoved(world, x, y, layer);
-		}
-	}
+        TileState state = world.getState(ModMisc.CONDUIT_LAYER, x, y);
 
-	@Override
-	protected ItemTile createItemTile()
-	{
-		return new ItemTile(this.getName())
-		{
-			@Override
-			public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
-					AbstractEntityPlayer player, ItemInstance instance)
-			{
-				if (world.getState(x, y).getTile().canProvideTileEntity())
-				{
-					return false;
-				}
-				return ModUtils.placeInCustomLayer(world, x, y, player, instance, getTile(), ModMisc.CONDUIT_LAYER);
-			}
-		};
-	}
+        for (Direction dir : Direction.ADJACENT) {
+            if (((TileConduit) state.getTile()).canConnect(world, new Pos2(x + dir.x, y + dir.y),
+                    world.getState(ModMisc.CONDUIT_LAYER, x + dir.x, y + dir.y), world.getState(x + dir.x, y + dir.y))) {
+                if (subBoxes.containsKey(dir)) {
+                    boxes.put(dir, subBoxes.get(dir).copy());
+                }
+            }
+        }
+        return boxes;
+    }
 
-	@Override
-	public boolean canProvideTileEntity()
-	{
-		return true;
-	}
+    @Override
+    public boolean canPlace(IWorld world, int x, int y, TileLayer layer, AbstractEntityPlayer player) {
+        return layer.equals(ModMisc.CONDUIT_LAYER);
+    }
 
-	@Override
-	public boolean canStay(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
-			TileLayer changedLayer)
-	{
-		if (changedLayer.equals(TileLayer.MAIN))
-		{
-			return !world.getState(x, y).getTile().canProvideTileEntity();
-		}
-		return true;
-	}
+    @Override
+    public boolean canPlaceInLayer(TileLayer layer) {
+        return layer.equals(ModMisc.CONDUIT_LAYER);
+    }
 
-	public boolean canConnect(IWorld world, Pos2 pos, @Nullable TileState conduitLayer, @Nullable TileState mainLayer)
-	{
-		if (conduitLayer != null && conduitLayer.getTile().equals(this))
-			return true;
+    @Override
+    public boolean isFullTile() {
+        return false;
+    }
 
-		if (mainLayer != null)
-		{
-			Tile tile = mainLayer.getTile();
-			if (!tile.isAir())
-			{
+    @Override
+    public void onDestroyed(IWorld world, int x, int y, Entity destroyer, TileLayer layer, boolean shouldDrop) {
+        if (destroyer == null) {
+            shouldDrop = true;
+        }
+        super.onDestroyed(world, x, y, destroyer, layer, shouldDrop);
+    }
 
-				TileEntity te = null;
-				if (tile instanceof MultiTile)
-				{
-					Pos2 main = ((MultiTile) tile).getMainPos(pos.getX(), pos.getY(), mainLayer);
+    @Override
+    protected ITileRenderer<TileConduit> createRenderer(ResourceName name) {
+        return new ConduitRenderer<>(name);
+    }
 
-					te = world.getTileEntity(main.getX(), main.getY());
-				} else
-				{
-					te = world.getTileEntity(pos.getX(), pos.getY());
-				}
-				return canConnectAbstract(world, te, pos, mainLayer);
-			}
-		}
-		return false;
-	}
+    @Override
+    public void doPlace(IWorld world, int x, int y, TileLayer layer, ItemInstance instance, AbstractEntityPlayer placer) {
+        if (!world.isClient()) {
+            super.doPlace(world, x, y, layer, instance, placer);
+            TileEntityConduit te = world.getTileEntity(layer, x, y, TileEntityConduit.class);
+            if (te != null) {
+                te.doPlace(world, x, y, layer, instance, placer);
+            }
+        }
+    }
 
-	public abstract boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state);
+    @Override
+    public void onChangeAround(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
+                               TileLayer changedLayer) {
+        super.onChangeAround(world, x, y, layer, changedX, changedY, changedLayer);
 
-	public static final Map<Direction, BoundBox> subBoxes = new HashMap<>();
+        TileEntity te = world.getTileEntity(layer, x, y);
+        if (te != null && te instanceof TileEntityConduit) {
+            ((TileEntityConduit) te).onChangedAround(world, x, y, layer, changedX, changedY, changedLayer);
+        }
+    }
 
-	static
-	{
-		double pixel = 1d / 12d;
-		subBoxes.put(Direction.UP, new BoundBox(4 * pixel, 8 * pixel, 8 * pixel, 1));
-		subBoxes.put(Direction.DOWN, new BoundBox(4 * pixel, 0, 8 * pixel, 4 * pixel));
-		subBoxes.put(Direction.LEFT, new BoundBox(0, 4 * pixel, 4 * pixel, 8 * pixel));
-		subBoxes.put(Direction.RIGHT, new BoundBox(8 * pixel, 4 * pixel, 1, 8 * pixel));
-		subBoxes.put(Direction.NONE, new BoundBox(4 * pixel, 4 * pixel, 8 * pixel, 8 * pixel));
-	}
+    @Override
+    public void onRemoved(IWorld world, int x, int y, TileLayer layer) {
+        super.onRemoved(world, x, y, layer);
 
-	@Nullable
-	public static Direction getMousedConduitPart(IGameInstance game, IWorld world)
-	{
-		double tileX = game.getRenderer().getMousedTileX();
-		double tileY = game.getRenderer().getMousedTileY();
+        TileEntity te = world.getTileEntity(layer, x, y);
+        if (te != null && te instanceof TileEntityConduit) {
+            ((TileEntityConduit) te).onRemoved(world, x, y, layer);
+        }
+    }
 
-		int tileXInt = (int) Math.floor(tileX);
-		int tileYInt = (int) Math.floor(tileY);
+    @Override
+    protected ItemTile createItemTile() {
+        return new ItemTile(this.getName()) {
+            @Override
+            public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+                                          AbstractEntityPlayer player, ItemInstance instance) {
+                if (world.getState(x, y).getTile().canProvideTileEntity()) {
+                    return false;
+                }
+                return ModUtils.placeInCustomLayer(world, x, y, player, instance, getTile(), ModMisc.CONDUIT_LAYER);
+            }
+        };
+    }
 
-		TileState state = world.getState(ModMisc.CONDUIT_LAYER, tileXInt, tileYInt);
+    @Override
+    public boolean canProvideTileEntity() {
+        return true;
+    }
 
-		if (state != null && state.getTile() instanceof TileConduit)
-		{
-			for (Map.Entry<Direction, BoundBox> entry : getConduitBounds(world, tileXInt, tileYInt).entrySet())
-			{
-				if (entry.getValue().add(tileXInt, tileYInt).contains(tileX, tileY))
-				{
-					return entry.getKey();
-				}
-			}
-		}
-		return null;
-	}
-	
-	public static Map<Direction, BoundBox> getConduitBounds(IWorld world, int x, int y)
-	{
-		Map<Direction, BoundBox> boxes = new HashMap<>();
+    @Override
+    public boolean canStay(IWorld world, int x, int y, TileLayer layer, int changedX, int changedY,
+                           TileLayer changedLayer) {
+        if (changedLayer.equals(TileLayer.MAIN)) {
+            return !world.getState(x, y).getTile().canProvideTileEntity();
+        }
+        return true;
+    }
 
-		boxes.put(Direction.NONE, subBoxes.get(Direction.NONE).copy());
+    public boolean canConnect(IWorld world, Pos2 pos, @Nullable TileState conduitLayer, @Nullable TileState mainLayer) {
+        if (conduitLayer != null && conduitLayer.getTile().equals(this))
+            return true;
 
-		TileState state = world.getState(ModMisc.CONDUIT_LAYER, x, y);
+        if (mainLayer != null) {
+            Tile tile = mainLayer.getTile();
+            if (!tile.isAir()) {
 
-		for (Direction dir : Direction.ADJACENT)
-		{
-			if (((TileConduit) state.getTile()).canConnect(world, new Pos2(x + dir.x, y + dir.y),
-					world.getState(ModMisc.CONDUIT_LAYER, x + dir.x, y + dir.y), world.getState(x + dir.x, y + dir.y)))
-			{
-				if (subBoxes.containsKey(dir))
-				{
-					boxes.put(dir, subBoxes.get(dir).copy());
-				}
-			}
-		}
-		return boxes;
-	}
+                TileEntity te = null;
+                if (tile instanceof MultiTile) {
+                    Pos2 main = ((MultiTile) tile).getMainPos(pos.getX(), pos.getY(), mainLayer);
+
+                    te = world.getTileEntity(main.getX(), main.getY());
+                } else {
+                    te = world.getTileEntity(pos.getX(), pos.getY());
+                }
+                return canConnectAbstract(world, te, pos, mainLayer);
+            }
+        }
+        return false;
+    }
+
+    public abstract boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state);
 
 }

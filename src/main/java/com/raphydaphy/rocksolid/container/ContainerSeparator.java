@@ -9,24 +9,21 @@ import de.ellpeck.rockbottom.api.gui.container.RestrictedInputSlot;
 import de.ellpeck.rockbottom.api.tile.entity.IFilteredInventory;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 
-public class ContainerSeparator extends ItemContainer
-{
+public class ContainerSeparator extends ItemContainer {
 
-	public ContainerSeparator(AbstractEntityPlayer player, TileEntitySeparator tile)
-	{
-		super(player);
-		this.addPlayerInventory(player, 0, 50);
-		IFilteredInventory inv = tile.getTileInventory();
-		this.addSlot(new RestrictedInputSlot(inv, 0, 51, 20));
-		this.addSlot(new RestrictedInputSlot(inv, 1, 17, 0));
-		this.addSlot(new OutputSlot(inv, 2, 85, 0));
-		this.addSlot(new OutputSlot(inv, 3, 102, 0));
-	}
+    public ContainerSeparator(AbstractEntityPlayer player, TileEntitySeparator tile) {
+        super(player);
+        this.addPlayerInventory(player, 0, 50);
+        IFilteredInventory inv = tile.getTileInventory();
+        this.addSlot(new RestrictedInputSlot(inv, 0, 51, 20));
+        this.addSlot(new RestrictedInputSlot(inv, 1, 17, 0));
+        this.addSlot(new OutputSlot(inv, 2, 85, 0));
+        this.addSlot(new OutputSlot(inv, 3, 102, 0));
+    }
 
-	@Override
-	public ResourceName getName()
-	{
-		return RockSolid.createRes("container_separator");
-	}
+    @Override
+    public ResourceName getName() {
+        return RockSolid.createRes("container_separator");
+    }
 
 }

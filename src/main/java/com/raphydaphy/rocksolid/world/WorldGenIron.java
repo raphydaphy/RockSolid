@@ -9,36 +9,35 @@ import de.ellpeck.rockbottom.api.world.gen.biome.Biome;
 import java.util.Collections;
 import java.util.Set;
 
-public class WorldGenIron extends WorldGenOre
-{
-	public WorldGenIron() {
-	}
+public class WorldGenIron extends WorldGenOre {
+    public WorldGenIron() {
+    }
 
-	protected int getHighestGridPos() {
-		return -3;
-	}
+    protected int getHighestGridPos() {
+        return -3;
+    }
 
-	protected int getMaxAmount() {
-		return 4;
-	}
+    protected int getMaxAmount() {
+        return 4;
+    }
 
-	protected int getClusterRadiusX() {
-		return 3;
-	}
+    protected int getClusterRadiusX() {
+        return 3;
+    }
 
-	protected int getClusterRadiusY() {
-		return 3;
-	}
+    protected int getClusterRadiusY() {
+        return 3;
+    }
 
-	protected TileState getOreState() {
-		return ModTiles.IRON_ORE.getDefState();
-	}
+    protected TileState getOreState() {
+        return ModTiles.IRON_ORE.getDefState();
+    }
 
-	public int getPriority() {
-		return 0;
-	}
+    public int getPriority() {
+        return 0;
+    }
 
-	protected Set<Biome> getAllowedBiomes() {
-		return Collections.singleton(GameContent.BIOME_UNDERGROUND);
-	}
+    protected Set<Biome> getAllowedBiomes() {
+        return Collections.singleton(GameContent.BIOME_UNDERGROUND);
+    }
 }

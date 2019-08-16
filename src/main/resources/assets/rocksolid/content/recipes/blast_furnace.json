@@ -1,5 +1,6 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
     {
       "name": "rocksolid/blast_furnace"
@@ -8,7 +9,7 @@
   "inputs": [
     {
       "name": "stone",
-	  "amount": 50
+      "amount": 50
     },
     {
       "name": "bronze_processed",

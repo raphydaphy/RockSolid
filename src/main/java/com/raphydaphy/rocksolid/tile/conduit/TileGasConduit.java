@@ -11,31 +11,26 @@ import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
 import java.util.List;
 
-public class TileGasConduit extends TileConduit
-{
+public class TileGasConduit extends TileConduit {
 
-	public TileGasConduit()
-	{
-		super("gas_conduit");
-	}
+    public TileGasConduit() {
+        super("gas_conduit");
+    }
 
 
-	@Override
-	public boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state)
-	{
-		if (te != null && te instanceof IGasTile)
-		{
-			List<Gas> gasses = ((IGasTile<?>) te).getGasAt(world, pos);
+    @Override
+    public boolean canConnectAbstract(IWorld world, TileEntity te, Pos2 pos, TileState state) {
+        if (te != null && te instanceof IGasTile) {
+            List<Gas> gasses = ((IGasTile<?>) te).getGasAt(world, pos);
 
-			return gasses != null && gasses.size() > 0;
-		}
-		return false;
-	}
+            return gasses != null && gasses.size() > 0;
+        }
+        return false;
+    }
 
-	@Override
-	public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer)
-	{
-		return new TileEntityGasConduit(world, x, y, layer);
-	}
+    @Override
+    public TileEntity provideTileEntity(IWorld world, int x, int y, TileLayer layer) {
+        return new TileEntityGasConduit(world, x, y, layer);
+    }
 
 }

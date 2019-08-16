@@ -17,72 +17,60 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileBoiler extends TileMachineBase<TileEntityBoiler>
-{
-	public TileBoiler()
-	{
-		super("boiler", TileEntityBoiler.class,20f,true, new ToolInfo(ToolProperty.PICKAXE, 6));
-	}
+public class TileBoiler extends TileMachineBase<TileEntityBoiler> {
+    public TileBoiler() {
+        super("boiler", TileEntityBoiler.class, 20f, true, new ToolInfo(ToolProperty.PICKAXE, 6));
+    }
 
-	@Override
-	protected ITileRenderer<TileBoiler> createRenderer(ResourceName name)
-	{
-		return new BoilerRenderer(name, this);
-	}
+    @Override
+    protected ITileRenderer<TileBoiler> createRenderer(ResourceName name) {
+        return new BoilerRenderer(name, this);
+    }
 
-	@Override
-	public int getWidth()
-	{
-		return 2;
-	}
+    @Override
+    public int getWidth() {
+        return 2;
+    }
 
-	@Override
-	public int getHeight()
-	{
-		return 5;
-	}
+    @Override
+    public int getHeight() {
+        return 5;
+    }
 
-	@Override
-	protected boolean[][] makeStructure()
-	{
-		return super.autoStructure(2,5);
-	}
+    @Override
+    protected boolean[][] makeStructure() {
+        return super.autoStructure(2, 5);
+    }
 
-	public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
-			AbstractEntityPlayer player)
-	{
-		TileEntityBoiler te = getTE(world, world.getState(x, y),x, y);
-		player.openGuiContainer(new GuiBoiler(player, te), new ContainerBoiler(player, te));
-		return true;
-	}
+    public boolean onInteractWith(IWorld world, int x, int y, TileLayer layer, double mouseX, double mouseY,
+                                  AbstractEntityPlayer player) {
+        TileEntityBoiler te = getTE(world, world.getState(x, y), x, y);
+        player.openGuiContainer(new GuiBoiler(player, te), new ContainerBoiler(player, te));
+        return true;
+    }
 
-	@Override
-	public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer)
-	{
-		return new TileEntityBoiler(world, x, y, layer);
-	}
+    @Override
+    public TileEntity makeTE(IWorld world, int x, int y, TileLayer layer) {
+        return new TileEntityBoiler(world, x, y, layer);
+    }
 
-	@Override
-	public void updateRandomlyInPlayerView(IWorld world, int x, int y, TileLayer layer, TileState state, IParticleManager manager)
-	{
-		Pos2 innerCoord = this.getInnerCoord(state);
+    @Override
+    public void updateRandomlyInPlayerView(IWorld world, int x, int y, TileLayer layer, TileState state, IParticleManager manager) {
+        Pos2 innerCoord = this.getInnerCoord(state);
 
-		if (innerCoord.getY() == 4)
-		{
-			ModUtils.smokeParticle(world, x, y, manager, getTE(world, world.getState(x, y), x, y));
-		}
-	}
+        if (innerCoord.getY() == 4) {
+            ModUtils.smokeParticle(world, x, y, manager, getTE(world, world.getState(x, y), x, y));
+        }
+    }
 
-	@Override
-	public int getLight(IWorld world, int x, int y, TileLayer layer)
-	{
-		TileState state = world.getState(x, y);
-		TileEntityBoiler te = getTE(world, state, x, y);
-		if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive())
-		{
-			return 30;
-		}
-		return 0;
-	}
+    @Override
+    public int getLight(IWorld world, int x, int y, TileLayer layer) {
+        TileState state = world.getState(x, y);
+        TileEntityBoiler te = getTE(world, state, x, y);
+        if (this.getInnerCoord(state).getY() == 0 && te != null && te.isActive()) {
+            return 30;
+        }
+        return 0;
+    }
 
 }

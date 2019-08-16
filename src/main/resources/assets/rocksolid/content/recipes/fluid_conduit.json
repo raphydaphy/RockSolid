@@ -1,20 +1,21 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rocksolid/fluid_conduit",
-	  "amount": 8
-	}
+    {
+      "name": "rocksolid/fluid_conduit",
+      "amount": 8
+    }
   ],
   "inputs": [
-	{
-	  "name": "stone",
-	  "amount": 20
-	},
-	{
-	  "name": "tin_processed",
-	  "amount": 7
-	}
+    {
+      "name": "stone",
+      "amount": 20
+    },
+    {
+      "name": "tin_processed",
+      "amount": 7
+    }
   ],
   "skill": 0.2
 }

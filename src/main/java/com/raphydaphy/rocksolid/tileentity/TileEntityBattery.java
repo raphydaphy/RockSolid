@@ -8,104 +8,86 @@ import de.ellpeck.rockbottom.api.util.Pos2;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class TileEntityBattery extends TileEntityAssemblyConfigurable implements IEnergyTile
-{
-	private SyncedInt energyStored = new SyncedInt("energy_stored");
+public class TileEntityBattery extends TileEntityAssemblyConfigurable implements IEnergyTile {
+    private SyncedInt energyStored = new SyncedInt("energy_stored");
 
-	public TileEntityBattery(IWorld world, int x, int y, TileLayer layer)
-	{
-		super(world, x, y, layer);
-	}
+    public TileEntityBattery(IWorld world, int x, int y, TileLayer layer) {
+        super(world, x, y, layer);
+    }
 
-	@Override
-	public void save(DataSet set, boolean forSync)
-	{
-		super.save(set, forSync);
-		energyStored.save(set);
-	}
+    public static int energyCapacityStatic(float capacityModifier) {
+        return (int) (25000 * capacityModifier);
+    }
 
-	@Override
-	public void load(DataSet set, boolean forSync)
-	{
-		super.load(set, forSync);
-		energyStored.load(set);
-	}
+    @Override
+    public void save(DataSet set, boolean forSync) {
+        super.save(set, forSync);
+        energyStored.save(set);
+    }
 
-	@Override
-	protected boolean needsSync()
-	{
-		return this.energyStored.needsSync();
-	}
+    @Override
+    public void load(DataSet set, boolean forSync) {
+        super.load(set, forSync);
+        energyStored.load(set);
+    }
 
-	@Override
-	public void onSync()
-	{
-		super.onSync();
-		energyStored.onSync();
-	}
+    @Override
+    protected boolean needsSync() {
+        return this.energyStored.needsSync();
+    }
 
-	@Override
-	public boolean addEnergy(Pos2 pos, int joules, boolean simulate)
-	{
-		if (joules + energyStored.get() <= getEnergyCapacity(world, pos))
-		{
-			if (!simulate)
-			{
-				this.energyStored.add(joules);
-				world.setDirty(x, y);
-			}
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public void onSync() {
+        super.onSync();
+        energyStored.onSync();
+    }
 
-	@Override
-	public boolean removeEnergy(Pos2 pos, int joules, boolean simulate)
-	{
-		if (energyStored.get() - joules > 0)
-		{
-			if (!simulate)
-			{
-				this.energyStored.remove(joules);
-				world.setDirty(x, y);
-			}
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean addEnergy(Pos2 pos, int joules, boolean simulate) {
+        if (joules + energyStored.get() <= getEnergyCapacity(world, pos)) {
+            if (!simulate) {
+                this.energyStored.add(joules);
+                world.setDirty(x, y);
+            }
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public int getEnergyCapacity(IWorld world, Pos2 pos)
-	{
-		return energyCapacityStatic(getCapacityModifier());
-	}
+    @Override
+    public boolean removeEnergy(Pos2 pos, int joules, boolean simulate) {
+        if (energyStored.get() - joules > 0) {
+            if (!simulate) {
+                this.energyStored.remove(joules);
+                world.setDirty(x, y);
+            }
+            return true;
+        }
+        return false;
+    }
 
-	public static int energyCapacityStatic(float capacityModifier)
-	{
-		return (int)(25000 * capacityModifier);
-	}
+    @Override
+    public int getEnergyCapacity(IWorld world, Pos2 pos) {
+        return energyCapacityStatic(getCapacityModifier());
+    }
 
-	@Override
-	public int getMaxTransfer()
-	{
-		return (int)(150 * getThroughputModifier());
-	}
+    @Override
+    public int getMaxTransfer() {
+        return (int) (150 * getThroughputModifier());
+    }
 
-	@Override
-	public int getEnergyStored()
-	{
-		return this.energyStored.get();
-	}
+    @Override
+    public int getEnergyStored() {
+        return this.energyStored.get();
+    }
 
-	public float getEnergyFullness()
-	{
-		int capacity = getEnergyCapacity(world, null);
-		return capacity > 0 ? (float) this.energyStored.get() / (float) capacity : 0.0F;
-	}
+    public float getEnergyFullness() {
+        int capacity = getEnergyCapacity(world, null);
+        return capacity > 0 ? (float) this.energyStored.get() / (float) capacity : 0.0F;
+    }
 
-	@Override
-	public boolean doesTick()
-	{
-		return true;
-	}
+    @Override
+    public boolean doesTick() {
+        return true;
+    }
 }

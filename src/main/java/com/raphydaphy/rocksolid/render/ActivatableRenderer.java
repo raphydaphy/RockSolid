@@ -13,30 +13,25 @@ import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 import de.ellpeck.rockbottom.api.world.layer.TileLayer;
 
-public class ActivatableRenderer extends MultiTileRenderer<MultiTile>
-{
-	public ActivatableRenderer(ResourceName texture, MultiTile tile)
-	{
-		super(texture, tile);
-	}
+public class ActivatableRenderer extends MultiTileRenderer<MultiTile> {
+    public ActivatableRenderer(ResourceName texture, MultiTile tile) {
+        super(texture, tile);
+    }
 
-	@Override
-	public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, MultiTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light)
-	{
-		Pos2 innerCoord = tile.getInnerCoord(state);
+    @Override
+    public void render(IGameInstance game, IAssetManager manager, IRenderer g, IWorld world, MultiTile tile, TileState state, int x, int y, TileLayer layer, float renderX, float renderY, float scale, int[] light) {
+        Pos2 innerCoord = tile.getInnerCoord(state);
 
-		Pos2 main = tile.getMainPos(x, y, state);
-		TileEntity te = world.getTileEntity(main.getX(), main.getY(), TileEntity.class);
+        Pos2 main = tile.getMainPos(x, y, state);
+        TileEntity te = world.getTileEntity(main.getX(), main.getY(), TileEntity.class);
 
-		if (te instanceof IActivatable)
-		{
-			ResourceName tex = this.textures.get(innerCoord);
-			if (((IActivatable)te).isActive())
-			{
-				tex = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
-			}
-			manager.getTexture(tex).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
-		}
-	}
+        if (te instanceof IActivatable) {
+            ResourceName tex = this.textures.get(innerCoord);
+            if (((IActivatable) te).isActive()) {
+                tex = this.texture.addSuffix(".active." + innerCoord.getX() + "." + innerCoord.getY());
+            }
+            manager.getTexture(tex).getPositionalVariation(x, y).draw(renderX, renderY, scale, scale, light);
+        }
+    }
 
 }

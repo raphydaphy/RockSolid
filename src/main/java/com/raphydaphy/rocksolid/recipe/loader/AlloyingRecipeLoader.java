@@ -22,77 +22,65 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AlloyingRecipeLoader implements IContentLoader
-{
-	public static final ResourceName ID = RockSolid.createRes("alloying");
-	private final Set<ResourceName> disabled = new HashSet<>();
+public class AlloyingRecipeLoader implements IContentLoader {
+    public static final ResourceName ID = RockSolid.createRes("alloying");
+    private final Set<ResourceName> disabled = new HashSet<>();
 
-	public AlloyingRecipeLoader()
-	{
-	}
+    public AlloyingRecipeLoader() {
+    }
 
-	@Override
-	public ResourceName getContentIdentifier()
-	{
-		return ID;
-	}
+    @Override
+    public ResourceName getContentIdentifier() {
+        return ID;
+    }
 
-	@Override
-	public void loadContent(IGameInstance game, ResourceName resourceName, String path, JsonElement element, String elementName, IMod loadingMod, ContentPack pack) throws Exception
-	{
-		if (!this.disabled.contains(resourceName))
-		{
-			if (AlloyingRecipe.REGISTRY.get(resourceName) != null)
-			{
-				RockSolid.getLogger().info("Alloying recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
-			} else
-			{
-				String fileName = path + element.getAsString();
-				InputStreamReader fileReader = new InputStreamReader(game.getClassLoader().getResourceAsStream(fileName), Charsets.UTF_8);
-				JsonElement fileParser = Util.JSON_PARSER.parse(fileReader);
-				fileReader.close();
-				JsonObject curObject;
+    @Override
+    public void loadContent(IGameInstance game, ResourceName resourceName, String path, JsonElement element, String elementName, IMod loadingMod, ContentPack pack) throws Exception {
+        if (!this.disabled.contains(resourceName)) {
+            if (AlloyingRecipe.REGISTRY.get(resourceName) != null) {
+                RockSolid.getLogger().info("Alloying recipe with name " + resourceName + " already exists, not adding recipe for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName());
+            } else {
+                String fileName = path + element.getAsString();
+                InputStreamReader fileReader = new InputStreamReader(game.getClassLoader().getResourceAsStream(fileName), Charsets.UTF_8);
+                JsonElement fileParser = Util.JSON_PARSER.parse(fileReader);
+                fileReader.close();
+                JsonObject curObject;
 
-				int recipeTime = (curObject = fileParser.getAsJsonObject()).get("time").getAsInt();
+                int recipeTime = (curObject = fileParser.getAsJsonObject()).get("time").getAsInt();
 
-				JsonObject outputObject = curObject.get("output").getAsJsonObject();
+                JsonObject outputObject = curObject.get("output").getAsJsonObject();
 
-				Item outputItem = Registries.ITEM_REGISTRY.get(new ResourceName(outputObject.get("name").getAsString()));
-				int outputAmount = outputObject.has("amount") ? outputObject.get("amount").getAsInt() : 1;
-				int outputMeta = outputObject.has("meta") ? outputObject.get("meta").getAsInt() : 0;
+                Item outputItem = Registries.ITEM_REGISTRY.get(new ResourceName(outputObject.get("name").getAsString()));
+                int outputAmount = outputObject.has("amount") ? outputObject.get("amount").getAsInt() : 1;
+                int outputMeta = outputObject.has("meta") ? outputObject.get("meta").getAsInt() : 0;
 
-				ItemInstance outputInstance = new ItemInstance(outputItem, outputAmount, outputMeta);
+                ItemInstance outputInstance = new ItemInstance(outputItem, outputAmount, outputMeta);
 
-				IUseInfo input1 = getInput(curObject, 1);
-				IUseInfo input2 = getInput(curObject, 2);
+                IUseInfo input1 = getInput(curObject, 1);
+                IUseInfo input2 = getInput(curObject, 2);
 
-				new AlloyingRecipe(resourceName, input1, input2, outputInstance, recipeTime).register();
-				RockSolid.getLogger().config("Loaded alloying recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + recipeTime + ", input (" + input1 + " and " + input2 + ") and output " + outputInstance + " with content pack " + pack.getName());
-			}
-		} else
-		{
-			RockSolid.getLogger().info("Alloying recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
-		}
-	}
+                new AlloyingRecipe(resourceName, input1, input2, outputInstance, recipeTime).register();
+                RockSolid.getLogger().config("Loaded alloying recipe " + resourceName + " for mod " + loadingMod.getDisplayName() + " with time " + recipeTime + ", input (" + input1 + " and " + input2 + ") and output " + outputInstance + " with content pack " + pack.getName());
+            }
+        } else {
+            RockSolid.getLogger().info("Alloying recipe " + resourceName + " will not be loaded for mod " + loadingMod.getDisplayName() + " with content pack " + pack.getName() + " because it was disabled by another content pack!");
+        }
+    }
 
-	private IUseInfo getInput(JsonObject recipe, int input)
-	{
-		String name = (recipe = recipe.get("input_" + input).getAsJsonObject()).get("name").getAsString();
-		int amount = recipe.has("amount") ? recipe.get("amount").getAsInt() : 1;
+    private IUseInfo getInput(JsonObject recipe, int input) {
+        String name = (recipe = recipe.get("input_" + input).getAsJsonObject()).get("name").getAsString();
+        int amount = recipe.has("amount") ? recipe.get("amount").getAsInt() : 1;
 
-		if (Util.isResourceName(name))
-		{
-			int var12 = recipe.has("meta") ? recipe.get("meta").getAsInt() : 0;
-			return new ItemUseInfo(Registries.ITEM_REGISTRY.get(new ResourceName(name)), amount, var12);
-		} else
-		{
-			return new ResUseInfo(name, amount);
-		}
-	}
+        if (Util.isResourceName(name)) {
+            int var12 = recipe.has("meta") ? recipe.get("meta").getAsInt() : 0;
+            return new ItemUseInfo(Registries.ITEM_REGISTRY.get(new ResourceName(name)), amount, var12);
+        } else {
+            return new ResUseInfo(name, amount);
+        }
+    }
 
-	@Override
-	public void disableContent(IGameInstance game, ResourceName resourceName)
-	{
-		disabled.add(resourceName);
-	}
+    @Override
+    public void disableContent(IGameInstance game, ResourceName resourceName) {
+        disabled.add(resourceName);
+    }
 }

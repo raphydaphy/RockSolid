@@ -1,19 +1,20 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rocksolid/axe.bronze"
-	}
+    {
+      "name": "rocksolid/axe.bronze"
+    }
   ],
   "inputs": [
-	{
-	  "name": "bronze_processed",
-	  "amount": 12
-	},
-	{
-	  "name": "stick",
-	  "amount": 8
-	}
+    {
+      "name": "bronze_processed",
+      "amount": 12
+    },
+    {
+      "name": "stick",
+      "amount": 8
+    }
   ],
   "skill": 0.05
 }

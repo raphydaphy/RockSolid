@@ -2,6 +2,7 @@ package com.raphydaphy.rocksolid.recipe;
 
 import com.raphydaphy.rocksolid.init.ModMisc;
 import com.raphydaphy.rocksolid.init.ModRecipes;
+import com.raphydaphy.rocksolid.tileentity.TileEntityAssemblyStation;
 import com.raphydaphy.rocksolid.tileentity.TileEntityPrecisionAssembler;
 import com.raphydaphy.rocksolid.util.ModUtils;
 import de.ellpeck.rockbottom.api.RockBottomAPI;
@@ -17,125 +18,105 @@ import de.ellpeck.rockbottom.api.item.ItemInstance;
 import java.util.Collections;
 import java.util.List;
 
-public class PrecisionRecipe extends ConstructionRecipe
-{
-	private boolean capacity = true;
-	private boolean efficiency = true;
-	private boolean speed = true;
-	private boolean bonusYield = true;
-	private boolean throughput = true;
+public class PrecisionRecipe extends ConstructionRecipe {
+    private final int time;
+    private boolean capacity = true;
+    private boolean efficiency = true;
+    private boolean speed = true;
+    private boolean bonusYield = true;
+    private boolean throughput = true;
+    private ItemInstance output;
+    private IUseInfo metal;
 
-	private ItemInstance output;
-	private IUseInfo metal;
+    public PrecisionRecipe(float skillReward, ItemInstance output, int baseAmount, int metalAmount, int fuelAmount, int time) {
+        this(skillReward, new ResUseInfo(ModMisc.RES_ALL_INGOTS, metalAmount), output, baseAmount, fuelAmount, time);
+    }
 
-	private final int time;
+    public PrecisionRecipe(float skillReward, IUseInfo metal, ItemInstance output, int baseAmount, int fuelAmount, int time) {
+        super(output.getItem().getName(), null, false, skillReward, output, new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS, baseAmount), metal, new ResUseInfo(ModMisc.RES_ALL_FUELS, fuelAmount));
+        this.output = output;
+        this.metal = metal;
+        this.time = time;
+    }
 
-	public PrecisionRecipe(float skillReward, ItemInstance output, int baseAmount, int metalAmount, int fuelAmount, int time)
-	{
-		this(skillReward, new ResUseInfo(ModMisc.RES_ALL_INGOTS, metalAmount), output, baseAmount, fuelAmount, time);
-	}
+    public IUseInfo getMetal() {
+        return this.metal;
+    }
 
-	public PrecisionRecipe(float skillReward, IUseInfo metal, ItemInstance output, int baseAmount, int fuelAmount, int time)
-	{
-		super(output.getItem().getName(), skillReward, output, new ResUseInfo(ModMisc.RES_MACHINE_MATERIALS, baseAmount), metal, new ResUseInfo(ModMisc.RES_ALL_FUELS, fuelAmount));
-		this.output = output;
-		this.metal = metal;
-		this.time = time;
-	}
+    public int getTime() {
+        return this.time;
+    }
 
-	public IUseInfo getMetal()
-	{
-		return this.metal;
-	}
+    public PrecisionRecipe registerPrecision() {
+        ModRecipes.PRECISION_ASSEMBLER_RECIPES.register(this.getName(), this);
+        return this;
+    }
 
-	public int getTime()
-	{
-		return this.time;
-	}
+    public PrecisionRecipe disableCapacity() {
+        capacity = false;
+        return this;
+    }
 
-	public PrecisionRecipe registerPrecision()
-	{
-		ModRecipes.PRECISION_ASSEMBLER_RECIPES.register(this.getName(), this);
-		return this;
-	}
+    public PrecisionRecipe disableEfficiency() {
+        efficiency = false;
+        return this;
+    }
 
-	public PrecisionRecipe disableCapacity()
-	{
-		capacity = false;
-		return this;
-	}
+    public PrecisionRecipe disableSpeed() {
+        speed = false;
+        return this;
+    }
 
-	public PrecisionRecipe disableEfficiency()
-	{
-		efficiency = false;
-		return this;
-	}
+    public PrecisionRecipe disableBonusYield() {
+        bonusYield = false;
+        return this;
+    }
 
-	public PrecisionRecipe disableSpeed()
-	{
-		speed = false;
-		return this;
-	}
+    public PrecisionRecipe disableThroughput() {
+        throughput = false;
+        return this;
+    }
 
-	public PrecisionRecipe disableBonusYield()
-	{
-		bonusYield = false;
-		return this;
-	}
+    public boolean hasCapacity() {
+        return capacity;
+    }
 
-	public PrecisionRecipe disableThroughput()
-	{
-		throughput = false;
-		return this;
-	}
+    public boolean hasEfficiency() {
+        return efficiency;
+    }
 
-	public boolean hasCapacity()
-	{
-		return capacity;
-	}
+    public boolean hasSpeed() {
+        return speed;
+    }
 
-	public boolean hasEfficiency()
-	{
-		return efficiency;
-	}
+    public boolean hasBonusYield() {
+        return bonusYield;
+    }
 
-	public boolean hasSpeed()
-	{
-		return speed;
-	}
+    public boolean hasThroughput() {
+        return throughput;
+    }
 
-	public boolean hasBonusYield()
-	{
-		return bonusYield;
-	}
+    @Override
+    public List<ItemInstance> getActualOutputs(IInventory inputInventory, IInventory outputInventory, List<ItemInstance> inputs) {
+        ItemInstance nbtOut = output.copy();
 
-	public boolean hasThroughput()
-	{
-		return throughput;
-	}
+        nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, hasCapacity() ? ModUtils.getAssemblyCapacity(inputs) * 2 : -1);
+        nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, hasEfficiency() ? ModUtils.getAssemblyEfficiency(inputs) * 2 : -1);
+        nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, hasSpeed() ? ModUtils.getAssemblySpeed(inputs) * 2 : -1);
+        nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, hasBonusYield() ? ModUtils.getAssemblyBonusYield(inputs) * 2 : -1);
+        nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, hasThroughput() ? ModUtils.getAssemblyThroughput(inputs) * 2 : -1);
 
-	@Override
-	public List<ItemInstance> getActualOutputs(IInventory inputInventory, IInventory outputInventory, List<ItemInstance> inputs)
-	{
-		ItemInstance nbtOut = output.copy();
+        return Collections.singletonList(nbtOut);
+    }
 
-		nbtOut.getOrCreateAdditionalData().addFloat(ModUtils.ASSEMBLY_CAPACITY_KEY, hasCapacity() ? ModUtils.getAssemblyCapacity(inputs) * 2 : -1);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_EFFICIENCY_KEY, hasEfficiency() ? ModUtils.getAssemblyEfficiency(inputs) * 2 : -1);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_SPEED_KEY, hasSpeed() ? ModUtils.getAssemblySpeed(inputs) * 2 : -1);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_BONUS_KEY, hasBonusYield() ? ModUtils.getAssemblyBonusYield(inputs) * 2 : -1);
-		nbtOut.getAdditionalData().addFloat(ModUtils.ASSEMBLY_THROUGHPUT_KEY, hasThroughput() ? ModUtils.getAssemblyThroughput(inputs) * 2 : -1);
-
-		return Collections.singletonList(nbtOut);
-	}
-
-	public void playerConstruct(AbstractEntityPlayer player, TileEntityPrecisionAssembler station, int amount)
-	{
-		Inventory in = station.getInvHidden();
-		Inventory out = player.getInv();
-		List<ItemInstance> remains = RockBottomAPI.getApiHandler().construct(player, in, out, this, amount, this.getActualInputs(in), items -> this.getActualOutputs(in, out, items), this.getSkillReward());
-		for (ItemInstance instance : remains)
-		{
-			AbstractEntityItem.spawn(player.world, instance, player.getX(), player.getY(), 0F, 0F);
-		}
-	}
+    // TODO: use handleMachine for precision
+    public void playerConstruct(AbstractEntityPlayer player, TileEntityPrecisionAssembler machine, int amount) {
+        Inventory in = machine.getInvHidden();
+        Inventory out = player.getInv();
+        List<ItemInstance> remains = RockBottomAPI.getApiHandler().construct(player, in, out, this, machine, amount, this.getActualInputs(out), null, items -> this.getActualOutputs(in, out, items), this.getSkillReward());
+        for (ItemInstance instance : remains) {
+            AbstractEntityItem.spawn(player.world, instance, player.getX(), player.getY(), 0F, 0F);
+        }
+    }
 }

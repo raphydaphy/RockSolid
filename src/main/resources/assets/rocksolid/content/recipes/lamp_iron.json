@@ -1,20 +1,21 @@
 {
-  "type": "manual_knowledge",
+  "type": "manual",
+  "knowledge": true,
   "outputs": [
-	{
-	  "name": "rockbottom/lamp_iron",
-	  "amount": 5
-	}
+    {
+      "name": "rockbottom/lamp_iron",
+      "amount": 5
+    }
   ],
   "inputs": [
-	{
-	  "name": "iron_processed",
-	  "amount": 3
-	},
-	{
-	  "name": "coal",
-	  "amount": 1
-	}
+    {
+      "name": "iron_processed",
+      "amount": 3
+    },
+    {
+      "name": "coal",
+      "amount": 1
+    }
   ],
   "skill": 0.01
 }
