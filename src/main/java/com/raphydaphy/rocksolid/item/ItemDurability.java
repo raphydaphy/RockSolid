@@ -15,6 +15,7 @@ public class ItemDurability extends ItemBasicTool {
 
     public ItemDurability(String name, int durability) {
         super(RockSolid.createRes(name), durability);
+        register();
     }
 
     public void takeDamage(ItemInstance instance, AbstractEntityPlayer player, int amount) {

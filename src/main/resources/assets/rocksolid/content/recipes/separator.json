@@ -1,6 +1,28 @@
 {
-  "type": "manual",
+  "type": "construction_table",
   "knowledge": true,
+  "criteria": [
+    {
+      "name": "rockbottom/pickup_item",
+      "params": {
+        "item": "iron_processed"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "rockbottom/hammer",
+      "usage": 9
+    },
+    {
+      "name": "rockbottom/chisel",
+      "usage": 4
+    },
+    {
+      "name": "rockbottom/wrench",
+      "usage": 2
+    }
+  ],
   "outputs": [
     {
       "name": "rocksolid/separator"

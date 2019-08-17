@@ -1,6 +1,24 @@
 {
-  "type": "manual",
+  "type": "construction_table",
   "knowledge": true,
+  "criteria": [
+    {
+      "name": "rockbottom/pickup_item",
+      "params": {
+        "item": "tin_processed"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "rockbottom/mallet",
+      "usage": 3
+    },
+    {
+      "name": "rockbottom/wrench",
+      "usage": 2
+    }
+  ],
   "outputs": [
     {
       "name": "rocksolid/lantern",

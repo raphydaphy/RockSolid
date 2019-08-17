@@ -1,6 +1,28 @@
 {
-  "type": "manual",
+  "type": "construction_table",
   "knowledge": true,
+  "criteria": [
+    {
+      "name": "rockbottom/pickup_item",
+      "params": {
+        "item": "iron_processed"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "rockbottom/hammer",
+      "usage": 8
+    },
+    {
+      "name": "rockbottom/chisel",
+      "usage": 5
+    },
+    {
+      "name": "rockbottom/wrench",
+      "usage": 3
+    }
+  ],
   "outputs": [
     {
       "name": "rocksolid/blast_furnace"

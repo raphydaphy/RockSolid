@@ -189,12 +189,7 @@ public class ModEvents {
                     ItemInstance changed = inv.get(slot);
 
                     if (changed != null) {
-                        if (changed.getItem() == GameContent.TILE_WOOD_BOARDS.getItem()) {
-                            ConstructionRecipe spinningWheel = ConstructionRecipe.forName(RockSolid.createRes("spinning_wheel"));
-                            if (!event.player.getKnowledge().knowsRecipe(spinningWheel)) {
-                                event.player.getKnowledge().teachRecipe(spinningWheel);
-                            }
-                        } else if (changed.getItem() == GameContent.TILE_COPPER.getItem()) {
+                        if (changed.getItem() == GameContent.TILE_COPPER.getItem()) {
                             SeparatingRecipe grit = SeparatingRecipe.REGISTRY.get(RockSolid.createRes("copper_separating"));
                             if (!grit.isKnown(event.player)) {
                                 grit.teach(event.player, true);
@@ -203,12 +198,6 @@ public class ModEvents {
                             SeparatingRecipe grit = SeparatingRecipe.REGISTRY.get(RockSolid.createRes("tin_separating"));
                             if (!grit.isKnown(event.player)) {
                                 grit.teach(event.player, true);
-                            }
-                        } else if (changed.getItem() == ModItems.TIN_INGOT) {
-                            ConstructionRecipe alloySmelter = ConstructionRecipe.forName(RockSolid.createRes("alloy_smelter"));
-                            if (!event.player.getKnowledge().knowsRecipe(alloySmelter)) {
-                                event.player.getKnowledge().teachRecipe(alloySmelter);
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("lantern"))));
                             }
                         } else if (changed.getItem() == ModTiles.ALLOY_SMELTER.getItem()) {
                             AlloyingRecipe bronze = AlloyingRecipe.REGISTRY.get(RockSolid.createRes("bronze_ingot_alloying"));
@@ -221,21 +210,6 @@ public class ModEvents {
                             if (!grit.isKnown(event.player)) {
                                 grit.teach(event.player, true);
                             }
-                        } else if (changed.getItem() == ModItems.BRONZE_INGOT) {
-                            ConstructionRecipe recipe = ConstructionRecipe.forName((RockSolid.createRes("bronze_pickaxe")));
-                            if (!event.player.getKnowledge().knowsRecipe(recipe)) {
-                                event.player.getKnowledge().teachRecipe(recipe);
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("bronze_axe"))));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("bronze_shovel"))));
-                            }
-                        } else if (changed.getItem() == ModItems.IRON_INGOT) {
-                            ConstructionRecipe ironLamp = ConstructionRecipe.forName(RockSolid.createRes("lamp_iron"));
-                            if (!event.player.getKnowledge().knowsRecipe(ironLamp)) {
-                                event.player.getKnowledge().teachRecipe(ironLamp);
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName(RockSolid.createRes("bucket")));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName(RockSolid.createRes("blast_furnace")));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName(RockSolid.createRes("separator")));
-                            }
                         } else if (changed.getItem() == ModTiles.BLAST_FURNACE.getItem()) {
                             BlastingRecipe coke = BlastingRecipe.REGISTRY.get(RockSolid.createRes("coal_blasting"));
                             if (!coke.isKnown(event.player)) {
@@ -245,23 +219,6 @@ public class ModEvents {
                             AlloyingRecipe steel = AlloyingRecipe.REGISTRY.get(RockSolid.createRes("steel_alloying"));
                             if (!steel.isKnown(event.player)) {
                                 steel.teach(event.player, true);
-                            }
-                        } else if (changed.getItem() == ModItems.STEEL_INGOT) {
-                            ConstructionRecipe recipe = ConstructionRecipe.forName((RockSolid.createRes("steel_pickaxe")));
-                            if (!event.player.getKnowledge().knowsRecipe(recipe)) {
-                                event.player.getKnowledge().teachRecipe(recipe);
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("steel_axe"))));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("steel_shovel"))));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName(RockSolid.createRes("wrench")));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName(RockSolid.createRes("assembly_station")));
-                            }
-                        } else if (changed.getItem() == ModItems.WRENCH) {
-                            ConstructionRecipe recipe = ConstructionRecipe.forName(RockSolid.createRes("energy_conduit"));
-                            if (!event.player.getKnowledge().knowsRecipe(recipe)) {
-                                event.player.getKnowledge().teachRecipe(recipe);
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("item_conduit"))));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("gas_conduit"))));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("fluid_conduit"))));
                             }
                         } else if (changed.getItem() == ModTiles.RUTILE_ORE.getItem()) {
                             BlastingRecipe rutile = BlastingRecipe.REGISTRY.get(RockSolid.createRes("rutile_blasting"));
@@ -277,13 +234,6 @@ public class ModEvents {
                             AlloyingRecipe titanium = AlloyingRecipe.REGISTRY.get(RockSolid.createRes("titanium_alloying"));
                             if (!titanium.isKnown(event.player)) {
                                 titanium.teach(event.player, true);
-                            }
-                        } else if (changed.getItem() == ModItems.TITANIUM_INGOT) {
-                            ConstructionRecipe recipe = ConstructionRecipe.forName((RockSolid.createRes("titanium_pickaxe")));
-                            if (!event.player.getKnowledge().knowsRecipe(recipe)) {
-                                event.player.getKnowledge().teachRecipe(recipe);
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("titanium_axe"))));
-                                event.player.getKnowledge().teachRecipe(ConstructionRecipe.forName((RockSolid.createRes("titanium_shovel"))));
                             }
                         } else if (changed.getItem() == ModItems.URANIUM_CLUSTER) {
                             SeparatingRecipe grit = SeparatingRecipe.REGISTRY.get(RockSolid.createRes("uranium_separating"));

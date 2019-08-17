@@ -1,6 +1,14 @@
 {
-  "type": "manual",
+  "type": "smithing",
   "knowledge": true,
+  "criteria": [
+    {
+      "name": "rockbottom/pickup_item",
+      "params": {
+        "item": "steel_processed"
+      }
+    }
+  ],
   "outputs": [
     {
       "name": "rocksolid/shovel.steel"

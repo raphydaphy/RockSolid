@@ -1,6 +1,20 @@
 {
-  "type": "manual",
+  "type": "construction_table",
   "knowledge": true,
+  "criteria": [
+    {
+      "name": "rockbottom/pickup_item",
+      "params": {
+        "item": "rocksolid/wrench"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "rockbottom/wrench",
+      "usage": 2
+    }
+  ],
   "outputs": [
     {
       "name": "rocksolid/energy_conduit",

@@ -1,6 +1,14 @@
 {
   "type": "manual",
   "knowledge": true,
+  "criteria": [
+    {
+      "name": "rockbottom/pickup_item",
+      "params": {
+        "item": "iron_processed"
+      }
+    }
+  ],
   "outputs": [
     {
       "name": "rockbottom/lamp_iron",

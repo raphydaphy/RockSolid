@@ -1,65 +1,67 @@
 {
   "recipe.": {
-	"alloy_smelter": "/recipes/alloy_smelter.json",
-	"lantern": "/recipes/lantern.json",
-	"bronze_pickaxe": "/recipes/bronze_pickaxe.json",
-	"bronze_axe": "/recipes/bronze_axe.json",
-	"bronze_shovel": "/recipes/bronze_shovel.json",
-	"lamp_iron": "/recipes/lamp_iron.json",
-	"blast_furnace": "/recipes/blast_furnace.json",
-	"separator": "/recipes/separator.json",
-	"steel_pickaxe": "/recipes/steel_pickaxe.json",
-	"steel_axe": "/recipes/steel_axe.json",
-	"steel_shovel": "/recipes/steel_shovel.json",
-	"assembly_station": "/recipes/assembly_station.json",
-	"wrench": "/recipes/wrench.json",
-	"bucket": "/recipes/bucket.json",
-	"energy_conduit": "/recipes/energy_conduit.json",
-	"item_conduit": "/recipes/item_conduit.json",
-	"fluid_conduit": "/recipes/fluid_conduit.json",
-	"gas_conduit": "/recipes/gas_conduit.json",
-	"titanium_pickaxe": "/recipes/titanium_pickaxe.json",
-	"titanium_axe": "/recipes/titanium_axe.json",
-	"titanium_shovel": "/recipes/titanium_shovel.json"
+    "alloy_smelter": "/recipes/alloy_smelter.json",
+    "lantern": "/recipes/lantern.json",
+    "lamp_iron": "/recipes/lamp_iron.json",
+    "blast_furnace": "/recipes/blast_furnace.json",
+    "separator": "/recipes/separator.json",
+    "assembly_station": "/recipes/assembly_station.json",
+    "bucket": "/recipes/bucket.json",
+    "energy_conduit": "/recipes/energy_conduit.json",
+    "item_conduit": "/recipes/item_conduit.json",
+    "fluid_conduit": "/recipes/fluid_conduit.json",
+    "gas_conduit": "/recipes/gas_conduit.json"
+  },
+  "smithing.": {
+    "bronze_pickaxe": "/smithing/bronze_pickaxe.json",
+    "bronze_axe": "/smithing/bronze_axe.json",
+    "bronze_shovel": "/smithing/bronze_shovel.json",
+    "steel_pickaxe": "/smithing/steel_pickaxe.json",
+    "steel_axe": "/smithing/steel_axe.json",
+    "steel_shovel": "/smithing/steel_shovel.json",
+    "titanium_pickaxe": "/smithing/titanium_pickaxe.json",
+    "titanium_axe": "/smithing/titanium_axe.json",
+    "titanium_shovel": "/smithing/titanium_shovel.json",
+    "wrench": "/smithing/wrench.json"
   },
   "smelting.": {
-	"tin_smelting": "/smelting/tin_smelting.json",
-	"iron_smelting": "/smelting/iron_smelting.json",
-	"magnesium_smelting": "/smelting/magnesium_smelting.json",
-	"uranium_smelting": "/smelting/uranium_smelting.json",
-	"tungsten_smelting": "/smelting/tungsten_smelting.json",
-	"nickel_smelting": "/smelting/nickel_smelting.json",
-	"copper_grit_smelting": "/smelting/copper_grit_smelting.json",
-	"tin_grit_smelting": "/smelting/tin_grit_smelting.json",
-	"bronze_grit_smelting": "/smelting/bronze_grit_smelting.json",
-	"iron_grit_smelting": "/smelting/iron_grit_smelting.json",
-	"nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
-	"magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json",
-	"uranium_grit_smelting": "/smelting/uranium_grit_smelting.json",
-	"tungsten_grit_smelting": "/smelting/tungsten_grit_smelting.json"
+    "tin_smelting": "/smelting/tin_smelting.json",
+    "iron_smelting": "/smelting/iron_smelting.json",
+    "magnesium_smelting": "/smelting/magnesium_smelting.json",
+    "uranium_smelting": "/smelting/uranium_smelting.json",
+    "tungsten_smelting": "/smelting/tungsten_smelting.json",
+    "nickel_smelting": "/smelting/nickel_smelting.json",
+    "copper_grit_smelting": "/smelting/copper_grit_smelting.json",
+    "tin_grit_smelting": "/smelting/tin_grit_smelting.json",
+    "bronze_grit_smelting": "/smelting/bronze_grit_smelting.json",
+    "iron_grit_smelting": "/smelting/iron_grit_smelting.json",
+    "nickel_grit_smelting": "/smelting/nickel_grit_smelting.json",
+    "magnesium_grit_smelting": "/smelting/magnesium_grit_smelting.json",
+    "uranium_grit_smelting": "/smelting/uranium_grit_smelting.json",
+    "tungsten_grit_smelting": "/smelting/tungsten_grit_smelting.json"
   },
   "alloying.": {
-	"bronze_grit_alloying": "/alloying/bronze_grit_alloying.json",
-	"bronze_ingot_alloying": "/alloying/bronze_ingot_alloying.json",
-	"steel_alloying": "/alloying/steel_alloying.json",
-	"titanium_alloying": "/alloying/titanium_alloying.json",
-	"nickel_tungsten_alloying": "/alloying/nickel_tungsten_alloying.json",
-	"nickel_tungsten_carbide_alloying": "/alloying/nickel_tungsten_carbide_alloying.json"
+    "bronze_grit_alloying": "/alloying/bronze_grit_alloying.json",
+    "bronze_ingot_alloying": "/alloying/bronze_ingot_alloying.json",
+    "steel_alloying": "/alloying/steel_alloying.json",
+    "titanium_alloying": "/alloying/titanium_alloying.json",
+    "nickel_tungsten_alloying": "/alloying/nickel_tungsten_alloying.json",
+    "nickel_tungsten_carbide_alloying": "/alloying/nickel_tungsten_carbide_alloying.json"
   },
   "separating.": {
-	"copper_separating": "/separating/copper_separating.json",
-	"tin_separating": "/separating/tin_separating.json",
-	"iron_separating": "/separating/iron_separating.json",
-	"nickel_separating": "/separating/nickel_separating.json",
-	"magnesium_separating": "/separating/magnesium_separating.json",
-	"uranium_separating": "/separating/uranium_separating.json",
-	"tungsten_separating": "/separating/tungsten_separating.json"
+    "copper_separating": "/separating/copper_separating.json",
+    "tin_separating": "/separating/tin_separating.json",
+    "iron_separating": "/separating/iron_separating.json",
+    "nickel_separating": "/separating/nickel_separating.json",
+    "magnesium_separating": "/separating/magnesium_separating.json",
+    "uranium_separating": "/separating/uranium_separating.json",
+    "tungsten_separating": "/separating/tungsten_separating.json"
   },
   "blasting.": {
-	"coal_blasting": "/blasting/coal_blasting.json",
-	"rutile_blasting": "/blasting/rutile_blasting.json"
+    "coal_blasting": "/blasting/coal_blasting.json",
+    "rutile_blasting": "/blasting/rutile_blasting.json"
   },
   "compressing.": {
-	"uranium_compressing": "/compressing/uranium_compressing.json"
+    "uranium_compressing": "/compressing/uranium_compressing.json"
   }
 }
