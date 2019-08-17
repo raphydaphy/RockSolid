@@ -1,6 +1,5 @@
 package com.raphydaphy.rocksolid.render;
 
-
 import com.raphydaphy.rocksolid.RockSolid;
 import de.ellpeck.rockbottom.api.IGameInstance;
 import de.ellpeck.rockbottom.api.IRenderer;
@@ -12,9 +11,7 @@ import de.ellpeck.rockbottom.api.util.Util;
 import de.ellpeck.rockbottom.api.util.reg.ResourceName;
 import de.ellpeck.rockbottom.api.world.IWorld;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public final class MoonSkyRenderer {
     private static final ResourceName sun = ResourceName.intern("sky.sun");
@@ -59,11 +56,8 @@ public final class MoonSkyRenderer {
         var10 = (float) (width / 2.0D + Math.cos(var51) * var87);
         var79 = (float) (height + Math.sin(var51) * var88);
         float size = 2;
-        renderer.setRotationCenter(4 + 2 * size, 4 + 2 * size);
-        renderer.rotate((float) Math.sin(game.getTotalTicks() / 10f));
-        manager.getTexture(moon).draw(4 - 2.0F, 4 - 2.0F * size, 4.0F * size, 4.0F * size);
+        manager.getTexture(moon).draw(var10 - 2.0F * size, var79 - 2.0F * size, 4.0F * size, 4.0F * size);
 
-        renderer.rotate((float) -Math.sin(game.getTotalTicks() / 10f));
         renderer.setScale(1.0F, 1.0F);
     }
 }
